@@ -1,2 +1,2 @@
-# Basi-di-Dati
-Tutte le attività da svolgere per Basi di Dati
+# Sistema-di-una-Biblioteca-Digitale
+Tutti i file del progetto
