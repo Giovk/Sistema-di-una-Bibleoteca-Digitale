@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-12-05T12:19:36.817Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="Wo5Wa8F0ZAs2a96IYfVl" version="20.6.0" type="github">
+<mxfile host="app.diagrams.net" modified="2022-12-05T13:19:39.340Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="ucawkAKMQ68jH-ewoWUe" version="20.6.0" type="github">
   <diagram id="frlQJ-Npt1x2va9xqSdP" name="Pagina-1">
-    <mxGraphModel dx="600" dy="247" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1260" dy="519" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -813,15 +813,6 @@
             <mxPoint x="871.25" y="840" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="yGzMHYDaNf_yrKZ207rC-214" value="Titolo" style="ellipse;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="957.9200000000001" y="1047" width="56.5" height="34.65" as="geometry" />
-        </mxCell>
-        <mxCell id="yGzMHYDaNf_yrKZ207rC-215" value="" style="endArrow=none;html=1;rounded=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="1" source="yGzMHYDaNf_yrKZ207rC-214" target="yGzMHYDaNf_yrKZ207rC-203" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="824.5799999999999" y="935.3499999999999" as="sourcePoint" />
-            <mxPoint x="874.5799999999999" y="885.3499999999999" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="yGzMHYDaNf_yrKZ207rC-216" value="NLibri" style="ellipse;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" vertex="1">
           <mxGeometry x="854.75" y="1047" width="56.5" height="34.65" as="geometry" />
         </mxCell>
@@ -883,10 +874,10 @@
           <mxGeometry x="1307.92" y="612.98" width="220" height="86.03" as="geometry" />
         </mxCell>
         <mxCell id="0Y3_s-NsQxyj2uwiEeTM-3" value="Solo le serie che vengono pubblicate periodicamente hanno un ISSN. Invece le serie non periodiche non hanno un ISSN, ma hanno un ISBN per ogni libro che gli appartiene" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="821.25" y="1120.97" width="220" height="86.03" as="geometry" />
+          <mxGeometry x="812.93" y="1100" width="220" height="86.03" as="geometry" />
         </mxCell>
         <mxCell id="0Y3_s-NsQxyj2uwiEeTM-4" value="ISSN" style="ellipse;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="903.75" y="1075.08" width="55" height="34.92" as="geometry" />
+          <mxGeometry x="934.59" y="1053.73" width="55" height="34.92" as="geometry" />
         </mxCell>
         <mxCell id="0Y3_s-NsQxyj2uwiEeTM-5" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="yGzMHYDaNf_yrKZ207rC-203" target="0Y3_s-NsQxyj2uwiEeTM-4" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
