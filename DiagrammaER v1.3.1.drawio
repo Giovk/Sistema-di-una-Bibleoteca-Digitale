@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-12-05T11:45:38.257Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="ILBOGdXNZlQaAVaPLCvE" version="20.6.0" type="github">
+<mxfile host="app.diagrams.net" modified="2022-12-05T12:19:36.817Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="Wo5Wa8F0ZAs2a96IYfVl" version="20.6.0" type="github">
   <diagram id="frlQJ-Npt1x2va9xqSdP" name="Pagina-1">
-    <mxGraphModel dx="1482" dy="611" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="600" dy="247" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -568,7 +568,7 @@
           <mxGeometry x="462.5" y="351.71000000000004" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="yGzMHYDaNf_yrKZ207rC-134" value="Nome" style="ellipse;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="190" y="230" width="75.24" height="45.79" as="geometry" />
+          <mxGeometry x="193.63" y="230" width="75.24" height="45.79" as="geometry" />
         </mxCell>
         <mxCell id="yGzMHYDaNf_yrKZ207rC-135" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;labelBackgroundColor=#FCE7CD;strokeColor=#23445D;" parent="1" source="yGzMHYDaNf_yrKZ207rC-134" target="yGzMHYDaNf_yrKZ207rC-127" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -928,6 +928,15 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="810" y="710" as="sourcePoint" />
             <mxPoint x="860" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PrsCmACceEziGPp9NvAK-10" value="PartitaIVA" style="ellipse;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="516.2499999999999" y="244" width="75.24" height="45.79" as="geometry" />
+        </mxCell>
+        <mxCell id="PrsCmACceEziGPp9NvAK-11" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="PrsCmACceEziGPp9NvAK-10" target="yGzMHYDaNf_yrKZ207rC-112">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="630" y="350" as="sourcePoint" />
+            <mxPoint x="680" y="300" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
