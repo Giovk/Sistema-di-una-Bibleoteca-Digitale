@@ -3,7 +3,7 @@ CREATE TABLE UTENTE
     Username VARCHAR(30) PRIMARY KEY,
     Email VARCHAR(319) UNIQUE NOT NULL, -- La lunghezza massima di un indirizzo email sono 319 caratteri.
     Pw VARCHAR(64) NOT NULL, -- La lunghezza massima di una password sono 64 caratteri.
-    PartitaIVA VARCHAR(11), -- Aggiungere vincolo Unique o Null.
+    PartitaIVA VARCHAR(11) UNIQUE,
     Nome VARCHAR(64) NOT NULL,
     Cognome VARCHAR(64) NOT NULL
 );
@@ -73,7 +73,7 @@ CREATE TABLE SERIE
 (
     CodS INT PRIMARY KEY,
     Titolo VARCHAR(256) NOT NULL,
-    ISSN VARCHAR(9)  -- Vincolo o univoco o Null.
+    ISSN VARCHAR(9) UNIQUE,
     DataPubblicazione DATE NOT NULL,
     NLibri INT NOT NULL
 );
@@ -102,7 +102,7 @@ CREATE TABLE INSERIMENTO
 CREATE TABLE POSSESSO_R
 (
     Username VARCHAR(30),
-    ISSN VARCHAR(9), -- Vincolo o univoco o Null.
+    ISSN VARCHAR(9),
     Fruizione VARCHAR(10) NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
@@ -114,7 +114,7 @@ CREATE TABLE POSSESSO_R
 CREATE TABLE PREFERITI_R
 (
     Username VARCHAR(30),
-    ISSN VARCHAR(9), -- Vincolo o univoco o Null.
+    ISSN VARCHAR(9),
     Recensione VARCHAR(512),
     Valutazione INT, -- Vincolo 0 <= Valutazione <= 5,
 
@@ -188,7 +188,7 @@ CREATE TABLE COLLANA
 (
     CodC INT PRIMARY KEY,
     Nome VARCHAR(256) NOT NULL,
-    ISSN VARCHAR(9), -- Vincolo o univoco o Null.
+    ISSN VARCHAR(9) UNIQUE,
 );
 
 CREATE TABLE APPARTENENZA
