@@ -9,7 +9,6 @@ CHECK(
     )
 );
 
-
 -- Un articolo scientifico non può essere pubblicato in una 
 -- rivista prima della pubblicazione della rivista e dell'articolo
 CREATE ASSERTION A2
@@ -33,11 +32,12 @@ CHECK(
 CONSTRAINT C2
     CHECK (VALUE LIKE '___-__-_____-_');
 
--- Ordinamento libri
+-- L'ordine dei libri non può essere maggiore del numero dei libri che compongono la serie
 CREATE ASSERTION A3
 CHECK(
     NOT EXISTS(
         SELECT *
-        FROM INSERIMENTO AS I
+        FROM INSERIMENTO AS I NATURAL JOIN SERIE AS S
+        WHERE I.Ordine > S.NLibri
     )
 );
