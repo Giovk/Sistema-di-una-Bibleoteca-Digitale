@@ -35,14 +35,14 @@ CREATE TABLE ARTICOLO_SCIENTIFICO
 (
     CodAS INT PRIMARY KEY,
     Titolo VARCHAR(256) UNIQUE NOT NULL,
-    AnnoPubblicazione VARCHAR(4) NOT NULL
+    AnnoPubblicazione VARCHAR(4) NOT NULL 
 );
 
 CREATE TABLE COMPOSIZIONE
 (
     ISSN VARCHAR(9),
     CodAS INT,
-    DataInserimento DATE NOT NULL,
+    DataInserimento DATE NOT NULL, -- Vincolo DI >= DataP della rivista && YEAR(DataInserimento) >= AnnoP articolo scientifico
     NumeroRivista VARCHAR(4) NOT NULL,
 
     PRIMARY KEY (ISSN, CodAS),
@@ -56,7 +56,7 @@ CREATE TABLE CONFERENZA
     Luogo VARCHAR(256) NOT NULL,
     StrutturaOrganizzatrice VARCHAR(128) NOT NULL,
     DataInizio DATE NOT NULL,
-    DataFine DATE NOT NULL-- Aggiungere vincolo DataInizio <= DataFine
+    DataFine DATE NOT NULL -- Aggiungere vincolo DataInizio <= DataFine
 );
 
 CREATE TABLE ESPOSIZIONE
