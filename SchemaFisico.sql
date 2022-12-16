@@ -78,9 +78,12 @@ CREATE TABLE SERIE
     NLibri INT NOT NULL
 );
 
+CREATE DOMAIN isbn AS VARCHAR(18)
+    CONSTRAINT C2
+
 CREATE TABLE LIBRO
 (
-    ISBN VARCHAR(18) PRIMARY KEY, -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn PRIMARY KEY, -- Vincolo posizine trattini EX: ###-##-##-#####-#
     Titolo VARCHAR(256) NOT NULL,
     Genere VARCHAR(64) NOT NULL,
     Lingua VARCHAR(64) NOT NULL,
@@ -91,7 +94,7 @@ CREATE TABLE LIBRO
 CREATE TABLE INSERIMENTO
 (
     CodS INT,
-    ISBN VARCHAR(18), -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn, -- Vincolo posizine trattini EX: ___-__-__-_____-_
     Ordine INT NOT NULL, -- Vincolo (Ordine <= NLibri) && (OrdineUltimoInserito < OrdineAttuale)
 
     PRIMARY KEY(CodS, ISBN),
@@ -150,7 +153,7 @@ CREATE TABLE PREFERITI_S
 CREATE TABLE POSSESSO_L
 (
     Username VARCHAR(30),
-    ISBN VARCHAR(18), -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn, -- Vincolo posizine trattini EX: ###-##-##-#####-#
     Fruizione VARCHAR(10) NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
@@ -162,7 +165,7 @@ CREATE TABLE POSSESSO_L
 CREATE TABLE PREFERITI_L
 (
     Username VARCHAR(30),
-    ISBN VARCHAR(18), -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn, -- Vincolo posizine trattini EX: ###-##-##-#####-#
     Recensione VARCHAR(512),
     Valutazione INT, -- Vincolo 0 <= Valutazione <= 5,
 
@@ -178,7 +181,7 @@ CREATE TABLE PRESENTAZIONE
     Struttura VARCHAR(128) NOT NULL,
     DataP DATE NOT NULL,
     Ora TIME NOT NULL,
-    ISBN VARCHAR(18),  -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn,  -- Vincolo posizine trattini EX: ###-##-##-#####-#
 
     PRIMARY KEY(CodP, ISBN),
     FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN) 
@@ -193,7 +196,7 @@ CREATE TABLE COLLANA
 
 CREATE TABLE APPARTENENZA
 (
-    ISBN VARCHAR(18),  -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn,  -- Vincolo posizine trattini EX: ###-##-##-#####-#
     CodC INT,
     Caratteristica VARCHAR(128) NOT NULL,
 
@@ -223,7 +226,7 @@ CREATE TABLE SCRITTURA_A
 
 CREATE TABLE SCRITTURA_L
 (
-    ISBN VARCHAR(18), -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn, -- Vincolo posizine trattini EX: ###-##-##-#####-#
     CodA INT,
 
     PRIMARY KEY(ISBN, CodA),
