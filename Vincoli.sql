@@ -21,3 +21,23 @@ CHECK(
         WHERE C.DataInserimento < R.DataPubblicazione OR YEAR(C.DataInserimento) < AR.AnnoPubblicazione 
     )
 );
+
+-- La data d'inizio di una conferenza deve essere minore della data di fine di una conferenza
+ALTER TABLE CONFERENZA
+ADD CONSTRAINT C1
+CHECK(
+    DataInizio <= DataFine
+);
+
+-- L'ISBN deve essere del formato ___-__-__-_____-_
+CONSTRAINT C2
+    CHECK (VALUE LIKE '___-__-_____-_');
+
+-- Ordinamento libri
+CREATE ASSERTION A3
+CHECK(
+    NOT EXISTS(
+        SELECT *
+        FROM INSERIMENTO AS I
+    )
+);
