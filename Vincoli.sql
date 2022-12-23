@@ -9,15 +9,24 @@ CHECK(
     )
 );
 
--- Un articolo scientifico non può essere pubblicato in una 
--- rivista prima della pubblicazione della rivista e dell'articolo
+-- Un articolo scientifico pubblicato in un fascicolo di una rivista non può avere una anno 
+-- di pubblicazione maggiore dell'anno della data di pubblicazione del fascicolo che lo contiene  
 CREATE ASSERTION A2
 CHECK(
     NOT EXISTS(
         SELECT *
-        FROM ((COMPOSIZIONE AS C JOIN RIVISTA AS R ON C.ISSN = R.ISSN)
-            JOIN ARTICOLO_SCIENTIFICO AS AR ON AR.CodAS = C.CodAS)
-        WHERE C.DataInserimento < R.DataPubblicazione OR YEAR(C.DataInserimento) < AR.AnnoPubblicazione 
+        FROM ((ARTICOLO_SCIENTIFICO AS AR JOIN INTRODUZIONE AS I ON AR.DOI=I.DOI) JOIN FASCICOLO AS F ON F.CodF=I.CodF) 
+        WHERE AR.AnnoPubblicazione>YEAR(F.DataPubblicazione)  
+    )
+);
+
+--  Un fascicolo di una rivista non può essere pubblicato prima della sua rivista
+CREATE ASSERTION A3
+CHECK(
+    NOT EXISTS(
+        SELECT *
+        FROM FASCICOLO AS F JOIN RIVISTA AS R ON F.ISSN=R.ISSN
+        WHERE YEAR(F.DataPubblicazione)<R.AnnoPubblicazione  
     )
 );
 
@@ -28,9 +37,9 @@ CHECK(
     DataInizio <= DataFine
 );
 
--- L'ISBN deve essere del formato ___-__-__-_____-_
+-- L'ISBN deve essere del formato giusto
 CONSTRAINT C2
-    CHECK (VALUE LIKE '___-__-_____-_');
+    CHECK (VALUE LIKE '978-%-%-_');
 
 -- L'ordine dei libri non può essere maggiore del numero dei libri che compongono la serie
 CREATE ASSERTION A3
@@ -41,3 +50,53 @@ CHECK(
         WHERE I.Ordine > S.NLibri
     )
 );
+
+-- Se per una serie esiste una istanza con INSERIMENTO.Ordine>0, devono esistere istanze della 
+-- serie per tutti i valori di INSERIMENTO.Ordine compresi tra 0 e INSERIMENTO.Ordine
+CREATE ASSERTION A4
+CHECK(
+    NOT EXISTS(
+        SELECT SUM(I.Ordine) AS N1, (MAX(I.Ordine)*(MAX(I.Ordine)+1)/2)
+        FROM INSERIMENTO AS I
+        GROUP BY I.CodS
+        HAVING SUM(I.Ordine)<>(MAX(I.Ordine)*(MAX(I.Ordine)+1)/2)
+    )
+);
+
+--La fruizione deve essere nell'insime ("Cartaceo", "Digitale" e "AudioLibro")
+CONSTRAINT C3
+    CHECK (VALUE IN ('Cartaceo', 'Digitale', 'AudioLibro'));
+
+--La quantità deve essere 'NULL' solo quando la fruizione è 'Digitale' o 'AudioLibro'  
+ALTER TABLE POSSESSO_F
+ADD CONSTRAINT C4
+CHECK((Quantita IS NULL AND Fruizione IN('Digitale', 'AudioLibro')) OR (Quantita>=0 AND Fruizione='Cartaceo'));
+
+ALTER TABLE POSSESSO_S
+ADD CONSTRAINT C5
+CHECK((Quantita IS NULL AND Fruizione IN('Digitale', 'AudioLibro')) OR (Quantita>=0 AND Fruizione='Cartaceo'));
+
+ALTER TABLE POSSESSO_L
+ADD CONSTRAINT C6
+CHECK((Quantita IS NULL AND Fruizione IN('Digitale', 'AudioLibro')) OR (Quantita>=0 AND Fruizione='Cartaceo'));
+
+--La valutazione deve essere in [0,5]
+ALTER TABLE PREFERITI_F
+ADD CONSTRAINT C7
+CHECK(Valutazione>=0 AND Valutazione<=5); 
+
+ALTER TABLE PREFERITI_S
+ADD CONSTRAINT C8
+CHECK(Valutazione>=0 AND Valutazione<=5);
+
+ALTER TABLE PREFERITI_L
+ADD CONSTRAINT C9
+CHECK(Valutazione>=0 AND Valutazione<=5); 
+
+-- L'ISSN deve essere del formato giusto
+CONSTRAINT C10
+    CHECK (VALUE LIKE '____-____');
+
+-- Il DOI deve essere del formato giusto
+CONSTRAINT C11
+    CHECK (VALUE LIKE '10-%');
