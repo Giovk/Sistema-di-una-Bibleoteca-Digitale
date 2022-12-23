@@ -20,9 +20,12 @@ CREATE TABLE LIBRERIA
     FOREIGN KEY(Gestore) REFERENCES UTENTE(Username)
 );
 
+CREATE DOMAIN issn AS VARCHAR(9)
+    CONSTRAINT C10
+
 CREATE TABLE RIVISTA
 (
-    ISSN VARCHAR(9) PRIMARY KEY,
+    ISSN issn PRIMARY KEY, -- Vincolo posizine trattini EX: ####-####
     Editore VARCHAR(64) NOT NULL,
     Argomento VARCHAR(256) NOT NULL,
     CognomeR VARCHAR(64) NOT NULL,
@@ -31,9 +34,12 @@ CREATE TABLE RIVISTA
     AnnoPubblicazione VARCHAR(4) NOT NULL
 );
 
+CREATE DOMAIN doi AS VARCHAR(8)
+    CONSTRAINT C11
+
 CREATE TABLE ARTICOLO_SCIENTIFICO
 (
-    DOI VARCHAR(8) PRIMARY KEY,
+    DOI doi PRIMARY KEY,
     Titolo VARCHAR(256) UNIQUE NOT NULL,
     AnnoPubblicazione VARCHAR(4) NOT NULL 
 );
@@ -44,18 +50,18 @@ CREATE TABLE FASCICOLO
     Numero INT NOT NULL DEFAULT 1, 
     Editore VARCHAR(64) NOT NULL,
     DataPubblicazione DATE NOT NULL,
-    ISSN VARCHAR(9),
+    ISSN issn(9),
 
     FOREIGN KEY (ISSN) REFERENCES RIVISTA(ISSN)
 );
 
 CREATE TABLE INTRODUZIONE
 (
-    ISSN VARCHAR(9),
-    DOI VARCHAR(8),
+    CodF INT,
+    DOI doi,
 
-    PRIMARY KEY (ISSN, DOI),
-    FOREIGN KEY(ISSN) REFERENCES RIVISTA(ISSN),
+    PRIMARY KEY (CodF, DOI),
+    FOREIGN KEY(CodF) REFERENCES FASCICOLO(CodF),
     FOREIGN KEY(DOI) REFERENCES ARTICOLO_SCIENTIFICO(DOI)
 );
 
@@ -70,7 +76,7 @@ CREATE TABLE CONFERENZA
 
 CREATE TABLE ESPOSIZIONE
 (
-    DOI INT,
+    DOI doi,
     CodC INT,
 
     PRIMARY KEY(DOI, CodC),
@@ -82,12 +88,12 @@ CREATE TABLE SERIE
 (
     CodS INT PRIMARY KEY,
     Titolo VARCHAR(256) NOT NULL,
-    ISSN VARCHAR(9) UNIQUE,
+    ISSN issn UNIQUE,
     DataPubblicazione DATE NOT NULL,
     NLibri INT NOT NULL
 );
 
-CREATE DOMAIN isbn AS VARCHAR(18)
+CREATE DOMAIN isbn AS VARCHAR(17)
     CONSTRAINT C2
 
 CREATE TABLE LIBRO
@@ -111,11 +117,14 @@ CREATE TABLE INSERIMENTO
     FOREIGN KEY(ISBN) REFERENCES LIBRO(ISBN)  
 );
 
+CREATE DOMAIN fruizione AS VARCHAR(10)
+    CONSTRAINT C3
+
 CREATE TABLE POSSESSO_F
 (
     Username VARCHAR(30),
     CodF INT,
-    Fruizione VARCHAR(10) NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
+    Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
     PRIMARY KEY(Username, CodF),
@@ -128,7 +137,8 @@ CREATE TABLE PREFERITI_F
     Username VARCHAR(30),
     CodF INT,
     Recensione VARCHAR(512),
-    Valutazione INT, -- Vincolo 0 <= Valutazione <= 5,
+    Valutazione INT, -- Vincolo 0 <= Valutazione <= 5
+    Preferito BOOLEAN SET DEFAULT false,
 
     PRIMARY KEY(Username, CodF),
     FOREIGN KEY(Username) REFERENCES UTENTE(Username),
@@ -139,7 +149,7 @@ CREATE TABLE POSSESSO_S
 (
     Username VARCHAR(30),
     CodS INT,
-    Fruizione VARCHAR(10) NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
+    Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
     PRIMARY KEY(Username, CodS),
@@ -153,6 +163,8 @@ CREATE TABLE PREFERITI_S
     CodS VARCHAR(9),
     Recensione VARCHAR(512),
     Valutazione INT, -- Vincolo 0 <= Valutazione <= 5,
+     Preferito BOOLEAN SET DEFAULT false,
+
 
     PRIMARY KEY(Username, CodS),
     FOREIGN KEY(Username) REFERENCES UTENTE(Username),
@@ -162,8 +174,8 @@ CREATE TABLE PREFERITI_S
 CREATE TABLE POSSESSO_L
 (
     Username VARCHAR(30),
-    ISBN isbn, -- Vincolo posizine trattini EX: ###-##-##-#####-#
-    Fruizione VARCHAR(10) NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
+    ISBN isbn, -- Vincolo posizine trattini 
+    Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
     PRIMARY KEY(Username, ISBN),
@@ -174,9 +186,10 @@ CREATE TABLE POSSESSO_L
 CREATE TABLE PREFERITI_L
 (
     Username VARCHAR(30),
-    ISBN isbn, -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn, -- Vincolo posizine trattini
     Recensione VARCHAR(512),
     Valutazione INT, -- Vincolo 0 <= Valutazione <= 5,
+    Preferito BOOLEAN SET DEFAULT false,
 
     PRIMARY KEY(Username, ISBN),
     FOREIGN KEY(Username) REFERENCES UTENTE(Username),
@@ -190,7 +203,7 @@ CREATE TABLE PRESENTAZIONE
     Struttura VARCHAR(128) NOT NULL,
     DataP DATE NOT NULL,
     Ora TIME NOT NULL,
-    ISBN isbn,  -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn,  -- Vincolo posizine trattini
 
     PRIMARY KEY(CodP, ISBN),
     FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN) 
@@ -200,15 +213,15 @@ CREATE TABLE COLLANA
 (
     CodC INT PRIMARY KEY,
     Nome VARCHAR(256) NOT NULL,
-    ISSN VARCHAR(9) UNIQUE,
+    ISSN issn UNIQUE,
+    Caratteristica VARCHAR(128) NOT NULL,
 );
 
 CREATE TABLE APPARTENENZA
 (
-    ISBN isbn,  -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn,  -- Vincolo posizine trattini 
     CodC INT,
-    Caratteristica VARCHAR(128) NOT NULL,
-
+    
     PRIMARY KEY(ISBN, CodC),
     FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN),
     FOREIGN KEY (CodC) REFERENCES COLLANA(CodC) 
@@ -225,7 +238,7 @@ CREATE TABLE AUTORE
 
 CREATE TABLE SCRITTURA_A
 (
-    DOI VARCHAR(8),
+    DOI doi,
     CodA INT,
 
     PRIMARY KEY(DOI, CodA),
@@ -235,11 +248,10 @@ CREATE TABLE SCRITTURA_A
 
 CREATE TABLE SCRITTURA_L
 (
-    ISBN isbn, -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn, -- Vincolo posizine trattini 
     CodA INT,
 
     PRIMARY KEY(ISBN, CodA),
     FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN),
     FOREIGN KEY (CodA) REFERENCES AUTORE(CodA) 
 );
-
