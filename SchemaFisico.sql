@@ -147,7 +147,7 @@ CREATE TABLE PREFERITI_F
 
 CREATE TABLE POSSESSO_S
 (
-    CodL,
+    CodL INT,
     CodS INT,
     Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
