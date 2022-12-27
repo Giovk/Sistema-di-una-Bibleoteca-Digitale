@@ -127,7 +127,7 @@ CREATE TABLE POSSESSO_F
     Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
-    PRIMARY KEY(CodL, CodF),
+    PRIMARY KEY(CodL, CodF, Fruizione),
     FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
     FOREIGN KEY(CodF) REFERENCES FASCICOLO(CodF)  
 );
@@ -152,7 +152,7 @@ CREATE TABLE POSSESSO_S
     Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
-    PRIMARY KEY(CodL, CodS),
+    PRIMARY KEY(CodL, CodS, Fruizione),
     FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
     FOREIGN KEY(CodS) REFERENCES SERIE(CodS)  
 );
@@ -177,7 +177,7 @@ CREATE TABLE POSSESSO_L
     Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
-    PRIMARY KEY(CodL, ISBN),
+    PRIMARY KEY(CodL, ISBN, Fruizione),
     FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
     FOREIGN KEY(ISBN) REFERENCES Libro(ISBN)  
 );
