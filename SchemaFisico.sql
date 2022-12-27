@@ -1,9 +1,12 @@
+CREATE DOMAIN partitaiva AS VARCHAR(11)
+    CONSTRAINT C15 CHECK (VALUE LIKE '___________');
+
 CREATE TABLE UTENTE
 (
     Username VARCHAR(30) PRIMARY KEY,
     Email VARCHAR(319) UNIQUE NOT NULL, -- La lunghezza massima di un indirizzo email sono 319 caratteri.
     Pw VARCHAR(64) NOT NULL, -- La lunghezza massima di una password sono 64 caratteri.
-    PartitaIVA VARCHAR(11) UNIQUE,
+    PartitaIVA partitaiva UNIQUE,
     Nome VARCHAR(64) NOT NULL,
     Cognome VARCHAR(64) NOT NULL
 );
@@ -50,7 +53,7 @@ CREATE TABLE FASCICOLO
     Numero INT NOT NULL DEFAULT 1, 
     Editore VARCHAR(64) NOT NULL,
     DataPubblicazione DATE NOT NULL,
-    ISSN issn(9),
+    ISSN issn,
 
     FOREIGN KEY (ISSN) REFERENCES RIVISTA(ISSN)
 );
@@ -138,7 +141,7 @@ CREATE TABLE PREFERITI_F
     CodF INT,
     Recensione VARCHAR(512),
     Valutazione INT, -- Vincolo 0 <= Valutazione <= 5
-    Preferito BOOLEAN false,
+    Preferito BOOLEAN DEFAULT false,
 
     PRIMARY KEY(Username, CodF),
     FOREIGN KEY(Username) REFERENCES UTENTE(Username),
@@ -179,7 +182,7 @@ CREATE TABLE POSSESSO_L
 
     PRIMARY KEY(CodL, ISBN, Fruizione),
     FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
-    FOREIGN KEY(ISBN) REFERENCES Libro(ISBN)  
+    FOREIGN KEY(ISBN) REFERENCES LIBRO(ISBN)  
 );
 
 CREATE TABLE PREFERITI_L
@@ -192,7 +195,7 @@ CREATE TABLE PREFERITI_L
 
     PRIMARY KEY(Username, ISBN),
     FOREIGN KEY(Username) REFERENCES UTENTE(Username),
-    FOREIGN KEY(ISBN) REFERENCES Libro(ISBN)
+    FOREIGN KEY(ISBN) REFERENCES LIBRO(ISBN)
 );
 
 CREATE TABLE PRESENTAZIONE
@@ -213,7 +216,7 @@ CREATE TABLE COLLANA
     CodC SERIAL PRIMARY KEY,
     Nome VARCHAR(256) NOT NULL,
     ISSN issn UNIQUE,
-    Caratteristica VARCHAR(128) NOT NULL,
+    Caratteristica VARCHAR(128) NOT NULL
 );
 
 CREATE TABLE APPARTENENZA
@@ -228,9 +231,9 @@ CREATE TABLE APPARTENENZA
 
 CREATE TABLE AUTORE
 (
-    CodA SERIAL PRIMARY KEY;
+    CodA SERIAL PRIMARY KEY,
     Nome VARCHAR(64) NOT NULL,
-    Cognome VARCHAR(64) NOT NULL;
+    Cognome VARCHAR(64) NOT NULL,
     Nazionalita VARCHAR(64),
     DataNascita DATE
 );

@@ -130,3 +130,7 @@ CHECK((Recensione IS NULL AND (Valutazione IS NOT NULL OR Preferito=true)) OR
         (Valutazione IS NULL AND(Recensione IS NOT NULL OR Preferito=true)) OR 
         (Preferito=false AND (valutazione IS NOT NULL OR Recensione IS NOT NULL)) OR 
         (Recensione IS NOT NULL AND Valutazione IS NOT NULL AND Preferito=true));
+
+-- La partita IVA deve essere del formato giusto
+CONSTRAINT C15
+    CHECK (VALUE LIKE '___________');
