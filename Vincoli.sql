@@ -1,4 +1,4 @@
--- Una libreria può essere gestita solo da utenti con una partitaIVa
+-- Una libreria può essere gestita solo da utenti con una partitaIVA
 CREATE ASSERTION A1
 CHECK(
     NOT EXISTS(
