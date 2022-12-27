@@ -42,7 +42,7 @@ CONSTRAINT C2
     CHECK (VALUE LIKE '978-%-%-_');
 
 -- L'ordine dei libri non può essere maggiore del numero dei libri che compongono la serie
-CREATE ASSERTION A3
+CREATE ASSERTION A4
 CHECK(
     NOT EXISTS(
         SELECT *
@@ -53,7 +53,7 @@ CHECK(
 
 -- Se per una serie esiste una istanza con INSERIMENTO.Ordine>0, devono esistere istanze della 
 -- serie per tutti i valori di INSERIMENTO.Ordine compresi tra 0 e INSERIMENTO.Ordine
-CREATE ASSERTION A4
+CREATE ASSERTION A5
 CHECK(
     NOT EXISTS(
         SELECT SUM(I.Ordine) AS N1, (MAX(I.Ordine)*(MAX(I.Ordine)+1)/2)
