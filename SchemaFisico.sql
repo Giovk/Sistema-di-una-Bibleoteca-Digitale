@@ -21,7 +21,7 @@ CREATE TABLE LIBRERIA
 );
 
 CREATE DOMAIN issn AS VARCHAR(9)
-    CONSTRAINT C10
+    CONSTRAINT C10 CHECK (VALUE LIKE '____-____');
 
 CREATE TABLE RIVISTA
 (
@@ -35,7 +35,7 @@ CREATE TABLE RIVISTA
 );
 
 CREATE DOMAIN doi AS VARCHAR(8)
-    CONSTRAINT C11
+    CONSTRAINT C11 CHECK (VALUE LIKE '10-%');
 
 CREATE TABLE ARTICOLO_SCIENTIFICO
 (
@@ -94,7 +94,7 @@ CREATE TABLE SERIE
 );
 
 CREATE DOMAIN isbn AS VARCHAR(17)
-    CONSTRAINT C2
+    CONSTRAINT C2 CHECK (VALUE LIKE '978-%-%-_');
 
 CREATE TABLE LIBRO
 (
@@ -118,17 +118,17 @@ CREATE TABLE INSERIMENTO
 );
 
 CREATE DOMAIN fruizione AS VARCHAR(10)
-    CONSTRAINT C3
+    CONSTRAINT C3 CHECK (VALUE IN ('Cartaceo', 'Digitale', 'AudioLibro'));
 
 CREATE TABLE POSSESSO_F
 (
-    Username VARCHAR(30),
+    CodL INT,
     CodF INT,
     Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
     PRIMARY KEY(Username, CodF),
-    FOREIGN KEY(Username) REFERENCES UTENTE(Username),
+    FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
     FOREIGN KEY(CodF) REFERENCES FASCICOLO(CodF)  
 );
 
@@ -138,7 +138,7 @@ CREATE TABLE PREFERITI_F
     CodF INT,
     Recensione VARCHAR(512),
     Valutazione INT, -- Vincolo 0 <= Valutazione <= 5
-    Preferito BOOLEAN SET DEFAULT false,
+    Preferito BOOLEAN false,
 
     PRIMARY KEY(Username, CodF),
     FOREIGN KEY(Username) REFERENCES UTENTE(Username),
@@ -147,24 +147,23 @@ CREATE TABLE PREFERITI_F
 
 CREATE TABLE POSSESSO_S
 (
-    Username VARCHAR(30),
+    CodL,
     CodS INT,
     Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
     PRIMARY KEY(Username, CodS),
-    FOREIGN KEY(Username) REFERENCES UTENTE(Username),
+    FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
     FOREIGN KEY(CodS) REFERENCES SERIE(CodS)  
 );
 
 CREATE TABLE PREFERITI_S
 (
     Username VARCHAR(30),
-    CodS VARCHAR(9),
+    CodS INT,
     Recensione VARCHAR(512),
     Valutazione INT, -- Vincolo 0 <= Valutazione <= 5,
-     Preferito BOOLEAN SET DEFAULT false,
-
+    Preferito BOOLEAN DEFAULT false,
 
     PRIMARY KEY(Username, CodS),
     FOREIGN KEY(Username) REFERENCES UTENTE(Username),
@@ -173,13 +172,13 @@ CREATE TABLE PREFERITI_S
 
 CREATE TABLE POSSESSO_L
 (
-    Username VARCHAR(30),
+    CodL INT,
     ISBN isbn, -- Vincolo posizine trattini 
     Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
     PRIMARY KEY(Username, ISBN),
-    FOREIGN KEY(Username) REFERENCES UTENTE(Username),
+    FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
     FOREIGN KEY(ISBN) REFERENCES Libro(ISBN)  
 );
 
@@ -189,7 +188,7 @@ CREATE TABLE PREFERITI_L
     ISBN isbn, -- Vincolo posizine trattini
     Recensione VARCHAR(512),
     Valutazione INT, -- Vincolo 0 <= Valutazione <= 5,
-    Preferito BOOLEAN SET DEFAULT false,
+    Preferito BOOLEAN DEFAULT false,
 
     PRIMARY KEY(Username, ISBN),
     FOREIGN KEY(Username) REFERENCES UTENTE(Username),
