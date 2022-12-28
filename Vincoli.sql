@@ -5,7 +5,6 @@ CHECK(
         SELECT *
         FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
         WHERE U.PartitaIVA IS NULL
-
     )
 );
 
@@ -16,7 +15,7 @@ CHECK(
     NOT EXISTS(
         SELECT *
         FROM ((ARTICOLO_SCIENTIFICO AS AR JOIN INTRODUZIONE AS I ON AR.DOI=I.DOI) JOIN FASCICOLO AS F ON F.CodF=I.CodF) 
-        WHERE AR.AnnoPubblicazione>YEAR(F.DataPubblicazione)  
+        WHERE AR.AnnoPubblicazione>EXTRACT(YEAR FROM F.DataPubblicazione)  
     )
 );
 
@@ -26,7 +25,7 @@ CHECK(
     NOT EXISTS(
         SELECT *
         FROM FASCICOLO AS F JOIN RIVISTA AS R ON F.ISSN=R.ISSN
-        WHERE YEAR(F.DataPubblicazione)<R.AnnoPubblicazione  
+        WHERE EXTRACT(YEAR FROM F.DataPubblicazione)<R.AnnoPubblicazione  
     )
 );
 
