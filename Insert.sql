@@ -1,3 +1,6 @@
+
+-- UTENTE --
+
 INSERT INTO UTENTE (Username, Email, pw, PartitaIva, Nome, Cognome)
 VALUES ('Admin1', 'giovanni.riccio6@studenti.unina.it', 'admin', '00000000001', 'Giovanni', 'Riccio');
 INSERT INTO UTENTE (Username, Email, pw, PartitaIva, Nome, Cognome)
@@ -59,3 +62,83 @@ VALUES ('Ilario', 'Lampa.Dario@studenti.unina.it', 'hocambiatofacolta11', 'Dario
 INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome)
 VALUES ('ImpastoLievitato', 'pizza.margherita@vivanapoli.it', 'Sorbillo<3', 'Margherita', 'Pizza');
 
+-- LIBRERIA --
+
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0819264947', 'Hoshizora Club' ,'www.hoshizoraclub.it', 'Via Tito Speri 5, 80014, Giugliano in Campania (Na), Napoli, Italia', 'admin1');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, Indirizzo, Gestore)
+VALUES ('0813044196', 'Libreria Nappo','Corso Sirena 85, 80147, Napoli, Italia', 'admin2');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0818595071', 'DigitalWorldCommunity', 'www.digitalworldcommunity.com', 'Via Marchesella 7, 80014, Giugliano in Campania (Na), Napoli, Italia', 'admin1');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, Indirizzo, Gestore)
+VALUES ('0815522005', 'Libreria Fiorentino', 'Via Trinita Maggiore 35, 80134, Napoli, Italia', 'Giudil');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, Indirizzo, Gestore)
+VALUES ('0811957597', 'Libreria Libridine', 'Via Armando Diaz 71, 80055, Portici (Na), Napoli, Italia', 'Irmluc');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0814722075', 'Libreria Marsiglia', 'www.libreriamarsiglia.it', 'Via San Martino 99, 80046, San Giorgio A Cremano (Na), Napoli, Italia', 'Rosbru');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0814542280', 'Libreria Cartoleria Fallacci', 'www.libreriafallacci.wixsite.com/website', 'Piazza Cavour 55/56, 80137, Napoli, Italia', 'Waffer');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0372462435', 'Mondadori BookStore', 'www.mondadoristore.it/negozi/punti-vendita/Mondadori-Bookstore', 'Piazza Antonio Stradivari 6, 26100, Cremona, Italia', 'Benriz');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0374344667', 'Mondadori Point', 'www.mondadoristore.it/negozi/punti-vendita/Mondadori-Point-Soresina/1570/', 'Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Benriz');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0372237480', 'Feltrinelli Libri e Musica', 'www.lafeltrinelli.it', 'Corso Giuseppe Mazzini 20, 26100, Cremona, Italia', 'DonRodrigo');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0291947777', 'Feltrinelli Libreria', 'www.lafeltrinelli.it', 'Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'DonRodrigo');
+
+-- RIVISTA --
+
+INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione)
+VALUES ('0036-8083', 'GEDI Gruppo Editoriale', 'Tecnologia', 'Cattaneo', 'Marco', 'Le Scienze', 1968);
+INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione)
+VALUES ('0027-9358', 'National Geographic Society', 'Natura', 'Cattaneo', 'Marco', 'National Geographic Magazine', 1888);
+INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione)
+VALUES ('0026-4423', 'GEDI Gruppo Editoriale', 'Psicologia', 'Cattaneo', 'Marco', 'Mind', 2003);
+INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione)
+VALUES ('2724-2641', 'Gruppo B Editore', 'Scienze', 'Hack', 'Margherita', 'Le Stelle', 2002);
+INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione)
+VALUES ('2284-4422', 'EDI HOUSE sas', 'Scienze', 'Biasion', 'Giulio', 'Voyager Magazine',2012);
+INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione)
+VALUES ('2531-3975', 'Giovanna Truda', 'Scienze Umane', 'Fangone', 'Emiliana', 'Culture e Studi del Sociale', 2022);
+INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione)
+VALUES ('1357-1915', 'Arnoldo Mondadori Editore', 'Scienze', 'Loredan', 'Jacopo', 'Focus', 1992);
+INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione)
+VALUES ('0390-5543', 'Mondadori Education S.p.A', 'Matematica', 'Natalini', 'Roberto', 'Archimede', 1902);
+INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione)
+VALUES ('0036-4681', 'Edizioni Dedalo', 'Scienze', 'Armaroli', 'Nicola', 'Sapere', 1935);
+
+-- Articolo Scientifico --
+
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00000', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00001', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00002', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00003', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00004', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00005', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00006', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00007', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00008', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00009', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00010', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00011', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00012', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00013', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00014', '', );
+INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
+VALUES ('10-00015', '', );
