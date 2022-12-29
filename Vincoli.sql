@@ -133,3 +133,5 @@ CHECK((Recensione IS NULL AND (Valutazione IS NOT NULL OR Preferito=true)) OR
 -- La partita IVA deve essere del formato giusto
 CONSTRAINT C15
     CHECK (VALUE LIKE '___________');
+
+--vincolo sitoWeb indirizzo librerie
