@@ -238,7 +238,7 @@ VALUES ('John', 'Pavlus');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --5
 VALUES ('Esther', 'Landhuis', 'Statunitense');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --6
-VALUES ('Simon', 'Worrall', 'Inglese', '1968-06-18');
+VALUES ('Simon', 'Worrall', 'Britannica', '1968-06-18');
 INSERT INTO AUTORE (Nome, Cognome) --7
 VALUES ('Christina', 'Nunez');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --8
@@ -280,7 +280,7 @@ VALUES ('Robert', 'Irion');
 INSERT INTO AUTORE (Nome, Cognome, DataNascita) --26
 VALUES ('Francis Richard', 'Stephenson', '1941-04-26');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --27
-VALUES ('David', 'Green', 'Inglese');
+VALUES ('David', 'Green', 'Britannica');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --28
 VALUES ('Emiliana', 'Mangone', 'Italiana', '1970-02-02');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --29
@@ -355,6 +355,10 @@ INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --63
 VALUES ('Paolo', 'Gallina', 'Italiana', '1971-09-18');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --64
 VALUES ('Tersilla', 'Virgili', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --64
+VALUES ('Tersilla', 'Virgili', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --65
+VALUES ('Joanne Kathleen', 'Rowling', 'Britannica', '1965-07-31');
 
 
 -- SCRITTURA_A --
@@ -502,44 +506,44 @@ VALUES ('10-00058', 64);
 
 -- FASCICOLO --
 
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --1
 VALUES (1, 'GEDI Gruppo Editoriale', '2021-12-28', '0036-8083');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --2
 VALUES (2, 'GEDI Gruppo Editoriale', '2022-01-28', '0036-8083');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --3
 VALUES (1, 'National Geographic Society', '2020-01-01', '0027-9358');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --4
 VALUES (2, 'National Geographic Society', '2020-02-01', '0027-9358');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --5
 VALUES (1, 'GEDI Gruppo Editoriale', '2022-12-05', '0026-4423');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --6
 VALUES (42, 'Gruppo B Editore', '2006-07-29', '2724-2641');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --7
 VALUES (43, 'Gruppo B Editore', '2006-08-27', '2724-2641');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --8
 VALUES (44, 'Gruppo B Editore', '2006-09-28', '2724-2641');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --9
 VALUES (1, 'Giovanna Truda', '2016-06-27', '2531-3975');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --10
 VALUES (2, 'Giovanna Truda', '2017-06-22', '2531-3975');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --11
 VALUES (3, 'Giovanna Truda', '2018-06-28', '2531-3975');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 'Arnoldo Mondadori Editore', '2022-12-01', '1357-1915');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (2, 'Arnoldo Mondadori Editore', '2023-01-01', '1357-1915');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 'Mondadori Education S.p.A', '2015-12-01', '0390-5543');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (2, 'Mondadori Education S.p.A', '2018-12-01', '0390-5543');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (3, 'Mondadori Education S.p.A', '2020-12-01', '0390-5543');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (4, 'Mondadori Education S.p.A', '2022-12-01', '0390-5543');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 'Edizioni Dedalo', '2018-12-01', '0036-4681');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (2, 'Edizioni Dedalo', '2022-12-01', '0036-4681');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --12
+VALUES (1, 'Arnoldo Mondadori Editore', '2022-12-10', '1357-1915');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --13
+VALUES (2, 'Arnoldo Mondadori Editore', '2023-01-11', '1357-1915');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --14
+VALUES (1, 'Mondadori Education S.p.A', '2015-12-15', '0390-5543');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --15
+VALUES (2, 'Mondadori Education S.p.A', '2018-12-16', '0390-5543');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --16
+VALUES (3, 'Mondadori Education S.p.A', '2020-12-17', '0390-5543');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --17
+VALUES (4, 'Mondadori Education S.p.A', '2022-12-21', '0390-5543');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --18
+VALUES (1, 'Edizioni Dedalo', '2018-12-27', '0036-4681');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --19
+VALUES (2, 'Edizioni Dedalo', '2022-12-10', '0036-4681');
 
 -- INTRODUZIONE --
 
@@ -662,67 +666,136 @@ VALUES (19, '10-00058');
 
 -- CONFERENZEA --
 
-INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('', '', '--', '--');
-INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('', '', '--', '--');
-INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('', '', '--', '--');
-INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('', '', '--', '--');
-INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('', '', '--', '--');
-INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('', '', '--', '--');
-INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('', '', '--', '--');
-INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('', '', '--', '--');
-INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('', '', '--', '--');
-INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('', '', '--', '--');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --1
+VALUES ('Piazza Roma 22, 60121, Ancona, Italia', 'Università Politecnica Delle Marche', '2021-10-12', '2021-10-16');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --2
+VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2006-04-01', '2006-04-14');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --3
+VALUES ('Piazza Guerrazzi 1, 82100, Benevento, Italia', 'Università Del Sannio', '2006-06-21', '2006-06-30');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --4
+VALUES ('Via De Sanctis, 86100, Campobasso, Italia', 'Università Del Molise', '2018-10-7', '2018-10-14');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --5
+VALUES ('Viale Dell''Università, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2018-11-7', '2018-11-14');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --6
+VALUES ('Corso Matteotti 22, 21053, Castellanza (Va), Varese, Italia', 'Università Carlo Cattaneo LIUC', '2018-10-15', '2018-10-28');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --7
+VALUES ('Viale Europa, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2018-11-15', '2018-11-28');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --8
+VALUES ('Corso Umberto I 40, 80138, Napoli, Italia', 'Università Degli Studi Federico II', '2020-04-10', '2020-04-16');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --9
+VALUES ('Via Ammiraglio Acton 38, 80133, Napoli, Italia', 'Università Parthenope', '2020-06-1', '2020-06-14');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --10
+VALUES ('Piazza Della Vittoria 15, 27100, Pavia, Italia', 'IUSS - Istituto Universitario Di Studi Superiori', '2019-12-5', '2019-12-10');
 
 -- ESPOSIZIONE --
 
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00005', 1);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00006', 1);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00018', 2);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00019', 2);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00020', 2);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00021', 2);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00022', 2);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00023', 3);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00024', 3);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00025', 3);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00026', 3);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00042', 4);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00043', 4);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00051', 4);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00044', 5);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00052', 5);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00053', 5);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00054', 5);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00042', 6);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('', );
+VALUES ('10-00043', 6);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00051', 6);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00044', 7);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00052', 7);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00053', 7);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00054', 7);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00047', 8);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00048', 8);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00048', 9);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00049', 9);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00050', 9);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00007', 10);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00008', 10);
+INSERT INTO ESPOSIZIONE (DOI, CodC)
+VALUES ('10-00010', 10);
 
+-- LIBRO --
+
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-3100-338-4', 'Harry Potter e la pietra filosofale', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-3100-339-1', 'Harry Potter e la camera dei segreti', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-3100-340-7', 'Harry Potter e il prigioniero di Azkaban', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-3100-341-4', 'Harry Potter e il calice di fuoco', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-3100-342-1', 'Harry Potter e l''ordine della fenice', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-3100-343-8', 'Harry Potter e il principe mezzosangue', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-3100-344-5', 'Harry Potter e i doni della morte', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-3100-670-5', 'L''Ickabog', 'Fantasy', 'Italiana', 'Salani', '2020-11-10');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-9381-618-2', 'Animali fantastici e dove trovarli', 'Fantasy', 'Italiana', 'Salani', '2017-01-16');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-', '', '', '', '', '');
+
+-- SCRITTURA_L --
+
+INSERT INTO SCRITTURA_L (ISBN, CodA) -- Inizio Serie Harry Potter --
+VALUES ('978-88-3100-338-4', 65);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-3100-339-1', 65);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-3100-340-7', 65);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-3100-341-4', 65);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-3100-342-1', 65);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-3100-343-8', 65);
+INSERT INTO SCRITTURA_L (ISBN, CodA) -- Fine Serie Harry Potter --
+VALUES ('978-88-3100-344-5', 65);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-3100-670-5', 65);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('', );
