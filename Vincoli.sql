@@ -135,3 +135,5 @@ CONSTRAINT C15
     CHECK (VALUE LIKE '___________');
 
 --vincolo sitoWeb indirizzo librerie
+
+--la data di una conferenza non può essere precedente alla data di pubblicazione dell'articolo scientifico 
