@@ -355,8 +355,6 @@ INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --63
 VALUES ('Paolo', 'Gallina', 'Italiana', '1971-09-18');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --64
 VALUES ('Tersilla', 'Virgili', 'Italiana');
-INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --64
-VALUES ('Tersilla', 'Virgili', 'Italiana');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --65
 VALUES ('Joanne Kathleen', 'Rowling', 'Britannica', '1965-07-31');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --66
@@ -905,13 +903,13 @@ VALUES ('978-88-2009-266-5', 74); -- Doctor Sleep
 INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-88-6836-562-2', 74); -- IT
 INSERT INTO SCRITTURA_L (ISBN, CodA)
-VALUES ('978-88-8560-312-7', 75);
+VALUES ('978-88-8560-312-7', 75); -- inizio collana rosa di Always Publishing --
 INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-12-8007-876-6', 76);
 INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-12-8007-834-6', 77);
 INSERT INTO SCRITTURA_L (ISBN, CodA)
-VALUES ('978-88-8560-324-0', 78);
+VALUES ('978-88-8560-324-0', 78); -- fine collana rosa di Always Publishing --
 INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-88-6311-435-5', 79);
 INSERT INTO SCRITTURA_L (ISBN, CodA)
