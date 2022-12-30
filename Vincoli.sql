@@ -134,6 +134,7 @@ CHECK((Recensione IS NULL AND (Valutazione IS NOT NULL OR Preferito=true)) OR
 CONSTRAINT C15
     CHECK (VALUE LIKE '___________');
 
---vincolo sitoWeb indirizzo librerie
+-- Una libreria se non ha un sito web deve avere l'indirizzo o viceversa
 
---la data di una conferenza non può essere precedente alla data di pubblicazione dell'articolo scientifico 
+-- La data di una conferenza deve essere compresa tra quella dell'articolo esposto e quella della pubblicazione del 
+-- fascicolo
