@@ -89,9 +89,8 @@ CREATE TABLE ESPOSIZIONE
 
 CREATE TABLE SERIE
 (
-    CodS SERIAL PRIMARY KEY,
+    ISBN isbn PRIMARY KEY,
     Titolo VARCHAR(256) NOT NULL,
-    ISSN issn UNIQUE,
     DataPubblicazione DATE NOT NULL,
     NLibri INT NOT NULL
 );
@@ -111,13 +110,13 @@ CREATE TABLE LIBRO
 
 CREATE TABLE INSERIMENTO
 (
-    CodS INT,
-    ISBN isbn, -- Vincolo posizine trattini EX: ___-__-__-_____-_
+    Serie isbn,
+    Libro isbn, -- Vincolo posizine trattini EX: ___-__-__-_____-_
     Ordine INT NOT NULL, -- Vincolo (Ordine <= NLibri) && (OrdineUltimoInserito < OrdineAttuale)
 
-    PRIMARY KEY(CodS, ISBN),
-    FOREIGN KEY(CodS) REFERENCES SERIE(CodS),
-    FOREIGN KEY(ISBN) REFERENCES LIBRO(ISBN)  
+    PRIMARY KEY(Serie, Libro),
+    FOREIGN KEY(Serie) REFERENCES SERIE(ISBN),
+    FOREIGN KEY(Libro) REFERENCES LIBRO(ISBN)  
 );
 
 CREATE DOMAIN fruizione AS VARCHAR(10)
@@ -151,26 +150,26 @@ CREATE TABLE PREFERITI_F
 CREATE TABLE POSSESSO_S
 (
     CodL INT,
-    CodS INT,
+    ISBN isbn,
     Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
     Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
 
-    PRIMARY KEY(CodL, CodS, Fruizione),
+    PRIMARY KEY(CodL, ISBN, Fruizione),
     FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
-    FOREIGN KEY(CodS) REFERENCES SERIE(CodS)  
+    FOREIGN KEY(ISBN) REFERENCES SERIE(ISBN)  
 );
 
 CREATE TABLE PREFERITI_S
 (
     Username VARCHAR(30),
-    CodS INT,
+    ISBN isbn,
     Recensione VARCHAR(512),
     Valutazione INT, -- Vincolo 0 <= Valutazione <= 5,
     Preferito BOOLEAN DEFAULT false,
 
-    PRIMARY KEY(Username, CodS),
+    PRIMARY KEY(Username, ISBN),
     FOREIGN KEY(Username) REFERENCES UTENTE(Username),
-    FOREIGN KEY(CodS) REFERENCES SERIE(CodS)
+    FOREIGN KEY(ISBN) REFERENCES SERIE(ISBN)
 );
 
 CREATE TABLE POSSESSO_L
