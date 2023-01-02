@@ -138,3 +138,7 @@ CONSTRAINT C15
 
 -- La data di una conferenza deve essere compresa tra quella dell'articolo esposto e quella della pubblicazione del 
 -- fascicolo
+
+-- La data di una presentazione deve essere successiva (o uguale) a quella della pubblicazione del libro presentato
+
+-- Una libreria per possedere una serie deve possedere tutti i lbri inseriti nella serie
