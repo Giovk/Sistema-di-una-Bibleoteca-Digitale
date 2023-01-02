@@ -914,3 +914,243 @@ INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-88-6311-435-5', 79);
 INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-88-9543-776-7', 80);
+
+-- SERIE --
+
+INSERT INTO SERIE (Titolo, ISBN, DataPubblicazione, NLibri)
+VALUES ('Harry Potter. La serie completa. Ediz. Castello di Hogwarts', '978-88-3101-382-6', '2022-07-05', 7);
+INSERT INTO SERIE (Titolo, ISBN, DataPubblicazione, NLibri)
+VALUES ('La biblioteca di Hogwarts: Gli animali fantastici', '978-88-3100-010-9', '2019-05-16', 3);
+INSERT INTO SERIE (Titolo, ISBN, DataPubblicazione, NLibri)
+VALUES ('Il Signore Degli Anelli - Box Set', '978-00-0758-114-6', '2014-06-19', 3);
+
+
+-- INSERIMENTO -- 
+
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine) -- INIZIO HP --
+VALUES ('978-88-3100-338-4', '978-88-3101-382-6', 1);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine)
+VALUES ('978-88-3100-339-1', '978-88-3101-382-6', 2);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine)
+VALUES ('978-88-3100-340-7', '978-88-3101-382-6', 3);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine)
+VALUES ('978-88-3100-341-4', '978-88-3101-382-6', 4);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine)
+VALUES ('978-88-3100-342-1', '978-88-3101-382-6', 5);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine)
+VALUES ('978-88-3100-343-8', '978-88-3101-382-6', 6);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine) -- FINE HP --
+VALUES ('978-88-3100-344-5', '978-88-3101-382-6', 7); 
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine) -- INIZIO ANIM. FANT. --
+VALUES ('978-88-9381-618-2', '978-88-3100-010-9', 1);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine)
+VALUES ('978-88-9381-711-0', '978-88-3100-010-9', 2);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine) -- FINE ANIM. FANT. --
+VALUES ('978-88-3101-288-1', '978-88-3100-010-9', 3);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine) -- INIZIO IL SIGN. DEGLI ANELLI --
+VALUES ('978-88-301-0526-3', '978-00-0758-114-6', 1);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine)
+VALUES ('978-88-301-0527-0', '978-00-0758-114-6', 2);
+INSERT INTO INSERIMENTO (Libro, Serie, Ordine)  -- FINE IL SIGN. DEGLI ANELLI --
+VALUES ('978-88-301-0528-6', '978-00-0758-114-6', 3);
+
+-- COLLANA --
+
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('Macabre', 'Stephen King');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('Always Romance', 'Rosa');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('Il Signore Degli Anelli', 'John R. R. Tolkien');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('I Classici Ritrovati', 'Classico');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('Didattica', 'Didattico');
+
+-- APPARTENENZA --
+
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4529-530-0', 1);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-2009-266-5', 1);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-6836-562-2', 1);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-8560-312-7', 2);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-12-8007-876-6', 2);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-12-8007-834-6', 2);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-8560-324-0', 2);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4526-834-2', 3);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-301-0526-3', 3);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-301-0527-0', 3);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-301-0528-6', 3);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-452-7240-0', 3);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-6311-435-5', 4);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-9543-776-7', 4);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-85-1878-937-1', 5);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-6137-869-8', 5);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-5902-669-3', 5);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-207-3383-4', 5);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-9190-165-1', 5);
+
+-- PRESENTAZIONE --
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Piazza Antonio Stradivari 6, 26100, Cremona, Italia', 'Mondadori BookStore', '2022-03-25', '17:15', '978-12-8007-834-6');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via Giuseppe Verdi 6, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Biblioteca comunale', '2022-12-02', '18:10', '978-12-8007-876-6');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Mondadori Point', '2022-12-09', '18:10', '978-12-8007-876-6');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'Feltrinelli Libreria', '2017-01-22', '19:00', '978-88-9381-618-2');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via S. Lorenzo 82, 03100, Frosinone, Italia', 'Biblioteca S.Alfonso', '2018-12-10', '19:00', '978-88-9381-711-0');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via Giuseppe Verdi 6, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Biblioteca comunale', '2022-07-26', '19:00', '978-88-3101-288-1');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via S. Lorenzo 82, 03100, Frosinone, Italia', 'Biblioteca S.Alfonso', '2013-02-02', '11:00', '978-88-452-7240-0');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Corso Giuseppe Mazzini 20, 26100, Cremona, Italia', 'Feltrinelli Libri e Musica', '2021-09-05', '11:00', '978-88-301-0528-6');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'Feltrinelli Libreria', '2013-02-06', '11:00', '978-88-452-7240-0');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Mondadori Point', '2021-09-09', '11:00', '978-88-301-0528-6');
+
+-- POSSESSO_F --
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (1 , 1, 'Cartaceo', 3);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (1 , 2, 'Cartaceo', 6);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (1 , 3, 'Cartaceo', 2);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (1 , 4, 'Cartaceo', 5);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (1 , 3, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (1 , 4, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (2, 6, 'Cartaceo', 10);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (2, 7, 'Cartaceo', 7);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (2, 8, 'Cartaceo', 11);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (3, 6, 'Cartaceo', 4);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (3, 7, 'Cartaceo', 0);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (3, 8, 'Cartaceo', 15);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (4, 9, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (4, 10, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (4, 11, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (5, 14, 'Cartaceo', 3);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (5, 15, 'Cartaceo', 4);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (5, 16, 'Cartaceo', 5);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (5, 17, 'Cartaceo', 6);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (5, 14, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (5, 15, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (5, 16, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (5, 17, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (6 , 12, 'Cartaceo', 2);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (6 , 13, 'Cartaceo', 2);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (6 ,18 , 'Cartaceo', 11);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (6 , 19, 'Cartaceo', 3);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (7 , 1, 'Cartaceo', 9);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (7 , 2, 'Cartaceo', 0);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (7 , 3, 'Cartaceo', 3);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (7 , 4, 'Cartaceo', 4);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (7 , 3, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (7 , 4, 'Diitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (8, 6, 'Cartaceo', 0);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (8, 7, 'Cartaceo', 7);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (8, 8, 'Cartaceo', 19);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (9, 6, 'Cartaceo', 6);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (9, 7, 'Cartaceo', 4);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (9, 8, 'Cartaceo', 5);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (10, 9, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (10, 10, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
+VALUES (10, 11, 'Digitale');
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (11, 14, 'Cartaceo', 7);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (11, 15, 'Cartaceo', 11);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (11, 16, 'Cartaceo', 2);
+INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
+VALUES (11, 17, 'Cartaceo', 3);
+
+-- PREFERITI_F --
+
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+VALUES ('', , '', , );
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+VALUES ('', , '', , );
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+VALUES ('', , '', , );
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+VALUES ('', , '', , );
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+VALUES ('', , '', , );
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+VALUES ('', , '', , );
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+VALUES ('', , '', , );
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+VALUES ('', , '', , );
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+VALUES ('', , '', , );
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+VALUES ('', , '', , );
+
+-- POSSESSO_L --
+
+-- PREFERITI_L --
+
+-- POSSESSO_S --
+
+-- PREFERITI_S --
