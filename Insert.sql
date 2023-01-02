@@ -1126,31 +1126,128 @@ VALUES (11, 17, 'Cartaceo', 3);
 
 -- PREFERITI_F --
 
+INSERT INTO PREFERITI_F (Username, CodF, Valutazione, Preferito)
+VALUES ('Admin1', 1, 4, true);
+INSERT INTO PREFERITI_F (Username, CodF, Recensione)
+VALUES ('Admin2', 3, 'Bello, ma non bellissimo cit. Shiva');
+INSERT INTO PREFERITI_F (Username, CodF, Preferito)
+VALUES ('Morfeo13', 5, true);
 INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
-VALUES ('', , '', , );
+VALUES ('Ilario', 7, 'Belandi che bello', 5, true);
 INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
-VALUES ('', , '', , );
+VALUES ('Macinino45', 9, 'Bello ma poca caffeina', 3, true);
+INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione)
+VALUES ('Prosteyshiy Sputnik-1', 11, 'Fra, cambia mestiere, non ne sai niente', 1);
+INSERT INTO PREFERITI_F (Username, CodF, Valutazione)
+VALUES ('Prosteyshiy Sputnik-1', 13, 2);
+INSERT INTO PREFERITI_F (Username, CodF, Preferito)
+VALUES ('Ilario', 15, true);
 INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
-VALUES ('', , '', , );
+VALUES ('ErPupone', 17, 'Magico o sto Fascicolo, ao manco fosse da Roma', 5, true);
 INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
-VALUES ('', , '', , );
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
-VALUES ('', , '', , );
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
-VALUES ('', , '', , );
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
-VALUES ('', , '', , );
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
-VALUES ('', , '', , );
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
-VALUES ('', , '', , );
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
-VALUES ('', , '', , );
+VALUES ('Baguette', 19, 'Je dois être honnête, mieux que des baguettes', 4, true);
 
 -- POSSESSO_L --
 
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (1, '978-88-3100-338-4', 'Cartaceo', 3);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (1, '978-88-3100-339-1', 'Cartaceo', 4);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (1, '978-88-3100-340-7', 'Cartaceo', 3);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (1, '978-88-3100-341-4', 'Cartaceo', 5);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (1, '978-88-3100-342-1', 'Cartaceo', 5);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (1, '978-88-3100-343-8', 'Cartaceo', 6);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (1, '978-88-9381-618-2', 'Cartaceo', 9);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (2, '978-88-9381-618-2', 'Cartaceo', 3);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (2, '978-88-9381-711-0', 'Cartaceo', 0);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (2, '978-88-3101-288-1', 'Cartaceo', 3);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (3, '978-88-301-0526-3', 'Cartaceo', 3);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (3, '978-88-301-0527-0', 'Cartaceo', 2);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (3, '978-88-301-0528-6', 'Cartaceo', 3);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (4, '978-88-4529-530-0', 'Cartaceo', 3);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (4, '978-88-2009-266-5', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (5, '978-88-6836-562-2', 'AudioLibro');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (5, '978-88-9543-776-7', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (6, '978-88-6311-435-5', 'Cartaceo', 5);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (6, '978-88-301-0528-6', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (7, '978-88-6137-869-8', 'AudioLibro');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (7, '978-88-452-7240-0', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (8, '978-85-1878-937-1', 'AudioLibro');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (8, '978-88-452-7240-0', 'Cartaceo', 9);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (9, '978-88-9190-165-1', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (9, '978-12-8007-876-6', 'Cartaceo', 5);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (10, '978-88-9190-165-1', 'Cartaceo', 2);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (10, '978-12-8007-876-6', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (11, '978-12-8007-834-6', 'Cartaceo', 7);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (11, '978-12-8007-834-6', 'AudioLibro');
+
 -- PREFERITI_L --
+INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione, Preferito)
+VALUES ('Benzir', '978-88-6311-435-5', 'Davvero Bello!', 5, true);
+INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione)
+VALUES ('Etzio', '978-88-6311-435-5', 'Non mi è piaciuto :C', 1);
+INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione)
+VALUES ('DonRodrigo', '978-88-6137-869-8', 'Brutto', 2);
+INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione, Preferito)
+VALUES ('ConteDiCavour', '978-88-9190-165-1', 'Mi consenta, Davvero S-U-P-E-R-B-O-!', 5, true);
+INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione)
+VALUES ('Porticata', '978-12-8007-834-6', 'DAVVERO, CON STO LIBRO, MI SI è CHIUSO UN PORTONE', 2);
+INSERT INTO PREFERITI_F (Username, ISBN, Preferito)
+VALUES ('Cruzz_o_portier', '978-88-301-0526-3', true);
+INSERT INTO PREFERITI_F (Username, ISBN, Preferito)
+VALUES ('Bocciolo', true);
+INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione, Preferito)
+VALUES ('Alfreducciopanevino', '978-88-3101-288-1', 'Bello da leggere mentre sto bloccato in Germania', 4, true);
+INSERT INTO PREFERITI_F (Username, ISBN, Preferito)
+VALUES ('Macinino45', '978-88-3100-340-7', true);
+INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione, Preferito)
+VALUES ('ImpastoLievitato', '978-88-9543-776-7', 'Davvero ben cresciuto!', 4, true);
 
 -- POSSESSO_S --
 
+INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
+VALUES (1, '978-88-3101-382-6', 'Cartcaeo', 3);
+INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
+VALUES (2, '978-88-3100-010-9', 'Cartaceo', 0);
+INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
+VALUES (3, '978-00-0758-114-6', 'Cartaceo', 2);
+
 -- PREFERITI_S --
+
+INSERT INTO PREFERITI_S (Username, ISBN, Recensione, Valutazione, Preferito)
+VALUES ('Flomil', '978-88-3101-382-6', 'Davvero bello!', 4, true);
+INSERT INTO PREFERITI_S (Username, ISBN, Recensione, Valutazione)
+VALUES ('Corinnio', '978-88-3100-010-9', 'Non mi è piaciuto.', 2);
+INSERT INTO PREFERITI_S (Username, ISBN, Recensione, Valutazione, Preferito)
+VALUES ('CatCat', '978-00-0758-114-6', 'UWU', 5, true);
+INSERT INTO PREFERITI_S (Username, ISBN, Recensione, Valutazione)
+VALUES ('Imma', '978-88-3101-382-6', 'Non mi esprimo...', 1);
+INSERT INTO PREFERITI_S (Username, ISBN, Recensione, Valutazione, Preferito)
+VALUES ('Leoncino', '978-88-3100-010-9', 'Davvero carino :3', 4, true);
