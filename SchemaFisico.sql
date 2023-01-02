@@ -91,7 +91,7 @@ CREATE TABLE SERIE
 (
     CodS SERIAL PRIMARY KEY,
     Titolo VARCHAR(256) NOT NULL,
-    ISSN issn UNIQUE,
+    ISBN isbn UNIQUE,
     DataPubblicazione DATE NOT NULL,
     NLibri INT NOT NULL
 );
