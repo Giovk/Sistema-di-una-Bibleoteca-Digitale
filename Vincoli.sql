@@ -174,3 +174,27 @@ CHECK(
         HAVING COUNT(*)<>S.NLibri
     )
 );
+
+-- La quantita di serie disponibili deve essere uguale al numero minore di libri disponibili inseriti nella serie e
+-- la fruizione deve essere uguale a quella dei libri disponibili inseriti nella serie
+CREATE ASSERTION A8
+CHECK(
+    NOT EXISTS(
+        FROM ((((POSSESSO_S AS PS NATURAL JOIN SERIE AS S) NATURAL JOIN INSERIMENTO AS I) 
+                JOIN LIBRO AS L ON L.ISBN = I.Libro) JOIN POSSESSO_L AS PL ON PL.ISBN=L.ISBN )
+        WHERE PS.Quantita<>(
+                                SELECT MIN(Quantita)
+                                FROM POSSESSO_L
+                                WHERE Fruizione = 'Cartaceo' 
+                                GROUP BY CodL
+            ) OR PS.Fruizione <> (
+                                    SELECT DISTINCT Fruizione
+                                    FROM POSSESSO_L
+                                    WHERE ISBN IN(
+                                                    SELECT Libro
+                                                    FROM INSERIMENTO AS I
+                                                    WHERE I.Serie=S.ISBN
+                                        )     
+            )
+    )
+);
