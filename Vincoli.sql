@@ -135,10 +135,41 @@ CONSTRAINT C15
     CHECK (VALUE LIKE '___________');
 
 -- Una libreria se non ha un sito web deve avere l'indirizzo o viceversa
+ALTER TABLE LIBRERIA
+ADD CONSTRAINT C16
+CHECK((SitoWeb IS NULL AND indirizzo IS NOT NULL) OR (SitoWeb IS NOT NULL AND indirizzo IS NULL) OR 
+        (SitoWeb IS NOT NULL AND indirizzo IS NOT NULL));
 
--- La data di una conferenza deve essere compresa tra quella dell'articolo esposto e quella della pubblicazione del 
--- fascicolo
+-- La data di una conferenza deve essere compresa tra quella della pubblicazione dell'articolo esposto e quella della
+-- pubblicazione del fascicolo
+CREATE ASSERTION A6
+CHECK(
+    NOT EXISTS(
+        SELECT *
+        FROM ((((CONFERENZA AS C NATURAL JOIN ESPOSIZIONE AS E) NATURAL JOIN ARTICOLO_SCIENTIFICO AS AR) NATURAL JOIN 
+                INTRODUZIONE AS I) NATURAL JOIN FASCICOLO AS F)  
+        WHERE EXTRACT(YEAR FROM C.DataInizio)<AR.AnnoPubblicazione OR C.DataInizio>F.DataPubblicazione
+    )
+);
 
 -- La data di una presentazione deve essere successiva (o uguale) a quella della pubblicazione del libro presentato
+CREATE ASSERTION A7
+CHECK(
+    NOT EXISTS(
+        SELECT *
+        FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS P  
+        WHERE P.DataP<L.DataPubblicazione
+    )
+);
 
 -- Una libreria per possedere una serie deve possedere tutti i lbri inseriti nella serie
+CREATE ASSERTION A8
+CHECK(
+    NOT EXISTS(
+        SELECT COUNT(*)
+        FROM (POSSESSO_S AS PS NATURAL JOIN SERIE AS S) 
+        WHERE (PS.Quantita>0 AND PS.Fruizione='Cartaceo') OR PS.Quantita IS NULL
+        GROUP BY PS.CodL, PS.Fruizione
+        HAVING COUNT(*)<>S.NLibri
+    )
+);
