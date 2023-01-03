@@ -182,7 +182,7 @@ CHECK(
     NOT EXISTS(
         SELECT *
         FROM ((((POSSESSO_S AS PS NATURAL JOIN SERIE AS S) NATURAL JOIN INSERIMENTO AS I) 
-                JOIN LIBRO AS L ON L.ISBN = I.Libro) JOIN POSSESSO_L AS PL ON PL.ISBN=L.ISBN )
+                JOIN LIBRO AS L ON L.ISBN = I.Libro) JOIN POSSESSO_L AS PL ON PL.ISBN=L.ISBN)
         WHERE PS.Quantita<>(
                                 SELECT MIN(Quantita)
                                 FROM POSSESSO_L
