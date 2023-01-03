@@ -170,7 +170,7 @@ CHECK(
         FROM ((((POSSESSO_S AS PS NATURAL JOIN SERIE AS S) NATURAL JOIN INSERIMENTO AS I) 
                 JOIN LIBRO AS L ON L.ISBN = I.Libro) JOIN POSSESSO_L AS PL ON PL.ISBN=L.ISBN )
         WHERE (PL.Quantita>0 AND PL.Fruizione='Cartaceo') OR PL.Quantita IS NULL
-        GROUP BY PL.CodL, PL.Fruizione
+        GROUP BY PL.CodL, PL.Fruizione, S.NLibri
         HAVING COUNT(*)<>S.NLibri
     )
 );
