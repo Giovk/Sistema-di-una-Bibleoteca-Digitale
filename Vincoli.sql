@@ -177,7 +177,7 @@ CHECK(
 
 -- La quantita di serie disponibili deve essere uguale al numero minore di libri disponibili inseriti nella serie e
 -- la fruizione deve essere uguale a quella dei libri disponibili inseriti nella serie
-CREATE ASSERTION A8
+CREATE ASSERTION A9
 CHECK(
     NOT EXISTS(
         FROM ((((POSSESSO_S AS PS NATURAL JOIN SERIE AS S) NATURAL JOIN INSERIMENTO AS I) 
