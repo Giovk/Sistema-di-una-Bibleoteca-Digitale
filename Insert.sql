@@ -46,7 +46,7 @@ VALUES ('Cruzz_o_portier', 'popopopo@gmail.com', 'fozzanapoli', 'Ciro', 'Esposit
 INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --22
 VALUES ('Bocciolo', 'pratofiorito@outlook.com', 'fiordariso11', 'Fiore', 'Dell Orto');
 INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --23
-VALUES ('Afreducciopanevino', 'dalcaldo.alfredo@gmail.com', 'microonde69', 'Alfredo', 'Dal Caldo');
+VALUES ('Alfreducciopanevino', 'dalcaldo.alfredo@gmail.com', 'microonde69', 'Alfredo', 'Dal Caldo');
 INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --24
 VALUES ('Morfeo13', 'russo.felice@studenti.unina.it', 'Pisolino41', 'Felice', 'Russo');
 INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --25
@@ -64,12 +64,14 @@ VALUES ('ImpastoLievitato', 'pizza.margherita@vivanapoli.it', 'Sorbillo<3', 'Mar
 
 -- LIBRERIA --
 
+ALTER SEQUENCE libreria_seq_id RESTART WITH 1;
+
 INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore) --1
-VALUES ('0819264947', 'Hoshizora Club' ,'www.hoshizoraclub.it', 'Via Tito Speri 5, 80014, Giugliano in Campania (Na), Napoli, Italia', 'admin1');
+VALUES ('0819264947', 'Hoshizora Club' ,'www.hoshizoraclub.it', 'Via Tito Speri 5, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Admin1');
 INSERT INTO LIBRERIA (NumeroTelefonico, Nome, Indirizzo, Gestore) --2
-VALUES ('0813044196', 'Libreria Nappo','Corso Sirena 85, 80147, Napoli, Italia', 'admin2');
+VALUES ('0813044196', 'Libreria Nappo','Corso Sirena 85, 80147, Napoli, Italia', 'Admin2');
 INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore) --3
-VALUES ('0818595071', 'DigitalWorldCommunity', 'www.digitalworldcommunity.com', 'Via Marchesella 7, 80014, Giugliano in Campania (Na), Napoli, Italia', 'admin1');
+VALUES ('0818595071', 'DigitalWorldCommunity', 'www.digitalworldcommunity.com', 'Via Marchesella 7, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Admin1');
 INSERT INTO LIBRERIA (NumeroTelefonico, Nome, Indirizzo, Gestore) --4
 VALUES ('0815522005', 'Libreria Fiorentino', 'Via Trinita Maggiore 35, 80134, Napoli, Italia', 'Giudil');
 INSERT INTO LIBRERIA (NumeroTelefonico, Nome, Indirizzo, Gestore) --5
@@ -109,7 +111,7 @@ VALUES ('0036-4681', 'Edizioni Dedalo', 'Scienze', 'Armaroli', 'Nicola', 'Sapere
 -- Articolo Scientifico --
 
 INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00001', "Che cosa significa allineare l''inteliggenza artificiale ai valori umani?", 2022); 
+VALUES ('10-00001', 'Che cosa significa allineare l''inteliggenza artificiale ai valori umani?', 2022); 
 INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
 VALUES ('10-00002', 'Evaluating Understanding on Conceptual Abstraction Benchmarks', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
@@ -227,6 +229,8 @@ VALUES ('10-00058', 'Batterie quantiche superveloci', 2022);
 
 -- AUTORE --
 
+ALTER SEQUENCE autore_seq_id RESTART WITH 1;
+
 INSERT INTO AUTORE (Nome, Cognome) --1
 VALUES ('Melanie', 'Mitchell');
 INSERT INTO AUTORE (Nome, Cognome) --2
@@ -299,7 +303,7 @@ INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --35
 VALUES ('Antonia', 'Cava', 'Italiana');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --36
 VALUES ('Rebecca', 'Mantovani', 'Italiana');
-INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --37
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --37
 VALUES ('Alberto', 'Angela', 'Italiana', '1962-04-08');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --38
 VALUES ('Chiara', 'Guzzonato', 'Italiana', '1974-02-23'); 
@@ -533,6 +537,8 @@ VALUES ('10-00058', 64);
 
 -- FASCICOLO --
 
+ALTER SEQUENCE fascicolo_seq_id RESTART WITH 1;
+
 INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --1
 VALUES (1, 'GEDI Gruppo Editoriale', '2021-12-28', '0036-8083');
 INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN) --2
@@ -692,6 +698,8 @@ INSERT INTO INTRODUZIONE (CodF, DOI)
 VALUES (19, '10-00058');
 
 -- CONFERENZEA --
+
+ALTER SEQUENCE conferenza_seq_id RESTART WITH 1;
 
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine) --1
 VALUES ('Piazza Roma 22, 60121, Ancona, Italia', 'Università Politecnica Delle Marche', '2021-10-12', '2021-10-16');
@@ -956,6 +964,8 @@ VALUES ('978-88-301-0528-6', '978-00-0758-114-6', 3);
 
 -- COLLANA --
 
+ALTER SEQUENCE collana_seq_id RESTART WITH 1;
+
 INSERT INTO COLLANA (Nome, Caratteristica)
 VALUES ('Macabre', 'Stephen King');
 INSERT INTO COLLANA (Nome, Caratteristica)
@@ -1009,6 +1019,9 @@ INSERT INTO APPARTENENZA (ISBN, CodC)
 VALUES ('978-88-9190-165-1', 5);
 
 -- PRESENTAZIONE --
+
+ALTER SEQUENCE presentazione_seq_id RESTART WITH 1;
+
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
 VALUES ('Piazza Antonio Stradivari 6, 26100, Cremona, Italia', 'Mondadori BookStore', '2022-03-25', '17:15', '978-12-8007-834-6');
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
@@ -1096,7 +1109,7 @@ VALUES (7 , 4, 'Cartaceo', 4);
 INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
 VALUES (7 , 3, 'Digitale');
 INSERT INTO POSSESSO_F (CodL, CodF, Fruizione)
-VALUES (7 , 4, 'Diitale');
+VALUES (7 , 4, 'Digitale');
 INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
 VALUES (8, 6, 'Cartaceo', 0);
 INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
@@ -1209,31 +1222,31 @@ INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
 VALUES (11, '978-12-8007-834-6', 'AudioLibro');
 
 -- PREFERITI_L --
-INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione, Preferito)
-VALUES ('Benzir', '978-88-6311-435-5', 'Davvero Bello!', 5, true);
-INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione)
+INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione, Preferito)
+VALUES ('Benriz', '978-88-6311-435-5', 'Davvero Bello!', 5, true);
+INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione)
 VALUES ('Etzio', '978-88-6311-435-5', 'Non mi è piaciuto :C', 1);
-INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione)
+INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione)
 VALUES ('DonRodrigo', '978-88-6137-869-8', 'Brutto', 2);
-INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione, Preferito)
+INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione, Preferito)
 VALUES ('ConteDiCavour', '978-88-9190-165-1', 'Mi consenta, Davvero S-U-P-E-R-B-O-!', 5, true);
-INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione)
+INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione)
 VALUES ('Porticata', '978-12-8007-834-6', 'DAVVERO, CON STO LIBRO, MI SI è CHIUSO UN PORTONE', 2);
-INSERT INTO PREFERITI_F (Username, ISBN, Preferito)
+INSERT INTO PREFERITI_L (Username, ISBN, Preferito)
 VALUES ('Cruzz_o_portier', '978-88-301-0526-3', true);
-INSERT INTO PREFERITI_F (Username, ISBN, Preferito)
-VALUES ('Bocciolo', true);
-INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione, Preferito)
+INSERT INTO PREFERITI_L (Username, ISBN, Preferito)
+VALUES ('Bocciolo', '978-88-301-0526-3', true);
+INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione, Preferito)
 VALUES ('Alfreducciopanevino', '978-88-3101-288-1', 'Bello da leggere mentre sto bloccato in Germania', 4, true);
-INSERT INTO PREFERITI_F (Username, ISBN, Preferito)
+INSERT INTO PREFERITI_L (Username, ISBN, Preferito)
 VALUES ('Macinino45', '978-88-3100-340-7', true);
-INSERT INTO PREFERITI_F (Username, ISBN, Recensione, Valutazione, Preferito)
+INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione, Preferito)
 VALUES ('ImpastoLievitato', '978-88-9543-776-7', 'Davvero ben cresciuto!', 4, true);
 
 -- POSSESSO_S --
 
 INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
-VALUES (1, '978-88-3101-382-6', 'Cartcaeo', 3);
+VALUES (1, '978-88-3101-382-6', 'Cartaceo', 3);
 INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
 VALUES (2, '978-88-3100-010-9', 'Cartaceo', 0);
 INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
