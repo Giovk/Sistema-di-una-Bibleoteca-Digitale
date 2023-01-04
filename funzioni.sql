@@ -87,49 +87,11 @@ CREATE TRIGGER T_inserimentoIntroduzione AFTER INSERT ON INTRODUZIONE
 CREATE TRIGGER T_modificaIntroduzione AFTER UPDATE ON INTRODUZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_introduzioneArticolo();
 
--- Quando viene modificato l'anno di pubblicazione dell'articolo il nuovo anno non deve essere successivo a quello
--- della di pubblicazione dei fascicoli che contengono l'articolo modificato
-CREATE FUNCTION controllo_modificaArticolo() RETURNS trigger AS $$
-DECLARE
-    errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
-    anno_fascicoloCorrente INTEGER;
 
-    cursore_anniFascicoli CURSOR FOR    --contiene gli anni di pubblicazione dei fascioli con l'articolo modificato
-        SELECT EXTRACT(YEAR FROM F.DataPubblicazione)
-        FROM FASCICOLO AS F NATURAL JOIN INTRODUZIONE AS I
-        WHERE I.DOI=NEW.DOI;
-BEGIN
-    OPEN  cursore_anniFascicoli;
-
-    LOOP
-        FETCH cursore_anniFascicoli INTO anno_fascicoloCorrente;
-
-        EXIT WHEN NOT FOUND OR errore_trovato=true;
-
-        IF NEW.AnnoPubblicazione>anno_fascicoloCorrente THEN --controlla se l'articolo aggiornato è stato pubblicato dopo al fascicolo
-            UPDATE ARTICOLO_SCIENTIFICO
-            SET AnnoPubblicazione=OLD.AnnoPubblicazione
-            WHERE DOI=NEW.DOI;
-            
-            errore_trovato:=true;
-
-            RAISE NOTICE "Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo";
-        END IF;
-    END LOOP;
-
-    CLOSE cursore_anniFascicoli;
-
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER T_modifica_pubblicazioneArticolo AFTER UPDATE OF AnnoPubblicazione ON ARTICOLO_SCIENTIFICO
-    WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione)
-    FOR EACH ROW EXECUTE FUNCTION controllo_modificaArticolo();
 
 -- Quando viene modificato la data di pubblicazione del fascicolo l'anno della nuova data non deve essere precedente a
 -- quello dell'anno di pubblicazione degli articoli nel fascicolo modificato
-CREATE FUNCTION controllo_modificaFascicolo() RETURNS trigger AS $$
+CREATE FUNCTION controllo_modificaFascicolo_Articoli() RETURNS trigger AS $$
 DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
     anno_articoloCorrente ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
@@ -248,3 +210,128 @@ CREATE TRIGGER T_inserimentoLibroSerie AFTER INSERT ON INSERIMENTO
 
 -- Quando viene esposto un articolo scientifico in una conferenza la data della conferenza non deve essere precedente
 -- quella dell'articolo
+CREATE FUNCTION controllo_introduzioneArticolo() RETURNS trigger AS $$
+DECLARE
+    pubblicazione_articolo_scientifico ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
+    inizio_conferenza INTEGER;
+BEGIN
+    SELECT AnnoPubblicazione INTO pubblicazione_articolo_scientifico --trova l'anno di pubblicazione dell'articolo inserito
+    FROM ARTICOLO_SCIENTIFICO
+    WHERE DOI=NEW.DOI;
+
+    SELECT EXTRACT(YEAR FROM DataInizio) INTO inizio_conferenza --trova l'anno di inizio della conferenza inserita
+    FROM CONFERENZA
+    WHERE CodC=NEW.CodC;
+
+    IF inizio_conferenza<pubblicazione_articolo_scientifico THEN --controlla se la conferenza inizia prima della pubblicazione dell'articolo
+        DELETE ESPOSIZIONE
+        WHERE CodF=NEW.CodF AND DOI=NEW.DOI;
+
+        RAISE NOTICE "Non è possibile inserire in una conferenza un articolo scientifico non ancora pubblicato";
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoEsposizione AFTER INSERT ON INTRODUZIONE
+    FOR EACH ROW EXECUTE FUNCTION controllo_esposizioneArticolo();
+CREATE TRIGGER T_modificaEsposizione AFTER UPDATE ON INTRODUZIONE
+    FOR EACH ROW EXECUTE FUNCTION controllo_esposizioneArticolo();
+
+-- Quando viene modificato l'anno di pubblicazione dell'articolo il nuovo anno non deve essere successivo a quello
+-- di inizio della conferenza
+CREATE FUNCTION controllo_modificaArticolo() RETURNS trigger AS $$
+DECLARE
+    errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
+    anno_conferenzaCorrente INTEGER;
+
+    cursore_anniConferenze CURSOR FOR    --contiene gli anni di pubblicazione dei fascioli con l'articolo modificato
+        SELECT EXTRACT(YEAR FROM F.DataPubblicazione)
+        FROM CONFERENZA AS C NATURAL JOIN ESPOSIZIONE AS E
+        WHERE E.DOI=NEW.DOI;
+BEGIN
+    OPEN anno_conferenzaCorrente;
+
+    LOOP
+        FETCH cursore_anniConferenze INTO anno_conferenzaCorrente;
+
+        EXIT WHEN NOT FOUND OR errore_trovato=true;
+
+        IF NEW.AnnoPubblicazione>anno_conferenzaCorrente THEN --controlla se l'articolo aggiornato è stato pubblicato dopo al fascicolo
+            UPDATE ARTICOLO_SCIENTIFICO
+            SET AnnoPubblicazione=OLD.AnnoPubblicazione
+            WHERE DOI=NEW.DOI;
+            
+            errore_trovato:=true;
+
+            RAISE NOTICE "Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo";
+        END IF;
+    END LOOP;
+
+    CLOSE cursore_anniConferenze;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_modifica_pubblicazioneArticolo AFTER UPDATE OF AnnoPubblicazione ON ARTICOLO_SCIENTIFICO
+    WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione)
+    FOR EACH ROW EXECUTE FUNCTION controllo_modificaArticolo();
+
+-- Quando viene modificato la data di inizio della conferenza l'anno della nuova data non deve essere precedente a
+-- quello dell'anno di pubblicazione degli articoli esposti o successiva a quella dei fascicoli
+CREATE FUNCTION controllo_modificaConferenza() RETURNS trigger AS $$
+DECLARE
+    contatore INTEGER;
+
+    SELECT CONT(*) INTO contatore
+    FROM ((((CONFERENZA AS CO NATURAL JOIN ESPOSIZIONE AS E) NATURAL JOIN ARTICOLO_SCIENTIFICO AS AR) 
+            NATURAL JOIN INTRODUZIONE AS I) NATURAL JOIN FASCICOLO AS F)  
+    WHERE (EXTRACT(YEAR FROM CO.DataInizio)<AR.AnnoPubblicazione OR CO.DataInizio>F.DataPubblicazione) AND 
+            CO.CodC=NEW.CodC;
+BEGIN
+   
+    IF contatore>0 THEN --controlla se l'anno della nuova data non è compresa tra quella della pubblicazione dell'articolo e quella del fascicolo
+        UPDATE CONFERENZA
+        SET DataInizio=OLD.DataInizio
+        WHERE CodF=NEW.CodF;
+        
+        RAISE NOTICE "Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo";
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_modifica_inizioConferenza AFTER UPDATE OF DataInizio ON CONFEREZA
+    FOR EACH ROW EXECUTE FUNCTION controllo_modificaConferenza();
+
+-- Quando viene modificato la data di pubblicazione del fascicolo l'anno della nuova data non deve essere precedente a
+-- quello dell'anno di inizio delle conferenze degli articoli nel fascicolo modificato
+CREATE FUNCTION controllo_modificaFascicolo_Conferenze() RETURNS trigger AS $$
+DECLARE
+    contatore INTEGER;
+
+    SELECT CONT(*) INTO contatore
+    FROM ((((CONFERENZA AS CO NATURAL JOIN ESPOSIZIONE AS E) NATURAL JOIN ARTICOLO_SCIENTIFICO AS AR) 
+            NATURAL JOIN INTRODUZIONE AS I) NATURAL JOIN FASCICOLO AS F)  
+    WHERE CO.DataInizio>F.DataPubblicazione AND CO.CodF=NEW.CodF;
+BEGIN
+   
+    IF contatore>0 THEN --controlla se l'anno della nuova data è deve essere precedente a quello dell'anno di pubblicazione degli articoli esposti o è successiva a quella dei fascicoli
+        UPDATE FASCICOLO
+        SET DataPubblicazione=OLD.DataPubblicazione
+        WHERE CodF=NEW.CodF;
+        
+        RAISE NOTICE "Non è possibile inserire una data di pubblicazione di un fascicolo precedente a quella delle conferenze dei suoi articoli";
+    END IF;
+
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_modifica_pubblicazioneFascicolo AFTER UPDATE OF DataPubblicazione ON FASCICOLO
+    WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
+    FOR EACH ROW EXECUTE FUNCTION controllo_modificaFascicolo();
