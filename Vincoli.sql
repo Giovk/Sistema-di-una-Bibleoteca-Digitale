@@ -8,8 +8,8 @@ CHECK(
     )
 );
 
--- Un articolo scientifico pubblicato in un fascicolo di una rivista non può avere una anno 
--- di pubblicazione maggiore dell'anno della data di pubblicazione del fascicolo che lo contiene  
+-- Un articolo scientifico pubblicato in un fascicolo di una rivista non può avere una anno di pubblicazione maggiore
+-- dell'anno della data di pubblicazione del fascicolo che lo contiene  
 CREATE ASSERTION A2
 CHECK(
     NOT EXISTS(
