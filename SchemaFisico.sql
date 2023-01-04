@@ -11,9 +11,11 @@ CREATE TABLE UTENTE
     Cognome VARCHAR(64) NOT NULL
 );
 
+CREATE SEQUENCE libreria_seq_id;
+
 CREATE TABLE LIBRERIA
 (
-    CodL SERIAL PRIMARY KEY,
+    CodL INT NOT NULL DEFAULT NEXTVAL('libreria_seq_id') PRIMARY KEY,
     NumeroTelefonico VARCHAR(10) NOT NULL,
     SitoWeb VARCHAR(128),
     Nome VARCHAR(128) NOT NULL,
@@ -29,7 +31,7 @@ CREATE DOMAIN issn AS VARCHAR(9)
 
 CREATE TABLE RIVISTA
 (
-    ISSN issn PRIMARY KEY, -- Vincolo posizine trattini EX: ####-####
+    ISSN issn PRIMARY KEY,
     Editore VARCHAR(64) NOT NULL,
     Argomento VARCHAR(256) NOT NULL,
     CognomeR VARCHAR(64) NOT NULL,
@@ -48,9 +50,11 @@ CREATE TABLE ARTICOLO_SCIENTIFICO
     AnnoPubblicazione INT NOT NULL 
 );
 
+CREATE SEQUENCE fascicolo_seq_id;
+
 CREATE TABLE FASCICOLO
 (
-    CodF SERIAL PRIMARY KEY,
+    CodF INT NOT NULL DEFAULT NEXTVAL('fascicolo_seq_id') PRIMARY KEY,
     Numero INT NOT NULL DEFAULT 1, 
     Editore VARCHAR(64) NOT NULL,
     DataPubblicazione DATE NOT NULL,
@@ -72,13 +76,15 @@ CREATE TABLE INTRODUZIONE
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE SEQUENCE conferenza_seq_id;
+
 CREATE TABLE CONFERENZA
 (
-    CodC SERIAL PRIMARY KEY,
+    CodC INT NOT NULL DEFAULT NEXTVAL('conferenza_seq_id') PRIMARY KEY,
     Luogo VARCHAR(256) NOT NULL,
     StrutturaOrganizzatrice VARCHAR(128) NOT NULL,
     DataInizio DATE NOT NULL,
-    DataFine DATE NOT NULL -- Aggiungere vincolo DataInizio <= DataFine
+    DataFine DATE NOT NULL
 );
 
 CREATE TABLE ESPOSIZIONE
@@ -87,9 +93,14 @@ CREATE TABLE ESPOSIZIONE
     CodC INT,
 
     PRIMARY KEY(DOI, CodC),
-    FOREIGN KEY(DOI) REFERENCES ARTICOLO_SCIENTIFICO(DOI),
+    FOREIGN KEY(DOI) REFERENCES ARTICOLO_SCIENTIFICO(DOI)
+        ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(CodC) REFERENCES CONFERENZA(CodC)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE DOMAIN isbn AS VARCHAR(17)
+    CONSTRAINT C2 CHECK (VALUE LIKE '978-%-%-_');
 
 CREATE TABLE SERIE
 (
@@ -99,12 +110,9 @@ CREATE TABLE SERIE
     NLibri INT NOT NULL
 );
 
-CREATE DOMAIN isbn AS VARCHAR(17)
-    CONSTRAINT C2 CHECK (VALUE LIKE '978-%-%-_');
-
 CREATE TABLE LIBRO
 (
-    ISBN isbn PRIMARY KEY, -- Vincolo posizine trattini EX: ###-##-##-#####-#
+    ISBN isbn PRIMARY KEY,
     Titolo VARCHAR(256) NOT NULL,
     Genere VARCHAR(64) NOT NULL,
     Lingua VARCHAR(64) NOT NULL,
@@ -115,12 +123,14 @@ CREATE TABLE LIBRO
 CREATE TABLE INSERIMENTO
 (
     Serie isbn,
-    Libro isbn, -- Vincolo posizine trattini EX: ___-__-__-_____-_
-    Ordine INT NOT NULL, -- Vincolo (Ordine <= NLibri) && (OrdineUltimoInserito < OrdineAttuale)
+    Libro isbn,
+    Ordine INT NOT NULL,
 
     PRIMARY KEY(Serie, Libro),
-    FOREIGN KEY(Serie) REFERENCES SERIE(ISBN),
-    FOREIGN KEY(Libro) REFERENCES LIBRO(ISBN)  
+    FOREIGN KEY(Serie) REFERENCES SERIE(ISBN)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(Libro) REFERENCES LIBRO(ISBN)
+        ON DELETE CASCADE ON UPDATE CASCADE  
 );
 
 CREATE DOMAIN fruizione AS VARCHAR(10)
@@ -130,12 +140,14 @@ CREATE TABLE POSSESSO_F
 (
     CodL INT,
     CodF INT,
-    Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
-    Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
+    Fruizione fruizione NOT NULL,
+    Quantita INT,
 
     PRIMARY KEY(CodL, CodF, Fruizione),
-    FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
-    FOREIGN KEY(CodF) REFERENCES FASCICOLO(CodF)  
+    FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(CodF) REFERENCES FASCICOLO(CodF)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE PREFERITI_F
@@ -143,24 +155,28 @@ CREATE TABLE PREFERITI_F
     Username VARCHAR(30),
     CodF INT,
     Recensione VARCHAR(512),
-    Valutazione INT, -- Vincolo 0 <= Valutazione <= 5
+    Valutazione INT,
     Preferito BOOLEAN DEFAULT false,
 
     PRIMARY KEY(Username, CodF),
-    FOREIGN KEY(Username) REFERENCES UTENTE(Username),
-    FOREIGN KEY(CodF) REFERENCES FASCICOLO(CodF)  
+    FOREIGN KEY(Username) REFERENCES UTENTE(Username)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(CodF) REFERENCES FASCICOLO(CodF) 
+        ON DELETE CASCADE ON UPDATE CASCADE 
 );
 
 CREATE TABLE POSSESSO_S
 (
     CodL INT,
     ISBN isbn,
-    Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
-    Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
+    Fruizione fruizione NOT NULL,
+    Quantita INT,
 
     PRIMARY KEY(CodL, ISBN, Fruizione),
-    FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
+    FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL)
+        ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(ISBN) REFERENCES SERIE(ISBN)  
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE PREFERITI_S
@@ -168,55 +184,66 @@ CREATE TABLE PREFERITI_S
     Username VARCHAR(30),
     ISBN isbn,
     Recensione VARCHAR(512),
-    Valutazione INT, -- Vincolo 0 <= Valutazione <= 5,
+    Valutazione INT,
     Preferito BOOLEAN DEFAULT false,
 
     PRIMARY KEY(Username, ISBN),
-    FOREIGN KEY(Username) REFERENCES UTENTE(Username),
+    FOREIGN KEY(Username) REFERENCES UTENTE(Username)
+        ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(ISBN) REFERENCES SERIE(ISBN)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE POSSESSO_L
 (
     CodL INT,
-    ISBN isbn, -- Vincolo posizine trattini 
-    Fruizione fruizione NOT NULL, -- Vincolo i valori possibili possono essere: "Cartaceo", "Digitale" e "AudioLibro".
-    Quantita INT, -- Vincolo NOT NULL if (Fruizione == ("Digitale" || "AudioLibro")).
+    ISBN isbn,
+    Fruizione fruizione NOT NULL,
+    Quantita INT,
 
     PRIMARY KEY(CodL, ISBN, Fruizione),
-    FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL),
-    FOREIGN KEY(ISBN) REFERENCES LIBRO(ISBN)  
+    FOREIGN KEY(CodL) REFERENCES LIBRERIA(CodL)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(ISBN) REFERENCES LIBRO(ISBN)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE PREFERITI_L
 (
     Username VARCHAR(30),
-    ISBN isbn, -- Vincolo posizine trattini
+    ISBN isbn,
     Recensione VARCHAR(512),
-    Valutazione INT, -- Vincolo 0 <= Valutazione <= 5,
+    Valutazione INT,
     Preferito BOOLEAN DEFAULT false,
 
     PRIMARY KEY(Username, ISBN),
-    FOREIGN KEY(Username) REFERENCES UTENTE(Username),
+    FOREIGN KEY(Username) REFERENCES UTENTE(Username)
+        ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(ISBN) REFERENCES LIBRO(ISBN)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE SEQUENCE presentazione_seq_id;
 
 CREATE TABLE PRESENTAZIONE
 (
-    CodP INT,
+    CodP INT NOT NULL DEFAULT NEXTVAL('presentazione_seq_id'),
     Luogo VARCHAR(256) NOT NULL,
     Struttura VARCHAR(128) NOT NULL,
     DataP DATE NOT NULL,
     Ora TIME NOT NULL,
-    ISBN isbn,  -- Vincolo posizine trattini
+    ISBN isbn,
 
     PRIMARY KEY(CodP, ISBN),
     FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN) 
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE SEQUENCE collana_seq_id;
 
 CREATE TABLE COLLANA
 (
-    CodC SERIAL PRIMARY KEY,
+    CodC INT NOT NULL DEFAULT NEXTVAL('collana_seq_id') PRIMARY KEY,
     Nome VARCHAR(256) NOT NULL,
     ISSN issn UNIQUE,
     Caratteristica VARCHAR(128) NOT NULL
@@ -224,17 +251,22 @@ CREATE TABLE COLLANA
 
 CREATE TABLE APPARTENENZA
 (
-    ISBN isbn,  -- Vincolo posizine trattini 
+    ISBN isbn,
     CodC INT,
     
     PRIMARY KEY(ISBN, CodC),
-    FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN),
-    FOREIGN KEY (CodC) REFERENCES COLLANA(CodC) 
+    FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (CodC) REFERENCES COLLANA(CodC)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE SEQUENCE autore_seq_id;
+ALTER SEQUENCE autore_seq_id RESTART WITH 1;
 
 CREATE TABLE AUTORE
 (
-    CodA SERIAL PRIMARY KEY,
+    CodA INT NOT NULL DEFAULT NEXTVAL('autore_seq_id') PRIMARY KEY,
     Nome VARCHAR(64) NOT NULL,
     Cognome VARCHAR(64) NOT NULL,
     Nazionalita VARCHAR(64),
@@ -247,16 +279,20 @@ CREATE TABLE SCRITTURA_A
     CodA INT,
 
     PRIMARY KEY(DOI, CodA),
-    FOREIGN KEY (DOI) REFERENCES ARTICOLO_SCIENTIFICO(DOI),
+    FOREIGN KEY (DOI) REFERENCES ARTICOLO_SCIENTIFICO(DOI)
+        ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (CodA) REFERENCES AUTORE(CodA) 
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE SCRITTURA_L
 (
-    ISBN isbn, -- Vincolo posizine trattini 
+    ISBN isbn,
     CodA INT,
 
     PRIMARY KEY(ISBN, CodA),
-    FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN),
-    FOREIGN KEY (CodA) REFERENCES AUTORE(CodA) 
+    FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (CodA) REFERENCES AUTORE(CodA)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
