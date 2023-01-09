@@ -100,7 +100,7 @@ VALUES ('0026-4423', 'GEDI Gruppo Editoriale', 'Psicologia', 'Cattaneo', 'Marco'
 INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --4
 VALUES ('2724-2641', 'Gruppo B Editore', 'Scienze', 'Hack', 'Margherita', 'Le Stelle', 2002);
 INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --5
-VALUES ('2531-3975', 'Giovanna Truda', 'Scienze Umane', 'Fangone', 'Emiliana', 'Culture e Studi del Sociale', 2022);
+VALUES ('2531-3975', 'Giovanna Truda', 'Scienze Umane', 'Fangone', 'Emiliana', 'Culture e Studi del Sociale', 2015);
 INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --6
 VALUES ('1357-1915', 'Arnoldo Mondadori Editore', 'Scienze', 'Loredan', 'Jacopo', 'Focus', 1992);
 INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --7
