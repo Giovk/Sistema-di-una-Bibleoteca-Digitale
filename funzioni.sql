@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION controllo_inserimentoLibreria() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 BEGIN
-    SELECT CONT(U.PartitaIVA) INTO contatore --controlla la partitaIVA del gestore della libreria inserita
+    SELECT COUNT(U.PartitaIVA) INTO contatore --controlla la partitaIVA del gestore della libreria inserita
     FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
     WHERE U.PartitaIVA IS NOT NULL AND U.Username=NEW.Gestore;
 
@@ -12,7 +12,7 @@ BEGIN
         DELETE LIBRERIA
         WHERE CodL=NEW.CodL;
 
-        RAISE NOTICE "Per inserire una nuova libreria è necessario specificare la PartitaIVA del gestore";
+        RAISE NOTICE 'Per inserire una nuova libreria è necessario specificare la PartitaIVA del gestore';
     END IF;
 
     RETURN NEW;
@@ -22,7 +22,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoLibreria AFTER INSERT ON LIBRERIA
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibreria();
 CREATE TRIGGER T_modificaGestore AFTER UPDATE OF Gestore ON LIBRERIA
-    FOR EACH ROW EXECUTE FUNCTION controllo_modificaGestore();
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibreria();
 
 -- Quando viene chiusa la partitaIVA di un gestore bisogna eliminare la sua libreria
 CREATE OR REPLACE FUNCTION chiusuraLibreria() RETURNS trigger AS $$
