@@ -291,7 +291,6 @@ DECLARE
     WHERE (EXTRACT(YEAR FROM CO.DataInizio)<AR.AnnoPubblicazione OR CO.DataInizio>F.DataPubblicazione) AND 
             CO.CodC=NEW.CodC;
 BEGIN
-   
     IF contatore>0 THEN --controlla se l'anno della nuova data non è compresa tra quella della pubblicazione dell'articolo e quella del fascicolo
         UPDATE CONFERENZA
         SET DataInizio=OLD.DataInizio
@@ -327,7 +326,6 @@ BEGIN
         RAISE NOTICE "Non è possibile inserire una data di pubblicazione di un fascicolo precedente a quella delle conferenze dei suoi articoli";
     END IF;
 
-
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -335,3 +333,68 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_modifica_pubblicazioneFascicolo AFTER UPDATE OF DataPubblicazione ON FASCICOLO
     WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaFascicolo();
+
+--Quando viene creata o modificata una presentazione la nuova data non puo essere precedente a quella della 
+--pubblicazione del libro
+CREATE FUNCTION controllo_Presentazione() RETURNS trigger AS $$
+DECLARE
+    contatore INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO contatore 
+    FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS P  
+    WHERE P.DataP<L.DataPubblicazione AND P.CodP=NEW.CodP;
+
+    IF contatore>0 THEN --controlla se la data della presentazione e precedente a quella della pubblicazion del libro
+        UPDATE PRESENTAZIONE
+        SET DataP=OLD.DataP, ISBN=OLD.ISBN
+        WHERE  P.CodP=NEW.CodP;
+
+        RAISE NOTICE "Non è possibile inserire una data di una presentazione di un libro non ancora pubblicato";
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoPresentazione AFTER INSERT ON PRESENTAZIONE
+    FOR EACH ROW EXECUTE FUNCTION controllo_Presentazione();
+CREATE TRIGGER T_modificaPresentazione AFTER UPDATE OF CodP, ISBN ON PRESENTAZIONE
+    WHEN(NEW.DataPubblicazione<=OLD.DataPubblicazione)
+    FOR EACH ROW EXECUTE FUNCTION controllo_Presentazione();
+
+--Quando viene modificata la data di pubblicazione del libro la nuova data non deve essere successiva a quelle delle
+--date di tutte le presentazioni del libro 
+CREATE FUNCTION controllo_Libro() RETURNS trigger AS $$
+DECLARE
+    errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
+    dataCorrente PRESENTAZIONE.DataP%TYPE;
+
+    cursore_datePresentazioni CURSOR FOR
+        SELECT P.DataP  --trova le date delle presentazioni del libro modificato
+        FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS P  
+        WHERE P.DataP<L.DataPubblicazione AND L.ISBN=NEW.ISBN;
+BEGIN
+    OPEN cursore_datePresentazioni;
+
+    LOOP
+        FETCH cursore_datePresentazioni INTO dataCorrente;
+
+        EXIT WHEN NOT FOUND OR errore_trovato=true;
+
+        IF dataCorrente<NEW.DataPubblicazione THEN --controlla se la data della presentazione e precedente a quella della pubblicazion del libro
+            UPDATE LIBRO
+            SET DataP=OLD.DataP
+            WHERE ISBN=NEW.ISBN;
+
+            errore_trovato:=true;
+            RAISE NOTICE "Non è possibile inserire una data di pubblicazione di un libro precedente a quella delle sue presentazioni";
+        END IF;
+    END LOOP;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_modificaLibro AFTER UPDATE OF DataPubblicazione ON LIBRO
+    WHEN(NEW.DataPubblicazione>OLD.DataPubblicazione)
+    FOR EACH ROW EXECUTE FUNCTION controllo_Libro();
