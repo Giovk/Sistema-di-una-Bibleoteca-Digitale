@@ -1,6 +1,6 @@
 -- Quando viene inserita una libreria di un utente, oppure viene modificato il gestore di una libreria, il gestore 
 -- deve avere una partitaIVA
-CREATE FUNCTION controllo_inserimentoLibreria() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_inserimentoLibreria() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 BEGIN
@@ -25,8 +25,7 @@ CREATE TRIGGER T_modificaGestore AFTER UPDATE OF Gestore ON LIBRERIA
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaGestore();
 
 -- Quando viene chiusa la partitaIVA di un gestore bisogna eliminare la sua libreria
-
-CREATE FUNCTION chiusuraLibreria() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION chiusuraLibreria() RETURNS trigger AS $$
 DECLARE
     libreria_corrente LIBRERIA.CodL%TYPE;
 
@@ -58,7 +57,7 @@ CREATE TRIGGER T_chiusura_partitaIVA AFTER UPDATE OF partitaIVA ON UTENTE
 
 -- Quando viene introdotto un articolo scientifico in un fascicolo la data di pubblicazione del fascicolo deve essere
 -- precedente a quella dell'articolo
-CREATE FUNCTION controllo_introduzioneArticolo() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_introduzioneArticolo() RETURNS trigger AS $$
 DECLARE
     pubblicazione_articolo_scientifico ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
     pubblicazione_fascicolo INTEGER;
@@ -87,11 +86,9 @@ CREATE TRIGGER T_inserimentoIntroduzione AFTER INSERT ON INTRODUZIONE
 CREATE TRIGGER T_modificaIntroduzione AFTER UPDATE ON INTRODUZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_introduzioneArticolo();
 
-
-
 -- Quando viene modificato la data di pubblicazione del fascicolo l'anno della nuova data non deve essere precedente a
 -- quello dell'anno di pubblicazione degli articoli nel fascicolo modificato
-CREATE FUNCTION controllo_modificaFascicolo_Articoli() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_modificaFascicolo_Articoli() RETURNS trigger AS $$
 DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
     anno_articoloCorrente ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
@@ -131,7 +128,7 @@ CREATE TRIGGER T_modifica_pubblicazioneFascicolo AFTER UPDATE OF DataPubblicazio
 
 -- Quando viene introdotto un fascicolo in una rivista, oppure viene modificata la data di pubblicazione o l'ISSN di
 -- un fascicolo, la data di pubblicazione del fascicolo deve essere successiva a quella della rivista
-CREATE FUNCTION controllo_inserimentoFascicolo() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_inserimentoFascicolo() RETURNS trigger AS $$
 DECLARE
     anno_pubblicazioneRivista RIVISTA.AnnoPubblicazione%TYPE;
 BEGIN
@@ -155,7 +152,7 @@ CREATE TRIGGER T_modificaFascicolo AFTER UPDATE OF DataPubblicazione, ISSN  ON F
 
 -- Quando viene modificata la data di pubblicazione di una rivista, la nuova data di pubblicazione non deve 
 -- essere successiva a quella dei fascicoli
-CREATE FUNCTION controllo_modificaRivista() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_modificaRivista() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER:=0;
 BEGIN
@@ -178,7 +175,7 @@ CREATE TRIGGER T_modificaRivista AFTER UPDATE OF AnnoPubblicazione ON RIVISTA
 
 -- L'ordine di un libro in una serie non deve essere maggiore al numero dei libri totali della serie (specificati in
 -- SERIE.NLibri) e ogni libro inserito deve rispettare la sequenza del campo 'ordine'
-CREATE FUNCTION T_inserimentoLibroSerie RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION T_inserimentoLibroSerie RETURNS trigger AS $$
 DECLARE
     cont_libri INTEGER; --numero di libri attualmente inseriti nella serie
     libri_tot SERIE.NLibri%TYPE --numero dei libri totali della serie
@@ -210,7 +207,7 @@ CREATE TRIGGER T_inserimentoLibroSerie AFTER INSERT ON INSERIMENTO
 
 -- Quando viene esposto un articolo scientifico in una conferenza la data della conferenza non deve essere precedente
 -- quella dell'articolo
-CREATE FUNCTION controllo_introduzioneArticolo() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_introduzioneArticolo() RETURNS trigger AS $$
 DECLARE
     pubblicazione_articolo_scientifico ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
     inizio_conferenza INTEGER;
@@ -241,7 +238,7 @@ CREATE TRIGGER T_modificaEsposizione AFTER UPDATE ON INTRODUZIONE
 
 -- Quando viene modificato l'anno di pubblicazione dell'articolo il nuovo anno non deve essere successivo a quello
 -- di inizio della conferenza
-CREATE FUNCTION controllo_modificaArticolo() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_modificaArticolo() RETURNS trigger AS $$
 DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
     anno_conferenzaCorrente INTEGER;
@@ -281,7 +278,7 @@ CREATE TRIGGER T_modifica_pubblicazioneArticolo AFTER UPDATE OF AnnoPubblicazion
 
 -- Quando viene modificato la data di inizio della conferenza l'anno della nuova data non deve essere precedente a
 -- quello dell'anno di pubblicazione degli articoli esposti o successiva a quella dei fascicoli
-CREATE FUNCTION controllo_modificaConferenza() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_modificaConferenza() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 
@@ -308,7 +305,7 @@ CREATE TRIGGER T_modifica_inizioConferenza AFTER UPDATE OF DataInizio ON CONFERE
 
 -- Quando viene modificato la data di pubblicazione del fascicolo l'anno della nuova data non deve essere precedente a
 -- quello dell'anno di inizio delle conferenze degli articoli nel fascicolo modificato
-CREATE FUNCTION controllo_modificaFascicolo_Conferenze() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_modificaFascicolo_Conferenze() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 
@@ -336,7 +333,7 @@ CREATE TRIGGER T_modifica_pubblicazioneFascicolo AFTER UPDATE OF DataPubblicazio
 
 --Quando viene creata o modificata una presentazione la nuova data non puo essere precedente a quella della 
 --pubblicazione del libro
-CREATE FUNCTION controllo_Presentazione() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_Presentazione() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 BEGIN
@@ -364,7 +361,7 @@ CREATE TRIGGER T_modificaPresentazione AFTER UPDATE OF CodP, ISBN ON PRESENTAZIO
 
 --Quando viene modificata la data di pubblicazione del libro la nuova data non deve essere successiva a quelle delle
 --date di tutte le presentazioni del libro 
-CREATE FUNCTION controllo_Libro() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_Libro() RETURNS trigger AS $$
 DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
     dataCorrente PRESENTAZIONE.DataP%TYPE;
@@ -398,3 +395,53 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_modificaLibro AFTER UPDATE OF DataPubblicazione ON LIBRO
     WHEN(NEW.DataPubblicazione>OLD.DataPubblicazione)
     FOR EACH ROW EXECUTE FUNCTION controllo_Libro();
+
+--Quando avviene un inserimento in 'POSSESSO_L' bisogna controllare se il libro appartiene a una serie e se la
+--libreria possiede tutti i libri della serie del libro inserito, in tal caso bisogna effettuare l'inserimento in 
+--'POSSESSO_S' specificando la quantità e la modalità di fruizione correttamente.
+CREATE OR REPLACE FUNCTION controllo_Possesso_L() RETURNS trigger AS $$
+DECLARE
+    contatore INTEGER;
+    CodS INSERIMENTO.Serie%TYPE:=NULL; --codice della serie del libro inserito
+    LibriSerie SERIE.NLibri%TYPE:=NULL; --numero di libri inseriti nella serie del nuovo libro
+    QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL; --quantità disponibile della serie del libro inserito
+BEGIN
+    SELECT I.Serie INTO CodS, LibriSerie  --trova il codice della serie del libro inserito
+    FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
+    WHERE L.ISBN=NEW.Libro;
+    
+    IF Cods IS NOT NULL THEN --controlla se il libro inserito appartiene a una serie
+
+        SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie del libro inserito posseduti dalla libreria 'NEW.Codl'
+        FROM POSSESSO_L 
+        WHERE Codl=NEW.Codl AND ((Quantita>0 AND NEW.Fruizione='Cartaceo') OR 
+                (Quantita IS NULL AND NEW.Fruizione<>'Cartaceo')) AND Fruizione=NEW.Fruizione 
+                AND ISBN IN(
+                                SELECT Libro
+                                FROM INSERIMENTO
+                                WHERE Serie=CodS
+                            );
+
+        IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie del libro inserito
+            
+            SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
+            FROM POSSESSO_L AS PL
+            WHERE PL.Fruizione='Cartaceo' AND ISBN IN(
+                                                        SELECT Libro
+                                                        FROM INSERIMENTO AS I
+                                                        WHERE I.Serie=CodS
+                                                    );
+        
+            INSERT INTO POSSESSO_S(Codl, ISBN, Fruizione, Quantita)
+            VALUES(NEW.Codl, CodS, NEW.Fruizione, QuantitaDisponibile);
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoPossesso_L AFTER INSERT ON POSSESSO_L
+    FOR EACH ROW EXECUTE FUNCTION controllo_Possesso_L();
+CREATE TRIGGER T_modificaPossesso_T AFTER UPDATE ON POSSESSO_L
+    FOR EACH ROW EXECUTE FUNCTION controllo_Possesso_L();
