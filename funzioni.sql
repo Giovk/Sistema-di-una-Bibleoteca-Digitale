@@ -302,7 +302,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_inserimentoEsposizione AFTER INSERT ON INTRODUZIONE
+CREATE TRIGGER T_inserimentoEsposizione AFTER INSERT ON ESPOSIZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoEsposizione();
 
 -- Quando viene modificta un'esposizione la data della conferenza non deve essere precedente quella dell'articolo
@@ -331,7 +331,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_modificaEsposizione AFTER UPDATE ON INTRODUZIONE
+CREATE TRIGGER T_modificaEsposizione AFTER UPDATE ON ESPOSIZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaEsposizione();
 
 -- Quando viene modificato l'anno di pubblicazione dell'articolo il nuovo anno non deve essere successivo a quello
@@ -543,3 +543,5 @@ CREATE TRIGGER T_inserimentoPossesso_L AFTER INSERT ON POSSESSO_L
     FOR EACH ROW EXECUTE FUNCTION controllo_Possesso_L();
 CREATE TRIGGER T_modificaPossesso_T AFTER UPDATE ON POSSESSO_L
     FOR EACH ROW EXECUTE FUNCTION controllo_Possesso_L();
+
+--Quando viene inserito un nuovo articolo scientifico bisogna seguire l'ordine del doi
