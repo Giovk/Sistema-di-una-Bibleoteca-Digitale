@@ -293,7 +293,7 @@ BEGIN
 
     IF inizio_conferenza<pubblicazione_articolo_scientifico THEN --controlla se la conferenza inizia prima della pubblicazione dell'articolo
         DELETE FROM ESPOSIZIONE
-        WHERE CodF=NEW.CodF AND DOI=NEW.DOI;
+        WHERE CodC=NEW.CodC AND DOI=NEW.DOI;
 
         RAISE NOTICE 'Non è possibile inserire in una conferenza un articolo scientifico non ancora pubblicato';
     END IF;
@@ -321,8 +321,8 @@ BEGIN
 
     IF inizio_conferenza<pubblicazione_articolo_scientifico THEN --controlla se la conferenza inizia prima della pubblicazione dell'articolo
         UPDATE ESPOSIZIONE
-        SET CodF=OLD.CodF, DOI=OLD.CodF
-        WHERE CodF=NEW.CodF AND DOI=NEW.DOI;
+        SET CodC=OLD.CodC, DOI=OLD.DOI
+        WHERE CodC=NEW.CodC AND DOI=NEW.DOI;
 
         RAISE NOTICE 'Non è possibile inserire in una conferenza un articolo scientifico non ancora pubblicato';
     END IF;
@@ -341,12 +341,12 @@ DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
     anno_conferenzaCorrente INTEGER;
 
-    cursore_anniConferenze CURSOR FOR    --contiene gli anni di pubblicazione dei fascioli con l'articolo modificato
-        SELECT EXTRACT(YEAR FROM F.DataPubblicazione)
+    cursore_anniConferenze CURSOR FOR    --contiene gli anni delle conferenze dei fascioli con l'articolo modificato
+        SELECT EXTRACT(YEAR FROM C.DataInizio)
         FROM CONFERENZA AS C NATURAL JOIN ESPOSIZIONE AS E
         WHERE E.DOI=NEW.DOI;
 BEGIN
-    OPEN anno_conferenzaCorrente;
+    OPEN cursore_anniConferenze
 
     LOOP
         FETCH cursore_anniConferenze INTO anno_conferenzaCorrente;
