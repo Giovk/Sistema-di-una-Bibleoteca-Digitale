@@ -3,7 +3,7 @@ CREATE OR REPLACE FUNCTION controllo_inserimentoLibreria() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 BEGIN
-    SELECT CONT(U.PartitaIVA) INTO contatore --controlla la partitaIVA del gestore della libreria inserita
+    SELECT COUNT(U.PartitaIVA) INTO contatore --controlla la partitaIVA del gestore della libreria inserita
     FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
     WHERE U.PartitaIVA IS NOT NULL AND U.Username=NEW.Gestore;
 
@@ -22,11 +22,11 @@ CREATE TRIGGER T_inserimentoLibreria AFTER INSERT ON LIBRERIA
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibreria();
 
 -- Quando viene cambiato il gestore di una libreria il nuovo gestore deve avere una partitaIVA
-CREATE OR REPLACE FUNCTION controllo_inserimentoLibreria() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_modificaLibreria() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 BEGIN
-    SELECT CONT(U.PartitaIVA) INTO contatore --controlla la partitaIVA del gestore della libreria inserita
+    SELECT COUNT(U.PartitaIVA) INTO contatore --controlla la partitaIVA del gestore della libreria inserita
     FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
     WHERE U.PartitaIVA IS NOT NULL AND U.Username=NEW.Gestore;
 
@@ -73,8 +73,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_chiusura_partitaIVA AFTER UPDATE OF partitaIVA ON UTENTE
-    WHEN(NEW.partitaIVA IS NULL)
-    FOR EACH ROW EXECUTE FUNCTION chiusuraLibreria();
+    FOR EACH ROW WHEN(NEW.partitaIVA IS NULL)
+    EXECUTE FUNCTION chiusuraLibreria();
 
 -- Quando viene introdotto un articolo scientifico in un fascicolo la data di pubblicazione del fascicolo deve essere
 -- precedente a quella dell'articolo
@@ -144,8 +144,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modifica_pubblicazioneFascicolo AFTER UPDATE OF DataPubblicazione ON FASCICOLO
-    WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
-    FOR EACH ROW EXECUTE FUNCTION controllo_modificaFascicolo();
+    FOR EACH WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
+    ROW EXECUTE FUNCTION controllo_modificaFascicolo();
 
 -- Quando viene introdotto un fascicolo in una rivista, oppure viene modificata la data di pubblicazione o l'ISSN di
 -- un fascicolo, la data di pubblicazione del fascicolo deve essere successiva a quella della rivista
@@ -191,8 +191,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modificaRivista AFTER UPDATE OF AnnoPubblicazione ON RIVISTA
-    WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione)
-    FOR EACH ROW EXECUTE FUNCTION controllo_modificaRivista();
+    FOR EACH WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione)
+    ROW EXECUTE FUNCTION controllo_modificaRivista();
 
 -- L'ordine di un libro in una serie non deve essere maggiore al numero dei libri totali della serie (specificati in
 -- SERIE.NLibri) e ogni libro inserito deve rispettare la sequenza del campo 'ordine'
@@ -294,8 +294,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modifica_pubblicazioneArticolo AFTER UPDATE OF AnnoPubblicazione ON ARTICOLO_SCIENTIFICO
-    WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione)
-    FOR EACH ROW EXECUTE FUNCTION controllo_modificaArticolo();
+    FOR EACH WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione)
+    ROW EXECUTE FUNCTION controllo_modificaArticolo();
 
 -- Quando viene modificato la data di inizio della conferenza l'anno della nuova data non deve essere precedente a
 -- quello dell'anno di pubblicazione degli articoli esposti o successiva a quella dei fascicoli
@@ -349,8 +349,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modifica_pubblicazioneFascicolo AFTER UPDATE OF DataPubblicazione ON FASCICOLO
-    WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
-    FOR EACH ROW EXECUTE FUNCTION controllo_modificaFascicolo();
+    FOR EACH WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
+    ROW EXECUTE FUNCTION controllo_modificaFascicolo();
 
 --Quando viene creata o modificata una presentazione la nuova data non puo essere precedente a quella della 
 --pubblicazione del libro
@@ -377,8 +377,8 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoPresentazione AFTER INSERT ON PRESENTAZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_Presentazione();
 CREATE TRIGGER T_modificaPresentazione AFTER UPDATE OF CodP, ISBN ON PRESENTAZIONE
-    WHEN(NEW.DataPubblicazione<=OLD.DataPubblicazione)
-    FOR EACH ROW EXECUTE FUNCTION controllo_Presentazione();
+    FOR EACH WHEN(NEW.DataPubblicazione<=OLD.DataPubblicazione)
+    ROW EXECUTE FUNCTION controllo_Presentazione();
 
 --Quando viene modificata la data di pubblicazione del libro la nuova data non deve essere successiva a quelle delle
 --date di tutte le presentazioni del libro 
@@ -414,8 +414,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modificaLibro AFTER UPDATE OF DataPubblicazione ON LIBRO
-    WHEN(NEW.DataPubblicazione>OLD.DataPubblicazione)
-    FOR EACH ROW EXECUTE FUNCTION controllo_Libro();
+    FOR EACH WHEN(NEW.DataPubblicazione>OLD.DataPubblicazione)
+    ROW EXECUTE FUNCTION controllo_Libro();
 
 --Quando avviene un inserimento in 'POSSESSO_L' bisogna controllare se il libro appartiene a una serie e se la
 --libreria possiede tutti i libri della serie del libro inserito, in tal caso bisogna effettuare l'inserimento in 
