@@ -248,7 +248,7 @@ CREATE TRIGGER T_modificaRivista AFTER UPDATE OF AnnoPubblicazione ON RIVISTA
 CREATE OR REPLACE FUNCTION inserimento_LibroSerie() RETURNS trigger AS $$
 DECLARE
     cont_libri INTEGER; --numero di libri attualmente inseriti nella serie
-    libri_tot SERIE.NLibri%TYPE: --numero dei libri totali della serie
+    libri_tot SERIE.NLibri%TYPE; --numero dei libri totali della serie
 BEGIN
     SELECT COUNT(Libro) INTO cont_libri --trova il numero di libri attualmente inseriti nella serie
     FROM INSERIMENTO 
