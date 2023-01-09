@@ -53,7 +53,7 @@ DECLARE
     cursore_librerieChiuse CURSOR FOR --Contiene tutte le librerie dell'utente che ha chiuso la sua partita IVA
         SELECT CodL
         FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
-        WHERE U.Username=NEW.Gestore;
+        WHERE U.Username=NEW.Username;
 BEGIN
     OPEN cursore_librerieChiuse;
 
@@ -95,7 +95,7 @@ BEGIN
         DELETE FROM INTRODUZIONE
         WHERE CodF=NEW.CodF AND DOI=NEW.DOI;
 
-        RAISE NOTICE "Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo";
+        RAISE NOTICE 'Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo';
     END IF;
 
     RETURN NEW;
@@ -104,8 +104,36 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoIntroduzione AFTER INSERT ON INTRODUZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_introduzioneArticolo();
+
+-- Quando viene moodificata un'introduzione di un articolo scientifico in un fascicolo la data di pubblicazione del 
+--fascicolo deve essere precedente a quella dell'articolo
+CREATE OR REPLACE FUNCTION controllo_modificaIntroduzione() RETURNS trigger AS $$
+DECLARE
+    pubblicazione_articolo_scientifico ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
+    pubblicazione_fascicolo INTEGER;
+BEGIN
+    SELECT AnnoPubblicazione INTO pubblicazione_articolo_scientifico --trova l'anno di pubblicazione dell'articolo inserito
+    FROM ARTICOLO_SCIENTIFICO
+    WHERE DOI=NEW.DOI;
+
+    SELECT EXTRACT(YEAR FROM DataPubblicazione) INTO pubblicazione_fascicolo --trova l'anno di pubblicazione del fasciolo inserito
+    FROM FASCICOLO
+    WHERE CodF=NEW.CodF;
+
+    IF pubblicazione_fascicolo<pubblicazione_articolo_scientifico THEN --controlla se il fascicolo è stato pubblicato prima dell'articolo
+        UPDATE INTRODUZIONE
+        SET CodF=OLD.CodF, DOI=NEW.DOI
+        WHERE CodF=NEW.CodF AND DOI=NEW.DOI;
+
+        RAISE NOTICE 'Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER T_modificaIntroduzione AFTER UPDATE ON INTRODUZIONE
-    FOR EACH ROW EXECUTE FUNCTION controllo_introduzioneArticolo();
+    FOR EACH ROW EXECUTE FUNCTION controllo_modificaIntroduzione();
 
 -- Quando viene modificato la data di pubblicazione del fascicolo l'anno della nuova data non deve essere precedente a
 -- quello dell'anno di pubblicazione degli articoli nel fascicolo modificato
@@ -133,7 +161,7 @@ BEGIN
             
             errore_trovato:=true;
 
-            RAISE NOTICE "Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo";
+            RAISE NOTICE 'Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo';
         END IF;
     END LOOP;
 
@@ -245,7 +273,7 @@ BEGIN
         DELETE FROM ESPOSIZIONE
         WHERE CodF=NEW.CodF AND DOI=NEW.DOI;
 
-        RAISE NOTICE "Non è possibile inserire in una conferenza un articolo scientifico non ancora pubblicato";
+        RAISE NOTICE 'Non è possibile inserire in una conferenza un articolo scientifico non ancora pubblicato';
     END IF;
 
     RETURN NEW;
@@ -283,7 +311,7 @@ BEGIN
             
             errore_trovato:=true;
 
-            RAISE NOTICE "Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo";
+            RAISE NOTICE 'Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo';
         END IF;
     END LOOP;
 
@@ -314,7 +342,7 @@ BEGIN
         SET DataInizio=OLD.DataInizio
         WHERE CodF=NEW.CodF;
         
-        RAISE NOTICE "Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo";
+        RAISE NOTICE 'Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo';
     END IF;
 
     RETURN NEW;
@@ -341,7 +369,7 @@ BEGIN
         SET DataPubblicazione=OLD.DataPubblicazione
         WHERE CodF=NEW.CodF;
         
-        RAISE NOTICE "Non è possibile inserire una data di pubblicazione di un fascicolo precedente a quella delle conferenze dei suoi articoli";
+        RAISE NOTICE 'Non è possibile inserire una data di pubblicazione di un fascicolo precedente a quella delle conferenze dei suoi articoli';
     END IF;
 
     RETURN NEW;
@@ -367,7 +395,7 @@ BEGIN
         SET DataP=OLD.DataP, ISBN=OLD.ISBN
         WHERE  P.CodP=NEW.CodP;
 
-        RAISE NOTICE "Non è possibile inserire una data di una presentazione di un libro non ancora pubblicato";
+        RAISE NOTICE 'Non è possibile inserire una data di una presentazione di un libro non ancora pubblicato';
     END IF;
 
     RETURN NEW;
@@ -405,7 +433,7 @@ BEGIN
             WHERE ISBN=NEW.ISBN;
 
             errore_trovato:=true;
-            RAISE NOTICE "Non è possibile inserire una data di pubblicazione di un libro precedente a quella delle sue presentazioni";
+            RAISE NOTICE 'Non è possibile inserire una data di pubblicazione di un libro precedente a quella delle sue presentazioni';
         END IF;
     END LOOP;
 
