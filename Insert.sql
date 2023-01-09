@@ -1175,7 +1175,7 @@ VALUES (1, '978-88-3100-342-1', 'Cartaceo', 5);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
 VALUES (1, '978-88-3100-343-8', 'Cartaceo', 6);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
-VALUES (1, '978-88-9381-618-2', 'Cartaceo', 9);
+VALUES (1, '978-88-3100-344-5', 'Cartaceo', 9);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
 VALUES (2, '978-88-9381-618-2', 'Cartaceo', 3);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
