@@ -173,7 +173,7 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modifica_pubblicazioneFascicolo_Articoli AFTER UPDATE OF DataPubblicazione ON FASCICOLO
     FOR EACH ROW WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
-    EXECUTE FUNCTION controllo_modificaFascicolo();
+    EXECUTE FUNCTION controllo_modificaFascicolo_Articoli();
 
 -- Quando viene introdotto un fascicolo in una rivista, oppure viene modificata la data di pubblicazione o l'ISSN di
 -- un fascicolo, la data di pubblicazione del fascicolo deve essere successiva a quella della rivista
@@ -188,16 +188,37 @@ BEGIN
     IF anno_pubblicazioneRivista>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se la rivista è stata pubblicata dopo al nuovo fascicolo
         DELETE FROM FASCICOLO
         WHERE CodF=NEW.CodF;
-    THEN;
+    END IF;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_inserimentoFascicolo AFTER INSERT FASCICOLO
+CREATE TRIGGER T_inserimentoFascicolo AFTER INSERT ON FASCICOLO
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoFascicolo();
+
+-- Quando viene modificata la data di pubblicazione o l'ISSN di un fascicolo, la data di pubblicazione del fascicolo
+-- modificato deve essere successiva a quella della rivista
+CREATE OR REPLACE FUNCTION controllo_modificaFascicolo() RETURNS trigger AS $$
+DECLARE
+    anno_pubblicazioneRivista RIVISTA.AnnoPubblicazione%TYPE;
+BEGIN
+    SELECT R.AnnoPubblicazione INTO anno_pubblicazioneRivista --trova l'anno di pubblicazione della rivista del nuovo fascicolo
+    FROM RIVISTA AS R JOIN FASCICOLO AS F ON R.ISSN=F.ISSN
+    WHERE F.CodF=NEW.CodF;
+
+    IF anno_pubblicazioneRivista>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se la rivista è stata pubblicata dopo al nuovo fascicolo
+        UPDATE FASCICOLO
+        SET DataPubblicazione=OLD.DataPubblicazione, ISSN.OLD
+        WHERE CodF=NEW.CodF;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER T_modificaFascicolo AFTER UPDATE OF DataPubblicazione, ISSN  ON FASCICOLO
-    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoFascicolo();
+    FOR EACH ROW EXECUTE FUNCTION controllo_modificaFascicolo();
 
 -- Quando viene modificata la data di pubblicazione di una rivista, la nuova data di pubblicazione non deve 
 -- essere successiva a quella dei fascicoli
@@ -378,7 +399,7 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modifica_pubblicazioneFascicolo AFTER UPDATE OF DataPubblicazione ON FASCICOLO
     FOR EACH ROW WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
-    EXECUTE FUNCTION controllo_modificaFascicolo();
+    EXECUTE FUNCTION controllo_modificaFascicolo_Conferenze();
 
 --Quando viene creata o modificata una presentazione la nuova data non puo essere precedente a quella della 
 --pubblicazione del libro
