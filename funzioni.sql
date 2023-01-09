@@ -4,12 +4,12 @@ CREATE OR REPLACE FUNCTION controllo_inserimentoLibreria() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 BEGIN
-    SELECT COUNT(U.PartitaIVA) INTO contatore --controlla la partitaIVA del gestore della libreria inserita
+    SELECT CONT(U.PartitaIVA) INTO contatore --controlla la partitaIVA del gestore della libreria inserita
     FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
     WHERE U.PartitaIVA IS NOT NULL AND U.Username=NEW.Gestore;
 
     IF contatore=0 THEN --controlla se non è stata trovata nessuna partitaIVA
-        DELETE LIBRERIA
+        DELETE FROM LIBRERIA
         WHERE CodL=NEW.CodL;
 
         RAISE NOTICE 'Per inserire una nuova libreria è necessario specificare la PartitaIVA del gestore';
@@ -41,7 +41,7 @@ BEGIN
 
         EXIT WHEN NOT FOUND;
 
-        DELETE LIBRERIA
+        DELETE FROM LIBRERIA
         WHERE CodL=libreria_corrente;
     END LOOP;
 
@@ -71,7 +71,7 @@ BEGIN
     WHERE CodF=NEW.CodF;
 
     IF pubblicazione_fascicolo<pubblicazione_articolo_scientifico THEN --controlla se il fascicolo è stato pubblicato prima dell'articolo
-        DELETE INTRODUZIONE
+        DELETE FROM INTRODUZIONE
         WHERE CodF=NEW.CodF AND DOI=NEW.DOI;
 
         RAISE NOTICE "Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo";
@@ -137,7 +137,7 @@ BEGIN
     WHERE F.CodF=NEW.CodF;
 
     IF anno_pubblicazioneRivista>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se la rivista è stata pubblicata dopo al nuovo fascicolo
-        DELETE FASCICOLO
+        DELETE FROM FASCICOLO
         WHERE CodF=NEW.CodF;
     THEN;
 
@@ -156,7 +156,7 @@ CREATE OR REPLACE FUNCTION controllo_modificaRivista() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER:=0;
 BEGIN
-    SELECT CONT(*) INTO contatore --conta i fascicoli della rivista modificata con la data di pubblicazione precedente a quella della rivista
+    SELECT COUNT(*) INTO contatore --conta i fascicoli della rivista modificata con la data di pubblicazione precedente a quella della rivista
     FROM FASCICOLO 
     WHERE ISSN=NEW.ISSN AND EXTRACT(YEAR FROM DataPubblicazione)<NEW.AnnoPubblicazione;
 
@@ -180,7 +180,7 @@ DECLARE
     cont_libri INTEGER; --numero di libri attualmente inseriti nella serie
     libri_tot SERIE.NLibri%TYPE --numero dei libri totali della serie
 BEGIN
-    SELECT CONT(Libro) INTO cont_libri --trova il numero di libri attualmente inseriti nella serie
+    SELECT COUNT(Libro) INTO cont_libri --trova il numero di libri attualmente inseriti nella serie
     FROM INSERIMENTO 
     WHERE Serie=NEW.Serie;
 
@@ -192,7 +192,7 @@ BEGIN
         UPDATE INSERIMENTO
         SET Ordine=cont_libri;
     ELSE
-        DELETE INSERIMENTO
+        DELETE FROM INSERIMENTO
         WHERE Libro=NEW.Libro AND Serie=NEW.Serie;  
 
         RAISE NOTICE 'La serie è già completa';
@@ -221,7 +221,7 @@ BEGIN
     WHERE CodC=NEW.CodC;
 
     IF inizio_conferenza<pubblicazione_articolo_scientifico THEN --controlla se la conferenza inizia prima della pubblicazione dell'articolo
-        DELETE ESPOSIZIONE
+        DELETE FROM ESPOSIZIONE
         WHERE CodF=NEW.CodF AND DOI=NEW.DOI;
 
         RAISE NOTICE "Non è possibile inserire in una conferenza un articolo scientifico non ancora pubblicato";
@@ -282,7 +282,7 @@ CREATE OR REPLACE FUNCTION controllo_modificaConferenza() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 
-    SELECT CONT(*) INTO contatore
+    SELECT COUNT(*) INTO contatore
     FROM ((((CONFERENZA AS CO NATURAL JOIN ESPOSIZIONE AS E) NATURAL JOIN ARTICOLO_SCIENTIFICO AS AR) 
             NATURAL JOIN INTRODUZIONE AS I) NATURAL JOIN FASCICOLO AS F)  
     WHERE (EXTRACT(YEAR FROM CO.DataInizio)<AR.AnnoPubblicazione OR CO.DataInizio>F.DataPubblicazione) AND 
@@ -309,7 +309,7 @@ CREATE OR REPLACE FUNCTION controllo_modificaFascicolo_Conferenze() RETURNS trig
 DECLARE
     contatore INTEGER;
 
-    SELECT CONT(*) INTO contatore
+    SELECT COUNT(*) INTO contatore
     FROM ((((CONFERENZA AS CO NATURAL JOIN ESPOSIZIONE AS E) NATURAL JOIN ARTICOLO_SCIENTIFICO AS AR) 
             NATURAL JOIN INTRODUZIONE AS I) NATURAL JOIN FASCICOLO AS F)  
     WHERE CO.DataInizio>F.DataPubblicazione AND CO.CodF=NEW.CodF;
