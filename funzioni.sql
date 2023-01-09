@@ -278,7 +278,7 @@ CREATE TRIGGER T_inserimentoLibroSerie AFTER INSERT ON INSERIMENTO
 
 -- Quando viene esposto un articolo scientifico in una conferenza la data della conferenza non deve essere precedente
 -- quella dell'articolo
-CREATE OR REPLACE FUNCTION controllo_introduzioneArticolo() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_inserimentoEsposizione() RETURNS trigger AS $$
 DECLARE
     pubblicazione_articolo_scientifico ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
     inizio_conferenza INTEGER;
@@ -303,9 +303,36 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoEsposizione AFTER INSERT ON INTRODUZIONE
-    FOR EACH ROW EXECUTE FUNCTION controllo_esposizioneArticolo();
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoEsposizione();
+
+-- Quando viene modificta un'esposizione la data della conferenza non deve essere precedente quella dell'articolo
+CREATE OR REPLACE FUNCTION controllo_modificaEsposizione() RETURNS trigger AS $$
+DECLARE
+    pubblicazione_articolo_scientifico ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
+    inizio_conferenza INTEGER;
+BEGIN
+    SELECT AnnoPubblicazione INTO pubblicazione_articolo_scientifico --trova l'anno di pubblicazione dell'articolo inserito
+    FROM ARTICOLO_SCIENTIFICO
+    WHERE DOI=NEW.DOI;
+
+    SELECT EXTRACT(YEAR FROM DataInizio) INTO inizio_conferenza --trova l'anno di inizio della conferenza inserita
+    FROM CONFERENZA
+    WHERE CodC=NEW.CodC;
+
+    IF inizio_conferenza<pubblicazione_articolo_scientifico THEN --controlla se la conferenza inizia prima della pubblicazione dell'articolo
+        UPDATE ESPOSIZIONE
+        SET CodF=OLD.CodF, DOI=OLD.CodF
+        WHERE CodF=NEW.CodF AND DOI=NEW.DOI;
+
+        RAISE NOTICE 'Non è possibile inserire in una conferenza un articolo scientifico non ancora pubblicato';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER T_modificaEsposizione AFTER UPDATE ON INTRODUZIONE
-    FOR EACH ROW EXECUTE FUNCTION controllo_esposizioneArticolo();
+    FOR EACH ROW EXECUTE FUNCTION controllo_modificaEsposizione();
 
 -- Quando viene modificato l'anno di pubblicazione dell'articolo il nuovo anno non deve essere successivo a quello
 -- di inizio della conferenza
