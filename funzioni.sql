@@ -209,7 +209,7 @@ BEGIN
 
     IF anno_pubblicazioneRivista>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se la rivista è stata pubblicata dopo al nuovo fascicolo
         UPDATE FASCICOLO
-        SET DataPubblicazione=OLD.DataPubblicazione, ISSN.OLD
+        SET DataPubblicazione=OLD.DataPubblicazione, ISSN=OLD.ISSN
         WHERE CodF=NEW.CodF;
     END IF;
 
@@ -245,10 +245,10 @@ CREATE TRIGGER T_modificaRivista AFTER UPDATE OF AnnoPubblicazione ON RIVISTA
 
 -- L'ordine di un libro in una serie non deve essere maggiore al numero dei libri totali della serie (specificati in
 -- SERIE.NLibri) e ogni libro inserito deve rispettare la sequenza del campo 'ordine'
-CREATE OR REPLACE FUNCTION T_inserimentoLibroSerie RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION inserimento_LibroSerie() RETURNS trigger AS $$
 DECLARE
     cont_libri INTEGER; --numero di libri attualmente inseriti nella serie
-    libri_tot SERIE.NLibri%TYPE --numero dei libri totali della serie
+    libri_tot SERIE.NLibri%TYPE: --numero dei libri totali della serie
 BEGIN
     SELECT COUNT(Libro) INTO cont_libri --trova il numero di libri attualmente inseriti nella serie
     FROM INSERIMENTO 
@@ -260,7 +260,8 @@ BEGIN
 
     IF libri_tot>=cont_libri THEN --controlla se la serie non è completa
         UPDATE INSERIMENTO
-        SET Ordine=cont_libri;
+        SET Ordine=cont_libri
+        WHERE Serie=NEW.Serie AND Libro=NEW.Libro;
     ELSE
         DELETE FROM INSERIMENTO
         WHERE Libro=NEW.Libro AND Serie=NEW.Serie;  
