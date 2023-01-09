@@ -1,5 +1,4 @@
--- Quando viene inserita una libreria di un utente, oppure viene modificato il gestore di una libreria, il gestore 
--- deve avere una partitaIVA
+-- Quando viene inserita una libreria di un utente il gestore deve avere una partitaIVA
 CREATE OR REPLACE FUNCTION controllo_inserimentoLibreria() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
@@ -21,8 +20,30 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoLibreria AFTER INSERT ON LIBRERIA
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibreria();
+
+-- Quando viene cambiato il gestore di una libreria il nuovo gestore deve avere una partitaIVA
+CREATE OR REPLACE FUNCTION controllo_inserimentoLibreria() RETURNS trigger AS $$
+DECLARE
+    contatore INTEGER;
+BEGIN
+    SELECT CONT(U.PartitaIVA) INTO contatore --controlla la partitaIVA del gestore della libreria inserita
+    FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
+    WHERE U.PartitaIVA IS NOT NULL AND U.Username=NEW.Gestore;
+
+    IF contatore=0 THEN --controlla se non è stata trovata nessuna partitaIVA
+        UPDATE LIBRERIA
+        SET Gestore=OLD.Gestore
+        WHERE CodL=NEW.CodL;
+
+        RAISE NOTICE 'Per inserire una nuova libreria è necessario specificare la PartitaIVA del gestore';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER T_modificaGestore AFTER UPDATE OF Gestore ON LIBRERIA
-    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibreria();
+    FOR EACH ROW EXECUTE FUNCTION controllo_modificaLibreria();
 
 -- Quando viene chiusa la partitaIVA di un gestore bisogna eliminare la sua libreria
 CREATE OR REPLACE FUNCTION chiusuraLibreria() RETURNS trigger AS $$
