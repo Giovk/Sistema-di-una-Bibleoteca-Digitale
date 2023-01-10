@@ -631,3 +631,33 @@ CREATE TRIGGER T_eliminazionePossesso_L AFTER DELETE ON POSSESSO_L
     FOR EACH ROW EXECUTE FUNCTION controllo_eliminazionePossesso_L();
 
 --Quando viene inserito un nuovo articolo scientifico bisogna seguire l'ordine del doi
+CREATE OR REPLACE FUNCTION inserimento_DOIArticolo() RETURNS trigger AS $$
+DECLARE
+    DOI_out ARTICOLO_SCIENTIFICO.DOI%TYPE; --DOI del nuovo articolo
+    n_articoli INTEGER; --Numero di articoli presenti in 'ARTICOLO_SCIENTIFICO'
+BEGIN
+    SELECT COUNT(*) INTO n_articoli
+    FROM ARTICOLO_SCIENTIFICO;
+
+    IF n_articoli BETWEEN 1 AND 9 THEN
+        DOI_out='10-0000'||n_articoli;
+    ELSIF n_articoli BETWEEN 10 AND 99 THEN
+        DOI_out='10-000'||n_articoli;
+    ELSIF n_articoli BETWEEN 100 AND 999 THEN
+        DOI_out='10-00'||n_articoli;
+    ELSIF n_articoli BETWEEN 1000 AND 9999 THEN
+        DOI_out='10-0'||n_articoli;
+    ELSE
+        DOI_out='10-'||n_articoli;
+    END IF;
+
+    UPDATE ARTICOLO_SCIENTIFICO
+    SET DOI=DOI_out
+    WHERE DOI=NEW.DOI;
+
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoArticolo AFTER INSERT ON ARTICOLO_SCIENTIFICO
+    FOR EACH ROW EXECUTE FUNCTION inserimento_DOIArticolo();
