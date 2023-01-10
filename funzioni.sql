@@ -162,7 +162,7 @@ BEGIN
 
         EXIT WHEN NOT FOUND OR errore_trovato=true;
 
-        IF  anno_articoloCorrente>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se l'articolo è stato pubblicato dopo al fascicolo modificato
+        IF anno_articoloCorrente>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se l'articolo è stato pubblicato dopo al fascicolo modificato
             UPDATE FASCICOLO
             SET DataPubblicazione=OLD.DataPubblicazione
             WHERE CodF=NEW.CodF;
