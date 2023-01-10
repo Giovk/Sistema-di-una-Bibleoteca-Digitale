@@ -521,14 +521,14 @@ CREATE TRIGGER T_modificaLibro AFTER UPDATE OF DataPubblicazione ON LIBRO
 --Quando avviene un inserimento in 'POSSESSO_L' bisogna controllare se il libro appartiene a una serie e se la
 --libreria possiede tutti i libri della serie del libro inserito, in tal caso bisogna effettuare l'inserimento in 
 --'POSSESSO_S' specificando la quantità e la modalità di fruizione correttamente.
-CREATE OR REPLACE FUNCTION controllo_Possesso_L() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_inserimentoPossesso_L() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
     CodS INSERIMENTO.Serie%TYPE:=NULL; --codice della serie del libro inserito
     LibriSerie SERIE.NLibri%TYPE:=NULL; --numero di libri inseriti nella serie del nuovo libro
     QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL; --quantità disponibile della serie del libro inserito
 BEGIN
-    SELECT I.Serie INTO CodS, LibriSerie  --trova il codice della serie del libro inserito
+    SELECT I.Serie, S.NLibri INTO CodS, LibriSerie  --trova il codice della serie del libro inserito
     FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
     WHERE L.ISBN=NEW.ISBN;
     
@@ -564,8 +564,54 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoPossesso_L AFTER INSERT ON POSSESSO_L
-    FOR EACH ROW EXECUTE FUNCTION controllo_Possesso_L();
-CREATE TRIGGER T_modificaPossesso_L AFTER UPDATE ON POSSESSO_L
-    FOR EACH ROW EXECUTE FUNCTION controllo_Possesso_L();
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoPossesso_L();
+
+-- Quando si modifia la quantità disponibile di un libro di una serie bisogna modificare anche la quantita disponibile
+-- della serie
+CREATE OR REPLACE FUNCTION controllo_modificaPossesso_L() RETURNS trigger AS $$
+DECLARE
+    contatore INTEGER;
+    CodS INSERIMENTO.Serie%TYPE:=NULL; --codice della serie del libro modificato
+    LibriSerie SERIE.NLibri%TYPE:=NULL; --numero di libri inseriti nella serie del libro modificato
+    QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL; --quantità disponibile della serie del libro modificato
+BEGIN
+    SELECT I.Serie, S.NLibri INTO CodS, LibriSerie  --trova il codice della serie del libro modificato
+    FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
+    WHERE L.ISBN=NEW.ISBN;
+    
+    IF Cods IS NOT NULL THEN --controlla se il libro modificato appartiene a una serie
+
+        SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie del libro inserito posseduti dalla libreria 'NEW.Codl'
+        FROM POSSESSO_L 
+        WHERE Codl=NEW.Codl AND ((Quantita>0 AND NEW.Fruizione='Cartaceo') OR 
+                (Quantita IS NULL AND NEW.Fruizione<>'Cartaceo')) AND Fruizione=NEW.Fruizione 
+                AND ISBN IN(
+                                SELECT Libro
+                                FROM INSERIMENTO
+                                WHERE Serie=CodS
+                            );
+
+        IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie del libro inserito
+            
+            SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
+            FROM POSSESSO_L AS PL
+            WHERE PL.Fruizione='Cartaceo' AND ISBN IN(
+                                                        SELECT Libro
+                                                        FROM INSERIMENTO AS I
+                                                        WHERE I.Serie=CodS
+                                                    );
+
+            UPDATE POSSESSO_S
+            SET Quantita=QuantitaDisponibile
+            WHERE Codl=NEW.Codl AND ISBN=CodS AND Fruizione=NEW.Fruizione
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_modificaPossesso_L AFTER UPDATE OF Quantita ON POSSESSO_L
+    FOR EACH ROW EXECUTE FUNCTION controllo_modificaPossesso_L();
 
 --Quando viene inserito un nuovo articolo scientifico bisogna seguire l'ordine del doi
