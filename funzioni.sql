@@ -247,7 +247,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_modificaFascicolo AFTER UPDATE OF DataPubblicazione, ISSN  ON FASCICOLO
+CREATE TRIGGER T_modificaFascicolo AFTER UPDATE OF DataPubblicazione, ISSN ON FASCICOLO
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaFascicolo();
 
 -- Quando viene modificata la data di pubblicazione di una rivista, la nuova data di pubblicazione non deve 
@@ -565,7 +565,7 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoPossesso_L AFTER INSERT ON POSSESSO_L
     FOR EACH ROW EXECUTE FUNCTION controllo_Possesso_L();
-CREATE TRIGGER T_modificaPossesso_T AFTER UPDATE ON POSSESSO_L
+CREATE TRIGGER T_modificaPossesso_L AFTER UPDATE ON POSSESSO_L
     FOR EACH ROW EXECUTE FUNCTION controllo_Possesso_L();
 
 --Quando viene inserito un nuovo articolo scientifico bisogna seguire l'ordine del doi
