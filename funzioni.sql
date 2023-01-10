@@ -379,17 +379,17 @@ CREATE TRIGGER T_modifica_pubblicazioneArticolo AFTER UPDATE OF AnnoPubblicazion
 CREATE OR REPLACE FUNCTION controllo_modificaConferenza() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
-
+BEGIN
     SELECT COUNT(*) INTO contatore
     FROM ((((CONFERENZA AS CO NATURAL JOIN ESPOSIZIONE AS E) NATURAL JOIN ARTICOLO_SCIENTIFICO AS AR) 
             NATURAL JOIN INTRODUZIONE AS I) NATURAL JOIN FASCICOLO AS F)  
     WHERE (EXTRACT(YEAR FROM CO.DataInizio)<AR.AnnoPubblicazione OR CO.DataInizio>F.DataPubblicazione) AND 
             CO.CodC=NEW.CodC;
-BEGIN
+
     IF contatore>0 THEN --controlla se l'anno della nuova data non è compresa tra quella della pubblicazione dell'articolo e quella del fascicolo
         UPDATE CONFERENZA
         SET DataInizio=OLD.DataInizio
-        WHERE CodF=NEW.CodF;
+        WHERE CodC=NEW.CodC;
         
         RAISE NOTICE 'Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo';
     END IF;
@@ -398,7 +398,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_modifica_inizioConferenza AFTER UPDATE OF DataInizio ON CONFEREZA
+CREATE TRIGGER T_modifica_inizioConferenza AFTER UPDATE OF DataInizio ON CONFERENZA
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaConferenza();
 
 -- Quando viene modificato la data di pubblicazione del fascicolo l'anno della nuova data non deve essere precedente a
