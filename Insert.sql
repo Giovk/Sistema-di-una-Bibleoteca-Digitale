@@ -110,122 +110,122 @@ VALUES ('0036-4681', 'Edizioni Dedalo', 'Scienze', 'Armaroli', 'Nicola', 'Sapere
 
 -- Articolo Scientifico --
 
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00001', 'Che cosa significa allineare l''inteliggenza artificiale ai valori umani?', 2022); 
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00002', 'Evaluating Understanding on Conceptual Abstraction Benchmarks', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00003', 'Un''intelligenza artificiale è capace di prevedere le nuove sostanze psicoattive', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00004', 'A volte ritornano? Viaggio tra i tentativi di riportare in vita "il mondo perduto"', 2019);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00005', 'Uguale o diverso? Le reti neurali stentano a rispondere', 2021);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00006', 'Combattere i tumori con l''intelligenza artificiale', 2020);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00007', 'Computers tell us who to date, who to jail: But should they?', 2018);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00008', 'How Your Brain May One Day Control Your Computer', 2018);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00009', 'Computers Decipher Burnt Scroll Found in Ancient Holy Ark', 2016);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00010', 'For girls in science, the time is now', 2019);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00011', 'How will this pandemic disrupt science?', 2020);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00012', 'Bluer blues and blacker blacks? How science is enhancing colors', 2020);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00013', 'La mente e l''ambiente', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00014', 'Psichiatria digitale', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00015', 'A mente fredda', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00016', 'Lenire il trauma con la scrittura', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00017', 'Una nuova psichiatria', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00018', 'Le strutture della corona', 2006);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00019', 'La distanza della Stella di Teegarden', 2006);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00020', 'SBIG DSS7 astrofisica', 2006);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00021', 'Megastelle', 2006);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00022', 'Le prime luci sull’Era Oscura', 2006);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00023', 'Che fine farà la nuova macchia di Giove?', 2006);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00024', 'Una camera planetaria eccellente', 2006);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00025', 'Un quasar in ogni galassia?', 2006);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00026', 'Nebulosa Granchio: chi la vide nascere', 2006);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00027', 'Per un welfare sostenibile e innovativo', 2016);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00028', 'Il futuro della cooperazione sociale nelle ipotesi di welfare', 2016);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00029', 'Pratica sportiva e lavoro sociale tra stato, mercato e comunità', 2017);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00030', 'Migrazioni mediterranee: Tra allarmismo e risorsa sociale', 2017);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00031', 'Per una cittadinanza globale: Percorsi di vita e traiettorie formative dei giovani', 2018);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00032', 'Il ruolo culturale della comunicazione sociale', 2018);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00033', 'Le lenti a contatto intelligenti', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00034', 'L’ologramma del primo tatuaggio NFT realizzato nel metaverso', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00035', 'Internet: quanto lo usiamo?', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00036', 'Quali sono le password più sicure?', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00037', 'Un esame virtuale per rinnovare la patente?', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00038', 'Una tempesta solare può provocare un''apocalisse digitale', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00039', 'Il triangolo di Feynman', 2012);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00040', 'Alamari. Un’applicazione della teoria dei nodi', 2013);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00041', 'La retta di regressione', 2014);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00042', 'Seni, coseni e tangenti razionali di angoli razionali', 2015);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00043', 'Continuità e discontinuità di una funzione: una proposta didattica innovativa', 2016);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00044', 'La scienza in azione: Research in Action', 2017);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00045', 'La matematica della crittografia: coppie di numeri primi per l’RSA', 2018);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00046', 'Raddoppiare un campo', 2019);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00047', 'Il discorso filosofico della matematica', 2020);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00048', 'Divisione «per svuotamento»', 2020);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00049', 'Modelli matematici di decisione per fare bene i conti con l''incertezza', 2021);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00050', 'Le certezze irraggiungibili della matematica', 2022);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00051', 'Il personal computer presto sparirà?', 2015);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00052', 'Materia oscura: nuovi progressi dall’esperimento AMS', 2014);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00053', 'La meccanica quantistica va in orbita', 2017);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00054', 'Il lato inquietante e minaccioso della Rete', 2016);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00055', 'I cookie: cosa sono e come tutelare la nostra privacy', 2021);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00056', 'La scientifica sulla scena del crimine: la ricerca di tracce biologiche', 2021);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00057', 'La tecnologia che ci aiuta a combattere i nostri vizi', 2021);
-INSERT INTO ARTICOLO_SCIENTIFICO (DOI, Titolo, AnnoPubblicazione)
-VALUES ('10-00058', 'Batterie quantiche superveloci', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Che cosa significa allineare l''inteliggenza artificiale ai valori umani?', 2022); 
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Evaluating Understanding on Conceptual Abstraction Benchmarks', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Un''intelligenza artificiale è capace di prevedere le nuove sostanze psicoattive', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('A volte ritornano? Viaggio tra i tentativi di riportare in vita "il mondo perduto"', 2019);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Uguale o diverso? Le reti neurali stentano a rispondere', 2021);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Combattere i tumori con l''intelligenza artificiale', 2020);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Computers tell us who to date, who to jail: But should they?', 2018);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('How Your Brain May One Day Control Your Computer', 2018);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Computers Decipher Burnt Scroll Found in Ancient Holy Ark', 2016);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('For girls in science, the time is now', 2019);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('How will this pandemic disrupt science?', 2020);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Bluer blues and blacker blacks? How science is enhancing colors', 2020);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('La mente e l''ambiente', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Psichiatria digitale', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('A mente fredda', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Lenire il trauma con la scrittura', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Una nuova psichiatria', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Le strutture della corona', 2006);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('La distanza della Stella di Teegarden', 2006);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('SBIG DSS7 astrofisica', 2006);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Megastelle', 2006);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Le prime luci sull’Era Oscura', 2006);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Che fine farà la nuova macchia di Giove?', 2006);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Una camera planetaria eccellente', 2006);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Un quasar in ogni galassia?', 2006);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Nebulosa Granchio: chi la vide nascere', 2006);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Per un welfare sostenibile e innovativo', 2016);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Il futuro della cooperazione sociale nelle ipotesi di welfare', 2016);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Pratica sportiva e lavoro sociale tra stato, mercato e comunità', 2017);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Migrazioni mediterranee: Tra allarmismo e risorsa sociale', 2017);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Per una cittadinanza globale: Percorsi di vita e traiettorie formative dei giovani', 2018);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Il ruolo culturale della comunicazione sociale', 2018);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Le lenti a contatto intelligenti', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('L’ologramma del primo tatuaggio NFT realizzato nel metaverso', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Internet: quanto lo usiamo?', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Quali sono le password più sicure?', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Un esame virtuale per rinnovare la patente?', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Una tempesta solare può provocare un''apocalisse digitale', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Il triangolo di Feynman', 2012);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Alamari. Un’applicazione della teoria dei nodi', 2013);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('La retta di regressione', 2014);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Seni, coseni e tangenti razionali di angoli razionali', 2015);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Continuità e discontinuità di una funzione: una proposta didattica innovativa', 2016);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('La scienza in azione: Research in Action', 2017);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('La matematica della crittografia: coppie di numeri primi per l’RSA', 2018);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Raddoppiare un campo', 2019);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Il discorso filosofico della matematica', 2020);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Divisione «per svuotamento»', 2020);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Modelli matematici di decisione per fare bene i conti con l''incertezza', 2021);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Le certezze irraggiungibili della matematica', 2022);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Il personal computer presto sparirà?', 2015);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Materia oscura: nuovi progressi dall’esperimento AMS', 2014);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('La meccanica quantistica va in orbita', 2017);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Il lato inquietante e minaccioso della Rete', 2016);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('I cookie: cosa sono e come tutelare la nostra privacy', 2021);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('La scientifica sulla scena del crimine: la ricerca di tracce biologiche', 2021);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('La tecnologia che ci aiuta a combattere i nostri vizi', 2021);
+INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
+VALUES ('Batterie quantiche superveloci', 2022);
 
 -- AUTORE --
 
