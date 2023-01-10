@@ -438,12 +438,12 @@ DECLARE
     contatore INTEGER;
 BEGIN
     SELECT COUNT(*) INTO contatore 
-    FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS P  
-    WHERE P.DataP<L.DataPubblicazione AND P.CodP=NEW.CodP;
+    FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS PR  
+    WHERE PR.DataP<L.DataPubblicazione AND PR.CodP=NEW.CodP;
 
     IF contatore>0 THEN --controlla se la data della presentazione e precedente a quella della pubblicazion del libro
         DELETE FROM PRESENTAZIONE
-        WHERE  P.CodP=NEW.CodP;
+        WHERE CodP=NEW.CodP;
 
         RAISE NOTICE 'Non è possibile inserire una data di una presentazione di un libro non ancora pubblicato';
     END IF;
@@ -462,13 +462,13 @@ DECLARE
     contatore INTEGER;
 BEGIN
     SELECT COUNT(*) INTO contatore 
-    FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS P  
-    WHERE P.DataP<L.DataPubblicazione AND P.CodP=NEW.CodP;
+    FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS PR  
+    WHERE PR.DataP<L.DataPubblicazione AND PR.CodP=NEW.CodP;
 
     IF contatore>0 THEN --controlla se la data della presentazione e precedente a quella della pubblicazion del libro
         UPDATE PRESENTAZIONE
         SET DataP=OLD.DataP, ISBN=OLD.ISBN
-        WHERE  P.CodP=NEW.CodP;
+        WHERE CodP=NEW.CodP;
 
         RAISE NOTICE 'Non è possibile inserire una data di una presentazione di un libro non ancora pubblicato';
     END IF;
@@ -477,8 +477,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_modificaPresentazione AFTER UPDATE OF CodP, ISBN ON PRESENTAZIONE
-    FOR EACH ROW WHEN(NEW.DataPubblicazione<=OLD.DataPubblicazione)
+CREATE TRIGGER T_modificaPresentazione AFTER UPDATE OF DataP, ISBN ON PRESENTAZIONE
+    FOR EACH ROW WHEN(NEW.DataP<=OLD.DataP)
     EXECUTE FUNCTION controllo_modificaPresentazione();
 
 --Quando viene modificata la data di pubblicazione del libro la nuova data non deve essere successiva a quelle delle
@@ -489,9 +489,9 @@ DECLARE
     dataCorrente PRESENTAZIONE.DataP%TYPE;
 
     cursore_datePresentazioni CURSOR FOR
-        SELECT P.DataP  --trova le date delle presentazioni del libro modificato
-        FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS P  
-        WHERE P.DataP<L.DataPubblicazione AND L.ISBN=NEW.ISBN;
+        SELECT PR.DataP  --trova le date delle presentazioni del libro modificato
+        FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS PR
+        WHERE PR.DataP<L.DataPubblicazione AND L.ISBN=NEW.ISBN;
 BEGIN
     OPEN cursore_datePresentazioni;
 
@@ -502,7 +502,7 @@ BEGIN
 
         IF dataCorrente<NEW.DataPubblicazione THEN --controlla se la data della presentazione e precedente a quella della pubblicazion del libro
             UPDATE LIBRO
-            SET DataP=OLD.DataP
+            SET DataPubblicazione=OLD.DataPubblicazione
             WHERE ISBN=NEW.ISBN;
 
             errore_trovato:=true;
