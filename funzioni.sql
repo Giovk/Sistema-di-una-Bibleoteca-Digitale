@@ -536,13 +536,11 @@ BEGIN
 
         SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie del libro inserito posseduti dalla libreria 'NEW.Codl'
         FROM POSSESSO_L 
-        WHERE Codl=NEW.Codl AND ((Quantita>0 AND NEW.Fruizione='Cartaceo') OR 
-                (Quantita IS NULL AND NEW.Fruizione<>'Cartaceo')) AND Fruizione=NEW.Fruizione 
-                AND ISBN IN(
-                                SELECT Libro
-                                FROM INSERIMENTO
-                                WHERE Serie=CodS
-                            );
+        WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
+                                                                    SELECT Libro
+                                                                    FROM INSERIMENTO
+                                                                    WHERE Serie=CodS
+                                                                );
 
         IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie del libro inserito
             
@@ -566,7 +564,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoPossesso_L AFTER INSERT ON POSSESSO_L
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoPossesso_L();
 
--- Quando si modifia la quantità disponibile di un libro di una serie bisogna modificare anche la quantita disponibile
+-- Quando si modifica la quantità disponibile di un libro di una serie bisogna modificare anche la quantita disponibile
 -- della serie
 CREATE OR REPLACE FUNCTION controllo_modificaPossesso_L() RETURNS trigger AS $$
 DECLARE
@@ -583,13 +581,11 @@ BEGIN
 
         SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie del libro inserito posseduti dalla libreria 'NEW.Codl'
         FROM POSSESSO_L 
-        WHERE Codl=NEW.Codl AND ((Quantita>0 AND NEW.Fruizione='Cartaceo') OR 
-                (Quantita IS NULL AND NEW.Fruizione<>'Cartaceo')) AND Fruizione=NEW.Fruizione 
-                AND ISBN IN(
-                                SELECT Libro
-                                FROM INSERIMENTO
-                                WHERE Serie=CodS
-                            );
+        WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
+                                                                        SELECT Libro
+                                                                        FROM INSERIMENTO
+                                                                        WHERE Serie=CodS
+                                                                    );
 
         IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie del libro inserito
             
@@ -613,5 +609,31 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modificaPossesso_L AFTER UPDATE OF Quantita ON POSSESSO_L
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaPossesso_L();
+
+--Quando viene eliminato un libro da 'POSSESSO_L' bisogna eliminare la relativa tupla in 'POSSESSO_S'
+CREATE OR REPLACE FUNCTION controllo_modificaPossesso_L() RETURNS trigger AS $$
+DECLARE
+    contatore INTEGER;
+    CodS INSERIMENTO.Serie%TYPE:=NULL; --codice della serie del libro modificato
+    LibriSerie SERIE.NLibri%TYPE:=NULL; --numero di libri inseriti nella serie del libro modificato
+    QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL; --quantità disponibile della serie del libro modificato
+BEGIN
+    SELECT I.Serie, S.NLibri INTO CodS, LibriSerie  --trova il codice della serie del libro modificato
+    FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
+    WHERE L.ISBN=NEW.ISBN;
+    
+    IF Cods IS NOT NULL THEN --controlla se il libro modificato appartiene a una serie
+
+        DELETE FROM POSSESSO_S
+        WHERE ISBN=OLD.ISBN AND CodL=OLD.CodL
+        
+    END IF;
+
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_modificaPossesso_L AFTER DELETE ON POSSESSO_L
+    FOR EACH ROW EXECUTE FUNCTION controllo_eliminazionePossesso_L();
 
 --Quando viene inserito un nuovo articolo scientifico bisogna seguire l'ordine del doi
