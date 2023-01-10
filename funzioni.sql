@@ -530,7 +530,7 @@ DECLARE
 BEGIN
     SELECT I.Serie INTO CodS, LibriSerie  --trova il codice della serie del libro inserito
     FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
-    WHERE L.ISBN=NEW.Libro;
+    WHERE L.ISBN=NEW.ISBN;
     
     IF Cods IS NOT NULL THEN --controlla se il libro inserito appartiene a una serie
 
