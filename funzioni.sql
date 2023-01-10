@@ -548,11 +548,11 @@ BEGIN
             
             SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
             FROM POSSESSO_L AS PL
-            WHERE PL.Fruizione='Cartaceo' AND ISBN IN(
-                                                        SELECT Libro
-                                                        FROM INSERIMENTO AS I
-                                                        WHERE I.Serie=CodS
-                                                    );
+            WHERE PL.Fruizione=NEW.Fruizione AND ISBN IN(
+                                                            SELECT Libro
+                                                            FROM INSERIMENTO AS I
+                                                            WHERE I.Serie=CodS
+                                                        );
         
             INSERT INTO POSSESSO_S(Codl, ISBN, Fruizione, Quantita)
             VALUES(NEW.Codl, CodS, NEW.Fruizione, QuantitaDisponibile);
@@ -595,15 +595,15 @@ BEGIN
             
             SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
             FROM POSSESSO_L AS PL
-            WHERE PL.Fruizione='Cartaceo' AND ISBN IN(
-                                                        SELECT Libro
-                                                        FROM INSERIMENTO AS I
-                                                        WHERE I.Serie=CodS
-                                                    );
+            WHERE PL.Fruizione=NEW.Fruizione AND ISBN IN(
+                                                            SELECT Libro
+                                                            FROM INSERIMENTO AS I
+                                                            WHERE I.Serie=CodS
+                                                        );
 
             UPDATE POSSESSO_S
             SET Quantita=QuantitaDisponibile
-            WHERE Codl=NEW.Codl AND ISBN=CodS AND Fruizione=NEW.Fruizione
+            WHERE Codl=NEW.Codl AND ISBN=CodS AND Fruizione=NEW.Fruizione;
         END IF;
     END IF;
 
