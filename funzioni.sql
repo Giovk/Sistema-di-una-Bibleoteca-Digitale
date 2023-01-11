@@ -704,6 +704,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION invia_notifica_inserimentoPossesso_S() RETURNS trigger AS $$
 DECLARE
     utente_corrente UTENTE.Username%TYPE;
+    ris INTEGER;
 
     cursore_utenti CURSOR FOR --contiene tutti gli utenti che devono ricevere la notifica
         SELECT Username
@@ -717,7 +718,7 @@ BEGIN
 
         EXIT WHEN NOT FOUND;
 
-        CALL invia_notifica(utente_corrente, NEW.ISBN, NEW.CodL, NEW.Fruizione);
+        ris=invia_notifica(utente_corrente, NEW.ISBN, NEW.CodL, NEW.Fruizione);
     END LOOP;
 
     CLOSE cursore_utenti;
@@ -733,7 +734,8 @@ CREATE TRIGGER T_inserimentoPossesso_S AFTER INSERT ON POSSESSO_S
 CREATE OR REPLACE FUNCTION invia_notifica_inserimentoPreferiti_S() RETURNS trigger AS $$
 DECLARE
     libreria_corrente LIBRERIA.CodL%TYPE;
-    fruizione_corrente POSSESSO_S.Fruizione%TYPE
+    fruizione_corrente POSSESSO_S.Fruizione%TYPE;
+    ris INTEGER;
 
     cursore_librerie CURSOR FOR
         SELECT CodL, Fruizione
@@ -747,7 +749,7 @@ BEGIN
 
         EXIT WHEN NOT FOUND;
 
-        invia_notifica(NEW.Username, NEW.ISBN, libreria_corrente, fruizione_corrente);
+        ris=invia_notifica(NEW.Username, NEW.ISBN, libreria_corrente, fruizione_corrente);
     END LOOP;
 
     RETURN NEW;
