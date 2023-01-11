@@ -691,7 +691,7 @@ BEGIN
         FROM LIBRERIA
         WHERE CodL=NEW.CodL;
 
-        testo_notifica='NOTIFICA: La serie '||titolo||' è completamente disponibile alla libreria '||libreria;
+        testo_notifica='NOTIFICA: La serie '||titolo||' è completamente disponibile in formato '||NEW.Fruizione||' alla libreria '||libreria;
 
         IF indirizzo_libreria IS NOT NULL AND sito IS NOT NULL THEN
             testo_notifica=testo_notifica||' presso '||indirizzo_libreria||' oppure al sito: '||sito;
