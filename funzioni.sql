@@ -683,6 +683,8 @@ BEGIN
     LOOP 
         FETCH cursore_utenti INTO utente_corrente;
 
+        EXIT WHEN NOT FOUND;
+
         SELECT DISTINCT Titolo INTO titolo_serie --trova il titolo della serie inserita
         FROM SERIE
         WHERE ISBN=NEW.ISBN;
