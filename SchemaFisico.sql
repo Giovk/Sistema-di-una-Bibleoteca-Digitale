@@ -310,7 +310,7 @@ CREATE TABLE NOTIFICA_INVIATA
     CodN INT NOT NULL DEFAULT NEXTVAL('notifica_seq_id') PRIMARY KEY,
     Username VARCHAR(30),
     ISBN isbn,
-    Codl INT,
+    CodL INT,
     Testo VARCHAR(255),
     Lettura BOOLEAN DEFAULT false
 );
