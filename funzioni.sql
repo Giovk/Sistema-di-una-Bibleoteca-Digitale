@@ -662,36 +662,23 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoArticolo AFTER INSERT ON ARTICOLO_SCIENTIFICO
     FOR EACH ROW EXECUTE FUNCTION inserimento_DOIArticolo();
 
--- Quando una serie è posseduta da una libreria deve essere inviata una notifica a tutti gli utenti che hanno nei 
--- preferiti quella serie
-CREATE OR REPLACE FUNCTION invia_notifica() RETURNS trigger AS $$
+-- La procedura invia una notifia con i parametri presi in input
+CREATE OR REPLACE PROCEDURE invia_notifica(utente IN UTENTE.Username%TYPE, serie IN SERIE.ISBN%TYPE, 
+    libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE) AS $$
 DECLARE
-    utente_corrente UTENTE.Username%TYPE;
     testo_notifica NOTIFICA_INVIATA.testo%TYPE;
     titolo_serie SERIE.titolo%TYPE;
     nome_libreria LIBRERIA.nome%TYPE;
     indirizzo_libreria LIBRERIA.indirizzo%TYPE;
     sito LIBRERIA.SitoWeb%TYPE;
-
-    cursore_utenti CURSOR FOR --contiene tutti gli utenti che devono ricevere la notifica
-        SELECT Username
-        FROM NOTIFICA
-        WHERE ISBN=NEW.ISBN AND CodL=NEW.CodL AND Fruizione=NEW.Fruizione;
 BEGIN
-    OPEN cursore_utenti;
-
-    LOOP 
-        FETCH cursore_utenti INTO utente_corrente;
-
-        EXIT WHEN NOT FOUND;
-
         SELECT DISTINCT Titolo INTO titolo_serie --trova il titolo della serie inserita
         FROM SERIE
-        WHERE ISBN=NEW.ISBN;
+        WHERE ISBN=serie;
 
         SELECT Nome, Indirizzo, SitoWeb INTO nome_libreria, indirizzo_libreria, sito --trova il nome della libreria inserita
         FROM LIBRERIA
-        WHERE CodL=NEW.CodL;
+        WHERE CodL=libreria;
 
         testo_notifica='NOTIFICA: La serie '||titolo_serie||' è completamente disponibile in formato '||NEW.Fruizione||' alla libreria '||nome_libreria;
 
@@ -706,7 +693,30 @@ BEGIN
         testo_notifica=testo_notifica||'.';
 
         INSERT INTO NOTIFICA_INVIATA(Username, ISBN, CodL, Testo)
-        VALUES(utente_corrente, NEW.ISBN, NEW.CodL, testo_notifica);
+        VALUES(utente, serie, libreia, testo_notifica);
+
+END; 
+$$ LANGUAGE plpgsql;
+
+-- Quando una serie è posseduta da una libreria deve essere inviata una notifica a tutti gli utenti che hanno nei 
+-- preferiti quella serie
+CREATE OR REPLACE FUNCTION invia_notifica_inserimentoPossesso_S() RETURNS trigger AS $$
+DECLARE
+    utente_corrente UTENTE.Username%TYPE;
+
+    cursore_utenti CURSOR FOR --contiene tutti gli utenti che devono ricevere la notifica
+        SELECT Username
+        FROM NOTIFICA
+        WHERE ISBN=NEW.ISBN AND CodL=NEW.CodL AND Fruizione=NEW.Fruizione;
+BEGIN
+    OPEN cursore_utenti;
+
+    LOOP 
+        FETCH cursore_utenti INTO utente_corrente;
+
+        EXIT WHEN NOT FOUND;
+
+        invia_notifica(utente_corrente, NEW.ISBN, NEW.CodL, NEW.Fruizione);
     END LOOP;
 
     CLOSE cursore_utenti;
@@ -716,6 +726,38 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoPossesso_S AFTER INSERT ON POSSESSO_S
-    FOR EACH ROW EXECUTE FUNCTION invia_notifica()
+    FOR EACH ROW EXECUTE FUNCTION invia_notifica_inserimentoPossesso_S()
 
 -- la notifica deve essere inviata dopo l'aggiornamento/inseimento di PREFERITI_S
+CREATE OR REPLACE FUNCTION invia_notifica_inserimentoPreferiti_S() RETURNS trigger AS $$
+DECLARE
+    libreria_corrente LIBRERIA.CodL%TYPE;
+    fruizione_corrente POSSESSO_S.Fruizione%TYPE
+
+    cursore_librerie CURSOR FOR
+        SELECT CodL, Fruizione
+        FROM NOTIFICA
+        WHERE ISBN=NEW.ISBN;
+BEGIN
+    OPEN cursore_utenti;
+
+    LOOP 
+        FETCH cursore_utenti INTO utente_corrente, fruizione_corrente;
+
+        EXIT WHEN NOT FOUND;
+
+        invia_notifica(NEW.Username, NEW.ISBN, libreria_corrente, fruizione_corrente);
+    END LOOP;
+
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoPreferiti_S AFTER INSERT ON PREFERITI_S
+    FOR EACH ROW WHEN(NEW.Preferito=true)
+    EXECUTE FUNCTION invia_notifica_preferiti_S();
+CREATE TRIGGER T_modificaPreferiti_S AFTER UPDATE OF Preferito ON PREFERITI_S
+    FOR EACH ROW WHEN(NEW.Preferito=true)
+    EXECUTE FUNCTION invia_notifica_preferiti_S();
+
+-- la notifica deve essere inviata dopo la modifica della quantita di POSSESSO_S
