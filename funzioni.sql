@@ -663,10 +663,8 @@ CREATE TRIGGER T_inserimentoArticolo AFTER INSERT ON ARTICOLO_SCIENTIFICO
     FOR EACH ROW EXECUTE FUNCTION inserimento_DOIArticolo();
 
 -- La procedura invia una notifia con i parametri presi in input
-CREATE OR REPLACE PROCEDURE invia_notifica(utente IN UTENTE.Username%TYPE, codS IN SERIE.ISBN%TYPE, 
-    cod_libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE)
-LANGUAGE  plpgsql
-AS $$
+CREATE OR REPLACE FUNCTION invia_notifica(utente IN UTENTE.Username%TYPE, codS IN SERIE.ISBN%TYPE, 
+    cod_libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE) RETURNS INTEGER AS $$
 DECLARE
     testo_notifica NOTIFICA_INVIATA.testo%TYPE;
     titolo_serie SERIE.titolo%TYPE;
@@ -674,30 +672,32 @@ DECLARE
     indirizzo_libreria LIBRERIA.indirizzo%TYPE;
     sito LIBRERIA.SitoWeb%TYPE;
 BEGIN
-        SELECT DISTINCT Titolo INTO titolo_serie --trova il titolo della serie inserita
-        FROM SERIE
-        WHERE ISBN=codS;
+    SELECT DISTINCT Titolo INTO titolo_serie --trova il titolo della serie inserita
+    FROM SERIE
+    WHERE ISBN=codS;
 
-        SELECT Nome, Indirizzo, SitoWeb INTO nome_libreria, indirizzo_libreria, sito --trova il nome della libreria inserita
-        FROM LIBRERIA
-        WHERE CodL=cod_libreria;
+    SELECT Nome, Indirizzo, SitoWeb INTO nome_libreria, indirizzo_libreria, sito --trova il nome della libreria inserita
+    FROM LIBRERIA
+    WHERE CodL=cod_libreria;
 
-        testo_notifica='NOTIFICA: La serie '||titolo_serie||' è completamente disponibile in formato '||fruizione||' alla libreria '||nome_libreria;
+    testo_notifica='NOTIFICA: La serie '||titolo_serie||' è completamente disponibile in formato '||fruizione||' alla libreria '||nome_libreria;
 
-        IF indirizzo_libreria IS NOT NULL AND sito IS NOT NULL THEN
-            testo_notifica=testo_notifica||' presso '||indirizzo_libreria||' oppure al sito: '||sito;
-        ELSIF indirizzo_libreria IS NULL THEN
-            testo_notifica=testo_notifica||' al sito: '||sito;
-        ELSE
-            testo_notifica=testo_notifica||' presso '||indirizzo_libreria;
-        END IF;
+    IF indirizzo_libreria IS NOT NULL AND sito IS NOT NULL THEN
+        testo_notifica=testo_notifica||' presso '||indirizzo_libreria||' oppure al sito: '||sito;
+    ELSIF indirizzo_libreria IS NULL THEN
+        testo_notifica=testo_notifica||' al sito: '||sito;
+    ELSE
+        testo_notifica=testo_notifica||' presso '||indirizzo_libreria;
+    END IF;
 
-        testo_notifica=testo_notifica||'.';
+    testo_notifica=testo_notifica||'.';
 
-        INSERT INTO NOTIFICA_INVIATA(Username, ISBN, CodL, Testo)
-        VALUES(utente, codS, libreria, testo_notifica);
+    INSERT INTO NOTIFICA_INVIATA(Username, ISBN, CodL, Testo)
+    VALUES(utente, codS, cod_libreria, testo_notifica);
+
+    RETURN 1;
 END; 
-$$
+$$ LANGUAGE plpgsql;
 
 -- Quando una serie è posseduta da una libreria deve essere inviata una notifica a tutti gli utenti che hanno nei 
 -- preferiti quella serie
