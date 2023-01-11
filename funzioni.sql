@@ -664,8 +664,8 @@ CREATE TRIGGER T_inserimentoArticolo AFTER INSERT ON ARTICOLO_SCIENTIFICO
 
 -- La procedura invia una notifia con i parametri presi in input
 CREATE OR REPLACE PROCEDURE invia_notifica(utente IN UTENTE.Username%TYPE, codS IN SERIE.ISBN%TYPE, 
-    libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE)
-LANGUAGE SQL 
+    cod_libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE)
+LANGUAGE  plpgsql
 AS $$
 DECLARE
     testo_notifica NOTIFICA_INVIATA.testo%TYPE;
@@ -680,9 +680,9 @@ BEGIN
 
         SELECT Nome, Indirizzo, SitoWeb INTO nome_libreria, indirizzo_libreria, sito --trova il nome della libreria inserita
         FROM LIBRERIA
-        WHERE CodL=libreria;
+        WHERE CodL=cod_libreria;
 
-        testo_notifica='NOTIFICA: La serie '||titolo_serie||' è completamente disponibile in formato '||NEW.Fruizione||' alla libreria '||nome_libreria;
+        testo_notifica='NOTIFICA: La serie '||titolo_serie||' è completamente disponibile in formato '||fruizione||' alla libreria '||nome_libreria;
 
         IF indirizzo_libreria IS NOT NULL AND sito IS NOT NULL THEN
             testo_notifica=testo_notifica||' presso '||indirizzo_libreria||' oppure al sito: '||sito;
