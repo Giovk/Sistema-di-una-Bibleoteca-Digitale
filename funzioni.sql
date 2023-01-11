@@ -731,7 +731,7 @@ CREATE TRIGGER T_inserimentoPossesso_S AFTER INSERT ON POSSESSO_S
     FOR EACH ROW EXECUTE FUNCTION invia_notifica_inserimentoPossesso_S()
 
 -- la notifica deve essere inviata dopo l'aggiornamento/inseimento di PREFERITI_S
-CREATE OR REPLACE FUNCTION invia_notifica_inserimentoPreferiti_S() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION invia_notifica_preferiti_S() RETURNS trigger AS $$
 DECLARE
     libreria_corrente LIBRERIA.CodL%TYPE;
     fruizione_corrente POSSESSO_S.Fruizione%TYPE;
@@ -742,10 +742,10 @@ DECLARE
         FROM NOTIFICA
         WHERE ISBN=NEW.ISBN;
 BEGIN
-    OPEN cursore_utenti;
+    OPEN cursore_librerie;
 
     LOOP 
-        FETCH cursore_utenti INTO utente_corrente, fruizione_corrente;
+        FETCH cursore_librerie INTO libreria_corrente, fruizione_corrente;
 
         EXIT WHEN NOT FOUND;
 
