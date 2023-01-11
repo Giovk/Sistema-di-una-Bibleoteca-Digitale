@@ -691,7 +691,7 @@ BEGIN
         FROM LIBRERIA
         WHERE CodL=NEW.CodL;
 
-        testo_notifica='NOTIFICA: La serie '||titolo_serie||' è completamente disponibile in formato '||NEW.Fruizione||' alla libreria '||libreria;
+        testo_notifica='NOTIFICA: La serie '||titolo_serie||' è completamente disponibile in formato '||NEW.Fruizione||' alla libreria '||nome_libreria;
 
         IF indirizzo_libreria IS NOT NULL AND sito IS NOT NULL THEN
             testo_notifica=testo_notifica||' presso '||indirizzo_libreria||' oppure al sito: '||sito;
@@ -715,3 +715,5 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoPossesso_S AFTER INSERT ON POSSESSO_S
     FOR EACH ROW EXECUTE FUNCTION invia_notifica()
+
+-- la notifica deve essere inviata dopo l'aggiornamento/inseimento di PREFERITI_S
