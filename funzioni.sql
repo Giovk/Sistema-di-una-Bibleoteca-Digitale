@@ -663,7 +663,7 @@ CREATE TRIGGER T_inserimentoArticolo AFTER INSERT ON ARTICOLO_SCIENTIFICO
     FOR EACH ROW EXECUTE FUNCTION inserimento_DOIArticolo();
 
 -- La procedura invia una notifia con i parametri presi in input
-CREATE OR REPLACE PROCEDURE invia_notifica(utente IN UTENTE.Username%TYPE, serie IN SERIE.ISBN%TYPE, 
+CREATE OR REPLACE PROCEDURE invia_notifica(utente IN UTENTE.Username%TYPE, codS IN SERIE.ISBN%TYPE, 
     libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE) AS $$
 DECLARE
     testo_notifica NOTIFICA_INVIATA.testo%TYPE;
@@ -674,7 +674,7 @@ DECLARE
 BEGIN
         SELECT DISTINCT Titolo INTO titolo_serie --trova il titolo della serie inserita
         FROM SERIE
-        WHERE ISBN=serie;
+        WHERE ISBN=codS;
 
         SELECT Nome, Indirizzo, SitoWeb INTO nome_libreria, indirizzo_libreria, sito --trova il nome della libreria inserita
         FROM LIBRERIA
@@ -693,8 +693,7 @@ BEGIN
         testo_notifica=testo_notifica||'.';
 
         INSERT INTO NOTIFICA_INVIATA(Username, ISBN, CodL, Testo)
-        VALUES(utente, serie, libreia, testo_notifica);
-
+        VALUES(utente, codS, libreria, testo_notifica);
 END; 
 $$ LANGUAGE plpgsql;
 
@@ -716,7 +715,7 @@ BEGIN
 
         EXIT WHEN NOT FOUND;
 
-        invia_notifica(utente_corrente, NEW.ISBN, NEW.CodL, NEW.Fruizione);
+        CALL invia_notifica(utente_corrente, NEW.ISBN, NEW.CodL, NEW.Fruizione);
     END LOOP;
 
     CLOSE cursore_utenti;
