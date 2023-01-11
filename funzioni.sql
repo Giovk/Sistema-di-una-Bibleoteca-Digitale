@@ -664,7 +664,9 @@ CREATE TRIGGER T_inserimentoArticolo AFTER INSERT ON ARTICOLO_SCIENTIFICO
 
 -- La procedura invia una notifia con i parametri presi in input
 CREATE OR REPLACE PROCEDURE invia_notifica(utente IN UTENTE.Username%TYPE, codS IN SERIE.ISBN%TYPE, 
-    libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE) AS $$
+    libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE)
+LANGUAGE SQL 
+AS $$
 DECLARE
     testo_notifica NOTIFICA_INVIATA.testo%TYPE;
     titolo_serie SERIE.titolo%TYPE;
@@ -695,7 +697,7 @@ BEGIN
         INSERT INTO NOTIFICA_INVIATA(Username, ISBN, CodL, Testo)
         VALUES(utente, codS, libreria, testo_notifica);
 END; 
-$$ LANGUAGE plpgsql;
+$$
 
 -- Quando una serie è posseduta da una libreria deve essere inviata una notifica a tutti gli utenti che hanno nei 
 -- preferiti quella serie
