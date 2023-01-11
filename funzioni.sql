@@ -676,14 +676,14 @@ DECLARE
     cursore_utenti CURSOR FOR --contiene tutti gli utenti che devono ricevere la notifica
         SELECT Username
         FROM NOTIFICA
-        WHERE ISBN=NEW.ISBN AND CodL=NEW.CodL AND Fruizione=NEW.Fruizione
+        WHERE ISBN=NEW.ISBN AND CodL=NEW.CodL AND Fruizione=NEW.Fruizione;
 BEGIN
     OPEN cursore_utenti;
 
     LOOP 
         FETCH cursore_utenti INTO utente_corrente;
 
-        SELECT Titolo INTO titolo_serie --trova il titolo della serie inserita
+        SELECT DISTINCT Titolo INTO titolo_serie --trova il titolo della serie inserita
         FROM SERIE
         WHERE ISBN=NEW.ISBN;
 
@@ -691,7 +691,7 @@ BEGIN
         FROM LIBRERIA
         WHERE CodL=NEW.CodL;
 
-        testo_notifica='NOTIFICA: La serie '||titolo||' è completamente disponibile in formato '||NEW.Fruizione||' alla libreria '||libreria;
+        testo_notifica='NOTIFICA: La serie '||titolo_serie||' è completamente disponibile in formato '||NEW.Fruizione||' alla libreria '||libreria;
 
         IF indirizzo_libreria IS NOT NULL AND sito IS NOT NULL THEN
             testo_notifica=testo_notifica||' presso '||indirizzo_libreria||' oppure al sito: '||sito;
