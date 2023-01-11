@@ -661,3 +661,57 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoArticolo AFTER INSERT ON ARTICOLO_SCIENTIFICO
     FOR EACH ROW EXECUTE FUNCTION inserimento_DOIArticolo();
+
+-- Quando una serie è posseduta da una libreria deve essere inviata una notifica a tutti gli utenti che hanno nei 
+-- preferiti quella serie
+CREATE OR REPLACE FUNCTION invia_notifica() RETURNS trigger AS $$
+DECLARE
+    utente_corrente UTENTE.Username%TYPE;
+    testo_notifica NOTIFICA_INVIATA.testo%TYPE;
+    titolo_serie SERIE.titolo%TYPE;
+    nome_libreria LIBRERIA.nome%TYPE;
+    indirizzo_libreria LIBRERIA.indirizzo%TYPE;
+    sito LIBRERIA.SitoWeb%TYPE;
+
+    cursore_utenti CURSOR FOR --contiene tutti gli utenti che devono ricevere la notifica
+        SELECT Username
+        FROM NOTIFICA
+        WHERE ISBN=NEW.ISBN AND CodL=NEW.CodL AND Fruizione=NEW.Fruizione
+BEGIN
+    OPEN cursore_utenti;
+
+    LOOP 
+        FETCH cursore_utenti INTO utente_corrente;
+
+        SELECT Titolo INTO titolo_serie --trova il titolo della serie inserita
+        FROM SERIE
+        WHERE ISBN=NEW.ISBN;
+
+        SELECT Nome, Indirizzo, SitoWeb INTO nome_libreria, indirizzo_libreria, sito --trova il nome della libreria inserita
+        FROM LIBRERIA
+        WHERE CodL=NEW.CodL;
+
+        testo_notifica='NOTIFICA: La serie '||titolo||' è completamente disponibile alla libreria '||libreria;
+
+        IF indirizzo_libreria IS NOT NULL AND sito IS NOT NULL THEN
+            testo_notifica=testo_notifica||' presso '||indirizzo_libreria||' oppure al sito: '||sito;
+        ELSIF indirizzo_libreria IS NULL THEN
+            testo_notifica=testo_notifica||' al sito: '||sito;
+        ELSE
+            testo_notifica=testo_notifica||' presso '||indirizzo_libreria;
+        END IF;
+
+        testo_notifica=testo_notifica||'.';
+
+        INSERT INTO NOTIFICA_INVIATA(Username, ISBN, CodL, Testo)
+        VALUES(utente_corrente, NEW.ISBN, NEW.CodL, testo_notifica);
+    END LOOP;
+
+    CLOSE cursore_utenti;
+
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoPossesso_S AFTER INSERT ON POSSESSO_S
+    FOR EACH ROW EXECUTE FUNCTION invia_notifica()
