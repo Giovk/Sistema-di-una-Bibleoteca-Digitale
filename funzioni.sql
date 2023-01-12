@@ -730,7 +730,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoPossesso_S AFTER INSERT ON POSSESSO_S
     FOR EACH ROW EXECUTE FUNCTION invia_notifica_inserimentoPossesso_S()
 
--- la notifica deve essere inviata dopo l'aggiornamento/inseimento di PREFERITI_S
+-- La notifica deve essere inviata dopo l'aggiornamento/inseimento di PREFERITI_S
 CREATE OR REPLACE FUNCTION invia_notifica_preferiti_S() RETURNS trigger AS $$
 DECLARE
     libreria_corrente LIBRERIA.CodL%TYPE;
@@ -740,7 +740,7 @@ DECLARE
     cursore_librerie CURSOR FOR
         SELECT CodL, Fruizione
         FROM NOTIFICA
-        WHERE ISBN=NEW.ISBN;
+        WHERE ISBN=NEW.ISBN AND Username=NEW.Username;
 BEGIN
     OPEN cursore_librerie;
 
