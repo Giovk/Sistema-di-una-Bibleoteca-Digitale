@@ -728,12 +728,13 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoPossesso_S AFTER INSERT ON POSSESSO_S
-    FOR EACH ROW EXECUTE FUNCTION invia_notifica_possesso_S()
+    FOR EACH ROW EXECUTE FUNCTION invia_notifica_possesso_S();
 CREATE TRIGGER T_modificaPossesso_S AFTER UPDATE OF Quantita ON POSSESSO_S
     FOR EACH ROW WHEN(NEW.Quantita>0 AND OLD.Quantita=0)
     EXECUTE FUNCTION invia_notifica_possesso_S();
 
--- La notifica deve essere inviata dopo l'aggiornamento/inseimento di PREFERITI_S
+-- Quando una serie viene messa nei preferiti da un utente (tramite inserimento e o modifica in 'PREFERITI_S') se la
+-- serie è disponibile, allora deve essere inviata la notifica
 CREATE OR REPLACE FUNCTION invia_notifica_preferiti_S() RETURNS trigger AS $$
 DECLARE
     libreria_corrente LIBRERIA.CodL%TYPE;
@@ -765,9 +766,3 @@ CREATE TRIGGER T_inserimentoPreferiti_S AFTER INSERT ON PREFERITI_S
 CREATE TRIGGER T_modificaPreferiti_S AFTER UPDATE OF Preferito ON PREFERITI_S
     FOR EACH ROW WHEN(NEW.Preferito=true)
     EXECUTE FUNCTION invia_notifica_preferiti_S();
-
--- La notifica deve essere inviata dopo la modifica della quantita di POSSESSO_S
-
-
-
-
