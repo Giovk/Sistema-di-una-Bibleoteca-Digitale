@@ -701,7 +701,7 @@ $$ LANGUAGE plpgsql;
 
 -- Quando una serie è posseduta da una libreria deve essere inviata una notifica a tutti gli utenti che hanno nei 
 -- preferiti quella serie
-CREATE OR REPLACE FUNCTION invia_notifica_inserimentoPossesso_S() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION invia_notifica_possesso_S() RETURNS trigger AS $$
 DECLARE
     utente_corrente UTENTE.Username%TYPE;
     ris INTEGER;
@@ -728,7 +728,10 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoPossesso_S AFTER INSERT ON POSSESSO_S
-    FOR EACH ROW EXECUTE FUNCTION invia_notifica_inserimentoPossesso_S()
+    FOR EACH ROW EXECUTE FUNCTION invia_notifica_possesso_S()
+CREATE TRIGGER T_modificaPossesso_S AFTER UPDATE OF Quantita ON POSSESSO_S
+    FOR EACH ROW WHEN(NEW.Quantita>0 AND OLD.Quantita=0)
+    EXECUTE FUNCTION invia_notifica_possesso_S();
 
 -- La notifica deve essere inviata dopo l'aggiornamento/inseimento di PREFERITI_S
 CREATE OR REPLACE FUNCTION invia_notifica_preferiti_S() RETURNS trigger AS $$
@@ -763,4 +766,8 @@ CREATE TRIGGER T_modificaPreferiti_S AFTER UPDATE OF Preferito ON PREFERITI_S
     FOR EACH ROW WHEN(NEW.Preferito=true)
     EXECUTE FUNCTION invia_notifica_preferiti_S();
 
--- la notifica deve essere inviata dopo la modifica della quantita di POSSESSO_S
+-- La notifica deve essere inviata dopo la modifica della quantita di POSSESSO_S
+
+
+
+
