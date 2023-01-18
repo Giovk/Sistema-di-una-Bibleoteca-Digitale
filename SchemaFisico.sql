@@ -5,7 +5,7 @@ CREATE TABLE UTENTE
 (
     Username VARCHAR(30) PRIMARY KEY,
     Email VARCHAR(319) UNIQUE NOT NULL, -- La lunghezza massima di un indirizzo email sono 319 caratteri.
-    Pw VARCHAR(64) NOT NULL, -- La lunghezza massima di una password sono 64 caratteri.
+    PasswordU VARCHAR(64) NOT NULL, -- La lunghezza massima di una password sono 64 caratteri.
     PartitaIVA partitaiva UNIQUE,
     Nome VARCHAR(64) NOT NULL,
     Cognome VARCHAR(64) NOT NULL
