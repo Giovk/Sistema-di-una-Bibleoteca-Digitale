@@ -219,7 +219,7 @@ CREATE TABLE RECENSIONE_L
 );
 
 CREATE TABLE NOTIFICA
-{
+(
     Username VARCHAR(30),   
     ISBN isbn,              
     Libreria INT,
@@ -228,12 +228,12 @@ CREATE TABLE NOTIFICA
     Testo VARCHAR(255),
     Lettura BOOLEAN DEFAULT false,     
 
-    PRIMARY KEY(Username, ISBN, Testo, OraInvio, DataInvio),
+    PRIMARY KEY(Username, ISBN, Libreria, OraInvio, DataInvio),
     FOREIGN KEY (Username) REFERENCES UTENTE(Username)
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (ISBN) REFERENCES SERIE(ISBN)
-        ON DELETE CASCADE ON UPDATE CASCADE,
-};
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 CREATE TABLE PRESENTAZIONE
 (
