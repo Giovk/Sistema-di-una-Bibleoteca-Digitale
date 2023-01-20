@@ -693,7 +693,7 @@ BEGIN
     testo_notifica=testo_notifica||'.';
 
     INSERT INTO NOTIFICA(Username, ISBN, Libreria, DataInvio, OraInvio, Testo)
-    VALUES(utente, codS, cod_libreria, current_date, current_time(0) testo_notifica);
+    VALUES(utente, codS, cod_libreria, current_date, current_time(0), testo_notifica);
 
     RETURN 1;
 END; 
@@ -744,7 +744,7 @@ DECLARE
     cursore_librerie CURSOR FOR --Contiene tutte le librerie e le modalità di fruizione in cui è disponibile la serie inserita nei preferiti
         SELECT CodL, Fruizione
         FROM POSSESSO_S
-        WHERE ISBN=NEW.ISBN AND Username=NEW.Username;
+        WHERE ISBN=NEW.ISBN;
 BEGIN
     OPEN cursore_librerie;
 
