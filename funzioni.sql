@@ -662,11 +662,11 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoArticolo AFTER INSERT ON ARTICOLO_SCIENTIFICO
     FOR EACH ROW EXECUTE FUNCTION inserimento_DOIArticolo();
 
--- La procedura invia una notifia con i parametri presi in input
+-- La funzione invia una notifia con i parametri presi in input
 CREATE OR REPLACE FUNCTION invia_notifica(utente IN UTENTE.Username%TYPE, codS IN SERIE.ISBN%TYPE, 
     cod_libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE) RETURNS INTEGER AS $$
 DECLARE
-    testo_notifica NOTIFICA_INVIATA.testo%TYPE;
+    testo_notifica NOTIFICA.testo%TYPE;
     titolo_serie SERIE.titolo%TYPE;
     nome_libreria LIBRERIA.nome%TYPE;
     indirizzo_libreria LIBRERIA.indirizzo%TYPE;
@@ -692,8 +692,8 @@ BEGIN
 
     testo_notifica=testo_notifica||'.';
 
-    INSERT INTO NOTIFICA_INVIATA(Username, ISBN, CodL, Testo)
-    VALUES(utente, codS, cod_libreria, testo_notifica);
+    INSERT INTO NOTIFICA(Username, ISBN, Libreria, DataInvio, OraInvio, Testo)
+    VALUES(utente, codS, cod_libreria, current_date, current_time(0) testo_notifica);
 
     RETURN 1;
 END; 
@@ -708,8 +708,8 @@ DECLARE
 
     cursore_utenti CURSOR FOR --contiene tutti gli utenti che devono ricevere la notifica
         SELECT Username
-        FROM NOTIFICA
-        WHERE ISBN=NEW.ISBN AND CodL=NEW.CodL AND Fruizione=NEW.Fruizione;
+        FROM RECENSIONE_S
+        WHERE ISBN=NEW.ISBN AND Preferito=true;
 BEGIN
     OPEN cursore_utenti;
 
@@ -741,9 +741,9 @@ DECLARE
     fruizione_corrente POSSESSO_S.Fruizione%TYPE;
     ris INTEGER;
 
-    cursore_librerie CURSOR FOR
+    cursore_librerie CURSOR FOR --Contiene tutte le librerie e le modalità di fruizione in cui è disponibile la serie inserita nei preferiti
         SELECT CodL, Fruizione
-        FROM NOTIFICA
+        FROM POSSESSO_S
         WHERE ISBN=NEW.ISBN AND Username=NEW.Username;
 BEGIN
     OPEN cursore_librerie;
@@ -760,9 +760,9 @@ BEGIN
 END; 
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_inserimentoPreferiti_S AFTER INSERT ON PREFERITI_S
+CREATE TRIGGER T_inserimentoPreferiti_S AFTER INSERT ON RECENSIONE_S
     FOR EACH ROW WHEN(NEW.Preferito=true)
     EXECUTE FUNCTION invia_notifica_preferiti_S();
-CREATE TRIGGER T_modificaPreferiti_S AFTER UPDATE OF Preferito ON PREFERITI_S
+CREATE TRIGGER T_modificaPreferiti_S AFTER UPDATE OF Preferito ON RECENSIONE_S
     FOR EACH ROW WHEN(NEW.Preferito=true)
     EXECUTE FUNCTION invia_notifica_preferiti_S();
