@@ -77,7 +77,7 @@ INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
 VALUES (6, '0814722075', 'Libreria Marsiglia', 'www.libreriamarsiglia.it', 'Via San Martino 99, 80046, San Giorgio A Cremano (Na), Napoli, Italia', 'Rosbru');
 INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore) --7
 VALUES (7, '0814542280', 'Libreria Cartoleria Fallacci', 'www.libreriafallacci.wixsite.com/website', 'Piazza Cavour 55/56, 80137, Napoli, Italia', 'Waffer');
-INSERT INTO LIBRERIA (CodL, umeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore) --8 
+INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore) --8 
 VALUES (8, '0372462435', 'Mondadori BookStore', 'www.mondadoristore.it/negozi/punti-vendita/Mondadori-Bookstore', 'Piazza Antonio Stradivari 6, 26100, Cremona, Italia', 'Benriz');
 INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore) --9
 VALUES (9, '0374344667', 'Mondadori Point', 'www.mondadoristore.it/negozi/punti-vendita/Mondadori-Point-Soresina/1570/', 'Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Benriz');
