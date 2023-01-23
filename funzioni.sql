@@ -756,6 +756,8 @@ BEGIN
         ris=invia_notifica(NEW.Username, NEW.ISBN, libreria_corrente, fruizione_corrente);
     END LOOP;
 
+    CLOSE cursore_librerie;
+
     RETURN NEW;
 END; 
 $$ LANGUAGE plpgsql;
