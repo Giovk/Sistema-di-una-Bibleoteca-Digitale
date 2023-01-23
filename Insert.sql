@@ -1220,15 +1220,6 @@ VALUES ('Macinino45', '978-88-3100-340-7', true);
 INSERT INTO RECENSIONE_L (Username, ISBN, Testo, Valutazione, Preferito)
 VALUES ('ImpastoLievitato', '978-88-9543-776-7', 'Davvero ben cresciuto!', 4, true);
 
--- POSSESSO_S --
-
--- INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
--- VALUES (1, '978-88-3101-382-6', 'Cartaceo', 3);
--- INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
--- VALUES (2, '978-88-3100-010-9', 'Cartaceo', 0);
--- INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
--- VALUES (3, '978-00-0758-114-6', 'Cartaceo', 2);
-
 -- RECENSIONE_S --
 
 INSERT INTO RECENSIONE_S (Username, ISBN, Testo, Valutazione, Preferito)
