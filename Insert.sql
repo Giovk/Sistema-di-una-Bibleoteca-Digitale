@@ -1,65 +1,65 @@
 
 -- UTENTE --
 
-INSERT INTO UTENTE (Username, Email, pw, PartitaIva, Nome, Cognome) --1
+INSERT INTO UTENTE (Username, Email, PasswordU, PartitaIva, Nome, Cognome) --1
 VALUES ('Admin1', 'giovanni.riccio6@studenti.unina.it', 'admin', '00000000001', 'Giovanni', 'Riccio');
-INSERT INTO UTENTE (Username, Email, pw, PartitaIva, Nome, Cognome) --2
+INSERT INTO UTENTE (Username, Email, PasswordU, PartitaIva, Nome, Cognome) --2
 VALUES ('Admin2', 'gen.nappo@studenti.unina.it', 'admin', '00000000002', 'Gennaro', 'Nappo');
-INSERT INTO UTENTE (Username, Email, pw, PartitaIva, Nome, Cognome) --3
+INSERT INTO UTENTE (Username, Email, PasswordU, PartitaIva, Nome, Cognome) --3
 VALUES ('Giudil', 'giulio.dilorenzo@gmail.com', 'a1b2c3', '73291990775', 'Giulio', 'Di Lorenzo');
-INSERT INTO UTENTE (Username, Email, pw, PartitaIva, Nome, Cognome) --4
+INSERT INTO UTENTE (Username, Email, PasswordU, PartitaIva, Nome, Cognome) --4
 VALUES ('Irmluc', 'irma.lucciano@gmail.com', 'd4e5f6', '48645480756', 'Irma', 'Lucciano');
-INSERT INTO UTENTE (Username, Email, pw, PartitaIva, Nome, Cognome) --5
+INSERT INTO UTENTE (Username, Email, PasswordU, PartitaIva, Nome, Cognome) --5
 VALUES ('Rosbru', 'rosario.bruno@gmail.com', 'g7h8i9', '31265250287', 'Rosario', 'Bruno');
-INSERT INTO UTENTE (Username, Email, pw, PartitaIva, Nome, Cognome) --6
+INSERT INTO UTENTE (Username, Email, PasswordU, PartitaIva, Nome, Cognome) --6
 VALUES ('Waffer', 'walter.fallacci@gmail.com', 'l0m1n2', '73073560895', 'Walter', 'Fallacci');
-INSERT INTO UTENTE (Username, Email, pw, PartitaIva, Nome, Cognome) --7
+INSERT INTO UTENTE (Username, Email, PasswordU, PartitaIva, Nome, Cognome) --7
 VALUES ('Benriz', 'bene.rizzo@gmail.com', 'o2p4q5', '39364160828', 'Benedetta', 'Rizzo');
-INSERT INTO UTENTE (Username, Email, pw, PartitaIva, Nome, Cognome) --8
+INSERT INTO UTENTE (Username, Email, PasswordU, PartitaIva, Nome, Cognome) --8
 VALUES ('DonRodrigo', 'manzoni.lover@libero.it', 'amolucia1327', '43511610404', 'Rodrigo', 'Padovano');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --9
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --9
 VALUES ('Flomil', 'floramilano@outlook.com', 'r6s7t8','Flora', 'Milano');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --10
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --10
 VALUES ('Corinnio', 'corinna.onnio88@gmail.com', 'pretzel15', 'Corinna', 'Onnio');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --11
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --11
 VALUES ('Etzio', 'ettore.mazzanti@libero.it', 'u9v0z1', 'Ettore', 'Mazzanti');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --12
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --12
 VALUES ('Elio69', 'eliogreco68@outlook.com', 'ilovechimica12', 'Elio', 'Greco');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --13
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --13
 VALUES ('Fernindx', 'Fernando.napoli@libero.it', 'Napoli2003', 'Fernando', 'Arcuri');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --14
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --14
 VALUES ('CatCat', 'cat.lover.2002@gmail.com', 'animeloverNYA', 'Caterina', 'Cattaneo');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --15
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --15
 VALUES ('ConteDiCavour', 'Camillo.purosangue@outlook.com', 'prince123', 'Camillo', 'Bellucci');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --16
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --16
 VALUES ('Baguette', 'rosetta.scarpetta@paninarodifiducia.it', 'ilovebakery33', 'Luciano', 'Pagnotto');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --17
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --17
 VALUES ('Imma', 'hounferrointasca@gmail.com', 'ak-42<3', 'Imma', 'Ferri');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --18
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --18
 VALUES ('Porticata', 'sara.cinesca@libero.it', 'sarachiusa?', 'Sara', 'Cinesca');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --19
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --19
 VALUES ('ErPupone', 'ilary.mi.ha.lasciato@roma.it', 'Siefragatairolex', 'Francesco', 'Totti');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --20 
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --20 
 VALUES ('Leoncino', 'ilkingdellagiungla@gmail.com', 'Staseramisentounleone33', 'Leon', 'Cino');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --21
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --21
 VALUES ('Cruzz_o_portier', 'popopopo@gmail.com', 'fozzanapoli', 'Ciro', 'Esposito');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --22
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --22
 VALUES ('Bocciolo', 'pratofiorito@outlook.com', 'fiordariso11', 'Fiore', 'Dell Orto');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --23
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --23
 VALUES ('Alfreducciopanevino', 'dalcaldo.alfredo@gmail.com', 'microonde69', 'Alfredo', 'Dal Caldo');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --24
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --24
 VALUES ('Morfeo13', 'russo.felice@studenti.unina.it', 'Pisolino41', 'Felice', 'Russo');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --25
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --25
 VALUES ('PenneRigateN11', 'labarillafaschifo@gmail.com', 'Cavatelli11', 'Gustavo', 'La Pasta');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --26
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --26
 VALUES ('Prosteyshiy Sputnik-1', 'massimo.ingegno@studenti.unina.it', 'E=mc^2', 'Massimo', 'Ingegno');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --27
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --27
 VALUES ('Macinino45', 'pepe.rosa@saliera.net', 'Himalaya33', 'Rosa', 'Pepe');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --28
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --28
 VALUES ('IlPapaRegna', 'abbasso.putin@outlook.com', 'peaceandlove22', 'Perla', 'Pace');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --29
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --29
 VALUES ('Ilario', 'Lampa.Dario@studenti.unina.it', 'hocambiatofacolta11', 'Dario', 'Lampa');
-INSERT INTO UTENTE (Username, Email, pw, Nome, Cognome) --30
+INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome) --30
 VALUES ('ImpastoLievitato', 'pizza.margherita@vivanapoli.it', 'Sorbillo<3', 'Margherita', 'Pizza');
 
 -- LIBRERIA --
@@ -1113,27 +1113,27 @@ VALUES (11, 16, 'Cartaceo', 2);
 INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
 VALUES (11, 17, 'Cartaceo', 3);
 
--- PREFERITI_F --
+-- RECENSIONE_F --
 
-INSERT INTO PREFERITI_F (Username, CodF, Valutazione, Preferito)
+INSERT INTO RECENSIONE_F (Username, CodF, Valutazione, Preferito)
 VALUES ('Admin1', 1, 4, true);
-INSERT INTO PREFERITI_F (Username, CodF, Recensione)
+INSERT INTO RECENSIONE_F (Username, CodF, Testo)
 VALUES ('Admin2', 3, 'Bello, ma non bellissimo cit. Shiva');
-INSERT INTO PREFERITI_F (Username, CodF, Preferito)
+INSERT INTO RECENSIONE_F (Username, CodF, Preferito)
 VALUES ('Morfeo13', 5, true);
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+INSERT INTO RECENSIONE_F (Username, CodF, Testo, Valutazione, Preferito)
 VALUES ('Ilario', 7, 'Belandi che bello', 5, true);
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+INSERT INTO RECENSIONE_F (Username, CodF, Testo, Valutazione, Preferito)
 VALUES ('Macinino45', 9, 'Bello ma poca caffeina', 3, true);
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione)
+INSERT INTO RECENSIONE_F (Username, CodF, Testo, Valutazione)
 VALUES ('Prosteyshiy Sputnik-1', 11, 'Fra, cambia mestiere, non ne sai niente', 1);
-INSERT INTO PREFERITI_F (Username, CodF, Valutazione)
+INSERT INTO RECENSIONE_F (Username, CodF, Valutazione)
 VALUES ('Prosteyshiy Sputnik-1', 13, 2);
-INSERT INTO PREFERITI_F (Username, CodF, Preferito)
+INSERT INTO RECENSIONE_F (Username, CodF, Preferito)
 VALUES ('Ilario', 15, true);
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+INSERT INTO RECENSIONE_F (Username, CodF, Testo, Valutazione, Preferito)
 VALUES ('ErPupone', 17, 'Magico o sto Fascicolo, ao manco fosse da Roma', 5, true);
-INSERT INTO PREFERITI_F (Username, CodF, Recensione, Valutazione, Preferito)
+INSERT INTO RECENSIONE_F (Username, CodF, Testo, Valutazione, Preferito)
 VALUES ('Baguette', 19, 'Je dois être honnête, mieux que des baguettes', 4, true);
 
 -- POSSESSO_L --
@@ -1197,46 +1197,47 @@ VALUES (11, '978-12-8007-834-6', 'Cartaceo', 7);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
 VALUES (11, '978-12-8007-834-6', 'AudioLibro');
 
--- PREFERITI_L --
-INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione, Preferito)
+-- RECENSIONE_L --
+
+INSERT INTO RECENSIONE_L (Username, ISBN, Testo, Valutazione, Preferito)
 VALUES ('Benriz', '978-88-6311-435-5', 'Davvero Bello!', 5, true);
-INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione)
+INSERT INTO RECENSIONE_L (Username, ISBN, Testo, Valutazione)
 VALUES ('Etzio', '978-88-6311-435-5', 'Non mi è piaciuto :C', 1);
-INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione)
+INSERT INTO RECENSIONE_L (Username, ISBN, Testo, Valutazione)
 VALUES ('DonRodrigo', '978-88-6137-869-8', 'Brutto', 2);
-INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione, Preferito)
+INSERT INTO RECENSIONE_L (Username, ISBN, Testo, Valutazione, Preferito)
 VALUES ('ConteDiCavour', '978-88-9190-165-1', 'Mi consenta, Davvero S-U-P-E-R-B-O-!', 5, true);
-INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione)
+INSERT INTO RECENSIONE_L (Username, ISBN, Testo, Valutazione)
 VALUES ('Porticata', '978-12-8007-834-6', 'DAVVERO, CON STO LIBRO, MI SI è CHIUSO UN PORTONE', 2);
-INSERT INTO PREFERITI_L (Username, ISBN, Preferito)
+INSERT INTO RECENSIONE_L (Username, ISBN, Preferito)
 VALUES ('Cruzz_o_portier', '978-88-301-0526-3', true);
-INSERT INTO PREFERITI_L (Username, ISBN, Preferito)
+INSERT INTO RECENSIONE_L (Username, ISBN, Preferito)
 VALUES ('Bocciolo', '978-88-301-0526-3', true);
-INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione, Preferito)
+INSERT INTO RECENSIONE_L (Username, ISBN, Testo, Valutazione, Preferito)
 VALUES ('Alfreducciopanevino', '978-88-3101-288-1', 'Bello da leggere mentre sto bloccato in Germania', 4, true);
-INSERT INTO PREFERITI_L (Username, ISBN, Preferito)
+INSERT INTO RECENSIONE_L (Username, ISBN, Preferito)
 VALUES ('Macinino45', '978-88-3100-340-7', true);
-INSERT INTO PREFERITI_L (Username, ISBN, Recensione, Valutazione, Preferito)
+INSERT INTO RECENSIONE_L (Username, ISBN, Testo, Valutazione, Preferito)
 VALUES ('ImpastoLievitato', '978-88-9543-776-7', 'Davvero ben cresciuto!', 4, true);
 
 -- POSSESSO_S --
 
-INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
-VALUES (1, '978-88-3101-382-6', 'Cartaceo', 3);
-INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
-VALUES (2, '978-88-3100-010-9', 'Cartaceo', 0);
-INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
-VALUES (3, '978-00-0758-114-6', 'Cartaceo', 2);
+-- INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
+-- VALUES (1, '978-88-3101-382-6', 'Cartaceo', 3);
+-- INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
+-- VALUES (2, '978-88-3100-010-9', 'Cartaceo', 0);
+-- INSERT INTO POSSESSO_S (CodL, ISBN, Fruizione, Quantita)
+-- VALUES (3, '978-00-0758-114-6', 'Cartaceo', 2);
 
--- PREFERITI_S --
+-- RECENSIONE_S --
 
-INSERT INTO PREFERITI_S (Username, ISBN, Recensione, Valutazione, Preferito)
+INSERT INTO RECENSIONE_S (Username, ISBN, Testo, Valutazione, Preferito)
 VALUES ('Flomil', '978-88-3101-382-6', 'Davvero bello!', 4, true);
-INSERT INTO PREFERITI_S (Username, ISBN, Recensione, Valutazione)
+INSERT INTO RECENSIONE_S (Username, ISBN, Testo, Valutazione)
 VALUES ('Corinnio', '978-88-3100-010-9', 'Non mi è piaciuto.', 2);
-INSERT INTO PREFERITI_S (Username, ISBN, Recensione, Valutazione, Preferito)
+INSERT INTO RECENSIONE_S (Username, ISBN, Testo, Valutazione, Preferito)
 VALUES ('CatCat', '978-00-0758-114-6', 'UWU', 5, true);
-INSERT INTO PREFERITI_S (Username, ISBN, Recensione, Valutazione)
+INSERT INTO RECENSIONE_S (Username, ISBN, Testo, Valutazione)
 VALUES ('Imma', '978-88-3101-382-6', 'Non mi esprimo...', 1);
-INSERT INTO PREFERITI_S (Username, ISBN, Recensione, Valutazione, Preferito)
+INSERT INTO RECENSIONE_S (Username, ISBN, Testo, Valutazione, Preferito)
 VALUES ('Leoncino', '978-88-3100-010-9', 'Davvero carino :3', 4, true);
