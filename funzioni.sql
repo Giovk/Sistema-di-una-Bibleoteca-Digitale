@@ -376,7 +376,7 @@ DECLARE
         FROM CONFERENZA AS C NATURAL JOIN ESPOSIZIONE AS E
         WHERE E.DOI=NEW.DOI;
 BEGIN
-    OPEN cursore_anniConferenze
+    OPEN cursore_anniConferenze;
 
     LOOP
         FETCH cursore_anniConferenze INTO anno_conferenzaCorrente;
