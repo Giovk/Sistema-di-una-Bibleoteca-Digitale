@@ -376,7 +376,7 @@ DECLARE
         FROM CONFERENZA AS C NATURAL JOIN ESPOSIZIONE AS E
         WHERE E.DOI=NEW.DOI;
 BEGIN
-    OPEN cursore_anniConferenze
+    OPEN cursore_anniConferenze;
 
     LOOP
         FETCH cursore_anniConferenze INTO anno_conferenzaCorrente;
@@ -682,13 +682,13 @@ BEGIN
 
     testo_notifica='NOTIFICA: La serie '||titolo_serie||' è completamente disponibile in formato '||fruizione||' alla libreria '||nome_libreria;
 
-    IF indirizzo_libreria IS NOT NULL AND sito IS NOT NULL THEN
-        testo_notifica=testo_notifica||' presso '||indirizzo_libreria||' oppure al sito: '||sito;
-    ELSIF indirizzo_libreria IS NULL THEN
-        testo_notifica=testo_notifica||' al sito: '||sito;
-    ELSE
-        testo_notifica=testo_notifica||' presso '||indirizzo_libreria;
-    END IF;
+    --IF indirizzo_libreria IS NOT NULL AND sito IS NOT NULL THEN
+    --    testo_notifica=testo_notifica||' presso '||indirizzo_libreria||' oppure al sito: '||sito;
+    --ELSIF indirizzo_libreria IS NULL THEN
+    --    testo_notifica=testo_notifica||' al sito: '||sito;
+    --ELSE
+    --    testo_notifica=testo_notifica||' presso '||indirizzo_libreria;
+    --END IF;
 
     testo_notifica=testo_notifica||'.';
 
