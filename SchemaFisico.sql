@@ -225,7 +225,7 @@ CREATE TABLE NOTIFICA
     Libreria INT,
     DataInvio DATE,          
     OraInvio TIME,           
-    Testo VARCHAR(255),
+    Testo VARCHAR(512),
     Lettura BOOLEAN DEFAULT false,     
 
     PRIMARY KEY(Username, ISBN, Libreria, OraInvio, DataInvio),
