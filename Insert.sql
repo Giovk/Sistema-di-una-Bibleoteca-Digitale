@@ -243,7 +243,7 @@ INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita) --9
 VALUES (9, 'Claudia', 'Kalb', 'Cinese');
 INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita) --10
 VALUES (10,'Victoria', 'Jaggard', 'Statunitense', '1999-07-02');
-INSERT INTO AUTORE (Nome, Cognome, Nazionalita) --11
+INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita) --11
 VALUES (11, 'Sarah', 'Gibbens', 'Statunitense');
 INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita) --12
 VALUES (12, 'Giulia', 'Mondanini', 'Italiana');
@@ -351,7 +351,7 @@ INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita) --63
 VALUES (63, 'Paolo', 'Gallina', 'Italiana', '1971-09-18');
 INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita) --64
 VALUES (64, 'Tersilla', 'Virgili', 'Italiana');
-INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --65
+INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita) --65
 VALUES (65, 'Joanne Kathleen', 'Rowling', 'Britannica', '1965-07-31');
 INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita) --66
 VALUES (66, 'Steve', 'Kloves', 'Statunitense', '1960-03-18');
