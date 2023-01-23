@@ -685,11 +685,7 @@ BEGIN
     IF indirizzo_libreria IS NOT NULL AND sito IS NOT NULL THEN
         testo_notifica=testo_notifica||' presso '||indirizzo_libreria||' oppure al sito: '||sito;
     ELSIF indirizzo_libreria IS NULL THEN
-<<<<<<< HEAD
        testo_notifica=testo_notifica||' al sito: '||sito;
-=======
-        testo_notifica=testo_notifica||' al sito: '||sito;
->>>>>>> 4540963fc39c4f69b1e364728aa5981d0084dc6c
     ELSE
         testo_notifica=testo_notifica||' presso '||indirizzo_libreria;
     END IF;
