@@ -728,7 +728,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoPossesso_S AFTER INSERT ON POSSESSO_S
-    FOR EACH ROW EXECUTE FUNCTION invia_notifica_possesso_S();
+    FOR EACH ROW  WHEN(NEW.Quantita>0)
+    EXECUTE FUNCTION invia_notifica_possesso_S();
 CREATE TRIGGER T_modificaPossesso_S AFTER UPDATE OF Quantita ON POSSESSO_S
     FOR EACH ROW WHEN(NEW.Quantita>0 AND OLD.Quantita=0)
     EXECUTE FUNCTION invia_notifica_possesso_S();
