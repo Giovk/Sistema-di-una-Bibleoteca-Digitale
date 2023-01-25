@@ -205,8 +205,8 @@ CREATE TRIGGER T_modifica_pubblicazioneFascicolo AFTER UPDATE OF DataPubblicazio
     FOR EACH ROW WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
     EXECUTE FUNCTION controllo_modificaFascicolo_ArticoliConferenze();
 
--- Quando viene introdotto un fascicolo in una rivista, oppure viene modificata la data di pubblicazione o l'ISSN di
--- un fascicolo, la data di pubblicazione del fascicolo deve essere successiva a quella della rivista
+-- Quando viene introdotto un fascicolo in una rivista la data di pubblicazione del fascicolo deve essere successiva
+-- a quella della rivista
 CREATE OR REPLACE FUNCTION controllo_inserimentoFascicolo() RETURNS trigger AS $$
 DECLARE
     anno_pubblicazioneRivista RIVISTA.AnnoPubblicazione%TYPE;
