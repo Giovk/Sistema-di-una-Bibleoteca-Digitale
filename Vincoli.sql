@@ -62,7 +62,7 @@ CHECK(
     )
 );
 
---La fruizione deve essere nell'insime ("Cartaceo", "Digitale" e "AudioLibro")
+--La fruizione deve essere nell'insieme ("Cartaceo", "Digitale" e "AudioLibro")
 CONSTRAINT C3
     CHECK (VALUE IN ('Cartaceo', 'Digitale', 'AudioLibro'));
 
@@ -97,11 +97,11 @@ CHECK(Valutazione>=0 AND Valutazione<=5);
 
 -- L'ISSN deve essere del formato giusto
 CONSTRAINT C10
-    CHECK (VALUE LIKE '____-____');
+CHECK (VALUE LIKE '____-____');
 
 -- Il DOI deve essere del formato giusto
 CONSTRAINT C11
-    CHECK (VALUE LIKE '10-%');
+CHECK (VALUE LIKE '10-%');
 
 -- In RECENSIONE_F non può esserci un fascicolo che non è stato valutato, recensito o inserito tra i preferiti 
 -- dall'utente
