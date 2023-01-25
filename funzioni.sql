@@ -371,7 +371,7 @@ DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
     anno_conferenzaCorrente INTEGER;
 
-    cursore_anniConferenze CURSOR FOR    --contiene gli anni delle conferenze dei fascioli con l'articolo modificato
+    cursore_anniConferenze CURSOR FOR    --contiene gli anni delle conferenze in cui è stato esposto l'articolo modificato
         SELECT EXTRACT(YEAR FROM C.DataInizio)
         FROM CONFERENZA AS C NATURAL JOIN ESPOSIZIONE AS E
         WHERE E.DOI=NEW.DOI;
@@ -404,7 +404,7 @@ CREATE TRIGGER T_modifica_pubblicazioneArticolo AFTER UPDATE OF AnnoPubblicazion
     FOR EACH ROW WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione)
     EXECUTE FUNCTION controllo_modificaArticolo();
 
--- Quando viene modificato la data di inizio della conferenza l'anno della nuova data non deve essere precedente a
+-- Quando viene modificata la data di inizio della conferenza l'anno della nuova data non deve essere precedente a
 -- quello dell'anno di pubblicazione degli articoli esposti o successiva a quella dei fascicoli
 CREATE OR REPLACE FUNCTION controllo_modificaConferenza() RETURNS trigger AS $$
 DECLARE
