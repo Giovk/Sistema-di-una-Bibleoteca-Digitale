@@ -103,7 +103,7 @@ CHECK (VALUE LIKE '____-____');
 CONSTRAINT C11
 CHECK (VALUE LIKE '10-%');
 
--- In RECENSIONE_F non può esserci un fascicolo che non è stato valutato, recensito o inserito tra i preferiti 
+-- In RECENSIONE_F non può esserci un fasncicolo che non è stato valutato, recensito o inserito tra i preferiti 
 -- dall'utente
 ALTER TABLE RECENSIONE_F
 ADD CONSTRAINT C12
@@ -111,6 +111,10 @@ CHECK((Testo IS NULL AND (Valutazione IS NOT NULL OR Preferito=true)) OR
         (Valutazione IS NULL AND(Testo IS NOT NULL OR Preferito=true)) OR 
         (Preferito=false AND (valutazione IS NOT NULL OR Testo IS NOT NULL)) OR 
         (Testo IS NOT NULL AND Valutazione IS NOT NULL AND Preferito=true));
+-----------------------------------------------------------------------------------
+ALTER TABLE RECENSIONE_F
+ADD CONSTRAINT C12
+CHECK(NOT(Testo IS NULL AND Valutazione IS NULL AND Preferito=false));
 
 -- In RECENSIONE_S non può esserci una serie che non è stata valutata, recensita o inserita tra i preferiti 
 -- dall'utente
@@ -120,6 +124,10 @@ CHECK((Testo IS NULL AND (Valutazione IS NOT NULL OR Preferito=true)) OR
         (Valutazione IS NULL AND(Testo IS NOT NULL OR Preferito=true)) OR 
         (Preferito=false AND (valutazione IS NOT NULL OR Testo IS NOT NULL)) OR 
         (Testo IS NOT NULL AND Valutazione IS NOT NULL AND Preferito=true));
+-----------------------------------------------------------------------------------
+ALTER TABLE RECENSIONE_S
+ADD CONSTRAINT C12
+CHECK(NOT(Testo IS NULL AND Valutazione IS NULL AND Preferito=false));
 
 -- In RECENSIONE_L non può esserci un libro che non è stato valutato, recensito o inserito tra i preferiti 
 -- dall'utente
@@ -129,16 +137,24 @@ CHECK((Testo IS NULL AND (Valutazione IS NOT NULL OR Preferito=true)) OR
         (Valutazione IS NULL AND(Testo IS NOT NULL OR Preferito=true)) OR 
         (Preferito=false AND (valutazione IS NOT NULL OR Testo IS NOT NULL)) OR 
         (Testo IS NOT NULL AND Valutazione IS NOT NULL AND Preferito=true));
+-----------------------------------------------------------------------------------
+ALTER TABLE RECENSIONE_S
+ADD CONSTRAINT C12
+CHECK(NOT(Testo IS NULL AND Valutazione IS NULL AND Preferito=false));
 
 -- La partita IVA deve essere del formato giusto
 CONSTRAINT C15
-    CHECK (VALUE LIKE '___________');
+CHECK (VALUE LIKE '___________');
 
 -- Una libreria se non ha un sito web deve avere l'indirizzo o viceversa
 ALTER TABLE LIBRERIA
 ADD CONSTRAINT C16
 CHECK((SitoWeb IS NULL AND indirizzo IS NOT NULL) OR (SitoWeb IS NOT NULL AND indirizzo IS NULL) OR 
         (SitoWeb IS NOT NULL AND indirizzo IS NOT NULL));
+-------------------------------------------------------------------------------------------------------
+ALTER TABLE LIBRERIA
+ADD CONSTRAINT C16
+CHECK(NOT(SitoWeb IS NULL AND Indirizzo IS NULL));
 
 -- La data di una conferenza deve essere compresa tra quella della pubblicazione dell'articolo esposto e quella della
 -- pubblicazione del fascicolo
@@ -152,7 +168,7 @@ CHECK(
     )
 );
 
--- La data di una presentazione deve essere successiva (o uguale) a quella della pubblicazione del libro presentato
+-- La data di una presentazione non deve essere precedente a quella della pubblicazione del libro presentato
 CREATE ASSERTION A7
 CHECK(
     NOT EXISTS(
