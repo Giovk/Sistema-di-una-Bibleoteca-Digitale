@@ -76,8 +76,8 @@ CREATE TRIGGER T_chiusura_partitaIVA AFTER UPDATE OF partitaIVA ON UTENTE
     FOR EACH ROW WHEN(NEW.partitaIVA IS NULL)
     EXECUTE FUNCTION chiusuraLibreria();
 
--- Quando viene introdotto un articolo scientifico in un fascicolo la data di pubblicazione del fascicolo deve essere
--- precedente a quella dell'articolo
+-- Quando viene introdotto un articolo scientifico in un fascicolo la data di pubblicazione del fascicolo non deve 
+-- essere precedente a quella dell'articolo
 CREATE OR REPLACE FUNCTION controllo_introduzioneArticolo() RETURNS trigger AS $$
 DECLARE
     pubblicazione_articolo_scientifico ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
@@ -106,7 +106,7 @@ CREATE TRIGGER T_inserimentoIntroduzione AFTER INSERT ON INTRODUZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_introduzioneArticolo();
 
 -- Quando viene moodificata un'introduzione di un articolo scientifico in un fascicolo la data di pubblicazione del 
---fascicolo deve essere precedente a quella dell'articolo
+--fascicolo non deve essere precedente a quella dell'articolo
 CREATE OR REPLACE FUNCTION controllo_modificaIntroduzione() RETURNS trigger AS $$
 DECLARE
     pubblicazione_articolo_scientifico ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
@@ -136,14 +136,12 @@ CREATE TRIGGER T_modificaIntroduzione AFTER UPDATE ON INTRODUZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaIntroduzione();
 
 -- Quando viene modificata la data di pubblicazione del fascicolo l'anno della nuova data non deve essere precedente a
--- quello dell'anno di pubblicazione degli articoli nel fascicolo modificato e quello delle date delle conferenze
--- degli articoli contenuti nel fascicolo
-CREATE OR REPLACE FUNCTION controllo_modificaFascicolo_ArticoliConferenze() RETURNS trigger AS $$
+-- quello dell'anno di pubblicazione degli articoli nel fascicolo modificato 
+CREATE OR REPLACE FUNCTION controllo_modifica_DataPubblicazioneFascicolo() RETURNS trigger AS $$
 DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
     anno_articoloCorrente ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
     DOI_articoloCorrente ARTICOLO_SCIENTIFICO.DOI%TYPE;
-
 
     cursore_articoli CURSOR FOR    --contiene gli anni di pubblicazione degli articoli nel fascicolo modificato
         SELECT AR.AnnoPubblicazione, AR.DOI
@@ -176,7 +174,7 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modifica_pubblicazioneFascicolo AFTER UPDATE OF DataPubblicazione ON FASCICOLO
     FOR EACH ROW WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
-    EXECUTE FUNCTION controllo_modificaFascicolo_ArticoliConferenze();
+    EXECUTE FUNCTION controllo_modifica_DataPubblicazioneFascicolo();
 
 -- Quando viene introdotto un fascicolo in una rivista la data di pubblicazione del fascicolo deve essere successiva
 -- a quella della rivista
