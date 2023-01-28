@@ -8,8 +8,7 @@ CHECK(
     )
 );
 
--- Un articolo scientifico pubblicato in un fascicolo di una rivista non può avere una anno di pubblicazione maggiore
--- dell'anno della data di pubblicazione del fascicolo che lo contiene  
+-- La data di pubblicazione di un fascicolo non deve essere precedente a quello degli articoli che contiene  
 CREATE ASSERTION A2
 CHECK(
     NOT EXISTS(
@@ -50,8 +49,8 @@ CHECK(
     )
 );
 
--- Se per una serie esiste una istanza con INSERIMENTO.Ordine>0, devono esistere istanze della 
--- serie per tutti i valori di INSERIMENTO.Ordine compresi tra 0 e INSERIMENTO.Ordine
+-- Se per una serie esiste una istanza con INSERIMENTO.Ordine>0, devono esistere istanze della serie per tutti i
+-- valori di INSERIMENTO.Ordine compresi tra 0 e INSERIMENTO.Ordine
 CREATE ASSERTION A5
 CHECK(
     NOT EXISTS(
@@ -69,18 +68,15 @@ CONSTRAINT C3
 --La quantità deve essere 'NULL' solo quando la fruizione è 'Digitale' o 'AudioLibro'  
 ALTER TABLE POSSESSO_F
 ADD CONSTRAINT C4
-CHECK((Quantita IS NULL AND Fruizione IN('Digitale', 'AudioLibro')) OR 
-        (Quantita>=0 AND Quantita IS NOT NULL AND Fruizione='Cartaceo'));
+CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo'));
 
 ALTER TABLE POSSESSO_S
 ADD CONSTRAINT C5
-CHECK((Quantita IS NULL AND Fruizione IN('Digitale', 'AudioLibro')) OR 
-        (Quantita>=0 AND Quantita IS NOT NULL AND Fruizione='Cartaceo'));
+CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo'));
 
 ALTER TABLE POSSESSO_L
 ADD CONSTRAINT C6
-CHECK((Quantita IS NULL AND Fruizione IN('Digitale', 'AudioLibro')) OR
-    (Quantita>=0 AND Quantita IS NOT NULL AND Fruizione='Cartaceo'));
+CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo'));
 
 --La valutazione deve essere in [0,5]
 ALTER TABLE RECENSIONE_F
@@ -107,37 +103,16 @@ CHECK (VALUE LIKE '10-%');
 -- dall'utente
 ALTER TABLE RECENSIONE_F
 ADD CONSTRAINT C12
-CHECK((Testo IS NULL AND (Valutazione IS NOT NULL OR Preferito=true)) OR 
-        (Valutazione IS NULL AND(Testo IS NOT NULL OR Preferito=true)) OR 
-        (Preferito=false AND (valutazione IS NOT NULL OR Testo IS NOT NULL)) OR 
-        (Testo IS NOT NULL AND Valutazione IS NOT NULL AND Preferito=true));
------------------------------------------------------------------------------------
-ALTER TABLE RECENSIONE_F
-ADD CONSTRAINT C12
 CHECK(NOT(Testo IS NULL AND Valutazione IS NULL AND Preferito=false));
 
 -- In RECENSIONE_S non può esserci una serie che non è stata valutata, recensita o inserita tra i preferiti 
 -- dall'utente
-ALTER TABLE RECENSIONE_S
-ADD CONSTRAINT C13
-CHECK((Testo IS NULL AND (Valutazione IS NOT NULL OR Preferito=true)) OR 
-        (Valutazione IS NULL AND(Testo IS NOT NULL OR Preferito=true)) OR 
-        (Preferito=false AND (valutazione IS NOT NULL OR Testo IS NOT NULL)) OR 
-        (Testo IS NOT NULL AND Valutazione IS NOT NULL AND Preferito=true));
------------------------------------------------------------------------------------
 ALTER TABLE RECENSIONE_S
 ADD CONSTRAINT C12
 CHECK(NOT(Testo IS NULL AND Valutazione IS NULL AND Preferito=false));
 
 -- In RECENSIONE_L non può esserci un libro che non è stato valutato, recensito o inserito tra i preferiti 
 -- dall'utente
-ALTER TABLE RECENSIONE_L
-ADD CONSTRAINT C14
-CHECK((Testo IS NULL AND (Valutazione IS NOT NULL OR Preferito=true)) OR 
-        (Valutazione IS NULL AND(Testo IS NOT NULL OR Preferito=true)) OR 
-        (Preferito=false AND (valutazione IS NOT NULL OR Testo IS NOT NULL)) OR 
-        (Testo IS NOT NULL AND Valutazione IS NOT NULL AND Preferito=true));
------------------------------------------------------------------------------------
 ALTER TABLE RECENSIONE_S
 ADD CONSTRAINT C12
 CHECK(NOT(Testo IS NULL AND Valutazione IS NULL AND Preferito=false));
@@ -149,22 +124,15 @@ CHECK (VALUE LIKE '___________');
 -- Una libreria se non ha un sito web deve avere l'indirizzo o viceversa
 ALTER TABLE LIBRERIA
 ADD CONSTRAINT C16
-CHECK((SitoWeb IS NULL AND indirizzo IS NOT NULL) OR (SitoWeb IS NOT NULL AND indirizzo IS NULL) OR 
-        (SitoWeb IS NOT NULL AND indirizzo IS NOT NULL));
--------------------------------------------------------------------------------------------------------
-ALTER TABLE LIBRERIA
-ADD CONSTRAINT C16
 CHECK(NOT(SitoWeb IS NULL AND Indirizzo IS NULL));
 
--- La data di una conferenza deve essere compresa tra quella della pubblicazione dell'articolo esposto e quella della
--- pubblicazione del fascicolo
+-- La data di una conferenza non deve essere precedente a quella della pubblicazione dell'articolo esposto 
 CREATE ASSERTION A6
 CHECK(
     NOT EXISTS(
         SELECT *
-        FROM ((((CONFERENZA AS CO NATURAL JOIN ESPOSIZIONE AS E) NATURAL JOIN ARTICOLO_SCIENTIFICO AS AR) 
-                NATURAL JOIN INTRODUZIONE AS I) NATURAL JOIN FASCICOLO AS F)  
-        WHERE EXTRACT(YEAR FROM CO.DataInizio)<AR.AnnoPubblicazione OR CO.DataInizio>F.DataPubblicazione
+        FROM ((CONFERENZA AS CO NATURAL JOIN ESPOSIZIONE AS E) NATURAL JOIN ARTICOLO_SCIENTIFICO AS AR) 
+        WHERE EXTRACT(YEAR FROM CO.DataInizio)<AR.AnnoPubblicazione
     )
 );
 
