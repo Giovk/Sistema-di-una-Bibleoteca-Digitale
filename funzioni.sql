@@ -143,17 +143,12 @@ DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
     anno_articoloCorrente ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
     DOI_articoloCorrente ARTICOLO_SCIENTIFICO.DOI%TYPE;
-    dataCorrente CONFERENZA.DataInizio%TYPE;
+
 
     cursore_articoli CURSOR FOR    --contiene gli anni di pubblicazione degli articoli nel fascicolo modificato
         SELECT AR.AnnoPubblicazione, AR.DOI
         FROM ARTICOLO_SCIENTIFICO AS AR NATURAL JOIN INTRODUZIONE AS I
         WHERE I.CodF=NEW.CodF;
-
-    cursore_dateConferenze CURSOR FOR
-        SELECT CO.DataInizio --contiene le date delle conferenze dell'articolo corrente
-        FROM CONFERENZA AS CO NATURAL JOIN ESPOSIZIONE AS E
-        WHERE E.DOI=DOI_articoloCorrente;
 BEGIN
     OPEN cursore_articoli;
 
@@ -170,28 +165,6 @@ BEGIN
             errore_trovato:=true;
 
             RAISE NOTICE 'Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo';
-        END IF;
-
-        IF errore_trovato=false THEN
-            OPEN cursore_dateConferenze;
-            
-            LOOP
-                FETCH cursore_dateConferenze INTO dataCorrente;
-
-                EXIT WHEN NOT FOUND OR errore_trovato=true;
-
-                IF dataCorrente>NEW.DataPubblicazione THEN --controlla se la nuova data è precedente a quella della conferenza corrente 
-                    UPDATE FASCICOLO
-                    SET DataPubblicazione=OLD.DataPubblicazione
-                    WHERE CodF=NEW.CodF;
-
-                    errore_trovato:=true;
-
-                    RAISE NOTICE 'Non è possibile inserire una data di pubblicazione di un fascicolo precedente a quella delle conferenze dei suoi articoli';
-                END IF;
-            END LOOP;
-
-            CLOSE cursore_dateConferenze;
         END IF;
     END LOOP;
 
@@ -405,23 +378,21 @@ CREATE TRIGGER T_modifica_pubblicazioneArticolo AFTER UPDATE OF AnnoPubblicazion
     EXECUTE FUNCTION controllo_modificaArticolo();
 
 -- Quando viene modificata la data di inizio della conferenza l'anno della nuova data non deve essere precedente a
--- quello dell'anno di pubblicazione degli articoli esposti o successiva a quella dei fascicoli
+-- quello dell'anno di pubblicazione degli articoli esposti
 CREATE OR REPLACE FUNCTION controllo_modificaConferenza() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 BEGIN
     SELECT COUNT(*) INTO contatore
-    FROM ((((CONFERENZA AS CO NATURAL JOIN ESPOSIZIONE AS E) NATURAL JOIN ARTICOLO_SCIENTIFICO AS AR) 
-            NATURAL JOIN INTRODUZIONE AS I) NATURAL JOIN FASCICOLO AS F)  
-    WHERE (EXTRACT(YEAR FROM CO.DataInizio)<AR.AnnoPubblicazione OR CO.DataInizio>F.DataPubblicazione) AND 
-            CO.CodC=NEW.CodC;
+    FROM ((CONFERENZA AS CO NATURAL JOIN ESPOSIZIONE AS E) NATURAL JOIN ARTICOLO_SCIENTIFICO AS AR) 
+    WHERE EXTRACT(YEAR FROM CO.DataInizio)<AR.AnnoPubblicazione AND CO.CodC=NEW.CodC;
 
     IF contatore>0 THEN --controlla se l'anno della nuova data non è compresa tra quella della pubblicazione dell'articolo e quella del fascicolo
         UPDATE CONFERENZA
         SET DataInizio=OLD.DataInizio
         WHERE CodC=NEW.CodC;
         
-        RAISE NOTICE 'Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo';
+        RAISE NOTICE 'Non è possibile esporre in una conferenza un articolo che non è stato ancora pubbliato';
     END IF;
 
     RETURN NEW;
