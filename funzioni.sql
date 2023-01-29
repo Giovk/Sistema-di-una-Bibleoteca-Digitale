@@ -398,10 +398,11 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modifica_inizioConferenza AFTER UPDATE OF DataInizio ON CONFERENZA
-    FOR EACH ROW EXECUTE FUNCTION controllo_modificaConferenza();
+    FOR EACH ROW WHEN(NEW.AnnoPubblicazione<OLD.AnnoPubblicazione)
+    EXECUTE FUNCTION controllo_modificaConferenza();
 
---Quando viene inserita una presentazione la data della nuova presentazione non puo essere precedente a quella della 
---pubblicazione del libro
+-- Quando viene inserita una presentazione la data della nuova presentazione non puo essere precedente a quella della 
+-- pubblicazione del libro
 CREATE OR REPLACE FUNCTION controllo_inserimentoPresentazione() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
@@ -424,8 +425,8 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoPresentazione AFTER INSERT ON PRESENTAZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoPresentazione();
 
---Quando viene modificata una presentazione la nuova data non puo essere precedente a quella della pubblicazione del
---libro
+-- Quando viene modificata una presentazione la nuova data non puo essere precedente a quella della pubblicazione del
+-- libro
 CREATE OR REPLACE FUNCTION controllo_modificaPresentazione() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
@@ -450,8 +451,8 @@ CREATE TRIGGER T_modificaPresentazione AFTER UPDATE OF DataP, ISBN ON PRESENTAZI
     FOR EACH ROW WHEN(NEW.DataP<=OLD.DataP)
     EXECUTE FUNCTION controllo_modificaPresentazione();
 
---Quando viene modificata la data di pubblicazione del libro la nuova data non deve essere successiva a quelle delle
---date di tutte le presentazioni del libro 
+-- Quando viene modificata la data di pubblicazione del libro la nuova data non deve essere successiva a quelle delle
+-- date di tutte le presentazioni del libro 
 CREATE OR REPLACE FUNCTION controllo_Libro() RETURNS trigger AS $$
 DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
@@ -487,9 +488,9 @@ CREATE TRIGGER T_modificaLibro AFTER UPDATE OF DataPubblicazione ON LIBRO
     FOR EACH ROW WHEN(NEW.DataPubblicazione>OLD.DataPubblicazione)
     EXECUTE FUNCTION controllo_Libro();
 
---Quando avviene un inserimento in 'POSSESSO_L' bisogna controllare se il libro appartiene a una serie e se la
---libreria possiede tutti i libri della serie del libro inserito, in tal caso bisogna effettuare l'inserimento in 
---'POSSESSO_S' specificando la quantità e la modalità di fruizione correttamente.
+-- Quando avviene un inserimento in 'POSSESSO_L' bisogna controllare se il libro appartiene a una serie e se la
+-- libreria possiede tutti i libri della serie del libro inserito, in tal caso bisogna effettuare l'inserimento in 
+-- 'POSSESSO_S' specificando la quantità e la modalità di fruizione correttamente.
 CREATE OR REPLACE FUNCTION controllo_inserimentoPossesso_L() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
@@ -531,8 +532,8 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoPossesso_L AFTER INSERT ON POSSESSO_L
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoPossesso_L();
 
--- Quando si modifica la quantità disponibile di un libro di una serie bisogna modificare anche la quantita disponibile
--- della serie
+-- Quando si modifica la quantità disponibile di un libro di una serie bisogna modificare anche la quantita 
+-- disponibile della serie
 CREATE OR REPLACE FUNCTION controllo_modificaPossesso_L() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
@@ -575,7 +576,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_modificaPossesso_L AFTER UPDATE OF Quantita ON POSSESSO_L
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaPossesso_L();
 
---Quando viene eliminato un libro da 'POSSESSO_L' bisogna eliminare la relativa tupla in 'POSSESSO_S'
+-- Quando viene eliminato un libro da 'POSSESSO_L' bisogna eliminare la relativa tupla in 'POSSESSO_S'
 CREATE OR REPLACE FUNCTION controllo_eliminazionePossesso_L() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
@@ -599,7 +600,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_eliminazionePossesso_L AFTER DELETE ON POSSESSO_L
     FOR EACH ROW EXECUTE FUNCTION controllo_eliminazionePossesso_L();
 
---Quando viene inserito un nuovo articolo scientifico bisogna seguire l'ordine del doi
+-- Quando viene inserito un nuovo articolo scientifico bisogna seguire l'ordine del doi
 CREATE OR REPLACE FUNCTION inserimento_DOIArticolo() RETURNS trigger AS $$
 DECLARE
     DOI_out ARTICOLO_SCIENTIFICO.DOI%TYPE; --DOI del nuovo articolo
