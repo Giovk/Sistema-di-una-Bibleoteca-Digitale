@@ -106,7 +106,7 @@ CREATE TRIGGER T_inserimentoIntroduzione AFTER INSERT ON INTRODUZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_introduzioneArticolo();
 
 -- Quando viene moodificata un'introduzione di un articolo scientifico in un fascicolo la data di pubblicazione del 
---fascicolo non deve essere precedente a quella dell'articolo
+-- fascicolo non deve essere precedente a quella dell'articolo
 CREATE OR REPLACE FUNCTION controllo_modificaIntroduzione() RETURNS trigger AS $$
 DECLARE
     pubblicazione_articolo_scientifico ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
@@ -199,7 +199,7 @@ CREATE TRIGGER T_inserimentoFascicolo AFTER INSERT ON FASCICOLO
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoFascicolo();
 
 -- Quando viene modificata la data di pubblicazione o l'ISSN di un fascicolo, la data di pubblicazione del fascicolo
--- modificato deve essere successiva a quella della rivista
+-- modificato non deve essere precedente a quella della rivista
 CREATE OR REPLACE FUNCTION controllo_modificaFascicolo() RETURNS trigger AS $$
 DECLARE
     anno_pubblicazioneRivista RIVISTA.AnnoPubblicazione%TYPE;
@@ -219,7 +219,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modificaFascicolo AFTER UPDATE OF DataPubblicazione, ISSN ON FASCICOLO
-    FOR EACH ROW EXECUTE FUNCTION controllo_modificaFascicolo();
+    FOR EACH ROW WHEN(NEW.DataPubblicazione<=OLD.DataPubblicazione)
+    EXECUTE FUNCTION controllo_modificaFascicolo();
 
 -- Quando viene modificata la data di pubblicazione di una rivista, la nuova data di pubblicazione non deve 
 -- essere successiva a quella dei fascicoli
@@ -398,7 +399,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modifica_inizioConferenza AFTER UPDATE OF DataInizio ON CONFERENZA
-    FOR EACH ROW WHEN(NEW.AnnoPubblicazione<OLD.AnnoPubblicazione)
+    FOR EACH ROW WHEN(NEW.DataInizio<OLD.DataInizio)
     EXECUTE FUNCTION controllo_modificaConferenza();
 
 -- Quando viene inserita una presentazione la data della nuova presentazione non puo essere precedente a quella della 
