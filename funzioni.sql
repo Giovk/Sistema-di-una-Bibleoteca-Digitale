@@ -633,9 +633,11 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoArticolo AFTER INSERT ON ARTICOLO_SCIENTIFICO
     FOR EACH ROW EXECUTE FUNCTION inserimento_DOIArticolo();
 
--- La funzione invia una notifia con i parametri presi in input
-CREATE OR REPLACE FUNCTION invia_notifica(utente IN UTENTE.Username%TYPE, codS IN SERIE.ISBN%TYPE, 
-    cod_libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE) RETURNS INTEGER AS $$
+-- La procedura invia una notifia con i parametri presi in input
+CREATE OR REPLACE PROCEDURE invia_notifica(utente IN UTENTE.Username%TYPE, codS IN SERIE.ISBN%TYPE, 
+    cod_libreria IN LIBRERIA.CodL%TYPE, fruizione IN POSSESSO_S.Fruizione%TYPE)
+LANGUAGE plpgsql
+AS $$
 DECLARE
     testo_notifica NOTIFICA.testo%TYPE;
     titolo_serie SERIE.titolo%TYPE;
@@ -665,17 +667,14 @@ BEGIN
 
     INSERT INTO NOTIFICA(Username, ISBN, Libreria, DataInvio, OraInvio, Testo)
     VALUES(utente, codS, cod_libreria, current_date, current_time(0), testo_notifica);
-
-    RETURN 1;
 END; 
-$$ LANGUAGE plpgsql;
+$$;
 
 -- Quando una serie è posseduta da una libreria deve essere inviata una notifica a tutti gli utenti che hanno nei 
 -- preferiti quella serie
 CREATE OR REPLACE FUNCTION invia_notifica_possesso_S() RETURNS trigger AS $$
 DECLARE
     utente_corrente UTENTE.Username%TYPE;
-    --ris INTEGER;
 
     cursore_utenti CURSOR FOR --contiene tutti gli utenti che devono ricevere la notifica
         SELECT Username
@@ -689,9 +688,7 @@ BEGIN
 
         EXIT WHEN NOT FOUND;
 
-        CALL invia_notifica(utente_corrente, NEW.ISBN, NEW.CodL, NEW.Fruizione);
-
-        
+        CALL invia_notifica(utente_corrente, NEW.ISBN, NEW.CodL, NEW.Fruizione);        
     END LOOP;
 
     CLOSE cursore_utenti;
@@ -713,7 +710,6 @@ CREATE OR REPLACE FUNCTION invia_notifica_preferiti_S() RETURNS trigger AS $$
 DECLARE
     libreria_corrente LIBRERIA.CodL%TYPE;
     fruizione_corrente POSSESSO_S.Fruizione%TYPE;
-    --ris INTEGER;
 
     cursore_librerie CURSOR FOR --Contiene tutte le librerie e le modalità di fruizione in cui è disponibile la serie inserita nei preferiti
         SELECT CodL, Fruizione
