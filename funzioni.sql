@@ -337,7 +337,7 @@ CREATE TRIGGER T_modificaEsposizione AFTER UPDATE ON ESPOSIZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaEsposizione();
 
 -- Quando viene modificato l'anno di pubblicazione dell'articolo il nuovo anno non deve essere successivo a quello
--- di inizio della conferenza
+-- di inizio delle conferenze in cui è stato esposto
 CREATE OR REPLACE FUNCTION controllo_modificaArticolo() RETURNS trigger AS $$
 DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
