@@ -87,22 +87,22 @@ INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
 VALUES (11, '0291947777', 'Feltrinelli Libreria', 'www.lafeltrinelli.it', 'Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'DonRodrigo');
 
 -- RIVISTA --
-INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --1
-VALUES ('0036-8083', 'GEDI Gruppo Editoriale', 'Tecnologia', 'Cattaneo', 'Marco', 'Le Scienze', 1968);
-INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --2
-VALUES ('0027-9358', 'National Geographic Society', 'Natura', 'Cattaneo', 'Marco', 'National Geographic Magazine', 1888);
-INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --3
-VALUES ('0026-4423', 'GEDI Gruppo Editoriale', 'Psicologia', 'Cattaneo', 'Marco', 'Mind', 2003);
-INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --4
-VALUES ('2724-2641', 'Gruppo B Editore', 'Scienze', 'Hack', 'Margherita', 'Le Stelle', 2002);
-INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --5
-VALUES ('2531-3975', 'Giovanna Truda', 'Scienze Umane', 'Fangone', 'Emiliana', 'Culture e Studi del Sociale', 2015);
-INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --6
-VALUES ('1357-1915', 'Arnoldo Mondadori Editore', 'Scienze', 'Loredan', 'Jacopo', 'Focus', 1992);
-INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --7
-VALUES ('0390-5543', 'Mondadori Education S.p.A', 'Matematica', 'Natalini', 'Roberto', 'Archimede', 1902);
-INSERT INTO RIVISTA (ISSN, Editore, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --8
-VALUES ('0036-4681', 'Edizioni Dedalo', 'Scienze', 'Armaroli', 'Nicola', 'Sapere', 1935);
+INSERT INTO RIVISTA (ISSN, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --1
+VALUES ('0036-8083', 'Tecnologia', 'Cattaneo', 'Marco', 'Le Scienze', 1968);
+INSERT INTO RIVISTA (ISSN, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --2
+VALUES ('0027-9358', 'Natura', 'Cattaneo', 'Marco', 'National Geographic Magazine', 1888);
+INSERT INTO RIVISTA (ISSN, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --3
+VALUES ('0026-4423', 'Psicologia', 'Cattaneo', 'Marco', 'Mind', 2003);
+INSERT INTO RIVISTA (ISSN, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --4
+VALUES ('2724-2641', 'Scienze', 'Hack', 'Margherita', 'Le Stelle', 2002);
+INSERT INTO RIVISTA (ISSN, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --5
+VALUES ('2531-3975', 'Scienze Umane', 'Fangone', 'Emiliana', 'Culture e Studi del Sociale', 2015);
+INSERT INTO RIVISTA (ISSN, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --6
+VALUES ('1357-1915', 'Scienze', 'Loredan', 'Jacopo', 'Focus', 1992);
+INSERT INTO RIVISTA (ISSN, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --7
+VALUES ('0390-5543', 'Matematica', 'Natalini', 'Roberto', 'Archimede', 1902);
+INSERT INTO RIVISTA (ISSN, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione) --8
+VALUES ('0036-4681', 'Scienze', 'Armaroli', 'Nicola', 'Sapere', 1935);
 
 -- Articolo Scientifico --
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
