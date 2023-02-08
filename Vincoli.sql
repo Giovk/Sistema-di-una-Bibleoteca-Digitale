@@ -39,25 +39,18 @@ CHECK(
 CONSTRAINT C2
     CHECK (VALUE LIKE '978-%-%-_');
 
--- L'ordine dei libri non può essere maggiore del numero dei libri che compongono la serie
+-- Il numero dei libri associati a una serie non può essere maggiore al numero dei libri totali che la compongono 
+--(valore dell'attributo NLibri)
 CREATE ASSERTION A4
 CHECK(
     NOT EXISTS(
         SELECT *
-        FROM INSERIMENTO AS I NATURAL JOIN SERIE AS S
-        WHERE I.Ordine > S.NLibri
-    )
-);
-
--- Se per una serie esiste una istanza con INSERIMENTO.Ordine>0, devono esistere istanze della serie per tutti i
--- valori di INSERIMENTO.Ordine compresi tra 0 e INSERIMENTO.Ordine
-CREATE ASSERTION A5
-CHECK(
-    NOT EXISTS(
-        SELECT SUM(I.Ordine) AS N1, (MAX(I.Ordine)*(MAX(I.Ordine)+1)/2)
-        FROM INSERIMENTO AS I
-        GROUP BY I.CodS
-        HAVING SUM(I.Ordine)<>(MAX(I.Ordine)*(MAX(I.Ordine)+1)/2)
+        FROM INSERIMENTO AS I JOIN SERIE AS S on I.serie=S.isbn
+        WHERE S.NLibri<(
+        	                SELECT COUNT(Libro)
+                            FROM INSERIMENTO
+        	                WHERE Serie=S.isbn
+        )
     )
 );
 
