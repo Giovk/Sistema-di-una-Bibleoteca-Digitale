@@ -245,8 +245,8 @@ CREATE TRIGGER T_modificaRivista AFTER UPDATE OF AnnoPubblicazione ON RIVISTA
     FOR EACH ROW WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione)
     EXECUTE FUNCTION controllo_modificaRivista();
 
--- L'ordine di un libro in una serie non deve essere maggiore al numero dei libri totali della serie (specificati in
--- SERIE.NLibri) e ogni libro inserito deve rispettare la sequenza del campo 'ordine'
+-- Il numero di libri in una serie non deve essere maggiore al numero dei libri totali della serie (specificati in
+-- SERIE.NLibri)
 CREATE OR REPLACE FUNCTION inserimento_LibroSerie() RETURNS trigger AS $$
 DECLARE
     cont_libri INTEGER; --numero di libri attualmente inseriti nella serie

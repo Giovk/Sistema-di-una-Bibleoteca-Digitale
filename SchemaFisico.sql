@@ -118,7 +118,6 @@ CREATE TABLE INSERIMENTO
 (
     Serie isbn,
     Libro isbn,
-    Ordine INT,
 
     PRIMARY KEY(Serie, Libro),
     FOREIGN KEY(Serie) REFERENCES SERIE(ISBN)
