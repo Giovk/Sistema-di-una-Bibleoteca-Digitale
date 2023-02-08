@@ -260,11 +260,7 @@ BEGIN
     FROM SERIE
     WHERE ISBN=NEW.Serie;
 
-    IF libri_tot>=cont_libri THEN --controlla se la serie non è completa
-        UPDATE INSERIMENTO
-        SET Ordine=cont_libri
-        WHERE Serie=NEW.Serie AND Libro=NEW.Libro;
-    ELSE
+    IF libri_tot<cont_libri THEN --controlla se la serie è completa
         DELETE FROM INSERIMENTO
         WHERE Libro=NEW.Libro AND Serie=NEW.Serie;  
 
