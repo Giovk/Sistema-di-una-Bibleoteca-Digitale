@@ -120,7 +120,7 @@ ADD CONSTRAINT C16
 CHECK(NOT(SitoWeb IS NULL AND Indirizzo IS NULL));
 
 -- La data di una conferenza non deve essere precedente a quella della pubblicazione dell'articolo esposto 
-CREATE ASSERTION A6
+CREATE ASSERTION A5
 CHECK(
     NOT EXISTS(
         SELECT *
@@ -130,7 +130,7 @@ CHECK(
 );
 
 -- La data di una presentazione non deve essere precedente a quella della pubblicazione del libro presentato
-CREATE ASSERTION A7
+CREATE ASSERTION A6
 CHECK(
     NOT EXISTS(
         SELECT *
@@ -142,7 +142,7 @@ CHECK(
 -- Una libreria per possedere una serie deve possedere tutti i lbri inseriti nella serie. Una libreria deve possedere
 -- una serie nella stessa modalita di fruizione dei libri che possiede e la quantita disponibile di una serie deve
 -- essere uguale al numero minimo di libri disponibili della serie 
-CREATE ASSERTION A8
+CREATE ASSERTION A7
 CHECK(
     NOT EXISTS(
         SELECT COUNT(*), 
