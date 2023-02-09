@@ -1218,7 +1218,7 @@ VALUES ('Alfreducciopanevino', '978-88-3101-288-1', 'Bello da leggere mentre sto
 INSERT INTO RECENSIONE_L (Username, ISBN, Preferito)
 VALUES ('Macinino45', '978-88-3100-340-7', true);
 INSERT INTO RECENSIONE_L (Username, ISBN, Testo, Valutazione, Preferito)
-VALUES ('ImpastoLievitato', '978-88-9543-776-7', 'Davvero ben cresciuto!', 4
+VALUES ('ImpastoLievitato', '978-88-9543-776-7', 'Davvero ben cresciuto!', 4, true);
 
 -- RECENSIONE_S --
 
