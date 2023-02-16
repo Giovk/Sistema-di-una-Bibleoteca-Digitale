@@ -25,9 +25,19 @@ La configurazione del database consiste nelle seguenti fasi che prevedono l'util
 
 3. Se tutto è andato a buon fine, la base di dati è pronta per essere popolata e quindi e possibile inserire il contenuto del file [Popolazione.sql][PDB] nel terminale ed eseguire il comando.
 
+## Link Utili
+
+Qui sono presenti dei link utili per raggiungere i file del progetto.
+
+| File | Link |
+| ------ | ------ |
+| Repository | [(Click Here)][GIT] |
+| Documentazione | [(Click Here)][DOC] |
+| File SQL | [(Click Here)][DOC] |
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO)
 
 [CDB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/CreazioneDB.sql>
 [PDB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/Popolazione.sql>
 [DOC]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/Documentazione.pdf>
+[GIT]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale>
