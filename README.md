@@ -1,12 +1,16 @@
-# Sistema-di-una-Biblioteca-Digitale
-Tutti i file del progetto
+# Sistema di una Biblioteca Digitale
 
-- Type some Markdown on the left
-- See HTML in the right
-- ✨Magic ✨
+Il folder del progetto contiene i seguenti file:
+- File _"CreazioneDB.sql"_
+- File _"Popolazione.sql"_
+- File _"Documentazione.pdf"_ 
 
-Serial: Lezione 11 Slide 40
+## File
 
-Mi chiamo Baolo
+Qui viene descritto il contenuto dei file citati precedentemente.
 
-21 anni Sarchiapone da nascita
+| File | Contenuto |
+| ------ | ------ |
+| CreazioneDB.sql | Questo file contiene il codice sql per la creazione **delle tabelle, dei vincoli intrarelazionali, dei trigger, delle funzioni e delle procedure** utili per il funzionamento della base di Dati |
+| Popolazione.sql | Questo file contiene il codice sql per **popolare** (inserire dati) **il database** |
+| Documentazione.pdf | Questo file contiene **la descrizione** della realizzazione e del funzionamento della base di dati. In esso vi sono contenuti tutte le fasi della **proggettazione concettuale** e sono rappresentate **le entità, le relazioni, i vincoli, i trigger, le funzioni e le procedure utilizzate** |
