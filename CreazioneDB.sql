@@ -303,7 +303,6 @@ CREATE TABLE SCRITTURA_L
 
 -------------------------------------------------------------------------------------------
 
-
 -- La data d'inizio di una conferenza deve essere minore della data di fine di una conferenza
 ALTER TABLE CONFERENZA
 ADD CONSTRAINT C1
@@ -361,8 +360,6 @@ ADD CONSTRAINT C16
 CHECK(NOT(SitoWeb IS NULL AND Indirizzo IS NULL));
 
 -----------------------------------------------------------------------------------------------------------------------
-
-
 
 -- Quando viene inserita una libreria di un utente il gestore deve avere una partitaIVA
 CREATE OR REPLACE FUNCTION controllo_inserimentoLibreria() RETURNS trigger AS $$
@@ -1101,5 +1098,4 @@ CREATE TRIGGER T_modificaPreferiti_S AFTER UPDATE OF Preferito ON RECENSIONE_S
     FOR EACH ROW WHEN(NEW.Preferito=true)
     EXECUTE FUNCTION invia_notifica_preferiti_S();
 
-
-    --------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
