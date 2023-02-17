@@ -5,17 +5,15 @@ CREATE TABLE UTENTE
 (
     Username VARCHAR(30) PRIMARY KEY,
     Email VARCHAR(319) UNIQUE NOT NULL, -- La lunghezza massima di un indirizzo email sono 319 caratteri.
-    Pw VARCHAR(64) NOT NULL, -- La lunghezza massima di una password sono 64 caratteri.
+    PasswordU VARCHAR(64) NOT NULL, -- La lunghezza massima di una password sono 64 caratteri.
     PartitaIVA partitaiva UNIQUE,
     Nome VARCHAR(64) NOT NULL,
     Cognome VARCHAR(64) NOT NULL
 );
 
-CREATE SEQUENCE libreria_seq_id;
-
 CREATE TABLE LIBRERIA
 (
-    CodL INT NOT NULL DEFAULT NEXTVAL('libreria_seq_id') PRIMARY KEY,
+    CodL SERIAL PRIMARY KEY,
     NumeroTelefonico VARCHAR(10) NOT NULL,
     SitoWeb VARCHAR(128),
     Nome VARCHAR(128) NOT NULL,
@@ -32,7 +30,6 @@ CREATE DOMAIN issn AS VARCHAR(9)
 CREATE TABLE RIVISTA
 (
     ISSN issn PRIMARY KEY,
-    Editore VARCHAR(64) NOT NULL,
     Argomento VARCHAR(256) NOT NULL,
     CognomeR VARCHAR(64) NOT NULL,
     NomeR VARCHAR(64) NOT NULL,
@@ -45,16 +42,14 @@ CREATE DOMAIN doi AS VARCHAR(8)
 
 CREATE TABLE ARTICOLO_SCIENTIFICO
 (
-    DOI doi PRIMARY KEY,
+    DOI doi DEFAULT '10-00000' PRIMARY KEY,
     Titolo VARCHAR(256) UNIQUE NOT NULL,
     AnnoPubblicazione INT NOT NULL 
 );
 
-CREATE SEQUENCE fascicolo_seq_id;
-
 CREATE TABLE FASCICOLO
 (
-    CodF INT NOT NULL DEFAULT NEXTVAL('fascicolo_seq_id') PRIMARY KEY,
+    CodF SERIAL PRIMARY KEY,
     Numero INT NOT NULL DEFAULT 1, 
     Editore VARCHAR(64) NOT NULL,
     DataPubblicazione DATE NOT NULL,
@@ -76,11 +71,10 @@ CREATE TABLE INTRODUZIONE
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE SEQUENCE conferenza_seq_id;
 
 CREATE TABLE CONFERENZA
 (
-    CodC INT NOT NULL DEFAULT NEXTVAL('conferenza_seq_id') PRIMARY KEY,
+    CodC SERIAL PRIMARY KEY,
     Luogo VARCHAR(256) NOT NULL,
     StrutturaOrganizzatrice VARCHAR(128) NOT NULL,
     DataInizio DATE NOT NULL,
@@ -124,7 +118,6 @@ CREATE TABLE INSERIMENTO
 (
     Serie isbn,
     Libro isbn,
-    Ordine INT NOT NULL,
 
     PRIMARY KEY(Serie, Libro),
     FOREIGN KEY(Serie) REFERENCES SERIE(ISBN)
@@ -150,11 +143,11 @@ CREATE TABLE POSSESSO_F
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE PREFERITI_F
+CREATE TABLE RECENSIONE_F
 (
     Username VARCHAR(30),
     CodF INT,
-    Recensione VARCHAR(512),
+    Testo VARCHAR(512),
     Valutazione INT,
     Preferito BOOLEAN DEFAULT false,
 
@@ -179,11 +172,11 @@ CREATE TABLE POSSESSO_S
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE PREFERITI_S
+CREATE TABLE RECENSIONE_S
 (
     Username VARCHAR(30),
     ISBN isbn,
-    Recensione VARCHAR(512),
+    Testo VARCHAR(512),
     Valutazione INT,
     Preferito BOOLEAN DEFAULT false,
 
@@ -208,11 +201,11 @@ CREATE TABLE POSSESSO_L
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE PREFERITI_L
+CREATE TABLE RECENSIONE_L
 (
     Username VARCHAR(30),
     ISBN isbn,
-    Recensione VARCHAR(512),
+    Testo VARCHAR(512),
     Valutazione INT,
     Preferito BOOLEAN DEFAULT false,
 
@@ -223,27 +216,39 @@ CREATE TABLE PREFERITI_L
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE SEQUENCE presentazione_seq_id;
+CREATE TABLE NOTIFICA
+(
+    Username VARCHAR(30),   
+    ISBN isbn,              
+    Libreria INT,
+    DataInvio DATE,          
+    OraInvio TIME,           
+    Testo VARCHAR(512),
+    Lettura BOOLEAN DEFAULT false,     
+
+    PRIMARY KEY(Username, ISBN, Libreria, OraInvio, DataInvio),
+    FOREIGN KEY (Username) REFERENCES UTENTE(Username)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ISBN) REFERENCES SERIE(ISBN)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 CREATE TABLE PRESENTAZIONE
 (
-    CodP INT NOT NULL DEFAULT NEXTVAL('presentazione_seq_id'),
+    CodP SERIAL PRIMARY KEY,
     Luogo VARCHAR(256) NOT NULL,
     Struttura VARCHAR(128) NOT NULL,
     DataP DATE NOT NULL,
     Ora TIME NOT NULL,
     ISBN isbn,
 
-    PRIMARY KEY(CodP, ISBN),
     FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN) 
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE SEQUENCE collana_seq_id;
-
 CREATE TABLE COLLANA
 (
-    CodC INT NOT NULL DEFAULT NEXTVAL('collana_seq_id') PRIMARY KEY,
+    CodC SERIAL PRIMARY KEY,
     Nome VARCHAR(256) NOT NULL,
     ISSN issn UNIQUE,
     Caratteristica VARCHAR(128) NOT NULL
@@ -261,12 +266,9 @@ CREATE TABLE APPARTENENZA
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE SEQUENCE autore_seq_id;
-ALTER SEQUENCE autore_seq_id RESTART WITH 1;
-
 CREATE TABLE AUTORE
 (
-    CodA INT NOT NULL DEFAULT NEXTVAL('autore_seq_id') PRIMARY KEY,
+    CodA SERIAL PRIMARY KEY,
     Nome VARCHAR(64) NOT NULL,
     Cognome VARCHAR(64) NOT NULL,
     Nazionalita VARCHAR(64),
