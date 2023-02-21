@@ -856,6 +856,8 @@ VALUES ('978-88-4293-278-9', 'La signora del lago', 'Fantasy', 'Italiana', 'Nord
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-4293-279-6', 'La stagione delle tempeste', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-4293-481-3', 'La strada senza ritorno', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-0983-331-9', 'Alaska', 'Thriller', 'Italiana', 'Giunti Editore', '2016-11-09');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-0987-707-8', 'Hanover House', 'Thriller', 'Italiana', 'Giunti Editore', '2018-10-10');
@@ -869,6 +871,7 @@ INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-16-2647-977-7', 'L''eco', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2017-03-16');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-16-2647-954-8', 'Dopo: Il cartello 291', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2016-06-20');
+
 
 -- SCRITTURA_L --
 INSERT INTO SCRITTURA_L (ISBN, CodA)
@@ -953,6 +956,8 @@ INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-88-4293-278-9', 81);
 INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-88-4293-279-6', 81);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-4293-481-3', 81);
 INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-88-0983-331-9', 82);
 INSERT INTO SCRITTURA_L (ISBN, CodA)
@@ -1051,6 +1056,10 @@ INSERT INTO COLLANA (CodC, Nome, Caratteristica)
 VALUES (4, 'I Classici Ritrovati', 'Classico');
 INSERT INTO COLLANA (CodC, Nome, Caratteristica)
 VALUES (5, 'Didattica', 'Didattico');
+INSERT INTO COLLANA (CodC, Nome, Caratteristica)
+VALUES (6, 'Le stelle del Nord', 'Editore Nord');
+INSERT INTO COLLANA (CodC, Nome, Caratteristica)
+VALUES (7, 'Col fiato sospeso', 'Thriller');
 
 -- APPARTENENZA --
 INSERT INTO APPARTENENZA (ISBN, CodC)
@@ -1091,6 +1100,38 @@ INSERT INTO APPARTENENZA (ISBN, CodC)
 VALUES ('978-88-207-3383-4', 5);
 INSERT INTO APPARTENENZA (ISBN, CodC)
 VALUES ('978-88-9190-165-1', 5);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4293-241-3', 6);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4293-242-0', 6);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4293-243-7', 6);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4293-275-8', 6);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4292-359-6', 6);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4293-277-2', 6);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4293-278-9', 6);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4293-279-6', 6);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-4293-481-3', 6);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-0983-331-9', 7);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-0987-707-8', 7);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-0989-463-1', 7);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-88-0989-782-3', 7);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-16-2647-952-4', 7);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-16-2647-977-7', 7);
+INSERT INTO APPARTENENZA (ISBN, CodC)
+VALUES ('978-16-2647-954-8', 7);
 
 -- PRESENTAZIONE --
 INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
@@ -1252,6 +1293,10 @@ VALUES (2, '978-88-9381-711-0', 'Cartaceo', 0);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
 VALUES (2, '978-88-3101-288-1', 'Cartaceo', 3);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (2, '978-88-0983-331-9', 'Cartaceo', 2);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (2, '978-88-0987-707-8', 'Cartaceo', 9);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
 VALUES (3, '978-88-301-0526-3', 'Cartaceo', 3);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
 VALUES (3, '978-88-301-0527-0', 'Cartaceo', 2);
@@ -1261,6 +1306,12 @@ INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
 VALUES (4, '978-88-4529-530-0', 'Cartaceo', 3);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
 VALUES (4, '978-88-2009-266-5', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (4, '978-16-2647-952-4', 'Cartaceo', 2);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (4, '978-16-2647-977-7', 'Cartaceo', 2);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (4, '978-16-2647-954-8', 'Cartaceo', 2);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
 VALUES (5, '978-88-6836-562-2', 'AudioLibro');
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
@@ -1285,10 +1336,34 @@ INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
 VALUES (10, '978-88-9190-165-1', 'Cartaceo', 2);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
 VALUES (10, '978-12-8007-876-6', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (10, '978-88-4293-241-3', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (10, '978-88-4293-242-0', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (10, '978-88-4293-243-7', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (10, '978-88-4293-275-8', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (10, '978-88-4292-359-6', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (10, '978-88-4293-277-2', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (10, '978-88-4293-278-9', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (10, '978-88-4293-279-6', 'Digitale');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
+VALUES (10, '978-88-4293-481-3', 'Digitale');
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
 VALUES (11, '978-12-8007-834-6', 'Cartaceo', 7);
 INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione)
 VALUES (11, '978-12-8007-834-6', 'AudioLibro');
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (11, '978-16-2647-952-4', 'Cartaceo', 3);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (11, '978-16-2647-977-7', 'Cartaceo', 5);
+INSERT INTO POSSESSO_L (CodL, ISBN, Fruizione, Quantita)
+VALUES (11, '978-16-2647-954-8', 'Cartaceo', 2);
 
 -- RECENSIONE_L --
 INSERT INTO RECENSIONE_L (Username, ISBN, Testo, Valutazione, Preferito)
