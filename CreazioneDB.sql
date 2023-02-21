@@ -593,11 +593,12 @@ DECLARE
     contatore INTEGER:=0;
 BEGIN
     IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
-        DELETE FROM RIVISTA
+        UPDATE RIVISTA
+        SET ISSN=OLD.ISSN
         WHERE ISSN=NEW.ISSN;
 
         RAISE NOTICE 'ISSN errato';
-    ELSE;
+    ELSE
         SELECT COUNT(*) INTO contatore --conta i fascicoli della rivista modificata con la data di pubblicazione precedente a quella della rivista
         FROM FASCICOLO 
         WHERE ISSN=NEW.ISSN AND EXTRACT(YEAR FROM DataPubblicazione)<NEW.AnnoPubblicazione;
