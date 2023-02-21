@@ -856,6 +856,7 @@ BEGIN
                 RAISE NOTICE 'Non è possibile inserire una data di pubblicazione di un libro precedente a quella delle sue presentazioni';
             END IF;
         END LOOP;
+    END IF;
 
     RETURN NEW;
 END;
