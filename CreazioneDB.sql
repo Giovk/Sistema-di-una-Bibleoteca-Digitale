@@ -1205,4 +1205,21 @@ CREATE TRIGGER T_modificaCollana AFTER UPDATE OF ISSN ON COLLANA
     FOR EACH ROW WHEN(NEW.ISSN IS NOT NULL)
     EXECUTE FUNCTION controllo_modificaCollana();
 
+-- Quando viene inserito un libro l'isbn deve contenere numeri e il carattere '-'
+CREATE OR REPLACE FUNCTION controllo_inserimentoLibro() RETURNS trigger AS $$
+DECLARE
+BEGIN
+    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+        DELETE FROM LIBRO
+        WHERE ISBN=NEW.ISBN;
+
+        RAISE NOTICE 'ISBN errato';
+    END IF;
+        
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoLibro AFTER INSERT ON LIBRO
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibro();
 --------------------------------------------------------------------------------------------------------------------
