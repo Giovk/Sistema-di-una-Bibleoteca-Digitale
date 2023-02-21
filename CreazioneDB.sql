@@ -545,20 +545,13 @@ CREATE OR REPLACE FUNCTION controllo_inserimentoFascicolo() RETURNS trigger AS $
 DECLARE
     anno_pubblicazioneRivista RIVISTA.AnnoPubblicazione%TYPE;
 BEGIN
-    IF controlla_formato(NEW.issn)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
-        DELETE FROM RIVISTA
-        WHERE ISSN=NEW.ISSN;
+    SELECT R.AnnoPubblicazione INTO anno_pubblicazioneRivista --trova l'anno di pubblicazione della rivista del nuovo fascicolo
+    FROM RIVISTA AS R JOIN FASCICOLO AS F ON R.ISSN=F.ISSN
+    WHERE F.CodF=NEW.CodF;
 
-        RAISE NOTICE 'ISSN errato';
-    ELSE
-        SELECT R.AnnoPubblicazione INTO anno_pubblicazioneRivista --trova l'anno di pubblicazione della rivista del nuovo fascicolo
-        FROM RIVISTA AS R JOIN FASCICOLO AS F ON R.ISSN=F.ISSN
-        WHERE F.CodF=NEW.CodF;
-
-        IF anno_pubblicazioneRivista>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se la rivista è stata pubblicata dopo al nuovo fascicolo
-            DELETE FROM FASCICOLO
-            WHERE CodF=NEW.CodF;
-        END IF;
+    IF anno_pubblicazioneRivista>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se la rivista è stata pubblicata dopo al nuovo fascicolo
+        DELETE FROM FASCICOLO
+        WHERE CodF=NEW.CodF;
     END IF;
 
     RETURN NEW;
@@ -1146,7 +1139,42 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoRivista();
 
+-- Quando viene inserita una rivista l'issn deve contenere lettere e il carattere '-'
+CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
+DECLARE
+BEGIN
+    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+        DELETE FROM RIVISTA
+        WHERE ISSN=NEW.ISSN;
 
+        RAISE NOTICE 'ISSN errato';
+    END IF;
+        
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoRivista();
+
+-- Quando viene inserita una rivista l'issn deve contenere lettere e il carattere '-'
+CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
+DECLARE
+BEGIN
+    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+        DELETE FROM COLLANA
+        WHERE ISSN=NEW.ISSN;
+
+        RAISE NOTICE 'ISSN errato';
+    END IF;
+        
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoCollana AFTER INSERT ON COLLANA
+    FOR EACH ROW WHEN(NEW.ISSN IS NOT NULL)
+    EXECUTE FUNCTION controllo_inserimentoCollana();
 
 
 --------------------------------------------------------------------------------------------------------------------
