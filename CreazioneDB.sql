@@ -1121,7 +1121,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Quando viene inserita una rivista l'issn deve contenere lettere e il carattere '-'
+-- Quando viene inserita una rivista l'issn deve contenere numeri e il carattere '-'
 CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
 DECLARE
 BEGIN
@@ -1139,7 +1139,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoRivista();
 
--- Quando viene inserita una rivista l'issn deve contenere lettere e il carattere '-'
+-- Quando viene inserita una rivista l'issn deve contenere numeri e il carattere '-'
 CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
 DECLARE
 BEGIN
@@ -1157,8 +1157,8 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoRivista();
 
--- Quando viene inserita una rivista l'issn deve contenere lettere e il carattere '-'
-CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
+-- Quando viene inserita una rivista l'issn deve contenere numeri e il carattere '-'
+CREATE OR REPLACE FUNCTION controllo_inserimentoCollana() RETURNS trigger AS $$
 DECLARE
 BEGIN
     IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
@@ -1176,5 +1176,24 @@ CREATE TRIGGER T_inserimentoCollana AFTER INSERT ON COLLANA
     FOR EACH ROW WHEN(NEW.ISSN IS NOT NULL)
     EXECUTE FUNCTION controllo_inserimentoCollana();
 
+-- Quando viene modificato l'issn di una collana l'issn deve contenere numeri e il carattere '-'
+CREATE OR REPLACE FUNCTION controllo_modificaCollana() RETURNS trigger AS $$
+DECLARE
+BEGIN
+    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+        UPDATE COLLANA
+        SET ISSN=OLD.ISSN
+        WHERE ISSN=NEW.ISSN;
+
+        RAISE NOTICE 'ISSN errato';
+    END IF;
+        
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoCollana AFTER UPDATE OF ISSN ON COLLANA
+    FOR EACH ROW WHEN(NEW.ISSN IS NOT NULL)
+    EXECUTE FUNCTION controllo_modificaCollana();
 
 --------------------------------------------------------------------------------------------------------------------
