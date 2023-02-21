@@ -545,13 +545,21 @@ CREATE OR REPLACE FUNCTION controllo_inserimentoFascicolo() RETURNS trigger AS $
 DECLARE
     anno_pubblicazioneRivista RIVISTA.AnnoPubblicazione%TYPE;
 BEGIN
-    SELECT R.AnnoPubblicazione INTO anno_pubblicazioneRivista --trova l'anno di pubblicazione della rivista del nuovo fascicolo
-    FROM RIVISTA AS R JOIN FASCICOLO AS F ON R.ISSN=F.ISSN
-    WHERE F.CodF=NEW.CodF;
+    IF controlla_formato(NEW.issn)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+        DELETE FROM RIVISTA
+        WHERE ISSN=NEW.ISSN;
 
-    IF anno_pubblicazioneRivista>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se la rivista è stata pubblicata dopo al nuovo fascicolo
-        DELETE FROM FASCICOLO
-        WHERE CodF=NEW.CodF;
+        RAISE NOTICE 'ISSN errato';
+    ELSE
+
+        SELECT R.AnnoPubblicazione INTO anno_pubblicazioneRivista --trova l'anno di pubblicazione della rivista del nuovo fascicolo
+        FROM RIVISTA AS R JOIN FASCICOLO AS F ON R.ISSN=F.ISSN
+        WHERE F.CodF=NEW.CodF;
+
+        IF anno_pubblicazioneRivista>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se la rivista è stata pubblicata dopo al nuovo fascicolo
+            DELETE FROM FASCICOLO
+            WHERE CodF=NEW.CodF;
+        END IF;
     END IF;
 
     RETURN NEW;
@@ -1119,15 +1127,15 @@ BEGIN
 
     RETURN risultato;
 END;
-$$ LANGUAGE plpgsql
+$$ LANGUAGE plpgsql;
 
 -- Quando viene inserita una rivista l'issn deve contenere lettere e il carattere '-'
-CREATE OR REPLACE FUNCTION controllo_inserimentoRivista(); RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.issn)=false THEN
+    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
         DELETE FROM RIVISTA
-        WHERE ISSN=NEW.ISSN
+        WHERE ISSN=NEW.ISSN;
 
         RAISE NOTICE 'ISSN errato';
     END IF;
