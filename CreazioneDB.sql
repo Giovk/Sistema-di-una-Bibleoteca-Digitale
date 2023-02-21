@@ -1098,7 +1098,6 @@ CREATE TRIGGER T_modificaPreferiti_S AFTER UPDATE OF Preferito ON RECENSIONE_S
     FOR EACH ROW WHEN(NEW.Preferito=true)
     EXECUTE FUNCTION invia_notifica_preferiti_S();
 
-
 -- La funzione controlla se la stringa ricevuta in input non contiene delle lettere
 CREATE OR REPLACE FUNCTION controlla_formato(stringa_in IN VARCHAR) 
 RETURNS BOOLEAN AS $$
