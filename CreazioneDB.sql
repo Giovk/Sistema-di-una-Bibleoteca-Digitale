@@ -1098,4 +1098,49 @@ CREATE TRIGGER T_modificaPreferiti_S AFTER UPDATE OF Preferito ON RECENSIONE_S
     FOR EACH ROW WHEN(NEW.Preferito=true)
     EXECUTE FUNCTION invia_notifica_preferiti_S();
 
+
+-- La funzione controlla se la stringa ricevuta in input non contiene delle lettere
+CREATE OR REPLACE FUNCTION controlla_formato(stringa_in IN VARCHAR) 
+RETURNS BOOLEAN AS $$
+DECLARE    
+	risultato BOOLEAN:=true;    --indica se non è stato trovato un carattere che non è un numero
+    cont INTEGER:=1;    --contatore
+    carattere INTEGER;  --codice ascii del carattere letto
+BEGIN
+    WHILE risultato=true AND cont<=LENGTH(stringa_in) LOOP --scorre la stringa presa in input
+
+        carattere=ascii(substr(stringa_in, cont, 1)); --inserisce in 'carattere' il codice ascii del cont-esimo carattere letto da 'stringa_in'
+        
+        IF (carattere<48 OR carattere>57) AND carattere!=45 THEN  --controlla se il carattere letto non è un numero
+            risultato=false;
+        END IF;
+
+        cont=cont+1;    --incrementa il contatore di 1
+    END LOOP;
+
+    RETURN risultato;
+END;
+$$ LANGUAGE plpgsql
+
+-- Quando viene inserita una rivista l'issn deve contenere lettere e il carattere '-'
+CREATE OR REPLACE FUNCTION controllo_inserimentoRivista(); RETURNS trigger AS $$
+DECLARE
+BEGIN
+    IF controlla_formato(NEW.issn)=false THEN
+        DELETE FROM RIVISTA
+        WHERE ISSN=NEW.ISSN
+
+        RAISE NOTICE 'ISSN errato';
+    END IF;
+        
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON POSSESSO_L
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoRivista();
+
+
+
+
 --------------------------------------------------------------------------------------------------------------------
