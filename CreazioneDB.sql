@@ -586,26 +586,34 @@ CREATE TRIGGER T_modificaFascicolo AFTER UPDATE OF DataPubblicazione, ISSN ON FA
     EXECUTE FUNCTION controllo_modificaFascicolo();
 
 -- Quando viene modificata la data di pubblicazione di una rivista, la nuova data di pubblicazione non deve 
--- essere successiva a quella dei fascicoli
+-- essere successiva a quella dei fascicoli.
+-- Quando viene modificato l'issn di una rivista, l'issn deve contenere numeri e il carattere '-' 
 CREATE OR REPLACE FUNCTION controllo_modificaRivista() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER:=0;
 BEGIN
-    SELECT COUNT(*) INTO contatore --conta i fascicoli della rivista modificata con la data di pubblicazione precedente a quella della rivista
-    FROM FASCICOLO 
-    WHERE ISSN=NEW.ISSN AND EXTRACT(YEAR FROM DataPubblicazione)<NEW.AnnoPubblicazione;
+    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+        DELETE FROM RIVISTA
+        WHERE ISSN=NEW.ISSN;
 
-    IF contatore>0 THEN --controlla se sono stati trovati fascicoli della rivista modificata con la data di pubblicazione precedente a quella della rivista
-        UPDATE RIVISTA
-        SET AnnoPubblicazione=OLD.AnnoPubblicazione;
+        RAISE NOTICE 'ISSN errato';
+    ELSE;
+        SELECT COUNT(*) INTO contatore --conta i fascicoli della rivista modificata con la data di pubblicazione precedente a quella della rivista
+        FROM FASCICOLO 
+        WHERE ISSN=NEW.ISSN AND EXTRACT(YEAR FROM DataPubblicazione)<NEW.AnnoPubblicazione;
+
+        IF contatore>0 THEN --controlla se sono stati trovati fascicoli della rivista modificata con la data di pubblicazione precedente a quella della rivista
+            UPDATE RIVISTA
+            SET AnnoPubblicazione=OLD.AnnoPubblicazione;
+        END IF;
     END IF;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_modificaRivista AFTER UPDATE OF AnnoPubblicazione ON RIVISTA
-    FOR EACH ROW WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione)
+CREATE TRIGGER T_modificaRivista AFTER UPDATE OF AnnoPubblicazione, issn ON RIVISTA
+    FOR EACH ROW WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione OR NEW.ISSN!=OLD.ISSN)
     EXECUTE FUNCTION controllo_modificaRivista();
 
 -- Il numero di libri in una serie non deve essere maggiore al numero dei libri totali della serie (specificati in
