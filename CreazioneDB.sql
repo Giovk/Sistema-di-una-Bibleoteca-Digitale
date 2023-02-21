@@ -587,7 +587,7 @@ CREATE TRIGGER T_modificaFascicolo AFTER UPDATE OF DataPubblicazione, ISSN ON FA
 
 -- Quando viene modificata la data di pubblicazione di una rivista, la nuova data di pubblicazione non deve 
 -- essere successiva a quella dei fascicoli.
--- Quando viene modificato l'issn di una rivista, l'issn deve contenere numeri e il carattere '-' 
+-- Quando viene modificato l'ISSN di una rivista, l'ISSN deve contenere numeri e il carattere '-' 
 CREATE OR REPLACE FUNCTION controllo_modificaRivista() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER:=0;
@@ -613,7 +613,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_modificaRivista AFTER UPDATE OF AnnoPubblicazione, issn ON RIVISTA
+CREATE TRIGGER T_modificaRivista AFTER UPDATE OF AnnoPubblicazione, ISSN ON RIVISTA
     FOR EACH ROW WHEN(NEW.AnnoPubblicazione>OLD.AnnoPubblicazione OR NEW.ISSN!=OLD.ISSN)
     EXECUTE FUNCTION controllo_modificaRivista();
 
@@ -821,7 +821,8 @@ CREATE TRIGGER T_modificaPresentazione AFTER UPDATE OF DataP, ISBN ON PRESENTAZI
     EXECUTE FUNCTION controllo_modificaPresentazione();
 
 -- Quando viene modificata la data di pubblicazione del libro la nuova data non deve essere successiva a quelle delle
--- date di tutte le presentazioni del libro 
+-- date di tutte le presentazioni del libro.
+-- Quando viene modificato l'ISBN di un libro, il nuovo ISBN deve contenere numeri e il carattere '-' 
 CREATE OR REPLACE FUNCTION controllo_Libro() RETURNS trigger AS $$
 DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
@@ -832,29 +833,36 @@ DECLARE
         FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS PR
         WHERE PR.DataP<L.DataPubblicazione AND L.ISBN=NEW.ISBN;
 BEGIN
-    OPEN cursore_datePresentazioni;
+    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+        UPDATE LIBRO
+        SET ISBN=OLD.ISBN
+        WHERE ISBN=NEW.ISBN;
 
-    LOOP
-        FETCH cursore_datePresentazioni INTO dataCorrente;
+        RAISE NOTICE 'ISSN errato';
+    ELSE
+        OPEN cursore_datePresentazioni;
 
-        EXIT WHEN NOT FOUND OR errore_trovato=true;
+        LOOP
+            FETCH cursore_datePresentazioni INTO dataCorrente;
 
-        IF dataCorrente<NEW.DataPubblicazione THEN --controlla se la data della presentazione e precedente a quella della pubblicazion del libro
-            UPDATE LIBRO
-            SET DataPubblicazione=OLD.DataPubblicazione
-            WHERE ISBN=NEW.ISBN;
+            EXIT WHEN NOT FOUND OR errore_trovato=true;
 
-            errore_trovato:=true;
-            RAISE NOTICE 'Non è possibile inserire una data di pubblicazione di un libro precedente a quella delle sue presentazioni';
-        END IF;
-    END LOOP;
+            IF dataCorrente<NEW.DataPubblicazione THEN --controlla se la data della presentazione e precedente a quella della pubblicazion del libro
+                UPDATE LIBRO
+                SET DataPubblicazione=OLD.DataPubblicazione
+                WHERE ISBN=NEW.ISBN;
+
+                errore_trovato:=true;
+                RAISE NOTICE 'Non è possibile inserire una data di pubblicazione di un libro precedente a quella delle sue presentazioni';
+            END IF;
+        END LOOP;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_modificaLibro AFTER UPDATE OF DataPubblicazione ON LIBRO
-    FOR EACH ROW WHEN(NEW.DataPubblicazione>OLD.DataPubblicazione)
+CREATE TRIGGER T_modificaLibro AFTER UPDATE OF DataPubblicazione, ISBN ON LIBRO
+    FOR EACH ROW WHEN(NEW.DataPubblicazione>OLD.DataPubblicazione OR NEW.ISBN!=OLD.ISBN)
     EXECUTE FUNCTION controllo_Libro();
 
 -- Quando avviene un inserimento in 'POSSESSO_L' bisogna controllare se il libro appartiene a una serie e se la
@@ -1130,7 +1138,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Quando viene inserita una rivista l'issn deve contenere numeri e il carattere '-'
+-- Quando viene inserita una rivista l'ISSN deve contenere numeri e il carattere '-'
 CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
 DECLARE
 BEGIN
@@ -1148,7 +1156,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoRivista();
 
--- Quando viene inserita una rivista l'issn deve contenere numeri e il carattere '-'
+-- Quando viene inserita una rivista l'ISSN deve contenere numeri e il carattere '-'
 CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
 DECLARE
 BEGIN
@@ -1166,7 +1174,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoRivista();
 
--- Quando viene inserita una rivista l'issn deve contenere numeri e il carattere '-'
+-- Quando viene inserita una rivista l'ISSN deve contenere numeri e il carattere '-'
 CREATE OR REPLACE FUNCTION controllo_inserimentoCollana() RETURNS trigger AS $$
 DECLARE
 BEGIN
@@ -1185,7 +1193,7 @@ CREATE TRIGGER T_inserimentoCollana AFTER INSERT ON COLLANA
     FOR EACH ROW WHEN(NEW.ISSN IS NOT NULL)
     EXECUTE FUNCTION controllo_inserimentoCollana();
 
--- Quando viene modificato l'issn di una collana l'issn deve contenere numeri e il carattere '-'
+-- Quando viene modificato l'ISSN di una collana l'ISSN deve contenere numeri e il carattere '-'
 CREATE OR REPLACE FUNCTION controllo_modificaCollana() RETURNS trigger AS $$
 DECLARE
 BEGIN
@@ -1205,7 +1213,7 @@ CREATE TRIGGER T_modificaCollana AFTER UPDATE OF ISSN ON COLLANA
     FOR EACH ROW WHEN(NEW.ISSN IS NOT NULL)
     EXECUTE FUNCTION controllo_modificaCollana();
 
--- Quando viene inserito un libro l'isbn deve contenere numeri e il carattere '-'
+-- Quando viene inserito un libro l'ISBN deve contenere numeri e il carattere '-'
 CREATE OR REPLACE FUNCTION controllo_inserimentoLibro() RETURNS trigger AS $$
 DECLARE
 BEGIN
