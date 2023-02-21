@@ -381,6 +381,12 @@ INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
 VALUES (79, 'George', 'Owell', 'Britannica', '1903-06-25');
 INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
 VALUES (80, 'Charles', 'Dickens', 'Britannica', '1812-02-07');
+INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
+VALUES (81, 'Andrzej', 'Sapkowski', 'Polacca', '1948-06-21');
+INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
+VALUES (82, 'Brenda', 'Novak', 'Statunitense', '1964-05-15');
+INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
+VALUES (83, 'Scott', 'Nicholson', 'Statunitense', '1962-06-24');
 
 -- SCRITTURA_A --
 INSERT INTO SCRITTURA_A (DOI, CodA)
@@ -833,6 +839,36 @@ INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-6311-435-5', 'La fattoria degli animali', 'Classico', 'Italiana', 'Liberamente', '2020-01-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-9543-776-7', 'Christmas Carol', 'Classico', 'Italiana', 'Caravaggio Editore', '2018-10-15');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-4293-241-3', 'Il guardiano degli innocenti', 'Fantasy', 'Italiana', 'Nord', '2019-10-24');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-4293-242-0', 'La spada del destino', 'Fantasy', 'Italiana', 'Nord', '2019-10-24');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-4293-243-7', 'Il sangue degli elfi', 'Fantasy', 'Italiana', 'Nord', '2019-10-24');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-4293-275-8', 'Il tempo della guerra', 'Fantasy', 'Italiana', 'Nord', '2020-03-05');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-4292-359-6', 'Il battesimo del fuoco', 'Fantasy', 'Italiana', 'Nord', '2020-03-05');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-4293-277-2', 'La torre della rondine', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-4293-278-9', 'La signora del lago', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-4293-279-6', 'La stagione delle tempeste', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-0983-331-9', 'Alaska', 'Thriller', 'Italiana', 'Giunti Editore', '2016-11-09');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-0987-707-8', 'Hanover House', 'Thriller', 'Italiana', 'Giunti Editore', '2018-10-10');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-0989-463-1', 'Alaska. La resa dei conti', 'Thriller', 'Italiana', 'Giunti Editore', '2019-10-16');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-88-0989-782-3', 'Alaska. Il ritorno', 'Thriller', 'Italiana', 'Giunti Editore', '2020-10-14');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-16-2647-952-4', 'Dopo: Lo shock', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2016-06-20');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-16-2647-977-7', 'L''eco', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2017-03-16');
+INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
+VALUES ('978-16-2647-954-8', 'Dopo: Il cartello 291', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2016-06-20');
 
 -- SCRITTURA_L --
 INSERT INTO SCRITTURA_L (ISBN, CodA)
@@ -901,6 +937,36 @@ INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-88-6311-435-5', 79);
 INSERT INTO SCRITTURA_L (ISBN, CodA)
 VALUES ('978-88-9543-776-7', 80);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-4293-241-3', 81);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-4293-242-0', 81);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-4293-243-7', 81);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-4293-275-8', 81);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-4292-359-6', 81);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-4293-277-2', 81);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-4293-278-9', 81);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-4293-279-6', 81);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-0983-331-9', 82);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-0987-707-8', 82);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-0989-463-1', 82);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-88-0989-782-3', 82);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-16-2647-952-4', 83);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-16-2647-977-7', 83);
+INSERT INTO SCRITTURA_L (ISBN, CodA)
+VALUES ('978-16-2647-954-8', 83);
 
 -- SERIE --
 INSERT INTO SERIE (Titolo, ISBN, DataPubblicazione, NLibri)
@@ -909,7 +975,12 @@ INSERT INTO SERIE (Titolo, ISBN, DataPubblicazione, NLibri)
 VALUES ('La biblioteca di Hogwarts: Gli animali fantastici', '978-88-3100-010-9', '2019-05-16', 3);
 INSERT INTO SERIE (Titolo, ISBN, DataPubblicazione, NLibri)
 VALUES ('Il Signore Degli Anelli - Box Set', '978-00-0758-114-6', '2014-06-19', 3);
-
+INSERT INTO SERIE (Titolo, ISBN, DataPubblicazione, NLibri)
+VALUES ('The Witcher. La serie completa', '978-88-4293-500-1', '2022-10-25', 8);
+INSERT INTO SERIE (Titolo, ISBN, DataPubblicazione, NLibri)
+VALUES ('Alaska. La serie', '978-88-0996-124-1', '2021-09-15', 4);
+INSERT INTO SERIE (Titolo, ISBN, DataPubblicazione, NLibri)
+VALUES ('Dopo Box', '978-16-2647-092-7', '2017-12-28', 3);
 
 -- INSERIMENTO --
 INSERT INTO INSERIMENTO (Libro, Serie)
@@ -938,6 +1009,36 @@ INSERT INTO INSERIMENTO (Libro, Serie)
 VALUES ('978-88-301-0527-0', '978-00-0758-114-6');
 INSERT INTO INSERIMENTO (Libro, Serie) 
 VALUES ('978-88-301-0528-6', '978-00-0758-114-6');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-4293-241-3', '978-88-4293-500-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-4293-242-0', '978-88-4293-500-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-4293-243-7', '978-88-4293-500-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-4293-275-8', '978-88-4293-500-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-4292-359-6', '978-88-4293-500-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-4293-277-2', '978-88-4293-500-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-4293-278-9', '978-88-4293-500-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-4293-279-6', '978-88-4293-500-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-0983-331-9', '978-88-0996-124-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-0987-707-8', '978-88-0996-124-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-0989-463-1', '978-88-0996-124-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-88-0989-782-3', '978-88-0996-124-1');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-16-2647-952-4', '978-16-2647-092-7');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-16-2647-977-7', '978-16-2647-092-7');
+INSERT INTO INSERIMENTO (Libro, Serie) 
+VALUES ('978-16-2647-954-8', '978-16-2647-092-7');
 
 -- COLLANA --
 INSERT INTO COLLANA (CodC, Nome, Caratteristica)
