@@ -1144,7 +1144,7 @@ BEGIN
 END; 
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON POSSESSO_L
+CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoRivista();
 
 
