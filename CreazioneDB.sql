@@ -551,7 +551,6 @@ BEGIN
 
         RAISE NOTICE 'ISSN errato';
     ELSE
-
         SELECT R.AnnoPubblicazione INTO anno_pubblicazioneRivista --trova l'anno di pubblicazione della rivista del nuovo fascicolo
         FROM RIVISTA AS R JOIN FASCICOLO AS F ON R.ISSN=F.ISSN
         WHERE F.CodF=NEW.CodF;
