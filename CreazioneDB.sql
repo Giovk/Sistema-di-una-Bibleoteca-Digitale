@@ -361,20 +361,20 @@ CHECK(NOT(SitoWeb IS NULL AND Indirizzo IS NULL));
 
 -----------------------------------------------------------------------------------------------------------------------
 
--- Quando viene inserita una libreria di un utente il gestore deve avere una partitaIVA
+-- Quando viene inserita una libreria di un utente il gestore deve avere una Partita IVA
 CREATE OR REPLACE FUNCTION controllo_inserimentoLibreria() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER;
 BEGIN
-    SELECT COUNT(U.PartitaIVA) INTO contatore --controlla la partitaIVA del gestore della libreria inserita
+    SELECT COUNT(U.PartitaIVA) INTO contatore --controlla la Partita IVA del gestore della libreria inserita
     FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
     WHERE U.PartitaIVA IS NOT NULL AND U.Username=NEW.Gestore;
 
-    IF contatore=0 THEN --controlla se non è stata trovata nessuna partitaIVA
+    IF contatore=0 THEN --controlla se non è stata trovata nessuna Partita IVA
         DELETE FROM LIBRERIA
         WHERE CodL=NEW.CodL;
 
-        RAISE NOTICE 'Per inserire una nuova libreria è necessario specificare la PartitaIVA del gestore';
+        RAISE NOTICE 'Per inserire una nuova libreria è necessario specificare la Partita IVA del gestore';
     END IF;
 
     RETURN NEW;
@@ -408,8 +408,9 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_modificaGestore AFTER UPDATE OF Gestore ON LIBRERIA
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaLibreria();
 
--- Quando viene chiusa la partitaIVA di un gestore bisogna eliminare la sua libreria
-CREATE OR REPLACE FUNCTION chiusuraLibreria() RETURNS trigger AS $$
+-- Quando viene modificata la Partita IVA di un gestore bisogna controllare se quella nuova contiene solo caratteri
+-- numerici. In oltre nel caso in cui venga chiusa allora bisogna eliminare anche la libreria del gestore aggiornato  
+CREATE OR REPLACE FUNCTION controllo_modifica_PartitaIVA() RETURNS trigger AS $$
 DECLARE
     libreria_corrente LIBRERIA.CodL%TYPE;
 
@@ -418,26 +419,35 @@ DECLARE
         FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
         WHERE U.Username=NEW.Username;
 BEGIN
-    OPEN cursore_librerieChiuse;
+    IF NEW.partitaIVA IS NOT NULL THEN  --controlla se non è statat chiusa la partita IVA
+        IF controlla_formato(NEW.PartitaIVA)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+            UPDATE UTENTE
+            SET PartitaIVA=OLD.PartitaIVA
+            WHERE PartitaIVA=NEW.PartitaIVA;
 
-    LOOP
-        FETCH cursore_librerieChiuse INTO libreria_corrente;
+            RAISE NOTICE 'Partita IVA errata'; 
+        END IF
+    ELSE
+        OPEN cursore_librerieChiuse;
 
-        EXIT WHEN NOT FOUND;
+        LOOP
+            FETCH cursore_librerieChiuse INTO libreria_corrente;
 
-        DELETE FROM LIBRERIA
-        WHERE CodL=libreria_corrente;
-    END LOOP;
+            EXIT WHEN NOT FOUND;
 
-    CLOSE cursore_librerieChiuse;
+            DELETE FROM LIBRERIA
+            WHERE CodL=libreria_corrente;
+        END LOOP;
+
+        CLOSE cursore_librerieChiuse;
+    END IF;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_chiusura_partitaIVA AFTER UPDATE OF partitaIVA ON UTENTE
-    FOR EACH ROW WHEN(NEW.partitaIVA IS NULL)
-    EXECUTE FUNCTION chiusuraLibreria();
+CREATE TRIGGER T_modifica_partitaIVA AFTER UPDATE OF partitaIVA ON UTENTE
+    FOR EACH EXECUTE FUNCTION controllo_modifica_PartitaIVA();
 
 -- Quando viene introdotto un articolo scientifico in un fascicolo la data di pubblicazione del fascicolo non deve 
 -- essere precedente a quella dell'articolo
