@@ -1268,5 +1268,5 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoUtente AFTER INSERT ON UTENTE
     FOR EACH ROW WHEN(NEW.PartitaIVA IS NOT NULL)
-    EXECUTE FUNCTION controllo_inserimentoSerie();
+    EXECUTE FUNCTION controllo_inserimentoUtente();
 --------------------------------------------------------------------------------------------------------------------
