@@ -447,7 +447,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modifica_partitaIVA AFTER UPDATE OF partitaIVA ON UTENTE
-    FOR EACH EXECUTE FUNCTION controllo_modifica_PartitaIVA();
+    FOR EACH ROW EXECUTE FUNCTION controllo_modifica_PartitaIVA();
 
 -- Quando viene introdotto un articolo scientifico in un fascicolo la data di pubblicazione del fascicolo non deve 
 -- essere precedente a quella dell'articolo
@@ -1269,4 +1269,22 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_modificaSerie AFTER UPDATE OF ISBN ON SERIE
     FOR EACH ROW WHEN(NEW.ISBN IS NOT NULL)
     EXECUTE FUNCTION controllo_modificaSerie();
+
+-- Quando viene inserito un utente l'eventuale Partita IVA deve contenere numeri
+CREATE OR REPLACE FUNCTION controllo_inserimentoUtente() RETURNS trigger AS $$
+DECLARE
+BEGIN
+    IF controlla_formato(NEW.PartitaIVA)=false THEN   --controlla se nella nuova Partita IVA ci sono dei caratteri che non sono numeri
+        DELETE FROM UTENTE
+        WHERE PartitaIVA=NEW.PartitaIVA;
+
+        RAISE NOTICE 'Partita IVA errata';
+    END IF;
+        
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoSerie AFTER INSERT ON SERIE
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoSerie();
 --------------------------------------------------------------------------------------------------------------------
