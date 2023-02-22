@@ -1158,24 +1158,6 @@ CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoRivista();
 
 -- Quando viene inserita una rivista l'ISSN deve contenere numeri e il carattere '-'
-CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
-DECLARE
-BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
-        DELETE FROM RIVISTA
-        WHERE ISSN=NEW.ISSN;
-
-        RAISE NOTICE 'ISSN errato';
-    END IF;
-        
-    RETURN NEW;
-END; 
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
-    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoRivista();
-
--- Quando viene inserita una rivista l'ISSN deve contenere numeri e il carattere '-'
 CREATE OR REPLACE FUNCTION controllo_inserimentoCollana() RETURNS trigger AS $$
 DECLARE
 BEGIN
