@@ -1267,8 +1267,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_modificaSerie AFTER UPDATE OF ISBN ON SERIE
-    FOR EACH ROW WHEN(NEW.ISBN IS NOT NULL)
-    EXECUTE FUNCTION controllo_modificaSerie();
+    FOR EACH ROW EXECUTE FUNCTION controllo_modificaSerie();
 
 -- Quando viene inserito un utente l'eventuale Partita IVA deve contenere numeri
 CREATE OR REPLACE FUNCTION controllo_inserimentoUtente() RETURNS trigger AS $$
@@ -1285,6 +1284,7 @@ BEGIN
 END; 
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_inserimentoSerie AFTER INSERT ON SERIE
-    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoSerie();
+CREATE TRIGGER T_inserimentoUtente AFTER INSERT ON UTENTE
+    FOR EACH ROW WHEN(NEW.PartitaIVA IS NOT NULL)
+    EXECUTE FUNCTION controllo_inserimentoSerie();
 --------------------------------------------------------------------------------------------------------------------
