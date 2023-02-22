@@ -1,12 +1,16 @@
 # Sistema di una Biblioteca Digitale
-## Folder
-Il folder del progetto contiene i seguenti file:
+### Repository
+La repository è composta da due branches:
+1. **[Main][GIT]:** In questa branch sono presenti i file principali relativi al progetto.
+2. **[Old-File][OFB]:** In questa branch sono presenti alcuni file utili per comprendere com'è stato realizzato il progetto.
+
+### Branch: Main
+Il branch '[Main][GIT]' del progetto contiene i seguenti file:
 - File [_"CreazioneDB.sql"_][CDB]
 - File [_"Popolazione.sql"_][PDB]
 - File [_"Documentazione.pdf"_][Doc] 
 
-## File
-
+### File
 Qui viene descritto il contenuto dei file citati precedentemente.
 
 | File | Contenuto |
@@ -15,7 +19,7 @@ Qui viene descritto il contenuto dei file citati precedentemente.
 | [Popolazione.sql][PDB] | Questo file contiene il codice sql per **popolare** (inserire dati) **il database** |
 | [Documentazione.pdf][DOC] | Questo file contiene **la descrizione** della realizzazione e del funzionamento della base di dati. In esso vi sono contenuti tutte le fasi della **proggettazione concettuale** e sono rappresentate **le entità, le relazioni, i vincoli, i trigger, le funzioni e le procedure utilizzate** |
 
-## Configurazione Database
+### Configurazione Database
 
 La configurazione del database consiste nelle seguenti fasi che prevedono l'utilizzo di PostgreSQL:
 
@@ -25,19 +29,10 @@ La configurazione del database consiste nelle seguenti fasi che prevedono l'util
 
 3. Se tutto è andato a buon fine, la base di dati è pronta per essere popolata e quindi e possibile inserire il contenuto del file [Popolazione.sql][PDB] nel terminale ed eseguire il comando.
 
-## Link Utili
-
-Qui sono presenti dei link utili per raggiungere i file del progetto.
-
-| File | Link |
-| ------ | ------ |
-| Repository | [(Click Here)][GIT] |
-| Documentazione | [(Click Here)][DOC] |
-| File SQL | [(Click Here)][DOC] |
-
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO)
 
 [CDB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/CreazioneDB.sql>
 [PDB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/Popolazione.sql>
 [DOC]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/Documentazione.pdf>
 [GIT]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale>
+[OFB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/tree/Old-File>
