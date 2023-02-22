@@ -426,7 +426,7 @@ BEGIN
             WHERE PartitaIVA=NEW.PartitaIVA;
 
             RAISE NOTICE 'Partita IVA errata'; 
-        END IF
+        END IF;
     ELSE
         OPEN cursore_librerieChiuse;
 
