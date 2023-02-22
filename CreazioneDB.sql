@@ -1238,5 +1238,25 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoSerie AFTER INSERT ON SERIE
-    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibro();
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoSerie();
+
+-- Quando viene modificato l'ISBN di una serie l'ISBN deve contenere numeri e il carattere '-'
+CREATE OR REPLACE FUNCTION controllo_modificaSerie() RETURNS trigger AS $$
+DECLARE
+BEGIN
+    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
+        UPDATE SERIE
+        SET ISBN=OLD.ISBN
+        WHERE ISBN=NEW.ISBN;
+
+        RAISE NOTICE 'ISBN errato';
+    END IF;
+        
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_modificaSerie AFTER UPDATE OF ISBN ON SERIE
+    FOR EACH ROW WHEN(NEW.ISBN IS NOT NULL)
+    EXECUTE FUNCTION controllo_modificaSerie();
 --------------------------------------------------------------------------------------------------------------------
