@@ -498,46 +498,60 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_modificaIntroduzione AFTER UPDATE ON INTRODUZIONE
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaIntroduzione();
 
--- Quando viene modificata la data di pubblicazione del fascicolo l'anno della nuova data non deve essere precedente a
--- quello dell'anno di pubblicazione degli articoli nel fascicolo modificato 
-CREATE OR REPLACE FUNCTION controllo_modifica_DataPubblicazioneFascicolo() RETURNS trigger AS $$
+-- Quando viene modificata la data di pubblicazione o l'ISSN della rivista del fascicolo, l'anno della nuova data
+-- non deve essere precedente a quello dell'anno di pubblicazione degli articoli nel fascicolo modificato e non deve
+-- essere precedente all'anno di pubblicazione della rivista in cui è contenuto
+CREATE OR REPLACE FUNCTION controllo_modificaFascicolo() RETURNS trigger AS $$
 DECLARE
     errore_trovato BOOLEAN:=false; --indica se la data modificata è errata
     anno_articoloCorrente ARTICOLO_SCIENTIFICO.AnnoPubblicazione%TYPE;
     DOI_articoloCorrente ARTICOLO_SCIENTIFICO.DOI%TYPE;
-
+    anno_pubblicazioneRivista RIVISTA.AnnoPubblicazione%TYPE;
+    
     cursore_articoli CURSOR FOR    --contiene gli anni di pubblicazione degli articoli nel fascicolo modificato
         SELECT AR.AnnoPubblicazione, AR.DOI
         FROM ARTICOLO_SCIENTIFICO AS AR NATURAL JOIN INTRODUZIONE AS I
         WHERE I.CodF=NEW.CodF;
 BEGIN
-    OPEN cursore_articoli;
+    SELECT R.AnnoPubblicazione INTO anno_pubblicazioneRivista --trova l'anno di pubblicazione della rivista del nuovo fascicolo
+    FROM RIVISTA AS R JOIN FASCICOLO AS F ON R.ISSN=F.ISSN
+    WHERE F.CodF=NEW.CodF;
 
-    LOOP
-        FETCH cursore_articoli INTO anno_articoloCorrente, DOI_articoloCorrente;
+    IF anno_pubblicazioneRivista>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se la rivista è stata pubblicata dopo al nuovo fascicolo
+        UPDATE FASCICOLO
+        SET DataPubblicazione=OLD.DataPubblicazione, ISSN=OLD.ISSN
+        WHERE CodF=NEW.CodF;
 
-        EXIT WHEN NOT FOUND OR errore_trovato=true;
+        errore_trovato:=true;
+    ELSE
+        OPEN cursore_articoli;
 
-        IF anno_articoloCorrente>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se l'articolo è stato pubblicato dopo al fascicolo modificato
-            UPDATE FASCICOLO
-            SET DataPubblicazione=OLD.DataPubblicazione
-            WHERE CodF=NEW.CodF;
-            
-            errore_trovato:=true;
+        LOOP
+            FETCH cursore_articoli INTO anno_articoloCorrente, DOI_articoloCorrente;
 
-            RAISE NOTICE 'Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo';
-        END IF;
-    END LOOP;
+            EXIT WHEN NOT FOUND OR errore_trovato=true;
 
-    CLOSE cursore_articoli;
+            IF anno_articoloCorrente>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se l'articolo è stato pubblicato dopo al fascicolo modificato
+                UPDATE FASCICOLO
+                SET DataPubblicazione=OLD.DataPubblicazione
+                WHERE CodF=NEW.CodF;
+
+                errore_trovato:=true;
+
+                RAISE NOTICE 'Non è possibile inserire in un fascicolo un articolo scientifico pubblicato dopo la pubblicazione dell fascicolo';
+            END IF;
+        END LOOP;
+
+        CLOSE cursore_articoli;
+    END IF;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_modifica_pubblicazioneFascicolo AFTER UPDATE OF DataPubblicazione ON FASCICOLO
-    FOR EACH ROW WHEN(NEW.DataPubblicazione<OLD.DataPubblicazione)
-    EXECUTE FUNCTION controllo_modifica_DataPubblicazioneFascicolo();
+CREATE TRIGGER T_modificaFascicolo AFTER UPDATE OF DataPubblicazione, ISSN ON FASCICOLO
+    FOR EACH ROW WHEN(NEW.DataPubblicazione<=OLD.DataPubblicazione)
+    EXECUTE FUNCTION controllo_modificaFascicolo();
 
 -- Quando viene introdotto un fascicolo in una rivista la data di pubblicazione del fascicolo deve essere successiva
 -- a quella della rivista
@@ -560,30 +574,6 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoFascicolo AFTER INSERT ON FASCICOLO
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoFascicolo();
-
--- Quando viene modificata la data di pubblicazione o l'ISSN di un fascicolo, la data di pubblicazione del fascicolo
--- modificato non deve essere precedente a quella della rivista
-CREATE OR REPLACE FUNCTION controllo_modificaFascicolo() RETURNS trigger AS $$
-DECLARE
-    anno_pubblicazioneRivista RIVISTA.AnnoPubblicazione%TYPE;
-BEGIN
-    SELECT R.AnnoPubblicazione INTO anno_pubblicazioneRivista --trova l'anno di pubblicazione della rivista del nuovo fascicolo
-    FROM RIVISTA AS R JOIN FASCICOLO AS F ON R.ISSN=F.ISSN
-    WHERE F.CodF=NEW.CodF;
-
-    IF anno_pubblicazioneRivista>EXTRACT(YEAR FROM NEW.DataPubblicazione)THEN --controlla se la rivista è stata pubblicata dopo al nuovo fascicolo
-        UPDATE FASCICOLO
-        SET DataPubblicazione=OLD.DataPubblicazione, ISSN=OLD.ISSN
-        WHERE CodF=NEW.CodF;
-    END IF;
-
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER T_modificaFascicolo AFTER UPDATE OF DataPubblicazione, ISSN ON FASCICOLO
-    FOR EACH ROW WHEN(NEW.DataPubblicazione<=OLD.DataPubblicazione)
-    EXECUTE FUNCTION controllo_modificaFascicolo();
 
 -- Quando viene modificata la data di pubblicazione di una rivista, la nuova data di pubblicazione non deve 
 -- essere successiva a quella dei fascicoli.
@@ -1143,7 +1133,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
         DELETE FROM RIVISTA
         WHERE ISSN=NEW.ISSN;
 
@@ -1161,7 +1151,7 @@ CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
 CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
         DELETE FROM RIVISTA
         WHERE ISSN=NEW.ISSN;
 
@@ -1179,7 +1169,7 @@ CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
 CREATE OR REPLACE FUNCTION controllo_inserimentoCollana() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
         DELETE FROM COLLANA
         WHERE ISSN=NEW.ISSN;
 
@@ -1198,7 +1188,7 @@ CREATE TRIGGER T_inserimentoCollana AFTER INSERT ON COLLANA
 CREATE OR REPLACE FUNCTION controllo_modificaCollana() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
         UPDATE COLLANA
         SET ISSN=OLD.ISSN
         WHERE ISSN=NEW.ISSN;
@@ -1218,7 +1208,7 @@ CREATE TRIGGER T_modificaCollana AFTER UPDATE OF ISSN ON COLLANA
 CREATE OR REPLACE FUNCTION controllo_inserimentoLibro() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
         DELETE FROM LIBRO
         WHERE ISBN=NEW.ISBN;
 
@@ -1230,5 +1220,23 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER T_inserimentoLibro AFTER INSERT ON LIBRO
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibro();
+
+-- Quando viene inserita una serie l'ISBN deve contenere numeri e il carattere '-'
+CREATE OR REPLACE FUNCTION controllo_inserimentoSerie() RETURNS trigger AS $$
+DECLARE
+BEGIN
+    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
+        DELETE FROM SERIE
+        WHERE ISBN=NEW.ISBN;
+
+        RAISE NOTICE 'ISBN errato';
+    END IF;
+        
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoSerie AFTER INSERT ON SERIE
     FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibro();
 --------------------------------------------------------------------------------------------------------------------
