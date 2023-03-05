@@ -310,31 +310,35 @@ CHECK(
     DataInizio <= DataFine
 );
 
---La quantità deve essere 'NULL' solo quando la fruizione è 'Digitale' o 'AudioLibro'  
+--La quantità deve essere 'NULL' solo quando la fruizione è 'Digitale' o 'AudioLibro', altrimenti la quantità deve 
+--essere diversa da 'NULL'  
 ALTER TABLE POSSESSO_F
 ADD CONSTRAINT C4
-CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo'));
+CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo') OR (Quantita IS NOT NULL AND Fruizione IN 
+        ('AudioLibro', 'Digitale')));
 
 ALTER TABLE POSSESSO_S
 ADD CONSTRAINT C5
-CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo'));
+CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo') OR (Quantita IS NOT NULL AND Fruizione IN 
+        ('AudioLibro', 'Digitale')));
 
 ALTER TABLE POSSESSO_L
 ADD CONSTRAINT C6
-CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo'));
+CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo') OR (Quantita IS NOT NULL AND Fruizione IN 
+        ('AudioLibro', 'Digitale')));
 
---La valutazione deve essere in [0,5]
+--La valutazione deve essere in [1,5]
 ALTER TABLE RECENSIONE_F
 ADD CONSTRAINT C7
-CHECK(Valutazione>=0 AND Valutazione<=5); 
+CHECK(Valutazione>=1 AND Valutazione<=5); 
 
 ALTER TABLE RECENSIONE_S
 ADD CONSTRAINT C8
-CHECK(Valutazione>=0 AND Valutazione<=5);
+CHECK(Valutazione>=1 AND Valutazione<=5);
 
 ALTER TABLE RECENSIONE_L
 ADD CONSTRAINT C9
-CHECK(Valutazione>=0 AND Valutazione<=5); 
+CHECK(Valutazione>=1 AND Valutazione<=5); 
 
 -- In RECENSIONE_F non può esserci un fasncicolo che non è stato valutato, recensito o inserito tra i preferiti 
 -- dall'utente
