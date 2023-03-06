@@ -314,17 +314,17 @@ CHECK(
 --essere diversa da 'NULL'  
 ALTER TABLE POSSESSO_F
 ADD CONSTRAINT C4
-CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo') OR (Quantita IS NOT NULL AND Fruizione IN 
+CHECK((Quantita IS NOT NULL AND Fruizione='Cartaceo') OR (Quantita IS NULL AND Fruizione IN 
         ('AudioLibro', 'Digitale')));
 
 ALTER TABLE POSSESSO_S
 ADD CONSTRAINT C5
-CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo') OR (Quantita IS NOT NULL AND Fruizione IN 
+CHECK((Quantita IS NOT NULL AND Fruizione='Cartaceo') OR (Quantita IS NULL AND Fruizione IN 
         ('AudioLibro', 'Digitale')));
 
 ALTER TABLE POSSESSO_L
 ADD CONSTRAINT C6
-CHECK(NOT(Quantita IS NULL AND Fruizione='Cartaceo') OR (Quantita IS NOT NULL AND Fruizione IN 
+CHECK((Quantita IS NOT NULL AND Fruizione='Cartaceo') OR (Quantita IS NULL AND Fruizione IN 
         ('AudioLibro', 'Digitale')));
 
 --La valutazione deve essere in [1,5]
