@@ -22,6 +22,7 @@ CREATE TABLE LIBRERIA
     Indirizzo VARCHAR(256),
     Gestore VARCHAR(30) NOT NULL,
 
+    UNIQUE(NumeroTelefonico, SitoWeb, Nome, Indirizzo, Gestore),
     FOREIGN KEY(Gestore) REFERENCES UTENTE(Username)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -244,6 +245,7 @@ CREATE TABLE PRESENTAZIONE
     Ora TIME NOT NULL,
     ISBN isbn NOT NULL,
 
+    UNIQUE(Luogo, Struttura, DataP, Ora),
     FOREIGN KEY (ISBN) REFERENCES LIBRO(ISBN) 
         ON DELETE CASCADE ON UPDATE CASCADE
 );
