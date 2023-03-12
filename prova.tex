@@ -71,7 +71,7 @@ Per inviare la notifica a gli utenti interessati ad una serie disponibile, utili
     \item Trigger e Funzioni che si occuperanno di inviare automaticamente le notifiche quando:
     \begin{itemize}
         \item Un'utente attiva le notifiche per una serie già disponibile, cioè nella relazione \textit{recensione} avviene un inserimento o una modifica in cui l'attributo Preferito assume il valore 'true' e l'elemento associato a tale utente è una serie;
-        \item Una libreria inizia a possedere una serie per la quale un utente ha attivato le notifiche, cioè nella relazione \textit{possesso} avviene un inserimento o una modifica in cui l'attributo Quantità ha un valore maggiore di 0 oppure la modalita di fruizione è 'Digitale' o 'AudioLibro' (quindi non è necessario specificare la quantità disponibile).
+        \item Una libreria inizia a possedere una serie per la quale un utente ha attivato le notifiche, cioè nella relazione \textit{possesso} avviene un inserimento o una modifica in cui l'attributo Quantità ha un valore maggiore di 0 oppure la modalità di fruizione è 'Digitale' o 'AudioLibro' (quindi non è necessario specificare la quantità disponibile).
     \end{itemize} 
 \end{itemize}
 
@@ -90,14 +90,14 @@ L'editore di una rivista può essere ricavato consultando l'attributo 'Editore' 
 
 \subsection{Analisi delle generalizzazioni}
 Per rimuovere la generalizzazione totale overlapping "utente", accorpiamo le entità figlie \textit{venditore} e \textit{standard} nell'entità padre \textit{utente}.
-Per quanto riguarda la generalizzazione disgiunta totale "elemento" procediamo accorpando l'entià padre \textit{elemento} nelle entità figlie \textit{fascicolo}, \textit{libro} e \textit{serie}.
+Per quanto riguarda la generalizzazione disgiunta totale "elemento" procediamo accorpando l'entità padre \textit{elemento} nelle entità figlie \textit{fascicolo}, \textit{libro} e \textit{serie}.
 
 \subsection{Eliminazione degli attributi multivalore}
 Nelle entità \textit{articolo\_scientifico} e \textit{libro} abbiamo un attributo multivalore (e strutturato) \textit{Autore} che ci permette di rappresentare gli autori che hanno scritto un libro e/o un articolo scientifico, quindi abbiamo creato delle apposite entità esterne.
 
 \subsection{Eliminazione degli attributi strutturati}
 L'entità \textit{conferenza} contiene l'attributo composto \textit{Luogo} che è formato da \textit{Struttura Organizzatrice} e \textit{Luogo Conferenza}, quest'ultimo a sua volta è composto da \textit{Nazione}, \textit{Città} e \textit{Indirizzo}. Quindi trascuriamo la struttura dell'attributo \textit{Luogo Conferenza} rendendolo un unico attributo, poi estraiamo gli attributi \textit{Luogo Conferenza} e \textit{Struttura Organizzatrice} inserendo nell'entità \textit{conferenza} i corrispondenti attributi \textit{Luogo} e \textit{Struttura organizzatrice}.\\
-L'attributo composto \textit{Luogo} dell'entità \textit{presentazione} è formato da: \textit{Luogo Presentazione} che a sua volta contiene \textit{Nazione}, \textit{Città} e \textit{Indirizzo}; e \textit{Struttura Organizzatrice}, che a sua volta contiene \textit{Sala} e \textit{Nome}. Trascuriamo la struttura dell'attributo \textit{Struttura Organizzatrice} rendendolo un unico attributo, e facciamo la stessa operazione con l'attributo  \textit{Luogo Presentazione}, poi  estraiamo gli attributi  \textit{Luogo Presentazione} e \textit{Struttura Organizzatrice} inserendo nell'entità \textit{presentazione} i corispondenti attributi \textit{Luogo} e \textit{Struttura}.\\
+L'attributo composto \textit{Luogo} dell'entità \textit{presentazione} è formato da: \textit{Luogo Presentazione} che a sua volta contiene \textit{Nazione}, \textit{Città} e \textit{Indirizzo}; e \textit{Struttura Organizzatrice}, che a sua volta contiene \textit{Sala} e \textit{Nome}. Trascuriamo la struttura dell'attributo \textit{Struttura Organizzatrice} rendendolo un unico attributo, e facciamo la stessa operazione con l'attributo  \textit{Luogo Presentazione}, poi  estraiamo gli attributi  \textit{Luogo Presentazione} e \textit{Struttura Organizzatrice} inserendo nell'entità \textit{presentazione} i corrispondenti attributi \textit{Luogo} e \textit{Struttura}.\\
 Un'altro attributo composto è \textit{Responsabile} nell'entità \textit{rivista}, composto dagli attributi \textit{Nome} e \textit{Cognome}. Anche in questo caso procediamo estraendo questi attributi e introduciamo nell'entità \textit{rivista} i corrispondenti attributi \textit{Nome R} e \textit{Cognome R}.\\
 Infine anche gli attributi \textit{autore} delle entità \textit{articolo\_scientifico} e \textit{libro} (citati alla sezione 2.3) sono strutturati (e multivalore) con i seguenti attributi: \begin{itemize} 
 \item \textit{Nome}; 
@@ -117,9 +117,10 @@ Gli attributi delle entità \textit{libreria}, \textit{conferenza}, \textit{auto
 \item \textit{CodL} per l'entità \textit{libreria}; 
 \item \textit{CodC} per l'entità \textit{conferenza}; 
 \item \textit{CodA} per l'entità \textit{autore}; 
-\item \textit{CodC} per l'entità \textit{collana}; 
+\item \textit{CodC} per l'entità \textit{collana};
+\item \textit{CodP} per l'entità \textit{presentazione}; 
 \end{itemize}
-L'entità debole \textit{fascicolo} dovrebbe avere la chiave primaria formata dall'attributo \textit{Numero} (chiave parziale) e dall'attributo \textit{ISSN} che si riferisce all'attributo \textit{ISSN} dell'entita \textit{rivista}. L'entita debole \textit{Presentazione} dovrebbe avere una chiave primaria formata dagli attributi \textit{DataP}, \textit{Struttura}, \textit{Luogo} e \textit{Ora} (che formano la chiave parziale) e dall'attributo \textit{ISBN} che si riferisce all'attributo \textit{ISBN} dell'entita \textit{libro}. Per evitare di avere delle chiavi primarie composte da un numero elevato di attributi aggiungiamo il codice \textit{CodF} all'entità \textit{fascicolo} e \textit{CodP} all'entità \textit{presentazione}, in questo modo le due entità deboli diventano entità forti, in quanto potranno essere identificate con i loro codici.
+L'entità debole \textit{fascicolo} dovrebbe avere la chiave primaria formata dall'attributo \textit{Numero} (chiave parziale) e dall'attributo \textit{ISSN} che si riferisce all'attributo \textit{ISSN} dell'entita \textit{rivista}, ma per non avere una chiave primaria composta da un numero elevato di attributi aggiungiamo il codice \textit{CodF} a tale entità, in questo modo l'entità debole diventa un'entità forte, in quanto ogni sua istanza potrà essere identificata con il suo codice.
 
 \newpage
 \subsection{Schema ristrutturato ER e UML}
