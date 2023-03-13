@@ -44,19 +44,19 @@ Ogni libreria sarà gestita da un utente che possiede una partita IVA, quindi av
 \item \textit{libri}.
 \end{itemize}
 Ognuno di queste entità avrà il titolo, la data di pubblicazione, gli autori e l'editore come attributi.\\
-In oltre la modalità di fruizione sarà definita come attributo della relazioe \textit{possesso}, che mette in relazione le entità \textit{libreria} ed \textit{elemento}, questa relazione avrà anche un attributo Quantita per avere traccia della quantità di elementi disponibili di ogni libreria.
+In oltre la modalità di fruizione sarà definita come attributo della relazione \textit{possesso}, che mette in relazione le entità \textit{libreria} ed \textit{elemento}, questa relazione avrà anche un attributo Quantita per avere traccia della quantità di elementi disponibili di ogni libreria.
 
 \begin{quote}
 \textit{"Per i libri è importante definire una eventuale presentazione. Un libro può anche far parte di una collana, la quale può raggruppare tutti libri che condividono una determinata caratteristica."}
 \end{quote}
 
-Si richiede di gestire eventuali presentazioni dei libri, ed eventuali collane alle quali apparterranno dei libri, quindi necessiteremo delle entità \textit{collana} e \textit{presentazione}.
+Si richiede di gestire eventuali presentazioni dei libri, ed eventuali collane alle quali apparterranno dei libri, quindi necessiteremo delle entità \textit{collana}, che avrà un attributo Caratteristica, e \textit{presentazione} in cui saranno specificati come attributi tutte le informazioni riguardanti il luogo, la data e l'orario delle presentazioni.
 
 \begin{quote}
 \textit{Per le pubblicazioni, andare a definire in quale rivista (nome, argomento, anno di pubblicazione, responsabile della rivista) o in quale conferenza (luogo della conferenza, data di inizio e data fine conferenza, struttura organizzatrice) è stato pubblicato.}
 \end{quote}
 
- Per gli articoli scientifici è importante avere traccia in quale rivista sono introdotti, ovvero in quale rivista è contenuto il fascicolo in cui è stato pubblicato l'articolo, e in quale conferenza sono stati esposti, quindi avremo bisogno dell'entità \textit{rivista} che avrà i seguenti attributi: Titolo; Argomento; Anno di pubblicazione e Responsabile, quest'entità sarà in relazione con l'entità \textit{fascicolo}, che a sua volta sarà in relazione con l'entità \textit{articolo\_scientifico}. In oltre necessiteremo anche dell'entità \textit{conferenza} con i seguenti attributi: Luogo, che sarà formato dall'indirizzo e dalla struttura organizzatrice; Data di Inizio e Data di Fine. Questa entità sarà in relazione con l'entità \textit{articolo\_scientifico}. 
+Per gli articoli scientifici è importante avere traccia in quale rivista sono introdotti, ovvero in quale rivista è contenuto il fascicolo in cui è stato pubblicato l'articolo, e in quale conferenza sono stati esposti, quindi avremo bisogno dell'entità \textit{rivista} che avrà i seguenti attributi: Titolo; Argomento; Anno di pubblicazione e Responsabile, quest'entità sarà in relazione con l'entità \textit{fascicolo}, che a sua volta sarà in relazione con l'entità \textit{articolo\_scientifico}. In oltre necessiteremo anche dell'entità \textit{conferenza} con i seguenti attributi: Luogo, che sarà formato dall'indirizzo e dalla struttura organizzatrice; Data di Inizio e Data di Fine. Questa entità sarà in relazione con l'entità \textit{articolo\_scientifico}. 
 
 \begin{quote}
 \textit{per ogni libro, è necessario specificare dove può essere acquistato. Un romanzo può avere anche uno o più seguiti. In tal caso, è importante prevedere un’interrogazione che permette di recuperare tutte le librerie dai quali è possibile acquistare l’intera serie dei libri. Non appena una serie sarà disponibile per l’acquisto da almeno una libreria, il sistema notificherà la disponibilità all’utente.}
@@ -98,7 +98,7 @@ Nelle entità \textit{articolo\_scientifico} e \textit{libro} abbiamo un attribu
 \subsection{Eliminazione degli attributi strutturati}
 L'entità \textit{conferenza} contiene l'attributo composto \textit{Luogo} che è formato da \textit{Struttura Organizzatrice} e \textit{Luogo Conferenza}, quest'ultimo a sua volta è composto da \textit{Nazione}, \textit{Città} e \textit{Indirizzo}. Quindi trascuriamo la struttura dell'attributo \textit{Luogo Conferenza} rendendolo un unico attributo, poi estraiamo gli attributi \textit{Luogo Conferenza} e \textit{Struttura Organizzatrice} inserendo nell'entità \textit{conferenza} i corrispondenti attributi \textit{Luogo} e \textit{Struttura organizzatrice}.\\
 L'attributo composto \textit{Luogo} dell'entità \textit{presentazione} è formato da: \textit{Luogo Presentazione} che a sua volta contiene \textit{Nazione}, \textit{Città} e \textit{Indirizzo}; e \textit{Struttura Organizzatrice}, che a sua volta contiene \textit{Sala} e \textit{Nome}. Trascuriamo la struttura dell'attributo \textit{Struttura Organizzatrice} rendendolo un unico attributo, e facciamo la stessa operazione con l'attributo  \textit{Luogo Presentazione}, poi  estraiamo gli attributi  \textit{Luogo Presentazione} e \textit{Struttura Organizzatrice} inserendo nell'entità \textit{presentazione} i corrispondenti attributi \textit{Luogo} e \textit{Struttura}.\\
-Un'altro attributo composto è \textit{Responsabile} nell'entità \textit{rivista}, composto dagli attributi \textit{Nome} e \textit{Cognome}. Anche in questo caso procediamo estraendo questi attributi e introduciamo nell'entità \textit{rivista} i corrispondenti attributi \textit{Nome R} e \textit{Cognome R}.\\
+Un altro attributo composto è \textit{Responsabile} nell'entità \textit{rivista}, composto dagli attributi \textit{Nome} e \textit{Cognome}. Anche in questo caso procediamo estraendo questi attributi e introduciamo nell'entità \textit{rivista} i corrispondenti attributi \textit{Nome R} e \textit{Cognome R}.\\
 Infine anche gli attributi \textit{autore} delle entità \textit{articolo\_scientifico} e \textit{libro} (citati alla sezione 2.3) sono strutturati (e multivalore) con i seguenti attributi: \begin{itemize} 
 \item \textit{Nome}; 
 \item \textit{Cognome};
@@ -120,7 +120,7 @@ Gli attributi delle entità \textit{libreria}, \textit{conferenza}, \textit{auto
 \item \textit{CodC} per l'entità \textit{collana};
 \item \textit{CodP} per l'entità \textit{presentazione}; 
 \end{itemize}
-L'entità debole \textit{fascicolo} dovrebbe avere la chiave primaria formata dall'attributo \textit{Numero} (chiave parziale) e dall'attributo \textit{ISSN} che si riferisce all'attributo \textit{ISSN} dell'entita \textit{rivista}, ma per non avere una chiave primaria composta da un numero elevato di attributi aggiungiamo il codice \textit{CodF} a tale entità, in questo modo l'entità debole diventa un'entità forte, in quanto ogni sua istanza potrà essere identificata con il suo codice.
+L'entità debole \textit{fascicolo} dovrebbe avere la chiave primaria formata dall'attributo \textit{Numero} (chiave parziale) e dall'attributo \textit{ISSN} che si riferisce all'attributo \textit{ISSN} dell'entità \textit{rivista}, ma per non avere una chiave primaria composta da un numero elevato di attributi aggiungiamo il codice \textit{CodF} a tale entità, in questo modo l'entità debole diventa un'entità forte, in quanto ogni sua istanza potrà essere identificata con il suo codice.
 
 \newpage
 \subsection{Schema ristrutturato ER e UML}
@@ -320,7 +320,7 @@ L'entità debole \textit{fascicolo} dovrebbe avere la chiave primaria formata da
 In questa sezione sono descritti tutti i vincoli necessari per garantire l'intregità semantica della base di dati.
 
 \begin{itemize} 
-    \item  \hypertarget{assertion1}{\textbf{ASSERTION A1}}: Garantisce che non esitano delle librerie con un gestore che non ha una partita IVA, evitando che vengano registrate delle librerie inesistenti.
+    \item \hypertarget{assertion1}{\textbf{ASSERTION A1}}: Garantisce che non esitano delle librerie con un gestore che non ha una partita IVA, evitando che vengano registrate delle librerie inesistenti.
         \begin{verbatim}
             CREATE ASSERTION A1
             CHECK(
@@ -338,7 +338,7 @@ In questa sezione sono descritti tutti i vincoli necessari per garantire l'intre
             \item \hyperlink{t3}{T\_modifca\_partitaIVA}
         \end{itemize}
 
-    \item \hypertarget{assertion2}{\textbf{ASSERTION A2}}: Garantisce che non esistano degli articoli scientifici che sono stati pubblicati dopo i fascicoli in cui sono stati inseriti, evitando che vengano inseriti in dei fascicoli degli articoli scientifici quando quest ultimi non sono ancora stati pubblicati.
+    \item \hypertarget{assertion2}{\textbf{ASSERTION A2}}: Garantisce che non esistano degli articoli scientifici che sono stati pubblicati dopo i fascicoli in cui sono stati inseriti, evitando che vengano inseriti in dei fascicoli degli articoli scientifici quando quest'ultimi non sono ancora stati pubblicati.
         \begin{verbatim}
             CREATE ASSERTION A2
             CHECK(
@@ -357,7 +357,7 @@ In questa sezione sono descritti tutti i vincoli necessari per garantire l'intre
             \item \hyperlink{t6}{T\_modificaFascicolo}
         \end{itemize}
 
-    \item \hypertarget{assertion3}{\textbf{ASSERTION A3}}: Garantisce che non esitano dei fascicoli che sono stati pubblicati prima delle loro riviste, evitando che vengano inseriti dei fascicoli in delle riviste non ancora pubblicate.
+    \item \hypertarget{assertion3}{\textbf{ASSERTION A3}}: Garantisce che non esistano dei fascicoli che sono stati pubblicati prima delle loro riviste, evitando che vengano inseriti dei fascicoli in delle riviste non ancora pubblicate.
         \begin{verbatim}
             CREATE ASSERTION A3
             CHECK(
@@ -375,7 +375,7 @@ In questa sezione sono descritti tutti i vincoli necessari per garantire l'intre
             \item \hyperlink{t9}{T\_modificaRivista}
         \end{itemize}    
 
-    \item \textbf{CONSTRAINT C1}: Garantisce che non vengano registrate confereze con la data di inzio succeessiva a quella di fine.
+    \item \textbf{CONSTRAINT C1}: Garantisce che non vengano registrate conferenze con la data di inizio successiva a quella di fine.
         \begin{verbatim}
             ALTER TABLE CONFERENZA
             ADD CONSTRAINT C1
@@ -390,7 +390,7 @@ In questa sezione sono descritti tutti i vincoli necessari per garantire l'intre
             CHECK (VALUE LIKE '978-%-%-_');
         \end{verbatim}
     
-    \item \hypertarget{assertion4}{\textbf{ASSERTION A4}}: Garantisce che non esitano dei libri inseriti in una serie con l'ordine maggiore del numero di libri che contiene la serie in cui sono stati introdotti, evitando che vengano inseriti dei libri in una serie quando quest'ultima è stata già completata.
+    \item \hypertarget{assertion4}{\textbf{ASSERTION A4}}: Garantisce che non esistano dei libri inseriti in una serie con l'ordine maggiore del numero di libri che contiene la serie in cui sono stati introdotti, evitando che vengano inseriti dei libri in una serie quando quest'ultima è stata già completata.
         \begin{verbatim}
             CREATE ASSERTION A4
             CHECK(
@@ -410,13 +410,13 @@ In questa sezione sono descritti tutti i vincoli necessari per garantire l'intre
             \item \hyperlink{t10}{T\_inserimentoLibroSerie}
         \end{itemize}
         
-    \item \textbf{CONSTRAINT C3}: Viene utilizzato dal dominio 'fruizione' garantendo che la modalita di fruizione degli elementi venduti dalle librerie sia 'Cartaceo', 'Digitale' o 'AudioLibro'.
+    \item \textbf{CONSTRAINT C3}: Viene utilizzato dal dominio 'fruizione' garantendo che la modalità di fruizione degli elementi venduti dalle librerie sia 'Cartaceo', 'Digitale' o 'AudioLibro'.
         \begin{verbatim}
             CONSTRAINT C3
             CHECK (VALUE IN ('Cartaceo', 'Digitale', 'AudioLibro'));
         \end{verbatim}
 
-    \item \textbf{CONSTRAINT C4, C5 e C6}: Garantiscono che le quantità degli elementi disponibili (rispettivamente fascicoli, serie e libri) presso qualche libreria abbiano come valore NULL solo quando sono dipsonibili in formato Digitale o AudioLibro.
+    \item \textbf{CONSTRAINT C4, C5 e C6}: Garantiscono che le quantità degli elementi disponibili (rispettivamente fascicoli, serie e libri) presso qualche libreria abbiano come valore NULL solo quando sono disponibili in formato Digitale o AudioLibro.
         \begin{verbatim}
             ALTER TABLE POSSESSO_F
             ADD CONSTRAINT C4
@@ -434,7 +434,7 @@ In questa sezione sono descritti tutti i vincoli necessari per garantire l'intre
                 AND Fruizione IN ('AudioLibro', 'Digitale')));
         \end{verbatim} 
 
-        \item \textbf{CONSTRAINT C7, C8 e C9}: Garantiscono che le valutazioni agli elementi che possono essere possededuti dalle librerie (rispettivamente fascicoli, serie e libri) abbiano un valore compreso in [1,5].
+        \item \textbf{CONSTRAINT C7, C8 e C9}: Garantiscono che le valutazioni agli elementi che possono essere posseduti dalle librerie (rispettivamente fascicoli, serie e libri) abbiano un valore compreso in [1,5].
         \newpage
         \begin{verbatim}
             ALTER TABLE RECENSIONE_F
@@ -534,7 +534,7 @@ In questa sezione sono descritti tutti i vincoli necessari per garantire l'intre
             \item \hyperlink{t17}{T\_modificaLibro}
         \end{itemize}
         
-    \item \hypertarget{assertion7}{\textbf{ASSERTION A7}}: Garantisce che nell'associazione, che mette in relazione tutte le librerie con tutte le serie che possiedono, ovvero 'POSSESSO\_S', avviene un inserimento solo quando una libreria possiede tutti i libri che sono inseriti in una serie nella stessa modalità di fruizione. In oltre garantisce che la modalità di fruizione in 'POSSESSO\_S' sia la stessa di quella dei libri posseduti dalla libreria (cioè presenti in 'POSSESSO\_L') e che la quantità disponibile di una serie sia uguale al minor numero di libri della serie disponible nella libreria, solo quando la modalità di fruizione è cartacea.
+    \item \hypertarget{assertion7}{\textbf{ASSERTION A7}}: Garantisce che nell'associazione, che mette in relazione tutte le librerie con tutte le serie che possiedono, ovvero 'POSSESSO\_S', avviene un inserimento solo quando una libreria possiede tutti i libri che sono inseriti in una serie nella stessa modalità di fruizione. In oltre garantisce che la modalità di fruizione in 'POSSESSO\_S' sia la stessa di quella dei libri posseduti dalla libreria (cioè presenti in 'POSSESSO\_L') e che la quantità disponibile di una serie sia uguale al minor numero di libri della serie disponibile nella libreria, solo quando la modalità di fruizione è cartacea.
     \newpage
         \begin{verbatim}
             SELECT COUNT(*)
@@ -660,7 +660,7 @@ Di seguito sono elencati tutti i Trigger utilizzati per la relizzazione della ba
     
     \item \hypertarget{t2}{\textbf{T\_modificaGestore}}: il trigger si attiva dopo un aggiornamento del campo 'Gestore' della tabella 'Libreria' e utilizza la funzione \hyperlink{f2}{'controllo\_modificaLibreria'} per garantire che il nuovo gestore della libreria abbia una Partita IVA, e quindi che il vincolo dell'assertion \hyperlink{assertion1}{A1} non sia violato. 
 
-    \item \hypertarget{t3}{\textbf{T\_modifica\_partitaIVA}}: il trigger si attiva dopo un aggiornamenro del campo 'PartitaIVA' della tabella 'Utente' e utilizza la funzione \hyperlink{f3}{'controllo\_modifica\_PartitaIVA'} per garantire che la nuova Partita IVA non sia formata da dei caratteri che non sono numerici. In oltre, nel caso in cui la Partita IVA viene messa a "NULL", il trigger utilizza la funzione \hyperlink{f3}{'controllo\_modifica\_PartitaIVA'} anche per garantire che la libreria gestita dall'utente che ha chiuso la Partita IVA venga eliminata, e quindi che il vincolo dell'assertion \hyperlink{assertion1}{A1} non sia violato.
+    \item \hypertarget{t3}{\textbf{T\_modifica\_partitaIVA}}: il trigger si attiva dopo un aggiornamento del campo 'PartitaIVA' della tabella 'Utente' e utilizza la funzione \hyperlink{f3}{'controllo\_modifica\_PartitaIVA'} per garantire che la nuova Partita IVA non sia formata da dei caratteri che non sono numerici. In oltre, nel caso in cui la Partita IVA viene messa a "NULL", il trigger utilizza la funzione \hyperlink{f3}{'controllo\_modifica\_PartitaIVA'} anche per garantire che la libreria gestita dall'utente che ha chiuso la Partita IVA venga eliminata, e quindi che il vincolo dell'assertion \hyperlink{assertion1}{A1} non sia violato.
 
     \item \hypertarget{t4}{\textbf{T\_inserimentoIntroduzione}}: il trigger si attiva dopo un inserimento nella tabella 'Introduzione' e utilizza la funzione \hyperlink{f4}{'controllo\_introduzioneArticolo'} per garantire che in ogni fascicolo non ci siano degli articoli scientifici pubblicati dopo al fascicolo, e quindi che il vincolo dell'assertion \hyperlink{assertion2}{A2} non sia violato.
 
@@ -668,18 +668,18 @@ Di seguito sono elencati tutti i Trigger utilizzati per la relizzazione della ba
 
     \item \hypertarget{t6}{\textbf{T\_modificaFascicolo}}: il trigger si attiva quando la data di pubblicazione di un fascicolo viene aggiornata con una data precedente a quella presente prima della modifica, oppure quando l'ISSN della rivista di un fascicolo viene modificato e utilizza la funzione \hyperlink{f6}{'controllo\_modificaFascicolo'} per garantire che la data di pubblicazione del fascicolo aggiornato non sia precedente a quella degli articoli contenuti nel fascicolo modificato e/o precedente alla rivista che contiene tale fascicolo, e quindi che i vincoli dell'assertion \hyperlink{assertion2}{A2} e \hyperlink{assertion2}{A3} non siano violati.
 
-    \item \hypertarget{t7}{\textbf{T\_inserimentoFascicolo}}: il trigger si attiva dopo l'inserimento di un fascicolo e utilizza la funzione \hyperlink{f7}{'controllo\_inserimentoFascicolo'} per grantire che il fascicolo appena inserito faccia parte di una rivista pubblicata prima del fascicolo, e quindi che il vincolo dell'assertion \hyperlink{assertion3}{A3} non sia violato.
+    \item \hypertarget{t7}{\textbf{T\_inserimentoFascicolo}}: il trigger si attiva dopo l'inserimento di un fascicolo e utilizza la funzione \hyperlink{f7}{'controllo\_inserimentoFascicolo'} per garantire che il fascicolo appena inserito faccia parte di una rivista pubblicata prima del fascicolo, e quindi che il vincolo dell'assertion \hyperlink{assertion3}{A3} non sia violato.
 
-    \item \hypertarget{t9}{\textbf{T\_modificaRivista}}: il trigger si attiva quando l'anno di pubblicazione di una rivista viene aggiornata con una data più recente, oppure quando viene modificato l'ISSN di una rivista e utilizza la funzione \hyperlink{f9}{'controllo\_modificaRivista'} per garantire che la nuova data della rivista non sia successica a quella dei fascicoli che contiene, e quindi che il vincolo dell'asertion \hyperlink{assertion3}{A3} non sia violato.\\
+    \item \hypertarget{t9}{\textbf{T\_modificaRivista}}: il trigger si attiva quando l'anno di pubblicazione di una rivista viene aggiornata con una data più recente, oppure quando viene modificato l'ISSN di una rivista e utilizza la funzione \hyperlink{f9}{'controllo\_modificaRivista'} per garantire che la nuova data della rivista non sia successiva a quella dei fascicoli che contiene, e quindi che il vincolo dell'asertion \hyperlink{assertion3}{A3} non sia violato.\\
      In oltre utilizza la funzione \hyperlink{f9}{'controllo\_modificaRivista'} anche per garantire che il nuovo ISSN non sia formato da dei caratteri che non sono numerici oppure il carattere '-'.
 
     \item \hypertarget{t10}{\textbf{T\_inserimentoLibroSerie}}: il trigger si attiva dopo un inserimento nella tabella 'Inserimento' e utilizza la funzione \hyperlink{f10}{'inserimento\_LibroSerie'} per garantire che in ogni serie non ci sia un numero di libri maggiore di quello indicato nel campo 'NLibri' della tabella 'Serie' e quindi che il vincolo dell'assertion \hyperlink{assertion4}{A4} non sia violato.
 
-   \item \hypertarget{t11}{\textbf{T\_inserimentoEsposizione}}: il trigger si attiva dopo un inserimento nella tabella 'Esposizione' e utilizza la funzione \hyperlink{f11}{'controllo\_inserimentoEsposizione'} per garantire che nella tupla inserita non ci sia una conferenza di un articolo scientifico che è stato pubblicato dopo la data di inzio della conferenza, e quindi che il vincolo dell'asertion  \hyperlink{assertion5}{A5} non sia violato.
+   \item \hypertarget{t11}{\textbf{T\_inserimentoEsposizione}}: il trigger si attiva dopo un inserimento nella tabella 'Esposizione' e utilizza la funzione \hyperlink{f11}{'controllo\_inserimentoEsposizione'} per garantire che nella tupla inserita non ci sia una conferenza di un articolo scientifico che è stato pubblicato dopo la data di inizio della conferenza, e quindi che il vincolo dell'asertion  \hyperlink{assertion5}{A5} non sia violato.
 
    \item \hypertarget{t12}{\textbf{T\_modificaEsposizione}}: il trigger si attiva dopo un aggiornamento nella tabella 'Esposizione' e utilizza la funzione \hyperlink{f12}{'controllo\_modificaEsposizione'} per garantire che nella tupla aggiornata non ci sia un articolo scientifico che è stato pubblicato dopo l'inizio della conferenza in cui è stato esposto, e quindi che il vincolo dell'assertion \hyperlink{assertion5}{A5} non sia violato.
 
-   \item \hypertarget{t13}{\textbf{T\_modifica\_pubblicazioneArticolo}}: il trigger si attiva quando la data di pubbliazione di un articolo scientifico viene aggiornata con una data più recente e utilizza la funzione \hyperlink{f13}{'controllo\_modificaArticolo'} per garantire che la nuova data aggiornata non sia successiva a quella delle conferenze in cui è stato esposto l'articolo modificato, e quindi che il vincolo dell'assertion \hyperlink{assertion5}{A5} non sia violato.
+   \item \hypertarget{t13}{\textbf{T\_modifica\_pubblicazioneArticolo}}: il trigger si attiva quando la data di pubblicazione di un articolo scientifico viene aggiornata con una data più recente e utilizza la funzione \hyperlink{f13}{'controllo\_modificaArticolo'} per garantire che la nuova data aggiornata non sia successiva a quella delle conferenze in cui è stato esposto l'articolo modificato, e quindi che il vincolo dell'assertion \hyperlink{assertion5}{A5} non sia violato.
 
    \item \hypertarget{t14}{\textbf{T\_modifica\_inizioConferenza}}: il trigger si attiva quando la data di inizio di una conferenza viene aggiornata con una data precedente a quella presente prima della modifica e utilizza la funzione \hyperlink{f14}{'controllo\_modificaConferenza'} per garantire che la nuova data di inizio non sia precedente a quella delle pubblicazioni degli articoli esposti nella conferenza modificata, e quindi che il vincolo dell'assertion \hyperlink{assertion5}{A5} non sia violato.
 
@@ -692,9 +692,9 @@ Di seguito sono elencati tutti i Trigger utilizzati per la relizzazione della ba
 
    \item \hypertarget{t18}{\textbf{T\_inserimentoPossesso\_L}}: il trigger si attiva dopo un'inserimento nella tabella 'Possesso\_L', e quindi una libreria inizia a possedere un libro, il trigger utilizza la funzione \hyperlink{f18}{'controllo\_inserimentoPossesso\_L'} per far si che se il libro inserito appartiene a una serie e la libreria inserita nella nuova tupla inizia a possedere la serie di tale libro, allora avviene un inserimento nella tabella 'Possesso\_S' con la libreria, serie, modalità di fruizione e quantità giuste, e quindi garantisce che il vincolo dell'assertion \hyperlink{assertion7}{A7} non sia violato. 
 
-   \item \hypertarget{t19}{\textbf{T\_modificaPossesso\_L}}: il trigger si attiva dopo l'aggiornamento del campo 'Quantita' della tabella 'Possesso\_L' e utilizza la funzione \hyperlink{f19}{'controllo\_modificaPossesso\_L'} per far si che se il libro modificato appartiene alla serie e la quantità aggiornata e la minore fra quelle dei libri della serie in cui è stato inserito il libro modificato, allora tale aggiornamento avviene anche nella tabella 'Possesso\_S', e quindi garantisce che il vincolo dell'assertion \hyperlink{assertion7}{A7} non sia violato.
+   \item \hypertarget{t19}{\textbf{T\_modificaPossesso\_L}}: il trigger si attiva dopo l'aggiornamento del campo 'Quantita' della tabella 'Possesso\_L' e utilizza la funzione \hyperlink{f19}{'controllo\_modificaPossesso\_L'} per far si che se il libro modificato appartiene a una serie posseduta dalla stessa libreria presente nella tupla modificata e la quantità aggiornata è la minore fra quelle dei libri della serie in cui è stato inserito il libro modificato, allora tale aggiornamento avviene anche nella tabella 'Possesso\_S', e quindi garantisce che il vincolo dell'assertion \hyperlink{assertion7}{A7} non sia violato.
 
-   \item \hypertarget{t20}{\textbf{T\_eliminazionePossesso\_L}}: il trigger si attiva dopo un'eliminazione nella tabbella 'Possesso\_L', quindi una libreria non possiede più un libro, il trigger utilizza la funzione \hyperlink{f20}{'controllo\_eliminazionePossesso\_L'}, per far si che se il libro eliminato appartiene a una serie, allora viene eliminata anche la tupla nella tabella 'Possesso\_S' in cui sono in relazione la libreria e la serie del libro eliminato, e quindi garantisce che il vincolo dell'assertion \hyperlink{assertion7}{A7} non sia violato.
+   \item \hypertarget{t20}{\textbf{T\_eliminazionePossesso\_L}}: il trigger si attiva dopo un'eliminazione nella tabbella 'Possesso\_L', quindi una libreria non possiede più un libro, il trigger utilizza la funzione \hyperlink{f20}{'controllo\_eliminazionePossesso\_L'}, per far si che se il libro eliminato appartiene a una serie, allora viene eliminata anche la tupla nella tabella 'Possesso\_S' in cui sono in relazione la libreria e la serie del libro eliminato, e quindi garantisce che il vincolo dell'assertion \hyperlink{assertion7}{A7} non sia violato. 
 
    \item \hypertarget{t21}{\textbf{T\_inserimentoArticolo}}: il trigger si attiva dopo l'inserimento di un articolo scientifico e utilizza la funzione \hyperlink{f21}{'inserimento\_DOIArticolo'} per garantire l'univocità dei DOI degli articoli scientifici.
 
