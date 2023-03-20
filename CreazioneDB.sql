@@ -13,16 +13,19 @@ CREATE TABLE UTENTE
     Cognome VARCHAR(64) NOT NULL
 );
 
+CREATE DOMAIN numerotelefonico AS VARCHAR(10)
+    CONSTRAINT C17 CHECK (VALUE LIKE '__________');
+
 CREATE TABLE LIBRERIA
 (
     CodL SERIAL PRIMARY KEY,
-    NumeroTelefonico VARCHAR(10) NOT NULL,
+    NumeroTelefonico numerotelefonico UNIQUE NOT NULL,
     SitoWeb VARCHAR(128),
     Nome VARCHAR(128) NOT NULL,
     Indirizzo VARCHAR(256),
     Gestore VARCHAR(30) NOT NULL,
 
-    UNIQUE(NumeroTelefonico, SitoWeb, Nome, Indirizzo, Gestore),
+    UNIQUE(SitoWeb, Nome, Indirizzo, Gestore),
     FOREIGN KEY(Gestore) REFERENCES UTENTE(Username)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -376,11 +379,11 @@ BEGIN
     FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
     WHERE U.PartitaIVA IS NOT NULL AND U.Username=NEW.Gestore;
 
-    IF contatore=0 THEN --controlla se non è stata trovata nessuna Partita IVA
+    IF contatore=0 OR controlla_formato_numeri(NEW.NumeroTelefonico)=false THEN --controlla se non è stata trovata nessuna Partita IVA oppure se il numero telefonico contiene caratteri non numerici
         DELETE FROM LIBRERIA
         WHERE CodL=NEW.CodL;
 
-        RAISE NOTICE 'Per inserire una nuova libreria è necessario specificare la Partita IVA del gestore';
+        RAISE NOTICE 'Partita IVA del gestore o numero telefonico non valido';
     END IF;
 
     RETURN NEW;
@@ -399,12 +402,12 @@ BEGIN
     FROM UTENTE AS U JOIN LIBRERIA AS L ON U.Username=L.Gestore
     WHERE U.PartitaIVA IS NOT NULL AND U.Username=NEW.Gestore;
 
-    IF contatore=0 THEN --controlla se non è stata trovata nessuna partitaIVA
+    IF contatore=0 OR controlla_formato_numeri(NEW.NumeroTelefonico)=false THEN --controlla se non è stata trovata nessuna partitaIVA
         UPDATE LIBRERIA
         SET Gestore=OLD.Gestore
         WHERE CodL=NEW.CodL;
 
-        RAISE NOTICE 'Per inserire una nuova libreria è necessario specificare la PartitaIVA del gestore';
+        RAISE NOTICE 'Partita IVA del gestore o numero telefonico non valido';
     END IF;
 
     RETURN NEW;
@@ -426,7 +429,7 @@ DECLARE
         WHERE U.Username=NEW.Username;
 BEGIN
     IF NEW.partitaIVA IS NOT NULL THEN  --controlla se non è statat chiusa la partita IVA
-        IF controlla_formato(NEW.PartitaIVA)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+        IF controlla_formato_numeri(NEW.PartitaIVA)=false THEN   --controlla se nella nuova partita IVA ci sono dei caratteri che non sono numeri
             UPDATE UTENTE
             SET PartitaIVA=OLD.PartitaIVA
             WHERE PartitaIVA=NEW.PartitaIVA;
@@ -1122,7 +1125,7 @@ CREATE TRIGGER T_modificaPreferiti_S AFTER UPDATE OF Preferito ON RECENSIONE_S
     FOR EACH ROW WHEN(NEW.Preferito=true)
     EXECUTE FUNCTION invia_notifica_preferiti_S();
 
--- La funzione controlla se la stringa ricevuta in input non contiene delle lettere
+-- La funzione controlla se la stringa ricevuta in input non contiene caratteri che non sono numeri o il simbolo '-'
 CREATE OR REPLACE FUNCTION controlla_formato(stringa_in IN VARCHAR) 
 RETURNS BOOLEAN AS $$
 DECLARE    
@@ -1135,6 +1138,29 @@ BEGIN
         carattere=ascii(substr(stringa_in, cont, 1)); --inserisce in 'carattere' il codice ascii del cont-esimo carattere letto da 'stringa_in'
         
         IF (carattere<48 OR carattere>57) AND carattere!=45 THEN  --controlla se il carattere letto non è un numero
+            risultato=false;
+        END IF;
+
+        cont=cont+1;    --incrementa il contatore di 1
+    END LOOP;
+
+    RETURN risultato;
+END;
+$$ LANGUAGE plpgsql;
+
+-- La funzione controlla se la stringa ricevuta in input non contiene caratteri che non sono numeri
+CREATE OR REPLACE FUNCTION controlla_formato_numeri(stringa_in IN VARCHAR) 
+RETURNS BOOLEAN AS $$
+DECLARE    
+	risultato BOOLEAN:=true;    --indica se non è stato trovato un carattere che non è un numero
+    cont INTEGER:=1;    --contatore
+    carattere INTEGER;  --codice ascii del carattere letto
+BEGIN
+    WHILE risultato=true AND cont<=LENGTH(stringa_in) LOOP --scorre la stringa presa in input
+
+        carattere=ascii(substr(stringa_in, cont, 1)); --inserisce in 'carattere' il codice ascii del cont-esimo carattere letto da 'stringa_in'
+        
+        IF (carattere<48 OR carattere>57) THEN  --controlla se il carattere letto non è un numero
             risultato=false;
         END IF;
 
@@ -1261,7 +1287,7 @@ CREATE TRIGGER T_modificaSerie AFTER UPDATE OF ISBN ON SERIE
 CREATE OR REPLACE FUNCTION controllo_inserimentoUtente() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.PartitaIVA)=false THEN   --controlla se nella nuova Partita IVA ci sono dei caratteri che non sono numeri
+    IF controlla_formato_numeri(NEW.PartitaIVA)=false THEN   --controlla se nella nuova Partita IVA ci sono dei caratteri che non sono numeri
         DELETE FROM UTENTE
         WHERE PartitaIVA=NEW.PartitaIVA;
 
