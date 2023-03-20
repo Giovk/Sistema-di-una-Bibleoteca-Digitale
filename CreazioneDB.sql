@@ -429,7 +429,7 @@ DECLARE
         WHERE U.Username=NEW.Username;
 BEGIN
     IF NEW.partitaIVA IS NOT NULL THEN  --controlla se non è statat chiusa la partita IVA
-        IF controlla_formato_numeri(NEW.PartitaIVA)=false THEN   --controlla se nella nuova partita IVA ci sono dei caratteri che non sono numeri
+        IF controlla_formato_numeri(NEW.PartitaIVA)=false THEN   --controlla se nella nuova partita IVA ci sono dei caratteri che non sono numerici
             UPDATE UTENTE
             SET PartitaIVA=OLD.PartitaIVA
             WHERE PartitaIVA=NEW.PartitaIVA;
