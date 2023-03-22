@@ -404,7 +404,7 @@ BEGIN
 
     IF contatore=0 OR controlla_formato_numeri(NEW.NumeroTelefonico)=false THEN --controlla se non è stata trovata nessuna partitaIVA
         UPDATE LIBRERIA
-        SET Gestore=OLD.Gestore
+        SET Gestore=OLD.Gestore, NumeroTelefonico=OLD.NumeroTelefonico
         WHERE CodL=NEW.CodL;
 
         RAISE NOTICE 'Partita IVA del gestore o numero telefonico non valido';
@@ -414,7 +414,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_modificaGestore AFTER UPDATE OF Gestore ON LIBRERIA
+CREATE TRIGGER T_modificaGestore AFTER UPDATE OF Gestore, NumeroTelefonico ON LIBRERIA
     FOR EACH ROW EXECUTE FUNCTION controllo_modificaLibreria();
 
 -- Quando viene modificata la Partita IVA di un gestore bisogna controllare se quella nuova contiene solo caratteri
