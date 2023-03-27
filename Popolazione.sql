@@ -1137,7 +1137,7 @@ VALUES ('978-16-2647-954-8', 7);
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
 VALUES ('Piazza Antonio Stradivari 6, 26100, Cremona, Italia', 'Mondadori BookStore', '2022-03-25', '17:15', '978-12-8007-834-6');
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
-VALUES ('Via Giuseppe Verdi 6, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Biblioteca comunale', '2022-12-02', '18:10', '978-12-8007-876-6');
+VALUES ('Via Giuseppe Verdi 6, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Biblioteca comunale, sala 1', '2022-12-02', '18:10', '978-12-8007-876-6');
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
 VALUES ('Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Mondadori Point', '2022-12-09', '18:10', '978-12-8007-876-6');
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
@@ -1145,13 +1145,13 @@ VALUES ('Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'Feltrinelli Libr
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
 VALUES ('Via S. Lorenzo 82, 03100, Frosinone, Italia', 'Biblioteca S.Alfonso', '2018-12-10', '19:00', '978-88-9381-711-0');
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
-VALUES ('Via Giuseppe Verdi 6, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Biblioteca comunale', '2022-07-26', '19:00', '978-88-3101-288-1');
+VALUES ('Via Giuseppe Verdi 6, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Biblioteca comunale, sala 2', '2022-07-26', '19:00', '978-88-3101-288-1');
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
-VALUES ('Via S. Lorenzo 82, 03100, Frosinone, Italia', 'Biblioteca S.Alfonso', '2013-02-02', '11:00', '978-88-452-7240-0');
+VALUES ('Via S. Lorenzo 82, 03100, Frosinone, Italia', 'Biblioteca S.Alfonso, sala 4', '2013-02-02', '11:00', '978-88-452-7240-0');
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
 VALUES ('Corso Giuseppe Mazzini 20, 26100, Cremona, Italia', 'Feltrinelli Libri e Musica', '2021-09-05', '11:00', '978-88-301-0528-6');
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
-VALUES ('Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'Feltrinelli Libreria', '2013-02-06', '11:00', '978-88-452-7240-0');
+VALUES ('Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'Feltrinelli Libreria, sala 1', '2013-02-06', '11:00', '978-88-452-7240-0');
 INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
 VALUES ('Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Mondadori Point', '2021-09-09', '11:00', '978-88-301-0528-6');
 
