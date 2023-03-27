@@ -531,44 +531,44 @@ INSERT INTO SCRITTURA_A (DOI, CodA)
 VALUES ('10-00058', 64);
 
 -- FASCICOLO --
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 'GEDI Gruppo Editoriale', '2021-12-28', '0036-8083');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (2, 'GEDI Gruppo Editoriale', '2022-01-28', '0036-8083');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 'National Geographic Society', '2020-01-01', '0027-9358');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (2, 'National Geographic Society', '2020-02-01', '0027-9358');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 'GEDI Gruppo Editoriale', '2022-12-05', '0026-4423');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (42, 'Gruppo B Editore', '2006-07-29', '2724-2641');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (43, 'Gruppo B Editore', '2006-08-27', '2724-2641');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (44, 'Gruppo B Editore', '2006-09-28', '2724-2641');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 'Giovanna Truda', '2016-06-27', '2531-3975');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (2, 'Giovanna Truda', '2017-06-22', '2531-3975');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (3, 'Giovanna Truda', '2018-06-28', '2531-3975');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 'Arnoldo Mondadori Editore', '2022-12-10', '1357-1915');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (2, 'Arnoldo Mondadori Editore', '2023-01-11', '1357-1915');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 'Mondadori Education S.p.A', '2015-12-15', '0390-5543');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (2, 'Mondadori Education S.p.A', '2018-12-16', '0390-5543');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (3, 'Mondadori Education S.p.A', '2020-12-17', '0390-5543');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (4, 'Mondadori Education S.p.A', '2022-12-21', '0390-5543');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 'Edizioni Dedalo', '2018-12-27', '0036-4681');
-INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
-VALUES (2, 'Edizioni Dedalo', '2022-12-10', '0036-4681');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (1, '2021-12-28', '0036-8083');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (2, '2022-01-28', '0036-8083');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (1, '2020-01-01', '0027-9358');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (2, '2020-02-01', '0027-9358');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (1, '2022-12-05', '0026-4423');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (42, '2006-07-29', '2724-2641');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (43, '2006-08-27', '2724-2641');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (44, '2006-09-28', '2724-2641');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (1, '2016-06-27', '2531-3975');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (2, '2017-06-22', '2531-3975');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (3, '2018-06-28', '2531-3975');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (1, '2022-12-10', '1357-1915');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (2, '2023-01-11', '1357-1915');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (1, '2015-12-15', '0390-5543');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (2, '2018-12-16', '0390-5543');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (3, '2020-12-17', '0390-5543');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (4, '2022-12-21', '0390-5543');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (1, '2018-12-27', '0036-4681');
+INSERT INTO FASCICOLO (Numero, DataPubblicazione, ISSN)
+VALUES (2, '2022-12-10', '0036-4681');
 
 -- INTRODUZIONE --
 INSERT INTO INTRODUZIONE (CodF, DOI)
