@@ -57,7 +57,6 @@ CREATE TABLE FASCICOLO
 (
     CodF SERIAL PRIMARY KEY,
     Numero INT NOT NULL DEFAULT 1, 
-    Editore VARCHAR(64) NOT NULL,
     DataPubblicazione DATE NOT NULL,
     ISSN issn,
 
