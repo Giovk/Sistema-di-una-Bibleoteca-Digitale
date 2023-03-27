@@ -40,6 +40,7 @@ CREATE TABLE RIVISTA
     CognomeR VARCHAR(64) NOT NULL,
     NomeR VARCHAR(64) NOT NULL,
     Titolo VARCHAR(256) UNIQUE NOT NULL,
+    Editore VARCHAR(256) NOT NULL,
     AnnoPubblicazione INT NOT NULL
 );
 
