@@ -61,28 +61,28 @@ INSERT INTO UTENTE (Username, Email, PasswordU, Nome, Cognome)
 VALUES ('ImpastoLievitato', 'pizza.margherita@vivanapoli.it', 'Sorbillo<3', 'Margherita', 'Pizza');
 
 -- LIBRERIA --
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
-VALUES (1, '0819264947', 'Hoshizora Club' ,'www.hoshizoraclub.it', 'Via Tito Speri 5, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Admin1');
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, Indirizzo, Gestore)
-VALUES (2, '0813044196', 'Libreria Nappo','Corso Sirena 85, 80147, Napoli, Italia', 'Admin2');
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
-VALUES (3, '0818595071', 'DigitalWorldCommunity', 'www.digitalworldcommunity.com', 'Via Marchesella 7, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Admin1');
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, Indirizzo, Gestore)
-VALUES (4, '0815522005', 'Libreria Fiorentino', 'Via Trinita Maggiore 35, 80134, Napoli, Italia', 'Giudil');
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, Indirizzo, Gestore)
-VALUES (5, '0811957597', 'Libreria Libridine', 'Via Armando Diaz 71, 80055, Portici (Na), Napoli, Italia', 'Irmluc');
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
-VALUES (6, '0814722075', 'Libreria Marsiglia', 'www.libreriamarsiglia.it', 'Via San Martino 99, 80046, San Giorgio A Cremano (Na), Napoli, Italia', 'Rosbru');
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
-VALUES (7, '0814542280', 'Libreria Cartoleria Fallacci', 'www.libreriafallacci.wixsite.com/website', 'Piazza Cavour 55/56, 80137, Napoli, Italia', 'Waffer');
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
-VALUES (8, '0372462435', 'Mondadori BookStore', 'www.mondadoristore.it/negozi/punti-vendita/Mondadori-Bookstore', 'Piazza Antonio Stradivari 6, 26100, Cremona, Italia', 'Benriz');
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
-VALUES (9, '0374344667', 'Mondadori Point', 'www.mondadoristore.it/negozi/punti-vendita/Mondadori-Point-Soresina/1570/', 'Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Benriz');
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
-VALUES (10, '0372237480', 'Feltrinelli Libri e Musica', 'www.lafeltrinelli.it', 'Corso Giuseppe Mazzini 20, 26100, Cremona, Italia', 'DonRodrigo');
-INSERT INTO LIBRERIA (CodL, NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
-VALUES (11, '0291947777', 'Feltrinelli Libreria', 'www.lafeltrinelli.it', 'Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'DonRodrigo');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0819264947', 'Hoshizora Club' ,'www.hoshizoraclub.it', 'Via Tito Speri 5, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Admin1');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, Indirizzo, Gestore)
+VALUES ('0813044196', 'Libreria Nappo','Corso Sirena 85, 80147, Napoli, Italia', 'Admin2');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0818595071', 'DigitalWorldCommunity', 'www.digitalworldcommunity.com', 'Via Marchesella 7, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Admin1');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, Indirizzo, Gestore)
+VALUES ('0815522005', 'Libreria Fiorentino', 'Via Trinita Maggiore 35, 80134, Napoli, Italia', 'Giudil');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, Indirizzo, Gestore)
+VALUES ('0811957597', 'Libreria Libridine', 'Via Armando Diaz 71, 80055, Portici (Na), Napoli, Italia', 'Irmluc');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0814722075', 'Libreria Marsiglia', 'www.libreriamarsiglia.it', 'Via San Martino 99, 80046, San Giorgio A Cremano (Na), Napoli, Italia', 'Rosbru');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0814542280', 'Libreria Cartoleria Fallacci', 'www.libreriafallacci.wixsite.com/website', 'Piazza Cavour 55/56, 80137, Napoli, Italia', 'Waffer');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0372462435', 'Mondadori BookStore', 'www.mondadoristore.it/negozi/punti-vendita/Mondadori-Bookstore', 'Piazza Antonio Stradivari 6, 26100, Cremona, Italia', 'Benriz');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0374344667', 'Mondadori Point', 'www.mondadoristore.it/negozi/punti-vendita/Mondadori-Point-Soresina/1570/', 'Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Benriz');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0372237480', 'Feltrinelli Libri e Musica', 'www.lafeltrinelli.it', 'Corso Giuseppe Mazzini 20, 26100, Cremona, Italia', 'DonRodrigo');
+INSERT INTO LIBRERIA (NumeroTelefonico, Nome, SitoWeb, Indirizzo, Gestore)
+VALUES ('0291947777', 'Feltrinelli Libreria', 'www.lafeltrinelli.it', 'Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'DonRodrigo');
 
 -- RIVISTA --
 INSERT INTO RIVISTA (ISSN, Argomento, CognomeR, NomeR, Titolo, AnnoPubblicazione)
@@ -221,172 +221,172 @@ INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Batterie quantiche superveloci', 2022);
 
 -- AUTORE --
-INSERT INTO AUTORE (CodA, Nome, Cognome)
-VALUES (1, 'Melanie', 'Mitchell');
-INSERT INTO AUTORE (CodA, Nome, Cognome)
-VALUES (2, 'Victor Vikram', 'Odouard');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (3, 'Massimo', 'Sandal', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome)
-VALUES (4, 'John', 'Pavlus');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (5, 'Esther', 'Landhuis', 'Statunitense');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (6, 'Simon', 'Worrall', 'Britannica', '1968-06-18');
-INSERT INTO AUTORE (CodA, Nome, Cognome)
-VALUES (7, 'Christina', 'Nunez');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (8, 'Michael', 'Greshko', 'Statunitense');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (9, 'Claudia', 'Kalb', 'Cinese');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (10,'Victoria', 'Jaggard', 'Statunitense', '1999-07-02');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (11, 'Sarah', 'Gibbens', 'Statunitense');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (12, 'Giulia', 'Mondanini', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (13, 'Paola Emilia', 'Cicerone', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (14, 'Frank', 'Luerweg', 'Tedesca');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (15, 'Nayla', 'Chidiac', 'Francese');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (16, 'Mattia', 'Maccarone', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (17, 'Maurice', 'Hamilton', 'Canadese', '1923-04-04');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (18, 'Tom', 'Stafford', 'Statunitense', '1930-09-17');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (19, 'Flavio', 'Castellani', 'Italiana', '1957-11-23');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (20, 'Marcello', 'Felli', 'Italiana', '1920-06-25');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (21, 'Geof', 'Macdonald', 'Canadese');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (22, 'Volker', 'Bromm', 'Statunitense');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (23, 'Edwin', 'Aguirre', 'Canadese');
-INSERT INTO AUTORE (CodA, Nome, Cognome)
-VALUES (24, 'Sean', 'Walker');
-INSERT INTO AUTORE (CodA, Nome, Cognome)
-VALUES (25, 'Robert', 'Irion');
-INSERT INTO AUTORE (CodA, Nome, Cognome, DataNascita)
-VALUES (26, 'Francis Richard', 'Stephenson', '1941-04-26');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (27, 'David', 'Green', 'Britannica');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (28, 'Emiliana', 'Mangone', 'Italiana', '1970-02-02');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (29, 'Pierpaolo', 'Donati', 'Italiana', '1946-09-30');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (30, 'Francesco', 'Pirone', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (31, 'Claudio', 'Marra', 'Italiana', '1959-06-24');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (32, 'Paolo', 'Diana', 'Italiana', '1992-02-02');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (33, 'Michela', 'Freddano', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (34, 'Francesco', 'Pira', 'Italiana', '1965-08-09');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (35, 'Antonia', 'Cava', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (36, 'Rebecca', 'Mantovani', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (37, 'Alberto', 'Angela', 'Italiana', '1962-04-08');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (38, 'Chiara', 'Guzzonato', 'Italiana', '1974-02-23'); 
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (39, 'Giuliano', 'Mazzanti', 'Italiana', '1945-09-15');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (40, 'Valter', 'Rosselli', 'Italiana', '1981-06-11');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (41, 'Luigi', 'Tomasi', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (42, 'Angela', 'Guido', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (43, 'Maurizio', 'Berni', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (44, 'Alessandro', 'D''Andrea', 'Italiana', '1972-03-09');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (45, 'Luigi', 'Squillante', 'Italiana', '1965-09-02');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (46, 'Sara', 'Rutigliano', 'Italiana', '1997-03-25');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (47, 'Andrea', 'Minotti', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (48, 'Gualtiero', 'Grassucci', 'Italiana', '1961-08-19');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (49, 'Mario', 'Marobin', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (50, 'Fabio', 'Brunelli', 'Brasiliana', '1969-05-11');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (51, 'Francesco', 'Chesi', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (52, 'Biagio', 'Sarnataro', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (53, 'Silvia', 'Funghi', 'Italiana', '1988-07-04');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (54, 'Roberta', 'Munarini', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (55, 'Hykel', 'Hosni', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (56, 'Silvia', 'De Toffoli', 'Italiana', '1976-06-10');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (57, 'Paolo', 'Magaudda', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (58, 'Paolo', 'Berra', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (59, 'Eva', 'Filoramo', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (60, 'Filippo', 'Montanari', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (61, 'Rosario', 'De Marco', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome)
-VALUES (62, 'Gabriel', 'Rotter');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (63, 'Paolo', 'Gallina', 'Italiana', '1971-09-18');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (64, 'Tersilla', 'Virgili', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (65, 'Joanne Kathleen', 'Rowling', 'Britannica', '1965-07-31');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (66, 'Steve', 'Kloves', 'Statunitense', '1960-03-18');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita) --67
-VALUES (67, 'John R. R.', 'Tolkien', 'Britannica', '1892-01-03');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (68, 'Libero', 'Iannuzzi', 'Italiano');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (69, 'Camillo', 'Bortolati', 'Italiana');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (70, 'Paolo', 'Marcellini', 'Italiana', '1947-06-25');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (71, 'Carlo', 'Sbordone', 'Italiana', '1948-11-23');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (72, 'Paul', 'Deitel', 'Tedesca');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (73, 'Harvey', 'Deitel', 'Tedesca');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (74, 'Stephen Edwin', 'King', 'Statunitense', '1947-09-21');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (75, 'Tillie', 'Cole', 'Britannica');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (76, 'Meghan', 'Quinn', 'Statunitense');
-INSERT INTO AUTORE (CodA, Nome, Cognome)
-VALUES (77, 'Ella', 'Maise');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita)
-VALUES (78, 'Devney', 'Perry', 'Statunitense');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (79, 'George', 'Owell', 'Britannica', '1903-06-25');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (80, 'Charles', 'Dickens', 'Britannica', '1812-02-07');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (81, 'Andrzej', 'Sapkowski', 'Polacca', '1948-06-21');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (82, 'Brenda', 'Novak', 'Statunitense', '1964-05-15');
-INSERT INTO AUTORE (CodA, Nome, Cognome, Nazionalita, DataNascita)
-VALUES (83, 'Scott', 'Nicholson', 'Statunitense', '1962-06-24');
+INSERT INTO AUTORE (Nome, Cognome)
+VALUES ('Melanie', 'Mitchell');
+INSERT INTO AUTORE (Nome, Cognome)
+VALUES ('Victor Vikram', 'Odouard');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Massimo', 'Sandal', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome)
+VALUES ('John', 'Pavlus');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Esther', 'Landhuis', 'Statunitense');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Simon', 'Worrall', 'Britannica', '1968-06-18');
+INSERT INTO AUTORE (Nome, Cognome)
+VALUES ('Christina', 'Nunez');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Michael', 'Greshko', 'Statunitense');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Claudia', 'Kalb', 'Cinese');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Victoria', 'Jaggard', 'Statunitense', '1999-07-02');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Sarah', 'Gibbens', 'Statunitense');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Giulia', 'Mondanini', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Paola Emilia', 'Cicerone', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Frank', 'Luerweg', 'Tedesca');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Nayla', 'Chidiac', 'Francese');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Mattia', 'Maccarone', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Maurice', 'Hamilton', 'Canadese', '1923-04-04');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Tom', 'Stafford', 'Statunitense', '1930-09-17');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Flavio', 'Castellani', 'Italiana', '1957-11-23');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Marcello', 'Felli', 'Italiana', '1920-06-25');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Geof', 'Macdonald', 'Canadese');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Volker', 'Bromm', 'Statunitense');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Edwin', 'Aguirre', 'Canadese');
+INSERT INTO AUTORE (Nome, Cognome)
+VALUES ('Sean', 'Walker');
+INSERT INTO AUTORE (Nome, Cognome)
+VALUES ('Robert', 'Irion');
+INSERT INTO AUTORE (Nome, Cognome, DataNascita)
+VALUES ('Francis Richard', 'Stephenson', '1941-04-26');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('David', 'Green', 'Britannica');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Emiliana', 'Mangone', 'Italiana', '1970-02-02');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Pierpaolo', 'Donati', 'Italiana', '1946-09-30');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Francesco', 'Pirone', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Claudio', 'Marra', 'Italiana', '1959-06-24');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Paolo', 'Diana', 'Italiana', '1992-02-02');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Michela', 'Freddano', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Francesco', 'Pira', 'Italiana', '1965-08-09');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Antonia', 'Cava', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Rebecca', 'Mantovani', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Alberto', 'Angela', 'Italiana', '1962-04-08');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Chiara', 'Guzzonato', 'Italiana', '1974-02-23'); 
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Giuliano', 'Mazzanti', 'Italiana', '1945-09-15');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Valter', 'Rosselli', 'Italiana', '1981-06-11');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Luigi', 'Tomasi', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Angela', 'Guido', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Maurizio', 'Berni', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Alessandro', 'D''Andrea', 'Italiana', '1972-03-09');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Luigi', 'Squillante', 'Italiana', '1965-09-02');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Sara', 'Rutigliano', 'Italiana', '1997-03-25');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Andrea', 'Minotti', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Gualtiero', 'Grassucci', 'Italiana', '1961-08-19');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Mario', 'Marobin', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Fabio', 'Brunelli', 'Brasiliana', '1969-05-11');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Francesco', 'Chesi', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Biagio', 'Sarnataro', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Silvia', 'Funghi', 'Italiana', '1988-07-04');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Roberta', 'Munarini', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Hykel', 'Hosni', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Silvia', 'De Toffoli', 'Italiana', '1976-06-10');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Paolo', 'Magaudda', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Paolo', 'Berra', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Eva', 'Filoramo', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Filippo', 'Montanari', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Rosario', 'De Marco', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome)
+VALUES ('Gabriel', 'Rotter');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Paolo', 'Gallina', 'Italiana', '1971-09-18');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Tersilla', 'Virgili', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Joanne Kathleen', 'Rowling', 'Britannica', '1965-07-31');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Steve', 'Kloves', 'Statunitense', '1960-03-18');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --67
+VALUES ('John R. R.', 'Tolkien', 'Britannica', '1892-01-03');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Libero', 'Iannuzzi', 'Italiano');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Camillo', 'Bortolati', 'Italiana');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Paolo', 'Marcellini', 'Italiana', '1947-06-25');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Carlo', 'Sbordone', 'Italiana', '1948-11-23');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Paul', 'Deitel', 'Tedesca');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Harvey', 'Deitel', 'Tedesca');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Stephen Edwin', 'King', 'Statunitense', '1947-09-21');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Tillie', 'Cole', 'Britannica');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Meghan', 'Quinn', 'Statunitense');
+INSERT INTO AUTORE (Nome, Cognome)
+VALUES ('Ella', 'Maise');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
+VALUES ('Devney', 'Perry', 'Statunitense');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('George', 'Owell', 'Britannica', '1903-06-25');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Charles', 'Dickens', 'Britannica', '1812-02-07');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Andrzej', 'Sapkowski', 'Polacca', '1948-06-21');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Brenda', 'Novak', 'Statunitense', '1964-05-15');
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
+VALUES ('Scott', 'Nicholson', 'Statunitense', '1962-06-24');
 
 -- SCRITTURA_A --
 INSERT INTO SCRITTURA_A (DOI, CodA)
@@ -531,44 +531,44 @@ INSERT INTO SCRITTURA_A (DOI, CodA)
 VALUES ('10-00058', 64);
 
 -- FASCICOLO --
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (1, 1, 'GEDI Gruppo Editoriale', '2021-12-28', '0036-8083');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (2, 2, 'GEDI Gruppo Editoriale', '2022-01-28', '0036-8083');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (3, 1, 'National Geographic Society', '2020-01-01', '0027-9358');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (4, 2, 'National Geographic Society', '2020-02-01', '0027-9358');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (5, 1, 'GEDI Gruppo Editoriale', '2022-12-05', '0026-4423');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (6, 42, 'Gruppo B Editore', '2006-07-29', '2724-2641');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (7, 43, 'Gruppo B Editore', '2006-08-27', '2724-2641');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (8, 44, 'Gruppo B Editore', '2006-09-28', '2724-2641');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (9, 1, 'Giovanna Truda', '2016-06-27', '2531-3975');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (10, 2, 'Giovanna Truda', '2017-06-22', '2531-3975');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (11, 3, 'Giovanna Truda', '2018-06-28', '2531-3975');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (12, 1, 'Arnoldo Mondadori Editore', '2022-12-10', '1357-1915');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (13, 2, 'Arnoldo Mondadori Editore', '2023-01-11', '1357-1915');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (14, 1, 'Mondadori Education S.p.A', '2015-12-15', '0390-5543');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (15, 2, 'Mondadori Education S.p.A', '2018-12-16', '0390-5543');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (16, 3, 'Mondadori Education S.p.A', '2020-12-17', '0390-5543');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (17, 4, 'Mondadori Education S.p.A', '2022-12-21', '0390-5543');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (18, 1, 'Edizioni Dedalo', '2018-12-27', '0036-4681');
-INSERT INTO FASCICOLO (CodF, Numero, Editore, DataPubblicazione, ISSN)
-VALUES (19, 2, 'Edizioni Dedalo', '2022-12-10', '0036-4681');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (1, 'GEDI Gruppo Editoriale', '2021-12-28', '0036-8083');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (2, 'GEDI Gruppo Editoriale', '2022-01-28', '0036-8083');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (1, 'National Geographic Society', '2020-01-01', '0027-9358');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (2, 'National Geographic Society', '2020-02-01', '0027-9358');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (1, 'GEDI Gruppo Editoriale', '2022-12-05', '0026-4423');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (42, 'Gruppo B Editore', '2006-07-29', '2724-2641');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (43, 'Gruppo B Editore', '2006-08-27', '2724-2641');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (44, 'Gruppo B Editore', '2006-09-28', '2724-2641');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (1, 'Giovanna Truda', '2016-06-27', '2531-3975');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (2, 'Giovanna Truda', '2017-06-22', '2531-3975');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (3, 'Giovanna Truda', '2018-06-28', '2531-3975');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (1, 'Arnoldo Mondadori Editore', '2022-12-10', '1357-1915');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (2, 'Arnoldo Mondadori Editore', '2023-01-11', '1357-1915');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (1, 'Mondadori Education S.p.A', '2015-12-15', '0390-5543');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (2, 'Mondadori Education S.p.A', '2018-12-16', '0390-5543');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (3, 'Mondadori Education S.p.A', '2020-12-17', '0390-5543');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (4, 'Mondadori Education S.p.A', '2022-12-21', '0390-5543');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (1, 'Edizioni Dedalo', '2018-12-27', '0036-4681');
+INSERT INTO FASCICOLO (Numero, Editore, DataPubblicazione, ISSN)
+VALUES (2, 'Edizioni Dedalo', '2022-12-10', '0036-4681');
 
 -- INTRODUZIONE --
 INSERT INTO INTRODUZIONE (CodF, DOI)
@@ -689,26 +689,26 @@ INSERT INTO INTRODUZIONE (CodF, DOI)
 VALUES (19, '10-00058');
 
 -- CONFERENZA --
-INSERT INTO CONFERENZA (CodC, Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES (1, 'Piazza Roma 22, 60121, Ancona, Italia', 'Università Politecnica Delle Marche', '2021-10-12', '2021-10-16');
-INSERT INTO CONFERENZA (CodC, Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES (2, 'Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2006-04-01', '2006-04-14');
-INSERT INTO CONFERENZA (CodC, Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES (3, 'Piazza Guerrazzi 1, 82100, Benevento, Italia', 'Università Del Sannio', '2006-06-21', '2006-06-30');
-INSERT INTO CONFERENZA (CodC, Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES (4, 'Via De Sanctis, 86100, Campobasso, Italia', 'Università Del Molise', '2018-10-07', '2018-10-14');
-INSERT INTO CONFERENZA (CodC, Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES (5, 'Viale Dell''Università, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2018-11-07', '2018-11-14');
-INSERT INTO CONFERENZA (CodC, Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES (6, 'Corso Matteotti 22, 21053, Castellanza (Va), Varese, Italia', 'Università Carlo Cattaneo LIUC', '2018-10-15', '2018-10-28');
-INSERT INTO CONFERENZA (CodC, Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES (7, 'Viale Europa, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2018-11-15', '2018-11-28');
-INSERT INTO CONFERENZA (CodC, Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES (8, 'Corso Umberto I 40, 80138, Napoli, Italia', 'Università Degli Studi Federico II', '2020-04-10', '2020-04-16');
-INSERT INTO CONFERENZA (CodC, Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES (9, 'Via Ammiraglio Acton 38, 80133, Napoli, Italia', 'Università Parthenope', '2022-06-01', '2022-06-14');
-INSERT INTO CONFERENZA (CodC, Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES (10, 'Piazza Della Vittoria 15, 27100, Pavia, Italia', 'IUSS - Istituto Universitario Di Studi Superiori', '2019-12-05', '2019-12-10');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Piazza Roma 22, 60121, Ancona, Italia', 'Università Politecnica Delle Marche', '2021-10-12', '2021-10-16');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2006-04-01', '2006-04-14');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Piazza Guerrazzi 1, 82100, Benevento, Italia', 'Università Del Sannio', '2006-06-21', '2006-06-30');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Via De Sanctis, 86100, Campobasso, Italia', 'Università Del Molise', '2018-10-07', '2018-10-14');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Viale Dell''Università, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2018-11-07', '2018-11-14');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Corso Matteotti 22, 21053, Castellanza (Va), Varese, Italia', 'Università Carlo Cattaneo LIUC', '2018-10-15', '2018-10-28');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Viale Europa, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2018-11-15', '2018-11-28');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Corso Umberto I 40, 80138, Napoli, Italia', 'Università Degli Studi Federico II', '2020-04-10', '2020-04-16');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Via Ammiraglio Acton 38, 80133, Napoli, Italia', 'Università Parthenope', '2022-06-01', '2022-06-14');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Piazza Della Vittoria 15, 27100, Pavia, Italia', 'IUSS - Istituto Universitario Di Studi Superiori', '2019-12-05', '2019-12-10');
 
 -- ESPOSIZIONE --
 INSERT INTO ESPOSIZIONE (DOI, CodC)
@@ -1046,20 +1046,20 @@ INSERT INTO INSERIMENTO (Libro, Serie)
 VALUES ('978-16-2647-954-8', '978-16-2647-092-7');
 
 -- COLLANA --
-INSERT INTO COLLANA (CodC, Nome, Caratteristica)
-VALUES (1, 'Macabre', 'Stephen King');
-INSERT INTO COLLANA (CodC, Nome, Caratteristica)
-VALUES (2, 'Always Romance', 'Rosa');
-INSERT INTO COLLANA (CodC, Nome, Caratteristica)
-VALUES (3, 'Il Signore Degli Anelli', 'John R. R. Tolkien');
-INSERT INTO COLLANA (CodC, Nome, Caratteristica)
-VALUES (4, 'I Classici Ritrovati', 'Classico');
-INSERT INTO COLLANA (CodC, Nome, Caratteristica)
-VALUES (5, 'Didattica', 'Didattico');
-INSERT INTO COLLANA (CodC, Nome, Caratteristica)
-VALUES (6, 'Le stelle del Nord', 'Editore Nord');
-INSERT INTO COLLANA (CodC, Nome, Caratteristica)
-VALUES (7, 'Col fiato sospeso', 'Thriller');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('Macabre', 'Stephen King');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('Always Romance', 'Rosa');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('Il Signore Degli Anelli', 'John R. R. Tolkien');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('I Classici Ritrovati', 'Classico');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('Didattica', 'Didattico');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('Le stelle del Nord', 'Editore Nord');
+INSERT INTO COLLANA (Nome, Caratteristica)
+VALUES ('Col fiato sospeso', 'Thriller');
 
 -- APPARTENENZA --
 INSERT INTO APPARTENENZA (ISBN, CodC)
@@ -1134,26 +1134,26 @@ INSERT INTO APPARTENENZA (ISBN, CodC)
 VALUES ('978-16-2647-954-8', 7);
 
 -- PRESENTAZIONE --
-INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
-VALUES (1, 'Piazza Antonio Stradivari 6, 26100, Cremona, Italia', 'Mondadori BookStore', '2022-03-25', '17:15', '978-12-8007-834-6');
-INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
-VALUES (2, 'Via Giuseppe Verdi 6, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Biblioteca comunale', '2022-12-02', '18:10', '978-12-8007-876-6');
-INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
-VALUES (3, 'Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Mondadori Point', '2022-12-09', '18:10', '978-12-8007-876-6');
-INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
-VALUES (4, 'Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'Feltrinelli Libreria', '2017-01-22', '19:00', '978-88-9381-618-2');
-INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
-VALUES (5, 'Via S. Lorenzo 82, 03100, Frosinone, Italia', 'Biblioteca S.Alfonso', '2018-12-10', '19:00', '978-88-9381-711-0');
-INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
-VALUES (6, 'Via Giuseppe Verdi 6, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Biblioteca comunale', '2022-07-26', '19:00', '978-88-3101-288-1');
-INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
-VALUES (7, 'Via S. Lorenzo 82, 03100, Frosinone, Italia', 'Biblioteca S.Alfonso', '2013-02-02', '11:00', '978-88-452-7240-0');
-INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
-VALUES (8, 'Corso Giuseppe Mazzini 20, 26100, Cremona, Italia', 'Feltrinelli Libri e Musica', '2021-09-05', '11:00', '978-88-301-0528-6');
-INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
-VALUES (9, 'Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'Feltrinelli Libreria', '2013-02-06', '11:00', '978-88-452-7240-0');
-INSERT INTO PRESENTAZIONE (CodP, Luogo, Struttura, DataP, Ora, ISBN)
-VALUES (10, 'Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Mondadori Point', '2021-09-09', '11:00', '978-88-301-0528-6');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Piazza Antonio Stradivari 6, 26100, Cremona, Italia', 'Mondadori BookStore', '2022-03-25', '17:15', '978-12-8007-834-6');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via Giuseppe Verdi 6, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Biblioteca comunale', '2022-12-02', '18:10', '978-12-8007-876-6');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Mondadori Point', '2022-12-09', '18:10', '978-12-8007-876-6');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'Feltrinelli Libreria', '2017-01-22', '19:00', '978-88-9381-618-2');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via S. Lorenzo 82, 03100, Frosinone, Italia', 'Biblioteca S.Alfonso', '2018-12-10', '19:00', '978-88-9381-711-0');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via Giuseppe Verdi 6, 80014, Giugliano in Campania (Na), Napoli, Italia', 'Biblioteca comunale', '2022-07-26', '19:00', '978-88-3101-288-1');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via S. Lorenzo 82, 03100, Frosinone, Italia', 'Biblioteca S.Alfonso', '2013-02-02', '11:00', '978-88-452-7240-0');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Corso Giuseppe Mazzini 20, 26100, Cremona, Italia', 'Feltrinelli Libri e Musica', '2021-09-05', '11:00', '978-88-301-0528-6');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via Camillo Benso Cavour 1, 29121, Piacenza, Italia', 'Feltrinelli Libreria', '2013-02-06', '11:00', '978-88-452-7240-0');
+INSERT INTO PRESENTAZIONE (Luogo, Struttura, DataP, Ora, ISBN)
+VALUES ('Via IV Novembre 19, 26015, Soresina (Cr), Cremona, Italia', 'Mondadori Point', '2021-09-09', '11:00', '978-88-301-0528-6');
 
 -- POSSESSO_F --
 INSERT INTO POSSESSO_F (CodL, CodF, Fruizione, Quantita)
