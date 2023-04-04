@@ -614,7 +614,8 @@ BEGIN
 
         IF contatore>0 THEN --controlla se sono stati trovati fascicoli della rivista modificata con la data di pubblicazione precedente a quella della rivista
             UPDATE RIVISTA
-            SET AnnoPubblicazione=OLD.AnnoPubblicazione;
+            SET AnnoPubblicazione=OLD.AnnoPubblicazione
+            WHERE ISSN=NEW.ISSN;
         END IF;
     END IF;
 
