@@ -9,6 +9,7 @@ public class Autore {
     public String nazionalita;
     public Date dataNascita;
     public ArrayList<ArticoloScientifico> articoliScritti;
+    public ArrayList<Libro> libriScritti;
 
     public Autore(String no, String c, String na, Date dn){
         nome = no;
