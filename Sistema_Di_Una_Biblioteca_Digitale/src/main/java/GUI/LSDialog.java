@@ -1,9 +1,7 @@
 package GUI;
 
 import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 
 public class LSDialog extends JDialog{
     private JFrame frame;
@@ -72,6 +70,17 @@ public class LSDialog extends JDialog{
             @Override
             public void windowDeactivated(WindowEvent e) {
 
+            }
+        });
+        btRegistrati.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String emailU = regEmailField.getText();
+                String nomeU = regNameField.getText();
+                String cognomeU = regSurnameField.getText();
+                String usernameU = regUsernameField.getText();
+                char[] password1U = regPasswordField.getPassword();
+                char[] password2U = regPassword2Field.getPassword();
             }
         });
     }
