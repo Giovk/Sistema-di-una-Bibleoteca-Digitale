@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class LSForm{
-    private JFrame frame;
+    private static JFrame frame;
     private JButton btLogin;
     private JButton btSignIn;
     private JLabel txtPF;
@@ -15,23 +15,21 @@ public class LSForm{
         btLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LSDialog lsDialog = new LSDialog(0);
-                btLogin.setEnabled(false);
-                btSignIn.setEnabled(false);
+                LSDialog lsDialog = new LSDialog(0, frame);
+                frame.setEnabled(false);
             }
         });
         btSignIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LSDialog lsDialog = new LSDialog(1);
-                btLogin.setEnabled(false);
-                btSignIn.setEnabled(false);
+                LSDialog lsDialog = new LSDialog(1, frame);
+                frame.setEnabled(false);
             }
         });
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Biblioteca Digitale");
+        frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true);
         frame.setContentPane(new LSForm().lsPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
