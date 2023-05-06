@@ -1,10 +1,11 @@
 package GUI;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class LSDialog extends JDialog {
+public class LSDialog extends JDialog{
     private JFrame frame;
     private JPanel contentPane;
     private JTabbedPane LSTabbedPane;
@@ -26,8 +27,8 @@ public class LSDialog extends JDialog {
     private JButton btAccedi;
     private JTextField LogUserEmailField;
 
-    public LSDialog(int n) {
-        JFrame frame = new JFrame("Login/register");
+    public LSDialog(int n, JFrame frameC) {
+        frame = new JFrame("Login/register");
         frame.setUndecorated(false);
         frame.setContentPane(this.contentPane);
         LSTabbedPane.setSelectedIndex(n);
@@ -37,5 +38,42 @@ public class LSDialog extends JDialog {
         frame.setResizable(false);
         frame.setVisible(true);
 
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                frameC.setEnabled(true);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
     }
 }
+
