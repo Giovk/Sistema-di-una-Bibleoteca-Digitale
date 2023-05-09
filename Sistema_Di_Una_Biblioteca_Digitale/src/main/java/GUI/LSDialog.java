@@ -81,6 +81,8 @@ public class LSDialog extends JDialog{
                 String usernameU = regUsernameField.getText();
                 char[] password1U = regPasswordField.getPassword();
                 char[] password2U = regPassword2Field.getPassword();
+
+                System.out.println(emailU + "\n" + nomeU + "\n" + cognomeU + "\n" + usernameU + "\n" + password1U + "\n" + password2U + "\n");
             }
         });
     }
