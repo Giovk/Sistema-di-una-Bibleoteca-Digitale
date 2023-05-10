@@ -1,6 +1,7 @@
 package GUI;
 
 import com.toedter.calendar.JDateChooser;
+import Controller.Controller;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -26,7 +27,7 @@ public class LSDialog extends JDialog {
     private JPanel datePicker;
     JDateChooser jdc = new JDateChooser();
 
-    public LSDialog(int n, JFrame frameC) {
+    public LSDialog(int n, JFrame frameC, Controller controller) {
         jdc.setDateFormatString("yyyy-MM-dd");
         datePicker.add(jdc);
         frame = new JFrame("Login/register");
@@ -100,15 +101,16 @@ public class LSDialog extends JDialog {
 
 
                 System.out.println(emailU + "\n" + nomeU + "\n" + cognomeU + "\n" + usernameU + "\n" + dt + "\n" + partitaIVA);
-                if (pass1.equals(pass2) == true) {
+                if (pass1.equals(pass2) == false) {
+                    JOptionPane.showMessageDialog(frame, "Password non uguali.");
+                } else {
                     System.out.println(pass1);
                     JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Password non uguali.");
+                    //email, nome, cognome, username, password, dataNascita, partitaIVA
+                    controller.aggiungiUtente(emailU,nomeU, cognomeU, usernameU, pass1, dt, partitaIVA);
                 }
             }
         });
     }
-
 }
 

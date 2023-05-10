@@ -1,9 +1,13 @@
 package GUI;
 
+import Controller.Controller;
+
 import javax.swing.*;
 import java.awt.event.*;
 
+
 public class LSForm {
+    private Controller controller;
     private static JFrame frame;
     private JButton btLogin;
     private JButton btSignIn;
@@ -13,17 +17,18 @@ public class LSForm {
     private static ImageIcon image2;
 
     public LSForm() {
+        controller = new Controller();
         btLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LSDialog lsDialog = new LSDialog(0, frame);
+                LSDialog lsDialog = new LSDialog(0, frame, controller);
                 frame.setEnabled(false);
             }
         });
         btSignIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LSDialog lsDialog = new LSDialog(1, frame);
+                LSDialog lsDialog = new LSDialog(1, frame, controller);
                 frame.setEnabled(false);
             }
         });

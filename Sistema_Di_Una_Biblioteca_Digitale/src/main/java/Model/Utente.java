@@ -8,10 +8,10 @@ public class Utente {
     public String email;
     public String nome;
     public String cognome;
-    public Date dataNascita;
+    public String dataNascita;
     public String partitaIVA;
 
-    public Utente (String u, String p, String e, String n, String c, Date dn, String pIVA) {
+    public Utente (String u, String p, String e, String n, String c, String dn, String pIVA) {
         username = u;
         password = p;
         email = e;
@@ -19,5 +19,9 @@ public class Utente {
         cognome = c;
         dataNascita = dn;
         partitaIVA = pIVA;
+    }
+
+    public void regUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){
+        Utente u = new Utente(username, password, email, nome, cognome, dataNascita, partitaIVA);
     }
 }
