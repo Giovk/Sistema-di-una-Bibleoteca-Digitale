@@ -1,17 +1,10 @@
 package GUI;
 
 import com.toedter.calendar.JDateChooser;
-import com.toedter.calendar.JDayChooser;
 
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
-import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class LSDialog extends JDialog {
     private JFrame frame;
@@ -31,8 +24,6 @@ public class LSDialog extends JDialog {
     private JButton btAccedi;
     private JTextField LogUserEmailField;
     private JPanel datePicker;
-    private JLabel backgroud;
-
     JDateChooser jdc = new JDateChooser();
 
     public LSDialog(int n, JFrame frameC) {
