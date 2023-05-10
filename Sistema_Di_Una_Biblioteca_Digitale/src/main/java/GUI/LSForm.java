@@ -1,15 +1,17 @@
 package GUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
-public class LSForm{
+public class LSForm {
     private static JFrame frame;
     private JButton btLogin;
     private JButton btSignIn;
     private JLabel txtPF;
     private JLabel image;
     private JPanel lsPanel;
+    private static ImageIcon image2;
 
     public LSForm() {
         btLogin.addActionListener(new ActionListener() {
@@ -34,9 +36,10 @@ public class LSForm{
         frame.setContentPane(new LSForm().lsPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(1280,720);
+        frame.setSize(1280, 720);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
     }
 }
+

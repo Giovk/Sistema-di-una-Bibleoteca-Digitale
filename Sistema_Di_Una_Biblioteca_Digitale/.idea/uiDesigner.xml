@@ -122,7 +122,13 @@
       <item class="GUI.BG" icon="/com/intellij/uiDesigner/icons/panel.svg" removable="true" auto-create-binding="false" can-attach-label="false">
         <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="0" />
       </item>
+      <item class="com.toedter.components.JLocaleChooser" icon="/com/intellij/uiDesigner/icons/comboBox.svg" removable="true" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="0" />
+      </item>
+      <item class="com.toedter.calendar.JSpinnerDateEditor" icon="/com/intellij/uiDesigner/icons/spinner.svg" removable="true" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="0" />
+      </item>
     </group>
-    <group name="C" />
+    <group name="Calendario" />
   </component>
 </project>
