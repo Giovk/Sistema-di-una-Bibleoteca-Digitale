@@ -4,6 +4,7 @@ import com.toedter.calendar.JDateChooser;
 import Controller.Controller;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 
@@ -25,11 +26,14 @@ public class LSDialog extends JDialog {
     private JButton btAccedi;
     private JTextField LogUserEmailField;
     private JPanel datePicker;
+    private JLabel regError;
+    private JPanel lsdialogPanel;
     JDateChooser jdc = new JDateChooser();
 
     public LSDialog(int n, JFrame frameC, Controller controller) {
         jdc.setDateFormatString("yyyy-MM-dd");
         datePicker.add(jdc);
+        regError.setVisible(false);
         frame = new JFrame("Login/register");
         frame.setUndecorated(false);
         frame.setContentPane(this.contentPane);
@@ -102,12 +106,19 @@ public class LSDialog extends JDialog {
 
                 System.out.println(emailU + "\n" + nomeU + "\n" + cognomeU + "\n" + usernameU + "\n" + dt + "\n" + partitaIVA);
                 if (pass1.equals(pass2) == false) {
-                    JOptionPane.showMessageDialog(frame, "Password non uguali.");
+                    regError.setText("Le password non coincidono");
+                    regError.setVisible(true);
+                    frame.setResizable(true);
                 } else {
                     System.out.println(pass1);
                     JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
                     //email, nome, cognome, username, password, dataNascita, partitaIVA
                     controller.aggiungiUtente(emailU,nomeU, cognomeU, usernameU, pass1, dt, partitaIVA);
+                    frameC.setEnabled(true);
+                    HomePage hp = new HomePage(frameC, controller);
+                    frameC.setVisible(false);
+                    hp.frame.setVisible(true);
+                    frame.dispose();
                 }
             }
         });
