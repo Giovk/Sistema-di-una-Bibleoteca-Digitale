@@ -112,7 +112,6 @@ public class LSDialog extends JDialog {
                 } else {
                     System.out.println(pass1);
                     JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
-                    //email, nome, cognome, username, password, dataNascita, partitaIVA
                     controller.aggiungiUtente(emailU,nomeU, cognomeU, usernameU, pass1, dt, partitaIVA);
                     frameC.setEnabled(true);
                     HomePage hp = new HomePage(frameC, controller);
