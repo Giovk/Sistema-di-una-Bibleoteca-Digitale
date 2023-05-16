@@ -1,6 +1,7 @@
 package GUI;
 
 import Controller.Controller;
+import ImplementazionePostgresDAO.LibroImplementazionePostgresDAO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,9 +13,16 @@ public class HomePage {
     public JFrame frame;
     private JPanel homepagePanel;
     private JButton button1;
-    private JButton button2;
-    private JButton button3;
+    private JButton homeButton;
+    private JButton libriButton;
     private JButton utenteButton;
+    private JPanel utentePanel;
+    private JPanel homePanel;
+    private JTextArea bookArea;
+    private JPanel bookPanel;
+    private JButton generaButton;
+    private JScrollPane scrollBookArea;
+    private JPanel MenuPanel;
     private JPopupMenu utenteMenu;
     public HomePage(JFrame frameC, Controller controller){
         //frameC.setEnabled(true);
@@ -25,6 +33,10 @@ public class HomePage {
         JMenuItem utenteProfilo = new JMenuItem("Profilo");
         utenteMenu.add(utenteProfilo);
         utenteMenu.add(utenteExit);
+
+        homePanel.setVisible(true);
+        utentePanel.setVisible(false);
+        bookPanel.setVisible(false);
 
         frame = new JFrame("Homepage");
         frame.setUndecorated(true);
@@ -44,6 +56,31 @@ public class HomePage {
                 frame.dispose();
             }
         });
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                utentePanel.setVisible(false);
+                bookPanel.setVisible(false);
+                homePanel.setVisible(true);
+            }
+        });
+
+        libriButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                homePanel.setVisible(false);
+                utentePanel.setVisible(false);
+                bookPanel.setVisible(true);
+            }
+        });
+        generaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LibroImplementazionePostgresDAO l = new LibroImplementazionePostgresDAO();
+                l.printLibri(bookArea);
+            }
+        });
+
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -58,6 +95,15 @@ public class HomePage {
                 frameC.setVisible(true);
                 frame.setVisible(false);
                 frame.dispose();
+            }
+        });
+
+        utenteProfilo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bookPanel.setVisible(false);
+                homePanel.setVisible(false);
+                utentePanel.setVisible(true);
             }
         });
     }

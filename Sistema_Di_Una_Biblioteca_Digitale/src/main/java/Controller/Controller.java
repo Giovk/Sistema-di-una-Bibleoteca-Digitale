@@ -16,4 +16,9 @@ public class Controller {
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
         u.addUtenteDB(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente nel DB;
     }
+
+    public int validaUtente(String userEmail, String password){
+        UtenteDAO u = new UtenteImplementazionePostgresDAO();
+        return u.validaUtenteDB(userEmail, password);
+    }
 }

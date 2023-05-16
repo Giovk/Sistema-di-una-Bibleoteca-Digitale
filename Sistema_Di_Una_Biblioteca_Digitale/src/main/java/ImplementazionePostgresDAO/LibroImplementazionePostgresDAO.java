@@ -2,6 +2,7 @@ package ImplementazionePostgresDAO;
 
 import Database.ConnessioneDatabase;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,12 +21,12 @@ public class LibroImplementazionePostgresDAO {
         }
     }
 
-    public void printLibri(){
+    public void printLibri(JTextArea book){
         try {
             PreparedStatement query = this.connection.prepareStatement("SELECT * FROM LIBRO");
             ResultSet rs = query.executeQuery();
             while (rs.next()){
-                System.out.println(rs.getString("Titolo"));
+                book.append(rs.getString("Titolo")+"\n");
             }
             rs.close();
             this.connection.close();

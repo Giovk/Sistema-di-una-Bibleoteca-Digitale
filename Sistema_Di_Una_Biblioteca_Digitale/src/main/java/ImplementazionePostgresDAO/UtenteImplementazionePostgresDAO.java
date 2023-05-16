@@ -5,6 +5,7 @@ import Database.ConnessioneDatabase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UtenteImplementazionePostgresDAO implements UtenteDAO {
@@ -32,5 +33,24 @@ public class UtenteImplementazionePostgresDAO implements UtenteDAO {
         } catch (SQLException var2){
             var2.printStackTrace();
         }
+    }
+
+    @Override
+    public int validaUtenteDB(String userEmail, String password) {
+        int n = 0;
+
+        try{
+            PreparedStatement validaUtentePS = connection.prepareStatement(
+                    "SELECT COUNT * FROM utente WHERE passwordu = '"+password+"' AND (username = '"+userEmail+"'" +
+                            "OR email = '"+userEmail+"');"
+            );
+
+            n = validaUtentePS.executeUpdate();
+
+            connection.close();
+        } catch (SQLException var2){
+            var2.printStackTrace();
+        }
+        return n;
     }
 }

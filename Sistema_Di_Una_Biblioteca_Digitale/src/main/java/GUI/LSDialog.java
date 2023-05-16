@@ -4,7 +4,6 @@ import com.toedter.calendar.JDateChooser;
 import Controller.Controller;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 
@@ -24,10 +23,11 @@ public class LSDialog extends JDialog {
     private JButton btRegistrati;
     private JPasswordField logPasswordField;
     private JButton btAccedi;
-    private JTextField LogUserEmailField;
+    private JTextField logUserEmailField;
     private JPanel datePicker;
     private JLabel regError;
     private JPanel lsdialogPanel;
+    private JLabel fieldError;
     JDateChooser jdc = new JDateChooser();
 
     public LSDialog(int n, JFrame frameC, Controller controller) {
@@ -80,6 +80,25 @@ public class LSDialog extends JDialog {
 
             }
         });
+
+        btAccedi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String userEmail = logUserEmailField.getText();
+                char[] pass = logPasswordField.getPassword();
+                String password = new String(pass);
+
+                if(controller.validaUtente(userEmail, password) >= 1){
+                    frameC.setEnabled(true);
+                    HomePage hp = new HomePage(frameC, controller);
+                    frameC.setVisible(false);
+                    hp.frame.setVisible(true);
+                    frame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "L'Account non esiste.");
+                }
+            }
+        });
         btRegistrati.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,35 +108,34 @@ public class LSDialog extends JDialog {
                 String usernameU = regUsernameField.getText();
                 char[] password1U = regPasswordField.getPassword();
                 char[] password2U = regPassword2Field.getPassword();
-                String pass1 = "";
-                String pass2 = "";
+                String pass1 = new String(password1U);
+                String pass2 = new String(password2U);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String dt = sdf.format(jdc.getDate());
                 String partitaIVA = regPartitaIVAField.getText();
 
-                for (char c : password1U) {
-                    pass1 = pass1 + c;
-                }
-
-                for (char c : password2U) {
-                    pass2 = pass2 + c;
-                }
-
-
                 System.out.println(emailU + "\n" + nomeU + "\n" + cognomeU + "\n" + usernameU + "\n" + dt + "\n" + partitaIVA);
-                if (pass1.equals(pass2) == false) {
-                    regError.setText("Le password non coincidono");
-                    regError.setVisible(true);
+
+                if(nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank() || pass1.isBlank() || pass2.isBlank()) {
+                    fieldError.setText("Compilare tutti i campi obbligatori");
+                    fieldError.setVisible(true);
                     frame.setResizable(true);
                 } else {
-                    System.out.println(pass1);
-                    JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
-                    controller.aggiungiUtente(emailU,nomeU, cognomeU, usernameU, pass1, dt, partitaIVA);
-                    frameC.setEnabled(true);
-                    HomePage hp = new HomePage(frameC, controller);
-                    frameC.setVisible(false);
-                    hp.frame.setVisible(true);
-                    frame.dispose();
+                    if (pass1.equals(pass2) == false) {
+                        regError.setText("Le password non coincidono");
+                        regError.setVisible(true);
+                        frame.setResizable(true);
+                    } else {
+                        regError.setVisible(false);
+                        System.out.println(pass1);
+                        JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
+                        controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, pass1, dt, partitaIVA);
+                        frameC.setEnabled(true);
+                        HomePage hp = new HomePage(frameC, controller);
+                        frameC.setVisible(false);
+                        hp.frame.setVisible(true);
+                        frame.dispose();
+                    }
                 }
             }
         });
