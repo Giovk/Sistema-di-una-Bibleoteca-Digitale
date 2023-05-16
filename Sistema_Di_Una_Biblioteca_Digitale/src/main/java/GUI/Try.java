@@ -1,9 +1,11 @@
-package GUI;
+/*package GUI;
 
 import Controller.Controller;
+import ImplementazionePostgresDAO.LibroImplementazionePostgresDAO;
 import Model.Utente;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -12,17 +14,23 @@ import java.awt.event.MouseEvent;
 public class HomePage {
     public JFrame frame;
     private JPanel homepagePanel;
+    private JButton button1;
     private JButton homeButton;
     private JButton libriButton;
     private JButton utenteButton;
-    private JLabel text1;
-
+    private JPanel utentePanel;
+    private JPanel homePanel;
+    private JTextArea bookArea;
+    private JPanel bookPanel;
+    private JButton generaButton;
+    private JPanel MenuPanel;
+    private JLabel ciaoLabel;
     private JPopupMenu utenteMenu;
 
     public HomePage(JFrame frameC, Controller controller, Utente user) {
         //frameC.setEnabled(true);
         //frameC.setTitle("Homepage");
-        text1.setText("Ciao " + user.username + ", Sei nella Homepage!");
+        ciaoLabel.setText("Ciao " + user.username + ", benvenuto!");
         utenteMenu = new JPopupMenu();
         JMenuItem utenteExit = new JMenuItem("Logout");
         JMenuItem utenteProfilo = new JMenuItem("Profilo");
@@ -36,6 +44,10 @@ public class HomePage {
             System.out.println(user.partitaIVA);
         }
 
+        homePanel.setVisible(true);
+        utentePanel.setVisible(false);
+        bookPanel.setVisible(false);
+
         frame = new JFrame("Homepage");
         frame.setUndecorated(true);
         frame.setContentPane(homepagePanel);
@@ -46,15 +58,36 @@ public class HomePage {
         frame.setResizable(false);
         frame.setVisible(true);
 
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frameC.setVisible(true);
+                frame.setVisible(false);
+                frame.dispose();
+            }
+        });
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                utentePanel.setVisible(false);
+                bookPanel.setVisible(false);
+                homePanel.setVisible(true);
             }
         });
 
         libriButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                homePanel.setVisible(false);
+                utentePanel.setVisible(false);
+                bookPanel.setVisible(true);
+            }
+        });
+        generaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LibroImplementazionePostgresDAO l = new LibroImplementazionePostgresDAO();
+                l.printLibri(bookArea);
             }
         });
 
@@ -66,17 +99,6 @@ public class HomePage {
                 }
             }
         });
-
-        utenteProfilo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Profilo pf = new Profilo(frameC, controller, user);
-                pf.frame.setVisible(true);
-                frame.setVisible(false);
-                frame.dispose();
-
-            }
-        });
         utenteExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,6 +108,14 @@ public class HomePage {
             }
         });
 
+        utenteProfilo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bookPanel.setVisible(false);
+                homePanel.setVisible(false);
+                utentePanel.setVisible(true);
+            }
+        });
     }
 
-}
+}*/

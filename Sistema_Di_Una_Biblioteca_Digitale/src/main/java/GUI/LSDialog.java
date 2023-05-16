@@ -1,11 +1,16 @@
 package GUI;
 
+import Model.Utente;
 import com.toedter.calendar.JDateChooser;
 import Controller.Controller;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
+import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class LSDialog extends JDialog {
     private JFrame frame;
@@ -88,9 +93,10 @@ public class LSDialog extends JDialog {
                 char[] pass = logPasswordField.getPassword();
                 String password = new String(pass);
 
-                if(controller.validaUtente(userEmail, password) >= 1){
+                if (controller.validaUtente(userEmail, password) >= 1) {
                     frameC.setEnabled(true);
-                    HomePage hp = new HomePage(frameC, controller);
+                    Utente logUser = controller.getUtente(userEmail, password);
+                    HomePage hp = new HomePage(frameC, controller, logUser);
                     frameC.setVisible(false);
                     hp.frame.setVisible(true);
                     frame.dispose();
@@ -111,12 +117,14 @@ public class LSDialog extends JDialog {
                 String pass1 = new String(password1U);
                 String pass2 = new String(password2U);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String dt = sdf.format(jdc.getDate());
+                String dt;
+
                 String partitaIVA = regPartitaIVAField.getText();
 
-                System.out.println(emailU + "\n" + nomeU + "\n" + cognomeU + "\n" + usernameU + "\n" + dt + "\n" + partitaIVA);
 
-                if(nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank() || pass1.isBlank() || pass2.isBlank()) {
+                //System.out.println(emailU + "\n" + nomeU + "\n" + cognomeU + "\n" + usernameU + "\n" + dt + "\n" + partitaIVA);
+
+                if (nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank() || pass1.isBlank() || pass2.isBlank()) {
                     fieldError.setText("Compilare tutti i campi obbligatori");
                     fieldError.setVisible(true);
                     frame.setResizable(true);
@@ -129,9 +137,15 @@ public class LSDialog extends JDialog {
                         regError.setVisible(false);
                         System.out.println(pass1);
                         JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
+                        try{
+                          dt = sdf.format(jdc.getDate());
+                        } catch (NullPointerException e1){
+                            dt = null;
+                        }
                         controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, pass1, dt, partitaIVA);
+                        Utente regUser = controller.getUtente(usernameU, pass1);
                         frameC.setEnabled(true);
-                        HomePage hp = new HomePage(frameC, controller);
+                        HomePage hp = new HomePage(frameC, controller, regUser);
                         frameC.setVisible(false);
                         hp.frame.setVisible(true);
                         frame.dispose();
@@ -140,5 +154,6 @@ public class LSDialog extends JDialog {
             }
         });
     }
+
 }
 

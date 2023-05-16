@@ -14,7 +14,7 @@ public class LSForm {
     private JLabel txtPF;
     private JLabel image;
     private JPanel lsPanel;
-    private static ImageIcon image2;
+    private ImageIcon image2;
 
     public LSForm() {
         controller = new Controller();
