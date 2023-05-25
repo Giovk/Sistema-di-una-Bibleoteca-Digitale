@@ -10,7 +10,7 @@ public class LSForm {
     private Controller controller;
     private static JFrame frame;
     private JButton btLogin;
-    private JButton btSignIn;
+    private JButton btSignUp;
     private JLabel txtPF;
     private JLabel image;
     private JPanel lsPanel;
@@ -25,7 +25,7 @@ public class LSForm {
                 frame.setEnabled(false);
             }
         });
-        btSignIn.addActionListener(new ActionListener() {
+        btSignUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LSDialog lsDialog = new LSDialog(1, frame, controller);

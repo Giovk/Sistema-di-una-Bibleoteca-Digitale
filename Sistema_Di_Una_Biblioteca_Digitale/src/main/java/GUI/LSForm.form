@@ -35,7 +35,7 @@
           <text value="Login"/>
         </properties>
       </component>
-      <component id="c74e7" class="javax.swing.JButton" binding="btSignIn">
+      <component id="c74e7" class="javax.swing.JButton" binding="btSignUp">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -45,7 +45,7 @@
           <contentAreaFilled value="true"/>
           <focusPainted value="true"/>
           <foreground color="-11375230"/>
-          <text value="SignIn"/>
+          <text value="SignUp"/>
         </properties>
       </component>
       <component id="ccf91" class="javax.swing.JLabel" binding="txtPF">
@@ -53,7 +53,7 @@
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <foreground color="-16777216"/>
+          <foreground color="-2234643"/>
           <text value="Hai dimenticato la password?"/>
         </properties>
       </component>

@@ -54,4 +54,40 @@ public class Controller {
         Utente user = new Utente(us, p, e, n, c, dn, pIVA);
         return user;
     }
+
+    public int[] validaModUtente(String email, String username, String pIva, Utente user){
+        int[] error = {0, 0, 0, 0};
+        UtenteDAO u = new UtenteImplementazionePostgresDAO();
+
+        if(!email.equals(user.email)){
+            error[0] = u.validaModEmailDB(email);
+        }
+
+        if(!username.equals(user.username)){
+            error[1] = u.validaModUsernameDB(username);
+        }
+
+        if(!pIva.equals(user.partitaIVA)){
+            error[2] = u.validaModPIVADB(pIva);
+        }
+
+        u.chiudiConnessione();
+
+        return error;
+    }
+
+    public void modUtente(String email, String nome, String cognome, String username, String password, String partitaIVA, Utente user){
+        UtenteDAO u = new UtenteImplementazionePostgresDAO();
+
+        u.modUtenteDB(email, nome, cognome, username, password, partitaIVA, user.username);
+
+        user.setEmail(email);
+        user.setNome(nome);
+        user.setCognome(cognome);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setPartitaIva(partitaIVA);
+
+
+    }
 }
