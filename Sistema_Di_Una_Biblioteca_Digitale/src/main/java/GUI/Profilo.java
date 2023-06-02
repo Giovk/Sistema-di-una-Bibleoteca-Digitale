@@ -39,7 +39,7 @@ public class Profilo {
     private JLabel newPassErrorLabel;
     private JPopupMenu utenteMenu;
 
-    public Profilo (JFrame frameC, Controller controller, Utente user){
+    public Profilo (JFrame frameC, Controller controller){
         //homeButton.setBorder(BorderFactory.createEmptyBorder());
         frame = new JFrame("Profilo");
         frame.setUndecorated(true);
@@ -72,12 +72,12 @@ public class Profilo {
         newPassErrorLabel.setVisible(false);
 
 
-        usernameField.setText(user.username);
-        nameField.setText(user.nome);
-        cognomeField.setText(user.cognome);
-        emailField.setText(user.email);
-        passwordField1.setText(user.password);
-        pIVAField.setText(user.partitaIVA);
+        usernameField.setText(controller.getUsername());
+        nameField.setText(controller.getNome());
+        cognomeField.setText(controller.getCognome());
+        emailField.setText(controller.getEmail());
+        passwordField1.setText(controller.getPassword());
+        pIVAField.setText(controller.getPartitaIVA());
 
 
         utenteMenu = new JPopupMenu();
@@ -86,9 +86,9 @@ public class Profilo {
         utenteMenu.add(utenteLibrerie);
         utenteMenu.add(utenteExit);
 
-        if (user.partitaIVA == null) {
+        if (controller.getPartitaIVA() == null) {
             utenteLibrerie.setVisible(false);
-            System.out.println(user.partitaIVA);
+            System.out.println(controller.getPartitaIVA());
         }
 
         utenteButton.addMouseListener(new MouseAdapter() {
@@ -111,7 +111,7 @@ public class Profilo {
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                HomePage hp = new HomePage(frameC, controller, user);
+                HomePage hp = new HomePage(frameC, controller);
                 hp.frame.setVisible(true);
                 frame.setVisible(false);
                 frame.dispose();
@@ -162,13 +162,13 @@ public class Profilo {
                 emailErrorLabel.setVisible(false);
                 oldPassErrorLabel.setVisible(false);
 
-                usernameField.setText(user.username);
-                nameField.setText(user.nome);
-                cognomeField.setText(user.cognome);
-                emailField.setText(user.email);
-                passwordField1.setText(user.password);
+                usernameField.setText(controller.getUsername());
+                nameField.setText(controller.getNome());
+                cognomeField.setText(controller.getCognome());
+                emailField.setText(controller.getEmail());
+                passwordField1.setText(controller.getPassword());
                 passwordField2.setText("");
-                pIVAField.setText(user.partitaIVA);
+                pIVAField.setText(controller.getPartitaIVA());
                 oldPassField.setText("");
             }
         });
@@ -188,10 +188,10 @@ public class Profilo {
                 String pass3 = new String(password3U);
 
 
-                if(!user.password.equals(pass3)) oldPassErrorLabel.setVisible(true);
+                if(!controller.getPassword().equals(pass3)) oldPassErrorLabel.setVisible(true);
                 else {
                     oldPassErrorLabel.setVisible(false);
-                    int[] error = controller.validaModUtente(emailU, usernameU, partitaIVA, user);
+                    int[] error = controller.validaModUtente(emailU, usernameU, partitaIVA);
                     if (error[0] != 0) emailErrorLabel.setVisible(true);
                     if (error[1] != 0) usernameErrorLabel.setVisible(true);
                     if (error[2] != 0) partitaivaErrorLabel.setVisible(true);
@@ -203,7 +203,7 @@ public class Profilo {
                         error[3] = 1;
                     }
                     if (error[0] == 0 && error[1] == 0 && error[2] == 0 && error[3] == 0){
-                        System.out.println("apposto");
+                        //System.out.println("apposto");
                         modificaDatiUtenteButton.setEnabled(true);
                         annullaButton.setVisible(false);
                         salvaModificheButton.setVisible(false);
@@ -219,16 +219,16 @@ public class Profilo {
                         oldPassField.setVisible(false);
                         oldPassNoteLabel.setVisible(false);
 
-                        if(pass1.isBlank()) controller.modUtente(emailU, nomeU, cognomeU, usernameU, user.password, partitaIVA, user);
-                        else controller.modUtente(emailU, nomeU, cognomeU, usernameU, pass1, partitaIVA, user);
+                        if(pass1.isBlank()) controller.modUtente(emailU, nomeU, cognomeU, usernameU, controller.getPassword(), partitaIVA);
+                        else controller.modUtente(emailU, nomeU, cognomeU, usernameU, pass1, partitaIVA);
 
 
-                        usernameField.setText(user.username);
-                        nameField.setText(user.nome);
-                        cognomeField.setText(user.cognome);
-                        emailField.setText(user.email);
-                        passwordField1.setText(user.password);
-                        pIVAField.setText(user.partitaIVA);
+                        usernameField.setText(controller.getUsername());
+                        nameField.setText(controller.getNome());
+                        cognomeField.setText(controller.getCognome());
+                        emailField.setText(controller.getEmail());
+                        passwordField1.setText(controller.getPassword());
+                        pIVAField.setText(controller.getPartitaIVA());
 
                         passwordField2.setText("");
                         oldPassField.setText("");
