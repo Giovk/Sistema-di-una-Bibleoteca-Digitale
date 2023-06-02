@@ -32,17 +32,17 @@ public class LSDialog extends JDialog {
     JDateChooser jdc = new JDateChooser();
 
     public LSDialog(int n, JFrame frameC, Controller controller) {
-        jdc.setDateFormatString("yyyy-MM-dd");
+        jdc.setDateFormatString("yyyy-MM-dd");  //imposta il formato della data di nascita
         datePicker.add(jdc);
-        regError.setVisible(false);
+        regError.setVisible(false); //rende invisibile la JLabel 'regError'
         frame = new JFrame("Login/register");
-        frame.setUndecorated(false);
+        frame.setUndecorated(false); //abilita le decorazioni del frame
         frame.setContentPane(this.contentPane);
-        LSTabbedPane.setSelectedIndex(n);
+        LSTabbedPane.setSelectedIndex(n); //seleziona il JPanel con indice 'n' (n=0 => JPanel 'loginJPanel', n=1 => JPanel 'registerJPanel')
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);//posiziona il frame al centro dello schermo
+        frame.setResizable(false);//evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
 
         frame.addWindowListener(new WindowListener() {
@@ -53,7 +53,7 @@ public class LSDialog extends JDialog {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                frameC.setEnabled(true);
+                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
             }
 
             @Override
@@ -85,64 +85,63 @@ public class LSDialog extends JDialog {
         btAccedi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userEmail = logUserEmailField.getText();
-                char[] pass = logPasswordField.getPassword();
+                String userEmail = logUserEmailField.getText(); //username o email inserito dall'utente per effettuare l'accesso
+                char[] pass = logPasswordField.getPassword();   //password inserita dall'utente per effettuare l'accesso
                 String password = new String(pass);
 
-                if (controller.validaUtente(userEmail, password) >= 1) {
-                    frameC.setEnabled(true);
-                    //Utente logUser = controller.getUtente(userEmail, password);
-                    controller.setUtente(userEmail, password);
-                    HomePage hp = new HomePage(frameC, controller);
-                    frameC.setVisible(false);
-                    hp.frame.setVisible(true);
-                    frame.dispose();
-                } else {
+                if (controller.validaUtente(userEmail, password) < 1) { //controlla se non esiste un utente registrato che ha come username o email 'userMail' e come password 'password'
                     JOptionPane.showMessageDialog(frame, "L'Account non esiste.");
+                } else {
+                    frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+                    controller.setUtente(userEmail, password); //salva in memoria l'utente che ha accesso usando 'userEmail' e 'Password'
+                    HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
+                    frameC.setVisible(false);   //rende invisibile il frame chiamante 'frameC'
+                    hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
+                    frame.dispose();
                 }
             }
         });
+
         btRegistrati.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String emailU = regEmailField.getText();
-                String nomeU = regNameField.getText();
-                String cognomeU = regSurnameField.getText();
-                String usernameU = regUsernameField.getText();
-                char[] password1U = regPasswordField.getPassword();
-                char[] password2U = regPassword2Field.getPassword();
+                String emailU = regEmailField.getText();    //email inserita dall'utente per effettuare la registrazione
+                String nomeU = regNameField.getText();  //nome inserito dall'utente per effettuare la registrazione
+                String cognomeU = regSurnameField.getText(); //cognome inserito dall'utente per effettuare la registrazione
+                String usernameU = regUsernameField.getText();  //username inserito dall'utente per effettuare la registrazione
+                char[] password1U = regPasswordField.getPassword(); //password scelta dall'utente per effettuare la registrazione
+                char[] password2U = regPassword2Field.getPassword();    //password ripetuta dall'utente per effettuare la registrazione
                 String pass1 = new String(password1U);
                 String pass2 = new String(password2U);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String dt;
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  //calendario per l'input della data di nascita dell utente
+                String dt;  //data di nascita dell'utente
 
-                String partitaIVA = regPartitaIVAField.getText();
+                String partitaIVA = regPartitaIVAField.getText(); //partita IVA inserita dall'utente per effettuare la registrazione
 
-
-                if (nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank() || pass1.isBlank() || pass2.isBlank()) {
-                    fieldError.setText("Compilare tutti i campi obbligatori");
-                    fieldError.setVisible(true);
-                    frame.setResizable(true);
+                if (nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank() || pass1.isBlank() || pass2.isBlank()) { //controlla se qualche campo obbligatorio è stato lasciato vuoto
+                    fieldError.setText("Compilare tutti i campi obbligatori");  //imposta il testo di un messaggio di errore nella JLabel 'fieldError'
+                    fieldError.setVisible(true);    //rende visibile la JLabel 'fieldError' contenente un messaggio di errore
+                    frame.setResizable(true);   //permette all'utente di modificare le dimensioni del frame
                 } else {
-                    if (pass1.equals(pass2) == false) {
-                        regError.setText("Le password non coincidono");
-                        regError.setVisible(true);
-                        frame.setResizable(true);
+                    if (pass1.equals(pass2) == false) {//controlla se la password scelta dall'utente 'pass1' è diversa da quella ripetuta
+                        regError.setText("Le password non coincidono"); //imposta il testo di un messaggio di errore nella JLabel 'fieldError'
+                        regError.setVisible(true);  //rende visibile la JLabel 'fieldError' contenente un messaggio di errore
+                        frame.setResizable(true);   //permette all'utente di modificare le dimensioni del frame
                     } else {
-                        regError.setVisible(false);
-                        System.out.println(pass1);
+                        regError.setVisible(false); //rende invisibile la JLabel 'regError'
                         JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
+
                         try{
-                          dt = sdf.format(jdc.getDate());
-                        } catch (NullPointerException e1){
+                          dt = sdf.format(jdc.getDate());   //inserisce in 'dt' la data di nascita inserita dall utente
+                        } catch (NullPointerException e1){  //l'eccezione 'e1' si verifica se l'utente non inserisce una data di nascita
                             dt = null;
                         }
-                        controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, pass1, dt, partitaIVA);
-                        //Utente regUser = controller.getUtente(usernameU, pass1);
-                        frameC.setEnabled(true);
-                        HomePage hp = new HomePage(frameC, controller);
-                        frameC.setVisible(false);
-                        hp.frame.setVisible(true);
+
+                        controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, pass1, dt, partitaIVA); //registra un nuovo utente con i dati che ha inserito
+                        frameC.setEnabled(true); //rende visibile il frame chiamante 'frameC'
+                        HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
+                        frameC.setVisible(false); //rende visibile il frame chiamante 'frameC'
+                        hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
                         frame.dispose();
                     }
                 }
