@@ -51,4 +51,11 @@ public class Utente {
     public void  setDataNascita(String nDataNascita){
         dataNascita = nDataNascita;
     }
+
+    public  String getUsername(){return username;}
+    public  String getPartitaIVA(){return partitaIVA;}
+    public  String getPassword(){return password;}
+    public  String getNome(){return nome;}
+    public  String getCognome(){return cognome;}
+    public  String getEmail(){return email;}
 }
