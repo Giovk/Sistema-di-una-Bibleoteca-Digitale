@@ -56,13 +56,12 @@ public class Controller {
         utente = new Utente(us, p, e, n, c, dn, pIVA);
     }
 
-    public  String getUsername(){return utente.username;}
-
-    public  String getPartitaIVA(){return utente.partitaIVA;}
-    public  String getPassword(){return utente.password;}
-    public  String getNome(){return utente.nome;}
-    public  String getCognome(){return utente.cognome;}
-    public  String getEmail(){return utente.email;}
+    public  String getUsername(){return utente.getUsername();}
+    public  String getPartitaIVA(){return utente.getPartitaIVA();}
+    public  String getPassword(){return utente.getPassword();}
+    public  String getNome(){return utente.getNome();}
+    public  String getCognome(){return utente.getCognome();}
+    public  String getEmail(){return utente.getEmail();}
 
 
 
