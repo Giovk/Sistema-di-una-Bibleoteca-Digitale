@@ -13,6 +13,7 @@ public class Controller {
 
     }
 
+    //effettua la registrazione di un nuovo utente
     public void aggiungiUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){
         utente = new Utente(username, password, email, nome, cognome, dataNascita, partitaIVA);
         utente.regUtente(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente in memoria;
@@ -24,7 +25,8 @@ public class Controller {
         return u.validaUtenteDB(userEmail, password);
     }
 
-    public Utente getUtente(String userEmail, String password) {
+    //Il metodo getUtente crea l'Utente, che ha effettuato il login, cercando i suoi dati nel database con password e usename o l'email
+    public void setUtente(String userEmail, String password) {
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
         ResultSet rs = u.getUtenteDB(userEmail, password);
         String us = null;
@@ -51,23 +53,32 @@ public class Controller {
 
         u.chiudiConnessione();
 
-        Utente user = new Utente(us, p, e, n, c, dn, pIVA);
-        return user;
+        utente = new Utente(us, p, e, n, c, dn, pIVA);
     }
 
-    public int[] validaModUtente(String email, String username, String pIva, Utente user){
+    public  String getUsername(){return utente.username;}
+
+    public  String getPartitaIVA(){return utente.partitaIVA;}
+    public  String getPassword(){return utente.password;}
+    public  String getNome(){return utente.nome;}
+    public  String getCognome(){return utente.cognome;}
+    public  String getEmail(){return utente.email;}
+
+
+
+    public int[] validaModUtente(String email, String username, String pIva){
         int[] error = {0, 0, 0, 0};
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
 
-        if(!email.equals(user.email)){
+        if(!email.equals(utente.email)){
             error[0] = u.validaModEmailDB(email);
         }
 
-        if(!username.equals(user.username)){
+        if(!username.equals(utente.username)){
             error[1] = u.validaModUsernameDB(username);
         }
 
-        if(!pIva.equals(user.partitaIVA)){
+        if(!pIva.equals(utente.partitaIVA)){
             error[2] = u.validaModPIVADB(pIva);
         }
 
@@ -76,17 +87,17 @@ public class Controller {
         return error;
     }
 
-    public void modUtente(String email, String nome, String cognome, String username, String password, String partitaIVA, Utente user){
+    public void modUtente(String email, String nome, String cognome, String username, String password, String partitaIVA){
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
 
-        u.modUtenteDB(email, nome, cognome, username, password, partitaIVA, user.username);
+        u.modUtenteDB(email, nome, cognome, username, password, partitaIVA, utente.username);
 
-        user.setEmail(email);
-        user.setNome(nome);
-        user.setCognome(cognome);
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setPartitaIva(partitaIVA);
+        utente.setEmail(email);
+        utente.setNome(nome);
+        utente.setCognome(cognome);
+        utente.setUsername(username);
+        utente.setPassword(password);
+        utente.setPartitaIva(partitaIVA);
 
 
     }
