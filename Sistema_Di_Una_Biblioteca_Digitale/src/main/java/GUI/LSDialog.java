@@ -95,8 +95,10 @@ public class LSDialog extends JDialog {
 
                 if (controller.validaUtente(userEmail, password) >= 1) {
                     frameC.setEnabled(true);
-                    Utente logUser = controller.getUtente(userEmail, password);
-                    HomePage hp = new HomePage(frameC, controller, logUser);
+                    controller.setUtente(userEmail, password);
+                    //Utente logUser = controller.getUtente(userEmail, password);
+                    //HomePage hp = new HomePage(frameC, controller, logUser);
+                    HomePage hp = new HomePage(frameC, controller);
                     frameC.setVisible(false);
                     hp.frame.setVisible(true);
                     frame.dispose();
@@ -138,14 +140,15 @@ public class LSDialog extends JDialog {
                         System.out.println(pass1);
                         JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
                         try{
-                          dt = sdf.format(jdc.getDate());
+                            dt = sdf.format(jdc.getDate());
                         } catch (NullPointerException e1){
                             dt = null;
                         }
                         controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, pass1, dt, partitaIVA);
-                        Utente regUser = controller.getUtente(usernameU, pass1);
+                        //Utente regUser = controller.getUtente(usernameU, pass1);
                         frameC.setEnabled(true);
-                        HomePage hp = new HomePage(frameC, controller, regUser);
+                        //HomePage hp = new HomePage(frameC, controller, regUser);
+                        HomePage hp = new HomePage(frameC, controller);
                         frameC.setVisible(false);
                         hp.frame.setVisible(true);
                         frame.dispose();
