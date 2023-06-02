@@ -1,24 +1,17 @@
 package GUI;
 
-import net.coobird.thumbnailator.Thumbnails;
-
-import javax.imageio.IIOException;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BaseMultiResolutionImage;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class NewLoginForm extends JDialog {
     public static JFrame frame;
     private JPanel contentPane;
     private JLabel imageLabel;
     private JLabel closeBT;
-
+    private JPanel panel1;
+    private JButton button1;
     private ImageIcon imagine;
     private ImageIcon closeImg;
 
@@ -30,6 +23,30 @@ public class NewLoginForm extends JDialog {
             public void mouseClicked(MouseEvent e) {
                 frame.setVisible(false);
                 dispose();
+            }
+        });
+
+
+        button1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                ImageIcon bt1igm = new ImageIcon(this.getClass().getResource("/button-type1.png"));
+                Image resbt1img = bt1igm.getImage().getScaledInstance(150,50, Image.SCALE_SMOOTH);
+                bt1igm = new ImageIcon(resbt1img);
+                button1.setIcon(bt1igm);
+                button1.setForeground(Color.decode("#FFFFFF"));
+            }
+        });
+        button1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                ImageIcon bt1igm = new ImageIcon(this.getClass().getResource("/button-type2.png"));
+                Image resbt1img = bt1igm.getImage().getScaledInstance(150,50, Image.SCALE_SMOOTH);
+                bt1igm = new ImageIcon(resbt1img);
+                button1.setIcon(bt1igm);
+                button1.setForeground(Color.decode("#B8B6B6"));
             }
         });
     }
@@ -49,29 +66,26 @@ public class NewLoginForm extends JDialog {
     private void createUIComponents() {
         // TODO: place custom component creation code here
         imagine = new ImageIcon(this.getClass().getResource("/b.png"));
-        Image imagine2 = imagine.getImage().getScaledInstance(340,94, Image.SCALE_DEFAULT);
+        Image imagine2 = imagine.getImage().getScaledInstance(340,94, Image.SCALE_SMOOTH);
         imagine = new ImageIcon(imagine2);
         imageLabel = new JLabel(imagine);
 
+        button1 = new JButton();
+        button1.setContentAreaFilled(false);
 
-
-        /*BufferedImage bi = null;
-        Graphics2D g2d = null;
-        ImageIcon ii = null;
-        try{
-            ii = new ImageIcon(this.getClass().getResource("/close.png"));
-            bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
-            g2d = (Graphics2D) bi.createGraphics();
-            g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
-            g2d.drawImage(ii.getImage(), 0, 0, 50, 50, null);
-            System.out.println("ciao");
-        } catch (Exception e){
-            e.printStackTrace();
-        }*/
+        button1.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, -1));
+        button1.setMargin(new Insets(0,0,0,0));
+        ImageIcon bt1igm = new ImageIcon(this.getClass().getResource("/button-type1.png"));
+        Image resbt1img = bt1igm.getImage().getScaledInstance(150,50, Image.SCALE_SMOOTH);
+        bt1igm = new ImageIcon(resbt1img);
+        button1.setIcon(bt1igm);
+        button1.setHorizontalTextPosition(JButton.CENTER);
+        button1.setVerticalTextPosition(JButton.CENTER);
+        button1.setForeground(Color.decode("#FFFFFF"));
 
 
         closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine3 = closeImg.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
+        Image imagine3 = closeImg.getImage().getScaledInstance(25,25, Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine3);
         closeBT = new JLabel(closeImg);
     }

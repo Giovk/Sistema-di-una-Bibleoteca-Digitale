@@ -19,10 +19,8 @@ public class HomePage {
 
     private JPopupMenu utenteMenu;
 
-    public HomePage(JFrame frameC, Controller controller, Utente user) {
-        //frameC.setEnabled(true);
-        //frameC.setTitle("Homepage");
-        text1.setText("Ciao " + user.username + ", Sei nella Homepage!");
+    public HomePage(JFrame frameC, Controller controller) {
+        text1.setText("Ciao " + controller.getUsername() + ", Sei nella Homepage!");
         utenteMenu = new JPopupMenu();
         JMenuItem utenteExit = new JMenuItem("Logout");
         JMenuItem utenteProfilo = new JMenuItem("Profilo");
@@ -31,9 +29,9 @@ public class HomePage {
         utenteMenu.add(utenteLibrerie);
         utenteMenu.add(utenteExit);
 
-        if (user.partitaIVA == null) {
+        if (controller.getPartitaIva() == null) {
             utenteLibrerie.setVisible(false);
-            System.out.println(user.partitaIVA);
+            System.out.println(controller.getPartitaIva());
         }
 
         frame = new JFrame("Homepage");
@@ -70,7 +68,7 @@ public class HomePage {
         utenteProfilo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Profilo pf = new Profilo(frameC, controller, user);
+                Profilo pf = new Profilo(frameC, controller);
                 pf.frame.setVisible(true);
                 frame.setVisible(false);
                 frame.dispose();

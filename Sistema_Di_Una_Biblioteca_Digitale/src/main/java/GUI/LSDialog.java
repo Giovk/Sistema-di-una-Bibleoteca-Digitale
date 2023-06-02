@@ -5,12 +5,8 @@ import com.toedter.calendar.JDateChooser;
 import Controller.Controller;
 
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
-import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class LSDialog extends JDialog {
     private JFrame frame;
@@ -95,8 +91,9 @@ public class LSDialog extends JDialog {
 
                 if (controller.validaUtente(userEmail, password) >= 1) {
                     frameC.setEnabled(true);
-                    Utente logUser = controller.getUtente(userEmail, password);
-                    HomePage hp = new HomePage(frameC, controller, logUser);
+                    //Utente logUser = controller.getUtente(userEmail, password);
+                    controller.setUtente(userEmail, password);
+                    HomePage hp = new HomePage(frameC, controller);
                     frameC.setVisible(false);
                     hp.frame.setVisible(true);
                     frame.dispose();
@@ -122,8 +119,6 @@ public class LSDialog extends JDialog {
                 String partitaIVA = regPartitaIVAField.getText();
 
 
-                //System.out.println(emailU + "\n" + nomeU + "\n" + cognomeU + "\n" + usernameU + "\n" + dt + "\n" + partitaIVA);
-
                 if (nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank() || pass1.isBlank() || pass2.isBlank()) {
                     fieldError.setText("Compilare tutti i campi obbligatori");
                     fieldError.setVisible(true);
@@ -143,9 +138,9 @@ public class LSDialog extends JDialog {
                             dt = null;
                         }
                         controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, pass1, dt, partitaIVA);
-                        Utente regUser = controller.getUtente(usernameU, pass1);
+                        //Utente regUser = controller.getUtente(usernameU, pass1);
                         frameC.setEnabled(true);
-                        HomePage hp = new HomePage(frameC, controller, regUser);
+                        HomePage hp = new HomePage(frameC, controller);
                         frameC.setVisible(false);
                         hp.frame.setVisible(true);
                         frame.dispose();
@@ -154,6 +149,5 @@ public class LSDialog extends JDialog {
             }
         });
     }
-
 }
 
