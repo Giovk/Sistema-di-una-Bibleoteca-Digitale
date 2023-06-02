@@ -39,62 +39,58 @@ public class Profilo {
     private JPopupMenu utenteMenu;
 
     public Profilo (JFrame frameC, Controller controller){
-        //homeButton.setBorder(BorderFactory.createEmptyBorder());
         frame = new JFrame("Profilo");
-        frame.setUndecorated(true);
+        frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(profilePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(1280, 720);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
+        frame.setSize(1280, 720);//imposta largezza e altezza del frame
+        frame.setLocationRelativeTo(null); //posiziona il frame al centro dello schermo
+        frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
 
-        annullaButton.setVisible(false);
-        salvaModificheButton.setVisible(false);
-        usernameField.setEnabled(false);
-        nameField.setEnabled(false);
-        cognomeField.setEnabled(false);
-        emailField.setEnabled(false);
-        passwordField1.setEnabled(false);
-        ripPassLabel.setVisible(false);
-        passwordField2.setVisible(false);
-        pIVAField.setEnabled(false);
-        oldPassLabel.setVisible(false);
-        oldPassField.setVisible(false);
-        oldPassNoteLabel.setVisible(false);
+        annullaButton.setVisible(false);    //rende invisibile il JButton 'annullaButton'
+        salvaModificheButton.setVisible(false); //rende invisibile il JButton 'salvaModificheButton'
+        usernameField.setEnabled(false);    //disabilita il JTextField 'usernameField'
+        nameField.setEnabled(false);    //disabilita il JTextField 'nameField'
+        cognomeField.setEnabled(false); //disabilita il JTextField 'cognomeField'
+        emailField.setEnabled(false);   //disabilita il JTextField 'emailField'
+        passwordField1.setEnabled(false); //disabilita il JPasswordField 'passwordField1'
+        ripPassLabel.setVisible(false); //rende invisibile la JLabel 'ripPassLabel'
+        passwordField2.setVisible(false);//rende invisibile il JPasswordField 'passwordField2'
+        pIVAField.setEnabled(false);    //disabilita il JTextField 'pIVAField'
+        oldPassLabel.setVisible(false);     //rende invisibile la JLabel 'oldPassLabel'
+        oldPassField.setVisible(false); //rende invisibile JPasswordField 'oldPassField'
+        oldPassNoteLabel.setVisible(false); //rende invisibile la JLabel 'oldPassNoteLabel'
 
-        usernameErrorLabel.setVisible(false);
-        emailErrorLabel.setVisible(false);
-        partitaivaErrorLabel.setVisible(false);
-        oldPassErrorLabel.setVisible(false);
-        newPassErrorLabel.setVisible(false);
+        usernameErrorLabel.setVisible(false);   //rende invisibile la JLabel 'usernameErrorLabel'
+        emailErrorLabel.setVisible(false);  //rende invisibile la JLabel 'emailErrorLabel'
+        partitaivaErrorLabel.setVisible(false); //rende invisibile la JLabel 'partitaivaErrorLabel'
+        oldPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'oldPassErrorLabel'
+        newPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'newPassErrorLabel'
 
+        usernameField.setText(controller.getUsername()); //imposta il testo di 'usernameField' con l'username dell'utente
+        nameField.setText(controller.getNome());    //imposta il testo di 'nameField' con il nome dell'utente
+        cognomeField.setText(controller.getCognome());  //imposta il testo di 'cognomeField' con il cognome dell'utente
+        emailField.setText(controller.getEmail());  //imposta il testo di 'emailField' con l'email dell'utente
+        passwordField1.setText(controller.getPassword());   //imposta il testo di 'passwordField1' con la password dell'utente
+        pIVAField.setText(controller.getPartitaIva());  //imposta il testo di 'pIVA' con la partita IVA dell'utente
 
-        usernameField.setText(controller.getUsername());
-        nameField.setText(controller.getNome());
-        cognomeField.setText(controller.getCognome());
-        emailField.setText(controller.getEmail());
-        passwordField1.setText(controller.getPassword());
-        pIVAField.setText(controller.getPartitaIva());
+        utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
+        JMenuItem utenteExit = new JMenuItem("Logout"); //crea la voce del menu "Logout"
+        JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
+        utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
+        utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
-
-        utenteMenu = new JPopupMenu();
-        JMenuItem utenteExit = new JMenuItem("Logout");
-        JMenuItem utenteLibrerie = new JMenuItem("Librerie");
-        utenteMenu.add(utenteLibrerie);
-        utenteMenu.add(utenteExit);
-
-        if (controller.getPartitaIva() == null) {
+        if (controller.getPartitaIva() == null) {   //controlla se l utente non ha registrato una partita IVA
             utenteLibrerie.setVisible(false);
-            System.out.println(controller.getPartitaIva());
         }
 
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    utenteMenu.show(utenteButton, utenteButton.getX(), utenteButton.getY() + 25);
+                    utenteMenu.show(utenteButton, utenteButton.getX(), utenteButton.getY() + 25);   //mostra le voci del menu 'utenteMenu'
                 }
             }
         });
@@ -102,41 +98,44 @@ public class Profilo {
         utenteExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frameC.setVisible(true);
-                frame.setVisible(false);
+                frameC.setVisible(true);    //rende visibile il frame chiamante
+                frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
         });
+
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                HomePage hp = new HomePage(frameC, controller);
-                hp.frame.setVisible(true);
-                frame.setVisible(false);
+                HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
+                hp.frame.setVisible(true);  //rende visibile il frame 'hp'
+                frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
         });
+
         modificaDatiUtenteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                modificaDatiUtenteButton.setEnabled(false);
-                salvaModificheButton.setVisible(true);
-                annullaButton.setVisible(true);
-                passwordField2.setVisible(true);
-                ripPassLabel.setVisible(true);
-                oldPassLabel.setVisible(true);
-                oldPassField.setVisible(true);
-                oldPassNoteLabel.setVisible(true);
-                passwordField1.setText("");
+                modificaDatiUtenteButton.setEnabled(false); //abilita il JButton 'modificaDatiUtenteButton'
+                salvaModificheButton.setVisible(true);  //rende visibile il JButton 'salvaModificheButton'
+                annullaButton.setVisible(true); //rende visibile il JButton 'annullaButton'
+                passwordField2.setVisible(true);    //rende visibile il JPasswordField 'passwordField2'
+                ripPassLabel.setVisible(true);  //rende visibile la JLabel 'ripPassLabel'
+                oldPassLabel.setVisible(true);  //rende visibile la JLabel 'oldPassLabel'
+                oldPassField.setVisible(true);  //rende visibile il JPasswordLabel 'oldPassField'
+                oldPassNoteLabel.setVisible(true);  //rende visibile la JLabel 'oldPassNoteLabel'
+                passwordField1.setText(""); //imposta il testo del JPasswordField alla stringa vuota
 
-                usernameField.setEnabled(true);
-                nameField.setEnabled(true);
-                cognomeField.setEnabled(true);
-                emailField.setEnabled(true);
-                passwordField1.setEnabled(true);
-                pIVAField.setEnabled(true);
+                usernameField.setEnabled(true); //abilita il JTextField 'usernameField'
+                nameField.setEnabled(true); //abilita il JTextField 'nameField'
+                cognomeField.setEnabled(true);  //abilita il JTextField 'cognomeField'
+                emailField.setEnabled(true);    //abilita il JTextField 'emailField'
+                passwordField1.setEnabled(true);    //abilita il JTextField 'passwordField'
+                pIVAField.setEnabled(true); //abilita il JTextField 'pIVAField'
             }
         });
+
         annullaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
