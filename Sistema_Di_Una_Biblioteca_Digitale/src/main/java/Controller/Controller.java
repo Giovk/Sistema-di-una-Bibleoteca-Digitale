@@ -13,13 +13,14 @@ public class Controller {
 
     }
 
-    public void aggiungiUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){
-        utente = new Utente(username, password, email, nome, cognome, dataNascita, partitaIVA);
-        utente.regUtente(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente in memoria;
+    public void aggiungiUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){ //aggiunge un nuovo utente nel database e in memoria
+        utente = new Utente(username, password, email, nome, cognome, dataNascita, partitaIVA); // Registra il nuovo utente in memoria
+        //utente.regUtente(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente in memoria
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
-        u.addUtenteDB(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente nel DB;
+        u.addUtenteDB(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente nel DB
     }
-    public int validaUtente(String userEmail, String password){
+
+    public int validaUtente(String userEmail, String password){//conta il numero di utenti registrati con username o email 'userMail' e con password 'password'
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
         return u.validaUtenteDB(userEmail, password);
     }
