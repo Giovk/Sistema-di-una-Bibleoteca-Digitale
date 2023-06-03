@@ -26,41 +26,39 @@ public class Utente {
     }
     public void setEmail(String nEmail){
         email = nEmail;
-    }
+    }   //imposta l'email dell'utente
 
-    public void setNome(String nNome){
-        nome = nNome;
-    }
+    public void setNome(String nNome){nome = nNome;}    //imposta il nome dell'utente
 
     public void setCognome(String nCognome){
         cognome = nCognome;
-    }
+    }   //imposta il cognome dell'utente
 
     public void setUsername(String nUsername){
         username = nUsername;
-    }
+    }   //imposta l'username dell'utente
 
     public void setPassword(String nPassword){
         password = nPassword;
-    }
+    }   //imposta la password dell'utente
 
     public void setPartitaIva(String nPartitaIVA){
         partitaIVA = nPartitaIVA;
-    }
+    }   //imposta la partita IVA dell'utente
 
-    public void  setDataNascita(String nDataNascita){dataNascita = nDataNascita;}
+    public void  setDataNascita(String nDataNascita){dataNascita = nDataNascita;}   //imposra la data di nascita dell'utente
 
-    public String getUsername(){return username;}
+    public String getUsername(){return username;}   //ritorna l'username dell'utente
 
-    public String getNome(){return nome;}
+    public String getNome(){return nome;}   //ritorna il nome dell'utente
 
-    public String getCognome(){return cognome;}
+    public String getCognome(){return cognome;} //ritorna il cognome dell'utente
 
-    public String getEmail(){return email;}
+    public String getEmail(){return email;} //ritorna l'email dell'utente
 
-    public String getPartitaIVA(){return partitaIVA;}
+    public String getPartitaIVA(){return partitaIVA;}   //ritorna la partita IVA dell'utente
 
-    public String getPassword(){return password;}
+    public String getPassword(){return password;}   //ritorna la password dell'utente
 
-    public String getDataNascita(){return dataNascita;}
+    public String getDataNascita(){return dataNascita;} //ritorna la data di nascita dell'utente
 }
