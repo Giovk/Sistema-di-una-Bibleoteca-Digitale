@@ -25,7 +25,7 @@ public class Controller {
         return u.validaUtenteDB(userEmail, password);
     }
 
-    public void setUtente(String userEmail, String password) { //prende in input un usernamo o una mail e una password per cercare nel DB un utente con queste credenziali e poi lo carica in memoria
+    public void setUtente(String userEmail, String password) { //prende in input un username o un'email e una password per cercare nel DB un utente con queste credenziali e poi lo carica in memoria
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
         ResultSet rs = u.getUtenteDB(userEmail, password);  //cerca nel DB un utente con 'userEmail' e 'password'
         String us = null;
