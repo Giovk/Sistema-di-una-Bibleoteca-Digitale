@@ -5,6 +5,7 @@ import com.toedter.calendar.JDateChooser;
 import Controller.Controller;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 
@@ -41,6 +42,10 @@ public class LSDialog extends JDialog {
         LSTabbedPane.setSelectedIndex(n); //seleziona il JPanel con indice 'n' (n=0 => JPanel 'loginJPanel', n=1 => JPanel 'registerJPanel')
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
+        ImageIcon ico1 = new ImageIcon(this.getClass().getResource("/b.png"));
+        Image img1 = ico1.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
+        ico1 = new ImageIcon(img1);
+        LSTabbedPane.setIconAt(0, ico1);
         frame.setLocationRelativeTo(null);//posiziona il frame al centro dello schermo
         frame.setResizable(false);//evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
@@ -147,6 +152,16 @@ public class LSDialog extends JDialog {
                 }
             }
         });
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        /*LSTabbedPane = new JTabbedPane();
+        ImageIcon ico1 = new ImageIcon(this.getClass().getResource("/b.png"));
+        Image img1 = ico1.getImage().getScaledInstance(300,169, Image.SCALE_SMOOTH);
+        ico1 = new ImageIcon(img1);
+        LSTabbedPane.setIconAt(0, ico1);*/
+        //LSTabbedPane.setIconAt(0, ico1);
     }
 }
 

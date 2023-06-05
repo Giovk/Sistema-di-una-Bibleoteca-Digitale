@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.LSForm">
-  <grid id="27dc6" binding="lsPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="lsPanel" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="439" y="177" width="1934" height="1199"/>
     </constraints>
     <properties>
-      <background color="-14207155"/>
+      <background color="-14538702"/>
       <opaque value="true"/>
     </properties>
     <border type="none"/>
     <children>
-      <component id="a8e23" class="javax.swing.JLabel" binding="image">
+      <component id="a8e23" class="javax.swing.JLabel" binding="image" custom-create="true">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="1" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="1" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <icon value="b.png"/>
           <text value=""/>
         </properties>
       </component>
-      <vspacer id="4c317">
+      <component id="ccf91" class="javax.swing.JLabel" binding="txtPF" custom-create="true">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </vspacer>
-      <component id="ad740" class="javax.swing.JButton" binding="btLogin">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-2234643"/>
-          <foreground color="-11375230"/>
-          <text value="Login"/>
-        </properties>
-      </component>
-      <component id="c74e7" class="javax.swing.JButton" binding="btSignUp">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-2234643"/>
-          <borderPainted value="true"/>
-          <contentAreaFilled value="true"/>
-          <focusPainted value="true"/>
-          <foreground color="-11375230"/>
-          <text value="SignUp"/>
-        </properties>
-      </component>
-      <component id="ccf91" class="javax.swing.JLabel" binding="txtPF">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <foreground color="-2234643"/>
+          <foreground color="-1118482"/>
           <text value="Hai dimenticato la password?"/>
         </properties>
       </component>
+      <component id="7a98c" class="javax.swing.JButton" binding="btSignIn" custom-create="true">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Bebas Neue" size="25" style="0"/>
+          <foreground color="-1"/>
+          <text value="Login"/>
+        </properties>
+      </component>
+      <component id="8ed3f" class="javax.swing.JButton" binding="btSignUp" custom-create="true">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Bebas Neue" size="25" style="0"/>
+          <foreground color="-1"/>
+          <text value="SignIn"/>
+        </properties>
+      </component>
+      <vspacer id="b6ae0">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="39187">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
     </children>
   </grid>
 </form>
