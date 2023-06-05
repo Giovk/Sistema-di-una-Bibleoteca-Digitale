@@ -220,7 +220,7 @@
 											"top": 281,
 											"width": 134.037109375,
 											"height": 13,
-											"text": "+DataNascita: Date[1]",
+											"text": "+DataNascita: String[1]",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7339,7 +7339,7 @@
 								"$ref": "AAAAAAGHXU5CLX2uQzU="
 							},
 							"name": "DataNascita",
-							"type": "Date",
+							"type": "String",
 							"multiplicity": "1"
 						},
 						{
