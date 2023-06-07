@@ -145,7 +145,7 @@ public class LSDialog extends JDialog {
                         controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, pass1, dt, partitaIVA); //registra un nuovo utente con i dati che ha inserito
                         frameC.setEnabled(true); //rende visibile il frame chiamante 'frameC'
                         HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
-                        frameC.setVisible(false); //rende visibile il frame chiamante 'frameC'
+                        frameC.setVisible(false); //rende invisibile il frame chiamante 'frameC'
                         hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
                         frame.dispose();
                     }
