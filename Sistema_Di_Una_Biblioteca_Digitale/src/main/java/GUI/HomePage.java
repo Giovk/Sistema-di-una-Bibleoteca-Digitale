@@ -83,13 +83,14 @@ public class HomePage {
                 frame.dispose();
             }
         });
+
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                BooksPage bp = new BooksPage(frameC, controller);
-                bp.frame.setVisible(true);
-                frame.setVisible(false);
+                BooksPage bp = new BooksPage(frameC, controller);   //chiama il frame 'bp'
+                bp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
         });
