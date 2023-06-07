@@ -47,6 +47,7 @@ public class LSForm {
 
             }
         });
+
         btSignIn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -60,7 +61,6 @@ public class LSForm {
             }
         });
 
-
         btSignUp.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -73,6 +73,7 @@ public class LSForm {
 
             }
         });
+
         btSignUp.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -84,6 +85,7 @@ public class LSForm {
                 btSignUp.setForeground(Color.decode("#D6D4D4"));
             }
         });
+
         txtPF.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -91,6 +93,7 @@ public class LSForm {
                 txtPF.setForeground(Color.decode("#D6D4D4"));
             }
         });
+
         txtPF.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -106,7 +109,7 @@ public class LSForm {
         frame.setContentPane(new LSForm().lsPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(1280, 720);   //imposta largezza e altezza del frame
+        frame.setSize(1280, 720);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
