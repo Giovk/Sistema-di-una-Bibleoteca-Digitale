@@ -1,19 +1,17 @@
 package ImplementazionePostgresDAO;
 
-import DAO.LibroDAO;
+import DAO.AutoreDAO;
 import Database.ConnessioneDatabase;
 
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LibroImplementazionePostgresDAO implements LibroDAO {
-
+public class AutoreImplementazionePostgresDAO implements AutoreDAO{
     private Connection connection;
 
-    public LibroImplementazionePostgresDAO() {
+    public AutoreImplementazionePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;
         } catch (SQLException var2) {
@@ -22,19 +20,18 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
     }
 
     @Override
-    public ResultSet getLibriDB() {
-        ResultSet rs = null; //utente con 'userEmail' e 'password' trovato
+    public ResultSet getAutoriLibroDB(){
+        ResultSet rs = null;
 
         try {
-            PreparedStatement getLibriPS = connection.prepareStatement(
-                    "SELECT * FROM libro"
+            PreparedStatement getAutoriLibroPS = connection.prepareStatement(
+                    "SELECT * FROM autore NATURAL JOIN scrittura_l"
             );
 
-            rs = getLibriPS.executeQuery(); //esegue la query
+            rs = getAutoriLibroPS.executeQuery(); //esegue la query
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
-
 
         return rs;
     }

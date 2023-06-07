@@ -1,7 +1,11 @@
 package Controller;
 
+import DAO.AutoreDAO;
+import DAO.CollanaDAO;
 import DAO.LibroDAO;
 import DAO.UtenteDAO;
+import ImplementazionePostgresDAO.AutoreImplementazionePostgresDAO;
+import ImplementazionePostgresDAO.CollanaImplementazionePostgresDAO;
 import ImplementazionePostgresDAO.LibroImplementazionePostgresDAO;
 import ImplementazionePostgresDAO.UtenteImplementazionePostgresDAO;
 import Model.Libro;
@@ -212,5 +216,63 @@ public class Controller {
 
         l.chiudiConnessione();
         return dp;
+    }
+
+    public ResultSet getAutoriLibro() {
+        AutoreDAO a = new AutoreImplementazionePostgresDAO();
+        ResultSet rs = a.getAutoriLibroDB();
+
+        return rs;
+    }
+
+    public ArrayList<String> getAutoriLibroNome(){
+        AutoreDAO a = new AutoreImplementazionePostgresDAO();
+        ResultSet autori = a.getAutoriLibroDB();
+        ArrayList<String> nome = new ArrayList<String>();
+
+        try {
+            while(autori.next()){
+                nome.add(autori.getString("nome"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        a.chiudiConnessione();
+        return nome;
+    }
+
+    public ArrayList<String> getAutoriLibroCognome(){
+        AutoreDAO a = new AutoreImplementazionePostgresDAO();
+        ResultSet autori = a.getAutoriLibroDB();
+        ArrayList<String> cognome = new ArrayList<String>();
+
+        try {
+            while(autori.next()){
+                cognome.add(autori.getString("cognome"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        a.chiudiConnessione();
+        return cognome;
+    }
+
+    public ArrayList<String> getCollanaNome(){
+        CollanaDAO c = new CollanaImplementazionePostgresDAO();
+        ResultSet collane = c.getCollanaDB();
+        ArrayList<String> nome = new ArrayList<String>();
+
+        try {
+            while(collane.next()){
+                nome.add(collane.getString("nome"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        c.chiudiConnessione();
+        return nome;
     }
 }

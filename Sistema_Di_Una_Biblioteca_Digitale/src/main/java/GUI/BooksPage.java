@@ -36,6 +36,9 @@ public class BooksPage {
         ArrayList<String> linguaList = controller.getLibriLingua();
         ArrayList<String> editoreList = controller.getLibriEditore();
         ArrayList<String> dataPubblicazioneList = controller.getLibriDataPubblicazione();
+        ArrayList<String> autoreNomeList = controller.getAutoriLibroNome();
+        ArrayList<String> autoreCognomeList = controller.getAutoriLibroCognome();
+        ArrayList<String> collanaList = controller.getCollanaNome();
 
 
         frame = new JFrame("Biblioteca Digitale");
@@ -51,6 +54,19 @@ public class BooksPage {
 
         genereCB.setModel(new DefaultComboBoxModel<String>(distinctGenereList.toArray(new String[distinctGenereList.size()])));
         genereCB.setSelectedIndex(-1);
+
+        ArrayList<String> linkAutoreList = new ArrayList<String>();
+        ArrayList<String> distinctAutoreList = new ArrayList<String>();
+        for (int i = 0; i < autoreNomeList.size(); i++){
+            linkAutoreList.add(autoreNomeList.get(i) + " " + autoreCognomeList.get(i));
+            if(!distinctAutoreList.contains(linkAutoreList.get(i))) distinctAutoreList.add(linkAutoreList.get(i));
+        }
+
+        autoreCB.setModel(new DefaultComboBoxModel<String>(distinctAutoreList.toArray(new String[distinctAutoreList.size()])));
+        autoreCB.setSelectedIndex(-1);
+
+        collanaCB.setModel(new DefaultComboBoxModel<String>(collanaList.toArray(new String[collanaList.size()])));
+        collanaCB.setSelectedIndex(-1);
 
         booksTable.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "Genere", "Lingua", "Editore", "Data di pubblicazione"}));
         DefaultTableModel model = (DefaultTableModel) booksTable.getModel();
