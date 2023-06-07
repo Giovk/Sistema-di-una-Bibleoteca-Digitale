@@ -1,5 +1,6 @@
 package ImplementazionePostgresDAO;
 
+import DAO.LibroDAO;
 import Database.ConnessioneDatabase;
 
 import javax.swing.*;
@@ -8,31 +9,45 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LibroImplementazionePostgresDAO {
+public class LibroImplementazionePostgresDAO implements LibroDAO {
 
     private Connection connection;
 
-    public LibroImplementazionePostgresDAO(){
+    public LibroImplementazionePostgresDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().connection;
-        }
-        catch (SQLException var2){
+        } catch (SQLException var2) {
             var2.printStackTrace();
         }
     }
 
-    public void printLibri(JTextArea book){
+    @Override
+    public ResultSet getLibriDB() {
+        ResultSet rs = null; //utente con 'userEmail' e 'password' trovato
+
         try {
-            PreparedStatement query = this.connection.prepareStatement("SELECT * FROM LIBRO");
-            ResultSet rs = query.executeQuery();
-            while (rs.next()){
-                book.append(rs.getString("Titolo")+"\n");
-            }
-            rs.close();
-            this.connection.close();
-        } catch (SQLException var6){
-            var6.printStackTrace();
+            PreparedStatement validaUtentePS = connection.prepareStatement(
+                    "SELECT * FROM libro"
+            );
+
+            rs = validaUtentePS.executeQuery(); //esegue la query
+        } catch (SQLException var2) {
+            var2.printStackTrace();
         }
 
+
+        return rs;
     }
+
+    @Override
+    public void chiudiConnessione(){    //chiude la connessione al DB
+        try{
+            if (connection != null && !connection.isClosed()){
+                connection.close();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -1,18 +1,25 @@
 package Controller;
 
+import DAO.LibroDAO;
 import DAO.UtenteDAO;
+import ImplementazionePostgresDAO.LibroImplementazionePostgresDAO;
 import ImplementazionePostgresDAO.UtenteImplementazionePostgresDAO;
+import Model.Libro;
 import Model.Utente;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Controller {
     private  Utente utente;
+    private  ArrayList<Libro> libri = new ArrayList<Libro>();
     public Controller(){
 
     }
 
+
+    // UTENTE //
     public void aggiungiUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){ //aggiunge un nuovo utente nel database e in memoria
         utente = new Utente(username, password, email, nome, cognome, dataNascita, partitaIVA); // Registra il nuovo utente in memoria
         //utente.regUtente(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente in memoria
@@ -96,4 +103,114 @@ public class Controller {
     public String getPassword(){return utente.getPassword();}   //ritorna la password dell'utente
     public String getPartitaIva(){return utente.getPartitaIVA();}   //ritorna la partita IVA dell'utente
     public String getDataNascita(){return utente.getDataNascita();} //ritorna la data di nascita dell'utente
+
+    // LIBRO //
+
+    public ResultSet getLibri() {
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ResultSet rs = l.getLibriDB();
+
+        return rs;
+    }
+    public ArrayList<String> getLibriISBN(){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ResultSet libri = getLibri();
+        ArrayList<String> isbn = new ArrayList<String>();
+
+        try {
+            while(libri.next()){
+                isbn.add(libri.getString("isbn"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        l.chiudiConnessione();
+        return isbn;
+    }
+
+    public ArrayList<String> getLibriTitolo(){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ResultSet libri = getLibri();
+        ArrayList<String> titolo = new ArrayList<String>();
+
+        try {
+            while(libri.next()){
+                titolo.add(libri.getString("titolo"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        l.chiudiConnessione();
+        return titolo;
+    }
+
+    public ArrayList<String> getLibriGenere(){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ResultSet libri = getLibri();
+        ArrayList<String> genere = new ArrayList<String>();
+
+        try {
+            while(libri.next()){
+                genere.add(libri.getString("genere"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        l.chiudiConnessione();
+        return genere;
+    }
+
+    public ArrayList<String> getLibriLingua(){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ResultSet libri = getLibri();
+        ArrayList<String> lingua = new ArrayList<String>();
+
+        try {
+            while(libri.next()){
+                lingua.add(libri.getString("lingua"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        l.chiudiConnessione();
+        return lingua;
+    }
+
+    public ArrayList<String> getLibriEditore(){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ResultSet libri = getLibri();
+        ArrayList<String> editore = new ArrayList<String>();
+
+        try {
+            while(libri.next()){
+                editore.add(libri.getString("editore"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        l.chiudiConnessione();
+        return editore;
+    }
+
+    public ArrayList<String> getLibriDataPubblicazione(){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ResultSet libri = getLibri();
+        ArrayList<String> dp = new ArrayList<String>();
+
+        try {
+            while(libri.next()){
+                dp.add(libri.getString("datapubblicazione"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        l.chiudiConnessione();
+        return dp;
+    }
 }
