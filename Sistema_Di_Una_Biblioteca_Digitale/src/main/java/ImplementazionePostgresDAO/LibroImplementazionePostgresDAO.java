@@ -22,19 +22,18 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
     }
 
     @Override
-    public ResultSet getLibriDB() {
-        ResultSet rs = null; //utente con 'userEmail' e 'password' trovato
+    public ResultSet getLibriDB() { //ritorna i dati di tutti i libri nel DB
+        ResultSet rs = null; //libri trovati
 
         try {
             PreparedStatement getLibriPS = connection.prepareStatement(
-                    "SELECT * FROM libro"
+                    "SELECT * FROM libro"   //prepara la query che cerca tutti i libri
             );
 
             rs = getLibriPS.executeQuery(); //esegue la query
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
-
 
         return rs;
     }
