@@ -20,12 +20,12 @@ public class CollanaImplementazionePostgresDAO implements CollanaDAO {
     }
 
     @Override
-    public ResultSet getCollanaDB(){
-        ResultSet rs = null;
+    public ResultSet getCollanaDB(){    //ritorna i dati di tutte le collane nel DB
+        ResultSet rs = null;    //collane trovate
 
         try {
             PreparedStatement getCollanaPS = connection.prepareStatement(
-                    "SELECT * FROM collana"
+                    "SELECT * FROM collana" //prepara la query che cerca tutte le collane
             );
 
             rs = getCollanaPS.executeQuery(); //esegue la query
