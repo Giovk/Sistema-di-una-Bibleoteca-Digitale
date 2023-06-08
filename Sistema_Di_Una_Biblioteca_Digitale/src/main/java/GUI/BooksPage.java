@@ -5,6 +5,7 @@ import Controller.Controller;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,6 +29,8 @@ public class BooksPage {
     private JPanel jpanel2;
     private JPanel jpanel3;
     private JPanel jpanel;
+    private JLabel resetFiltriLabel;
+
 
     public BooksPage(JFrame frameC, Controller controller){
         ArrayList<String> isbnList = controller.getLibriISBN(); //ISBN di tutti i libri nel DB
@@ -40,12 +43,15 @@ public class BooksPage {
         ArrayList<String> autoreCognomeList = controller.getAutoriLibroCognome();   //cognomi di tutti gli autori dei libti nel DB
         ArrayList<String> collanaList = controller.getCollanaNome();    //collane di libri nel DB
 
-
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(jpanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+
+        collanaCB.setEnabled(false);
+        genereCB.setEnabled(false);
+        autoreCB.setEnabled(false);
 
         ArrayList<String> distinctGenereList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
 
@@ -85,16 +91,71 @@ public class BooksPage {
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
 
+        genereRB.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    genereCB.setEnabled(true);
+                    collanaCB.setSelectedIndex(-1);
+                    collanaCB.setEnabled(false);
+                    autoreCB.setSelectedIndex(-1);
+                    autoreCB.setEnabled(false);
+                }
+                else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    genereCB.setSelectedIndex(-1);
+                    genereCB.setEnabled(false);
+                }
+            }
+        });
+        resetFiltriLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                groupRB.clearSelection();
+            }
+        });
+        collanaRB.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    collanaCB.setEnabled(true);
+                    genereCB.setSelectedIndex(-1);
+                    genereCB.setEnabled(false);
+                    autoreCB.setSelectedIndex(-1);
+                    autoreCB.setEnabled(false);
+                }
+                else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    collanaCB.setSelectedIndex(-1);
+                    collanaCB.setEnabled(false);
+                }
+            }
+        });
+        autoreRB.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    autoreCB.setEnabled(true);
+                    genereCB.setSelectedIndex(-1);
+                    genereCB.setEnabled(false);
+                    collanaCB.setSelectedIndex(-1);
+                    collanaCB.setEnabled(false);
+                }
+                else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    autoreCB.setSelectedIndex(-1);
+                    autoreCB.setEnabled(false);
+                }
+            }
+        });
     }
         private void createUIComponents () {
             // TODO: place custom component creation code here
-            collanaRB = new JRadioButton();
-            autoreRB = new JRadioButton();
-            genereRB = new JRadioButton();
             groupRB = new ButtonGroup();
-            groupRB.add(collanaRB);
+            genereRB = new JRadioButton();
+            autoreRB = new JRadioButton();
+            collanaRB = new JRadioButton();
             groupRB.add(genereRB);
             groupRB.add(autoreRB);
+            groupRB.add(collanaRB);
 
 
             ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/search.png"));

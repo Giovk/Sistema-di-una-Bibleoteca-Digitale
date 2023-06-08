@@ -8,7 +8,6 @@ import ImplementazionePostgresDAO.AutoreImplementazionePostgresDAO;
 import ImplementazionePostgresDAO.CollanaImplementazionePostgresDAO;
 import ImplementazionePostgresDAO.LibroImplementazionePostgresDAO;
 import ImplementazionePostgresDAO.UtenteImplementazionePostgresDAO;
-import Model.Libro;
 import Model.Utente;
 
 import java.sql.ResultSet;

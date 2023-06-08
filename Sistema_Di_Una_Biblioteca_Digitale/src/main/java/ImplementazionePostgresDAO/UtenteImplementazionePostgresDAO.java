@@ -3,11 +3,7 @@ package ImplementazionePostgresDAO;
 import DAO.UtenteDAO;
 import Database.ConnessioneDatabase;
 
-import java.lang.reflect.Type;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class UtenteImplementazionePostgresDAO implements UtenteDAO {
     private Connection connection;

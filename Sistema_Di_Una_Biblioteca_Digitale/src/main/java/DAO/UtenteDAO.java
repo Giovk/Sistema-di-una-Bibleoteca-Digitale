@@ -1,7 +1,5 @@
 package DAO;
 
-import Model.Utente;
-
 import java.sql.ResultSet;
 
 public interface UtenteDAO {
