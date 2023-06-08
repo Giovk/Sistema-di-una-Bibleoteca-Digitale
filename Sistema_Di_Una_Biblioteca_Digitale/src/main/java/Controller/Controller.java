@@ -223,55 +223,55 @@ public class Controller {
         return rs;
     }
 
-    public ArrayList<String> getAutoriLibroNome(){
+    public ArrayList<String> getAutoriLibroNome(){  //ritorna i nomi tutti gli autori di libri
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
-        ResultSet autori = a.getAutoriLibroDB();
-        ArrayList<String> nome = new ArrayList<String>();
+        ResultSet autori = a.getAutoriLibroDB();    //contiene tutti gli autori
+        ArrayList<String> nome = new ArrayList<String>();   //contiene tutti i nomi degli autori di libri
 
         try {
-            while(autori.next()){
-                nome.add(autori.getString("nome"));
+            while(autori.next()){   //scorre il ResultSet 'autori' contente gli autori di libri
+                nome.add(autori.getString("nome")); //aggiunge i nomi degli autori dei libri in 'nome'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
 
-        a.chiudiConnessione();
+        a.chiudiConnessione();  //chiude la connessione con il DB
         return nome;
     }
 
-    public ArrayList<String> getAutoriLibroCognome(){
+    public ArrayList<String> getAutoriLibroCognome(){   //ritorna i cognomi tutti gli autori di libri
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
-        ResultSet autori = a.getAutoriLibroDB();
-        ArrayList<String> cognome = new ArrayList<String>();
+        ResultSet autori = a.getAutoriLibroDB();    //contiene tutti gli autori
+        ArrayList<String> cognome = new ArrayList<String>();    //contiene tutti i cognomi degli autori di libri
 
         try {
-            while(autori.next()){
-                cognome.add(autori.getString("cognome"));
+            while(autori.next()){   //scorre il ResultSet 'autori' contente gli autori di libri
+                cognome.add(autori.getString("cognome"));   //aggiunge i cognomi degli autori dei libri in 'cognome'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
 
-        a.chiudiConnessione();
+        a.chiudiConnessione();  //chiude la connessione con il DB
         return cognome;
     }
 
     // COLLANA //
-    public ArrayList<String> getCollanaNome(){
+    public ArrayList<String> getCollanaNome(){  //ritorna tutti i nomi delle collane
         CollanaDAO c = new CollanaImplementazionePostgresDAO();
-        ResultSet collane = c.getCollanaDB();
-        ArrayList<String> nome = new ArrayList<String>();
+        ResultSet collane = c.getCollanaDB();   //contiene tutte le collane
+        ArrayList<String> nome = new ArrayList<String>();   //contiene tutti i nomi delle collane
 
         try {
-            while(collane.next()){
-                nome.add(collane.getString("nome"));
+            while(collane.next()){  //scorre il ResultSet 'collane' contente le collane
+                nome.add(collane.getString("nome"));    //aggiunge i nomi delle collane in 'nome'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
 
-        c.chiudiConnessione();
+        c.chiudiConnessione();  //chiude la connessione con il DB
         return nome;
     }
 }
