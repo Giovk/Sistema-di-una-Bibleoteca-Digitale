@@ -49,9 +49,9 @@ public class BooksPage {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
 
-        collanaCB.setEnabled(false);
-        genereCB.setEnabled(false);
-        autoreCB.setEnabled(false);
+        collanaCB.setEnabled(false);    //disabilita il JComboBox 'collanaCB'
+        genereCB.setEnabled(false); //disabilita il JComboBox 'genereCB'
+        autoreCB.setEnabled(false); //disabilita il JComboBox 'autoreCB'
 
         ArrayList<String> distinctGenereList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
 
@@ -94,74 +94,77 @@ public class BooksPage {
         genereRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    genereCB.setEnabled(true);
-                    collanaCB.setSelectedIndex(-1);
-                    collanaCB.setEnabled(false);
-                    autoreCB.setSelectedIndex(-1);
-                    autoreCB.setEnabled(false);
+                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'genereRB'
+                    genereCB.setEnabled(true);  //abilita 'genereCB'
+                    collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
+                    collanaCB.setEnabled(false);    //disabilita 'collanaCB'
+                    autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
+                    autoreCB.setEnabled(false); //disabilita 'autoreCB'
                 }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    genereCB.setSelectedIndex(-1);
-                    genereCB.setEnabled(false);
+                else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'genereRB'
+                    genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
+                    genereCB.setEnabled(false); //disabilita 'genereCB'
                 }
             }
         });
+
         resetFiltriLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                groupRB.clearSelection();
+                groupRB.clearSelection();   //deseleziona tutti i JRadioButton del ButtonGroup 'groupRB'
             }
         });
+
         collanaRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    collanaCB.setEnabled(true);
-                    genereCB.setSelectedIndex(-1);
-                    genereCB.setEnabled(false);
-                    autoreCB.setSelectedIndex(-1);
-                    autoreCB.setEnabled(false);
+                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'collanaRB'
+                    collanaCB.setEnabled(true); //abilita 'collanaCB'
+                    genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
+                    genereCB.setEnabled(false); //disabilita 'genereCB'
+                    autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
+                    autoreCB.setEnabled(false); //disabilita 'autoreCB'
                 }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    collanaCB.setSelectedIndex(-1);
-                    collanaCB.setEnabled(false);
+                else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
+                    collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
+                    collanaCB.setEnabled(false);    //disabilita 'collanaCB'
                 }
             }
         });
+
         autoreRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    autoreCB.setEnabled(true);
-                    genereCB.setSelectedIndex(-1);
-                    genereCB.setEnabled(false);
-                    collanaCB.setSelectedIndex(-1);
-                    collanaCB.setEnabled(false);
+                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'autoreRB'
+                    autoreCB.setEnabled(true);  //abilita 'autoreCB'
+                    genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
+                    genereCB.setEnabled(false); //disabilita 'genereCB'
+                    collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
+                    collanaCB.setEnabled(false);    //disabilita 'collanaCB'
                 }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    autoreCB.setSelectedIndex(-1);
-                    autoreCB.setEnabled(false);
+                else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
+                    autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
+                    autoreCB.setEnabled(false); //disabilita 'autoreCB'
                 }
             }
         });
     }
-        private void createUIComponents () {
-            // TODO: place custom component creation code here
-            groupRB = new ButtonGroup();
-            genereRB = new JRadioButton();
-            autoreRB = new JRadioButton();
-            collanaRB = new JRadioButton();
-            groupRB.add(genereRB);
-            groupRB.add(autoreRB);
-            groupRB.add(collanaRB);
 
+    private void createUIComponents () {
+        // TODO: place custom component creation code here
+        groupRB = new ButtonGroup();
+        genereRB = new JRadioButton();
+        autoreRB = new JRadioButton();
+        collanaRB = new JRadioButton();
+        groupRB.add(genereRB);
+        groupRB.add(autoreRB);
+        groupRB.add(collanaRB);
 
-            ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/search.png"));
-            Image searchImg = searchIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-            searchIcon = new ImageIcon(searchImg);
-            searchImage = new JLabel(searchIcon);
+        ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/search.png"));
+        Image searchImg = searchIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        searchIcon = new ImageIcon(searchImg);
+        searchImage = new JLabel(searchIcon);
 
-        }
     }
+}
