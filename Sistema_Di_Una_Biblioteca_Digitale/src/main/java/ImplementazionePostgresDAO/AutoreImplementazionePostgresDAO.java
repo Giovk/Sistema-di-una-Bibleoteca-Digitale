@@ -20,12 +20,12 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
     }
 
     @Override
-    public ResultSet getAutoriLibroDB(){
-        ResultSet rs = null;
+    public ResultSet getAutoriLibroDB(){    //ritorna i dati di tutti gli autori di libri nel DB
+        ResultSet rs = null;    //autori di libri trovati
 
         try {
             PreparedStatement getAutoriLibroPS = connection.prepareStatement(
-                    "SELECT * FROM autore NATURAL JOIN scrittura_l"
+                    "SELECT * FROM autore NATURAL JOIN scrittura_l" //prepara la query che cerca tutti gli autori di libri
             );
 
             rs = getAutoriLibroPS.executeQuery(); //esegue la query
