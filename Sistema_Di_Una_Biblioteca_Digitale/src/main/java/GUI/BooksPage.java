@@ -42,6 +42,7 @@ public class BooksPage {
         ArrayList<String> autoreNomeList = controller.getAutoriLibroNome(); //nomi di tutti gli autori dei libti nel DB
         ArrayList<String> autoreCognomeList = controller.getAutoriLibroCognome();   //cognomi di tutti gli autori dei libti nel DB
         ArrayList<String> collanaList = controller.getCollanaNome();    //collane di libri nel DB
+        ArrayList<String> autoriList = controller.getLibroAutori();
 
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //abilita le decorazioni del frame
@@ -77,12 +78,12 @@ public class BooksPage {
         collanaCB.setModel(new DefaultComboBoxModel<String>(collanaList.toArray(new String[collanaList.size()])));  //inserisce tutti gli elementi di 'collanaList' come voci del JComboBox 'collanaCB'
         collanaCB.setSelectedIndex(-1); //permette di avere 'collanaCB' non selezionato
 
-        booksTable.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "Genere", "Lingua", "Editore", "Data di pubblicazione"}));
+        booksTable.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "Autori","Genere", "Lingua", "Editore", "Data di pubblicazione"}));
         DefaultTableModel model = (DefaultTableModel) booksTable.getModel();
 
-        if (isbnList != null && titoloList != null && genereList != null && linguaList != null && editoreList != null && dataPubblicazioneList != null){
+        if (isbnList != null && titoloList != null && autoriList != null && genereList != null && linguaList != null && editoreList != null && dataPubblicazioneList != null){
             for (int i = 0; i < isbnList.size(); i++){
-                model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
+                model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), autoriList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
             }
         }
 

@@ -1,6 +1,8 @@
 package GUI;
 
 import Model.Utente;
+import com.toedter.calendar.IDateEditor;
+import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import Controller.Controller;
 
@@ -8,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LSDialog extends JDialog {
     private JFrame frame;
@@ -30,9 +33,23 @@ public class LSDialog extends JDialog {
     private JLabel regError;
     private JPanel lsdialogPanel;
     private JLabel fieldError;
-    JDateChooser jdc = new JDateChooser();
+    private JCalendar jc;
+    private JDateChooser jdc;
+    private IDateEditor ide;
 
     public LSDialog(int n, JFrame frameC, Controller controller) {
+        Date date = new Date();
+
+        jc = new JCalendar();
+        jc.setWeekOfYearVisible(false);
+        jc.setDecorationBackgroundColor(Color.decode("#FFD369"));
+        jc.setForeground(Color.decode("#EEEEEE"));
+        jc.setBackground(Color.decode("#222831"));
+        jc.setWeekdayForeground(Color.decode("#222831"));
+        jc.setSundayForeground(Color.decode("#222831"));
+        jc.setOpaque(false);
+        jdc = new JDateChooser(jc, date,"yyyy-MM-dd", ide);
+
         jdc.setDateFormatString("yyyy-MM-dd");  //imposta il formato della data di nascita
         datePicker.add(jdc);
         regError.setVisible(false); //rende invisibile la JLabel 'regError'

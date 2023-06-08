@@ -114,6 +114,27 @@ public class Controller {
         return rs;
     }
 
+    public ArrayList<String> getLibroAutori() {   //ritorna i dati di tutti i libri nel DB
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ArrayList<String> isbn = getLibriISBN();
+
+        ArrayList<String> autori = new ArrayList<String>();
+        for(String s: isbn){
+            int k = 0;
+            ResultSet autors = l.getLibroAutoriDB(s);
+            String newAutore = "";
+            try {
+                while (autors.next()){
+                    autori.add(autors.getString("nome"));
+                }
+            }catch (SQLException var){
+                var.printStackTrace();
+            }
+        }
+        l.chiudiConnessione();
+        return autori;
+    }
+
     public ArrayList<String> getLibriISBN(){    //ritorna gli ISBN di tutti i libri
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ResultSet libri = getLibri();   //contiene tutti i libri
