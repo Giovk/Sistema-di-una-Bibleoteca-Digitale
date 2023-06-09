@@ -4,10 +4,8 @@ import DAO.LibroDAO;
 import Database.ConnessioneDatabase;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.net.URL;
+import java.sql.*;
 
 public class LibroImplementazionePostgresDAO implements LibroDAO {
 
@@ -41,6 +39,14 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
     @Override
     public ResultSet getLibroAutoriDB(String s){
         ResultSet rs = null;
+
+        String connectionURL = "jdbc:postgresql://localhost:5432/Biblioteca";
+        try {
+            connection = DriverManager.getConnection(connectionURL, "postgres", "giovk");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
         try{
             PreparedStatement getLibroAutoriPS = connection.prepareStatement(
                     "SELECT * FROM  libro NATURAL JOIN scrittura_l NATURAL JOIN autore WHERE libro.isbn = '"+s+"';"

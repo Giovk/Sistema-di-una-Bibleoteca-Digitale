@@ -1,9 +1,7 @@
 package GUI;
 
 import Model.Utente;
-import com.toedter.calendar.IDateEditor;
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.*;
 import Controller.Controller;
 
 import javax.swing.*;
@@ -43,11 +41,26 @@ public class LSDialog extends JDialog {
         jc = new JCalendar();
         jc.setWeekOfYearVisible(false);
         jc.setDecorationBackgroundColor(Color.decode("#FFD369"));
-        jc.setForeground(Color.decode("#EEEEEE"));
-        jc.setBackground(Color.decode("#222831"));
+        jc.setForeground(Color.decode("#222831"));
         jc.setWeekdayForeground(Color.decode("#222831"));
         jc.setSundayForeground(Color.decode("#222831"));
-        jc.setOpaque(false);
+        for (int i = 0; i < jc.getComponentCount(); i++){
+            if(jc.getComponent(i) instanceof JDateChooser){
+                JPanel panel1 = (JPanel) jc.getComponent(0);
+                panel1.getComponent(0).setBackground(Color.BLACK);
+                JYearChooser yc = ((JYearChooser) jc.getComponent(0));
+                JPanel panel2 = (JPanel) yc.getComponent(0);
+                panel2.setBackground(Color.BLACK);
+                JDayChooser chooser = ((JDayChooser)jc.getComponent(i));
+                JPanel panel = (JPanel) chooser.getComponent(0);
+                panel.setBackground(Color.BLACK);
+
+                for (int y = 0; y < panel.getComponentCount(); y++){
+                    panel.getComponent(y).setBackground(Color.BLACK);
+                }
+                break;
+            }
+        }
         jdc = new JDateChooser(jc, date,"yyyy-MM-dd", ide);
 
         jdc.setDateFormatString("yyyy-MM-dd");  //imposta il formato della data di nascita

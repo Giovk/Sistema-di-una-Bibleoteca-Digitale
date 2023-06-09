@@ -135,20 +135,22 @@ public class Controller {
     public ArrayList<String> getLibroAutori() {   //ritorna i dati di tutti i libri nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ArrayList<String> isbn = getLibriISBN();
-        Connection connection;
-
         ArrayList<String> autori = new ArrayList<String>();
-        for(String s: isbn){
+        for (String s: isbn){
             int k = 0;
             ResultSet autors = l.getLibroAutoriDB(s);
             String newAutore = "";
             try {
                 while (autors.next()){
-                    autori.add(autors.getString("nome"));
+                        if(k>=0) newAutore = newAutore +"\n";
+                        newAutore = newAutore + autors.getString("nome") + " " + autors.getString("cognome");
+                        k++;
                 }
             }catch (SQLException var){
                 var.printStackTrace();
             }
+            l.chiudiConnessione();
+            autori.add(newAutore);
         }
         return autori;
     }
