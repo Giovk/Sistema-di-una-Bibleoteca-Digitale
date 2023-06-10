@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -55,7 +56,6 @@ public class NewLoginForm extends JDialog {
     private JButton loginButton;
     private ImageIcon imagine;
     private ImageIcon closeImg;
-
     public int menuAcc;
 
     public NewLoginForm() {
@@ -308,6 +308,8 @@ public class NewLoginForm extends JDialog {
                 super.mouseExited(e);
                 if(menuAcc == 1) registratiButton.setBackground(Color.decode("#FFD369"));
             }
+        });
+        accediButton.addFocusListener(new FocusAdapter() {
         });
     }
 
