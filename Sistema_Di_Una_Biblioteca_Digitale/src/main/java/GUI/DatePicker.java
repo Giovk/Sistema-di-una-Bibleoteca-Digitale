@@ -24,9 +24,9 @@ class DatePicker {
         d.setModal(true);
         UIManager.put("Button.select", Color.TRANSLUCENT);
 
+        month = month - 216;
 
-
-        String[] header = { "Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab" };
+        String[] header = { "Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom" };
 
         JPanel p2 = new JPanel(new GridLayout(1, 3));
         p2.setBorder(BorderFactory.createEmptyBorder());
@@ -34,8 +34,22 @@ class DatePicker {
         previous.setBackground(Color.decode("#222831"));
         previous.setForeground(Color.decode("#EEEEEE"));
         previous.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent ae) {
                 month--;
+                if(mesi.getItemCount() < 12) {
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 0) mesi.addItem("Febbraio");
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 1) mesi.addItem("Marzo");
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 2) mesi.addItem("Aprile");
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 3) mesi.addItem("Maggio");
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 4) mesi.addItem("Giugno");
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 5) mesi.addItem("Luglio");
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 6) mesi.addItem("Agosto");
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 7) mesi.addItem("Settembre");
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 8) mesi.addItem("Ottobre");
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 9) mesi.addItem("Novembre");
+                    if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 10) mesi.addItem("Dicembre");
+                }
                 displayDate();
             }
         });
@@ -170,13 +184,28 @@ class DatePicker {
                 }
                 if (y < (cal.getTime().getYear()+1900)){
                     month = month - (12*((cal.getTime().getYear()+1900) - y));
-
+                }
+                if (y == Calendar.getInstance().get(java.util.Calendar.YEAR)){
+                    if(cal.getTime().getMonth() > Calendar.getInstance().get(java.util.Calendar.MONTH)) month = Calendar.getInstance().get(java.util.Calendar.MONTH)+1;
                 }
                 if(y == Calendar.getInstance().get(java.util.Calendar.YEAR)){
                     for(int i = mesi.getItemCount(); i > (Calendar.getInstance().get(java.util.Calendar.MONTH)+1); i--){
                         mesi.removeItemAt((i-1));
                     }
-
+                } else {
+                    if(mesi.getItemCount() < 12) {
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 0) mesi.addItem("Febbraio");
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 1) mesi.addItem("Marzo");
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 2) mesi.addItem("Aprile");
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 3) mesi.addItem("Maggio");
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 4) mesi.addItem("Giugno");
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 5) mesi.addItem("Luglio");
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 6) mesi.addItem("Agosto");
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 7) mesi.addItem("Settembre");
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 8) mesi.addItem("Ottobre");
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 9) mesi.addItem("Novembre");
+                        if (Calendar.getInstance().get(java.util.Calendar.MONTH) <= 10) mesi.addItem("Dicembre");
+                    }
                 }
                 displayDate();
             }
@@ -269,9 +298,21 @@ class DatePicker {
         cal.set(year, month, 1);
         int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK);
         int daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-        for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++)
-            button[x].setText("" + day);
+        for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++) {
+            /*button[x].setText("" + day);
+            if(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) < day && Calendar.getInstance().get(Calendar.MONTH) == cal.getTime().getMonth() && Calendar.getInstance().get(Calendar.YEAR) == (cal.getTime().getYear()+1900)) button[x].setEnabled(false);
+            else button[x].setEnabled(true);*/
+            if(dayOfWeek == 1){
+                button[x+6].setText("" + day);
+                if(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) < day && Calendar.getInstance().get(Calendar.MONTH) == cal.getTime().getMonth() && Calendar.getInstance().get(Calendar.YEAR) == (cal.getTime().getYear()+1900)) button[x+6].setEnabled(false);
+                else button[x+6].setEnabled(true);
+            } else {
+                button[x-1].setText("" + day);
+                if(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) < day && Calendar.getInstance().get(Calendar.MONTH) == cal.getTime().getMonth() && Calendar.getInstance().get(Calendar.YEAR) == (cal.getTime().getYear()+1900)) button[x-1].setEnabled(false);
+                else button[x-1].setEnabled(true);
+            }
 
+        }
         mesi.setSelectedIndex(cal.getTime().getMonth());
         if((cal.getTime().getYear()+1900) <= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)) anni.setSelectedIndex(java.util.Calendar.getInstance().get(java.util.Calendar.YEAR) - (cal.getTime().getYear()+1900));
         else anni.setSelectedItem((cal.getTime().getYear()+1900));
@@ -290,7 +331,7 @@ class DatePicker {
         if (day.equals(""))
             return day;
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-                "dd-MM-yyyy");
+                "yyyy-MM-dd");
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.set(year, month, Integer.parseInt(day));
         return sdf.format(cal.getTime());

@@ -1,6 +1,7 @@
 package GUI;
 
 import Controller.Controller;
+import Model.Libro;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -87,6 +88,8 @@ public class BooksPage {
             }
         }
 
+
+
         frame.setSize(1280, 720);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
@@ -114,6 +117,10 @@ public class BooksPage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 groupRB.clearSelection();   //deseleziona tutti i JRadioButton del ButtonGroup 'groupRB'
+                model.setRowCount(0);
+                for (int i = 0; i < isbnList.size(); i++){
+                    model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), autoriList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
+                }
             }
         });
 
@@ -147,6 +154,16 @@ public class BooksPage {
                 else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
                     autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
                     autoreCB.setEnabled(false); //disabilita 'autoreCB'
+                }
+            }
+        });
+        genereCB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.setRowCount(0);
+                ArrayList<Libro> listaLibri = controller.getLibri();
+                for (Libro l: listaLibri){
+                    if(genereCB.getSelectedItem() != null) if(genereCB.getSelectedItem().equals(l.genere)) model.addRow(new Object[]{l.isbn, l.titolo, "", l.genere, l.lingua, l.editore, l.dataPubblicazione});
                 }
             }
         });
