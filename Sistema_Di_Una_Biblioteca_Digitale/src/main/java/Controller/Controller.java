@@ -134,7 +134,7 @@ public class Controller {
         return isbn;
     }
 
-    public ArrayList<String> getLibroAutori() {   //ritorna i dati di tutti i libri nel DB
+    public ArrayList<String> getLibriAutori() {   //ritorna i dati di tutti i libri nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ArrayList<String> isbn = getLibriISBN();
         ArrayList<String> autori = new ArrayList<String>();
