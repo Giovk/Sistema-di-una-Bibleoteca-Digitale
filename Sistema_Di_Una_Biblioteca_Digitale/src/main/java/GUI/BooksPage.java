@@ -40,10 +40,10 @@ public class BooksPage {
         ArrayList<String> linguaList = controller.getLibriLingua(); //lingue di tutti i libri nel DB
         ArrayList<String> editoreList = controller.getLibriEditore();   //editori di tutti i libri nel DB
         ArrayList<String> dataPubblicazioneList = controller.getLibriDataPubblicazione();   //date di pubblicazione di tutti i libri nel DB
-        ArrayList<String> autoreNomeList = controller.getAutoriLibroNome(); //nomi di tutti gli autori dei libti nel DB
-        ArrayList<String> autoreCognomeList = controller.getAutoriLibroCognome();   //cognomi di tutti gli autori dei libti nel DB
+        ArrayList<String> autoreNomeList = controller.getAutoriLibroNome(); //nomi di tutti gli autori dei libri nel DB
+        ArrayList<String> autoreCognomeList = controller.getAutoriLibroCognome();   //cognomi di tutti gli autori dei libri nel DB
         ArrayList<String> collanaList = controller.getCollanaNome();    //collane di libri nel DB
-        ArrayList<String> autoriList = controller.getLibriAutori();
+        ArrayList<String> autoriList = controller.getLibriAutori(); //nomi e cognomi di tutti gli autori dei libri nel DB
 
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //abilita le decorazioni del frame
@@ -117,7 +117,8 @@ public class BooksPage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 groupRB.clearSelection();   //deseleziona tutti i JRadioButton del ButtonGroup 'groupRB'
-                model.setRowCount(0);
+                model.setRowCount(0);   //elimina il contenuto della tabella
+
                 for (int i = 0; i < isbnList.size(); i++){
                     model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), autoriList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
                 }
@@ -160,9 +161,11 @@ public class BooksPage {
         genereCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.setRowCount(0);
-                ArrayList<Libro> listaLibri = controller.getLibri();
-                for (Libro l: listaLibri){
+                model.setRowCount(0);   //elimina il contenuto della tabella
+
+                ArrayList<Libro> listaL = controller.listaLibri;    //tutti i libri nel DB
+
+                for (Libro l: listaL){
                     if(genereCB.getSelectedItem() != null) if(genereCB.getSelectedItem().equals(l.genere)) model.addRow(new Object[]{l.isbn, l.titolo, "", l.genere, l.lingua, l.editore, l.dataPubblicazione});
                 }
             }
