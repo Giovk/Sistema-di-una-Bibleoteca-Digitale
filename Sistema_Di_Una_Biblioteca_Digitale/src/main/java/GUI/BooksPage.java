@@ -43,7 +43,7 @@ public class BooksPage {
         ArrayList<String> autoreNomeList = controller.getAutoriLibroNome(); //nomi di tutti gli autori dei libti nel DB
         ArrayList<String> autoreCognomeList = controller.getAutoriLibroCognome();   //cognomi di tutti gli autori dei libti nel DB
         ArrayList<String> collanaList = controller.getCollanaNome();    //collane di libri nel DB
-        ArrayList<String> autoriList = controller.getLibroAutori();
+        ArrayList<String> autoriList = controller.getLibriAutori();
 
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //abilita le decorazioni del frame
