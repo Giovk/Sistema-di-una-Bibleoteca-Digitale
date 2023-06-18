@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class Controller {
     private  Utente utente;
-    private  ArrayList<Libro> listaLibri = getLibri();
+    public   ArrayList<Libro> listaLibri = getLibri();
     public Controller(){
 
     }
@@ -112,87 +112,103 @@ public class Controller {
     public ArrayList<Libro> getLibri() {   //ritorna i dati di tutti i libri nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ResultSet rs = l.getLibriDB();  //cerca i dati di tutti i libri nel DB
-        ArrayList<Libro> libri = new ArrayList<Libro>();
+        ArrayList<Libro> libri = new ArrayList<Libro>();    //libri nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                libri.add(new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), rs.getString("titolo"), rs.getDate("datapubblicazione")));
+                libri.add(new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), rs.getString("titolo"), rs.getDate("datapubblicazione")));   //aggiunge il nuovo libro in 'libri'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
-        l.chiudiConnessione();
+
+        l.chiudiConnessione();  //chiude la connessione al DB
 
         return libri;
     }
 
     public ArrayList<String> getLibriISBN(){    //ritorna gli ISBN di tutti i libri
         ArrayList<String> isbn = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
+
         for(Libro l: listaLibri){
-            isbn.add(l.isbn);
+            isbn.add(l.isbn);   //aggiunge il nuovo ISBN in 'isbn'
         }
+
         return isbn;
     }
 
-    public ArrayList<String> getLibriAutori() {   //ritorna i dati di tutti i libri nel DB
+    public ArrayList<String> getLibriAutori() {   //ritorna i nomi e i cognomi di tutti i libri nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
-        ArrayList<String> isbn = getLibriISBN();
-        ArrayList<String> autori = new ArrayList<String>();
+        ArrayList<String> isbn = getLibriISBN();    //contiene tutti gli ISBN dei libri
+        ArrayList<String> autori = new ArrayList<String>(); //contiene tutti i nomi e i cognomi dei libri
+
         for (String s: isbn){
-            int k = 0;
-            ResultSet autors = l.getLibroAutoriDB(s);
-            String newAutore = "";
+            int k = 0;  //contatore
+            ResultSet autors = l.getLibroAutoriDB(s);   //autori del libro con ISBN 's'
+            String newAutore = "";  //stringa da inserire in 'autori'
+
             try {
                 while (autors.next()){
-                        if(k>=0) newAutore = newAutore +"\n";
-                        newAutore = newAutore + autors.getString("nome") + " " + autors.getString("cognome");
-                        k++;
+                    if(k>0) newAutore = newAutore +"\n";    //se ci sono piu autori va a capo
+                    newAutore = newAutore + autors.getString("nome") + " " + autors.getString("cognome");   //aggiunge il nuovo autore ad 'newAutore'
+                    k++;    //incrementa il contatore
                 }
             }catch (SQLException var){
                 var.printStackTrace();
             }
-            l.chiudiConnessione();
-            autori.add(newAutore);
+
+            l.chiudiConnessione();  //chiude la connessione al DB
+            autori.add(newAutore);  //aggiunge 'newAutori' ad 'autori'
         }
         return autori;
     }
     public ArrayList<String> getLibriTitolo(){  //ritorna i titoli di tutti i libri
-        ArrayList<String> titolo = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
+        ArrayList<String> titolo = new ArrayList<String>();   //contiene tutti i titoli dei libri
+
         for(Libro l: listaLibri){
-            titolo.add(l.titolo);
+            titolo.add(l.titolo);   //aggiunge il nuovo titolo in 'titolo'
         }
+
         return titolo;
     }
 
-    public ArrayList<String> getLibriGenere(){  //ritorna i generi di tutti i libri        ArrayList<String> isbn = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
-        ArrayList<String> genere = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
+    public ArrayList<String> getLibriGenere(){  //ritorna i generi di tutti i libri
+        ArrayList<String> genere = new ArrayList<String>();   //contiene tutti i generi dei libri
+
         for(Libro l: listaLibri){
-            genere.add(l.genere);
+            genere.add(l.genere);   //aggiunge il nuovo genere in 'genere'
         }
+
         return genere;
     }
 
     public ArrayList<String> getLibriLingua(){  //ritorna le linge di tutti i libri
-        ArrayList<String> lingua = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
+        ArrayList<String> lingua = new ArrayList<String>();   //contiene tutte le lingue dei libri
+
         for(Libro l: listaLibri){
-            lingua.add(l.lingua);
+            lingua.add(l.lingua);   //aggiunge la nuova lingua in 'lingua'
         }
+
         return lingua;
     }
 
     public ArrayList<String> getLibriEditore(){ //ritorna gli editori di tutti i libri
-        ArrayList<String> editore = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
+        ArrayList<String> editore = new ArrayList<String>();   //contiene tutti gli editori dei libri
+
         for(Libro l: listaLibri){
-            editore.add(l.editore);
+            editore.add(l.editore); //aggiunge il nuovo editore in 'editore'
         }
+
         return editore;
     }
 
     public ArrayList<String> getLibriDataPubblicazione(){   //ritorna le date di pubblicazione di tutti i libri
-        ArrayList<String> dp = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
+        ArrayList<String> dp = new ArrayList<String>();   //contiene tutte le date di pubblicazione dei libri
+
         for(Libro l: listaLibri){
-            dp.add(l.dataPubblicazione.toString());
+            dp.add(l.dataPubblicazione.toString()); //aggiunge la nuova data di pubblicazione in 'dp'
         }
+
         return dp;
     }
 
