@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
 public class LSForm {
     private Controller controller;
     private static JFrame frame;
@@ -22,7 +21,8 @@ public class LSForm {
         btSignIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LSDialog lsDialog = new LSDialog(0, frame, controller); //chiama il frame 'lsDialog'
+                //LSDialog lsDialog = new LSDialog(0, frame, controller); //chiama il frame 'lsDialog'
+                NewLoginForm newLoginForm = new NewLoginForm(0, frame, controller);
                 frame.setEnabled(false); //disabilita il frame
             }
         });
@@ -30,7 +30,8 @@ public class LSForm {
         btSignUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LSDialog lsDialog = new LSDialog(1, frame, controller); //chiama il frame 'lsDialog'
+                //LSDialog lsDialog = new LSDialog(1, frame, controller); //chiama il frame 'lsDialog'
+                NewLoginForm newLoginForm = new NewLoginForm(1, frame, controller);
                 frame.setEnabled(false);//disabilita il frame
             }
         });
@@ -40,7 +41,7 @@ public class LSForm {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon bt1igm = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image resbt1img = bt1igm.getImage().getScaledInstance(150,41, Image.SCALE_SMOOTH);
+                Image resbt1img = bt1igm.getImage().getScaledInstance(150, 41, Image.SCALE_SMOOTH);
                 bt1igm = new ImageIcon(resbt1img);
                 btSignIn.setIcon(bt1igm);
                 btSignIn.setForeground(Color.decode("#EEEEEE"));
@@ -53,7 +54,7 @@ public class LSForm {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon bt1igm = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image resbt1img = bt1igm.getImage().getScaledInstance(150,41, Image.SCALE_SMOOTH);
+                Image resbt1img = bt1igm.getImage().getScaledInstance(150, 41, Image.SCALE_SMOOTH);
                 bt1igm = new ImageIcon(resbt1img);
                 btSignIn.setIcon(bt1igm);
                 btSignIn.setForeground(Color.decode("#D6D4D4"));
@@ -66,7 +67,7 @@ public class LSForm {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon bt2igm = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image resbt2img = bt2igm.getImage().getScaledInstance(150,41, Image.SCALE_SMOOTH);
+                Image resbt2img = bt2igm.getImage().getScaledInstance(150, 41, Image.SCALE_SMOOTH);
                 bt2igm = new ImageIcon(resbt2img);
                 btSignUp.setIcon(bt2igm);
                 btSignUp.setForeground(Color.decode("#EEEEEE"));
@@ -79,7 +80,7 @@ public class LSForm {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon bt2igm = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image resbt2img = bt2igm.getImage().getScaledInstance(150,41, Image.SCALE_SMOOTH);
+                Image resbt2img = bt2igm.getImage().getScaledInstance(150, 41, Image.SCALE_SMOOTH);
                 bt2igm = new ImageIcon(resbt2img);
                 btSignUp.setIcon(bt2igm);
                 btSignUp.setForeground(Color.decode("#D6D4D4"));
@@ -114,6 +115,7 @@ public class LSForm {
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
     }
+
     private void createUIComponents() {
         // TODO: place custom component creation code here
         txtPF = new JLabel();
@@ -122,18 +124,17 @@ public class LSForm {
         image = new JLabel();
         image.setText("");
         ImageIcon lb1igm = new ImageIcon(this.getClass().getResource("/b.png"));
-        Image reslb1img = lb1igm.getImage().getScaledInstance(300,169, Image.SCALE_SMOOTH);
+        Image reslb1img = lb1igm.getImage().getScaledInstance(300, 169, Image.SCALE_SMOOTH);
         lb1igm = new ImageIcon(reslb1img);
         image.setIcon(lb1igm);
-
 
 
         btSignIn = new JButton();
         btSignIn.setContentAreaFilled(false);
         btSignIn.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        btSignIn.setMargin(new Insets(0,0,0,0));
+        btSignIn.setMargin(new Insets(0, 0, 0, 0));
         ImageIcon bt1igm = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-        Image resbt1img = bt1igm.getImage().getScaledInstance(150,41, Image.SCALE_SMOOTH);
+        Image resbt1img = bt1igm.getImage().getScaledInstance(150, 41, Image.SCALE_SMOOTH);
         bt1igm = new ImageIcon(resbt1img);
         btSignIn.setIcon(bt1igm);
         btSignIn.setHorizontalTextPosition(JButton.CENTER);
@@ -143,9 +144,9 @@ public class LSForm {
         btSignUp = new JButton();
         btSignUp.setContentAreaFilled(false);
         btSignUp.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        btSignUp.setMargin(new Insets(0,0,0,0));
+        btSignUp.setMargin(new Insets(0, 0, 0, 0));
         ImageIcon bt2igm = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-        Image resbt2img = bt2igm.getImage().getScaledInstance(150,41, Image.SCALE_SMOOTH);
+        Image resbt2img = bt2igm.getImage().getScaledInstance(150, 41, Image.SCALE_SMOOTH);
         bt2igm = new ImageIcon(resbt2img);
         btSignUp.setIcon(bt2igm);
         btSignUp.setHorizontalTextPosition(JButton.CENTER);

@@ -1,9 +1,9 @@
 package GUI;
 
 import Controller.Controller;
-import Model.Utente;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -25,6 +25,7 @@ public class HomePage {
         JMenuItem utenteExit = new JMenuItem("Logout"); //crea la voce del menu "Logout"
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
+        utenteMenu.setPopupSize(new Dimension(78, 75));
         utenteMenu.add(utenteProfilo);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
@@ -59,7 +60,9 @@ public class HomePage {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    utenteMenu.show(utenteButton, utenteButton.getX(), utenteButton.getY() + 25); //mostra le voci del menu 'utenteMenu'
+                    utenteMenu.show(utenteButton, utenteButton.getWidth()-78, utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
+
+
                 }
             }
         });

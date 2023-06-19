@@ -5,10 +5,13 @@ import com.toedter.calendar.*;
 import Controller.Controller;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class LSDialog extends JDialog {
     private JFrame frame;
@@ -44,24 +47,24 @@ public class LSDialog extends JDialog {
         jc.setForeground(Color.decode("#222831"));
         jc.setWeekdayForeground(Color.decode("#222831"));
         jc.setSundayForeground(Color.decode("#222831"));
-        for (int i = 0; i < jc.getComponentCount(); i++){
-            if(jc.getComponent(i) instanceof JDateChooser){
+        for (int i = 0; i < jc.getComponentCount(); i++) {
+            if (jc.getComponent(i) instanceof JDateChooser) {
                 JPanel panel1 = (JPanel) jc.getComponent(0);
                 panel1.getComponent(0).setBackground(Color.BLACK);
                 JYearChooser yc = ((JYearChooser) jc.getComponent(0));
                 JPanel panel2 = (JPanel) yc.getComponent(0);
                 panel2.setBackground(Color.BLACK);
-                JDayChooser chooser = ((JDayChooser)jc.getComponent(i));
+                JDayChooser chooser = ((JDayChooser) jc.getComponent(i));
                 JPanel panel = (JPanel) chooser.getComponent(0);
                 panel.setBackground(Color.BLACK);
 
-                for (int y = 0; y < panel.getComponentCount(); y++){
+                for (int y = 0; y < panel.getComponentCount(); y++) {
                     panel.getComponent(y).setBackground(Color.BLACK);
                 }
                 break;
             }
         }
-        jdc = new JDateChooser(jc, date,"yyyy-MM-dd", ide);
+        jdc = new JDateChooser(jc, date, "yyyy-MM-dd", ide);
 
         jdc.setDateFormatString("yyyy-MM-dd");  //imposta il formato della data di nascita
         datePicker.add(jdc);
@@ -166,9 +169,10 @@ public class LSDialog extends JDialog {
                         regError.setVisible(false); //rende invisibile la JLabel 'regError'
                         JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
 
-                        try{
-                          dt = sdf.format(jdc.getDate());   //inserisce in 'dt' la data di nascita inserita dall utente
-                        } catch (NullPointerException e1){  //l'eccezione 'e1' si verifica se l'utente non inserisce una data di nascita
+                        try {
+                            dt = sdf.format(jdc.getDate());   //inserisce in 'dt' la data di nascita inserita dall utente
+                        } catch (
+                                NullPointerException e1) {  //l'eccezione 'e1' si verifica se l'utente non inserisce una data di nascita
                             dt = null;
                         }
 
@@ -186,12 +190,7 @@ public class LSDialog extends JDialog {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        /*LSTabbedPane = new JTabbedPane();
-        ImageIcon ico1 = new ImageIcon(this.getClass().getResource("/b.png"));
-        Image img1 = ico1.getImage().getScaledInstance(300,169, Image.SCALE_SMOOTH);
-        ico1 = new ImageIcon(img1);
-        LSTabbedPane.setIconAt(0, ico1);*/
-        //LSTabbedPane.setIconAt(0, ico1);
     }
+
 }
 

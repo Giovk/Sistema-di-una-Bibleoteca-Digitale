@@ -1,10 +1,12 @@
 package GUI;
 
+import Controller.Controller;
+
 import javax.swing.*;
+
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.text.SimpleDateFormat;
 
 public class NewLoginForm extends JDialog {
     public static JFrame frame;
@@ -54,20 +56,86 @@ public class NewLoginForm extends JDialog {
     private JLabel showPass2;
     private JLabel hidePass2;
     private JButton loginButton;
+    private JTextField dataNascitaTF;
+    private JLabel calendarIMG;
     private ImageIcon imagine;
     private ImageIcon closeImg;
     public int menuAcc;
 
-    public NewLoginForm() {
+    private DatePicker datePicker;
 
-        menuAcc = 0;
+    public NewLoginForm(int joinD, JFrame frameC, Controller controller) {
+        datePicker = new DatePicker(calendarIMG);
 
+        frame = new JFrame("NewLoginForm");
+        frame.setUndecorated(true);
+        frame.setContentPane(this.contentPane);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.pack();
+        frame.setSize(720, 480);
+        frame.setLocationRelativeTo(null);
+        contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
+        frame.setResizable(false);
+        frame.setVisible(true);
+
+        if(joinD == 0){
+            accPanel.setVisible(true);
+            regPanel.setVisible(false);
+            accediButton.setBackground(Color.decode("#cf9e29"));
+            registratiButton.setBackground(Color.decode("#FFD369"));
+            menuAcc = 1;
+        }else{
+            accPanel.setVisible(false);
+            regPanel.setVisible(true);
+            registratiButton.setBackground(Color.decode("#cf9e29"));
+            accediButton.setBackground(Color.decode("#FFD369"));
+            menuAcc = 0;
+        }
+
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.setVisible(false);
-                dispose();
+                frameC.setEnabled(true);
+                frame.dispose();
             }
         });
 
@@ -116,9 +184,6 @@ public class NewLoginForm extends JDialog {
                 loginButton.setForeground(Color.decode("#EEEEEE"));
             }
         });
-
-
-
 
 
         showPass2.addMouseListener(new MouseAdapter() {
@@ -189,7 +254,6 @@ public class NewLoginForm extends JDialog {
         });
 
 
-
         showPass.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -257,6 +321,14 @@ public class NewLoginForm extends JDialog {
 
             }
         });
+
+        calendarIMG.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                datePicker.d.setVisible(true);
+                dataNascitaTF.setText(datePicker.setPickedDate());
+            }
+        });
         accediButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -291,7 +363,7 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                if(menuAcc == 0) accediButton.setBackground(Color.decode("#FFD369"));
+                if (menuAcc == 0) accediButton.setBackground(Color.decode("#FFD369"));
             }
         });
 
@@ -306,29 +378,100 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                if(menuAcc == 1) registratiButton.setBackground(Color.decode("#FFD369"));
+                if (menuAcc == 1) registratiButton.setBackground(Color.decode("#FFD369"));
             }
         });
         accediButton.addFocusListener(new FocusAdapter() {
         });
+
+        // --------------------------------------------------------------------------//
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String userEmail = usernameTF2.getText(); //username o email inserito dall'utente per effettuare l'accesso
+                   //password inserita dall'utente per effettuare l'accesso
+                String password = new String();
+                if(showPass2.isVisible() == true){
+                    char[] pass = passwordTF4.getPassword();
+                    password = new String(pass);
+                } else if (hidePass2.isVisible() == true) {
+                    password = passwordTF5.getText();
+                }
+
+                if (controller.validaUtente(userEmail, password) < 1) { //controlla se non esiste un utente registrato che ha come username o email 'userMail' e come password 'password'
+                    JOptionPane.showMessageDialog(frame, "L'Account non esiste.");
+                } else {
+                    frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+                    controller.setUtente(userEmail, password); //salva in memoria l'utente che ha accesso usando 'userEmail' e 'Password'
+                    HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
+                    frameC.setVisible(false);   //rende invisibile il frame chiamante 'frameC'
+                    hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
+                    frame.dispose();
+                }
+            }
+        });
+
+
+        regButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String emailU = emailTF.getText();    //email inserita dall'utente per effettuare la registrazione
+                String nomeU = nomeTF.getText();  //nome inserito dall'utente per effettuare la registrazione
+                String cognomeU = cognomeTF.getText(); //cognome inserito dall'utente per effettuare la registrazione
+                String usernameU = usernameTF.getText();  //username inserito dall'utente per effettuare la registrazione
+                String password1 = new String();
+                if(showPass.isVisible() == true){
+                    char[] pass1 = passwordF1.getPassword();
+                    password1 = new String(pass1);
+                } else if (hidePass.isVisible() == true) {
+                    password1 = passwordF2.getText();
+                }
+
+                char[] pass2 = passwordF3.getPassword();    //password ripetuta dall'utente per effettuare la registrazione
+                String password2 = new String(pass2);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  //calendario per l'input della data di nascita dell utente
+                String dt;  //data di nascita dell'utente
+
+                String partitaIVA = partitaIVATF.getText(); //partita IVA inserita dall'utente per effettuare la registrazione
+
+                if (nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank() || password1.isBlank() || password2.isBlank()) { //controlla se qualche campo obbligatorio è stato lasciato vuoto
+                    //fieldError.setText("Compilare tutti i campi obbligatori");  //imposta il testo di un messaggio di errore nella JLabel 'fieldError'
+                    //fieldError.setVisible(true);    //rende visibile la JLabel 'fieldError' contenente un messaggio di errore
+                    //frame.setResizable(true);   //permette all'utente di modificare le dimensioni del frame
+                    JOptionPane.showMessageDialog(frame, "Compilare tutti i campi obbligatori.");
+                } else {
+                    if (password1.equals(password2) == false) {//controlla se la password scelta dall'utente 'pass1' è diversa da quella ripetuta
+                        //regError.setText("Le password non coincidono"); //imposta il testo di un messaggio di errore nella JLabel 'fieldError'
+                       // regError.setVisible(true);  //rende visibile la JLabel 'fieldError' contenente un messaggio di errore
+                        //frame.setResizable(true);   //permette all'utente di modificare le dimensioni del frame
+                        JOptionPane.showMessageDialog(frame, "Le password non coincidono.");
+                    } else {
+                        //regError.setVisible(false); //rende invisibile la JLabel 'regError'
+                        JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
+
+                        dt = dataNascitaTF.getText();
+                        if (dt.isBlank()) dt = null;
+
+
+                        controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, password1, dt, partitaIVA); //registra un nuovo utente con i dati che ha inserito
+                        frameC.setEnabled(true); //rende visibile il frame chiamante 'frameC'
+                        HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
+                        frameC.setVisible(false); //rende invisibile il frame chiamante 'frameC'
+                        hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
+                        frame.dispose();
+                    }
+                }
+            }
+        });
     }
 
-    public static void main(String[] args) {
-        frame = new JFrame("NewLoginForm");
-        frame.setUndecorated(true);
-        frame.setContentPane(new NewLoginForm().contentPane);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setSize(720, 480);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);
-    }
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
         imagine = new ImageIcon(this.getClass().getResource("/b.png"));
-        Image imagine2 = imagine.getImage().getScaledInstance(340,94, Image.SCALE_SMOOTH);
+        Image imagine2 = imagine.getImage().getScaledInstance(340, 94, Image.SCALE_SMOOTH);
         imagine = new ImageIcon(imagine2);
         imageLabel = new JLabel(imagine);
 
@@ -351,7 +494,6 @@ public class NewLoginForm extends JDialog {
         hidePass2 = new JLabel(hidePico);
 
 
-
         emailTF = new JTextField();
         emailTF.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));
         nomeTF = new JTextField();
@@ -364,10 +506,13 @@ public class NewLoginForm extends JDialog {
         passwordF1.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));
         passwordF2 = new JTextField();
         passwordF2.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));
-        passwordF3= new JPasswordField();
+        passwordF3 = new JPasswordField();
         passwordF3.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));
         partitaIVATF = new JTextField();
         partitaIVATF.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));
+        dataNascitaTF = new JTextField();
+        dataNascitaTF.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));
+
 
         usernameTF2 = new JTextField();
         usernameTF2.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));
@@ -377,8 +522,13 @@ public class NewLoginForm extends JDialog {
         passwordTF5.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));
 
         closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine3 = closeImg.getImage().getScaledInstance(25,25, Image.SCALE_SMOOTH);
+        Image imagine3 = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine3);
         closeBT = new JLabel(closeImg);
+
+        ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar.png"));
+        Image calendarIm = calendarIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        calendarIco = new ImageIcon(calendarIm);
+        calendarIMG = new JLabel(calendarIco);
     }
 }

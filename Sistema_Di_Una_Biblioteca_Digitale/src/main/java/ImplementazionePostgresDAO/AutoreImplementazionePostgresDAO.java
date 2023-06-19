@@ -3,10 +3,7 @@ package ImplementazionePostgresDAO;
 import DAO.AutoreDAO;
 import Database.ConnessioneDatabase;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class AutoreImplementazionePostgresDAO implements AutoreDAO{
     private Connection connection;
@@ -27,6 +24,29 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
             PreparedStatement getAutoriLibroPS = connection.prepareStatement(
                     "SELECT * FROM autore NATURAL JOIN scrittura_l" //prepara la query che cerca tutti gli autori di libri
             );
+
+            rs = getAutoriLibroPS.executeQuery(); //esegue la query
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        return rs;
+    }
+
+    @Override
+    public ResultSet getAutoriDB(String isbn){
+        ResultSet rs = null;    //autori di libri trovati
+
+        String connectionURL = "jdbc:postgresql://localhost:5432/Biblioteca";
+        try {
+            connection = DriverManager.getConnection(connectionURL, "postgres", "giovk");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        try {
+            PreparedStatement getAutoriLibroPS = connection.prepareStatement(
+                    "SELECT * FROM  libro NATURAL JOIN scrittura_l NATURAL JOIN autore WHERE libro.isbn = '"+isbn+"';"            );
 
             rs = getAutoriLibroPS.executeQuery(); //esegue la query
         } catch (SQLException var2) {

@@ -4,6 +4,7 @@ import Controller.Controller;
 import Model.Utente;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -38,7 +39,7 @@ public class Profilo {
     private JLabel newPassErrorLabel;
     private JPopupMenu utenteMenu;
 
-    public Profilo (JFrame frameC, Controller controller){
+    public Profilo(JFrame frameC, Controller controller) {
         frame = new JFrame("Profilo");
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(profilePanel);
@@ -186,30 +187,37 @@ public class Profilo {
                 char[] password3U = oldPassField.getPassword(); //vecchia password inserita dall'utente per meffetuare le modifiche
                 String pass3 = new String(password3U);
 
-                if(!controller.getPassword().equals(pass3)) oldPassErrorLabel.setVisible(true); //se la vecchia password è errata, allora rende visibile la JLabel 'oldPassErrorLabel'
+                if (!controller.getPassword().equals(pass3))
+                    oldPassErrorLabel.setVisible(true); //se la vecchia password è errata, allora rende visibile la JLabel 'oldPassErrorLabel'
                 else {
                     oldPassErrorLabel.setVisible(false);    //rende invisibile JLabel 'oldPassErrorLabel'
                     int[] error = controller.validaModUtente(emailU, usernameU, partitaIVA);    //controlla se 'emailU', 'usernameU' e/o 'partitaIVA' sono già stati utilizzati da un altro utente
 
-                    if (error[0] != 0) emailErrorLabel.setVisible(true);    //se 'emailU' è già stata utilizzata da un altro utente rende visibile la JLabel 'emailErrorLabel'
-                    else emailErrorLabel.setVisible(false); //se 'emailU' non è già stata utilizzata da un altro utente rende invisibile la JLabel 'emailErrorLabel'
+                    if (error[0] != 0)
+                        emailErrorLabel.setVisible(true);    //se 'emailU' è già stata utilizzata da un altro utente rende visibile la JLabel 'emailErrorLabel'
+                    else
+                        emailErrorLabel.setVisible(false); //se 'emailU' non è già stata utilizzata da un altro utente rende invisibile la JLabel 'emailErrorLabel'
 
-                    if (error[1] != 0) usernameErrorLabel.setVisible(true); //se 'usernameU' è gia stato utilizzato da un altro utente rende visibile la JLabel 'usernameErrorLabel'
-                    else usernameErrorLabel.setVisible(false);  //se 'usernameU' non è gia stato utilizzato da un altro utente rende visibile la JLabel 'usernameErrorLabel'
+                    if (error[1] != 0)
+                        usernameErrorLabel.setVisible(true); //se 'usernameU' è gia stato utilizzato da un altro utente rende visibile la JLabel 'usernameErrorLabel'
+                    else
+                        usernameErrorLabel.setVisible(false);  //se 'usernameU' non è gia stato utilizzato da un altro utente rende visibile la JLabel 'usernameErrorLabel'
 
-                    if (error[2] != 0) partitaivaErrorLabel.setVisible(true);   //se 'partitaIVA' è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
-                    else partitaivaErrorLabel.setVisible(false);    //se 'partitaIVA' non è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
+                    if (error[2] != 0)
+                        partitaivaErrorLabel.setVisible(true);   //se 'partitaIVA' è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
+                    else
+                        partitaivaErrorLabel.setVisible(false);    //se 'partitaIVA' non è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
 
                     //if (error[0] == 0) emailErrorLabel.setVisible(false);
                     //if (error[1] == 0) usernameErrorLabel.setVisible(false);
                     //if (error[2] == 0) partitaivaErrorLabel.setVisible(false);
 
-                    if(!pass1.equals(pass2)){   //controlla se la nuova password è diversa da quella ripetuta
+                    if (!pass1.equals(pass2)) {   //controlla se la nuova password è diversa da quella ripetuta
                         newPassErrorLabel.setVisible(true); //rende visibile la JLabel 'newPassErrorLabel'
                         error[3] = 1;   //mette a 1 'error[3]' che indica l'errore delle nuove password non coincidenti
                     }
 
-                    if (error[0] == 0 && error[1] == 0 && error[2] == 0 && error[3] == 0){  //ccontrolla se non ci sono errori
+                    if (error[0] == 0 && error[1] == 0 && error[2] == 0 && error[3] == 0) {  //ccontrolla se non ci sono errori
                         modificaDatiUtenteButton.setEnabled(true);  //abilita il JButton 'modificaDatiUtenteButton'
                         annullaButton.setVisible(false);    //rende inivisibile il JButton 'annullaButton'
                         salvaModificheButton.setVisible(false); //rende inivisibile il JButton 'salvaModificheButton'
@@ -225,8 +233,10 @@ public class Profilo {
                         oldPassField.setVisible(false); //rende invisibile il JPasswordField 'oldPassField'
                         oldPassNoteLabel.setVisible(false); //rende invisibile la JLabel 'oldPassNoteLabel'
 
-                        if(pass1.isBlank()) controller.modUtente(emailU, nomeU, cognomeU, usernameU, controller.getPassword(), partitaIVA); //se la password non è stata modificata, allora modifica i dati del utente usando la password attuale dell'utente
-                        else controller.modUtente(emailU, nomeU, cognomeU, usernameU, pass1, partitaIVA);   //se la password non è stata modificata, allora modifica i dati del utente usando la nuova password
+                        if (pass1.isBlank())
+                            controller.modUtente(emailU, nomeU, cognomeU, usernameU, controller.getPassword(), partitaIVA); //se la password non è stata modificata, allora modifica i dati del utente usando la password attuale dell'utente
+                        else
+                            controller.modUtente(emailU, nomeU, cognomeU, usernameU, pass1, partitaIVA);   //se la password non è stata modificata, allora modifica i dati del utente usando la nuova password
 
                         usernameField.setText(controller.getUsername());    //imposta il testo di 'usernameField' con l'username dell'utete
                         nameField.setText(controller.getNome());    //imposta il testo di 'nameField' con il nome dell'utente
@@ -247,4 +257,5 @@ public class Profilo {
             }
         });
     }
+
 }

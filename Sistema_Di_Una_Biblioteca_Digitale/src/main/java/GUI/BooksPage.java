@@ -1,6 +1,7 @@
 package GUI;
 
 import Controller.Controller;
+import Model.Autore;
 import Model.Libro;
 
 import javax.swing.*;
@@ -33,7 +34,7 @@ public class BooksPage {
     private JLabel resetFiltriLabel;
 
 
-    public BooksPage(JFrame frameC, Controller controller){
+    public BooksPage(JFrame frameC, Controller controller) {
         ArrayList<String> isbnList = controller.getLibriISBN(); //ISBN di tutti i libri nel DB
         ArrayList<String> titoloList = controller.getLibriTitolo(); //titoli di tutti i libri nel DB
         ArrayList<String> genereList = controller.getLibriGenere(); //generi di tutti i libri nel DB
@@ -43,7 +44,6 @@ public class BooksPage {
         ArrayList<String> autoreNomeList = controller.getAutoriLibroNome(); //nomi di tutti gli autori dei libti nel DB
         ArrayList<String> autoreCognomeList = controller.getAutoriLibroCognome();   //cognomi di tutti gli autori dei libti nel DB
         ArrayList<String> collanaList = controller.getCollanaNome();    //collane di libri nel DB
-        ArrayList<String> autoriList = controller.getLibroAutori();
 
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //abilita le decorazioni del frame
@@ -57,20 +57,26 @@ public class BooksPage {
 
         ArrayList<String> distinctGenereList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
 
-        for (int i = 0; i < genereList.size(); i++){    //scorre l'ArrayList di tutti i generi dei libri
-            if(!distinctGenereList.contains(genereList.get(i))) distinctGenereList.add(genereList.get(i));  //se 'distinctGenereList' non contiene l'i-esimo elemento di genereList, allora lo inserisce in 'distinctGenereList'
+        for (int i = 0; i < genereList.size(); i++) {    //scorre l'ArrayList di tutti i generi dei libri
+            if (!distinctGenereList.contains(genereList.get(i)))
+                distinctGenereList.add(genereList.get(i));  //se 'distinctGenereList' non contiene l'i-esimo elemento di genereList, allora lo inserisce in 'distinctGenereList'
         }
 
         genereCB.setModel(new DefaultComboBoxModel<String>(distinctGenereList.toArray(new String[distinctGenereList.size()]))); //inserisce tutti gli elementi di 'distinctGenereList' come voci del JComboBox 'genereCB'
         genereCB.setSelectedIndex(-1);  //permette di avere 'genereCB' non selezionato
 
-        ArrayList<String> linkAutoreList = new ArrayList<String>(); //contiene i nomi e cognomi conatenati di tutti gli autori dei libri
         ArrayList<String> distinctAutoreList = new ArrayList<String>(); //contiene i nomi e cognomi conatenati di tutti gli autori dei libri senza duplicati
+        String linkString = "";
+        int aut;
+        for (Libro l: controller.listaLibri) {    //scorre 'autoreNomeList' e 'autoreNomeList'
+            aut = 0;
+            for (Autore a: l.autori) {
 
-        for (int i = 0; i < autoreNomeList.size(); i++){    //scorre 'autoreNomeList' e 'autoreNomeList'
-            linkAutoreList.add(autoreNomeList.get(i) + " " + autoreCognomeList.get(i)); //aggiunge in 'linkAutoreList' il nome e cognome concatenati del i-esimo autore
-
-            if(!distinctAutoreList.contains(linkAutoreList.get(i))) distinctAutoreList.add(linkAutoreList.get(i));  //se l'i-esimo elemento di 'linkAutoreList' non è contenuto in 'distinctAutoreList', allora lo inserisce in 'distinctAutoreList'
+                if (aut == 0) linkString = a.nome + " " + a.cognome;
+                else linkString = linkString + "\n" + a.nome + " " + a.cognome;
+                aut++;
+            }
+                distinctAutoreList.add(linkString);  //se l'i-esimo elemento di 'linkAutoreList' non è contenuto in 'distinctAutoreList', allora lo inserisce in 'distinctAutoreList'
         }
 
         autoreCB.setModel(new DefaultComboBoxModel<String>(distinctAutoreList.toArray(new String[distinctAutoreList.size()]))); //inserisce tutti gli elementi di 'distinctAutoreList' come voci del JComboBox 'autoreCB'
@@ -79,15 +85,14 @@ public class BooksPage {
         collanaCB.setModel(new DefaultComboBoxModel<String>(collanaList.toArray(new String[collanaList.size()])));  //inserisce tutti gli elementi di 'collanaList' come voci del JComboBox 'collanaCB'
         collanaCB.setSelectedIndex(-1); //permette di avere 'collanaCB' non selezionato
 
-        booksTable.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "Autori","Genere", "Lingua", "Editore", "Data di pubblicazione"}));
+        booksTable.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "Autori", "Genere", "Lingua", "Editore", "Data di pubblicazione"}));
         DefaultTableModel model = (DefaultTableModel) booksTable.getModel();
 
-        if (isbnList != null && titoloList != null && autoriList != null && genereList != null && linguaList != null && editoreList != null && dataPubblicazioneList != null){
-            for (int i = 0; i < isbnList.size(); i++){
-                model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), autoriList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
+        if (isbnList != null && titoloList != null && distinctAutoreList != null && genereList != null && linguaList != null && editoreList != null && dataPubblicazioneList != null) {
+            for (int i = 0; i < isbnList.size(); i++) {
+                model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), distinctAutoreList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
             }
         }
-
 
 
         frame.setSize(1280, 720);   //imposta larghezza e altezza del frame
@@ -104,8 +109,7 @@ public class BooksPage {
                     collanaCB.setEnabled(false);    //disabilita 'collanaCB'
                     autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
                     autoreCB.setEnabled(false); //disabilita 'autoreCB'
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'genereRB'
+                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'genereRB'
                     genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
                     genereCB.setEnabled(false); //disabilita 'genereCB'
                 }
@@ -118,8 +122,8 @@ public class BooksPage {
                 super.mouseClicked(e);
                 groupRB.clearSelection();   //deseleziona tutti i JRadioButton del ButtonGroup 'groupRB'
                 model.setRowCount(0);
-                for (int i = 0; i < isbnList.size(); i++){
-                    model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), autoriList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
+                for (int i = 0; i < isbnList.size(); i++) {
+                    model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), distinctAutoreList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
                 }
             }
         });
@@ -133,8 +137,7 @@ public class BooksPage {
                     genereCB.setEnabled(false); //disabilita 'genereCB'
                     autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
                     autoreCB.setEnabled(false); //disabilita 'autoreCB'
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
+                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
                     collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
                     collanaCB.setEnabled(false);    //disabilita 'collanaCB'
                 }
@@ -150,8 +153,7 @@ public class BooksPage {
                     genereCB.setEnabled(false); //disabilita 'genereCB'
                     collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
                     collanaCB.setEnabled(false);    //disabilita 'collanaCB'
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
+                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
                     autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
                     autoreCB.setEnabled(false); //disabilita 'autoreCB'
                 }
@@ -162,14 +164,15 @@ public class BooksPage {
             public void actionPerformed(ActionEvent e) {
                 model.setRowCount(0);
                 ArrayList<Libro> listaLibri = controller.getLibri();
-                for (Libro l: listaLibri){
-                    if(genereCB.getSelectedItem() != null) if(genereCB.getSelectedItem().equals(l.genere)) model.addRow(new Object[]{l.isbn, l.titolo, "", l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                for (Libro l : listaLibri) {
+                    if (genereCB.getSelectedItem() != null && genereCB.getSelectedItem().equals(l.genere))
+                        model.addRow(new Object[]{l.isbn, l.titolo, "", l.genere, l.lingua, l.editore, l.dataPubblicazione});
                 }
             }
         });
     }
 
-    private void createUIComponents () {
+    private void createUIComponents() {
         // TODO: place custom component creation code here
         groupRB = new ButtonGroup();
         genereRB = new JRadioButton();
@@ -185,4 +188,5 @@ public class BooksPage {
         searchImage = new JLabel(searchIcon);
 
     }
+
 }

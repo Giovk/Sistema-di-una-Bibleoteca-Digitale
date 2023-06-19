@@ -8,7 +8,7 @@ public class Libro extends Elemento{
     public String genere;
     public String editore;
     public String lingua;
-    public ArrayList<Autore> autori;
+    public ArrayList<Autore> autori = new ArrayList<Autore>();
 
     public Libro(String i, String g, String e, String l, ArrayList<Autore> a, String t, Date dp){
         super(t, dp);
@@ -18,9 +18,10 @@ public class Libro extends Elemento{
         editore = e;
         lingua = l;
 
+
         for (Autore autoreAttuale : a){
             autori.add(autoreAttuale);
-            autoreAttuale.libriScritti.add(this);
+            //autoreAttuale.libriScritti.add(this);
         }
     }
 

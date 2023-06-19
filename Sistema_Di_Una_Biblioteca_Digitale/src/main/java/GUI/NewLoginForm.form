@@ -8,7 +8,9 @@
     <properties>
       <foreground color="-14538703"/>
     </properties>
-    <border type="none"/>
+    <border type="none">
+      <title-color color="-4473925"/>
+    </border>
     <children>
       <grid id="ec742" binding="sxPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
@@ -167,7 +169,7 @@
                           <autoscrolls value="true"/>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <margin top="2" left="6" bottom="2" right="6"/>
                         </properties>
@@ -218,7 +220,7 @@
                         <properties>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <margin top="2" left="6" bottom="2" right="6"/>
                         </properties>
@@ -233,7 +235,7 @@
                           <alignmentY value="0.5"/>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <horizontalAlignment value="10"/>
                           <margin top="2" left="6" bottom="2" right="6"/>
@@ -250,7 +252,7 @@
                           <alignmentY value="0.5"/>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <margin top="2" left="6" bottom="2" right="6"/>
                         </properties>
@@ -288,7 +290,7 @@
                         <properties>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <margin top="2" left="6" bottom="2" right="6"/>
                         </properties>
@@ -320,17 +322,6 @@
                           </component>
                         </children>
                       </grid>
-                      <grid id="7216f" binding="regPanel2" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-11415"/>
-                        </properties>
-                        <border type="none"/>
-                        <children/>
-                      </grid>
                       <component id="e1521" class="javax.swing.JPasswordField" binding="passwordF3" custom-create="true">
                         <constraints>
                           <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -341,7 +332,7 @@
                           <alignmentY value="0.5"/>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <margin top="2" left="0" bottom="2" right="5"/>
                         </properties>
@@ -378,7 +369,7 @@
                         <properties>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <margin top="2" left="0" bottom="2" right="5"/>
                         </properties>
@@ -392,7 +383,7 @@
                         <properties>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <margin top="2" left="6" bottom="2" right="6"/>
                           <visible value="false"/>
@@ -438,6 +429,28 @@
                           <foreground color="-14538703"/>
                           <text value="Password*:"/>
                           <visible value="false"/>
+                        </properties>
+                      </component>
+                      <component id="47b59" class="javax.swing.JTextField" binding="dataNascitaTF" custom-create="true">
+                        <constraints>
+                          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <background color="-14538703"/>
+                          <caretColor color="-1118482"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
+                          <foreground color="-1118482"/>
+                          <margin top="2" left="6" bottom="2" right="6"/>
+                        </properties>
+                      </component>
+                      <component id="ad259" class="javax.swing.JLabel" binding="calendarIMG" custom-create="true">
+                        <constraints>
+                          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value=""/>
                         </properties>
                       </component>
                     </children>
@@ -501,7 +514,7 @@
                           <alignmentY value="0.5"/>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <horizontalAlignment value="10"/>
                           <margin top="2" left="6" bottom="2" right="6"/>
@@ -565,7 +578,7 @@
                         <properties>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <margin top="2" left="0" bottom="2" right="5"/>
                         </properties>
@@ -579,7 +592,7 @@
                         <properties>
                           <background color="-14538703"/>
                           <caretColor color="-1118482"/>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Berlin Sans FB" size="15" style="0"/>
                           <foreground color="-1118482"/>
                           <margin top="2" left="6" bottom="2" right="6"/>
                           <visible value="false"/>
