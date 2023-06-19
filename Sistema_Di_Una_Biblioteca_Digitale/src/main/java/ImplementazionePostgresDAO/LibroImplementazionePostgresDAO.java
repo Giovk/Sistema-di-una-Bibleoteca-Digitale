@@ -37,8 +37,8 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
     }
 
     @Override
-    public ResultSet getLibroAutoriDB(String s){
-        ResultSet rs = null;
+    public ResultSet getLibroAutoriDB(String s){    //ritorna i dati del libro con ISBN 's'
+        ResultSet rs = null;    //libro trovato
 
         String connectionURL = "jdbc:postgresql://localhost:5432/Biblioteca";
         try {
@@ -49,9 +49,9 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
 
         try{
             PreparedStatement getLibroAutoriPS = connection.prepareStatement(
-                    "SELECT * FROM  libro NATURAL JOIN scrittura_l NATURAL JOIN autore WHERE libro.isbn = '"+s+"';"
+                    "SELECT * FROM  libro NATURAL JOIN scrittura_l NATURAL JOIN autore WHERE libro.isbn = '"+s+"';" //prepara la query che cerca il libro
             );
-            rs = getLibroAutoriPS.executeQuery();
+            rs = getLibroAutoriPS.executeQuery();   //esegue la query
         }catch (SQLException var2){
             var2.printStackTrace();
         }
