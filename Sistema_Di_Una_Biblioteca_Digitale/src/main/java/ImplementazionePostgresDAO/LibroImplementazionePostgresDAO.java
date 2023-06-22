@@ -35,17 +35,32 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
 
         return rs;
     }
+    public ResultSet getLibriDB(String collana) { //ritorna i dati di tutti i libri nel DB
+        ResultSet rs = null; //libri trovati
+
+        try {
+            PreparedStatement getLibriPS = connection.prepareStatement(
+                    "SELECT * FROM libro NATURAL JOIN appartenenza NATURAL JOIN collana WHERE collana.nome = '"+collana+"';"   //prepara la query che cerca tutti i libri
+            );
+
+            rs = getLibriPS.executeQuery(); //esegue la query
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        return rs;
+    }
 
     @Override
     public ResultSet getLibroAutoriDB(String s){    //ritorna i dati del libro con ISBN 's'
         ResultSet rs = null;    //libro trovato
 
-        String connectionURL = "jdbc:postgresql://localhost:5432/Biblioteca";
+        /*String connectionURL = "jdbc:postgresql://localhost:5432/Biblioteca";
         try {
             connection = DriverManager.getConnection(connectionURL, "postgres", "giovk");
         }catch (SQLException e){
             e.printStackTrace();
-        }
+        }*/
 
         try{
             PreparedStatement getLibroAutoriPS = connection.prepareStatement(

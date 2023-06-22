@@ -37,6 +37,11 @@ public class CollanaImplementazionePostgresDAO implements CollanaDAO {
     }
 
     @Override
+    public void getCollanaLibriDB(){
+
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

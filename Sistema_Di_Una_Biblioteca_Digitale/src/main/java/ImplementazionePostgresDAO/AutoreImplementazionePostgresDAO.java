@@ -37,12 +37,12 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
     public ResultSet getAutoriDB(String isbn){
         ResultSet rs = null;    //autori di libri trovati
 
-        String connectionURL = "jdbc:postgresql://localhost:5432/Biblioteca";
+        /*String connectionURL = "jdbc:postgresql://localhost:5432/Biblioteca";
         try {
             connection = DriverManager.getConnection(connectionURL, "postgres", "giovk");
         }catch (SQLException e){
             e.printStackTrace();
-        }
+        }*/
 
         try {
             PreparedStatement getAutoriLibroPS = connection.prepareStatement(

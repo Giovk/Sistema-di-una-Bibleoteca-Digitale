@@ -9,7 +9,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BooksPage {
     public JFrame frame;
@@ -32,6 +31,8 @@ public class BooksPage {
     private JPanel jpanel3;
     private JPanel jpanel;
     private JLabel resetFiltriLabel;
+    String linkString = "";
+    int aut;
 
 
     public BooksPage(JFrame frameC, Controller controller) {
@@ -41,8 +42,8 @@ public class BooksPage {
         ArrayList<String> linguaList = controller.getLibriLingua(); //lingue di tutti i libri nel DB
         ArrayList<String> editoreList = controller.getLibriEditore();   //editori di tutti i libri nel DB
         ArrayList<String> dataPubblicazioneList = controller.getLibriDataPubblicazione();   //date di pubblicazione di tutti i libri nel DB
-        ArrayList<String> autoreNomeList = controller.getAutoriLibroNome(); //nomi di tutti gli autori dei libti nel DB
-        ArrayList<String> autoreCognomeList = controller.getAutoriLibroCognome();   //cognomi di tutti gli autori dei libti nel DB
+        //ArrayList<String> autoreNomeList = controller.getAutoriLibroNome(); //nomi di tutti gli autori dei libti nel DB
+        //ArrayList<String> autoreCognomeList = controller.getAutoriLibroCognome();   //cognomi di tutti gli autori dei libti nel DB
         ArrayList<String> collanaList = controller.getCollanaNome();    //collane di libri nel DB
 
         frame = new JFrame("Biblioteca Digitale");
@@ -65,9 +66,7 @@ public class BooksPage {
         genereCB.setModel(new DefaultComboBoxModel<String>(distinctGenereList.toArray(new String[distinctGenereList.size()]))); //inserisce tutti gli elementi di 'distinctGenereList' come voci del JComboBox 'genereCB'
         genereCB.setSelectedIndex(-1);  //permette di avere 'genereCB' non selezionato
 
-        ArrayList<String> distinctAutoreList = new ArrayList<String>(); //contiene i nomi e cognomi conatenati di tutti gli autori dei libri senza duplicati
-        String linkString = "";
-        int aut;
+        ArrayList<String> totAutoreList = new ArrayList<String>(); //contiene i nomi e cognomi conatenati di tutti gli autori dei libri senza duplicati
         for (Libro l: controller.listaLibri) {    //scorre 'autoreNomeList' e 'autoreNomeList'
             aut = 0;
             for (Autore a: l.autori) {
@@ -76,8 +75,20 @@ public class BooksPage {
                 else linkString = linkString + "\n" + a.nome + " " + a.cognome;
                 aut++;
             }
-                distinctAutoreList.add(linkString);  //se l'i-esimo elemento di 'linkAutoreList' non è contenuto in 'distinctAutoreList', allora lo inserisce in 'distinctAutoreList'
+                totAutoreList.add(linkString);  //se l'i-esimo elemento di 'linkAutoreList' non è contenuto in 'distinctAutoreList', allora lo inserisce in 'distinctAutoreList'
         }
+
+        ArrayList<String> distinctAutoreList = new ArrayList<>();
+        for (Libro l: controller.listaLibri) {    //scorre 'autoreNomeList' e 'autoreNomeList'
+            for (Autore a : l.autori) {
+                linkString = a.nome + " " + a.cognome;
+                if (!distinctAutoreList.contains(linkString)) {
+                    distinctAutoreList.add(linkString);  //se 'distinctAutoriList' non contiene l'i-esimo elemento di genereList, allora lo inserisce in 'distinctGenereList'
+                }
+            }
+        }
+
+
 
         autoreCB.setModel(new DefaultComboBoxModel<String>(distinctAutoreList.toArray(new String[distinctAutoreList.size()]))); //inserisce tutti gli elementi di 'distinctAutoreList' come voci del JComboBox 'autoreCB'
         autoreCB.setSelectedIndex(-1);  //permette di avere 'autoreCB' non selezionato
@@ -88,9 +99,9 @@ public class BooksPage {
         booksTable.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "Autori", "Genere", "Lingua", "Editore", "Data di pubblicazione"}));
         DefaultTableModel model = (DefaultTableModel) booksTable.getModel();
 
-        if (isbnList != null && titoloList != null && distinctAutoreList != null && genereList != null && linguaList != null && editoreList != null && dataPubblicazioneList != null) {
+        if (isbnList != null && titoloList != null && totAutoreList != null && genereList != null && linguaList != null && editoreList != null && dataPubblicazioneList != null) {
             for (int i = 0; i < isbnList.size(); i++) {
-                model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), distinctAutoreList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
+                model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), totAutoreList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
             }
         }
 
@@ -104,6 +115,7 @@ public class BooksPage {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'genereRB'
+                    searchBarField.setText("");
                     genereCB.setEnabled(true);  //abilita 'genereCB'
                     collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
                     collanaCB.setEnabled(false);    //disabilita 'collanaCB'
@@ -120,11 +132,10 @@ public class BooksPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                searchBarField.setText("");
                 groupRB.clearSelection();   //deseleziona tutti i JRadioButton del ButtonGroup 'groupRB'
                 model.setRowCount(0);
-                for (int i = 0; i < isbnList.size(); i++) {
-                    model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), distinctAutoreList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
-                }
+                for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
             }
         });
 
@@ -132,6 +143,7 @@ public class BooksPage {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'collanaRB'
+                    searchBarField.setText("");
                     collanaCB.setEnabled(true); //abilita 'collanaCB'
                     genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
                     genereCB.setEnabled(false); //disabilita 'genereCB'
@@ -148,6 +160,7 @@ public class BooksPage {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'autoreRB'
+                    searchBarField.setText("");
                     autoreCB.setEnabled(true);  //abilita 'autoreCB'
                     genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
                     genereCB.setEnabled(false); //disabilita 'genereCB'
@@ -162,11 +175,125 @@ public class BooksPage {
         genereCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.setRowCount(0);
-                ArrayList<Libro> listaLibri = controller.getLibri();
-                for (Libro l : listaLibri) {
-                    if (genereCB.getSelectedItem() != null && genereCB.getSelectedItem().equals(l.genere))
-                        model.addRow(new Object[]{l.isbn, l.titolo, "", l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                if (genereCB.getSelectedItem() != null) {
+                    model.setRowCount(0);
+                    ArrayList<Libro> listaLibri = controller.getLibri();
+                    for (Libro l : listaLibri) {
+                        if (genereCB.getSelectedItem() != null && genereCB.getSelectedItem().equals(l.genere)) {
+                            aut = 0;
+                            for (Autore a : l.autori) {
+
+                                if (aut == 0) linkString = a.nome + " " + a.cognome;
+                                else linkString = linkString + "\n" + a.nome + " " + a.cognome;
+                                aut++;
+                            }
+                            //se l'i-esimo elemento di 'linkAutoreList' non è contenuto in 'distinctAutoreList', allora lo inserisce in 'distinctAutoreList'
+                            model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                        }
+                    }
+                }
+            }
+        });
+
+        autoreCB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (autoreCB.getSelectedItem() != null) {
+                    model.setRowCount(0);
+                    ArrayList<Libro> listaLibri = controller.getLibri();
+                    for (Libro l : listaLibri) {
+                        if (autoreCB.getSelectedItem() != null) {
+                            aut = 0;
+                            for (Autore a : l.autori) {
+
+                                if (aut == 0) linkString = a.nome + " " + a.cognome;
+                                else linkString = linkString + "\n" + a.nome + " " + a.cognome;
+                                aut++;
+                            }
+                            //se l'i-esimo elemento di 'linkAutoreList' non è contenuto in 'distinctAutoreList', allora lo inserisce in 'distinctAutoreList'
+                            if (linkString.contains(autoreCB.getSelectedItem().toString()))
+                                model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                        }
+                    }
+                }
+            }
+        });
+
+        collanaCB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Libro> libriCollana = new ArrayList<>();
+                if (collanaCB.getSelectedItem() != null){
+                    model.setRowCount(0);
+                    libriCollana = controller.getLibri(collanaCB.getSelectedItem().toString());
+                }
+                for (Libro l : libriCollana) {
+                    if (collanaCB.getSelectedItem() != null) {
+                        aut = 0;
+                        for (Autore a : l.autori) {
+
+                            if (aut == 0) linkString = a.nome + " " + a.cognome;
+                            else linkString = linkString + "\n" + a.nome + " " + a.cognome;
+                            aut++;
+                        }
+                        //se l'i-esimo elemento di 'linkAutoreList' non è contenuto in 'distinctAutoreList', allora lo inserisce in 'distinctAutoreList'
+                            model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                    }
+                }
+            }
+        });
+        searchImage.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (!searchBarField.getText().isBlank()) {
+                    model.setRowCount(0);
+                    ArrayList<Libro> listaLibri = controller.getLibri();
+                    for (Libro l : listaLibri) {
+                        aut = 0;
+                        for (Autore a : l.autori) {
+
+                            if (aut == 0) linkString = a.nome + " " + a.cognome;
+                            else linkString = linkString + "\n" + a.nome + " " + a.cognome;
+                            aut++;
+                        }
+                        //se l'i-esimo elemento di 'linkAutoreList' non è contenuto in 'distinctAutoreList', allora lo inserisce in 'distinctAutoreList'
+                        if (l.isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || l.editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase()))
+                            model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                    }
+                } else {
+                    groupRB.clearSelection();
+                    model.setRowCount(0);
+                    for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+                }
+            }
+        });
+        searchBarField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    if (!searchBarField.getText().isBlank()) {
+                        groupRB.clearSelection();
+                        model.setRowCount(0);
+                        ArrayList<Libro> listaLibri = controller.getLibri();
+                        for (Libro l : listaLibri) {
+                            aut = 0;
+                            for (Autore a : l.autori) {
+
+                                if (aut == 0) linkString = a.nome + " " + a.cognome;
+                                else linkString = linkString + "\n" + a.nome + " " + a.cognome;
+                                aut++;
+                            }
+                            //se l'i-esimo elemento di 'linkAutoreList' non è contenuto in 'distinctAutoreList', allora lo inserisce in 'distinctAutoreList'
+                            if (l.isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || l.editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase()))
+                                model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                        }
+                    } else {
+                        groupRB.clearSelection();
+                        model.setRowCount(0);
+                        for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+                    }
+                    e.consume();
                 }
             }
         });

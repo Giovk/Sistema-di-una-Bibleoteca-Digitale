@@ -129,21 +129,25 @@ public class Controller {
         return libri;
     }
 
-    public ArrayList<Autore> getAutori(String isbn){
-        AutoreDAO a = new AutoreImplementazionePostgresDAO();
-        ResultSet rs = a.getAutoriDB(isbn);
-        ArrayList<Autore> autori = new ArrayList<Autore>();
+    public ArrayList<Libro> getLibri(String collana) {   //ritorna i dati di tutti i libri nel DB
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ResultSet rs = l.getLibriDB(collana);  //cerca i dati di tutti i libri nel DB
+        ArrayList<Libro> libri = new ArrayList<Libro>();
+
 
         try {
             while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                autori.add(new Autore(rs.getString("nome"), rs.getString("cognome"), rs.getString("nazionalita"), rs.getDate("datanascita")));
+                ArrayList<Autore> autori = getAutori(rs.getString("isbn"));
+                libri.add(new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), autori ,rs.getString("titolo"), rs.getDate("datapubblicazione")));
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
+        l.chiudiConnessione();
 
-        return autori;
+        return libri;
     }
+
 
     public ArrayList<String> getLibriISBN(){    //ritorna gli ISBN di tutti i libri
         ArrayList<String> isbn = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
@@ -153,28 +157,6 @@ public class Controller {
         return isbn;
     }
 
-    /*public ArrayList<String> getLibroAutori() {   //ritorna i dati di tutti i libri nel DB
-        LibroDAO l = new LibroImplementazionePostgresDAO();
-        ArrayList<String> isbn = getLibriISBN();
-        ArrayList<String> autori = new ArrayList<String>();
-        for (String s: isbn){
-            int k = 0;
-            ResultSet autors = l.getLibroAutoriDB(s);
-            String newAutore = "";
-            try {
-                while (autors.next()){
-                        if(k>=0) newAutore = newAutore +"\n";
-                        newAutore = newAutore + autors.getString("nome") + " " + autors.getString("cognome");
-                        k++;
-                }
-            }catch (SQLException var){
-                var.printStackTrace();
-            }
-            l.chiudiConnessione();
-            autori.add(newAutore);
-        }
-        return autori;
-    }*/
     public ArrayList<String> getLibriTitolo(){  //ritorna i titoli di tutti i libri
         ArrayList<String> titolo = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
         for(Libro l: listaLibri){
@@ -213,13 +195,6 @@ public class Controller {
             dp.add(l.dataPubblicazione.toString());
         }
         return dp;
-    }
-
-    public ResultSet getAutoriLibro() {
-        AutoreDAO a = new AutoreImplementazionePostgresDAO();
-        ResultSet rs = a.getAutoriLibroDB();
-
-        return rs;
     }
 
     public ArrayList<String> getAutoriLibroNome(){  //ritorna i nomi tutti gli autori di libri
@@ -273,4 +248,29 @@ public class Controller {
         c.chiudiConnessione();  //chiude la connessione con il DB
         return nome;
     }
+
+    // AUTORE //
+    public ArrayList<Autore> getAutori(String isbn){
+        AutoreDAO a = new AutoreImplementazionePostgresDAO();
+        ResultSet rs = a.getAutoriDB(isbn);
+        ArrayList<Autore> autori = new ArrayList<Autore>();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                autori.add(new Autore(rs.getString("nome"), rs.getString("cognome"), rs.getString("nazionalita"), rs.getDate("datanascita")));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return autori;
+    }
+
+    public ResultSet getAutoriLibro() {
+        AutoreDAO a = new AutoreImplementazionePostgresDAO();
+        ResultSet rs = a.getAutoriLibroDB();
+
+        return rs;
+    }
+
 }
