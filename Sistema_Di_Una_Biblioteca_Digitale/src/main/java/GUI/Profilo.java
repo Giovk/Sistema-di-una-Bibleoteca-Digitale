@@ -1,9 +1,10 @@
 package GUI;
 
 import Controller.Controller;
-import Model.Utente;
 
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,13 +15,12 @@ import java.awt.event.MouseEvent;
 public class Profilo {
     public JFrame frame;
     private JButton homeButton;
-    private JButton libriButton;
     private JButton utenteButton;
     private JPanel profilePanel;
     private JTextField usernameField;
-    private JButton modificaDatiUtenteButton;
+    private JButton modificaButton;
     private JButton annullaButton;
-    private JButton salvaModificheButton;
+    private JButton salvaButton;
     private JPasswordField passwordField1;
     private JTextField nameField;
     private JTextField cognomeField;
@@ -37,9 +37,34 @@ public class Profilo {
     private JLabel oldPassNoteLabel;
     private JLabel oldPassErrorLabel;
     private JLabel newPassErrorLabel;
+    private JPanel buttonPanel;
+    private JLabel closeBT;
+    private JButton libriButton;
+    private JLabel username;
     private JPopupMenu utenteMenu;
+    private Boolean active = false;
 
     public Profilo(JFrame frameC, Controller controller) {
+        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
+        UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
+
+        utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
+        JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
+        utenteExit.setBackground(new Color(0xFFD369));
+        utenteExit.setBorder(BorderFactory.createEmptyBorder());
+        JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
+        utenteProfilo.setBackground(new Color(0xCF9E29));
+        utenteProfilo.setBorder(BorderFactory.createEmptyBorder());
+        JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
+        utenteLibrerie.setBackground(new Color(0xFFD369));
+        utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());
+        utenteMenu.setPopupSize(new Dimension(80, 75));
+        utenteMenu.setBorder(BorderFactory.createEmptyBorder());
+        utenteMenu.setBackground(new Color(0xFFD369));
+        utenteMenu.add(utenteProfilo);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
+        utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
+        utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
+
         frame = new JFrame("Profilo");
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(profilePanel);
@@ -50,8 +75,20 @@ public class Profilo {
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
 
+
+        closeBT.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.setVisible(false);
+                frameC.setEnabled(true);
+                frame.dispose();
+                System.exit(0);
+            }
+        });
+
+
         annullaButton.setVisible(false);    //rende invisibile il JButton 'annullaButton'
-        salvaModificheButton.setVisible(false); //rende invisibile il JButton 'salvaModificheButton'
+        salvaButton.setVisible(false); //rende invisibile il JButton 'salvaModificheButton'
         usernameField.setEnabled(false);    //disabilita il JTextField 'usernameField'
         nameField.setEnabled(false);    //disabilita il JTextField 'nameField'
         cognomeField.setEnabled(false); //disabilita il JTextField 'cognomeField'
@@ -77,11 +114,6 @@ public class Profilo {
         passwordField1.setText(controller.getPassword());   //imposta il testo di 'passwordField1' con la password dell'utente
         pIVAField.setText(controller.getPartitaIva());  //imposta il testo di 'pIVA' con la partita IVA dell'utente
 
-        utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
-        JMenuItem utenteExit = new JMenuItem("Logout"); //crea la voce del menu "Logout"
-        JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
-        utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
-        utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
         if (controller.getPartitaIva() == null) {   //controlla se l utente non ha registrato una partita IVA
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
@@ -95,6 +127,7 @@ public class Profilo {
                 }
             }
         });
+
 
         utenteExit.addActionListener(new ActionListener() {
             @Override
@@ -115,11 +148,110 @@ public class Profilo {
             }
         });
 
-        modificaDatiUtenteButton.addActionListener(new ActionListener() {
+        utenteButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    utenteMenu.show(utenteButton, utenteButton.getWidth() - 78, utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
+                }
+            }
+        });
+
+        utenteMenu.addPopupMenuListener(new PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                active = true;
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                active = false;
+                utenteButton.setBackground(Color.decode("#FFD369"));
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+                active = false;
+                utenteButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        utenteExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                modificaDatiUtenteButton.setEnabled(false); //abilita il JButton 'modificaDatiUtenteButton'
-                salvaModificheButton.setVisible(true);  //rende visibile il JButton 'salvaModificheButton'
+                frameC.setVisible(true); //rende visibile il frame chiamante
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
+
+        libriButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                BooksPage bp = new BooksPage(frameC, controller);   //chiama il frame 'bp'
+                bp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
+        libriButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                libriButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        libriButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                libriButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        homeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                homeButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        homeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                homeButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+        utenteButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                utenteButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        utenteButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (active == false){
+                    super.mouseExited(e);
+                    utenteButton.setBackground(Color.decode("#FFD369"));
+                }
+            }
+        });
+
+
+
+
+
+        //-------------------------------------------------------------------------------------------------//
+
+        modificaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modificaButton.setEnabled(false); //abilita il JButton 'modificaDatiUtenteButton'
+                salvaButton.setVisible(true);  //rende visibile il JButton 'salvaModificheButton'
                 annullaButton.setVisible(true); //rende visibile il JButton 'annullaButton'
                 passwordField2.setVisible(true);    //rende visibile il JPasswordField 'passwordField2'
                 ripPassLabel.setVisible(true);  //rende visibile la JLabel 'ripPassLabel'
@@ -140,9 +272,9 @@ public class Profilo {
         annullaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                modificaDatiUtenteButton.setEnabled(true);  //abilita il JButton 'modificaDatiUtenteButton'
+                modificaButton.setEnabled(true);  //abilita il JButton 'modificaDatiUtenteButton'
                 annullaButton.setVisible(false);    //rende invisibile il JButton 'annullaButton'
-                salvaModificheButton.setVisible(false); //rende invisibile il JButton 'salvaButton'
+                salvaButton.setVisible(false); //rende invisibile il JButton 'salvaButton'
                 usernameField.setEnabled(false);    //disabilita il JTextField 'usernameField'
                 nameField.setEnabled(false);    //disabilita il JTextField 'nameField'
                 cognomeField.setEnabled(false); //disabilita il JTextField 'cognomeField'
@@ -172,7 +304,7 @@ public class Profilo {
             }
         });
 
-        salvaModificheButton.addActionListener(new ActionListener() {
+        salvaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String emailU = emailField.getText();   //nuova email modificata dall'utente
@@ -218,9 +350,9 @@ public class Profilo {
                     }
 
                     if (error[0] == 0 && error[1] == 0 && error[2] == 0 && error[3] == 0) {  //ccontrolla se non ci sono errori
-                        modificaDatiUtenteButton.setEnabled(true);  //abilita il JButton 'modificaDatiUtenteButton'
+                        modificaButton.setEnabled(true);  //abilita il JButton 'modificaDatiUtenteButton'
                         annullaButton.setVisible(false);    //rende inivisibile il JButton 'annullaButton'
-                        salvaModificheButton.setVisible(false); //rende inivisibile il JButton 'salvaModificheButton'
+                        salvaButton.setVisible(false); //rende inivisibile il JButton 'salvaModificheButton'
                         usernameField.setEnabled(false);    //disabilita il JTextField 'usernameField'
                         nameField.setEnabled(false);    //disabilita il JTextField 'nameField'
                         cognomeField.setEnabled(false); //disabilita il JTextField 'cognomeField'
@@ -256,6 +388,82 @@ public class Profilo {
                 }
             }
         });
+        modificaButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
+                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                modIco = new ImageIcon(modImg);
+                modificaButton.setIcon(modIco);
+
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
+                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                modIco = new ImageIcon(modImg);
+                modificaButton.setIcon(modIco);
+            }
+        });
+
+
+        annullaButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
+                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                modIco = new ImageIcon(modImg);
+                annullaButton.setIcon(modIco);
+
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
+                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                modIco = new ImageIcon(modImg);
+                annullaButton.setIcon(modIco);
+            }
+        });
+
+
+        salvaButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
+                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                modIco = new ImageIcon(modImg);
+                salvaButton.setIcon(modIco);
+
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
+                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                modIco = new ImageIcon(modImg);
+                salvaButton.setIcon(modIco);
+            }
+        });
     }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
+        Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        closeImg = new ImageIcon(imagine);
+        closeBT = new JLabel(closeImg);
+
+
+        ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
+        Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+        modIco = new ImageIcon(modImg);
+        modificaButton = new JButton(modIco);
+        annullaButton = new JButton(modIco);
+        salvaButton = new JButton(modIco);
+    }
 }

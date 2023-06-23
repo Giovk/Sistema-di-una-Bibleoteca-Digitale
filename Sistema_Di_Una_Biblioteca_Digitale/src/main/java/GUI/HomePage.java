@@ -3,11 +3,10 @@ package GUI;
 import Controller.Controller;
 
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class HomePage {
     public JFrame frame;
@@ -16,16 +15,34 @@ public class HomePage {
     private JButton libriButton;
     private JButton utenteButton;
     private JLabel text1;
+    private JPanel buttonPanel;
+    private JLabel closeBT;
 
     private JPopupMenu utenteMenu;
+    private Boolean active = false;
 
     public HomePage(JFrame frameC, Controller controller) {
+        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
+        UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
+
         text1.setText("Ciao " + controller.getUsername() + ", Sei nella Homepage!");
         utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
-        JMenuItem utenteExit = new JMenuItem("Logout"); //crea la voce del menu "Logout"
+        JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
+        utenteExit.setBackground(new Color(0xFFD369));
+        utenteExit.setFocusPainted(false);
+        utenteExit.setBorder(BorderFactory.createEmptyBorder());
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
+        utenteProfilo.setBackground(new Color(0xFFD369));
+        utenteProfilo.setFocusPainted(false);
+        utenteProfilo.setBorder(BorderFactory.createEmptyBorder());
+        utenteProfilo.setFocusable(false);
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
-        utenteMenu.setPopupSize(new Dimension(78, 75));
+        utenteLibrerie.setBackground(new Color(0xFFD369));
+        utenteLibrerie.setFocusPainted(false);
+        utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());
+        utenteMenu.setPopupSize(new Dimension(80, 75));
+        utenteMenu.setBorder(BorderFactory.createEmptyBorder());
+        utenteMenu.setBackground(new Color(0xFFD369));
         utenteMenu.add(utenteProfilo);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
@@ -44,13 +61,18 @@ public class HomePage {
         frame.setResizable(false); //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
 
-        homeButton.addActionListener(new ActionListener() {
+
+        closeBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                frame.setVisible(false);
+                frameC.setEnabled(true);
+                frame.dispose();
+                System.exit(0);
             }
         });
 
-        libriButton.addActionListener(new ActionListener() {
+        homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             }
@@ -60,10 +82,27 @@ public class HomePage {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    utenteMenu.show(utenteButton, utenteButton.getWidth()-78, utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
-
-
+                    utenteMenu.show(utenteButton, utenteButton.getWidth() - 78, utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
                 }
+            }
+        });
+
+        utenteMenu.addPopupMenuListener(new PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                active = true;
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                active = false;
+                utenteButton.setBackground(Color.decode("#FFD369"));
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+                active = false;
+                utenteButton.setBackground(Color.decode("#FFD369"));
             }
         });
 
@@ -97,5 +136,44 @@ public class HomePage {
                 frame.dispose();
             }
         });
+        libriButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                libriButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        libriButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                libriButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        utenteButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                utenteButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        utenteButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (active == false){
+                    super.mouseExited(e);
+                utenteButton.setBackground(Color.decode("#FFD369"));
+                }
+            }
+        });
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
+        Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        closeImg = new ImageIcon(imagine);
+        closeBT = new JLabel(closeImg);
     }
 }

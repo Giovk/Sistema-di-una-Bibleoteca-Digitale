@@ -98,6 +98,7 @@
                 <properties>
                   <background color="-11415"/>
                   <borderPainted value="false"/>
+                  <selected value="false"/>
                   <text value="Registrati"/>
                 </properties>
               </component>

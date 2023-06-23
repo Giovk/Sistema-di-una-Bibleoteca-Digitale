@@ -297,6 +297,15 @@ public class BooksPage {
                 }
             }
         });
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
+                hp.frame.setVisible(true);  //rende visibile il frame 'hp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
     }
 
     private void createUIComponents() {
