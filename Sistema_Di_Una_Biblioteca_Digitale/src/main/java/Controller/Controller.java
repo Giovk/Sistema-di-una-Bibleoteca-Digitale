@@ -1,13 +1,7 @@
 package Controller;
 
-import DAO.AutoreDAO;
-import DAO.CollanaDAO;
-import DAO.LibroDAO;
-import DAO.UtenteDAO;
-import ImplementazionePostgresDAO.AutoreImplementazionePostgresDAO;
-import ImplementazionePostgresDAO.CollanaImplementazionePostgresDAO;
-import ImplementazionePostgresDAO.LibroImplementazionePostgresDAO;
-import ImplementazionePostgresDAO.UtenteImplementazionePostgresDAO;
+import DAO.*;
+import ImplementazionePostgresDAO.*;
 import Model.Autore;
 import Model.Libro;
 import Model.Utente;
@@ -20,6 +14,8 @@ import java.util.ArrayList;
 public class Controller {
     private  Utente utente;
     public  ArrayList<Libro> listaLibri = getLibri();
+    public String isbn_selected = "";
+    public String nome_l = "";
     public Controller(){
 
     }
@@ -273,4 +269,171 @@ public class Controller {
         return rs;
     }
 
+    // LIBRERIA //
+
+    public ResultSet getDisponibilita(){
+        LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
+        ResultSet rs = l.disponibilitaDB(isbn_selected);
+        return rs;
+    }
+
+    public ArrayList<String> getDisponibilitaLibreria(){
+        ArrayList<String> libreria = new ArrayList<>();
+        ResultSet rs = getDisponibilita();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                libreria.add(rs.getString("nome"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return libreria;
+    }
+
+    public ArrayList<Integer> getDisponibilitaQuantita(){
+        ArrayList<Integer> quantita = new ArrayList<>();
+        ResultSet rs = getDisponibilita();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                quantita.add(rs.getInt("quantita"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return quantita;
+    }
+
+    public ArrayList<String> getDisponibilitaFruizione(){
+        ArrayList<String> fruizione = new ArrayList<>();
+        ResultSet rs = getDisponibilita();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                fruizione.add(rs.getString("fruizione"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return fruizione;
+    }
+
+    public ArrayList<String> getDisponibilitaIndirizzo(){
+        ArrayList<String> indirizzo = new ArrayList<>();
+        ResultSet rs = getDisponibilita();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                indirizzo.add(rs.getString("indirizzo"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return indirizzo;
+    }
+
+
+    public ArrayList<String> getDisponibilitaSitoWeb(){
+        ArrayList<String> sitoWeb = new ArrayList<>();
+        ResultSet rs = getDisponibilita();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                sitoWeb.add(rs.getString("sitoweb"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return sitoWeb;
+    }
+
+    public ArrayList<String> getDisponibilitaNumeroTelefono(){
+        ArrayList<String> nTel = new ArrayList<>();
+        ResultSet rs = getDisponibilita();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                nTel.add(rs.getString("numerotelefonico"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return nTel;
+    }
+
+    // PRESENTAZIONE //
+
+    public ResultSet getPresentazione(){
+        PresentazioneDAO p = new PresentazioneImplementazionePostgresDAO();
+        ResultSet rs = p.getPresentazioneDB(isbn_selected);
+        return rs;
+    }
+
+    //"Luogo", "Struttura", "Data", "Orario"
+    public ArrayList<String> getPresentazioneLuogo(){
+        ArrayList<String> luogo = new ArrayList<>();
+        ResultSet rs = getPresentazione();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                luogo.add(rs.getString("luogo"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return luogo;
+    }
+
+    public ArrayList<String> getPresentazioneStruttura(){
+        ArrayList<String> struttura = new ArrayList<>();
+        ResultSet rs = getPresentazione();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                struttura.add(rs.getString("struttura"));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return struttura;
+    }
+
+    public ArrayList<String> getPresentazioneData(){
+        ArrayList<String> data = new ArrayList<>();
+        ResultSet rs = getPresentazione();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                data.add(rs.getDate("datap").toString());
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return data;
+    }
+
+    public ArrayList<String> getPresentazioneOrario(){
+        ArrayList<String> orario = new ArrayList<>();
+        ResultSet rs = getPresentazione();
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
+                orario.add(rs.getTime("ora").toString());
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return orario;
+    }
 }

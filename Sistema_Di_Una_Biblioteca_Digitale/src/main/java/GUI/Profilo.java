@@ -123,7 +123,7 @@ public class Profilo {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    utenteMenu.show(utenteButton, utenteButton.getX(), utenteButton.getY() + 25);   //mostra le voci del menu 'utenteMenu'
+                    utenteMenu.show(utenteButton, utenteButton.getWidth() - 80, utenteButton.getHeight());   //mostra le voci del menu 'utenteMenu'
                 }
             }
         });
