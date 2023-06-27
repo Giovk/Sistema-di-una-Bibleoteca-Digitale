@@ -22,7 +22,7 @@ public class BookPage {
     private JLabel closeBT;
     private JTable table1;
     private JTable table2;
-    private JCheckBox disponibilitàCheckBox;
+    private JCheckBox disponibilitaCheckBox;
     private JCheckBox presentazioniCheckBox;
     private JPanel jpanel;
     private JLabel nomeIsbn;
@@ -150,6 +150,7 @@ public class BookPage {
                 utenteButton.setBackground(Color.decode("#cf9e29"));
             }
         });
+
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -159,6 +160,7 @@ public class BookPage {
                 }
             }
         });
+
         homeButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -166,6 +168,7 @@ public class BookPage {
                 homeButton.setBackground(Color.decode("#cf9e29"));
             }
         });
+
         homeButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -215,17 +218,17 @@ public class BookPage {
             model2.addRow(new Object[]{luogo.get(i), struttura.get(i), data.get(i), orario.get(i)});
         }
 
-        disponibilitàCheckBox.addActionListener(new ActionListener() {
+        disponibilitaCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(presentazioniCheckBox.isSelected()) {
-                    if (!disponibilitàCheckBox.isSelected()){
+                    if (!disponibilitaCheckBox.isSelected()){
                         jscroll1.setVisible(false);
                     }
                     else jscroll1.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
-                    disponibilitàCheckBox.setSelected(true);
+                    disponibilitaCheckBox.setSelected(true);
                     jscroll1.setVisible(true);
                 }
             }
@@ -234,7 +237,7 @@ public class BookPage {
         presentazioniCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(disponibilitàCheckBox.isSelected()){
+                if(disponibilitaCheckBox.isSelected()){
                     if(!presentazioniCheckBox.isSelected()) jscroll2.setVisible(false);
                     else jscroll2.setVisible(true);
                 } else{
