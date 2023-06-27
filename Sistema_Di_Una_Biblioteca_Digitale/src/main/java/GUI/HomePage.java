@@ -136,6 +136,7 @@ public class HomePage {
                 frame.dispose();
             }
         });
+
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -143,6 +144,7 @@ public class HomePage {
                 libriButton.setBackground(Color.decode("#cf9e29"));
             }
         });
+
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -163,7 +165,7 @@ public class HomePage {
             public void mouseExited(MouseEvent e) {
                 if (active == false){
                     super.mouseExited(e);
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                    utenteButton.setBackground(Color.decode("#FFD369"));
                 }
             }
         });
