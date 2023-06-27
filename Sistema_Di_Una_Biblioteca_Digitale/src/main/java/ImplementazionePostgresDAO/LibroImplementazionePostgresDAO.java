@@ -51,7 +51,7 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
         return rs;
     }
 
-    @Override
+    /*@Override
     public ResultSet getLibroAutoriDB(String s){    //ritorna i dati del libro con ISBN 's'
         ResultSet rs = null;    //libro trovato
 
@@ -62,7 +62,7 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
             e.printStackTrace();
         }*/
 
-        try{
+        /*try{
             PreparedStatement getLibroAutoriPS = connection.prepareStatement(
                     "SELECT * FROM  libro NATURAL JOIN scrittura_l NATURAL JOIN autore WHERE libro.isbn = '"+s+"';" //prepara la query che cerca il libro
             );
@@ -72,7 +72,7 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
         }
 
         return rs;
-    }
+    }*/
 
     @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
