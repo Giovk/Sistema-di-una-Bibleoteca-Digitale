@@ -16,7 +16,7 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
         }
     }
 
-    @Override
+    /*@Override
     public ResultSet getAutoriLibroDB(){    //ritorna i dati di tutti gli autori di libri nel DB
         ResultSet rs = null;    //autori di libri trovati
 
@@ -31,7 +31,7 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
         }
 
         return rs;
-    }
+    }*/
 
     @Override
     public ResultSet getAutoriDB(String isbn){
