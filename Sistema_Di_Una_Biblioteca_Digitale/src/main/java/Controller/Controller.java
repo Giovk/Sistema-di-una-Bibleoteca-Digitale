@@ -103,7 +103,7 @@ public class Controller {
     public String getEmail(){return utente.getEmail();} //ritorna l'email dell'utente
     public String getPassword(){return utente.getPassword();}   //ritorna la password dell'utente
     public String getPartitaIva(){return utente.getPartitaIVA();}   //ritorna la partita IVA dell'utente
-    public String getDataNascita(){return utente.getDataNascita();} //ritorna la data di nascita dell'utente
+    //public String getDataNascita(){return utente.getDataNascita();} //ritorna la data di nascita dell'utente
 
     // LIBRO //
     public ArrayList<Libro> getLibri() {   //ritorna i dati di tutti i libri nel DB
@@ -193,7 +193,7 @@ public class Controller {
         return dp;
     }
 
-    public ArrayList<String> getAutoriLibroNome(){  //ritorna i nomi tutti gli autori di libri
+    /*public ArrayList<String> getAutoriLibroNome(){  //ritorna i nomi tutti gli autori di libri
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
         ResultSet autori = a.getAutoriLibroDB();    //contiene tutti gli autori
         ArrayList<String> nome = new ArrayList<String>();   //contiene tutti i nomi degli autori di libri
@@ -208,9 +208,9 @@ public class Controller {
 
         a.chiudiConnessione();  //chiude la connessione con il DB
         return nome;
-    }
+    }*/
 
-    public ArrayList<String> getAutoriLibroCognome(){   //ritorna i cognomi tutti gli autori di libri
+    /*public ArrayList<String> getAutoriLibroCognome(){   //ritorna i cognomi tutti gli autori di libri
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
         ResultSet autori = a.getAutoriLibroDB();    //contiene tutti gli autori
         ArrayList<String> cognome = new ArrayList<String>();    //contiene tutti i cognomi degli autori di libri
@@ -225,7 +225,7 @@ public class Controller {
 
         a.chiudiConnessione();  //chiude la connessione con il DB
         return cognome;
-    }
+    }*/
 
     // COLLANA //
     public ArrayList<String> getCollanaNome(){  //ritorna tutti i nomi delle collane
@@ -262,12 +262,12 @@ public class Controller {
         return autori;
     }
 
-    public ResultSet getAutoriLibro() {
+    /*public ResultSet getAutoriLibro() {
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
         ResultSet rs = a.getAutoriLibroDB();
 
         return rs;
-    }
+    }*/
 
     // LIBRERIA //
 
@@ -376,7 +376,6 @@ public class Controller {
         return rs;
     }
 
-    //"Luogo", "Struttura", "Data", "Orario"
     public ArrayList<String> getPresentazioneLuogo(){
         ArrayList<String> luogo = new ArrayList<>();
         ResultSet rs = getPresentazione();
