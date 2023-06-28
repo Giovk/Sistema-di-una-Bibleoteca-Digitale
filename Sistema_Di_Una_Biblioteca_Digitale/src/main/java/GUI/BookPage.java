@@ -72,7 +72,7 @@ public class BookPage {
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
 
-        nomeIsbn.setText(controller.nome_l + " - (" + controller.isbn_selected + ")");
+        nomeIsbn.setText(controller.nome_l + " - (" + controller.isbn_selected + ")");  //imposta il tetsto della JLabel 'nomeIsbn' con il nome e l'ISBN del libro selezionato
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
@@ -182,38 +182,40 @@ public class BookPage {
         DefaultTableModel model1 = new DefaultTableModel(new Object[][]{}, new String[]{"Libreria", "Quantità", "Fruizione", "Indirizzo", "Sito Web", "N. di Telefono"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // or a condition at your choice with row and column
+                return false;   //permette di rendere non editabile la cella (row,column)
             }
         };
 
         DefaultTableModel model2 = new DefaultTableModel(new Object[][]{}, new String[]{"Luogo", "Struttura", "Data", "Orario"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // or a condition at your choice with row and column
+                return false; //permette di rendere non editabile la cella (row,column)
             }
         };
 
-        ArrayList<String> libreria = controller.getDisponibilitaLibreria();
-        ArrayList<Integer> quantita = controller.getDisponibilitaQuantita();
-        ArrayList<String> fruizione = controller.getDisponibilitaFruizione();
-        ArrayList<String> indirizzo = controller.getDisponibilitaIndirizzo();
-        ArrayList<String> sitoWeb = controller.getDisponibilitaSitoWeb();
-        ArrayList<String> nTel = controller.getDisponibilitaNumeroTelefono();
+        ArrayList<String> libreria = controller.getDisponibilitaLibreria(); //nomi delle librerie che possiedono il libro selezionato
+        ArrayList<Integer> quantita = controller.getDisponibilitaQuantita();    //quantità disponibili del libro selezionato
+        ArrayList<String> fruizione = controller.getDisponibilitaFruizione();   //modalità di fruizione disponibile del libro selezionato
+        ArrayList<String> indirizzo = controller.getDisponibilitaIndirizzo();   //indirizzi delle librerie che possiedono il libro selezionato
+        ArrayList<String> sitoWeb = controller.getDisponibilitaSitoWeb();   //siti web delle librerie che possiedono il libro selezionato
+        ArrayList<String> nTel = controller.getDisponibilitaNumeroTelefono();   //numeri telefonici delle librerie che possiedono il libro selezionato
 
+        table1.setModel(model1);    //imposta il modello dei dati della JTable 'table2'
 
-        table1.setModel(model1);
         for(int i = 0; i < libreria.size(); i++){
+
             if(fruizione.get(i).equals("Digitale") || fruizione.get(i).equals("AudioLibro")) model1.addRow(new Object[]{libreria.get(i), "∞", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
             else if(fruizione.get(i).equals("Cartaceo") && quantita.get(i) == 0) model1.addRow(new Object[]{libreria.get(i), "Non Disponibile", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
             else model1.addRow(new Object[]{libreria.get(i), quantita.get(i), fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
         }
 
-        ArrayList<String> luogo = controller.getPresentazioneLuogo();
-        ArrayList<String> struttura = controller.getPresentazioneStruttura();
-        ArrayList<String> data = controller.getPresentazioneData();
-        ArrayList<String> orario = controller.getPresentazioneOrario();
+        ArrayList<String> luogo = controller.getPresentazioneLuogo();   //luogo delle presentazioni del libro selezionato
+        ArrayList<String> struttura = controller.getPresentazioneStruttura();   //strutture delle presentazoni del libro selezionato
+        ArrayList<String> data = controller.getPresentazioneData(); //date delle presentazioni del libro selezionato
+        ArrayList<String> orario = controller.getPresentazioneOrario(); //orari delle presentazione del libro selezionato
 
-        table2.setModel(model2);
+        table2.setModel(model2);    //imposta il modello dei dati della JTable 'table1'
+
         for(int i = 0; i < luogo.size(); i++){
             model2.addRow(new Object[]{luogo.get(i), struttura.get(i), data.get(i), orario.get(i)});
         }
@@ -221,15 +223,17 @@ public class BookPage {
         disponibilitaCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(presentazioniCheckBox.isSelected()) {
-                    if (!disponibilitaCheckBox.isSelected()){
-                        jscroll1.setVisible(false);
+
+                if(presentazioniCheckBox.isSelected()) {    //controlla se è stato selezionato il JCheckBox 'presentazioniCheckBox'
+
+                    if (!disponibilitaCheckBox.isSelected()){   //controlla se non è stato selezionato il JCheckBox 'disponibilitaCheckBox'
+                        jscroll1.setVisible(false); //rende invisibile il JScrollPane 'jscroll1'
                     }
-                    else jscroll1.setVisible(true);
+                    else jscroll1.setVisible(true); //rende visibile il JScrollPane 'jscroll1'
                 } else {
                     JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
-                    disponibilitaCheckBox.setSelected(true);
-                    jscroll1.setVisible(true);
+                    disponibilitaCheckBox.setSelected(true);    //seleziona 'disponibilitaCheckBox'
+                    jscroll1.setVisible(true);  //rende visibile il JScrollPane 'jscroll1'
                 }
             }
         });
@@ -237,13 +241,17 @@ public class BookPage {
         presentazioniCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(disponibilitaCheckBox.isSelected()){
-                    if(!presentazioniCheckBox.isSelected()) jscroll2.setVisible(false);
-                    else jscroll2.setVisible(true);
+
+                if(disponibilitaCheckBox.isSelected()){ //controlla se è stato selezionato il JCheckBox 'disponibilitaCheckBox'
+
+                    if(!presentazioniCheckBox.isSelected()){    //controlla se non è stato selezionato il JCheckBox 'presentazioniCheckBox'
+                        jscroll2.setVisible(false); //rende invisibile il JScrollPane 'jscroll2'
+                    }
+                    else jscroll2.setVisible(true); //rende visibile il JScrollPane 'jscroll2'
                 } else{
                     JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
-                    presentazioniCheckBox.setSelected(true);
-                    jscroll2.setVisible(true);
+                    presentazioniCheckBox.setSelected(true);  //seleziona 'presentazioniCheckBox'
+                    jscroll2.setVisible(true);  //rende visibile il JScrollPane 'jscroll2'
                 }
             }
         });
