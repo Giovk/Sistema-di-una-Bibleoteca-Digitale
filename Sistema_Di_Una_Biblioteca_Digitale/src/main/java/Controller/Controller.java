@@ -45,7 +45,7 @@ public class Controller {
         String pIVA = null;
 
         try {
-            while(rs.next()){   //scorre il ResultSet 'rs' contente l'utente con 'userEmail' e 'password'
+            while(rs.next()){   //scorre il ResultSet 'rs' contenente l'utente con 'userEmail' e 'password'
                 us = rs.getString("username");  //imposta l'username del utente
                 p = rs.getString("passwordu");  //imposta la password del utente
                 e = rs.getString("email");  //imposta l'email del utente
@@ -109,87 +109,99 @@ public class Controller {
     public ArrayList<Libro> getLibri() {   //ritorna i dati di tutti i libri nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ResultSet rs = l.getLibriDB();  //cerca i dati di tutti i libri nel DB
-        ArrayList<Libro> libri = new ArrayList<Libro>();
-
+        ArrayList<Libro> libri = new ArrayList<Libro>();    //contiene tutti i libri
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                ArrayList<Autore> autori = getAutori(rs.getString("isbn"));
-                libri.add(new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), autori ,rs.getString("titolo"), rs.getDate("datapubblicazione")));
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri
+                ArrayList<Autore> autori = getAutori(rs.getString("isbn")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                libri.add(new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), autori ,rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
-        l.chiudiConnessione();
+
+        l.chiudiConnessione();  //chiude la connessione al DB
 
         return libri;
     }
 
-    public ArrayList<Libro> getLibri(String collana) {   //ritorna i dati di tutti i libri nel DB
+    public ArrayList<Libro> getLibri(String collana) {   //ritorna i dati di tutti i libri della collana 'collana' nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
-        ResultSet rs = l.getLibriDB(collana);  //cerca i dati di tutti i libri nel DB
-        ArrayList<Libro> libri = new ArrayList<Libro>();
+        ResultSet rs = l.getLibriDB(collana);  //cerca i dati di tutti i libri della collana 'collana' nel DB
+        ArrayList<Libro> libri = new ArrayList<Libro>();    //contiene tutti i libri
 
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                ArrayList<Autore> autori = getAutori(rs.getString("isbn"));
-                libri.add(new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), autori ,rs.getString("titolo"), rs.getDate("datapubblicazione")));
+            while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
+                ArrayList<Autore> autori = getAutori(rs.getString("isbn")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                libri.add(new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), autori ,rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
-        l.chiudiConnessione();
+
+        l.chiudiConnessione();  //chiude la connessione al DB
 
         return libri;
     }
-
 
     public ArrayList<String> getLibriISBN(){    //ritorna gli ISBN di tutti i libri
         ArrayList<String> isbn = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
-        for(Libro l: listaLibri){
-            isbn.add(l.isbn);
+
+        for(Libro l: listaLibri){   //scorre la lista dei libri
+            isbn.add(l.isbn);   //aggiunge l'isbn del libro 'l' in 'isbn'
         }
+
         return isbn;
     }
 
     public ArrayList<String> getLibriTitolo(){  //ritorna i titoli di tutti i libri
-        ArrayList<String> titolo = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
-        for(Libro l: listaLibri){
-            titolo.add(l.titolo);
+        ArrayList<String> titolo = new ArrayList<String>();   //contiene tutti i titoli dei libri
+
+        for(Libro l: listaLibri){   //scorre la lista dei libri
+            titolo.add(l.titolo);   //aggiunge il titolo del libro 'l' in 'titolo'
         }
+
         return titolo;
     }
 
-    public ArrayList<String> getLibriGenere(){  //ritorna i generi di tutti i libri        ArrayList<String> isbn = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
-        ArrayList<String> genere = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
-        for(Libro l: listaLibri){
-            genere.add(l.genere);
+    public ArrayList<String> getLibriGenere(){  //ritorna i generi di tutti i libri
+        ArrayList<String> genere = new ArrayList<String>();   //contiene tutti i generi dei libri
+
+        for(Libro l: listaLibri){   //scorre la lista dei libri
+            genere.add(l.genere);   //aggiunge il genere del libro 'l' in 'genere'
         }
+
         return genere;
     }
 
     public ArrayList<String> getLibriLingua(){  //ritorna le linge di tutti i libri
-        ArrayList<String> lingua = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
-        for(Libro l: listaLibri){
-            lingua.add(l.lingua);
+        ArrayList<String> lingua = new ArrayList<String>();   //contiene tutte le lingue dei libri
+
+        for(Libro l: listaLibri){   //scorre la lista dei libri
+            lingua.add(l.lingua);   //aggiunge la lingua del libro 'l' in 'lingua'
         }
+
         return lingua;
     }
 
     public ArrayList<String> getLibriEditore(){ //ritorna gli editori di tutti i libri
-        ArrayList<String> editore = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
-        for(Libro l: listaLibri){
-            editore.add(l.editore);
+        ArrayList<String> editore = new ArrayList<String>();   //contiene tutti gli editori dei libri
+
+        for(Libro l: listaLibri){   //scorre la lista dei libri
+            editore.add(l.editore); //aggiunge l'editore del libro 'l' in 'editore'
         }
+
         return editore;
     }
 
     public ArrayList<String> getLibriDataPubblicazione(){   //ritorna le date di pubblicazione di tutti i libri
-        ArrayList<String> dp = new ArrayList<String>();   //contiene tutti gli ISBN dei libri
-        for(Libro l: listaLibri){
-            dp.add(l.dataPubblicazione.toString());
+        ArrayList<String> dp = new ArrayList<String>();   //contiene tutte le date di pubblicazione dei libri
+
+        for(Libro l: listaLibri){   //scorre la lista dei libri
+            dp.add(l.dataPubblicazione.toString()); //aggiunge la data di pubblicazione del libro 'l' in 'dp'
         }
+
         return dp;
     }
 
@@ -234,7 +246,7 @@ public class Controller {
         ArrayList<String> nome = new ArrayList<String>();   //contiene tutti i nomi delle collane
 
         try {
-            while(collane.next()){  //scorre il ResultSet 'collane' contente le collane
+            while(collane.next()){  //scorre il ResultSet 'collane' contenente le collane
                 nome.add(collane.getString("nome"));    //aggiunge i nomi delle collane in 'nome'
             }
         } catch (SQLException var){
@@ -242,18 +254,19 @@ public class Controller {
         }
 
         c.chiudiConnessione();  //chiude la connessione con il DB
+
         return nome;
     }
 
     // AUTORE //
-    public ArrayList<Autore> getAutori(String isbn){
+    public ArrayList<Autore> getAutori(String isbn){    //ritorna gli autori del libro con ISBN 'isbn'
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
-        ResultSet rs = a.getAutoriDB(isbn);
-        ArrayList<Autore> autori = new ArrayList<Autore>();
+        ResultSet rs = a.getAutoriDB(isbn); //ResultSet contenente tutti gli autori del libro con ISBN 'isbn'
+        ArrayList<Autore> autori = new ArrayList<Autore>(); //contiene tutti gli autori del libro con ISBN 'isbn'
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                autori.add(new Autore(rs.getString("nome"), rs.getString("cognome"), rs.getString("nazionalita"), rs.getDate("datanascita")));
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente gli autori
+                autori.add(new Autore(rs.getString("nome"), rs.getString("cognome"), rs.getString("nazionalita"), rs.getDate("datanascita")));  //aggiunge un nuovo autore in 'autori'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -271,19 +284,20 @@ public class Controller {
 
     // LIBRERIA //
 
-    public ResultSet getDisponibilita(){
+    public ResultSet getDisponibilita(){    //ritorna un ResultSet con le disponibilita del libro con ISBN 'isbn_selected'
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
-        ResultSet rs = l.disponibilitaDB(isbn_selected);
+        ResultSet rs = l.disponibilitaDB(isbn_selected);    //ritorna tutte le dipsonibilità del libro selezionato
+
         return rs;
     }
 
-    public ArrayList<String> getDisponibilitaLibreria(){
-        ArrayList<String> libreria = new ArrayList<>();
-        ResultSet rs = getDisponibilita();
+    public ArrayList<String> getDisponibilitaLibreria(){    //ritorna i nomi di tutte le librerie che possiedono il libro selezionato
+        ArrayList<String> libreria = new ArrayList<>(); //contiene i nomi delle librerie
+        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                libreria.add(rs.getString("nome"));
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                libreria.add(rs.getString("nome")); //aggiunge un nuovo nome in 'libreria'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -292,13 +306,13 @@ public class Controller {
         return libreria;
     }
 
-    public ArrayList<Integer> getDisponibilitaQuantita(){
-        ArrayList<Integer> quantita = new ArrayList<>();
-        ResultSet rs = getDisponibilita();
+    public ArrayList<Integer> getDisponibilitaQuantita(){   //ritorna le quantità disponibili del libro selezionato
+        ArrayList<Integer> quantita = new ArrayList<>();    //contiene le quantità disponibili
+        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                quantita.add(rs.getInt("quantita"));
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                quantita.add(rs.getInt("quantita"));    //aggiunge una nuova quantità in 'quantita'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -307,13 +321,13 @@ public class Controller {
         return quantita;
     }
 
-    public ArrayList<String> getDisponibilitaFruizione(){
-        ArrayList<String> fruizione = new ArrayList<>();
-        ResultSet rs = getDisponibilita();
+    public ArrayList<String> getDisponibilitaFruizione(){  //ritorna le modalità di fruizione disponibili del libro selezionato
+        ArrayList<String> fruizione = new ArrayList<>();    //contiene le modalità di fruizione disponibili
+        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                fruizione.add(rs.getString("fruizione"));
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                fruizione.add(rs.getString("fruizione")); //aggiunge una nuova modalità di fruizione in 'fruizione'
             }
         } catch (SQLException var){
             var.printStackTrace();
