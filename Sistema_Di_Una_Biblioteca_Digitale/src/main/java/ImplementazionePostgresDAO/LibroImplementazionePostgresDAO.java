@@ -75,6 +75,23 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
     }*/
 
     @Override
+    public ResultSet getLibriSerieDB(String s){
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement getLibriSeriePS = connection.prepareStatement(
+                    "SELECT * FROM inserimento WHERE serie = '"+s+"';"   //prepara la query che cerca tutti i libri
+            );
+
+            rs = getLibriSeriePS.executeQuery(); //esegue la query
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        return rs;
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

@@ -53,6 +53,7 @@ public class Profilo {
     private JLabel cognomeLabel;
     private JLabel nomeLabel;
     private JLabel emailLabel;
+    private JButton serieButton;
     private JPopupMenu utenteMenu;
     private Boolean active = false;
 
@@ -253,7 +254,20 @@ public class Profilo {
             }
         });
 
-
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                serieButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                serieButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
 
 
 
@@ -505,7 +519,7 @@ public class Profilo {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e2.png"));
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e4.png"));
                 Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
                 showPico = new ImageIcon(showPimg);
                 showPass2.setIcon(showPico);
@@ -515,7 +529,7 @@ public class Profilo {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e1.png"));
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png"));
                 Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
                 showPico = new ImageIcon(showPimg);
                 showPass2.setIcon(showPico);
@@ -525,7 +539,7 @@ public class Profilo {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e1.png"));
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e3.png"));
                 Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
                 hidePico = new ImageIcon(hidePimg);
                 hidePass2.setIcon(hidePico);
@@ -535,7 +549,7 @@ public class Profilo {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e2.png"));
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png"));
                 Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
                 hidePico = new ImageIcon(hidePimg);
                 hidePass2.setIcon(hidePico);
@@ -546,7 +560,7 @@ public class Profilo {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e2.png"));
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e4.png"));
                 Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
                 showPico = new ImageIcon(showPimg);
                 showPass.setIcon(showPico);
@@ -556,7 +570,7 @@ public class Profilo {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e1.png"));
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png"));
                 Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
                 showPico = new ImageIcon(showPimg);
                 showPass.setIcon(showPico);
@@ -566,7 +580,7 @@ public class Profilo {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e1.png"));
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e3.png"));
                 Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
                 hidePico = new ImageIcon(hidePimg);
                 hidePass.setIcon(hidePico);
@@ -576,7 +590,7 @@ public class Profilo {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e2.png"));
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png"));
                 Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
                 hidePico = new ImageIcon(hidePimg);
                 hidePass.setIcon(hidePico);
@@ -665,13 +679,13 @@ public class Profilo {
         passwordField2 = new JPasswordField();
         passwordField2.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
 
-        ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e1.png"));
+        ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png"));
         Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         showPico = new ImageIcon(showPimg);
         showPass = new JLabel(showPico);
         showPass2 = new JLabel(showPico);
 
-        ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e2.png"));
+        ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png"));
         Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         hidePico = new ImageIcon(hidePimg);
         hidePass = new JLabel(hidePico);

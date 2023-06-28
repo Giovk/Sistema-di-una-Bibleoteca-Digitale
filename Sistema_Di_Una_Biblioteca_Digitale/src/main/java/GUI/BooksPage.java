@@ -36,6 +36,7 @@ public class BooksPage {
     private JLabel closeBT;
     private JButton libriButton;
     private JButton utenteButton;
+    private JButton serieButton;
     private String linkString = "";
     private int aut;
     private Boolean active = false;
@@ -184,6 +185,21 @@ public class BooksPage {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 homeButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                serieButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                serieButton.setBackground(Color.decode("#FFD369"));
             }
         });
 

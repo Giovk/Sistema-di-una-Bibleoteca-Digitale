@@ -4,9 +4,9 @@ import DAO.*;
 import ImplementazionePostgresDAO.*;
 import Model.Autore;
 import Model.Libro;
+import Model.Serie;
 import Model.Utente;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Controller {
     private  Utente utente;
     public  ArrayList<Libro> listaLibri = getLibri();
+    public ArrayList<Serie> listaSerie = getSerie();
     public String isbn_selected = "";
     public String nome_l = "";
     public Controller(){
@@ -203,6 +204,24 @@ public class Controller {
         }
 
         return dp;
+    }
+
+    public ArrayList<Libro> getLibriSerie(String isbnSerie){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ArrayList<Libro> libri = new ArrayList<>();
+        ResultSet rs = l.getLibriSerieDB(isbnSerie);
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
+                for(Libro libro: listaLibri){
+                    if (libro.isbn.equals(rs.getString("libro"))){
+                        libri.add(libro);
+                    }
+                }
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+        return libri;
     }
 
     /*public ArrayList<String> getAutoriLibroNome(){  //ritorna i nomi tutti gli autori di libri
@@ -449,4 +468,27 @@ public class Controller {
 
         return orario;
     }
+
+    // SERIE //
+
+    public ArrayList<Serie> getSerie() {   //ritorna i dati di tutti i libri nel DB
+        SerieDAO s = new SerieImplementazionePostgresDAO();
+        ResultSet rs = s.getSerieDB();  //cerca i dati di tutti i libri nel DB
+        ArrayList<Serie> serie = new ArrayList<Serie>();    //contiene tutti i libri
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri
+                ArrayList<Libro> libri = getLibriSerie(rs.getString("isbn")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), libri, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        s.chiudiConnessione();  //chiude la connessione al DB
+
+        return serie;
+    }
+
+
 }

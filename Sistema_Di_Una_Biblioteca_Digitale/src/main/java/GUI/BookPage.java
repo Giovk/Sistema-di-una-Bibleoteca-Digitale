@@ -28,6 +28,7 @@ public class BookPage {
     private JLabel nomeIsbn;
     private JScrollPane jscroll2;
     private JScrollPane jscroll1;
+    private JButton serieButton;
     private Boolean active = false;
 
 
@@ -174,6 +175,21 @@ public class BookPage {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 homeButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                serieButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                serieButton.setBackground(Color.decode("#FFD369"));
             }
         });
 

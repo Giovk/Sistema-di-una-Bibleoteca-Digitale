@@ -17,6 +17,7 @@ public class HomePage {
     private JLabel text1;
     private JPanel buttonPanel;
     private JLabel closeBT;
+    private JButton serieButton;
 
     private JPopupMenu utenteMenu;
     private Boolean active = false;
@@ -137,6 +138,18 @@ public class HomePage {
             }
         });
 
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
+                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
+
+
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -167,6 +180,21 @@ public class HomePage {
                     super.mouseExited(e);
                     utenteButton.setBackground(Color.decode("#FFD369"));
                 }
+            }
+        });
+
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                serieButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                    super.mouseExited(e);
+                    serieButton.setBackground(Color.decode("#FFD369"));
             }
         });
     }
