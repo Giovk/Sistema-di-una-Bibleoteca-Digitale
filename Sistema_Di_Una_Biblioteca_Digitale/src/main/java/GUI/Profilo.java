@@ -306,6 +306,7 @@ public class Profilo {
                 hidePass2.setVisible(false);
                 passLabel2.setVisible(false);
                 passLabel.setVisible(true);
+                passwordField1.setVisible(true);
                 passwordTextField.setVisible(false);
                 oldPassLabel2.setVisible(false);
                 oldPasswordTextField.setVisible(false);
@@ -335,13 +336,29 @@ public class Profilo {
                 String nomeU = nameField.getText(); //nuovo nome modificato dall'utente
                 String cognomeU = cognomeField.getText();   //nuovo cognome modificato dall'utente
                 String usernameU = usernameField.getText(); //nuovo username modificatao dall'utente
-                char[] password1U = passwordField1.getPassword();   //nuova password modificata dall'utente
+                String pass1 = new String();
+
+                if(showPass.isVisible() == true){
+                    char[] password1 = passwordField1.getPassword();
+                    pass1 = new String(password1);
+                } else if (hidePass.isVisible() == true) {
+                    pass1 = passwordTextField.getText();
+                }
+
                 char[] password2U = passwordField2.getPassword();   //nuova password ripetuta dall'utente
-                String pass1 = new String(password1U);
                 String pass2 = new String(password2U);
                 String partitaIVA = pIVAField.getText();    //nuova partita IVA modificata dall'utente
-                char[] password3U = oldPassField.getPassword(); //vecchia password inserita dall'utente per meffetuare le modifiche
-                String pass3 = new String(password3U);
+
+
+
+                //char[] password3U = oldPassField.getPassword(); //vecchia password inserita dall'utente per meffetuare le modifiche
+                String pass3 = new String();
+                if(showPass2.isVisible() == true){
+                    char[] password2 = oldPassField.getPassword();
+                    pass3 = new String(password2);
+                } else if (hidePass2.isVisible() == true) {
+                    pass3 = oldPasswordTextField.getText();
+                }
 
                 if (!controller.getPassword().equals(pass3))
                     oldPassErrorLabel.setVisible(true); //se la vecchia password è errata, allora rende visibile la JLabel 'oldPassErrorLabel'
@@ -395,6 +412,7 @@ public class Profilo {
                         passLabel2.setVisible(false);
                         passLabel.setVisible(true);
                         passwordTextField.setVisible(false);
+                        passwordField1.setVisible(true);
                         oldPassLabel2.setVisible(false);
                         oldPasswordTextField.setVisible(false);
 
@@ -523,33 +541,6 @@ public class Profilo {
                 hidePass2.setIcon(hidePico);
             }
         });
-        /*showPass2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                passwordTF4.setVisible(false);
-                showPass2.setVisible(false);
-                passwordLabel4.setVisible(false);
-                passwordLabel5.setVisible(true);
-                passwordTF5.setVisible(true);
-                hidePass2.setVisible(true);
-                passwordTF5.setText(new String(passwordTF4.getPassword()));
-            }
-        });
-        hidePass2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                passwordTF5.setVisible(false);
-                hidePass2.setVisible(false);
-                passwordTF4.setVisible(true);
-                showPass2.setVisible(true);
-                passwordTF4.setText(passwordTF5.getText());
-                passwordLabel4.setVisible(true);
-                passwordLabel5.setVisible(false);
-            }
-        });*/
-
 
         showPass.addMouseListener(new MouseAdapter() {
             @Override
@@ -591,7 +582,65 @@ public class Profilo {
                 hidePass.setIcon(hidePico);
             }
         });
+
+        showPass.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                passwordField1.setVisible(false);
+                showPass.setVisible(false);
+                passLabel.setVisible(false);
+                passLabel2.setVisible(true);
+                passwordTextField.setVisible(true);
+                hidePass.setVisible(true);
+                passwordTextField.setText(new String(passwordField1.getPassword()));
+            }
+        });
+        hidePass.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                passwordTextField.setVisible(false);
+                hidePass.setVisible(false);
+                passwordField1.setVisible(true);
+                showPass.setVisible(true);
+                passwordField1.setText(passwordTextField.getText());
+                passLabel.setVisible(true);
+                passLabel2.setVisible(false);
+
+            }
+        });
+
+
+        showPass2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                oldPassField.setVisible(false);
+                showPass2.setVisible(false);
+                oldPassLabel.setVisible(false);
+                oldPassLabel2.setVisible(true);
+                oldPasswordTextField.setVisible(true);
+                hidePass2.setVisible(true);
+                oldPasswordTextField.setText(new String(oldPassField.getPassword()));
+            }
+        });
+        hidePass2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                oldPasswordTextField.setVisible(false);
+                hidePass2.setVisible(false);
+                oldPassField.setVisible(true);
+                showPass2.setVisible(true);
+                oldPassField.setText(oldPasswordTextField.getText());
+                oldPassLabel.setVisible(true);
+                oldPassLabel2.setVisible(false);
+            }
+        });
     }
+
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
