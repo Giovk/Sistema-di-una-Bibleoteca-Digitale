@@ -41,6 +41,18 @@ public class Profilo {
     private JLabel closeBT;
     private JButton libriButton;
     private JLabel username;
+    private JLabel showPass;
+    private JTextField passwordTextField;
+    private JLabel hidePass;
+    private JTextField oldPasswordTextField;
+    private JLabel showPass2;
+    private JLabel hidePass2;
+    private JLabel oldPassLabel2;
+    private JLabel passLabel2;
+    private JLabel passLabel;
+    private JLabel cognomeLabel;
+    private JLabel nomeLabel;
+    private JLabel emailLabel;
     private JPopupMenu utenteMenu;
     private Boolean active = false;
 
@@ -259,6 +271,8 @@ public class Profilo {
                 oldPassField.setVisible(true);  //rende visibile il JPasswordLabel 'oldPassField'
                 oldPassNoteLabel.setVisible(true);  //rende visibile la JLabel 'oldPassNoteLabel'
                 passwordField1.setText(""); //imposta il testo del JPasswordField alla stringa vuota
+                showPass.setVisible(true);
+                showPass2.setVisible(true);
 
                 usernameField.setEnabled(true); //abilita il JTextField 'usernameField'
                 nameField.setEnabled(true); //abilita il JTextField 'nameField'
@@ -286,6 +300,16 @@ public class Profilo {
                 oldPassLabel.setVisible(false); //rende invisibile la JLabel 'oldPassLabel'
                 oldPassField.setVisible(false); //rende invisibile il JPasswordField 'passwordField'
                 oldPassNoteLabel.setVisible(false); //rende invisibile la JLabel 'oldPassNoteLabel'
+                showPass.setVisible(false);
+                showPass2.setVisible(false);
+                hidePass.setVisible(false);
+                hidePass2.setVisible(false);
+                passLabel2.setVisible(false);
+                passLabel.setVisible(true);
+                passwordTextField.setVisible(false);
+                oldPassLabel2.setVisible(false);
+                oldPasswordTextField.setVisible(false);
+
 
                 newPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'newPassErrorLabel'
                 partitaivaErrorLabel.setVisible(false); //rende invisibile la JLabel 'partitaivaErrorLabel'
@@ -364,6 +388,15 @@ public class Profilo {
                         oldPassLabel.setVisible(false); //rende invisibile la JLabel 'oldPassLabel'
                         oldPassField.setVisible(false); //rende invisibile il JPasswordField 'oldPassField'
                         oldPassNoteLabel.setVisible(false); //rende invisibile la JLabel 'oldPassNoteLabel'
+                        showPass.setVisible(false);
+                        showPass2.setVisible(false);
+                        hidePass.setVisible(false);
+                        hidePass2.setVisible(false);
+                        passLabel2.setVisible(false);
+                        passLabel.setVisible(true);
+                        passwordTextField.setVisible(false);
+                        oldPassLabel2.setVisible(false);
+                        oldPasswordTextField.setVisible(false);
 
                         if (pass1.isBlank())
                             controller.modUtente(emailU, nomeU, cognomeU, usernameU, controller.getPassword(), partitaIVA); //se la password non è stata modificata, allora modifica i dati del utente usando la password attuale dell'utente
@@ -393,7 +426,7 @@ public class Profilo {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 modificaButton.setIcon(modIco);
 
@@ -402,7 +435,7 @@ public class Profilo {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 modificaButton.setIcon(modIco);
             }
@@ -414,7 +447,7 @@ public class Profilo {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 annullaButton.setIcon(modIco);
 
@@ -423,7 +456,7 @@ public class Profilo {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 annullaButton.setIcon(modIco);
             }
@@ -435,7 +468,7 @@ public class Profilo {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 salvaButton.setIcon(modIco);
 
@@ -444,15 +477,157 @@ public class Profilo {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 salvaButton.setIcon(modIco);
+            }
+        });
+
+        showPass2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e2.png"));
+                Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                showPico = new ImageIcon(showPimg);
+                showPass2.setIcon(showPico);
+            }
+        });
+        showPass2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e1.png"));
+                Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                showPico = new ImageIcon(showPimg);
+                showPass2.setIcon(showPico);
+            }
+        });
+        hidePass2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e1.png"));
+                Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                hidePico = new ImageIcon(hidePimg);
+                hidePass2.setIcon(hidePico);
+            }
+        });
+        hidePass2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e2.png"));
+                Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                hidePico = new ImageIcon(hidePimg);
+                hidePass2.setIcon(hidePico);
+            }
+        });
+        /*showPass2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                passwordTF4.setVisible(false);
+                showPass2.setVisible(false);
+                passwordLabel4.setVisible(false);
+                passwordLabel5.setVisible(true);
+                passwordTF5.setVisible(true);
+                hidePass2.setVisible(true);
+                passwordTF5.setText(new String(passwordTF4.getPassword()));
+            }
+        });
+        hidePass2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                passwordTF5.setVisible(false);
+                hidePass2.setVisible(false);
+                passwordTF4.setVisible(true);
+                showPass2.setVisible(true);
+                passwordTF4.setText(passwordTF5.getText());
+                passwordLabel4.setVisible(true);
+                passwordLabel5.setVisible(false);
+            }
+        });*/
+
+
+        showPass.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e2.png"));
+                Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                showPico = new ImageIcon(showPimg);
+                showPass.setIcon(showPico);
+            }
+        });
+        showPass.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e1.png"));
+                Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                showPico = new ImageIcon(showPimg);
+                showPass.setIcon(showPico);
+            }
+        });
+        hidePass.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e1.png"));
+                Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                hidePico = new ImageIcon(hidePimg);
+                hidePass.setIcon(hidePico);
+            }
+        });
+        hidePass.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e2.png"));
+                Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                hidePico = new ImageIcon(hidePimg);
+                hidePass.setIcon(hidePico);
             }
         });
     }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        usernameField = new JTextField();
+        usernameField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        cognomeField = new JTextField();
+        cognomeField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        nameField = new JTextField();
+        nameField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        emailField = new JTextField();
+        emailField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        pIVAField = new JTextField();
+        pIVAField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        passwordTextField = new JTextField();
+        passwordTextField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        oldPasswordTextField = new JTextField();
+        oldPasswordTextField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        oldPassField = new JPasswordField();
+        oldPassField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        passwordField1 = new JPasswordField();
+        passwordField1.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        passwordField2 = new JPasswordField();
+        passwordField2.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+
+        ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e1.png"));
+        Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        showPico = new ImageIcon(showPimg);
+        showPass = new JLabel(showPico);
+        showPass2 = new JLabel(showPico);
+
+        ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e2.png"));
+        Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        hidePico = new ImageIcon(hidePimg);
+        hidePass = new JLabel(hidePico);
+        hidePass2 = new JLabel(hidePico);
+
         ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
         Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine);
@@ -460,7 +635,7 @@ public class Profilo {
 
 
         ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-        Image modImg = modIco.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+        Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
         modIco = new ImageIcon(modImg);
         modificaButton = new JButton(modIco);
         annullaButton = new JButton(modIco);
