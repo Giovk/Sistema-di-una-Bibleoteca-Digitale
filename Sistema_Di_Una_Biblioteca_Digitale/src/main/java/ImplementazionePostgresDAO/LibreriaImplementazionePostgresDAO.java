@@ -20,12 +20,12 @@ public class LibreriaImplementazionePostgresDAO implements LibreriaDAO {
     }
 
     @Override
-    public ResultSet disponibilitaDB(String isbn){
-        ResultSet rs = null;    //autori di libri trovati
+    public ResultSet disponibilitaDB(String isbn){  //ritorna le disponibilità del libro con ISBN 'isbn' nelle librerie
+        ResultSet rs = null;    //disponibilità trovate
 
         try {
             PreparedStatement getDisponibilitaPS = connection.prepareStatement(
-                    "SELECT * FROM libreria NATURAL JOIN possesso_l WHERE isbn = '"+isbn+"';" //prepara la query che cerca tutti gli autori di libri
+                    "SELECT * FROM libreria NATURAL JOIN possesso_l WHERE isbn = '"+isbn+"';" //prepara la query che cerca le disponibilità del libro
             );
 
             rs = getDisponibilitaPS.executeQuery(); //esegue la query
@@ -35,7 +35,6 @@ public class LibreriaImplementazionePostgresDAO implements LibreriaDAO {
 
         return rs;
     }
-
 
     @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
