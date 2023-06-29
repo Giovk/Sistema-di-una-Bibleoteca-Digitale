@@ -7,9 +7,11 @@ public class Presentazione {
     public Date data;
     public String ora;
     public Libro libro;
+    public String struttura;
 
-    public Presentazione(String l, Date d, String o, Libro li){
+    public Presentazione(String l, String s, Date d, String o, Libro li){
         luogo = l;
+        struttura = s;
         data = d;
         ora = o;
         libro = li;

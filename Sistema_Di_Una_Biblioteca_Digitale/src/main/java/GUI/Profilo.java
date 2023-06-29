@@ -269,6 +269,17 @@ public class Profilo {
             }
         });
 
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
+                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
+
 
 
         //-------------------------------------------------------------------------------------------------//

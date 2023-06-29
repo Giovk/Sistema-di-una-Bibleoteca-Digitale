@@ -1,6 +1,7 @@
 package GUI;
 
 import Controller.Controller;
+import Model.Presentazione;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -193,6 +194,17 @@ public class BookPage {
             }
         });
 
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
+                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
+
         // --------------------------------------------------------------------------- //
 
         DefaultTableModel model1 = new DefaultTableModel(new Object[][]{}, new String[]{"Libreria", "Quantità", "Fruizione", "Indirizzo", "Sito Web", "N. di Telefono"}) {
@@ -225,15 +237,11 @@ public class BookPage {
             else model1.addRow(new Object[]{libreria.get(i), quantita.get(i), fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
         }
 
-        ArrayList<String> luogo = controller.getPresentazioneLuogo();   //luogo delle presentazioni del libro selezionato
-        ArrayList<String> struttura = controller.getPresentazioneStruttura();   //strutture delle presentazoni del libro selezionato
-        ArrayList<String> data = controller.getPresentazioneData(); //date delle presentazioni del libro selezionato
-        ArrayList<String> orario = controller.getPresentazioneOrario(); //orari delle presentazione del libro selezionato
-
+        ArrayList<Presentazione> listaPresentazioni = controller.getPresentazione();
         table2.setModel(model2);    //imposta il modello dei dati della JTable 'table1'
 
-        for(int i = 0; i < luogo.size(); i++){
-            model2.addRow(new Object[]{luogo.get(i), struttura.get(i), data.get(i), orario.get(i)});
+        for(int i = 0; i < listaPresentazioni.size(); i++){
+            model2.addRow(new Object[]{listaPresentazioni.get(i).luogo, listaPresentazioni.get(i).struttura, listaPresentazioni.get(i).data, listaPresentazioni.get(i).ora});
         }
 
         disponibilitaCheckBox.addActionListener(new ActionListener() {
@@ -271,5 +279,13 @@ public class BookPage {
                 }
             }
         });
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
+        Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        closeImg = new ImageIcon(imagine);
+        closeBT = new JLabel(closeImg);
     }
 }

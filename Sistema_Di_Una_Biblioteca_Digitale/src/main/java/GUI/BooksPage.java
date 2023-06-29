@@ -41,6 +41,8 @@ public class BooksPage {
     private int aut;
     private Boolean active = false;
 
+    private DefaultTableModel model;
+
 
     public BooksPage(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
@@ -71,12 +73,12 @@ public class BooksPage {
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
         }
 
-        ArrayList<String> isbnList = controller.getLibriISBN(); //ISBN di tutti i libri nel DB
+        /*ArrayList<String> isbnList = controller.getLibriISBN(); //ISBN di tutti i libri nel DB
         ArrayList<String> titoloList = controller.getLibriTitolo(); //titoli di tutti i libri nel DB
         ArrayList<String> genereList = controller.getLibriGenere(); //generi di tutti i libri nel DB
         ArrayList<String> linguaList = controller.getLibriLingua(); //lingue di tutti i libri nel DB
         ArrayList<String> editoreList = controller.getLibriEditore();   //editori di tutti i libri nel DB
-        ArrayList<String> dataPubblicazioneList = controller.getLibriDataPubblicazione();   //date di pubblicazione di tutti i libri nel DB
+        ArrayList<String> dataPubblicazioneList = controller.getLibriDataPubblicazione();   //date di pubblicazione di tutti i libri nel DB*/
         ArrayList<String> collanaList = controller.getCollanaNome();    //collane di libri nel DB
 
         frame = new JFrame("Biblioteca Digitale");
@@ -101,6 +103,17 @@ public class BooksPage {
             public void actionPerformed(ActionEvent e) {
                 HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
                 hp.frame.setVisible(true);  //rende visibile il frame 'hp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
+
+        serieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
+                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -210,9 +223,9 @@ public class BooksPage {
 
         ArrayList<String> distinctGenereList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
 
-        for (int i = 0; i < genereList.size(); i++) {    //scorre l'ArrayList di tutti i generi dei libri
-            if (!distinctGenereList.contains(genereList.get(i)))    //controlla se 'distinctGenereList' non contiene l'i-esimo elemento di genereList
-                distinctGenereList.add(genereList.get(i));  //inserisce l'i-esimo elemento di genereList  in 'distinctGenereList'
+        for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre l'ArrayList di tutti i generi dei libri
+            if (!distinctGenereList.contains(controller.listaLibri.get(i).genere))    //controlla se 'distinctGenereList' non contiene l'i-esimo elemento di genereList
+                distinctGenereList.add(controller.listaLibri.get(i).genere);  //inserisce l'i-esimo elemento di genereList  in 'distinctGenereList'
         }
 
         genereCB.setModel(new DefaultComboBoxModel<String>(distinctGenereList.toArray(new String[distinctGenereList.size()]))); //inserisce tutti gli elementi di 'distinctGenereList' come voci del JComboBox 'genereCB'
@@ -253,7 +266,7 @@ public class BooksPage {
         collanaCB.setModel(new DefaultComboBoxModel<String>(collanaList.toArray(new String[collanaList.size()])));  //inserisce tutti gli elementi di 'collanaList' come voci del JComboBox 'collanaCB'
         collanaCB.setSelectedIndex(-1); //permette di avere 'collanaCB' non selezionato
 
-        DefaultTableModel model = new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "Autori", "Genere", "Lingua", "Editore", "Data di pubblicazione"}) {
+        model = new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "Autori", "Genere", "Lingua", "Editore", "Data di pubblicazione"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; //permette di rendere non editabile la cella (row,column)
@@ -262,10 +275,10 @@ public class BooksPage {
 
         booksTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
 
-        if (isbnList != null && titoloList != null && totAutoreList != null && genereList != null && linguaList != null && editoreList != null && dataPubblicazioneList != null) {
+        if (controller.listaLibri != null) {
 
-            for (int i = 0; i < isbnList.size(); i++) {
-                model.addRow(new Object[]{isbnList.get(i), titoloList.get(i), totAutoreList.get(i), genereList.get(i), linguaList.get(i), editoreList.get(i), dataPubblicazioneList.get(i)});
+            for (int i = 0; i < controller.listaLibri.size(); i++) {
+                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
             }
         }
 
@@ -439,31 +452,15 @@ public class BooksPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                search(controller, totAutoreList);
+            }
+        });
 
-                if (!searchBarField.getText().isBlank()) {  //controlla se è stato inserito un testo nel JTextField 'searchBarField'
-                    model.setRowCount(0);   //elimina le righe della tabella
-
-                    ArrayList<Libro> listaLibri = controller.listaLibri;    //lista contenente tutti i libri
-
-                    for (Libro l : listaLibri) {    //scorre la lista dei libri 'listaLibri'
-                        aut = 0;    //numero di autori del libro 'l'
-
-                        for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-
-                            if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                            else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                            aut++;  //incrementa il numero di autori di 'l'
-                        }
-
-                        if (l.isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || l.editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
-                            model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
-                    }
-                } else {
-                    groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
-                    model.setRowCount(0);   //elimina tutte le righe della teblla
-
-                    for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+        searchImage.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    search(controller, totAutoreList);
                 }
             }
         });
@@ -473,34 +470,7 @@ public class BooksPage {
             public void keyPressed(KeyEvent e) {
 
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){    //controlla se è stato premuto il tasto "ENTER"
-
-                    if (!searchBarField.getText().isBlank()) {  //controlla se è stato inserito un testo nel JTextField 'searchBarField'
-                        groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
-                        model.setRowCount(0);   //elimina tutte le righe della teblla
-
-                        ArrayList<Libro> listaLibri = controller.listaLibri;   //lista contenente tutti i libri
-
-                        for (Libro l : listaLibri) {    //scorre la lista dei libri 'listaLibri'
-                            aut = 0;    //numero di autori del libro 'l'
-
-                            for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-
-                                if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                                else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                                aut++;  //incrementa il numero di autori di 'l'
-                            }
-
-                            if (l.isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || l.editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
-                                model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
-                        }
-                    } else {
-                        groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
-                        model.setRowCount(0);   //elimina tutte le righe della teblla
-
-                        for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
-                    }
-
+                    search(controller, totAutoreList);
                     e.consume();    //evita che il KeyEvent 'e' venga ulteriormente gestito
                 }
             }
@@ -516,8 +486,35 @@ public class BooksPage {
             }
         });
 
-        booksTable.addComponentListener(new ComponentAdapter() {
-        });
+    }
+
+    private void search(Controller controller, ArrayList<String> totAutoreList){
+        if (!searchBarField.getText().isBlank()) {  //controlla se è stato inserito un testo nel JTextField 'searchBarField'
+            groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
+            model.setRowCount(0);   //elimina tutte le righe della teblla
+
+            ArrayList<Libro> listaLibri = controller.listaLibri;   //lista contenente tutti i libri
+
+            for (Libro l : listaLibri) {    //scorre la lista dei libri 'listaLibri'
+                aut = 0;    //numero di autori del libro 'l'
+
+                for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
+
+                    if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                    else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+
+                    aut++;  //incrementa il numero di autori di 'l'
+                }
+
+                if (l.isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || l.editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
+                    model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+            }
+        } else {
+            groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
+            model.setRowCount(0);   //elimina tutte le righe della teblla
+
+            for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+        }
     }
 
     private void createUIComponents() {
