@@ -20,12 +20,12 @@ public class PresentazioneImplementazionePostgresDAO implements PresentazioneDAO
     }
 
     @Override
-    public ResultSet getPresentazioneDB(String isbn){
-        ResultSet rs = null;    //autori di libri trovati
+    public ResultSet getPresentazioneDB(String isbn){   //ritorna i dati di tutti i libri nel DB
+        ResultSet rs = null;    //presentazionni trovate
 
         try {
             PreparedStatement getPresentazionePS = connection.prepareStatement(
-                    "SELECT * FROM presentazione WHERE isbn = '"+isbn+"';" //prepara la query che cerca tutti gli autori di libri
+                    "SELECT * FROM presentazione WHERE isbn = '"+isbn+"';" //prepara la query che cerca tutte le presentazioni del libro
             );
 
             rs = getPresentazionePS.executeQuery(); //esegue la query
