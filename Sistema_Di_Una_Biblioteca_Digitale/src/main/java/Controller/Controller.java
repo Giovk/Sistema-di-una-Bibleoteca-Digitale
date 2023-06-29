@@ -206,21 +206,24 @@ public class Controller {
         return dp;
     }
 
-    public ArrayList<Libro> getLibriSerie(String isbnSerie){
+    public ArrayList<Libro> getLibriSerie(String isbnSerie){    //ritorna tutti i libri della serie con ISBN 'isbnSerie'
         LibroDAO l = new LibroImplementazionePostgresDAO();
-        ArrayList<Libro> libri = new ArrayList<>();
-        ResultSet rs = l.getLibriSerieDB(isbnSerie);
+        ArrayList<Libro> libri = new ArrayList<>(); //contiene i libri della serie
+        ResultSet rs = l.getLibriSerieDB(isbnSerie);    //contiene i libri della serie trovati nel DB
+
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
-                for(Libro libro: listaLibri){
-                    if (libro.isbn.equals(rs.getString("libro"))){
-                        libri.add(libro);
+
+            while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
+                for(Libro libro: listaLibri){   //scorre la lista dei libri
+                    if (libro.isbn.equals(rs.getString("libro"))){  //controlla se 'libro' appartiene alla serie
+                        libri.add(libro);   //aggiunge 'libro' in 'liobri'
                     }
                 }
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
+
         return libri;
     }
 
@@ -355,13 +358,13 @@ public class Controller {
         return fruizione;
     }
 
-    public ArrayList<String> getDisponibilitaIndirizzo(){
-        ArrayList<String> indirizzo = new ArrayList<>();
-        ResultSet rs = getDisponibilita();
+    public ArrayList<String> getDisponibilitaIndirizzo(){   //ritorna gli indirizzi delle librerie che possiedono il libro selezionato
+        ArrayList<String> indirizzo = new ArrayList<>();    //contiene gli indirizzi delle librerie che possiedono il libro selezionato
+        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                indirizzo.add(rs.getString("indirizzo"));
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                indirizzo.add(rs.getString("indirizzo"));   //aggiunge un nuovo indirizzo in 'indirizzo'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -370,14 +373,13 @@ public class Controller {
         return indirizzo;
     }
 
-
-    public ArrayList<String> getDisponibilitaSitoWeb(){
-        ArrayList<String> sitoWeb = new ArrayList<>();
-        ResultSet rs = getDisponibilita();
+    public ArrayList<String> getDisponibilitaSitoWeb(){ //ritorna i siti web delle librerie che possiedono il libro selezionato
+        ArrayList<String> sitoWeb = new ArrayList<>();  //contiene i siti web delle librerie che possiedono il libro selezionato
+        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                sitoWeb.add(rs.getString("sitoweb"));
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                sitoWeb.add(rs.getString("sitoweb"));   //aggiunge un nuovo sito web in 'sitoWeb'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -386,13 +388,13 @@ public class Controller {
         return sitoWeb;
     }
 
-    public ArrayList<String> getDisponibilitaNumeroTelefono(){
-        ArrayList<String> nTel = new ArrayList<>();
-        ResultSet rs = getDisponibilita();
+    public ArrayList<String> getDisponibilitaNumeroTelefono(){  //ritorna i numeri telefonici delle librerie che possiedono il libro selezionato
+        ArrayList<String> nTel = new ArrayList<>(); //contiene i numeri telefonici delle librerie che possiedono il libro selezionato
+        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                nTel.add(rs.getString("numerotelefonico"));
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                nTel.add(rs.getString("numerotelefonico")); //aggiunge un nuovo numero telefonico in 'nTel'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -403,19 +405,20 @@ public class Controller {
 
     // PRESENTAZIONE //
 
-    public ResultSet getPresentazione(){
+    public ResultSet getPresentazione(){    //ritorna un ResultSet con le presentazioni del libro con ISBN 'isbn_selected'
         PresentazioneDAO p = new PresentazioneImplementazionePostgresDAO();
-        ResultSet rs = p.getPresentazioneDB(isbn_selected);
+        ResultSet rs = p.getPresentazioneDB(isbn_selected); //ritorna tutte le presentazioni del libro selezionato
+
         return rs;
     }
 
-    public ArrayList<String> getPresentazioneLuogo(){
-        ArrayList<String> luogo = new ArrayList<>();
-        ResultSet rs = getPresentazione();
+    public ArrayList<String> getPresentazioneLuogo(){   //ritorna i luoghi delle presentazioni del libro selezionato
+        ArrayList<String> luogo = new ArrayList<>();    //contiene i luoghi delle presentazioni del libro selezionato
+        ResultSet rs = getPresentazione();  //contiene le presentazioni trovate nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                luogo.add(rs.getString("luogo"));
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                luogo.add(rs.getString("luogo"));   //inserisce un nuovo luogo in 'luogo'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -424,13 +427,13 @@ public class Controller {
         return luogo;
     }
 
-    public ArrayList<String> getPresentazioneStruttura(){
-        ArrayList<String> struttura = new ArrayList<>();
-        ResultSet rs = getPresentazione();
+    public ArrayList<String> getPresentazioneStruttura(){   //ritorna le strutture organizzatrici delle presentazioni del libro selezionato
+        ArrayList<String> struttura = new ArrayList<>();    //contiene le strutture organizzatrici delle presentazioni del libro selezionato
+        ResultSet rs = getPresentazione();  //contiene le presentazioni trovate nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                struttura.add(rs.getString("struttura"));
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                struttura.add(rs.getString("struttura"));   //inserisce una nuova struttura organizzatrice in 'struttura'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -439,13 +442,13 @@ public class Controller {
         return struttura;
     }
 
-    public ArrayList<String> getPresentazioneData(){
-        ArrayList<String> data = new ArrayList<>();
-        ResultSet rs = getPresentazione();
+    public ArrayList<String> getPresentazioneData(){   //ritorna le date delle presentazioni del libro selezionato
+        ArrayList<String> data = new ArrayList<>(); //contiene le date delle presentazioni del libro selezionato
+        ResultSet rs = getPresentazione();  //contiene le presentazioni trovate nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                data.add(rs.getDate("datap").toString());
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                data.add(rs.getDate("datap").toString());   //inserisce una nuova data in 'data'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -454,13 +457,13 @@ public class Controller {
         return data;
     }
 
-    public ArrayList<String> getPresentazioneOrario(){
-        ArrayList<String> orario = new ArrayList<>();
-        ResultSet rs = getPresentazione();
+    public ArrayList<String> getPresentazioneOrario(){  //ritorna gli orari delle presentazioni del libro selezionato
+        ArrayList<String> orario = new ArrayList<>();   //contiene gli orari delle presentazioni del libro selezionato
+        ResultSet rs = getPresentazione();  //contiene le presentazioni trovate nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contente i libri
-                orario.add(rs.getTime("ora").toString());
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                orario.add(rs.getTime("ora").toString());   //inserisce una nuovo orario in 'orario'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -471,15 +474,15 @@ public class Controller {
 
     // SERIE //
 
-    public ArrayList<Serie> getSerie() {   //ritorna i dati di tutti i libri nel DB
+    public ArrayList<Serie> getSerie() {   //ritorna i dati di tutte le serie nel DB
         SerieDAO s = new SerieImplementazionePostgresDAO();
-        ResultSet rs = s.getSerieDB();  //cerca i dati di tutti i libri nel DB
-        ArrayList<Serie> serie = new ArrayList<Serie>();    //contiene tutti i libri
+        ResultSet rs = s.getSerieDB();  //cerca i dati di tutte le serie nel DB
+        ArrayList<Serie> serie = new ArrayList<Serie>();    //contiene tutte le serie
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri
-                ArrayList<Libro> libri = getLibriSerie(rs.getString("isbn")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
-                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), libri, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
+                ArrayList<Libro> libri = getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), libri, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -489,6 +492,4 @@ public class Controller {
 
         return serie;
     }
-
-
 }
