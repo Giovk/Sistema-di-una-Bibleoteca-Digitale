@@ -22,12 +22,12 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
     }
 
     @Override
-    public ResultSet getSerieDB() { //ritorna i dati di tutti i libri nel DB
+    public ResultSet getSerieDB() { //ritorna i dati di tutte le serie nel DB
         ResultSet rs = null; //libri trovati
 
         try {
             PreparedStatement getSeriePS = connection.prepareStatement(
-                    "SELECT * FROM serie"   //prepara la query che cerca tutti i libri
+                    "SELECT * FROM serie"   //prepara la query che cerca tutte le serie
             );
 
             rs = getSeriePS.executeQuery(); //esegue la query
@@ -37,7 +37,6 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
 
         return rs;
     }
-
 
     @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
