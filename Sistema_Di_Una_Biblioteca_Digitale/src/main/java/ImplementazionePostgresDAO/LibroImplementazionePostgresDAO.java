@@ -35,12 +35,13 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
 
         return rs;
     }
+
     public ResultSet getLibriDB(String collana) { //ritorna i dati di tutti i libri nel DB
         ResultSet rs = null; //libri trovati
 
         try {
             PreparedStatement getLibriPS = connection.prepareStatement(
-                    "SELECT * FROM libro NATURAL JOIN appartenenza NATURAL JOIN collana WHERE collana.nome = '"+collana+"';"   //prepara la query che cerca tutti i libri
+                    "SELECT * FROM libro NATURAL JOIN appartenenza NATURAL JOIN collana WHERE collana.nome = '"+collana+"';"   //prepara la query che cerca tutti i libri della collana 'collana'
             );
 
             rs = getLibriPS.executeQuery(); //esegue la query
@@ -75,12 +76,12 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
     }*/
 
     @Override
-    public ResultSet getLibriSerieDB(String s){
+    public ResultSet getLibriSerieDB(String s){ //ritorna i dati di tutti i libri della serie con ISBN 's' nel DB
         ResultSet rs = null;
 
         try {
             PreparedStatement getLibriSeriePS = connection.prepareStatement(
-                    "SELECT * FROM inserimento WHERE serie = '"+s+"';"   //prepara la query che cerca tutti i libri
+                    "SELECT * FROM inserimento WHERE serie = '"+s+"';"   //prepara la query che cerca tutti i libri della serie
             );
 
             rs = getLibriSeriePS.executeQuery(); //esegue la query
