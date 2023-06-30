@@ -72,13 +72,7 @@ public class BooksPage {
         if (controller.getPartitaIva() == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
         }
-
-        /*ArrayList<String> isbnList = controller.getLibriISBN(); //ISBN di tutti i libri nel DB
-        ArrayList<String> titoloList = controller.getLibriTitolo(); //titoli di tutti i libri nel DB
-        ArrayList<String> genereList = controller.getLibriGenere(); //generi di tutti i libri nel DB
-        ArrayList<String> linguaList = controller.getLibriLingua(); //lingue di tutti i libri nel DB
-        ArrayList<String> editoreList = controller.getLibriEditore();   //editori di tutti i libri nel DB
-        ArrayList<String> dataPubblicazioneList = controller.getLibriDataPubblicazione();   //date di pubblicazione di tutti i libri nel DB*/
+        
         ArrayList<String> collanaList = controller.getCollanaNome();    //collane di libri nel DB
 
         frame = new JFrame("Biblioteca Digitale");
@@ -276,12 +270,10 @@ public class BooksPage {
         booksTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
 
         if (controller.listaLibri != null) {
-
             for (int i = 0; i < controller.listaLibri.size(); i++) {
                 model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
             }
         }
-
 
         frame.setSize(1280, 720);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
