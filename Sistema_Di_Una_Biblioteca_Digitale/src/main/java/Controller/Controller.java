@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Controller {
-    private  Utente utente;
-    public  ArrayList<Libro> listaLibri = getLibri();
+    private Utente utente;
+    public ArrayList<Libro> listaLibri = getLibri();
     public ArrayList<Serie> listaSerie = getSerie();
     public String isbn_selected = "";
     public String nome_l = "";
@@ -302,24 +302,26 @@ public class Controller {
 
     // PRESENTAZIONE //
 
-    public ArrayList<Presentazione> getPresentazione(){    //ritorna un ResultSet con le presentazioni del libro con ISBN 'isbn_selected'
+    public ArrayList<Presentazione> getPresentazione(){    //ritorna i dati di tutte le presentazioni del libro con ISBN 'isbn_selected'
         PresentazioneDAO p = new PresentazioneImplementazionePostgresDAO();
-        ArrayList<Presentazione> presentazioni = new ArrayList<>();
-        ResultSet rs = p.getPresentazioneDB(isbn_selected); //ritorna tutte le presentazioni del libro selezionato
-        Libro libroSelezionato = null;
-        for (Libro l: listaLibri){
-            if(l.isbn.equals(isbn_selected)) libroSelezionato = l;
+        ArrayList<Presentazione> presentazioni = new ArrayList<>(); //contiene tutte le presentazioni del libro selezionato
+        ResultSet rs = p.getPresentazioneDB(isbn_selected); //cerca i dati di tutte le presentazioni del libro selezionato
+        Libro libroSelezionato = null;  //libro selezionato
+
+        for (Libro l: listaLibri){  //scorre la lista dei libri
+            if(l.isbn.equals(isbn_selected)) libroSelezionato = l;  //se 'l' è il libro selezionato, allora assegna 'l' a 'libroSelezionato'
         }
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                presentazioni.add(new Presentazione(rs.getString("luogo"), rs.getString("struttura"), rs.getDate("datap"), rs.getTime("ora").toString(), libroSelezionato));   //inserisce una nuova serie in 'serie'
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le presentazioni del libro selezionato
+                presentazioni.add(new Presentazione(rs.getString("luogo"), rs.getString("struttura"), rs.getDate("datap"), rs.getTime("ora").toString(), libroSelezionato));   //inserisce una nuova presentazione in 'Presentazioni'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
 
-        p.chiudiConnessione();
+        p.chiudiConnessione();  //chiude la connessione al DB
+
         return presentazioni;
     }
 
