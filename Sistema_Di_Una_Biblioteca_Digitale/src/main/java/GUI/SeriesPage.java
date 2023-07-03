@@ -1,6 +1,8 @@
 package GUI;
 
 import Controller.Controller;
+import Model.Autore;
+import Model.Libro;
 import Model.Serie;
 
 import javax.swing.*;
@@ -8,10 +10,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class SeriesPage {
@@ -36,7 +35,9 @@ public class SeriesPage {
     private JPanel jpanel;
     private JPopupMenu utenteMenu;
     private ButtonGroup groupRB;
+    private DefaultTableModel model;
     private Boolean active = false;
+    private int aut;
 
     public SeriesPage(JFrame frameC, Controller controller){
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
@@ -215,14 +216,56 @@ public class SeriesPage {
         // ------------------------------------------------------------------------ //
 
         genereCB.setEnabled(false); //disabilita il JComboBox 'genereCB'
+
+        genereCB.setModel(new DefaultComboBoxModel<String>(controller.getSerieGeneri().toArray(new String[controller.getSerieGeneri().size()])));
+        genereCB.setSelectedIndex(-1);
+
+
         autoreCB.setEnabled(false); //disabilita il JComboBox 'autoreCB'
 
-        DefaultTableModel model = new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "N. Libri", "Data di pubblicazione"}) {
+        autoreCB.setModel(new DefaultComboBoxModel<String>(controller.getSerieAutori().toArray(new String[controller.getSerieAutori().size()])));
+        autoreCB.setSelectedIndex(-1);
+
+        model = new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "N. Libri", "Data di pubblicazione"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; //permette di rendere non editabile la cella (row,column)
             }
         };
+
+
+
+        genereRB.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'genereRB'
+                    searchBarField.setText("");
+                    genereCB.setEnabled(true);  //abilita 'genereCB'
+                    autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
+                    autoreCB.setEnabled(false); //disabilita 'autoreCB'
+                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'genereRB'
+                    genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
+                    genereCB.setEnabled(false); //disabilita 'genereCB'
+                }
+            }
+        });
+
+        autoreRB.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'autoreRB'
+                    searchBarField.setText("");
+                    autoreCB.setEnabled(true);  //abilita 'autoreCB'
+                    genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
+                    genereCB.setEnabled(false); //disabilita 'genereCB'
+                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
+                    autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
+                    autoreCB.setEnabled(false); //disabilita 'autoreCB'
+                }
+            }
+        });
+
+
 
         seriesTable.setModel(model);
 
@@ -230,6 +273,53 @@ public class SeriesPage {
             for (Serie s: controller.listaSerie) model.addRow(new Object[]{s.isbn, s.titolo, s.nLibri, s.dataPubblicazione});
         }
 
+        searchBarField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    search(controller);
+                    e.consume();
+                }
+            }
+        });
+
+        searchImage.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    search(controller);
+                }
+                e.consume();
+            }
+        });
+
+        searchImage.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                search(controller);
+            }
+        });
+
+    }
+
+    public void search(Controller controller){
+        if (!searchBarField.getText().isBlank()) {  //controlla se è stato inserito un testo nel JTextField 'searchBarField'
+            groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
+            model.setRowCount(0);   //elimina tutte le righe della teblla
+
+            ArrayList<Serie> listaSerie = controller.listaSerie;   //lista contenente tutti i libri
+
+            for (Serie s : listaSerie) {    //scorre la lista dei libri 'listaLibri'
+                if (s.isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || s.titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || s.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
+                    model.addRow(new Object[]{s.isbn, s.titolo, s.nLibri, s.dataPubblicazione});
+            }
+        } else {
+            groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
+            model.setRowCount(0);   //elimina tutte le righe della teblla
+
+            for(Serie s: controller.listaSerie) model.addRow(new Object[]{s.isbn, s.titolo, s.nLibri, s.dataPubblicazione});
+        }
     }
 
     private void createUIComponents() {

@@ -346,4 +346,14 @@ public class Controller {
 
         return serie;
     }
+
+    public ArrayList<String> getSerieGeneri(){
+        SerieDAO s = new SerieImplementazionePostgresDAO();
+        return s.getSerieGenereDB();
+    }
+
+    public ArrayList<String> getSerieAutori(){
+        SerieDAO s = new SerieImplementazionePostgresDAO();
+        return s.getSerieAutoriDB();
+    }
 }
