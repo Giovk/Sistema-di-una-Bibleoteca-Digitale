@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ public class BooksPage {
     private JLabel searchImage;
     private JScrollPane booksScrollPanel;
     private JPanel jpanel2;
-    private JPanel jpanel3;
     private JPanel jpanel;
     private JLabel resetFiltriLabel;
     private JPanel buttonPanel;
@@ -47,6 +47,7 @@ public class BooksPage {
     public BooksPage(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
+        UIManager.put("ScrollPane.background\n", new Color(0x222831));
 
         JPopupMenu utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
@@ -215,6 +216,7 @@ public class BooksPage {
         genereCB.setEnabled(false); //disabilita il JComboBox 'genereCB'
         autoreCB.setEnabled(false); //disabilita il JComboBox 'autoreCB'
 
+
         ArrayList<String> distinctGenereList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
 
         for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre l'ArrayList di tutti i generi dei libri
@@ -268,6 +270,13 @@ public class BooksPage {
         };
 
         booksTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
+        booksTable.getTableHeader().setBackground(new Color(0xCF9E29));
+        booksTable.getTableHeader().setFont(new Font("Bebas Neue", Font.ITALIC,13));
+        booksTable.getTableHeader().setBorder(BorderFactory.createEmptyBorder());
+        booksTable.getTableHeader().setForeground(new Color(0xEEEEEE));
+        booksTable.setBorder(BorderFactory.createEmptyBorder());
+        booksScrollPanel.setBackground(new Color(0x222831));
+        booksScrollPanel.setBorder(BorderFactory.createEmptyBorder());
 
         if (controller.listaLibri != null) {
             for (int i = 0; i < controller.listaLibri.size(); i++) {
@@ -515,6 +524,9 @@ public class BooksPage {
         Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
+
+        searchBarField = new JTextField();
+        searchBarField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
 
         groupRB = new ButtonGroup();
         genereRB = new JRadioButton();

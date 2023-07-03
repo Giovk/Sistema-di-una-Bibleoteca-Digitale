@@ -63,6 +63,7 @@ public class NewLoginForm extends JDialog {
     public int menuAcc;
 
     private DatePicker datePicker;
+    private Boolean debug = true;
 
     public NewLoginForm(int joinD, JFrame frameC, Controller controller) {
         datePicker = new DatePicker(calendarIMG);
@@ -78,6 +79,7 @@ public class NewLoginForm extends JDialog {
         contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
         frame.setResizable(false);
         frame.setVisible(true);
+        DebugMode(frameC, controller, debug);
 
         if(joinD == 0){
             accPanel.setVisible(true);
@@ -480,6 +482,17 @@ public class NewLoginForm extends JDialog {
         } else {
             frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
             controller.setUtente(userEmail, password); //salva in memoria l'utente che ha accesso usando 'userEmail' e 'Password'
+            HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
+            frameC.setVisible(false);   //rende invisibile il frame chiamante 'frameC'
+            hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
+            frame.dispose();
+        }
+    }
+
+    private void DebugMode(JFrame frameC, Controller controller, Boolean debug){
+        if(debug == true){
+            frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+            controller.setUtente("Admin1", "admin"); //salva in memoria l'utente che ha accesso usando 'userEmail' e 'Password'
             HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
             frameC.setVisible(false);   //rende invisibile il frame chiamante 'frameC'
             hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
