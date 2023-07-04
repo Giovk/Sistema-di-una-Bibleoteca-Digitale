@@ -149,7 +149,6 @@ public class Controller {
         ResultSet rs = l.getLibriSerieDB(isbnSerie);    //contiene i libri della serie trovati nel DB
 
         try {
-
             while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
                 for(Libro libro: listaLibri){   //scorre la lista dei libri
                     if (libro.isbn.equals(rs.getString("libro"))){  //controlla se 'libro' appartiene alla serie
@@ -167,20 +166,7 @@ public class Controller {
     // COLLANA //
     public ArrayList<String> getCollanaNome(){  //ritorna tutti i nomi delle collane
         CollanaDAO c = new CollanaImplementazionePostgresDAO();
-        ResultSet collane = c.getCollanaDB();   //contiene tutte le collane
-        ArrayList<String> nome = new ArrayList<String>();   //contiene tutti i nomi delle collane
-
-        try {
-            while(collane.next()){  //scorre il ResultSet 'collane' contenente le collane
-                nome.add(collane.getString("nome"));    //aggiunge i nomi delle collane in 'nome'
-            }
-        } catch (SQLException var){
-            var.printStackTrace();
-        }
-
-        c.chiudiConnessione();  //chiude la connessione con il DB
-
-        return nome;
+        return c.getCollanaNomeDB();   //contiene tutte le collane
     }
 
     // AUTORE //
@@ -200,9 +186,7 @@ public class Controller {
         return autori;
     }
 
-
     // LIBRERIA //
-
     public ResultSet getDisponibilita(){    //ritorna un ResultSet con le disponibilita del libro con ISBN 'isbn_selected'
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
         ResultSet rs = l.disponibilitaDB(isbn_selected);    //ritorna tutte le dipsonibilità del libro selezionato
