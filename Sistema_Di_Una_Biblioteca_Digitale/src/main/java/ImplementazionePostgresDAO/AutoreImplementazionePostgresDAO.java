@@ -16,33 +16,9 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
         }
     }
 
-    /*@Override
-    public ResultSet getAutoriLibroDB(){    //ritorna i dati di tutti gli autori di libri nel DB
-        ResultSet rs = null;    //autori di libri trovati
-
-        try {
-            PreparedStatement getAutoriLibroPS = connection.prepareStatement(
-                    "SELECT * FROM autore NATURAL JOIN scrittura_l" //prepara la query che cerca tutti gli autori di libri
-            );
-
-            rs = getAutoriLibroPS.executeQuery(); //esegue la query
-        } catch (SQLException var2) {
-            var2.printStackTrace();
-        }
-
-        return rs;
-    }*/
-
     @Override
     public ResultSet getAutoriDB(String isbn){  //ritorna i dati di tutti gli autori nel DB dell libro con ISBN 'isbn'
         ResultSet rs = null;    //autori del libro trovati
-
-        /*String connectionURL = "jdbc:postgresql://localhost:5432/Biblioteca";
-        try {
-            connection = DriverManager.getConnection(connectionURL, "postgres", "giovk");
-        }catch (SQLException e){
-            e.printStackTrace();
-        }*/
 
         try {
             PreparedStatement getAutoriLibroPS = connection.prepareStatement(
