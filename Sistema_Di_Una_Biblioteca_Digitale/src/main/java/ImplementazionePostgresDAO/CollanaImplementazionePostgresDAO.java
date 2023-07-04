@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CollanaImplementazionePostgresDAO implements CollanaDAO {
     private Connection connection;
@@ -20,20 +21,28 @@ public class CollanaImplementazionePostgresDAO implements CollanaDAO {
     }
 
     @Override
-    public ResultSet getCollanaDB(){    //ritorna i dati di tutte le collane nel DB
-        ResultSet rs = null;    //collane trovate
+    public ArrayList<String>  getCollanaNomeDB(){    //ritorna i nomi di tutte le collane nel DB
+        ArrayList<String> nomi = new ArrayList<>(); //contiene tutti i nomi delle collane
+        ResultSet rs = null;    //nomi trovati
 
         try {
             PreparedStatement getCollanaPS = connection.prepareStatement(
-                    "SELECT * FROM collana" //prepara la query che cerca tutte le collane
+                    "SELECT nome FROM collana" //prepara la query che cerca tutti nomi delle collane
             );
 
             rs = getCollanaPS.executeQuery(); //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente i nomi delle collane
+                nomi.add(rs.getString("nome"));  //inserisce il nuovo nome in 'nomi'
+            }
+
+            rs.close();
+            connection.close();
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
 
-        return rs;
+        return nomi;
     }
 
     @Override
