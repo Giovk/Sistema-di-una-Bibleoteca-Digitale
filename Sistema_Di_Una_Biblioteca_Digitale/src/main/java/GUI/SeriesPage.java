@@ -217,14 +217,14 @@ public class SeriesPage {
 
         genereCB.setEnabled(false); //disabilita il JComboBox 'genereCB'
 
-        genereCB.setModel(new DefaultComboBoxModel<String>(controller.getSerieGeneri().toArray(new String[controller.getSerieGeneri().size()])));
-        genereCB.setSelectedIndex(-1);
+        genereCB.setModel(new DefaultComboBoxModel<String>(controller.getSerieGeneri().toArray(new String[controller.getSerieGeneri().size()])));   //inserisce tutti gli elementi della lista dei generi delle serie come voci del JComboBox 'genereCB'
+        genereCB.setSelectedIndex(-1);  //permette di avere 'genereCB' non selezionato
 
 
         autoreCB.setEnabled(false); //disabilita il JComboBox 'autoreCB'
 
-        autoreCB.setModel(new DefaultComboBoxModel<String>(controller.getSerieAutori().toArray(new String[controller.getSerieAutori().size()])));
-        autoreCB.setSelectedIndex(-1);
+        autoreCB.setModel(new DefaultComboBoxModel<String>(controller.getSerieAutori().toArray(new String[controller.getSerieAutori().size()])));   //inserisce tutti gli elementi della lista degli autori delle serie come voci del JComboBox 'autoreCB'
+        autoreCB.setSelectedIndex(-1);  //permette di avere 'autoreCB' non selezionato
 
         model = new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "N. Libri", "Data di pubblicazione"}) {
             @Override
@@ -265,8 +265,6 @@ public class SeriesPage {
             }
         });
 
-
-
         seriesTable.setModel(model);
 
         if(controller.listaSerie != null){
@@ -276,9 +274,9 @@ public class SeriesPage {
         searchBarField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    search(controller);
-                    e.consume();
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){   //controlla se è stato premuto il tasto "ENTER"
+                    search(controller); //esegue la ricerca
+                    e.consume();    //evita che il KeyEvent 'e' venga ulteriormente gestito
                 }
             }
         });
@@ -286,10 +284,10 @@ public class SeriesPage {
         searchImage.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    search(controller);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){   //controlla se è stato premuto il tasto "ENTER"
+                    search(controller); //esegue la ricerca
                 }
-                e.consume();
+                e.consume();    //evita che il KeyEvent 'e' venga ulteriormente gestito
             }
         });
 
@@ -297,13 +295,13 @@ public class SeriesPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                search(controller);
+                search(controller); //esegue la ricerca
             }
         });
 
     }
 
-    public void search(Controller controller){
+    public void search(Controller controller){  //esegue una ricerca nella tabella
         if (!searchBarField.getText().isBlank()) {  //controlla se è stato inserito un testo nel JTextField 'searchBarField'
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
