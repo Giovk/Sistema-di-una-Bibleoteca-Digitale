@@ -453,15 +453,15 @@ public class BooksPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                search(controller, totAutoreList);
+                search(controller, totAutoreList);  //esegue la ricerca
             }
         });
 
         searchImage.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    search(controller, totAutoreList);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){   //controlla se è stato premuto il tasto "ENTER"
+                    search(controller, totAutoreList);  //esegue la ricerca
                 }
             }
         });
@@ -469,9 +469,8 @@ public class BooksPage {
         searchBarField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){    //controlla se è stato premuto il tasto "ENTER"
-                    search(controller, totAutoreList);
+                    search(controller, totAutoreList);  //esegue la ricerca
                     e.consume();    //evita che il KeyEvent 'e' venga ulteriormente gestito
                 }
             }
@@ -489,7 +488,7 @@ public class BooksPage {
 
     }
 
-    private void search(Controller controller, ArrayList<String> totAutoreList){
+    private void search(Controller controller, ArrayList<String> totAutoreList){    //esegue una ricerca nella tabella
         if (!searchBarField.getText().isBlank()) {  //controlla se è stato inserito un testo nel JTextField 'searchBarField'
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
@@ -500,7 +499,6 @@ public class BooksPage {
                 aut = 0;    //numero di autori del libro 'l'
 
                 for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-
                     if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
                     else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
 
