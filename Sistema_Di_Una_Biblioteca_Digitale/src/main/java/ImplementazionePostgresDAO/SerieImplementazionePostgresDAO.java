@@ -42,22 +42,23 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
     }
 
     @Override
-    public ArrayList<String> getSerieGenereDB(){
-        ArrayList<String> genere = new ArrayList<>();
-        ResultSet rs = null; //libri trovati
+    public ArrayList<String> getSerieGenereDB(){    //ritorna tutti i generi dei libri che sono inseriti in una serie
+        ArrayList<String> genere = new ArrayList<>();   //contiene i generi
+        ResultSet rs = null; //generi trovati
 
         try {
             PreparedStatement getSerieGenerePS = connection.prepareStatement(
                     "SELECT DISTINCT l.genere FROM inserimento AS ins JOIN libro AS l" +
-                    " ON ins.libro = l.isbn;"//prepara la query che cerca tutte le serie//
-                    );
+                    " ON ins.libro = l.isbn;"   //prepara la query che cerca tutti generi delle serie
+            );
 
             rs = getSerieGenerePS.executeQuery(); //esegue la query
 
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                genere.add(rs.getString("genere"));//inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente i generi
+                genere.add(rs.getString("genere")); //inserisce un nuovo genere nell'ArrayList 'generi'
             }
 
+            rs.close();
             connection.close();
         } catch (SQLException var2) {
             var2.printStackTrace();
@@ -65,22 +66,23 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
 
         return genere;
     }
-    public ArrayList<String> getSerieAutoriDB(){
-        ArrayList<String> autori = new ArrayList<>();
-        ResultSet rs = null; //libri trovati
+    public ArrayList<String> getSerieAutoriDB(){    //ritorna tutti gli autori dei libri che sono inseriti in una serie
+        ArrayList<String> autori = new ArrayList<>();   //contiene i generi
+        ResultSet rs = null;    //autori trovati
 
         try {
             PreparedStatement getSerieGenerePS = connection.prepareStatement(
                     "SELECT DISTINCT au.nome, au.cognome"+
-                    " FROM AUTORE AS AU NATURAL JOIN SCRITTURA_L NATURAL JOIN LIBRO AS L JOIN INSERIMENTO AS INS ON L.ISBN=INS.LIBRO"
+                    " FROM AUTORE AS AU NATURAL JOIN SCRITTURA_L NATURAL JOIN LIBRO AS L JOIN INSERIMENTO AS INS ON L.ISBN=INS.LIBRO"   //prepara la query che cerca tutti gli autori delle serie
             );
 
             rs = getSerieGenerePS.executeQuery(); //esegue la query
 
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                autori.add(rs.getString("nome") + " " + rs.getString("cognome"));//inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente gli autori
+                autori.add(rs.getString("nome") + " " + rs.getString("cognome"));   //inserisce un nuovo autore nell'ArrayList 'autori'
             }
 
+            rs.close();
             connection.close();
         } catch (SQLException var2) {
             var2.printStackTrace();
