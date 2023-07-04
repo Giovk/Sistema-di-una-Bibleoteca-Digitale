@@ -331,12 +331,12 @@ public class Controller {
         return serie;
     }
 
-    public ArrayList<String> getSerieGeneri(){
+    public ArrayList<String> getSerieGeneri(){  //ritorna tutti i generi dei libri che sono inseriti in una serie
         SerieDAO s = new SerieImplementazionePostgresDAO();
         return s.getSerieGenereDB();
     }
 
-    public ArrayList<String> getSerieAutori(){
+    public ArrayList<String> getSerieAutori(){  //ritorna tutti gli autori dei libri che sono inseriti in una serie
         SerieDAO s = new SerieImplementazionePostgresDAO();
         return s.getSerieAutoriDB();
     }
