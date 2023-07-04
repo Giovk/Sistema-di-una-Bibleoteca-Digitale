@@ -67,7 +67,6 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
     }
     public ArrayList<String> getSerieAutoriDB(){
         ArrayList<String> autori = new ArrayList<>();
-
         ResultSet rs = null; //libri trovati
 
         try {
