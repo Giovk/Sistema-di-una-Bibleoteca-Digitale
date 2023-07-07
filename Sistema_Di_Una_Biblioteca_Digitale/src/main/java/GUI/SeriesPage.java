@@ -299,6 +299,48 @@ public class SeriesPage {
             }
         });
 
+
+
+        genereCB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (genereCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'genereCB'
+                    model.setRowCount(0);   //elimina le righe della tabella
+                    ArrayList<Serie> listaSerie = controller.getListaSerieGenere(genereCB.getSelectedItem().toString());
+
+                    for (Serie s: listaSerie){
+                        model.addRow(new Object[]{s.isbn, s.titolo, s.nLibri, s.dataPubblicazione});
+                    }
+                }
+            }
+        });
+
+        autoreCB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (autoreCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'genereCB'
+                    model.setRowCount(0);   //elimina le righe della tabella
+                    ArrayList<Serie> listaSerie = controller.getListaSerieAutore(autoreCB.getSelectedItem().toString());
+
+                    for (Serie s: listaSerie){
+                        model.addRow(new Object[]{s.isbn, s.titolo, s.nLibri, s.dataPubblicazione});
+                    }
+                }
+            }
+        });
+
+        resetFiltriLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                searchBarField.setText("");
+                groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
+                model.setRowCount(0);   //elimina tutte le righe della teblla
+
+                for(Serie s: controller.listaSerie) model.addRow(new Object[]{s.isbn, s.titolo, s.nLibri, s.dataPubblicazione});
+            }
+        });
+
     }
 
     public void search(Controller controller){  //esegue una ricerca nella tabella

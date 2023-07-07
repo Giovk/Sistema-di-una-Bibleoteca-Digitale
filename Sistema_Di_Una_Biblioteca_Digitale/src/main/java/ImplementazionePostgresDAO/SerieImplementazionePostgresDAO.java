@@ -66,6 +66,8 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
 
         return genere;
     }
+
+    @Override
     public ArrayList<String> getSerieAutoriDB(){    //ritorna tutti gli autori dei libri che sono inseriti in una serie
         ArrayList<String> autori = new ArrayList<>();   //contiene i generi
         ResultSet rs = null;    //autori trovati
@@ -89,6 +91,42 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
         }
 
         return autori;
+    }
+
+    @Override
+    public ResultSet getListaSerieGenereDB(String genere) {
+            ResultSet rs = null;    //autori trovati
+
+            try {
+                PreparedStatement getListaSerieGenerePS = connection.prepareStatement(
+                        "SELECT DISTINCT s.isbn, s.titolo, s.datapubblicazione, s.nlibri FROM (serie AS s JOIN inserimento AS ins ON s.isbn = ins.serie) JOIN libro AS l" +
+                                " ON ins.libro = l.isbn WHERE l.genere = '"+genere+"';"
+                );
+                rs = getListaSerieGenerePS.executeQuery(); //esegue la query
+            } catch (SQLException var2) {
+                var2.printStackTrace();
+            }
+
+            return rs;
+        }
+
+    @Override
+    public ResultSet getListaSerieAutoreDB(String autore) {
+        ResultSet rs = null;    //autori trovati
+
+        try {
+            PreparedStatement getListaSerieAutorePS = connection.prepareStatement(
+                    "SELECT DISTINCT s.isbn, s.titolo, s.datapubblicazione, s.nlibri " +
+                            "FROM (((serie AS s JOIN inserimento AS ins ON s.isbn = ins.serie) JOIN libro AS l ON ins.libro = l.isbn) " +
+                            "JOIN scrittura_l AS sl ON l.isbn = sl.isbn) JOIN autore as au ON sl.coda = au.coda " +
+                            "WHERE '"+autore+"' LIKE '%' || au.nome || '%' AND '"+autore+"' LIKE '%' || au.cognome || '%';"
+            );
+            rs = getListaSerieAutorePS.executeQuery(); //esegue la query
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        return rs;
     }
 
     @Override

@@ -340,4 +340,43 @@ public class Controller {
         SerieDAO s = new SerieImplementazionePostgresDAO();
         return s.getSerieAutoriDB();
     }
+
+    public ArrayList<Serie> getListaSerieGenere(String genere){
+        SerieDAO s = new SerieImplementazionePostgresDAO();
+        ArrayList<Serie> serie = new ArrayList<>();
+        ResultSet rs = s.getListaSerieGenereDB(genere);
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
+                ArrayList<Libro> libri = getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), libri, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        s.chiudiConnessione();
+
+        return serie;
+    }
+
+    public ArrayList<Serie> getListaSerieAutore(String autore){
+        SerieDAO s = new SerieImplementazionePostgresDAO();
+        ArrayList<Serie> serie = new ArrayList<>();
+        ResultSet rs = s.getListaSerieAutoreDB(autore);
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
+                ArrayList<Libro> libri = getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), libri, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        s.chiudiConnessione();
+
+        return serie;
+    }
+
 }
