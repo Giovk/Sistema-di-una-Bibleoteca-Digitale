@@ -26,7 +26,7 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
 
     @Override
     public ResultSet getSerieDB() { //ritorna i dati di tutte le serie nel DB
-        ResultSet rs = null; //libri trovati
+        ResultSet rs = null; //serie trovate
 
         try {
             PreparedStatement getSeriePS = connection.prepareStatement(
@@ -94,33 +94,35 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
     }
 
     @Override
-    public ResultSet getListaSerieGenereDB(String genere) {
-            ResultSet rs = null;    //autori trovati
+    public ResultSet getListaSerieGenereDB(String genere) { //ritorna i dati delle serie con libri del genere 'genere'
+            ResultSet rs = null;    //serie trovate
 
             try {
                 PreparedStatement getListaSerieGenerePS = connection.prepareStatement(
                         "SELECT DISTINCT s.isbn, s.titolo, s.datapubblicazione, s.nlibri FROM (serie AS s JOIN inserimento AS ins ON s.isbn = ins.serie) JOIN libro AS l" +
-                                " ON ins.libro = l.isbn WHERE l.genere = '"+genere+"';"
+                                " ON ins.libro = l.isbn WHERE l.genere = '"+genere+"';" //prepara la query di ricerca delle serie del genere 'genere'
                 );
+
                 rs = getListaSerieGenerePS.executeQuery(); //esegue la query
             } catch (SQLException var2) {
                 var2.printStackTrace();
             }
 
             return rs;
-        }
+    }
 
     @Override
-    public ResultSet getListaSerieAutoreDB(String autore) {
-        ResultSet rs = null;    //autori trovati
+    public ResultSet getListaSerieAutoreDB(String autore) { //ritorna i dati delle serie con libri dell'autore 'autore'
+        ResultSet rs = null;    //serie trovate
 
         try {
             PreparedStatement getListaSerieAutorePS = connection.prepareStatement(
                     "SELECT DISTINCT s.isbn, s.titolo, s.datapubblicazione, s.nlibri " +
                             "FROM (((serie AS s JOIN inserimento AS ins ON s.isbn = ins.serie) JOIN libro AS l ON ins.libro = l.isbn) " +
                             "JOIN scrittura_l AS sl ON l.isbn = sl.isbn) JOIN autore as au ON sl.coda = au.coda " +
-                            "WHERE '"+autore+"' LIKE '%' || au.nome || '%' AND '"+autore+"' LIKE '%' || au.cognome || '%';"
+                            "WHERE '"+autore+"' LIKE '%' || au.nome || '%' AND '"+autore+"' LIKE '%' || au.cognome || '%';" //prepara la query di ricerca delle serie dell'autore 'autore'
             );
+
             rs = getListaSerieAutorePS.executeQuery(); //esegue la query
         } catch (SQLException var2) {
             var2.printStackTrace();
