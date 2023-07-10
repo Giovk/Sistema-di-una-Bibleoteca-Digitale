@@ -381,7 +381,7 @@ public class Controller {
 
     // RECENSIONE //
 
-    public float valutazioneMediaLibro(){
+    public float valutazioneMediaLibro(){   //ritorna la media delle valutazioni del libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         return r.valutazioneMediaLibroDB(isbn_selected);
     }
