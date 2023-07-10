@@ -84,9 +84,11 @@ public class BookPage {
         frame.setVisible(true);
 
         nomeIsbn.setText(controller.nome_l + " - (" + controller.isbn_selected + ")");  //imposta il tetsto della JLabel 'nomeIsbn' con il nome e l'ISBN del libro selezionato
-        DecimalFormat valMedForm = new DecimalFormat("#.#");
-        valutazioneMedia = controller.valutazioneMediaLibro();
-        valutazione.setText(valMedForm.format(valutazioneMedia));
+
+        DecimalFormat valMedForm = new DecimalFormat("#.#");    //formato da mostrare del numero decimale
+
+        valutazioneMedia = controller.valutazioneMediaLibro();  //calcola la media delle valutazioni del libro selezionato
+        valutazione.setText(valMedForm.format(valutazioneMedia));   //mostra la media delle valutazioni del libro selezionato
 
         ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
         Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
@@ -101,61 +103,61 @@ public class BookPage {
         stellaMezzaIco = new ImageIcon(stellaMezzaImg);
 
 
-        if(valutazioneMedia <= 0.25){
+        if(valutazioneMedia <= 0.25){   //controlla se la media è minore uguale a 0,25
             stella1.setIcon(stellaVuotaIco);
             stella2.setIcon(stellaVuotaIco);
             stella3.setIcon(stellaVuotaIco);
             stella4.setIcon(stellaVuotaIco);
             stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 0.75){
+        } else if (valutazioneMedia < 0.75){    //controlla se la media è in [0.25,0.75[
             stella1.setIcon(stellaMezzaIco);
             stella2.setIcon(stellaVuotaIco);
             stella3.setIcon(stellaVuotaIco);
             stella4.setIcon(stellaVuotaIco);
             stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 1.25){
-        stella1.setIcon(stellaPienaIco);
-        stella2.setIcon(stellaVuotaIco);
-        stella3.setIcon(stellaVuotaIco);
-        stella4.setIcon(stellaVuotaIco);
-        stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 1.75){
+        } else if (valutazioneMedia < 1.25){    //controlla se la media è in [0.75,1.25[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaVuotaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 1.75){    //controlla se la media è in [1.25,1.75[
             stella1.setIcon(stellaPienaIco);
             stella2.setIcon(stellaMezzaIco);
             stella3.setIcon(stellaVuotaIco);
             stella4.setIcon(stellaVuotaIco);
             stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 2.25){
+        } else if (valutazioneMedia < 2.25){    //controlla se la media è in [1.75,2.25[
             stella1.setIcon(stellaPienaIco);
             stella2.setIcon(stellaPienaIco);
             stella3.setIcon(stellaVuotaIco);
             stella4.setIcon(stellaVuotaIco);
             stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 2.75){
+        } else if (valutazioneMedia < 2.75){    //controlla se la media è in [2.25,2.75[
             stella1.setIcon(stellaPienaIco);
             stella2.setIcon(stellaPienaIco);
             stella3.setIcon(stellaMezzaIco);
             stella4.setIcon(stellaVuotaIco);
             stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 3.25){
+        } else if (valutazioneMedia < 3.25){    //controlla se la media è in [2.75,3.25[
             stella1.setIcon(stellaPienaIco);
             stella2.setIcon(stellaPienaIco);
             stella3.setIcon(stellaPienaIco);
             stella4.setIcon(stellaVuotaIco);
             stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 3.75){
+        } else if (valutazioneMedia < 3.75){    //controlla se la media è in [3.25,3.75[
             stella1.setIcon(stellaPienaIco);
             stella2.setIcon(stellaPienaIco);
             stella3.setIcon(stellaPienaIco);
             stella4.setIcon(stellaMezzaIco);
             stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 4.25){
+        } else if (valutazioneMedia < 4.25){    //controlla se la media è in [3.75,4.25[
             stella1.setIcon(stellaPienaIco);
             stella2.setIcon(stellaPienaIco);
             stella3.setIcon(stellaPienaIco);
             stella4.setIcon(stellaPienaIco);
             stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 4.75){
+        } else if (valutazioneMedia < 4.75){    //controlla se la media è in [4.25,4.75[
             stella1.setIcon(stellaPienaIco);
             stella2.setIcon(stellaPienaIco);
             stella3.setIcon(stellaPienaIco);
@@ -210,7 +212,6 @@ public class BookPage {
                 active = false;
                 utenteButton.setBackground(Color.decode("#FFD369"));
             }
-
             @Override
             public void popupMenuCanceled(PopupMenuEvent e) {
                 active = false;
