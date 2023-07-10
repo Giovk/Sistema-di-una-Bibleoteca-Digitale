@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class BookPage {
@@ -30,7 +31,15 @@ public class BookPage {
     private JScrollPane jscroll2;
     private JScrollPane jscroll1;
     private JButton serieButton;
+    private JLabel valutazione;
+    private JLabel stella1;
+    private JLabel stella2;
+    private JLabel stella3;
+    private JLabel stella4;
+    private JLabel stella5;
     private Boolean active = false;
+
+    private float valutazioneMedia;
 
 
     public BookPage(JFrame frameC, Controller controller) {
@@ -75,6 +84,90 @@ public class BookPage {
         frame.setVisible(true);
 
         nomeIsbn.setText(controller.nome_l + " - (" + controller.isbn_selected + ")");  //imposta il tetsto della JLabel 'nomeIsbn' con il nome e l'ISBN del libro selezionato
+        DecimalFormat valMedForm = new DecimalFormat("#.#");
+        valutazioneMedia = controller.valutazioneMediaLibro();
+        valutazione.setText(valMedForm.format(valutazioneMedia));
+
+        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        stellaVuotaIco = new ImageIcon(stellaVuotaImg);
+
+        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        stellaPienaIco = new ImageIcon(stellaPienaImg);
+
+        ImageIcon stellaMezzaIco = new ImageIcon(this.getClass().getResource("/stella_mezza.png"));
+        Image stellaMezzaImg = stellaMezzaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        stellaMezzaIco = new ImageIcon(stellaMezzaImg);
+
+
+        if(valutazioneMedia <= 0.25){
+            stella1.setIcon(stellaVuotaIco);
+            stella2.setIcon(stellaVuotaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 0.75){
+            stella1.setIcon(stellaMezzaIco);
+            stella2.setIcon(stellaVuotaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 1.25){
+        stella1.setIcon(stellaPienaIco);
+        stella2.setIcon(stellaVuotaIco);
+        stella3.setIcon(stellaVuotaIco);
+        stella4.setIcon(stellaVuotaIco);
+        stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 1.75){
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaMezzaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 2.25){
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 2.75){
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaMezzaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 3.25){
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 3.75){
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaMezzaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 4.25){
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaPienaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 4.75){
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaPienaIco);
+            stella5.setIcon(stellaMezzaIco);
+        } else {
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaPienaIco);
+            stella5.setIcon(stellaPienaIco);
+        }
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override

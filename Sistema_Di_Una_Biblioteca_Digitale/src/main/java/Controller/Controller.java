@@ -379,4 +379,10 @@ public class Controller {
         return serie;
     }
 
+    // RECENSIONE //
+
+    public float valutazioneMediaLibro(){
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        return r.valutazioneMediaLibroDB(isbn_selected);
+    }
 }
