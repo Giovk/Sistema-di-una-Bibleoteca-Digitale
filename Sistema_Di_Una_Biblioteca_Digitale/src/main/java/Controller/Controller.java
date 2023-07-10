@@ -341,10 +341,10 @@ public class Controller {
         return s.getSerieAutoriDB();
     }
 
-    public ArrayList<Serie> getListaSerieGenere(String genere){
+    public ArrayList<Serie> getListaSerieGenere(String genere){ //ritorna una lista delle serie con libri del genere 'genere'
         SerieDAO s = new SerieImplementazionePostgresDAO();
-        ArrayList<Serie> serie = new ArrayList<>();
-        ResultSet rs = s.getListaSerieGenereDB(genere);
+        ArrayList<Serie> serie = new ArrayList<>(); //contiene le serie con libri del genere 'genere'
+        ResultSet rs = s.getListaSerieGenereDB(genere); //cerca le serie con libri del genere 'genere'
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
@@ -355,15 +355,15 @@ public class Controller {
             var.printStackTrace();
         }
 
-        s.chiudiConnessione();
+        s.chiudiConnessione();  //chiude la connessione al DB
 
         return serie;
     }
 
-    public ArrayList<Serie> getListaSerieAutore(String autore){
+    public ArrayList<Serie> getListaSerieAutore(String autore){ //ritorna una lista delle serie con libri dell'autore 'autore'
         SerieDAO s = new SerieImplementazionePostgresDAO();
-        ArrayList<Serie> serie = new ArrayList<>();
-        ResultSet rs = s.getListaSerieAutoreDB(autore);
+        ArrayList<Serie> serie = new ArrayList<>(); //contiene le serie con libri dell'autore 'autore'
+        ResultSet rs = s.getListaSerieAutoreDB(autore); //cerca le serie con libri dell'autore 'autore'
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
@@ -374,7 +374,7 @@ public class Controller {
             var.printStackTrace();
         }
 
-        s.chiudiConnessione();
+        s.chiudiConnessione();   //chiude la connessione al DB
 
         return serie;
     }
