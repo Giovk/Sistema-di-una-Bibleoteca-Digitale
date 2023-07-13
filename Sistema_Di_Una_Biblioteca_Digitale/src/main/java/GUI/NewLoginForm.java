@@ -104,6 +104,7 @@ public class NewLoginForm extends JDialog {
             @Override
             public void windowClosing(WindowEvent e) {
                 frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+                frameC.toFront();
             }
 
             @Override
@@ -138,6 +139,7 @@ public class NewLoginForm extends JDialog {
                 frame.setVisible(false);
                 frameC.setEnabled(true);
                 frame.dispose();
+                frameC.toFront();
             }
         });
 
@@ -497,6 +499,7 @@ public class NewLoginForm extends JDialog {
             frameC.setVisible(false);   //rende invisibile il frame chiamante 'frameC'
             hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
             frame.dispose();
+            frameC.toFront();
         }
     }
 
@@ -545,6 +548,7 @@ public class NewLoginForm extends JDialog {
                 frameC.setVisible(false); //rende invisibile il frame chiamante 'frameC'
                 hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
                 frame.dispose();
+                frameC.toFront();
             }
         }
     }

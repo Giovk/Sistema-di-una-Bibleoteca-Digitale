@@ -92,6 +92,23 @@ public class UtenteImplementazionePostgresDAO implements UtenteDAO {
     }
 
     @Override
+    public ResultSet getUtenteDB(String username) {   //ritorna i dati trovati nel DB dell'utente con 'userEmail' e 'password'
+        ResultSet rs = null; //utente con 'userEmail' e 'password' trovato
+
+        try{
+            PreparedStatement getUtentePS = connection.prepareStatement(
+                    "SELECT * FROM utente WHERE username = '"+username+"';"  //prepara la query che cerca l'utente con userEmail' e 'password'
+            );
+
+            rs = getUtentePS.executeQuery(); //esegue la query
+        } catch (SQLException var2){
+            var2.printStackTrace();
+        }
+
+        return rs;
+    }
+
+    @Override
     public int validaModEmailDB(String emailM){ //ritorna il numero di utenti con 'emailM' presenti nel DB
         ResultSet rs;
         int n = 0;  //numero di utenti trovati con 'emailM'
@@ -170,6 +187,7 @@ public class UtenteImplementazionePostgresDAO implements UtenteDAO {
             var2.printStackTrace();
         }
     }
+
 
     @Override
     public void chiudiConnessione(){    //chiude la connessione al DB

@@ -8,10 +8,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -37,12 +34,21 @@ public class BookPage {
     private JLabel stella3;
     private JLabel stella4;
     private JLabel stella5;
-    private Boolean active = false;
-
+    private JLabel likeButton;
+    private JLabel valutaButton;
+    private JPanel allPagePanel;
+    private JScrollPane allScrollPanel;
+    private JPanel commenti;
+    private boolean active = false;
+    ImageIcon favouriteVuotoIco;
+    ImageIcon favouritePienoIco;
     private float valutazioneMedia;
+    private String isbn_selezionato;
 
 
     public BookPage(JFrame frameC, Controller controller) {
+        isbn_selezionato = controller.isbn_selected;
+
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
 
@@ -71,17 +77,56 @@ public class BookPage {
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
         }
 
-
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(jpanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-
         frame.setSize(1280, 720);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
+        //frame.setAlwaysOnTop(true);
+
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                commenti.removeAll();
+                showComment(new Controller(), commenti);
+                System.out.println("è andato");
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+
 
         nomeIsbn.setText(controller.nome_l + " - (" + controller.isbn_selected + ")");  //imposta il tetsto della JLabel 'nomeIsbn' con il nome e l'ISBN del libro selezionato
 
@@ -102,74 +147,31 @@ public class BookPage {
         Image stellaMezzaImg = stellaMezzaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         stellaMezzaIco = new ImageIcon(stellaMezzaImg);
 
+        changeStars(stellaPienaIco, stellaVuotaIco, stellaMezzaIco);
 
-        if(valutazioneMedia <= 0.25){   //controlla se la media è minore uguale a 0,25
-            stella1.setIcon(stellaVuotaIco);
-            stella2.setIcon(stellaVuotaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 0.75){    //controlla se la media è in [0.25,0.75[
-            stella1.setIcon(stellaMezzaIco);
-            stella2.setIcon(stellaVuotaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 1.25){    //controlla se la media è in [0.75,1.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaVuotaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 1.75){    //controlla se la media è in [1.25,1.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaMezzaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 2.25){    //controlla se la media è in [1.75,2.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 2.75){    //controlla se la media è in [2.25,2.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaMezzaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 3.25){    //controlla se la media è in [2.75,3.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 3.75){    //controlla se la media è in [3.25,3.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaMezzaIco);
-            stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 4.25){    //controlla se la media è in [3.75,4.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaPienaIco);
-            stella5.setIcon(stellaVuotaIco);
-        } else if (valutazioneMedia < 4.75){    //controlla se la media è in [4.25,4.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaPienaIco);
-            stella5.setIcon(stellaMezzaIco);
-        } else {
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaPienaIco);
-            stella5.setIcon(stellaPienaIco);
-        }
+
+        favouriteVuotoIco = new ImageIcon(this.getClass().getResource("/favorite1.png"));
+        Image favouriteVuotoImg = favouriteVuotoIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        favouriteVuotoIco = new ImageIcon(favouriteVuotoImg);
+
+        favouritePienoIco = new ImageIcon(this.getClass().getResource("/favorite2.png"));
+        Image favouritePienoImg = favouritePienoIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        favouritePienoIco = new ImageIcon(favouritePienoImg);
+
+        controller.likeLibro();
+        controller.allRecWithComment();
+
+        if (controller.likeLibroSelected == false) likeButton.setIcon(favouriteVuotoIco);
+        else likeButton.setIcon(favouritePienoIco);
+
+        likeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (controller.likeLibroSelected == false) likeButton.setIcon(favouritePienoIco);
+                else likeButton.setIcon(favouriteVuotoIco);
+                controller.changeLike();
+            }
+        });
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
@@ -373,6 +375,181 @@ public class BookPage {
                 }
             }
         });
+        valutaButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                RecensioneLibro recensioneLibro = new RecensioneLibro(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5);
+                frame.setEnabled(false); //disabilita il frame
+            }
+        });
+
+    }
+
+    public void changeStars(ImageIcon stellaPienaIco, ImageIcon stellaVuotaIco, ImageIcon stellaMezzaIco){
+        if(valutazioneMedia <= 0.25){   //controlla se la media è minore uguale a 0,25
+            stella1.setIcon(stellaVuotaIco);
+            stella2.setIcon(stellaVuotaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 0.75){    //controlla se la media è in [0.25,0.75[
+            stella1.setIcon(stellaMezzaIco);
+            stella2.setIcon(stellaVuotaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 1.25){    //controlla se la media è in [0.75,1.25[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaVuotaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 1.75){    //controlla se la media è in [1.25,1.75[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaMezzaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 2.25){    //controlla se la media è in [1.75,2.25[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 2.75){    //controlla se la media è in [2.25,2.75[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaMezzaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 3.25){    //controlla se la media è in [2.75,3.25[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 3.75){    //controlla se la media è in [3.25,3.75[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaMezzaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 4.25){    //controlla se la media è in [3.75,4.25[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaPienaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazioneMedia < 4.75){    //controlla se la media è in [4.25,4.75[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaPienaIco);
+            stella5.setIcon(stellaMezzaIco);
+        } else {
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaPienaIco);
+            stella5.setIcon(stellaPienaIco);
+        }
+    }
+
+    public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione){
+
+        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        stellaVuotaIco = new ImageIcon(stellaVuotaImg);
+
+        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        stellaPienaIco = new ImageIcon(stellaPienaImg);
+
+        if(valutazione == 1){   //controlla se la media è minore uguale a 0,25
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaVuotaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazione == 2){    //controlla se la media è in [1.75,2.25[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaVuotaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazione == 3){    //controlla se la media è in [2.25,2.75[
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaVuotaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else if (valutazione == 4){
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaPienaIco);
+            stella5.setIcon(stellaVuotaIco);
+        } else {
+            stella1.setIcon(stellaPienaIco);
+            stella2.setIcon(stellaPienaIco);
+            stella3.setIcon(stellaPienaIco);
+            stella4.setIcon(stellaPienaIco);
+            stella5.setIcon(stellaPienaIco);
+        }
+    }
+
+    public void showComment(Controller controller, JPanel commenti){
+        controller.isbn_selected = isbn_selezionato;
+        controller.allRecWithComment();
+
+        int n = controller.recensioniConCommento.size();
+
+        JPanel[] valUser = new JPanel[n];
+        JPanel[] commento = new JPanel[n];
+        JLabel[] username = new JLabel[n];
+        JLabel[] valutazione = new JLabel[n*5];
+        JLabel[] commText = new JLabel[n];
+        JSeparator[] separators = new JSeparator[n];
+
+        for (int i = 0; i < n; i++){
+            username[i] = new JLabel(controller.recensioniConCommento.get(i).utenteRecensore.username);
+            username[i].setAlignmentX(Component.LEFT_ALIGNMENT);
+            valutazione[i*5] = new JLabel();
+            valutazione[i*5].setAlignmentX(Component.LEFT_ALIGNMENT);
+            valutazione[(i*5)+1] = new JLabel();
+            valutazione[(i*5)+1].setAlignmentX(Component.LEFT_ALIGNMENT);
+            valutazione[(i*5)+2] = new JLabel();
+            valutazione[(i*5)+2].setAlignmentX(Component.LEFT_ALIGNMENT);
+            valutazione[(i*5)+3] = new JLabel();
+            valutazione[(i*5)+3].setAlignmentX(Component.LEFT_ALIGNMENT);
+            valutazione[(i*5)+4] = new JLabel();
+            valutazione[(i*5)+4].setAlignmentX(Component.LEFT_ALIGNMENT);
+
+            changeStars(valutazione[i*5], valutazione[(i*5)+1], valutazione[(i*5)+2], valutazione[(i*5)+3], valutazione[(i*5)+4], controller.recensioniConCommento.get(i).valutazione);
+
+            valUser[i] = new JPanel();
+            valUser[i].setBackground(new Color(0xFFD369));
+            valUser[i].add(username[i]);
+            valUser[i].add(valutazione[i*5]);
+            valUser[i].add(valutazione[(i*5)+1]);
+            valUser[i].add(valutazione[(i*5)+2]);
+            valUser[i].add(valutazione[(i*5)+3]);
+            valUser[i].add(valutazione[(i*5)+4]);
+            valUser[i].setAlignmentX(Component.LEFT_ALIGNMENT);
+            commText[i] = new JLabel(controller.recensioniConCommento.get(i).testo);
+            commText[i].setAlignmentX(Component.LEFT_ALIGNMENT);
+            commento[i] = new JPanel();
+            commento[i].setLayout(new FlowLayout(FlowLayout.LEFT));
+            commento[i].setBackground(new Color(0xFFD369));
+            commento[i].add(commText[i]);
+            commento[i].setAlignmentX(Component.LEFT_ALIGNMENT);
+            separators[i] = new JSeparator();
+            separators[i].setForeground(new Color(0xFFD369));
+            commenti.add(valUser[i]);
+            commenti.add(commento[i]);
+            commenti.add(separators[i]);
+        }
     }
 
     private void createUIComponents() {
@@ -381,5 +558,11 @@ public class BookPage {
         Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
+
+        commenti = new JPanel();
+        commenti.setLayout(new BoxLayout(commenti, BoxLayout.Y_AXIS));
+        commenti.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        showComment(new Controller(), commenti);
     }
 }

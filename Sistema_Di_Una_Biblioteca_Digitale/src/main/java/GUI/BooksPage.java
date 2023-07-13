@@ -9,8 +9,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -269,14 +268,37 @@ public class BooksPage {
             }
         };
 
+        // Renderer personalizzato per l'header della tabella
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(0xCF9E29));
+        headerRenderer.setForeground(new Color(0xEEEEEE));
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        Font headerFont = new Font("Bebas Neue", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
+        headerRenderer.setFont(headerFont);
+        JTableHeader tableHeader = booksTable.getTableHeader();
+        tableHeader.setDefaultRenderer(headerRenderer);
+
+        // Impedire il ridimensionamento delle colonne
+        booksTable.getTableHeader().setResizingAllowed(false);
+
+        // Impedire il riordinamento delle colonne
+        booksTable.getTableHeader().setReorderingAllowed(false);
+
+        // Rimuovere il bordo dell'header della tabella
+        tableHeader.setBorder(null);
+
+        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));
+
+
         booksTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
-        booksTable.getTableHeader().setBackground(new Color(0xCF9E29));
-        booksTable.getTableHeader().setFont(new Font("Bebas Neue", Font.ITALIC,13));
+        /*booksTable.getTableHeader().setBackground(new Color(0xCF9E29));
+        booksTable.getTableHeader().setFont(new Font("Bebas Neue", Font.PLAIN,13));
         booksTable.getTableHeader().setBorder(BorderFactory.createEmptyBorder());
         booksTable.getTableHeader().setForeground(new Color(0xEEEEEE));
-        booksTable.setBorder(BorderFactory.createEmptyBorder());
+        booksTable.setBorder(BorderFactory.createEmptyBorder());*/
         booksScrollPanel.setBackground(new Color(0x222831));
         booksScrollPanel.setBorder(BorderFactory.createEmptyBorder());
+        booksScrollPanel.getViewport().setBackground(new Color(0x222831));
 
         if (controller.listaLibri != null) {
             for (int i = 0; i < controller.listaLibri.size(); i++) {
@@ -542,3 +564,28 @@ public class BooksPage {
     }
 
 }
+
+class SeparatorHeaderRenderer implements TableCellRenderer {
+    private TableCellRenderer defaultRenderer;
+
+    public SeparatorHeaderRenderer(TableCellRenderer defaultRenderer) {
+        this.defaultRenderer = defaultRenderer;
+    }
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        Component component = defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        if (component instanceof JLabel) {
+            JLabel label = (JLabel) component;
+            label.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.decode("#222831")));
+        }
+        return component;
+    }
+}
+
+
+
+
+
+
+
