@@ -92,12 +92,12 @@ public class UtenteImplementazionePostgresDAO implements UtenteDAO {
     }
 
     @Override
-    public ResultSet getUtenteDB(String username) {   //ritorna i dati trovati nel DB dell'utente con 'userEmail' e 'password'
+    public ResultSet getUtenteDB(String username) {   //ritorna i dati trovati nel DB dell'utente con 'username'
         ResultSet rs = null; //utente con 'userEmail' e 'password' trovato
 
         try{
             PreparedStatement getUtentePS = connection.prepareStatement(
-                    "SELECT * FROM utente WHERE username = '"+username+"';"  //prepara la query che cerca l'utente con userEmail' e 'password'
+                    "SELECT * FROM utente WHERE username = '"+username+"';"  //prepara la query che cerca l'utente con username' e 'username'
             );
 
             rs = getUtentePS.executeQuery(); //esegue la query
