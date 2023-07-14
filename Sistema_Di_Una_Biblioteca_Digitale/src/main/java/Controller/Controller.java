@@ -105,20 +105,20 @@ public class Controller {
     public String getPartitaIva(){return utente.getPartitaIVA();}   //ritorna la partita IVA dell'utente
     public String getDataNascita(){return utente.getDataNascita();} //ritorna la data di nascita dell'utente
 
-    public Utente getUtente(String username){
+    public Utente getUtente(String username){   //ritorna un Utente con i dati dell'utente 'username'
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
         Utente user = null;
-        ResultSet rs = u.getUtenteDB(username);
+        ResultSet rs = u.getUtenteDB(username); //cerca i dati dell'utente 'username' nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente l'utente
                 user = new Utente(rs.getString("username"), rs.getString("passwordu"), rs.getString("email"), rs.getString("nome"), rs.getString("Cognome"), rs.getString("datanascita"), rs.getString("partitaiva"));
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
 
-        u.chiudiConnessione();
+        u.chiudiConnessione();  //chiude la connessione al DB
 
         return user;
     }
@@ -406,35 +406,35 @@ public class Controller {
         return r.valutazioneMediaLibroDB(isbn_selected);
     }
 
-    public void likeLibro(){
+    public void likeLibro(){    //controlla se l'utente ha il libro selezionato tra i preferiti e pone il risultato in 'likeLibroSelected'
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         likeLibroSelected = r.likeLibroDB(isbn_selected, utente.username);
         return;
     }
 
-    public void changeLike(){
+    public void changeLike(){   //cambia il valore di 'likeLibroSelected' e togli/mette nei preferiti dell'utente il libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         likeLibroSelected = r.changeLikeDB(likeLibroSelected, isbn_selected, utente.username);
     }
 
-    public void addRecensioneLibro(int valutazione, String text){
+    public void addRecensioneLibro(int valutazione, String text){   //aggiunge una nuova recensione con 'valutazione' e 'testo' fatta dall'utente al libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         r.addRecensioneLibroDB(valutazione, text, isbn_selected, utente.username);
         return;
     }
 
-    public void allRecWithComment(){
+    public void allRecWithComment(){    //ritorna tutte le recensioni con testo fatte al libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        ResultSet rs = r.allRecWithCommentDB(isbn_selected);
+        ResultSet rs = r.allRecWithCommentDB(isbn_selected);    //contiene tutte le recensioni fatte al libro selezionato
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                recensioniConCommento.add(new Recensione(rs.getString("testo"), rs.getInt("valutazione"), rs.getBoolean("preferito"), getUtente(rs.getString("username")), null));
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le recensioni
+                recensioniConCommento.add(new Recensione(rs.getString("testo"), rs.getInt("valutazione"), rs.getBoolean("preferito"), getUtente(rs.getString("username")), null));  //aggiunge una nuova recensione in 'recensioneConCommento'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
 
-        r.chiudiConnessione();
+        r.chiudiConnessione();  //chiude la connessione al DB
     }
 }
