@@ -316,8 +316,8 @@ public class BooksPage {
             public void valueChanged(ListSelectionEvent e) {
                 controller.isbn_selected = booksTable.getValueAt(booksTable.getSelectedRow(), 0).toString();
                 controller.nome_l = booksTable.getValueAt(booksTable.getSelectedRow(), 1).toString();
-                BookPage bp = new BookPage(frameC, controller); //chiama il frame 'pf'
-                bp.frame.setVisible(true);  //rende visible il frame 'pf'
+                BookPage bp = new BookPage(frameC, controller); //chiama il frame 'bp'
+                bp.frame.setVisible(true);  //rende visible il frame 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
