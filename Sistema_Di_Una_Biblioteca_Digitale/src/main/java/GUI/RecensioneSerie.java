@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 
-public class RecensioneLibro extends JDialog {
+public class RecensioneSerie extends JDialog {
     public JFrame frame;
     private JPanel contentPane;
     private JLabel stella1;
@@ -29,8 +29,8 @@ public class RecensioneLibro extends JDialog {
 
     public String isbn_selezionato;
 
-    public RecensioneLibro(JFrame frameC, Controller controller, JLabel valutazioneC, JLabel s1, JLabel s2, JLabel s3, JLabel s4, JLabel s5, JPanel commenti) {
-       isbn_selezionato = controller.isbn_selected;
+    public RecensioneSerie(JFrame frameC, Controller controller, JLabel valutazioneC, JLabel s1, JLabel s2, JLabel s3, JLabel s4, JLabel s5, JPanel commenti) {
+        isbn_selezionato = controller.isbn_selected;
 
         frame = new JFrame("Valutazione");
         frame.setUndecorated(true);
@@ -62,115 +62,115 @@ public class RecensioneLibro extends JDialog {
         stella5.setIcon(stellaVuotaIco);
 
 
-            stella1.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    super.mouseEntered(e);
-                    if (active == false) {
-                        stella1.setIcon(stellaPienaIco);
-                    }
+        stella1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                if (active == false) {
+                    stella1.setIcon(stellaPienaIco);
                 }
+            }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    super.mouseExited(e);
-                    if (active == false) {
-                        stella1.setIcon(stellaVuotaIco);
-                    }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                if (active == false) {
+                    stella1.setIcon(stellaVuotaIco);
                 }
-            });
+            }
+        });
 
-            stella2.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    super.mouseEntered(e);
-                    if(active == false) {
-                        stella1.setIcon(stellaPienaIco);
-                        stella2.setIcon(stellaPienaIco);
-                    }
+        stella2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                if(active == false) {
+                    stella1.setIcon(stellaPienaIco);
+                    stella2.setIcon(stellaPienaIco);
                 }
+            }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    super.mouseExited(e);
-                    if (active == false) {
-                        stella1.setIcon(stellaVuotaIco);
-                        stella2.setIcon(stellaVuotaIco);
-                    }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                if (active == false) {
+                    stella1.setIcon(stellaVuotaIco);
+                    stella2.setIcon(stellaVuotaIco);
                 }
-            });
+            }
+        });
 
-            stella3.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    super.mouseEntered(e);
-                    if (active == false) {
-                        stella1.setIcon(stellaPienaIco);
-                        stella2.setIcon(stellaPienaIco);
-                        stella3.setIcon(stellaPienaIco);
-                    }
+        stella3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                if (active == false) {
+                    stella1.setIcon(stellaPienaIco);
+                    stella2.setIcon(stellaPienaIco);
+                    stella3.setIcon(stellaPienaIco);
                 }
+            }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    super.mouseExited(e);
-                    if (active == false) {
-                        stella1.setIcon(stellaVuotaIco);
-                        stella2.setIcon(stellaVuotaIco);
-                        stella3.setIcon(stellaVuotaIco);
-                    }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                if (active == false) {
+                    stella1.setIcon(stellaVuotaIco);
+                    stella2.setIcon(stellaVuotaIco);
+                    stella3.setIcon(stellaVuotaIco);
                 }
-            });
+            }
+        });
 
-            stella4.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseEntered (MouseEvent e) {
-                        super.mouseEntered(e);
-                        if (active == false) {
-                            stella1.setIcon(stellaPienaIco);
-                            stella2.setIcon(stellaPienaIco);
-                            stella3.setIcon(stellaPienaIco);
-                            stella4.setIcon(stellaPienaIco);
-                        }
-                    }
+        stella4.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered (MouseEvent e) {
+                super.mouseEntered(e);
+                if (active == false) {
+                    stella1.setIcon(stellaPienaIco);
+                    stella2.setIcon(stellaPienaIco);
+                    stella3.setIcon(stellaPienaIco);
+                    stella4.setIcon(stellaPienaIco);
+                }
+            }
 
-                    @Override
-                    public void mouseExited (MouseEvent e){
-                    super.mouseExited(e);
-                    if(active == false) {
-                        stella1.setIcon(stellaVuotaIco);
-                        stella2.setIcon(stellaVuotaIco);
-                        stella3.setIcon(stellaVuotaIco);
-                        stella4.setIcon(stellaVuotaIco);
-                    }
-                 }
-            });
+            @Override
+            public void mouseExited (MouseEvent e){
+                super.mouseExited(e);
+                if(active == false) {
+                    stella1.setIcon(stellaVuotaIco);
+                    stella2.setIcon(stellaVuotaIco);
+                    stella3.setIcon(stellaVuotaIco);
+                    stella4.setIcon(stellaVuotaIco);
+                }
+            }
+        });
 
-            stella5.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    super.mouseEntered(e);
-                    if(active == false){
+        stella5.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                if(active == false){
                     stella1.setIcon(stellaPienaIco);
                     stella2.setIcon(stellaPienaIco);
                     stella3.setIcon(stellaPienaIco);
                     stella4.setIcon(stellaPienaIco);
                     stella5.setIcon(stellaPienaIco);
-                    }
                 }
+            }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    super.mouseExited(e);
-                    if(active == false) {
-                        stella1.setIcon(stellaVuotaIco);
-                        stella2.setIcon(stellaVuotaIco);
-                        stella3.setIcon(stellaVuotaIco);
-                        stella4.setIcon(stellaVuotaIco);
-                        stella5.setIcon(stellaVuotaIco);
-                    }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                if(active == false) {
+                    stella1.setIcon(stellaVuotaIco);
+                    stella2.setIcon(stellaVuotaIco);
+                    stella3.setIcon(stellaVuotaIco);
+                    stella4.setIcon(stellaVuotaIco);
+                    stella5.setIcon(stellaVuotaIco);
                 }
-            });
+            }
+        });
 
 
         stella1.addMouseListener(new MouseAdapter() {
@@ -298,9 +298,9 @@ public class RecensioneLibro extends JDialog {
                 if(valutazione == 0){
                     JOptionPane.showMessageDialog(frame, "Inserire la valutazione.");
                 } else {
-                    controller.addRecensioneLibro(valutazione, textField1.getText());
+                    controller.addRecensioneSerie(valutazione, textField1.getText());
                     DecimalFormat valMedForm = new DecimalFormat("#.#");
-                    valutazioneMedia = controller.valutazioneMediaLibro();
+                    valutazioneMedia = controller.valutazioneMediaSerie();
                     valutazioneC.setText(valMedForm.format(valutazioneMedia));
                     changeStars(s1, s2, s3, s4, s5, stellaPienaIco, stellaVuotaIco, stellaMezzaIco);
 
@@ -334,7 +334,6 @@ public class RecensioneLibro extends JDialog {
                         public void windowActivated(WindowEvent e) {
                             commenti.removeAll();
                             showComment(new Controller(), commenti);
-                            System.out.println("prova");
 
                             frameC.removeWindowListener(this);
                             commenti.revalidate();
@@ -412,7 +411,7 @@ public class RecensioneLibro extends JDialog {
     public void showComment(Controller controller, JPanel commenti){    //mostra i commenti del libro selezionato
         controller.isbn_selected = isbn_selezionato;    //isbn del ibro selezionato
 
-        controller.allRecWithCommentLibro(); //inizializza 'controller.recensioniConCommento'
+        controller.allRecWithCommentSerie(); //inizializza 'controller.recensioniConCommento'
 
         int n = controller.recensioniConCommento.size();    //numero di recensioni con commento del libro selezionato
 

@@ -4,7 +4,6 @@ import DAO.RecensioneDAO;
 import Database.ConnessioneDatabase;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
     private Connection connection;
@@ -90,6 +89,16 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
         }
 
         if(item >= 1) { //controlla se c'è già una tupla con 'user' e 'isbn' in "recensione_l"
+            if(like == false) {
+                try {
+                    PreparedStatement changeLikePS = connection.prepareStatement(
+                            "DELETE from recensione_l WHERE isbn = '"+isbn+"' AND username = '"+user+"' AND valutazione IS NULL AND testo IS NULL"
+                    );
+                    changeLikePS.executeUpdate(); //esegue la query
+                } catch (SQLException var2) {
+                    var2.printStackTrace();
+                }
+            }
             try {
                 PreparedStatement changeLikePS = connection.prepareStatement(
                         "UPDATE recensione_l SET preferito = '" + like + "' WHERE isbn = '" + isbn + "' AND username = '" + user + "'" //prepara la query che aggiorna la tupla con 'isbn' e 'user'
@@ -174,7 +183,7 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
         }
     }
 
-    public ResultSet allRecWithCommentDB(String isbn){  //ritorna tutte le recensioni con un testo fatte al libro 'isbn'
+    public ResultSet allRecWithCommentLibroDB(String isbn){  //ritorna tutte le recensioni con un testo fatte al libro 'isbn'
         ResultSet rs = null;    //contiene le recensioni
 
         try {
@@ -262,6 +271,16 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
         }
 
         if(item >= 1) { //controlla se c'è già una tupla con 'user' e 'isbn' in "recensione_l"
+            if(like == false) {
+                try {
+                    PreparedStatement changeLikePS = connection.prepareStatement(
+                            "DELETE from recensione_s WHERE isbn = '"+isbn+"' AND username = '"+user+"' AND valutazione IS NULL AND testo IS NULL"
+                    );
+                    changeLikePS.executeUpdate(); //esegue la query
+                } catch (SQLException var2) {
+                    var2.printStackTrace();
+                }
+            }
             try {
                 PreparedStatement changeLikeSeriePS = connection.prepareStatement(
                         "UPDATE recensione_s SET preferito = '" + like + "' WHERE isbn = '" + isbn + "' AND username = '" + user + "'" //prepara la query che aggiorna la tupla con 'isbn' e 'user'
@@ -285,6 +304,82 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
         }
 
         return like;
+    }
+
+    @Override
+    public void addRecensioneSerieDB(int valutazione, String text, String isbn, String user){   //aggiunge/aggiorna una recensione con 'valutazione' e 'testo' fatta dall'utente 'user' al libro 'isbn'
+        ResultSet rs = null;
+        int item = 1;   //numero di tuple in "recensione_l" con 'user' e 'isbn'
+
+        try {
+            PreparedStatement addRecensioneSeriePS = connection.prepareStatement(
+                    "SELECT COUNT (*) FROM recensione_s WHERE isbn = '"+isbn+"' AND username = '"+user+"'" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+            );
+            rs = addRecensioneSeriePS.executeQuery(); //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                item = rs.getInt(1);    //aggiorna 'item'
+            }
+
+            rs.close();
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        if(item >= 1) { //controlla se c'è già una tupla con 'user' e 'isbn' in "recensione_l"
+            try {
+                String query = "UPDATE recensione_s SET valutazione = ?, testo = ? WHERE isbn = ? AND username = ?"; //prepara la query di aggiornamento
+                PreparedStatement addRecensioneSeriePS = connection.prepareStatement(query);
+
+                addRecensioneSeriePS.setInt(1, valutazione);    //inserisce la valutazione nella query
+
+                if(text.isBlank()) addRecensioneSeriePS.setNull(2, Types.NULL); //se il testo è vuoto inserisce NULL nella query
+                else addRecensioneSeriePS.setString(2, text);   //altrimenti inserise 'text' nella query
+
+                addRecensioneSeriePS.setString(3, isbn);    //inserisce l'isbn nella query
+                addRecensioneSeriePS.setString(4, user);    //inserisce l'username nella query
+
+                addRecensioneSeriePS.executeUpdate();   //esegue la query
+                connection.close();
+            } catch (SQLException var2) {
+                var2.printStackTrace();
+            }
+        } else {
+            try {
+                String query = "INSERT INTO recensione_s(username, isbn, valutazione, testo) VALUES (?, ?, ?, ?)"; //prepara la query di inserimento
+                PreparedStatement addRecensioneSeriePS = connection.prepareStatement(query);
+
+                addRecensioneSeriePS.setInt(3, valutazione);    //prepara la query di aggiornamento
+
+                if(text.isBlank()) addRecensioneSeriePS.setNull(4, Types.NULL); //se il testo è vuoto inserisce NULL nella query
+                else addRecensioneSeriePS.setString(4, text);    //altrimenti inserise 'text' nella query
+
+                addRecensioneSeriePS.setString(2, isbn);     //inserisce l'isbn nella query
+                addRecensioneSeriePS.setString(1, user);     //inserisce l'username nella query
+
+                addRecensioneSeriePS.executeUpdate();   //esegue la query
+                connection.close();
+            } catch (SQLException var2) {
+                var2.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public ResultSet allRecWithCommentSerieDB(String isbn){  //ritorna tutte le recensioni con un testo fatte al libro 'isbn'
+        ResultSet rs = null;    //contiene le recensioni
+
+        try {
+            PreparedStatement allRecWithCommentPS = connection.prepareStatement(
+                    "SELECT * FROM recensione_s WHERE isbn = '"+isbn+"' AND testo IS NOT NULL AND VALUTAZIONE IS NOT NULL"   //prepara la query che cerca tutte le recensioni del libro
+            );
+
+            rs = allRecWithCommentPS.executeQuery(); //esegue la query
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        return rs;
     }
 
 

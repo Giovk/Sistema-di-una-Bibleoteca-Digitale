@@ -120,7 +120,7 @@ public class SeriePage {
         favouritePienoIco = new ImageIcon(favouritePienoImg);
 
         controller.likeSerie(); //controlla se l'utente ha il libro selezionato nei preferiti e inizializza 'controller.likeLibroSelected'
-        controller.allRecWithComment(); //inizializza 'recensioniConCommento'
+        controller.allRecWithCommentSerie(); //inizializza 'recensioniConCommento'
 
         if (controller.likeElementSelected == false) likeButton.setIcon(favouriteVuotoIco);   //controlla se l'utente ha il libro selelzionato nei preferiti
         else likeButton.setIcon(favouritePienoIco);
@@ -340,7 +340,7 @@ public class SeriePage {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                RecensioneLibro recensioneLibro = new RecensioneLibro(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti);
+                RecensioneSerie recensioneSerie = new RecensioneSerie(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti);
                 frame.setEnabled(false); //disabilita il frame
             }
         });
@@ -472,7 +472,7 @@ public class SeriePage {
     public void showComment(Controller controller, JPanel commenti){    //mostra i commenti del libro selezionato
         controller.isbn_selected = isbn_selezionato;    //isbn del ibro selezionato
 
-        controller.allRecWithComment(); //inizializza 'controller.recensioniConCommento'
+        controller.allRecWithCommentSerie(); //inizializza 'controller.recensioniConCommento'
 
         int n = controller.recensioniConCommento.size();    //numero di recensioni con commento del libro selezionato
 
