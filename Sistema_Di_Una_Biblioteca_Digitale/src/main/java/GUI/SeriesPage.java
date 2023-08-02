@@ -6,6 +6,8 @@ import Model.Libro;
 import Model.Serie;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
@@ -270,6 +272,18 @@ public class SeriesPage {
         if(controller.listaSerie != null){
             for (Serie s: controller.listaSerie) model.addRow(new Object[]{s.isbn, s.titolo, s.nLibri, s.dataPubblicazione});
         }
+
+        seriesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                controller.isbn_selected = seriesTable.getValueAt(seriesTable.getSelectedRow(), 0).toString();
+                controller.nome_selected = seriesTable.getValueAt(seriesTable.getSelectedRow(), 1).toString();
+                SeriePage sp = new SeriePage(frameC, controller); //chiama il frame 'bp'
+                sp.frame.setVisible(true);  //rende visible il frame 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
 
         searchBarField.addKeyListener(new KeyAdapter() {
             @Override

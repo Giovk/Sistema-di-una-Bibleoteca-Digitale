@@ -315,7 +315,7 @@ public class BooksPage {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 controller.isbn_selected = booksTable.getValueAt(booksTable.getSelectedRow(), 0).toString();
-                controller.nome_l = booksTable.getValueAt(booksTable.getSelectedRow(), 1).toString();
+                controller.nome_selected = booksTable.getValueAt(booksTable.getSelectedRow(), 1).toString();
                 BookPage bp = new BookPage(frameC, controller); //chiama il frame 'bp'
                 bp.frame.setVisible(true);  //rende visible il frame 'bp'
                 frame.setVisible(false);    //rende invisibile il frame

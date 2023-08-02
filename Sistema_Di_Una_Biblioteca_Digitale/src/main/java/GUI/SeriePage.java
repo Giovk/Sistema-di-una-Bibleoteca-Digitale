@@ -12,7 +12,7 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class BookPage {
+public class SeriePage {
     public JFrame frame;
     private JPanel buttonPanel;
     private JButton homeButton;
@@ -46,7 +46,7 @@ public class BookPage {
     private String isbn_selezionato;
 
 
-    public BookPage(JFrame frameC, Controller controller) {
+    public SeriePage (JFrame frameC, Controller controller) {
         isbn_selezionato = controller.isbn_selected;
 
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
@@ -93,7 +93,7 @@ public class BookPage {
 
         DecimalFormat valMedForm = new DecimalFormat("#.#");    //formato da mostrare del numero decimale
 
-        valutazioneMedia = controller.valutazioneMediaLibro();  //calcola la media delle valutazioni del libro selezionato
+        valutazioneMedia = controller.valutazioneMediaSerie();  //calcola la media delle valutazioni del libro selezionato
         valutazione.setText(valMedForm.format(valutazioneMedia));   //mostra la media delle valutazioni del libro selezionato
 
         ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
@@ -119,7 +119,7 @@ public class BookPage {
         Image favouritePienoImg = favouritePienoIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         favouritePienoIco = new ImageIcon(favouritePienoImg);
 
-        controller.likeLibro(); //controlla se l'utente ha il libro selezionato nei preferiti e inizializza 'controller.likeLibroSelected'
+        controller.likeSerie(); //controlla se l'utente ha il libro selezionato nei preferiti e inizializza 'controller.likeLibroSelected'
         controller.allRecWithComment(); //inizializza 'recensioniConCommento'
 
         if (controller.likeElementSelected == false) likeButton.setIcon(favouriteVuotoIco);   //controlla se l'utente ha il libro selelzionato nei preferiti
@@ -130,7 +130,7 @@ public class BookPage {
             public void mouseClicked(MouseEvent e) {
                 if (controller.likeElementSelected == false) likeButton.setIcon(favouritePienoIco);
                 else likeButton.setIcon(favouriteVuotoIco);
-                controller.changeLikeLibro();    //aggiorna il valore di 'controller.likeLibroSelected' e aggiorna il contenuto del DB
+                controller.changeLikeSerie();    //aggiorna il valore di 'controller.likeLibroSelected' e aggiorna il contenuto del DB
             }
         });
 
