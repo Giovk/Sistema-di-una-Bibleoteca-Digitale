@@ -27,7 +27,11 @@ public class RecensioneLibro extends JDialog {
     public int valutazione = 0;
     public float valutazioneMedia;
 
-    public RecensioneLibro(JFrame frameC, Controller controller, JLabel valutazioneC, JLabel s1, JLabel s2, JLabel s3, JLabel s4, JLabel s5) {
+    public String isbn_selezionato;
+
+    public RecensioneLibro(JFrame frameC, Controller controller, JLabel valutazioneC, JLabel s1, JLabel s2, JLabel s3, JLabel s4, JLabel s5, JPanel commenti) {
+       isbn_selezionato = controller.isbn_selected;
+
         frame = new JFrame("Valutazione");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
@@ -299,6 +303,50 @@ public class RecensioneLibro extends JDialog {
                     valutazioneMedia = controller.valutazioneMediaLibro();
                     valutazioneC.setText(valMedForm.format(valutazioneMedia));
                     changeStars(s1, s2, s3, s4, s5, stellaPienaIco, stellaVuotaIco, stellaMezzaIco);
+
+                    frameC.addWindowListener(new WindowListener() {
+                        @Override
+                        public void windowOpened(WindowEvent e) {
+
+                        }
+
+                        @Override
+                        public void windowClosing(WindowEvent e) {
+
+                        }
+
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+
+                        }
+
+                        @Override
+                        public void windowIconified(WindowEvent e) {
+
+                        }
+
+                        @Override
+                        public void windowDeiconified(WindowEvent e) {
+
+                        }
+
+                        @Override
+                        public void windowActivated(WindowEvent e) {
+                            commenti.removeAll();
+                            showComment(new Controller(), commenti);
+                            System.out.println("prova");
+
+                            frameC.removeWindowListener(this);
+                            commenti.revalidate();
+                        }
+
+                        @Override
+                        public void windowDeactivated(WindowEvent e) {
+
+                        }
+                    });
+
+
                     frame.setVisible(false);
                     frameC.setEnabled(true);
                     frame.dispose();
@@ -306,6 +354,113 @@ public class RecensioneLibro extends JDialog {
                 }
             }
         });
+    }
+
+    public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione){   //aggiorna le stelle della recensione con valutazione 'valutazione'
+
+        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        stellaVuotaIco = new ImageIcon(stellaVuotaImg);
+
+        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        stellaPienaIco = new ImageIcon(stellaPienaImg);
+
+        switch (valutazione) {  //controlla 'valutazione' e aggiorna le stelle della recensione da mostrare
+            case 1:
+                stella1.setIcon(stellaPienaIco);
+                stella2.setIcon(stellaVuotaIco);
+                stella3.setIcon(stellaVuotaIco);
+                stella4.setIcon(stellaVuotaIco);
+                stella5.setIcon(stellaVuotaIco);
+                break;
+            case 2:
+                stella1.setIcon(stellaPienaIco);
+                stella2.setIcon(stellaPienaIco);
+                stella3.setIcon(stellaVuotaIco);
+                stella4.setIcon(stellaVuotaIco);
+                stella5.setIcon(stellaVuotaIco);
+                break;
+            case 3:
+                stella1.setIcon(stellaPienaIco);
+                stella2.setIcon(stellaPienaIco);
+                stella3.setIcon(stellaPienaIco);
+                stella4.setIcon(stellaVuotaIco);
+                stella5.setIcon(stellaVuotaIco);
+                break;
+            case 4:
+                stella1.setIcon(stellaPienaIco);
+                stella2.setIcon(stellaPienaIco);
+                stella3.setIcon(stellaPienaIco);
+                stella4.setIcon(stellaPienaIco);
+                stella5.setIcon(stellaVuotaIco);
+                break;
+            case 5:
+                stella1.setIcon(stellaPienaIco);
+                stella2.setIcon(stellaPienaIco);
+                stella3.setIcon(stellaPienaIco);
+                stella4.setIcon(stellaPienaIco);
+                stella5.setIcon(stellaPienaIco);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
+    public void showComment(Controller controller, JPanel commenti){    //mostra i commenti del libro selezionato
+        controller.isbn_selected = isbn_selezionato;    //isbn del ibro selezionato
+
+        controller.allRecWithComment(); //inizializza 'controller.recensioniConCommento'
+
+        int n = controller.recensioniConCommento.size();    //numero di recensioni con commento del libro selezionato
+
+        JPanel[] valUser = new JPanel[n];
+        JPanel[] commento = new JPanel[n];
+        JLabel[] username = new JLabel[n];
+        JLabel[] valutazione = new JLabel[n*5];
+        JLabel[] commText = new JLabel[n];
+        JSeparator[] separators = new JSeparator[n];
+
+        for (int i = 0; i < n; i++){
+            username[i] = new JLabel(controller.recensioniConCommento.get(i).utenteRecensore.username);
+            username[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale a sinistra della Jlabel con l'username dell'autore dell'i-esima recensione
+            valutazione[i*5] = new JLabel();
+            valutazione[i*5].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la prima stella dell'i-esima recensione a sinistra
+            valutazione[(i*5)+1] = new JLabel();
+            valutazione[(i*5)+1].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la seconda stella dell'i-esima recensione a sinistra
+            valutazione[(i*5)+2] = new JLabel();
+            valutazione[(i*5)+2].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la terza stella dell'i-esima recensione a sinistra
+            valutazione[(i*5)+3] = new JLabel();
+            valutazione[(i*5)+3].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la quarta stella dell'i-esima recensione a sinistra
+            valutazione[(i*5)+4] = new JLabel();
+            valutazione[(i*5)+4].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la quinta stella dell'i-esima recensione a sinistra
+
+            changeStars(valutazione[i*5], valutazione[(i*5)+1], valutazione[(i*5)+2], valutazione[(i*5)+3], valutazione[(i*5)+4], controller.recensioniConCommento.get(i).valutazione); //aggiorna le cinque stelle dell'i-esima recensione del libro selezionato in base alla sua valutazione
+
+            valUser[i] = new JPanel();
+            valUser[i].setBackground(new Color(0xFFD369));
+            valUser[i].add(username[i]);    //aggiunge l'username dell'utente che ha fatto l'i-esima recensione in 'valUser'
+            valUser[i].add(valutazione[i*5]);   //aggiunge la prima stella della i-esima recensione in 'valUser'
+            valUser[i].add(valutazione[(i*5)+1]);   //aggiunge la seconda stella della i-esima recensione in 'valUser'
+            valUser[i].add(valutazione[(i*5)+2]);   //aggiunge la terza stella della i-esima recensione in 'valUser'
+            valUser[i].add(valutazione[(i*5)+3]);   //aggiunge la quarta stella della i-esima recensione in 'valUser'
+            valUser[i].add(valutazione[(i*5)+4]);   //aggiunge la quinta stella della i-esima recensione in 'valUser'
+            valUser[i].setAlignmentX(Component.LEFT_ALIGNMENT); //imposta l'allineamento orizzontale del Jpannel 'valUser' a sinistra
+            commText[i] = new JLabel(controller.recensioniConCommento.get(i).testo);
+            commText[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale della Jlabel con il testo del commento dell'i-esima recensione a sinistra
+            commento[i] = new JPanel();
+            commento[i].setLayout(new FlowLayout(FlowLayout.LEFT)); //imposta il layout del testo del commento dell'i-esima recensione, posizionandolo a sinistra
+            commento[i].setBackground(new Color(0xFFD369));
+            commento[i].add(commText[i]);   //aggiunge il testo del commento dell'i-esima recensione in 'commento'
+            commento[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale della Jpannel con il testo del commento dell'i-esima recensione a sinistra
+            separators[i] = new JSeparator();
+            separators[i].setForeground(new Color(0xFFD369));
+            commenti.add(valUser[i]);   //aggiunge in 'commenti' l'username dell'autore e le stelle dell'i-esima recensione
+            commenti.add(commento[i]);  // aggiunge in 'commenti' il testo dell'i-esima recensione
+            commenti.add(separators[i]);    //aggiunge un 'Jseparator'
+        }
     }
 
     public void changeStars(JLabel s1, JLabel s2, JLabel s3, JLabel s4, JLabel s5, ImageIcon stellaPienaIco, ImageIcon stellaVuotaIco, ImageIcon stellaMezzaIco){

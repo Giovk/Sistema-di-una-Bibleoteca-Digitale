@@ -67,7 +67,7 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
     }
 
     @Override
-    public boolean changeLikeDB(boolean like, String isbn, String user) { //toglie/mette nei preferiti dell'utente 'user' il libro 'isbn' e ritone l'opposto di 'like'
+    public boolean changeLikeLibroDB(boolean like, String isbn, String user) { //toglie/mette nei preferiti dell'utente 'user' il libro 'isbn' e ritone l'opposto di 'like'
         ResultSet rs = null;
         int item = 1;   //numero di tuple in "recensione_l" con 'user' e 'isbn'
 
@@ -75,10 +75,10 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
         else like = true;   //altrimenti lo pone a true
 
         try {
-            PreparedStatement likeLibroPS = connection.prepareStatement(
+            PreparedStatement changeLikeLibroPS = connection.prepareStatement(
                     "SELECT COUNT (*) FROM recensione_l WHERE isbn = '"+isbn+"' AND username = '"+user+"'" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
             );
-            rs = likeLibroPS.executeQuery(); //esegue la query
+            rs = changeLikeLibroPS.executeQuery(); //esegue la query
 
             while(rs.next()){    //scorre il ResultSet 'rs' contenente il numero di tuple trovate dalla query
                 item = rs.getInt(1);    //aggiorna 'item'
@@ -189,6 +189,104 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
 
         return rs;
     }
+
+    @Override
+    public float valutazioneMediaSerieDB(String isbn) { //ritorna la media delle valutazioni del libro con isbn 'isbn'
+        ResultSet rs = null;    //media trovata
+        float vm = 0;   //valore medio delle valutazioni
+
+        try {
+            PreparedStatement valutazioneMediaSeriePS = connection.prepareStatement(
+                    "SELECT AVG(valutazione) FROM recensione_s WHERE isbn = '"+isbn+"'" //prepara la query che calcola il valore medio delle valutazioni del libro
+            );
+            rs = valutazioneMediaSeriePS.executeQuery(); //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente la media
+                vm = rs.getFloat(1);
+            }
+
+            rs.close();
+            connection.close();
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        return vm;
+    }
+
+    @Override
+    public boolean likeSerieDB(String isbn, String user) { //controlla se l'utente 'user' ha il libro 'isbn' tra i preferiti
+        ResultSet rs = null;    //valore trovato
+        boolean like = false;   //risultato
+
+        try {
+            PreparedStatement likeSeriePS = connection.prepareStatement(
+                    "SELECT preferito FROM recensione_s WHERE isbn = '"+isbn+"' AND username = '"+user+"'" //prepara la query che controlla se l'utente ha il libro nei preferiti
+            );
+            rs = likeSeriePS.executeQuery(); //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                like = rs.getBoolean(1);    //pone il risultato in 'like'
+            }
+
+            rs.close();
+            connection.close();
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        return like;
+    }
+
+    @Override
+    public boolean changeLikeSerieDB(boolean like, String isbn, String user) { //toglie/mette nei preferiti dell'utente 'user' il libro 'isbn' e ritone l'opposto di 'like'
+        ResultSet rs = null;
+        int item = 1;   //numero di tuple in "recensione_l" con 'user' e 'isbn'
+
+        if (like == true) like = false; //se 'like' è true lo pone a false
+        else like = true;   //altrimenti lo pone a true
+
+        try {
+            PreparedStatement changeLikeSeriePS = connection.prepareStatement(
+                    "SELECT COUNT (*) FROM recensione_s WHERE isbn = '"+isbn+"' AND username = '"+user+"'" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+            );
+            rs = changeLikeSeriePS.executeQuery(); //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente il numero di tuple trovate dalla query
+                item = rs.getInt(1);    //aggiorna 'item'
+            }
+
+            rs.close();
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        if(item >= 1) { //controlla se c'è già una tupla con 'user' e 'isbn' in "recensione_l"
+            try {
+                PreparedStatement changeLikeSeriePS = connection.prepareStatement(
+                        "UPDATE recensione_s SET preferito = '" + like + "' WHERE isbn = '" + isbn + "' AND username = '" + user + "'" //prepara la query che aggiorna la tupla con 'isbn' e 'user'
+                );
+                changeLikeSeriePS.executeUpdate(); //esegue la query
+                connection.close();
+            } catch (SQLException var2) {
+                var2.printStackTrace();
+            }
+        } else {
+            try {
+                PreparedStatement changeLikeSeriePS = connection.prepareStatement(
+                        "INSERT INTO recensione_s(username, isbn, preferito) " +
+                                "VALUES ('"+user+"', '"+isbn+"', '"+like+"')"   //prepara la query che aggiuge una nuova tupla in "recensione_l" con 'user', 'isbn' e 'like'
+                );
+                changeLikeSeriePS.executeUpdate(); //esegue la query
+                connection.close();
+            } catch (SQLException var2) {
+                var2.printStackTrace();
+            }
+        }
+
+        return like;
+    }
+
 
     @Override
     public void chiudiConnessione(){    //chiude la connessione al DB

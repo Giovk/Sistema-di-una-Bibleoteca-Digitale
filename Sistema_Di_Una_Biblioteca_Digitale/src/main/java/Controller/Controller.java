@@ -14,8 +14,8 @@ public class Controller {
     public ArrayList<Libro> listaLibri = getLibri();
     public ArrayList<Serie> listaSerie = getSerie();
     public String isbn_selected = "";
-    public String nome_l = "";
-    public boolean likeLibroSelected;
+    public String nome_selected = "";
+    public boolean likeElementSelected;
     public ArrayList<Recensione> recensioniConCommento = new ArrayList<>();
     public Controller(){
     }
@@ -408,13 +408,13 @@ public class Controller {
 
     public void likeLibro(){    //controlla se l'utente ha il libro selezionato tra i preferiti e pone il risultato in 'likeLibroSelected'
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        likeLibroSelected = r.likeLibroDB(isbn_selected, utente.username);
+        likeElementSelected = r.likeLibroDB(isbn_selected, utente.username);
         return;
     }
 
-    public void changeLike(){   //cambia il valore di 'likeLibroSelected' e togli/mette nei preferiti dell'utente il libro selezionato
+    public void changeLikeLibro(){   //cambia il valore di 'likeLibroSelected' e togli/mette nei preferiti dell'utente il libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        likeLibroSelected = r.changeLikeDB(likeLibroSelected, isbn_selected, utente.username);
+        likeElementSelected = r.changeLikeLibroDB(likeElementSelected, isbn_selected, utente.username);
     }
 
     public void addRecensioneLibro(int valutazione, String text){   //aggiunge una nuova recensione con 'valutazione' e 'testo' fatta dall'utente al libro selezionato
@@ -436,5 +436,21 @@ public class Controller {
         }
 
         r.chiudiConnessione();  //chiude la connessione al DB
+    }
+
+    public float valutazioneMediaSerie(){   //ritorna la media delle valutazioni del libro selezionato
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        return r.valutazioneMediaSerieDB(isbn_selected);
+    }
+
+    public void likeSerie(){    //controlla se l'utente ha il libro selezionato tra i preferiti e pone il risultato in 'likeLibroSelected'
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        likeElementSelected = r.likeSerieDB(isbn_selected, utente.username);
+        return;
+    }
+
+    public void changeLikeSerie(){   //cambia il valore di 'likeLibroSelected' e togli/mette nei preferiti dell'utente il libro selezionato
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        likeElementSelected = r.changeLikeSerieDB(likeElementSelected, isbn_selected, utente.username);
     }
 }
