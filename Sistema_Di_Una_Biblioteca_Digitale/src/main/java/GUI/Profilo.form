@@ -302,6 +302,7 @@
             <properties>
               <background color="-11415"/>
               <caretColor color="-14538703"/>
+              <dragEnabled value="true"/>
               <font name="Berlin Sans FB" size="15" style="0"/>
               <foreground color="-14538703"/>
               <margin top="2" left="0" bottom="2" right="5"/>

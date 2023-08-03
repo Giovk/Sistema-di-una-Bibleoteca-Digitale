@@ -10,7 +10,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -28,7 +30,6 @@ public class SeriesPage {
     private JComboBox autoreCB;
     private JComboBox genereCB;
     private JLabel resetFiltriLabel;
-    private JPanel jpanel3;
     private JScrollPane seriesScrollPanel;
     private JTable seriesTable;
     private JTextField searchBarField;
@@ -235,6 +236,33 @@ public class SeriesPage {
             }
         };
 
+        // Renderer personalizzato per l'header della tabella
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(0xCF9E29));
+        headerRenderer.setForeground(new Color(0xEEEEEE));
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        Font headerFont = new Font("Bebas Neue", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
+        headerRenderer.setFont(headerFont);
+        JTableHeader tableHeader = seriesTable.getTableHeader();
+        tableHeader.setDefaultRenderer(headerRenderer);
+
+        // Impedire il ridimensionamento delle colonne
+        seriesTable.getTableHeader().setResizingAllowed(false);
+
+        // Impedire il riordinamento delle colonne
+        seriesTable.getTableHeader().setReorderingAllowed(false);
+
+        // Rimuovere il bordo dell'header della tabella
+        tableHeader.setBorder(null);
+
+        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));
+
+
+        seriesTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
+        seriesScrollPanel.setBackground(new Color(0x222831));
+        seriesScrollPanel.setBorder(BorderFactory.createEmptyBorder());
+        seriesScrollPanel.getViewport().setBackground(new Color(0x222831));
+
 
 
         genereRB.addItemListener(new ItemListener() {
@@ -382,6 +410,9 @@ public class SeriesPage {
         Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
+
+        searchBarField = new JTextField();
+        searchBarField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
 
 
         groupRB = new ButtonGroup();

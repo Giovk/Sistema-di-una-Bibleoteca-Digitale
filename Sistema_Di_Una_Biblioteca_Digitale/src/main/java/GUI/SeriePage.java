@@ -6,7 +6,10 @@ import Model.Presentazione;
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
@@ -39,6 +42,7 @@ public class SeriePage {
     private JPanel allPagePanel;
     private JScrollPane allScrollPanel;
     private JPanel commenti;
+    private JLabel backButton;
     private boolean active = false;
     ImageIcon favouriteVuotoIco;
     ImageIcon favouritePienoIco;
@@ -236,33 +240,49 @@ public class SeriePage {
             }
         });
 
-        serieButton.addMouseListener(new MouseAdapter() {
+        libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                serieButton.setBackground(Color.decode("#cf9e29"));
+                libriButton.setBackground(Color.decode("#cf9e29"));
             }
         });
-        serieButton.addMouseListener(new MouseAdapter() {
+        libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                serieButton.setBackground(Color.decode("#FFD369"));
+                libriButton.setBackground(Color.decode("#FFD369"));
             }
         });
 
-        serieButton.addMouseListener(new MouseAdapter() {
+        libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
-                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                BooksPage bp = new BooksPage(frameC, controller);   //chiama il frame 'bp'
+                bp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
         });
 
+        backButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                SeriesPage sp = new SeriesPage(frameC, controller);
+                sp.frame.setVisible(true);
+                frame.setVisible(false);
+                frame.dispose();
+            }
+        });
+
         // --------------------------------------------------------------------------- //
+
+        allScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        allScrollPanel.setBackground(new Color(0x222831));
+        allScrollPanel.setBorder(BorderFactory.createEmptyBorder());
+        allScrollPanel.getViewport().setBackground(new Color(0x222831));
 
         DefaultTableModel model1 = new DefaultTableModel(new Object[][]{}, new String[]{"Libreria", "Quantità", "Fruizione", "Indirizzo", "Sito Web", "N. di Telefono"}) {
             @Override
@@ -277,6 +297,53 @@ public class SeriePage {
                 return false; //permette di rendere non editabile la cella (row,column)
             }
         };
+
+        // Renderer personalizzato per l'header della tabella
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(0xCF9E29));
+        headerRenderer.setForeground(new Color(0xEEEEEE));
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        Font headerFont = new Font("Bebas Neue", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
+        headerRenderer.setFont(headerFont);
+        JTableHeader tableHeader1 = table1.getTableHeader();
+        tableHeader1.setDefaultRenderer(headerRenderer);
+
+        // Impedire il ridimensionamento delle colonne
+        table1.getTableHeader().setResizingAllowed(false);
+
+        // Impedire il riordinamento delle colonne
+        table1.getTableHeader().setReorderingAllowed(false);
+
+        // Rimuovere il bordo dell'header della tabella
+        tableHeader1.setBorder(null);
+
+        tableHeader1.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader1.getDefaultRenderer()));
+
+
+        table1.setModel(model1); //imposta il modello dei dati della JTable 'booksTable'
+        jscroll1.setBackground(new Color(0x222831));
+        jscroll1.setBorder(BorderFactory.createEmptyBorder());
+        jscroll1.getViewport().setBackground(new Color(0x222831));
+
+        JTableHeader tableHeader2 = table2.getTableHeader();
+        tableHeader2.setDefaultRenderer(headerRenderer);
+
+        // Impedire il ridimensionamento delle colonne
+        table2.getTableHeader().setResizingAllowed(false);
+
+        // Impedire il riordinamento delle colonne
+        table2.getTableHeader().setReorderingAllowed(false);
+
+        // Rimuovere il bordo dell'header della tabella
+        tableHeader2.setBorder(null);
+
+        tableHeader2.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader2.getDefaultRenderer()));
+
+
+        table2.setModel(model2); //imposta il modello dei dati della JTable 'booksTable'
+        jscroll2.setBackground(new Color(0x222831));
+        jscroll2.setBorder(BorderFactory.createEmptyBorder());
+        jscroll2.getViewport().setBackground(new Color(0x222831));
 
         ArrayList<String> libreria = controller.getDisponibilitaLibreria(); //nomi delle librerie che possiedono il libro selezionato
         ArrayList<Integer> quantita = controller.getDisponibilitaQuantita();    //quantità disponibili del libro selezionato
@@ -308,12 +375,16 @@ public class SeriePage {
                 if(presentazioniCheckBox.isSelected()) {    //controlla se è stato selezionato il JCheckBox 'presentazioniCheckBox'
 
                     if (!disponibilitaCheckBox.isSelected()){   //controlla se non è stato selezionato il JCheckBox 'disponibilitaCheckBox'
+                        allScrollPanel.revalidate();
                         jscroll1.setVisible(false); //rende invisibile il JScrollPane 'jscroll1'
+                    } else {
+                        jscroll1.setVisible(true); //rende visibile il JScrollPane 'jscroll1'
+                        allScrollPanel.revalidate();
                     }
-                    else jscroll1.setVisible(true); //rende visibile il JScrollPane 'jscroll1'
                 } else {
                     JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
                     disponibilitaCheckBox.setSelected(true);    //seleziona 'disponibilitaCheckBox'
+                    allScrollPanel.revalidate();
                     jscroll1.setVisible(true);  //rende visibile il JScrollPane 'jscroll1'
                 }
             }
@@ -327,11 +398,15 @@ public class SeriePage {
 
                     if(!presentazioniCheckBox.isSelected()){    //controlla se non è stato selezionato il JCheckBox 'presentazioniCheckBox'
                         jscroll2.setVisible(false); //rende invisibile il JScrollPane 'jscroll2'
+                        allScrollPanel.revalidate();
+                    } else {
+                        jscroll2.setVisible(true); //rende visibile il JScrollPane 'jscroll2'
+                        allScrollPanel.revalidate();
                     }
-                    else jscroll2.setVisible(true); //rende visibile il JScrollPane 'jscroll2'
                 } else{
                     JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
                     presentazioniCheckBox.setSelected(true);  //seleziona 'presentazioniCheckBox'
+                    allScrollPanel.revalidate();
                     jscroll2.setVisible(true);  //rende visibile il JScrollPane 'jscroll2'
                 }
             }
@@ -485,6 +560,7 @@ public class SeriePage {
 
         for (int i = 0; i < n; i++){
             username[i] = new JLabel(controller.recensioniConCommento.get(i).utenteRecensore.username);
+            username[i].setForeground(new Color(0xEEEEEE));
             username[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale a sinistra della Jlabel con l'username dell'autore dell'i-esima recensione
             valutazione[i*5] = new JLabel();
             valutazione[i*5].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la prima stella dell'i-esima recensione a sinistra
@@ -500,7 +576,7 @@ public class SeriePage {
             changeStars(valutazione[i*5], valutazione[(i*5)+1], valutazione[(i*5)+2], valutazione[(i*5)+3], valutazione[(i*5)+4], controller.recensioniConCommento.get(i).valutazione); //aggiorna le cinque stelle dell'i-esima recensione del libro selezionato in base alla sua valutazione
 
             valUser[i] = new JPanel();
-            valUser[i].setBackground(new Color(0xFFD369));
+            valUser[i].setBackground(new Color(0x222831));
             valUser[i].add(username[i]);    //aggiunge l'username dell'utente che ha fatto l'i-esima recensione in 'valUser'
             valUser[i].add(valutazione[i*5]);   //aggiunge la prima stella della i-esima recensione in 'valUser'
             valUser[i].add(valutazione[(i*5)+1]);   //aggiunge la seconda stella della i-esima recensione in 'valUser'
@@ -509,14 +585,15 @@ public class SeriePage {
             valUser[i].add(valutazione[(i*5)+4]);   //aggiunge la quinta stella della i-esima recensione in 'valUser'
             valUser[i].setAlignmentX(Component.LEFT_ALIGNMENT); //imposta l'allineamento orizzontale del Jpannel 'valUser' a sinistra
             commText[i] = new JLabel(controller.recensioniConCommento.get(i).testo);
+            commText[i].setForeground(new Color(0xEEEEEE));
             commText[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale della Jlabel con il testo del commento dell'i-esima recensione a sinistra
             commento[i] = new JPanel();
             commento[i].setLayout(new FlowLayout(FlowLayout.LEFT)); //imposta il layout del testo del commento dell'i-esima recensione, posizionandolo a sinistra
-            commento[i].setBackground(new Color(0xFFD369));
+            commento[i].setBackground(new Color(0x222831));
             commento[i].add(commText[i]);   //aggiunge il testo del commento dell'i-esima recensione in 'commento'
             commento[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale della Jpannel con il testo del commento dell'i-esima recensione a sinistra
             separators[i] = new JSeparator();
-            separators[i].setForeground(new Color(0xFFD369));
+            separators[i].setForeground(new Color(0xEEEEEE));
             commenti.add(valUser[i]);   //aggiunge in 'commenti' l'username dell'autore e le stelle dell'i-esima recensione
             commenti.add(commento[i]);  // aggiunge in 'commenti' il testo dell'i-esima recensione
             commenti.add(separators[i]);    //aggiunge un 'Jseparator'
@@ -529,6 +606,11 @@ public class SeriePage {
         Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
+
+        ImageIcon backIco = new ImageIcon(this.getClass().getResource("/back.png"));
+        Image backImg = backIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        backIco = new ImageIcon(backImg);
+        backButton = new JLabel(backIco);
 
         commenti = new JPanel();
         commenti.setLayout(new BoxLayout(commenti, BoxLayout.Y_AXIS));

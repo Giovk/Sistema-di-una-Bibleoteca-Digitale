@@ -225,7 +225,6 @@ public class BooksPage {
 
         genereCB.setModel(new DefaultComboBoxModel<String>(distinctGenereList.toArray(new String[distinctGenereList.size()]))); //inserisce tutti gli elementi di 'distinctGenereList' come voci del JComboBox 'genereCB'
         genereCB.setSelectedIndex(-1);  //permette di avere 'genereCB' non selezionato
-
         ArrayList<String> totAutoreList = new ArrayList<String>(); //contiene i nomi e cognomi concatenati di tutti gli autori dei libri
 
         for (Libro l: controller.listaLibri) {    //scorre la lista dei libri
@@ -291,11 +290,6 @@ public class BooksPage {
 
 
         booksTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
-        /*booksTable.getTableHeader().setBackground(new Color(0xCF9E29));
-        booksTable.getTableHeader().setFont(new Font("Bebas Neue", Font.PLAIN,13));
-        booksTable.getTableHeader().setBorder(BorderFactory.createEmptyBorder());
-        booksTable.getTableHeader().setForeground(new Color(0xEEEEEE));
-        booksTable.setBorder(BorderFactory.createEmptyBorder());*/
         booksScrollPanel.setBackground(new Color(0x222831));
         booksScrollPanel.setBorder(BorderFactory.createEmptyBorder());
         booksScrollPanel.getViewport().setBackground(new Color(0x222831));
@@ -563,24 +557,6 @@ public class BooksPage {
 
     }
 
-}
-
-class SeparatorHeaderRenderer implements TableCellRenderer {
-    private TableCellRenderer defaultRenderer;
-
-    public SeparatorHeaderRenderer(TableCellRenderer defaultRenderer) {
-        this.defaultRenderer = defaultRenderer;
-    }
-
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        Component component = defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        if (component instanceof JLabel) {
-            JLabel label = (JLabel) component;
-            label.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.decode("#222831")));
-        }
-        return component;
-    }
 }
 
 

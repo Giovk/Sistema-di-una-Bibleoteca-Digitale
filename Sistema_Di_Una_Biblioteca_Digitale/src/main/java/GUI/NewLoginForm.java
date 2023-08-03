@@ -63,7 +63,7 @@ public class NewLoginForm extends JDialog {
     public int menuAcc;
 
     private DatePicker datePicker;
-    private Boolean debug = false;
+    private Boolean debug = true;
 
     public NewLoginForm(int joinD, JFrame frameC, Controller controller) {
         datePicker = new DatePicker(calendarIMG);
@@ -393,8 +393,9 @@ public class NewLoginForm extends JDialog {
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){
                     login(frameC, controller);
+                    e.consume();
                 }
-                e.consume();
+                //e.consume();
             }
         });
 

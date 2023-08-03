@@ -18,6 +18,7 @@ public class RecensioneLibro extends JDialog {
     private JLabel stella5;
     private JTextField textField1;
     private JButton button1;
+    private JEditorPane editorPane1;
     private JButton buttonOK;
     private JButton buttonCancel;
     private boolean active = false;
@@ -298,7 +299,7 @@ public class RecensioneLibro extends JDialog {
                 if(valutazione == 0){
                     JOptionPane.showMessageDialog(frame, "Inserire la valutazione.");
                 } else {
-                    controller.addRecensioneLibro(valutazione, textField1.getText());
+                    controller.addRecensioneLibro(valutazione, editorPane1.getText());
                     DecimalFormat valMedForm = new DecimalFormat("#.#");
                     valutazioneMedia = controller.valutazioneMediaLibro();
                     valutazioneC.setText(valMedForm.format(valutazioneMedia));
@@ -426,6 +427,7 @@ public class RecensioneLibro extends JDialog {
         for (int i = 0; i < n; i++){
             username[i] = new JLabel(controller.recensioniConCommento.get(i).utenteRecensore.username);
             username[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale a sinistra della Jlabel con l'username dell'autore dell'i-esima recensione
+            username[i].setForeground(new Color(0xEEEEEE));
             valutazione[i*5] = new JLabel();
             valutazione[i*5].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la prima stella dell'i-esima recensione a sinistra
             valutazione[(i*5)+1] = new JLabel();
@@ -440,7 +442,7 @@ public class RecensioneLibro extends JDialog {
             changeStars(valutazione[i*5], valutazione[(i*5)+1], valutazione[(i*5)+2], valutazione[(i*5)+3], valutazione[(i*5)+4], controller.recensioniConCommento.get(i).valutazione); //aggiorna le cinque stelle dell'i-esima recensione del libro selezionato in base alla sua valutazione
 
             valUser[i] = new JPanel();
-            valUser[i].setBackground(new Color(0xFFD369));
+            valUser[i].setBackground(new Color(0x222831));
             valUser[i].add(username[i]);    //aggiunge l'username dell'utente che ha fatto l'i-esima recensione in 'valUser'
             valUser[i].add(valutazione[i*5]);   //aggiunge la prima stella della i-esima recensione in 'valUser'
             valUser[i].add(valutazione[(i*5)+1]);   //aggiunge la seconda stella della i-esima recensione in 'valUser'
@@ -449,14 +451,15 @@ public class RecensioneLibro extends JDialog {
             valUser[i].add(valutazione[(i*5)+4]);   //aggiunge la quinta stella della i-esima recensione in 'valUser'
             valUser[i].setAlignmentX(Component.LEFT_ALIGNMENT); //imposta l'allineamento orizzontale del Jpannel 'valUser' a sinistra
             commText[i] = new JLabel(controller.recensioniConCommento.get(i).testo);
+            commText[i].setForeground(new Color(0xEEEEEE));
             commText[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale della Jlabel con il testo del commento dell'i-esima recensione a sinistra
             commento[i] = new JPanel();
             commento[i].setLayout(new FlowLayout(FlowLayout.LEFT)); //imposta il layout del testo del commento dell'i-esima recensione, posizionandolo a sinistra
-            commento[i].setBackground(new Color(0xFFD369));
+            commento[i].setBackground(new Color(0x222831));
             commento[i].add(commText[i]);   //aggiunge il testo del commento dell'i-esima recensione in 'commento'
             commento[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale della Jpannel con il testo del commento dell'i-esima recensione a sinistra
             separators[i] = new JSeparator();
-            separators[i].setForeground(new Color(0xFFD369));
+            separators[i].setForeground(new Color(0xEEEEEE));
             commenti.add(valUser[i]);   //aggiunge in 'commenti' l'username dell'autore e le stelle dell'i-esima recensione
             commenti.add(commento[i]);  // aggiunge in 'commenti' il testo dell'i-esima recensione
             commenti.add(separators[i]);    //aggiunge un 'Jseparator'
@@ -539,5 +542,8 @@ public class RecensioneLibro extends JDialog {
         Image imagine3 = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine3);
         closeBT = new JLabel(closeImg);
+
+        editorPane1 = new JEditorPane();
+        editorPane1.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
     }
 }
