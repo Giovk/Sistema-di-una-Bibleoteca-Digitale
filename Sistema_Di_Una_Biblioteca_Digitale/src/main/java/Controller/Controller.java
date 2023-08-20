@@ -423,9 +423,9 @@ public class Controller {
         return;
     }
 
-    public void allRecWithComment(){    //ritorna tutte le recensioni con testo fatte al libro selezionato
+    public void allRecWithCommentLibro(){    //ritorna tutte le recensioni con testo fatte al libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        ResultSet rs = r.allRecWithCommentDB(isbn_selected);    //contiene tutte le recensioni fatte al libro selezionato
+        ResultSet rs = r.allRecWithCommentLibroDB(isbn_selected);    //contiene tutte le recensioni fatte al libro selezionato
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le recensioni
@@ -453,4 +453,26 @@ public class Controller {
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         likeElementSelected = r.changeLikeSerieDB(likeElementSelected, isbn_selected, utente.username);
     }
+
+    public void addRecensioneSerie(int valutazione, String text){   //aggiunge una nuova recensione con 'valutazione' e 'testo' fatta dall'utente al libro selezionato
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        r.addRecensioneSerieDB(valutazione, text, isbn_selected, utente.username);
+        return;
+    }
+
+    public void allRecWithCommentSerie(){    //ritorna tutte le recensioni con testo fatte al libro selezionato
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        ResultSet rs = r.allRecWithCommentSerieDB(isbn_selected);    //contiene tutte le recensioni fatte al libro selezionato
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le recensioni
+                recensioniConCommento.add(new Recensione(rs.getString("testo"), rs.getInt("valutazione"), rs.getBoolean("preferito"), getUtente(rs.getString("username")), null));  //aggiunge una nuova recensione in 'recensioneConCommento'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        r.chiudiConnessione();  //chiude la connessione al DB
+    }
+
 }
