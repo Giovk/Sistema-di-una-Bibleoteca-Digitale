@@ -120,7 +120,7 @@ public class BookPage {
         favouritePienoIco = new ImageIcon(favouritePienoImg);
 
         controller.likeLibro(); //controlla se l'utente ha il libro selezionato nei preferiti e inizializza 'controller.likeLibroSelected'
-        controller.allRecWithComment(); //inizializza 'recensioniConCommento'
+        controller.allRecWithCommentLibro(); //inizializza 'recensioniConCommento'
 
         if (controller.likeElementSelected == false) likeButton.setIcon(favouriteVuotoIco);   //controlla se l'utente ha il libro selelzionato nei preferiti
         else likeButton.setIcon(favouritePienoIco);
@@ -471,7 +471,7 @@ public class BookPage {
     public void showComment(Controller controller, JPanel commenti){    //mostra i commenti del libro selezionato
         controller.isbn_selected = isbn_selezionato;    //isbn del ibro selezionato
 
-        controller.allRecWithComment(); //inizializza 'controller.recensioniConCommento'
+        controller.allRecWithCommentLibro(); //inizializza 'controller.recensioniConCommento'
 
         int n = controller.recensioniConCommento.size();    //numero di recensioni con commento del libro selezionato
 
