@@ -412,7 +412,7 @@ public class RecensioneLibro extends JDialog {
     public void showComment(Controller controller, JPanel commenti){    //mostra i commenti del libro selezionato
         controller.isbn_selected = isbn_selezionato;    //isbn del ibro selezionato
 
-        controller.allRecWithComment(); //inizializza 'controller.recensioniConCommento'
+        controller.allRecWithCommentLibro(); //inizializza 'controller.recensioniConCommento'
 
         int n = controller.recensioniConCommento.size();    //numero di recensioni con commento del libro selezionato
 
