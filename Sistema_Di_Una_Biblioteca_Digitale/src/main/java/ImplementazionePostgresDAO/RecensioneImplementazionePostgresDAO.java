@@ -89,10 +89,6 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
         }
 
         if(item >= 1) { //controlla se c'è già una tupla con 'user' e 'isbn' in "recensione_l"
-<<<<<<< HEAD
-            if(like==false)
-            {
-=======
             if(like == false) {
                 try {
                     PreparedStatement changeLikePS = connection.prepareStatement(
@@ -102,14 +98,7 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
                 } catch (SQLException var2) {
                     var2.printStackTrace();
                 }
-            }
-            try {
->>>>>>> 566c1a7a56573b011a553533ddf41afab4627cd9
-                PreparedStatement changeLikePS = connection.prepareStatement(
-                        "DELETE FROM recensione_l WHERE isbn = '" + isbn + "' AND username = '" + user + "' AND valutazione IS NULL AND testo IS NULL" //prepara la query che aggiorna la tupla con 'isbn' e 'user'
-                );
-            }
-            try {
+            }try {
                     PreparedStatement changeLikePS = connection.prepareStatement(
                             "UPDATE recensione_l SET preferito = '" + like + "' WHERE isbn = '" + isbn + "' AND username = '" + user + "'" //prepara la query che aggiorna la tupla con 'isbn' e 'user'
                     );
@@ -118,7 +107,6 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
                 } catch (SQLException var2) {
                     var2.printStackTrace();
                 }
-            }
         } else {
             try {
                 PreparedStatement changeLikePS = connection.prepareStatement(
