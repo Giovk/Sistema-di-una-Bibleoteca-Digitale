@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.IssuesPage">
+  <grid id="27dc6" binding="jpanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="552" height="419"/>
+    </constraints>
+    <properties>
+      <background color="-14538703"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="5cfad" binding="buttonPanel" layout-manager="GridLayoutManager" row-count="1" column-count="12" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-11415"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="fa6aa" class="javax.swing.JButton" binding="homeButton">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="1" use-parent-layout="false">
+                <preferred-size width="80" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-11415"/>
+              <borderPainted value="false"/>
+              <focusPainted value="false"/>
+              <horizontalTextPosition value="0"/>
+              <text value="Home"/>
+            </properties>
+          </component>
+          <component id="5cf95" class="javax.swing.JButton" binding="libriButton">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="80" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-11415"/>
+              <borderPainted value="false"/>
+              <focusPainted value="false"/>
+              <horizontalTextPosition value="11"/>
+              <text value="Libri"/>
+            </properties>
+          </component>
+          <component id="418e5" class="javax.swing.JButton" binding="utenteButton">
+            <constraints>
+              <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="80" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-11415"/>
+              <borderPainted value="false"/>
+              <focusPainted value="false"/>
+              <horizontalTextPosition value="0"/>
+              <text value="Utente"/>
+            </properties>
+          </component>
+          <hspacer id="119a5">
+            <constraints>
+              <grid row="0" column="7" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <component id="bf2c9" class="javax.swing.JLabel" binding="closeBT" custom-create="true">
+            <constraints>
+              <grid row="0" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="9e3c5" class="javax.swing.JButton" binding="serieButton">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="80" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-11415"/>
+              <borderPainted value="false"/>
+              <focusPainted value="false"/>
+              <horizontalTextPosition value="11"/>
+              <text value="Serie"/>
+            </properties>
+          </component>
+          <component id="2cb8e" class="javax.swing.JButton" binding="fascicoliButton">
+            <constraints>
+              <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="80" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-3170775"/>
+              <borderPainted value="false"/>
+              <focusPainted value="false"/>
+              <horizontalTextPosition value="11"/>
+              <text value="Fascicoli"/>
+            </properties>
+          </component>
+          <component id="72fda" class="javax.swing.JToolBar$Separator">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-14538703"/>
+              <opaque value="true"/>
+              <separatorSize width="5" height="-1"/>
+            </properties>
+          </component>
+          <component id="f82f0" class="javax.swing.JToolBar$Separator">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-14538703"/>
+              <opaque value="true"/>
+              <separatorSize width="5" height="-1"/>
+            </properties>
+          </component>
+          <component id="422c3" class="javax.swing.JToolBar$Separator">
+            <constraints>
+              <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-14538703"/>
+              <opaque value="true"/>
+              <separatorSize width="5" height="-1"/>
+            </properties>
+          </component>
+          <component id="27ea8" class="javax.swing.JToolBar$Separator">
+            <constraints>
+              <grid row="0" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="95c6" class="javax.swing.JToolBar$Separator">
+            <constraints>
+              <grid row="0" column="11" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+        </children>
+      </grid>
+      <grid id="8c51e" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-14538703"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="9e37e" class="javax.swing.JTextField" binding="searchBarField" custom-create="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="20" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-11415"/>
+              <foreground color="-14538703"/>
+              <opaque value="true"/>
+            </properties>
+          </component>
+          <component id="8827" class="javax.swing.JLabel" binding="searchImage" custom-create="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="50" height="50"/>
+                <preferred-size width="50" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="e7ee4" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-14538703"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="bafe9" binding="jpanel2" layout-manager="GridLayoutManager" row-count="10" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="1" use-parent-layout="false">
+                <preferred-size width="83" height="264"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-14538703"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="f4d01" class="javax.swing.JRadioButton" binding="rivistaRB" custom-create="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-14538703"/>
+                  <font name="Bebas Neue" size="15" style="0"/>
+                  <foreground color="-1118482"/>
+                  <text value="Rivista"/>
+                </properties>
+              </component>
+              <vspacer id="c2f26">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="bb645" class="javax.swing.JRadioButton" binding="autoreRB" custom-create="true">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-14538703"/>
+                  <font name="Bebas Neue" size="15" style="0"/>
+                  <foreground color="-1118482"/>
+                  <text value="Argomento"/>
+                </properties>
+              </component>
+              <component id="27d59" class="javax.swing.JRadioButton" binding="collanaRB" custom-create="true">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-14538703"/>
+                  <font name="Bebas Neue" size="15" style="0"/>
+                  <foreground color="-1118482"/>
+                  <selected value="false"/>
+                  <text value="Da cancellare"/>
+                </properties>
+              </component>
+              <component id="155a5" class="javax.swing.JComboBox" binding="autoreCB">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="-1"/>
+                    <maximum-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <model/>
+                </properties>
+              </component>
+              <component id="1834f" class="javax.swing.JComboBox" binding="collanaCB">
+                <constraints>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <vspacer id="ca087">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="99724">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="61fa" class="javax.swing.JComboBox" binding="rivistaCB">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="-1"/>
+                    <maximum-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="74912" class="javax.swing.JLabel" binding="resetFiltriLabel">
+                <constraints>
+                  <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Bebas Neue" size="15" style="0"/>
+                  <foreground color="-1118482"/>
+                  <text value="Rimuovi Filtri..."/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <vspacer id="64cfe">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <scrollpane id="cc34c" binding="issuesScrollPanel">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-14538703"/>
+              <foreground color="-14538703"/>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="aa08e" class="javax.swing.JTable" binding="issuesTable">
+                <constraints/>
+                <properties>
+                  <autoCreateRowSorter value="false"/>
+                  <background color="-11415"/>
+                  <dragEnabled value="false"/>
+                  <enabled value="true"/>
+                  <fillsViewportHeight value="false"/>
+                  <font name="Bebas Neue"/>
+                  <foreground color="-14538703"/>
+                  <gridColor color="-14538703"/>
+                  <intercellSpacing width="1" height="2"/>
+                  <opaque value="false"/>
+                  <selectionBackground color="-3170775"/>
+                  <selectionForeground color="-14538703"/>
+                  <showHorizontalLines value="true"/>
+                  <showVerticalLines value="true"/>
+                  <surrendersFocusOnKeystroke value="false"/>
+                  <updateSelectionOnSort value="true"/>
+                </properties>
+                <clientProperties>
+                  <Table.isFileList class="java.lang.Boolean" value="false"/>
+                </clientProperties>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+      <vspacer id="9a3e7">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+    </children>
+  </grid>
+</form>

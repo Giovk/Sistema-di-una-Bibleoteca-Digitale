@@ -42,6 +42,7 @@ public class BookPage {
     private JScrollPane allScrollPanel;
     private JPanel commenti;
     private JLabel backButton;
+    private JButton fascicoliButton;
     private boolean active = false;
     ImageIcon favouriteVuotoIco;
     ImageIcon favouritePienoIco;
@@ -265,6 +266,17 @@ public class BookPage {
             }
         });
 
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'bp'
+                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
+
         backButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -273,6 +285,21 @@ public class BookPage {
                 bp.frame.setVisible(true);
                 frame.setVisible(false);
                 frame.dispose();
+            }
+        });
+
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                fascicoliButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                fascicoliButton.setBackground(Color.decode("#FFD369"));
             }
         });
 

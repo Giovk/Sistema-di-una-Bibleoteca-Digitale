@@ -13,6 +13,7 @@ public class Controller {
     private Utente utente;
     public ArrayList<Libro> listaLibri = getLibri();
     public ArrayList<Serie> listaSerie = getSerie();
+    public ArrayList<Rivista> listaRiviste = getRiviste();
     public String isbn_selected = "";
     public String nome_selected = "";
     public boolean likeElementSelected;
@@ -473,6 +474,26 @@ public class Controller {
         }
 
         r.chiudiConnessione();  //chiude la connessione al DB
+    }
+
+    // RIVISTA //
+
+    public ArrayList<Rivista> getRiviste() {   //ritorna i dati di tutte le serie nel DB
+        RivistaDAO r = new RivistaImplementazionePostgresDAO();
+        ResultSet rs = r.getRivisteDB();  //cerca i dati di tutte le serie nel DB
+        ArrayList<Rivista> riviste = new ArrayList<Rivista>();    //contiene tutte le serie
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
+                riviste.add(new Rivista(rs.getString("issn"), rs.getString("titolo"), rs.getString("editore"), rs.getInt("annoPubblicazione"), rs.getString("nomer") + " " + rs.getString("cognomer"), rs.getString("argomento")));   //inserisce una nuova serie in 'serie'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        r.chiudiConnessione();  //chiude la connessione al DB
+
+        return riviste;
     }
 
 }

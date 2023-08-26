@@ -1,9 +1,12 @@
 package GUI;
 
 import Controller.Controller;
+import Model.Libro;
 import Model.Presentazione;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
@@ -43,6 +46,7 @@ public class SeriePage {
     private JScrollPane allScrollPanel;
     private JPanel commenti;
     private JLabel backButton;
+    private JButton fascicoliButton;
     private boolean active = false;
     ImageIcon favouriteVuotoIco;
     ImageIcon favouritePienoIco;
@@ -266,6 +270,17 @@ public class SeriePage {
             }
         });
 
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'bp'
+                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
+
         backButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -274,6 +289,21 @@ public class SeriePage {
                 sp.frame.setVisible(true);
                 frame.setVisible(false);
                 frame.dispose();
+            }
+        });
+
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                fascicoliButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                fascicoliButton.setBackground(Color.decode("#FFD369"));
             }
         });
 
@@ -291,7 +321,7 @@ public class SeriePage {
             }
         };
 
-        DefaultTableModel model2 = new DefaultTableModel(new Object[][]{}, new String[]{"Luogo", "Struttura", "Data", "Orario"}) {
+        DefaultTableModel model2 = new DefaultTableModel(new Object[][]{}, new String[]{"ISBN", "Titolo", "Data Di Pubblicazione"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; //permette di rendere non editabile la cella (row,column)
@@ -361,11 +391,11 @@ public class SeriePage {
             else model1.addRow(new Object[]{libreria.get(i), quantita.get(i), fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
         }
 
-        ArrayList<Presentazione> listaPresentazioni = controller.getPresentazione();
+        ArrayList<Libro> listaLibri = controller.getLibriSerie(isbn_selezionato);
         table2.setModel(model2);    //imposta il modello dei dati della JTable 'table1'
 
-        for(int i = 0; i < listaPresentazioni.size(); i++){
-            model2.addRow(new Object[]{listaPresentazioni.get(i).luogo, listaPresentazioni.get(i).struttura, listaPresentazioni.get(i).data, listaPresentazioni.get(i).ora});
+        for(int i = 0; i < listaLibri.size(); i++){
+            model2.addRow(new Object[]{listaLibri.get(i).isbn, listaLibri.get(i).titolo, listaLibri.get(i).dataPubblicazione});
         }
 
         disponibilitaCheckBox.addActionListener(new ActionListener() {
@@ -417,6 +447,18 @@ public class SeriePage {
                 super.mousePressed(e);
                 RecensioneSerie recensioneSerie = new RecensioneSerie(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti);
                 frame.setEnabled(false); //disabilita il frame
+            }
+        });
+
+        table2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                controller.isbn_selected = table2.getValueAt(table2.getSelectedRow(), 0).toString();
+                controller.nome_selected = table2.getValueAt(table2.getSelectedRow(), 1).toString();
+                BookPage bp = new BookPage(frameC, controller); //chiama il frame 'bp'
+                bp.frame.setVisible(true);  //rende visible il frame 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
             }
         });
 

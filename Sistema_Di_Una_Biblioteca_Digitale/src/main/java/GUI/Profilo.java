@@ -54,6 +54,7 @@ public class Profilo {
     private JLabel nomeLabel;
     private JLabel emailLabel;
     private JButton serieButton;
+    private JButton fascicoliButton;
     private JPopupMenu utenteMenu;
     private Boolean active = false;
 
@@ -280,7 +281,31 @@ public class Profilo {
             }
         });
 
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'bp'
+                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
 
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                fascicoliButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                fascicoliButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
 
         //-------------------------------------------------------------------------------------------------//
 

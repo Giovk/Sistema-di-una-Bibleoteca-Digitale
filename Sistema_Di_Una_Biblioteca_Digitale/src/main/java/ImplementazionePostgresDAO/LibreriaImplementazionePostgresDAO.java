@@ -25,13 +25,20 @@ public class LibreriaImplementazionePostgresDAO implements LibreriaDAO {
 
         try {
             PreparedStatement getDisponibilitaPS = connection.prepareStatement(
-                    "SELECT * FROM libreria NATURAL JOIN possesso_l WHERE isbn = '"+isbn+"';" //prepara la query che cerca le disponibilità del libro
+                    "SELECT * FROM libreria NATURAL JOIN possesso_l WHERE isbn = '"+isbn+"'" + //prepara la query che cerca le disponibilità del libro
+                    " UNION " +
+                            "SELECT * FROM libreria NATURAL JOIN possesso_s WHERE isbn = '"+isbn+"';"//prepara la query che cerca le disponibilità del libro
+
+
+
+
             );
 
             rs = getDisponibilitaPS.executeQuery(); //esegue la query
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
+
 
         return rs;
     }

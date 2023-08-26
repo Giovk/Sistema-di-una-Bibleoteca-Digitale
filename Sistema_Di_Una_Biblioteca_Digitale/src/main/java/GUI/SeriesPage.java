@@ -36,6 +36,7 @@ public class SeriesPage {
     private JLabel searchImage;
     private JButton serieButton;
     private JPanel jpanel;
+    private JButton fascicoliButton;
     private JPopupMenu utenteMenu;
     private ButtonGroup groupRB;
     private DefaultTableModel model;
@@ -183,6 +184,17 @@ public class SeriesPage {
             }
         });
 
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'bp'
+                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
+
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -213,6 +225,21 @@ public class SeriesPage {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 homeButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                fascicoliButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                fascicoliButton.setBackground(Color.decode("#FFD369"));
             }
         });
 

@@ -36,6 +36,7 @@ public class BooksPage {
     private JButton libriButton;
     private JButton utenteButton;
     private JButton serieButton;
+    private JButton fascicoliButton;
     private String linkString = "";
     private int aut;
     private Boolean active = false;
@@ -108,6 +109,17 @@ public class BooksPage {
                 super.mouseClicked(e);
                 SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
                 sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+            }
+        });
+
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'bp'
+                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -207,6 +219,21 @@ public class BooksPage {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 serieButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                fascicoliButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        fascicoliButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                fascicoliButton.setBackground(Color.decode("#FFD369"));
             }
         });
 
