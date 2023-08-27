@@ -63,7 +63,7 @@ public class NewLoginForm extends JDialog {
     public int menuAcc;
 
     private DatePicker datePicker;
-    private Boolean debug = true;
+    private Boolean debug = false;
 
     public NewLoginForm(int joinD, JFrame frameC, Controller controller) {
         datePicker = new DatePicker(calendarIMG);
