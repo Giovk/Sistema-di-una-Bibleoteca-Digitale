@@ -39,11 +39,13 @@ public class BooksPage {
     private JButton utenteButton;
     private JButton serieButton;
     private JButton fascicoliButton;
+    private JLabel notificheLabel;
     private String linkString = "";
     private int aut;
     private Boolean active = false;
 
     private DefaultTableModel model;
+    private int numeroNotifiche;
 
 
     public BooksPage(JFrame frameC, Controller controller) {
@@ -749,6 +751,19 @@ public class BooksPage {
             }
         });
 
+        numeroNotifiche = controller.getNumeroNotificheNonLette();
+
+        setNumeroNotifiche(controller);
+
+        Timer timer = new Timer(60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setNumeroNotifiche(controller);
+            }
+        });
+
+        timer.start();
+        timer.setRepeats(true);
     }
 
     private void search(Controller controller, ArrayList<String> totAutoreList){    //esegue una ricerca nella tabella
@@ -770,6 +785,18 @@ public class BooksPage {
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
             for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+        }
+    }
+
+    private void setNumeroNotifiche(Controller controller){
+        numeroNotifiche = controller.getNumeroNotificheNonLette();
+
+        if(numeroNotifiche < 100 && numeroNotifiche > 0){
+            String numeroNotificheText = Integer.toString(numeroNotifiche);
+            notificheLabel.setText(numeroNotificheText);
+        }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");
+        else {
+            notificheLabel.setVisible(false);
         }
     }
 
@@ -811,6 +838,12 @@ public class BooksPage {
         searchIcon = new ImageIcon(searchImg);
         searchImage = new JLabel(searchIcon);
 
+        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
+        Image notificaImg = notificaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        notificaIco = new ImageIcon(notificaImg);
+
+        notificheLabel = new JLabel();
+        notificheLabel.setIcon(notificaIco);
     }
 
 }

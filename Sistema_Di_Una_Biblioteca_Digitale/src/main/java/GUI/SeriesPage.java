@@ -39,11 +39,12 @@ public class SeriesPage {
     private JButton serieButton;
     private JPanel jpanel;
     private JButton fascicoliButton;
+    private JLabel notificheLabel;
     private JPopupMenu utenteMenu;
     private ButtonGroup groupRB;
     private DefaultTableModel model;
     private Boolean active = false;
-    private int aut;
+    private int numeroNotifiche;
 
     public SeriesPage(JFrame frameC, Controller controller){
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
@@ -600,6 +601,31 @@ public class SeriesPage {
             }
         });
 
+        numeroNotifiche = controller.getNumeroNotificheNonLette();
+
+        setNumeroNotifiche(controller);
+
+        Timer timer = new Timer(60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setNumeroNotifiche(controller);
+            }
+        });
+
+        timer.start();
+        timer.setRepeats(true);
+    }
+
+    private void setNumeroNotifiche(Controller controller){
+        numeroNotifiche = controller.getNumeroNotificheNonLette();
+
+        if(numeroNotifiche < 100 && numeroNotifiche > 0){
+            String numeroNotificheText = Integer.toString(numeroNotifiche);
+            notificheLabel.setText(numeroNotificheText);
+        }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");
+        else {
+            notificheLabel.setVisible(false);
+        }
     }
 
     public void search(Controller controller){  //esegue una ricerca nella tabella
@@ -652,5 +678,13 @@ public class SeriesPage {
         Image searchImg = searchIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         searchIcon = new ImageIcon(searchImg);
         searchImage = new JLabel(searchIcon);
+
+
+        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
+        Image notificaImg = notificaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        notificaIco = new ImageIcon(notificaImg);
+
+        notificheLabel = new JLabel();
+        notificheLabel.setIcon(notificaIco);
     }
 }

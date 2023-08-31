@@ -4,8 +4,10 @@ import DAO.*;
 import ImplementazionePostgresDAO.*;
 import Model.*;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class Controller {
@@ -20,6 +22,7 @@ public class Controller {
 
     public ArrayList<Fascicolo> listaFascicoli = getFascicoli();
     public ArrayList<Presentazione> listaPresentazioni = new ArrayList<>();
+    public ArrayList<Notifica> listaNotifiche = new ArrayList<>();
     public String isbn_selected = "";
     public String nome_selected = "";
     public Fascicolo fascicolo_selected = null;
@@ -760,4 +763,68 @@ public class Controller {
         return  articoloScientifici;
     }
 
+    // NOTIFICA //
+
+    public int getNumeroNotificheNonLette(){
+        NotificaDAO n = new NotificaImplementazionePostgresDAO();
+        return n.getNumeroNotificheNonLetteDB(utente.username);
+    }
+
+    public void getNotificheUtente(){
+        NotificaDAO n = new NotificaImplementazionePostgresDAO();
+        ArrayList<Notifica> notifiche = new ArrayList<>();
+        ResultSet rs = n.getNotificheUtenteDB(utente.username);
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
+                Serie serie = null;
+                for (int i = 0; i < listaSerie.size(); i++){
+                    if(listaSerie.get(i).isbn.equals(rs.getString("isbn"))){
+                        serie = listaSerie.get(i);
+                        i = listaSerie.size();
+                    }
+                }
+                notifiche.add(new Notifica(rs.getString("testo"), rs.getInt("libreria"), rs.getDate("datainvio"), rs.getTime("orainvio").toString(), rs.getBoolean("lettura"), utente, serie));   //inserisce una nuova serie in 'serie'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        listaNotifiche = notifiche;
+    }
+
+    public void rimuoviNotifica(String testo, String data, String ora){
+        NotificaDAO n = new NotificaImplementazionePostgresDAO();
+        n.rimuoviNotificaDB(testo, data, ora, utente.username);
+
+        for (int i = 0; i < listaNotifiche.size(); i++){
+            Notifica notifica = listaNotifiche.get(i);
+            if (notifica.testo.equals(testo) && notifica.dataInvio.toString().equals(data) && notifica.oraInvio.toString().equals(ora)){
+                listaNotifiche.remove(i);
+                i = listaNotifiche.size();
+            }
+        }
+    }
+
+    public void visualizzaNotifica(String testo, String data, String ora){
+        NotificaDAO n = new NotificaImplementazionePostgresDAO();
+        n.visualizzaNotificaDB(testo, data, ora, utente.username);
+
+        for (int i = 0; i < listaNotifiche.size(); i++){
+            Notifica notifica = listaNotifiche.get(i);
+            if (notifica.testo.equals(testo) && notifica.dataInvio.toString().equals(data) && notifica.oraInvio.toString().equals(ora)){
+                listaNotifiche.get(i).lettura = true;
+                i = listaNotifiche.size();
+            }
+        }
+    }
+
+    public boolean getLetturaNotifica(String testo, String data, String ora){
+        for(Notifica n: listaNotifiche){
+            if(n.testo.equals(testo) && n.dataInvio.toString().equals(data) && n.oraInvio.toString().equals(ora)) return n.lettura;
+
+        }
+
+        return true;
+    }
 }

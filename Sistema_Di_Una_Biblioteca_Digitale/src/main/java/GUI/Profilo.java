@@ -5,11 +5,16 @@ import Controller.Controller;
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 
 
 public class Profilo {
@@ -55,12 +60,78 @@ public class Profilo {
     private JLabel emailLabel;
     private JButton serieButton;
     private JButton fascicoliButton;
+    private JLabel notificheLabel;
+    private JLabel notificheLabelText;
+    private JScrollPane notificheScrollPanel;
+    private JTable notificheTable;
+    private JPanel notifichePanel;
     private JPopupMenu utenteMenu;
+    private JPopupMenu tabellaMenu;
     private Boolean active = false;
+    private DefaultTableModel model;
+    int row_selected;
+    int numeroNotifiche;
 
     public Profilo(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
+        UIManager.put("ScrollPane.background\n", new Color(0x222831));
+
+        notificheScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(0x222831);
+                this.trackColor= new Color(0xFFD369);
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                this.thumbLightShadowColor = new Color(0x323A48);
+                this.thumbHighlightColor = new Color(0x323A48);
+                this.trackHighlightColor = new Color(0xCF9E29);
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                decreaseButton.setBackground(new Color(0x222831));
+                return decreaseButton;
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                increaseButton.setBackground(new Color(0x222831));
+                return increaseButton;
+            }
+
+            private Image getAppropriateIcon(int orientation){
+                switch(orientation){
+                    case SwingConstants.SOUTH: return dA;
+                    case SwingConstants.NORTH: return uA;
+                    case SwingConstants.EAST: return rA;
+                    default: return lA;
+                }
+            }
+        });
 
         utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
@@ -78,6 +149,20 @@ public class Profilo {
         utenteMenu.add(utenteProfilo);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
+
+        tabellaMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
+        JMenuItem tabellaElimina = new JMenuItem("Elimina");//crea la voce del menu "Logout"
+        tabellaElimina.setBackground(new Color(0xFFD369));
+        tabellaElimina.setFocusPainted(false);
+        tabellaElimina.setBorder(BorderFactory.createEmptyBorder());
+        JMenuItem tabellaVisualizzata = new JMenuItem("Notifica Visualizzata"); //crea la voce del menu "Profilo"
+        tabellaVisualizzata.setBackground(new Color(0xFFD369));
+        tabellaVisualizzata.setFocusPainted(false);
+        tabellaVisualizzata.setBorder(BorderFactory.createEmptyBorder());
+        tabellaMenu.setBorder(BorderFactory.createEmptyBorder());
+        tabellaMenu.setBackground(new Color(0xFFD369));
+        tabellaMenu.add(tabellaElimina);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
+        tabellaMenu.add(tabellaVisualizzata); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
 
         frame = new JFrame("Profilo");
         frame.setUndecorated(true); //abilita le decorazioni del frame
@@ -688,9 +773,124 @@ public class Profilo {
                 oldPassLabel2.setVisible(false);
             }
         });
+
+        numeroNotifiche = controller.getNumeroNotificheNonLette();
+
+        setNumeroNotifiche(controller);
+
+        Timer timer = new Timer(60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setNumeroNotifiche(controller);
+                controller.getNotificheUtente();
+                model.setRowCount(0);
+                if (controller.listaNotifiche != null) {
+                    for (int i = 0; i < controller.listaNotifiche.size(); i++) {
+                        model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});
+                    }
+                }
+            }
+        });
+
+        timer.start();
+        timer.setRepeats(true);
+        model = new DefaultTableModel(new Object[][]{}, new String[]{"Testo", "Data", "Ora"}) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; //permette di rendere non editabile la cella (row,column)
+            }
+        };
+
+        // Renderer personalizzato per l'header della tabella
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(0xCF9E29));
+        headerRenderer.setForeground(new Color(0xEEEEEE));
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        Font headerFont = new Font("Bebas Neue", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
+        headerRenderer.setFont(headerFont);
+        JTableHeader tableHeader = notificheTable.getTableHeader();
+        tableHeader.setDefaultRenderer(headerRenderer);
+
+        // Impedire il ridimensionamento delle colonne
+        notificheTable.getTableHeader().setResizingAllowed(false);
+
+        // Impedire il riordinamento delle colonne
+        notificheTable.getTableHeader().setReorderingAllowed(false);
+
+        // Rimuovere il bordo dell'header della tabella
+        tableHeader.setBorder(null);
+
+        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));
+
+        if (controller.listaNotifiche != null) {
+            for (int i = 0; i < controller.listaNotifiche.size(); i++) {
+                model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});
+            }
+        }
+
+        notificheTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
+
+        notificheTable.getColumnModel().getColumn(0).setCellRenderer(new MultiLineTableCellRenderer());
+
+        notificheScrollPanel.setBackground(new Color(0x222831));
+        notificheScrollPanel.setBorder(BorderFactory.createEmptyBorder());
+        notificheScrollPanel.getViewport().setBackground(new Color(0x222831));
+
+
+        notificheTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getButton() == MouseEvent.BUTTON3){
+                    row_selected = notificheTable.rowAtPoint(e.getPoint());
+
+                    if (controller.getLetturaNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString()) == true){
+                        tabellaVisualizzata.setVisible(false);
+                    } else tabellaVisualizzata.setVisible(true);
+                    tabellaMenu.show(notificheTable, e.getX(), e.getY());
+                }
+            }
+        });
+
+        tabellaElimina.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int comferma = 1;
+
+                comferma = JOptionPane.showConfirmDialog(frame, "Vuoi davvero eliminare questa notifica?");
+                if(comferma == 0){
+                    controller.rimuoviNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString());
+                    model.removeRow(row_selected);
+                    setNumeroNotifiche(controller);
+                }
+            }
+        });
+
+        tabellaVisualizzata.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.visualizzaNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString());
+                setNumeroNotifiche(controller);
+                model.setRowCount(0);
+                if (controller.listaNotifiche != null) {
+                    for (int i = 0; i < controller.listaNotifiche.size(); i++) {
+                        model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});
+                    }
+                }
+            }
+        });
     }
 
+    private void setNumeroNotifiche(Controller controller){
+        numeroNotifiche = controller.getNumeroNotificheNonLette();
 
+        if(numeroNotifiche < 100 && numeroNotifiche > 0){
+            String numeroNotificheText = Integer.toString(numeroNotifiche);
+            notificheLabel.setText(numeroNotificheText);
+        }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");
+        else {
+            notificheLabel.setVisible(false);
+        }
+    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
@@ -739,5 +939,13 @@ public class Profilo {
         modificaButton = new JButton(modIco);
         annullaButton = new JButton(modIco);
         salvaButton = new JButton(modIco);
+
+        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
+        Image notificaImg = notificaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        notificaIco = new ImageIcon(notificaImg);
+
+
+        notificheLabel = new JLabel();
+        notificheLabel.setIcon(notificaIco);
     }
 }

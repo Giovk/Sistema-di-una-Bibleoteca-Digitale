@@ -15,6 +15,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -47,11 +50,13 @@ public class SeriePage {
     private JPanel commenti;
     private JLabel backButton;
     private JButton fascicoliButton;
+    private JLabel notificheLabel;
     private boolean active = false;
     ImageIcon favouriteVuotoIco;
     ImageIcon favouritePienoIco;
     private float valutazioneMedia;
     private String isbn_selezionato;
+    private int numeroNotifiche;
 
 
     public SeriePage (JFrame frameC, Controller controller) {
@@ -522,6 +527,21 @@ public class SeriePage {
         jscroll1.setBorder(BorderFactory.createEmptyBorder());
         jscroll1.getViewport().setBackground(new Color(0x222831));
 
+        table1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if(table1.isColumnSelected(4)){
+                    try {
+                        Desktop.getDesktop().browse(new URI(table1.getValueAt(table1.getSelectedRow(), 4).toString()));
+                    }catch (IOException | URISyntaxException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                table1.clearSelection();
+            }
+        });
+
         JTableHeader tableHeader2 = table2.getTableHeader();
         tableHeader2.setDefaultRenderer(headerRenderer);
 
@@ -628,6 +648,19 @@ public class SeriePage {
             }
         });
 
+        numeroNotifiche = controller.getNumeroNotificheNonLette();
+
+        setNumeroNotifiche(controller);
+
+        Timer timer = new Timer(60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setNumeroNotifiche(controller);
+            }
+        });
+
+        timer.start();
+        timer.setRepeats(true);
     }
 
     public void changeStars(ImageIcon stellaPienaIco, ImageIcon stellaVuotaIco, ImageIcon stellaMezzaIco){  //aggiorna le stelle della valutazione media
@@ -697,6 +730,18 @@ public class SeriePage {
             stella3.setIcon(stellaPienaIco);
             stella4.setIcon(stellaPienaIco);
             stella5.setIcon(stellaPienaIco);
+        }
+    }
+
+    private void setNumeroNotifiche(Controller controller){
+        numeroNotifiche = controller.getNumeroNotificheNonLette();
+
+        if(numeroNotifiche < 100 && numeroNotifiche > 0){
+            String numeroNotificheText = Integer.toString(numeroNotifiche);
+            notificheLabel.setText(numeroNotificheText);
+        }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");
+        else {
+            notificheLabel.setVisible(false);
         }
     }
 
@@ -840,5 +885,12 @@ public class SeriePage {
         presentazioniCheckBox.setSelectedIcon(checkSelIco);
 
         showComment(new Controller(), commenti);
+
+        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
+        Image notificaImg = notificaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        notificaIco = new ImageIcon(notificaImg);
+
+        notificheLabel = new JLabel();
+        notificheLabel.setIcon(notificaIco);
     }
 }
