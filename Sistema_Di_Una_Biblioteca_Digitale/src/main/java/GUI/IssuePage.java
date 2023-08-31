@@ -826,6 +826,21 @@ public class IssuePage {
         commenti.setLayout(new BoxLayout(commenti, BoxLayout.Y_AXIS));
         commenti.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+        ImageIcon checkIco = new ImageIcon(this.getClass().getResource("/c2.png"));
+        Image checkImg = checkIco.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
+        checkIco = new ImageIcon(checkImg);
+
+        ImageIcon checkSelIco = new ImageIcon(this.getClass().getResource("/c1.png"));
+        Image checkSelImg = checkSelIco.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
+        checkSelIco = new ImageIcon(checkSelImg);
+
+        disponibilitaCheckBox = new JCheckBox();
+        disponibilitaCheckBox.setIcon(checkIco);
+        disponibilitaCheckBox.setSelectedIcon(checkSelIco);
+        articoliCheckBox = new JCheckBox();
+        articoliCheckBox.setIcon(checkIco);
+        articoliCheckBox.setSelectedIcon(checkSelIco);
+
         showComment(new Controller(), commenti);
     }
 }

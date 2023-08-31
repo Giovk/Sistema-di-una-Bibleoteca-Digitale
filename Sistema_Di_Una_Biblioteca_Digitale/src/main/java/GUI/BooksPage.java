@@ -783,10 +783,25 @@ public class BooksPage {
         searchBarField = new JTextField();
         searchBarField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
 
+
+        ImageIcon radioIco = new ImageIcon(this.getClass().getResource("/r2.png"));
+        Image radioImg = radioIco.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
+        radioIco = new ImageIcon(radioImg);
+
+        ImageIcon radioSelIco = new ImageIcon(this.getClass().getResource("/r1.png"));
+        Image radioSelImg = radioSelIco.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
+        radioSelIco = new ImageIcon(radioSelImg);
+
         groupRB = new ButtonGroup();
         genereRB = new JRadioButton();
+        genereRB.setIcon(radioIco);
+        genereRB.setSelectedIcon(radioSelIco);
         autoreRB = new JRadioButton();
+        autoreRB.setIcon(radioIco);
+        autoreRB.setSelectedIcon(radioSelIco);
         collanaRB = new JRadioButton();
+        collanaRB.setIcon(radioIco);
+        collanaRB.setSelectedIcon(radioSelIco);
         groupRB.add(genereRB);
         groupRB.add(autoreRB);
         groupRB.add(collanaRB);
