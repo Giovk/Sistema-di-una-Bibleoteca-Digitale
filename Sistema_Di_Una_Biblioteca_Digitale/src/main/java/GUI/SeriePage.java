@@ -59,6 +59,173 @@ public class SeriePage {
 
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
+        allScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(0x222831);
+                this.trackColor= new Color(0xFFD369);
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                this.thumbLightShadowColor = new Color(0x323A48);
+                this.thumbHighlightColor = new Color(0x323A48);
+                this.trackHighlightColor = new Color(0xCF9E29);
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                decreaseButton.setBackground(new Color(0x222831));
+                return decreaseButton;
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                increaseButton.setBackground(new Color(0x222831));
+                return increaseButton;
+            }
+
+            private Image getAppropriateIcon(int orientation){
+                switch(orientation){
+                    case SwingConstants.SOUTH: return dA;
+                    case SwingConstants.NORTH: return uA;
+                    case SwingConstants.EAST: return rA;
+                    default: return lA;
+                }
+            }
+        });
+
+        jscroll1.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(0x222831);
+                this.trackColor= new Color(0xFFD369);
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                this.thumbLightShadowColor = new Color(0x323A48);
+                this.thumbHighlightColor = new Color(0x323A48);
+                this.trackHighlightColor = new Color(0xCF9E29);
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                decreaseButton.setBackground(new Color(0x222831));
+                return decreaseButton;
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                increaseButton.setBackground(new Color(0x222831));
+                return increaseButton;
+            }
+
+            private Image getAppropriateIcon(int orientation){
+                switch(orientation){
+                    case SwingConstants.SOUTH: return dA;
+                    case SwingConstants.NORTH: return uA;
+                    case SwingConstants.EAST: return rA;
+                    default: return lA;
+                }
+            }
+        });
+
+        jscroll2.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(0x222831);
+                this.trackColor= new Color(0xFFD369);
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                this.thumbLightShadowColor = new Color(0x323A48);
+                this.thumbHighlightColor = new Color(0x323A48);
+                this.trackHighlightColor = new Color(0xCF9E29);
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                decreaseButton.setBackground(new Color(0x222831));
+                return decreaseButton;
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                increaseButton.setBackground(new Color(0x222831));
+                return increaseButton;
+            }
+
+            private Image getAppropriateIcon(int orientation){
+                switch(orientation){
+                    case SwingConstants.SOUTH: return dA;
+                    case SwingConstants.NORTH: return uA;
+                    case SwingConstants.EAST: return rA;
+                    default: return lA;
+                }
+            }
+        });
 
         JPopupMenu utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
@@ -390,12 +557,11 @@ public class SeriePage {
             else if(fruizione.get(i).equals("Cartaceo") && quantita.get(i) == 0) model1.addRow(new Object[]{libreria.get(i), "Non Disponibile", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
             else model1.addRow(new Object[]{libreria.get(i), quantita.get(i), fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
         }
-
-        ArrayList<Libro> listaLibri = controller.getLibriSerie(isbn_selezionato);
+        controller.getLibriSerie(isbn_selezionato);
         table2.setModel(model2);    //imposta il modello dei dati della JTable 'table1'
 
-        for(int i = 0; i < listaLibri.size(); i++){
-            model2.addRow(new Object[]{listaLibri.get(i).isbn, listaLibri.get(i).titolo, listaLibri.get(i).dataPubblicazione});
+        for(int i = 0; i < controller.listaLibriSerie.size(); i++){
+            model2.addRow(new Object[]{controller.listaLibriSerie.get(i).isbn, controller.listaLibriSerie.get(i).titolo, controller.listaLibriSerie.get(i).dataPubblicazione});
         }
 
         disponibilitaCheckBox.addActionListener(new ActionListener() {

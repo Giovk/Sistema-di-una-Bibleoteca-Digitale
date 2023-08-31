@@ -5,10 +5,12 @@ import Model.Autore;
 import Model.Libro;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -48,6 +50,61 @@ public class BooksPage {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
         UIManager.put("ScrollPane.background\n", new Color(0x222831));
+        booksScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(0x222831);
+                this.trackColor= new Color(0xFFD369);
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                this.thumbLightShadowColor = new Color(0x323A48);
+                this.thumbHighlightColor = new Color(0x323A48);
+                this.trackHighlightColor = new Color(0xCF9E29);
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                decreaseButton.setBackground(new Color(0x222831));
+                return decreaseButton;
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                increaseButton.setBackground(new Color(0x222831));
+                return increaseButton;
+            }
+
+            private Image getAppropriateIcon(int orientation){
+                switch(orientation){
+                    case SwingConstants.SOUTH: return dA;
+                    case SwingConstants.NORTH: return uA;
+                    case SwingConstants.EAST: return rA;
+                    default: return lA;
+                }
+            }
+        });
 
         JPopupMenu utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
@@ -238,9 +295,208 @@ public class BooksPage {
         });
 
         // --------------------------------------------------------------------------- //
+        UIManager.put("ComboBox.disabledForeground", new Color(0x222831));
+        UIManager.put("ComboBox.disabledBackground", new Color(0xFFD369));
+
         collanaCB.setEnabled(false);    //disabilita il JComboBox 'collanaCB'
         genereCB.setEnabled(false); //disabilita il JComboBox 'genereCB'
         autoreCB.setEnabled(false); //disabilita il JComboBox 'autoreCB'
+
+
+        autoreCB.setBackground(Color.decode("#FFD369"));
+        autoreCB.setForeground(Color.decode("#222831"));
+        autoreCB.setBorder(new LineBorder(Color.decode("#222831")));
+
+        Object comp1 = autoreCB.getUI().getAccessibleChild(autoreCB, 0);
+        if(comp1 instanceof JPopupMenu){
+            JPopupMenu popup = (JPopupMenu) comp1;
+            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
+            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                @Override
+                protected void configureScrollBarColors() {
+                    this.thumbColor = new Color(0x222831);
+                    this.trackColor= new Color(0xFFD369);
+                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                    this.thumbLightShadowColor = new Color(0x323A48);
+                    this.thumbHighlightColor = new Color(0x323A48);
+                    this.trackHighlightColor = new Color(0xCF9E29);
+                }
+
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    decreaseButton.setBackground(new Color(0x222831));
+                    return decreaseButton;
+                }
+
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    increaseButton.setBackground(new Color(0x222831));
+                    return increaseButton;
+                }
+
+                private Image getAppropriateIcon(int orientation){
+                    switch(orientation){
+                        case SwingConstants.SOUTH: return dA;
+                        case SwingConstants.NORTH: return uA;
+                        case SwingConstants.EAST: return rA;
+                        default: return lA;
+                    }
+                }
+            });
+        }
+
+        genereCB.setBackground(Color.decode("#FFD369"));
+        genereCB.setForeground(Color.decode("#222831"));
+        genereCB.setBorder(new LineBorder(Color.decode("#222831")));
+
+        Object comp2 = genereCB.getUI().getAccessibleChild(genereCB, 0);
+        if(comp1 instanceof JPopupMenu){
+            JPopupMenu popup = (JPopupMenu) comp1;
+            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
+            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                @Override
+                protected void configureScrollBarColors() {
+                    this.thumbColor = new Color(0x222831);
+                    this.trackColor= new Color(0xFFD369);
+                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                    this.thumbLightShadowColor = new Color(0x323A48);
+                    this.thumbHighlightColor = new Color(0x323A48);
+                    this.trackHighlightColor = new Color(0xCF9E29);
+                }
+
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    decreaseButton.setBackground(new Color(0x222831));
+                    return decreaseButton;
+                }
+
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    increaseButton.setBackground(new Color(0x222831));
+                    return increaseButton;
+                }
+
+                private Image getAppropriateIcon(int orientation){
+                    switch(orientation){
+                        case SwingConstants.SOUTH: return dA;
+                        case SwingConstants.NORTH: return uA;
+                        case SwingConstants.EAST: return rA;
+                        default: return lA;
+                    }
+                }
+            });
+        }
+
+        collanaCB.setBackground(Color.decode("#FFD369"));
+        collanaCB.setForeground(Color.decode("#222831"));
+        collanaCB.setBorder(new LineBorder(Color.decode("#222831")));
+
+        Object comp3 = collanaCB.getUI().getAccessibleChild(collanaCB, 0);
+        if(comp1 instanceof JPopupMenu){
+            JPopupMenu popup = (JPopupMenu) comp1;
+            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
+            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                @Override
+                protected void configureScrollBarColors() {
+                    this.thumbColor = new Color(0x222831);
+                    this.trackColor= new Color(0xFFD369);
+                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                    this.thumbLightShadowColor = new Color(0x323A48);
+                    this.thumbHighlightColor = new Color(0x323A48);
+                    this.trackHighlightColor = new Color(0xCF9E29);
+                }
+
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    decreaseButton.setBackground(new Color(0x222831));
+                    return decreaseButton;
+                }
+
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    increaseButton.setBackground(new Color(0x222831));
+                    return increaseButton;
+                }
+
+                private Image getAppropriateIcon(int orientation){
+                    switch(orientation){
+                        case SwingConstants.SOUTH: return dA;
+                        case SwingConstants.NORTH: return uA;
+                        case SwingConstants.EAST: return rA;
+                        default: return lA;
+                    }
+                }
+            });
+        }
 
 
         ArrayList<String> distinctGenereList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
@@ -252,35 +508,9 @@ public class BooksPage {
 
         genereCB.setModel(new DefaultComboBoxModel<String>(distinctGenereList.toArray(new String[distinctGenereList.size()]))); //inserisce tutti gli elementi di 'distinctGenereList' come voci del JComboBox 'genereCB'
         genereCB.setSelectedIndex(-1);  //permette di avere 'genereCB' non selezionato
-        ArrayList<String> totAutoreList = new ArrayList<String>(); //contiene i nomi e cognomi concatenati di tutti gli autori dei libri
 
-        for (Libro l: controller.listaLibri) {    //scorre la lista dei libri
-
-            aut = 0;    //numero di autori del libro 'l'
-
-            for (Autore a: l.autori) {  //scorre tutti gli autori del libro 'l'
-
-                if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                aut++;  //incrementa il numero di autori di 'l'
-            }
-
-            totAutoreList.add(linkString);  //inserisce 'linkString' in 'totAutoreList'
-        }
-
-        ArrayList<String> distinctAutoreList = new ArrayList<>();   //contiene i nomi e i cognomi concatenati di tutti gli autori dei libri
-
-        for (Libro l: controller.listaLibri) {    //scorre la lista dei libri
-            for (Autore a : l.autori) { //scorre gli autori del libro 'l'
-
-                linkString = a.nome + " " + a.cognome;  //concatena in 'linkString' il nome e il cognome dell'autore 'a'
-
-                if (!distinctAutoreList.contains(linkString)) { //controlla se 'distinctAutoreList' non contiene 'linkString'
-                    distinctAutoreList.add(linkString);  //inserisce 'linkString' in 'distinctAutoreList'
-                }
-            }
-        }
+        ArrayList<String> totAutoreList = controller.allAutoriLibri(); //contiene i nomi e cognomi concatenati di tutti gli autori dei libri
+        ArrayList<String> distinctAutoreList = controller.allAutoriDistintiLibri();   //contiene i nomi e i cognomi concatenati di tutti gli autori dei libri
 
         autoreCB.setModel(new DefaultComboBoxModel<String>(distinctAutoreList.toArray(new String[distinctAutoreList.size()]))); //inserisce tutti gli elementi di 'distinctAutoreList' come voci del JComboBox 'autoreCB'
         autoreCB.setSelectedIndex(-1);  //permette di avere 'autoreCB' non selezionato
@@ -440,23 +670,17 @@ public class BooksPage {
                 if (autoreCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'autoreCB'
                     model.setRowCount(0);   //elimina le righe della tabella
 
-                    ArrayList<Libro> listaLibri = controller.getLibri();    //lista contenente tutti i libri
-
-                    for (Libro l : listaLibri) {    //scorre la lista dei libri 'listaLibri'
+                    for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'listaLibri'
 
                         if (autoreCB.getSelectedItem() != null) {
-                            aut = 0;    //numero di autori del libro 'l'
+                            for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del libro 'l'
 
-                            for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-
-                                if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                                else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                                aut++;  //incrementa il numero di autori di 'l'
+                                if (j == 0) linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                                else linkString = linkString + " \n" + controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
                             }
 
                             if (linkString.contains(autoreCB.getSelectedItem().toString())) //controlla se l'elemento selezionato di 'autoreCB' è contenuto in 'linkString'
-                                model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
                         }
                     }
                 }
@@ -470,23 +694,19 @@ public class BooksPage {
 
                 if (collanaCB.getSelectedItem() != null){   //controlla se è stato selezionato un elemento di 'collanaCB'
                     model.setRowCount(0);   //elimina le righe della tabella
-                    libriCollana = controller.getLibri(collanaCB.getSelectedItem().toString()); //inizializza 'libriCollana' con tutti i libri della collana selezionata
+                    controller.getLibri(collanaCB.getSelectedItem().toString()); //inizializza 'libriCollana' con tutti i libri della collana selezionata
                 }
 
-                for (Libro l : libriCollana) {  //scorre i libri della collana selezionata
+                for (int i = 0; i < controller.listaLibriCollana.size(); i++) {  //scorre i libri della collana selezionata
 
                     if (collanaCB.getSelectedItem() != null) {
-                        aut = 0;    //numero di autori del libro 'l'
+                        for (int j = 0; j < controller.listaLibriCollana.get(i).autori.size(); j++) { //scorre tutti gli autori del libro 'l'
 
-                        for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-
-                            if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                            else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                            aut++;  //incrementa il numero di autori di 'l'
+                            if (j == 0) linkString = controller.listaLibriCollana.get(i).autori.get(j).nome + " " + controller.listaLibriCollana.get(i).autori.get(j).cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                            else linkString = linkString + " \n" + controller.listaLibriCollana.get(i).autori.get(j).nome + " " + controller.listaLibriCollana.get(i).autori.get(j).cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
                         }
 
-                        model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                        model.addRow(new Object[]{controller.listaLibriCollana.get(i).isbn, controller.listaLibriCollana.get(i).titolo, linkString, controller.listaLibriCollana.get(i).genere, controller.listaLibriCollana.get(i).lingua, controller.listaLibriCollana.get(i).editore, controller.listaLibriCollana.get(i).dataPubblicazione});
                     }
                 }
             }
@@ -536,20 +756,14 @@ public class BooksPage {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            ArrayList<Libro> listaLibri = controller.listaLibri;   //lista contenente tutti i libri
-
-            for (Libro l : listaLibri) {    //scorre la lista dei libri 'listaLibri'
-                aut = 0;    //numero di autori del libro 'l'
-
-                for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-                    if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                    else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                    aut++;  //incrementa il numero di autori di 'l'
+            for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'listaLibri'
+                for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del libro 'l'
+                    if (j == 0) linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                    else linkString = linkString + " \n" + controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
                 }
 
-                if (l.isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || l.editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
-                    model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                if (controller.listaLibri.get(i).isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) ||controller.listaLibri.get(i).titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || controller.listaLibri.get(i).editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
+                    model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
             }
         } else {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB

@@ -44,6 +44,24 @@ public class LibreriaImplementazionePostgresDAO implements LibreriaDAO {
     }
 
     @Override
+    public ResultSet disponibilitaFascicoloDB(int numero, String titolo){  //ritorna le disponibilità del libro con ISBN 'isbn' nelle librerie
+        ResultSet rs = null;    //disponibilità trovate
+
+        try {
+            PreparedStatement getDisponibilitaPS = connection.prepareStatement(
+                    "SELECT * FROM libreria NATURAL JOIN possesso_f NATURAL JOIN fascicolo NATURAL JOIN rivista WHERE fascicolo.numero = '"+numero+"' AND rivista.titolo = '"+titolo+"';"//prepara la query che cerca le disponibilità del libro
+            );
+
+            rs = getDisponibilitaPS.executeQuery(); //esegue la query
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+
+        return rs;
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

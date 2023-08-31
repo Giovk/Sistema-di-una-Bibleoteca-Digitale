@@ -9,14 +9,16 @@ public class Libro extends Elemento{
     public String editore;
     public String lingua;
     public ArrayList<Autore> autori = new ArrayList<Autore>();
+    public String titolo;
 
     public Libro(String i, String g, String e, String l, ArrayList<Autore> a, String t, Date dp){
-        super(t, dp);
+        super(dp);
 
         isbn = i;
         genere = g;
         editore = e;
         lingua = l;
+        titolo = t;
 
 
         for (Autore autoreAttuale : a){
@@ -26,8 +28,9 @@ public class Libro extends Elemento{
     }
 
     public Libro(String i, String g, String e, String l, String t, Date dp){
-        super(t, dp);
+        super(dp);
 
+        titolo = t;
         isbn = i;
         genere = g;
         editore = e;

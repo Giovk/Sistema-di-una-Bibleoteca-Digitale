@@ -2,9 +2,11 @@ package GUI;
 
 import Controller.Controller;
 import Model.Autore;
+import Model.Fascicolo;
 import Model.Libro;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
@@ -21,12 +23,10 @@ public class IssuesPage {
     public JFrame frame;
     private JButton homeButton;
     private JRadioButton rivistaRB;
-    private JRadioButton autoreRB;
-    private JRadioButton collanaRB;
+    private JRadioButton argomentoRB;
     private ButtonGroup groupRB;
     private JComboBox rivistaCB;
-    private JComboBox autoreCB;
-    private JComboBox collanaCB;
+    private JComboBox argomentoCB;
     private JTable issuesTable;
     private JTextField searchBarField;
     private JLabel searchImage;
@@ -130,8 +130,6 @@ public class IssuesPage {
         if (controller.getPartitaIva() == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
         }
-
-        ArrayList<String> collanaList = controller.getCollanaNome();    //collane di libri nel DB
 
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //abilita le decorazioni del frame
@@ -295,59 +293,161 @@ public class IssuesPage {
         });
 
         // --------------------------------------------------------------------------- //
-        collanaCB.setEnabled(false);    //disabilita il JComboBox 'collanaCB'
+        UIManager.put("ComboBox.disabledForeground", new Color(0x222831));
+        UIManager.put("ComboBox.disabledBackground", new Color(0xFFD369));
+
         rivistaCB.setEnabled(false); //disabilita il JComboBox 'rivistaCB'
-        autoreCB.setEnabled(false); //disabilita il JComboBox 'autoreCB'
+        argomentoCB.setEnabled(false); //disabilita il JComboBox 'autoreCB'
+
+        argomentoCB.setBackground(Color.decode("#FFD369"));
+        argomentoCB.setForeground(Color.decode("#222831"));
+        argomentoCB.setBorder(new LineBorder(Color.decode("#222831")));
+
+        rivistaCB.setBackground(Color.decode("#FFD369"));
+        rivistaCB.setForeground(Color.decode("#222831"));
+        rivistaCB.setBorder(new LineBorder(Color.decode("#222831")));
+
+        Object comp1 = argomentoCB.getUI().getAccessibleChild(argomentoCB, 0);
+        if(comp1 instanceof JPopupMenu){
+            JPopupMenu popup = (JPopupMenu) comp1;
+            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
+            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                @Override
+                protected void configureScrollBarColors() {
+                    this.thumbColor = new Color(0x222831);
+                    this.trackColor= new Color(0xFFD369);
+                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                    this.thumbLightShadowColor = new Color(0x323A48);
+                    this.thumbHighlightColor = new Color(0x323A48);
+                    this.trackHighlightColor = new Color(0xCF9E29);
+                }
+
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    decreaseButton.setBackground(new Color(0x222831));
+                    return decreaseButton;
+                }
+
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    increaseButton.setBackground(new Color(0x222831));
+                    return increaseButton;
+                }
+
+                private Image getAppropriateIcon(int orientation){
+                    switch(orientation){
+                        case SwingConstants.SOUTH: return dA;
+                        case SwingConstants.NORTH: return uA;
+                        case SwingConstants.EAST: return rA;
+                        default: return lA;
+                    }
+                }
+            });
+        }
+
+        Object comp2 = rivistaCB.getUI().getAccessibleChild(rivistaCB, 0);
+        if(comp1 instanceof JPopupMenu){
+            JPopupMenu popup = (JPopupMenu) comp1;
+            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
+            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                @Override
+                protected void configureScrollBarColors() {
+                    this.thumbColor = new Color(0x222831);
+                    this.trackColor= new Color(0xFFD369);
+                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                    this.thumbLightShadowColor = new Color(0x323A48);
+                    this.thumbHighlightColor = new Color(0x323A48);
+                    this.trackHighlightColor = new Color(0xCF9E29);
+                }
+
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    decreaseButton.setBackground(new Color(0x222831));
+                    return decreaseButton;
+                }
+
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    increaseButton.setBackground(new Color(0x222831));
+                    return increaseButton;
+                }
+
+                private Image getAppropriateIcon(int orientation){
+                    switch(orientation){
+                        case SwingConstants.SOUTH: return dA;
+                        case SwingConstants.NORTH: return uA;
+                        case SwingConstants.EAST: return rA;
+                        default: return lA;
+                    }
+                }
+            });
+        }
 
 
         ArrayList<String> distinctRivisteList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
         for (int i = 0; i < controller.listaRiviste.size(); i++){
             distinctRivisteList.add(controller.listaRiviste.get(i).titolo);
-            System.out.println(controller.listaRiviste.get(i).titolo);
         }
-
-        /*for (int i = 0; i < controller.listaRiviste.size(); i++) {    //scorre l'ArrayList di tutti i generi dei libri
-            if (!distinctGenereList.contains(controller.listaLibri.get(i).genere))    //controlla se 'distinctGenereList' non contiene l'i-esimo elemento di genereList
-                distinctGenereList.add(controller.listaLibri.get(i).genere);  //inserisce l'i-esimo elemento di genereList  in 'distinctGenereList'
-        }*/
 
         rivistaCB.setModel(new DefaultComboBoxModel<String>(distinctRivisteList.toArray(new String[distinctRivisteList.size()]))); //inserisce tutti gli elementi di 'distinctGenereList' come voci del JComboBox 'genereCB'
         rivistaCB.setSelectedIndex(-1);  //permette di avere 'rivistaCB' non selezionato
         ArrayList<String> totAutoreList = new ArrayList<String>(); //contiene i nomi e cognomi concatenati di tutti gli autori dei libri
 
-        for (Libro l: controller.listaLibri) {    //scorre la lista dei libri
+        ArrayList<String> distinctArgomentiList = new ArrayList<>();   //contiene i nomi e i cognomi concatenati di tutti gli autori dei libri
 
-            aut = 0;    //numero di autori del libro 'l'
-
-            for (Autore a: l.autori) {  //scorre tutti gli autori del libro 'l'
-
-                if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                aut++;  //incrementa il numero di autori di 'l'
-            }
-
-            totAutoreList.add(linkString);  //inserisce 'linkString' in 'totAutoreList'
+        for (int i = 0; i < controller.listaRiviste.size(); i++) {    //scorre l'ArrayList di tutti i generi dei libri
+            if (!distinctArgomentiList.contains(controller.listaRiviste.get(i).argomento))    //controlla se 'distinctGenereList' non contiene l'i-esimo elemento di genereList
+                distinctArgomentiList.add(controller.listaRiviste.get(i).argomento);  //inserisce l'i-esimo elemento di genereList  in 'distinctGenereList'
         }
 
-        ArrayList<String> distinctAutoreList = new ArrayList<>();   //contiene i nomi e i cognomi concatenati di tutti gli autori dei libri
-
-        for (Libro l: controller.listaLibri) {    //scorre la lista dei libri
-            for (Autore a : l.autori) { //scorre gli autori del libro 'l'
-
-                linkString = a.nome + " " + a.cognome;  //concatena in 'linkString' il nome e il cognome dell'autore 'a'
-
-                if (!distinctAutoreList.contains(linkString)) { //controlla se 'distinctAutoreList' non contiene 'linkString'
-                    distinctAutoreList.add(linkString);  //inserisce 'linkString' in 'distinctAutoreList'
-                }
-            }
-        }
-
-        autoreCB.setModel(new DefaultComboBoxModel<String>(distinctAutoreList.toArray(new String[distinctAutoreList.size()]))); //inserisce tutti gli elementi di 'distinctAutoreList' come voci del JComboBox 'autoreCB'
-        autoreCB.setSelectedIndex(-1);  //permette di avere 'autoreCB' non selezionato
-        collanaCB.setModel(new DefaultComboBoxModel<String>(collanaList.toArray(new String[collanaList.size()])));  //inserisce tutti gli elementi di 'collanaList' come voci del JComboBox 'collanaCB'
-        collanaCB.setSelectedIndex(-1); //permette di avere 'collanaCB' non selezionato
-
+        argomentoCB.setModel(new DefaultComboBoxModel<String>(distinctArgomentiList.toArray(new String[distinctArgomentiList.size()]))); //inserisce tutti gli elementi di 'distinctAutoreList' come voci del JComboBox 'autoreCB'
+        argomentoCB.setSelectedIndex(-1);  //permette di avere 'autoreCB' non selezionato
         model = new DefaultTableModel(new Object[][]{}, new String[]{"Titolo Rivista", "Numero", "Data Di Pubblicazione"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -382,9 +482,9 @@ public class IssuesPage {
         issuesScrollPanel.setBorder(BorderFactory.createEmptyBorder());
         issuesScrollPanel.getViewport().setBackground(new Color(0x222831));
 
-        if (controller.listaLibri != null) {
-            for (int i = 0; i < controller.listaLibri.size(); i++) {
-                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+        if (controller.listaFascicoli != null) {
+            for (int i = 0; i < controller.listaFascicoli.size(); i++) {
+                model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});
             }
         }
 
@@ -396,10 +496,9 @@ public class IssuesPage {
         issuesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                controller.isbn_selected = issuesTable.getValueAt(issuesTable.getSelectedRow(), 0).toString();
-                controller.nome_selected = issuesTable.getValueAt(issuesTable.getSelectedRow(), 1).toString();
-                BookPage bp = new BookPage(frameC, controller); //chiama il frame 'bp'
-                bp.frame.setVisible(true);  //rende visible il frame 'bp'
+                controller.selezionaFascicolo(((int) issuesTable.getValueAt(issuesTable.getSelectedRow(), 1)), issuesTable.getValueAt(issuesTable.getSelectedRow(), 0).toString());
+                IssuePage ip = new IssuePage(frameC, controller); //chiama il frame 'bp'
+                ip.frame.setVisible(true);  //rende visible il frame 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -411,10 +510,8 @@ public class IssuesPage {
                 if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'rivistaRB'
                     searchBarField.setText("");
                     rivistaCB.setEnabled(true);  //abilita 'genereCB'
-                    collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
-                    collanaCB.setEnabled(false);    //disabilita 'collanaCB'
-                    autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
-                    autoreCB.setEnabled(false); //disabilita 'autoreCB'
+                    argomentoCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
+                    argomentoCB.setEnabled(false); //disabilita 'autoreCB'
                 } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'rivistaRB'
                     rivistaCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
                     rivistaCB.setEnabled(false); //disabilita 'genereCB'
@@ -429,40 +526,21 @@ public class IssuesPage {
                 searchBarField.setText("");
                 groupRB.clearSelection();   //deseleziona tutti i JRadioButton del ButtonGroup 'groupRB'
                 model.setRowCount(0);
-                for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+                for (int i = 0; i < controller.listaFascicoli.size(); i++) model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});
             }
         });
 
-        collanaRB.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'collanaRB'
-                    searchBarField.setText("");
-                    collanaCB.setEnabled(true); //abilita 'collanaCB'
-                    rivistaCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
-                    rivistaCB.setEnabled(false); //disabilita 'genereCB'
-                    autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
-                    autoreCB.setEnabled(false); //disabilita 'autoreCB'
-                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
-                    collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
-                    collanaCB.setEnabled(false);    //disabilita 'collanaCB'
-                }
-            }
-        });
-
-        autoreRB.addItemListener(new ItemListener() {
+        argomentoRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'autoreRB'
                     searchBarField.setText("");
-                    autoreCB.setEnabled(true);  //abilita 'autoreCB'
+                    argomentoCB.setEnabled(true);  //abilita 'autoreCB'
                     rivistaCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
                     rivistaCB.setEnabled(false); //disabilita 'genereCB'
-                    collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
-                    collanaCB.setEnabled(false);    //disabilita 'collanaCB'
                 } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
-                    autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
-                    autoreCB.setEnabled(false); //disabilita 'autoreCB'
+                    argomentoCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
+                    argomentoCB.setEnabled(false); //disabilita 'autoreCB'
                 }
             }
         });
@@ -473,81 +551,27 @@ public class IssuesPage {
                 if (rivistaCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'genereCB'
                     model.setRowCount(0);   //elimina le righe della tabella
 
-                    ArrayList<Libro> listaLibri = controller.listaLibri;    //lista contenente tutti i libri
+                    for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei libri 'listaLibri'
 
-                    for (Libro l : listaLibri) {    //scorre la lista dei libri 'listaLibri'
-
-                        if (rivistaCB.getSelectedItem() != null && rivistaCB.getSelectedItem().equals(l.genere)) {    //controlla se l'elemento selezionato di 'genereCB' è uguale al genere del libro 'l'
-                            aut = 0;    //numero di autori del libro 'l'
-
-                            for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-
-                                if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                                else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                                aut++;  //incrementa il numero di autori di 'l'
-                            }
-
-                            model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                        if (rivistaCB.getSelectedItem() != null && rivistaCB.getSelectedItem().equals(f.rivista.titolo)) {    //controlla se l'elemento selezionato di 'genereCB' è uguale al genere del libro 'l'
+                            model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});
                         }
                     }
                 }
             }
         });
 
-        autoreCB.addActionListener(new ActionListener() {
+        argomentoCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (autoreCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'autoreCB'
+                if (argomentoCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'genereCB'
                     model.setRowCount(0);   //elimina le righe della tabella
 
-                    ArrayList<Libro> listaLibri = controller.getLibri();    //lista contenente tutti i libri
+                    for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei libri 'listaLibri'
 
-                    for (Libro l : listaLibri) {    //scorre la lista dei libri 'listaLibri'
-
-                        if (autoreCB.getSelectedItem() != null) {
-                            aut = 0;    //numero di autori del libro 'l'
-
-                            for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-
-                                if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                                else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                                aut++;  //incrementa il numero di autori di 'l'
-                            }
-
-                            if (linkString.contains(autoreCB.getSelectedItem().toString())) //controlla se l'elemento selezionato di 'autoreCB' è contenuto in 'linkString'
-                                model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                        if (argomentoCB.getSelectedItem() != null && argomentoCB.getSelectedItem().equals(f.rivista.argomento)) {    //controlla se l'elemento selezionato di 'genereCB' è uguale al genere del libro 'l'
+                            model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});
                         }
-                    }
-                }
-            }
-        });
-
-        collanaCB.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<Libro> libriCollana = new ArrayList<>();  //lista dei libri di una collana
-
-                if (collanaCB.getSelectedItem() != null){   //controlla se è stato selezionato un elemento di 'collanaCB'
-                    model.setRowCount(0);   //elimina le righe della tabella
-                    libriCollana = controller.getLibri(collanaCB.getSelectedItem().toString()); //inizializza 'libriCollana' con tutti i libri della collana selezionata
-                }
-
-                for (Libro l : libriCollana) {  //scorre i libri della collana selezionata
-
-                    if (collanaCB.getSelectedItem() != null) {
-                        aut = 0;    //numero di autori del libro 'l'
-
-                        for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-
-                            if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                            else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                            aut++;  //incrementa il numero di autori di 'l'
-                        }
-
-                        model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
                     }
                 }
             }
@@ -557,7 +581,7 @@ public class IssuesPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                search(controller, totAutoreList);  //esegue la ricerca
+                search(controller);  //esegue la ricerca
             }
         });
 
@@ -565,7 +589,7 @@ public class IssuesPage {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){   //controlla se è stato premuto il tasto "ENTER"
-                    search(controller, totAutoreList);  //esegue la ricerca
+                    search(controller);  //esegue la ricerca
                 }
             }
         });
@@ -574,7 +598,7 @@ public class IssuesPage {
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){    //controlla se è stato premuto il tasto "ENTER"
-                    search(controller, totAutoreList);  //esegue la ricerca
+                    search(controller);  //esegue la ricerca
                     e.consume();    //evita che il KeyEvent 'e' venga ulteriormente gestito
                 }
             }
@@ -592,31 +616,23 @@ public class IssuesPage {
 
     }
 
-    private void search(Controller controller, ArrayList<String> totAutoreList){    //esegue una ricerca nella tabella
+    private void search(Controller controller){    //esegue una ricerca nella tabella
         if (!searchBarField.getText().isBlank()) {  //controlla se è stato inserito un testo nel JTextField 'searchBarField'
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            ArrayList<Libro> listaLibri = controller.listaLibri;   //lista contenente tutti i libri
+            for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei libri 'listaLibri'
 
-            for (Libro l : listaLibri) {    //scorre la lista dei libri 'listaLibri'
-                aut = 0;    //numero di autori del libro 'l'
+                String numero = String.valueOf(f.numero);
 
-                for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-                    if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                    else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-
-                    aut++;  //incrementa il numero di autori di 'l'
-                }
-
-                if (l.isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || l.editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || l.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
-                    model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                if (f.rivista.titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || f.rivista.argomento.toLowerCase().contains(searchBarField.getText().toLowerCase()) || f.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase()) || numero.toLowerCase().contains(searchBarField.getText().toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
+                    model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});
             }
         } else {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+            for (int i = 0; i < controller.listaFascicoli.size(); i++) model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});
         }
     }
 
@@ -632,11 +648,9 @@ public class IssuesPage {
 
         groupRB = new ButtonGroup();
         rivistaRB = new JRadioButton();
-        autoreRB = new JRadioButton();
-        collanaRB = new JRadioButton();
+        argomentoRB = new JRadioButton();
         groupRB.add(rivistaRB);
-        groupRB.add(autoreRB);
-        groupRB.add(collanaRB);
+        groupRB.add(argomentoRB);
 
         ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/search.png"));
         Image searchImg = searchIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);

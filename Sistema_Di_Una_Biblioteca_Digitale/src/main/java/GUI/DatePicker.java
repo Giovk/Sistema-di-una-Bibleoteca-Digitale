@@ -107,24 +107,57 @@ class DatePicker extends JPanel{
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
             scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
                 @Override
-                protected void configureScrollBarColors(){
+                protected void configureScrollBarColors() {
                     this.thumbColor = new Color(0x222831);
+                    this.trackColor= new Color(0xFFD369);
+                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                    this.thumbLightShadowColor = new Color(0x323A48);
+                    this.thumbHighlightColor = new Color(0x323A48);
+                    this.trackHighlightColor = new Color(0xCF9E29);
                 }
+
                 @Override
                 protected JButton createDecreaseButton(int orientation) {
-                    JButton button = super.createDecreaseButton(orientation);
-                    button.setBackground(new Color(0xFFD369));
+                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
 
-                    return button;
+                    decreaseButton.setBackground(new Color(0x222831));
+                    return decreaseButton;
                 }
 
                 @Override
                 protected JButton createIncreaseButton(int orientation) {
-                    JButton button = super.createIncreaseButton(orientation);
-                    button.setBackground(new Color(0xFFD369));
+                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
 
-                    return button;
+                    increaseButton.setBackground(new Color(0x222831));
+                    return increaseButton;
+                }
+
+                private Image getAppropriateIcon(int orientation){
+                    switch(orientation){
+                        case SwingConstants.SOUTH: return dA;
+                        case SwingConstants.NORTH: return uA;
+                        case SwingConstants.EAST: return rA;
+                        default: return lA;
+                    }
                 }
             });
         }
@@ -251,23 +284,57 @@ class DatePicker extends JPanel{
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
             scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
                 @Override
-                protected void configureScrollBarColors(){
+                protected void configureScrollBarColors() {
                     this.thumbColor = new Color(0x222831);
+                    this.trackColor= new Color(0xFFD369);
+                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                    this.thumbLightShadowColor = new Color(0x323A48);
+                    this.thumbHighlightColor = new Color(0x323A48);
+                    this.trackHighlightColor = new Color(0xCF9E29);
                 }
+
                 @Override
                 protected JButton createDecreaseButton(int orientation) {
-                    JButton button = super.createDecreaseButton(orientation);
-                    button.setBackground(new Color(0xFFD369));
-                    return button;
+                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
+
+                    decreaseButton.setBackground(new Color(0x222831));
+                    return decreaseButton;
                 }
 
                 @Override
                 protected JButton createIncreaseButton(int orientation) {
-                    JButton button = super.createIncreaseButton(orientation);
-                    button.setBackground(new Color(0xFFD369));
+                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(25, 15);
+                        }
+                    };
 
-                    return button;
+                    increaseButton.setBackground(new Color(0x222831));
+                    return increaseButton;
+                }
+
+                private Image getAppropriateIcon(int orientation){
+                    switch(orientation){
+                        case SwingConstants.SOUTH: return dA;
+                        case SwingConstants.NORTH: return uA;
+                        case SwingConstants.EAST: return rA;
+                        default: return lA;
+                    }
                 }
             });
         }

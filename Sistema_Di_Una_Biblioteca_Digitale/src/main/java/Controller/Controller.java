@@ -1,7 +1,6 @@
 package Controller;
 
 import DAO.*;
-import GUI.RecensioneLibro;
 import ImplementazionePostgresDAO.*;
 import Model.*;
 
@@ -12,10 +11,18 @@ import java.util.ArrayList;
 public class Controller {
     private Utente utente;
     public ArrayList<Libro> listaLibri = getLibri();
+    public ArrayList<Libro> listaLibriCollana = new ArrayList<>();
+    public ArrayList<Libro> listaLibriSerie = new ArrayList<>();
     public ArrayList<Serie> listaSerie = getSerie();
+    public ArrayList<Serie> listaSerieAutore = new ArrayList<>();
+    public ArrayList<Serie> listaSerieGenere = new ArrayList<>();
     public ArrayList<Rivista> listaRiviste = getRiviste();
+
+    public ArrayList<Fascicolo> listaFascicoli = getFascicoli();
+    public ArrayList<Presentazione> listaPresentazioni = new ArrayList<>();
     public String isbn_selected = "";
     public String nome_selected = "";
+    public Fascicolo fascicolo_selected = null;
     public boolean likeElementSelected;
     public ArrayList<Recensione> recensioniConCommento = new ArrayList<>();
     public Controller(){
@@ -132,7 +139,7 @@ public class Controller {
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri
-                ArrayList<Autore> autori = getAutori(rs.getString("isbn")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                ArrayList<Autore> autori = getAutoriLibro(rs.getString("isbn")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
                 libri.add(new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), autori ,rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
             }
         } catch (SQLException var){
@@ -144,7 +151,7 @@ public class Controller {
         return libri;
     }
 
-    public ArrayList<Libro> getLibri(String collana) {   //ritorna i dati di tutti i libri della collana 'collana' nel DB
+    public void getLibri(String collana) {   //ritorna i dati di tutti i libri della collana 'collana' nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ResultSet rs = l.getLibriDB(collana);  //cerca i dati di tutti i libri della collana 'collana' nel DB
         ArrayList<Libro> libri = new ArrayList<Libro>();    //contiene tutti i libri
@@ -152,7 +159,7 @@ public class Controller {
 
         try {
             while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
-                ArrayList<Autore> autori = getAutori(rs.getString("isbn")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                ArrayList<Autore> autori = getAutoriLibro(rs.getString("isbn")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
                 libri.add(new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), autori ,rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
             }
         } catch (SQLException var){
@@ -161,10 +168,10 @@ public class Controller {
 
         l.chiudiConnessione();  //chiude la connessione al DB
 
-        return libri;
+        listaLibriCollana = libri;
     }
 
-    public ArrayList<Libro> getLibriSerie(String isbnSerie){    //ritorna tutti i libri della serie con ISBN 'isbnSerie'
+    public void getLibriSerie(String isbnSerie){    //ritorna tutti i libri della serie con ISBN 'isbnSerie'
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ArrayList<Libro> libri = new ArrayList<>(); //contiene i libri della serie
         ResultSet rs = l.getLibriSerieDB(isbnSerie);    //contiene i libri della serie trovati nel DB
@@ -181,7 +188,7 @@ public class Controller {
             var.printStackTrace();
         }
 
-        return libri;
+        listaLibriSerie = libri;
     }
 
     // COLLANA //
@@ -191,9 +198,9 @@ public class Controller {
     }
 
     // AUTORE //
-    public ArrayList<Autore> getAutori(String isbn){    //ritorna gli autori del libro con ISBN 'isbn'
+    public ArrayList<Autore> getAutoriLibro(String isbn){    //ritorna gli autori del libro con ISBN 'isbn'
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
-        ResultSet rs = a.getAutoriDB(isbn); //ResultSet contenente tutti gli autori del libro con ISBN 'isbn'
+        ResultSet rs = a.getAutoriLibroDB(isbn); //ResultSet contenente tutti gli autori del libro con ISBN 'isbn'
         ArrayList<Autore> autori = new ArrayList<Autore>(); //contiene tutti gli autori del libro con ISBN 'isbn'
 
         try {
@@ -205,6 +212,79 @@ public class Controller {
         }
 
         return autori;
+    }
+
+    public ArrayList<Autore> getAutoriArticolo(String doi){    //ritorna gli autori del libro con ISBN 'isbn'
+        AutoreDAO a = new AutoreImplementazionePostgresDAO();
+        ResultSet rs = a.getAutoriArticoloDB(doi); //ResultSet contenente tutti gli autori del libro con ISBN 'isbn'
+        ArrayList<Autore> autori = new ArrayList<Autore>(); //contiene tutti gli autori del libro con ISBN 'isbn'
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente gli autori
+                autori.add(new Autore(rs.getString("nome"), rs.getString("cognome"), rs.getString("nazionalita"), rs.getDate("datanascita")));  //aggiunge un nuovo autore in 'autori'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return autori;
+    }
+
+    public ArrayList<String> allAutoriLibri(){
+        int aut = 0;
+        String linkString = "";
+        ArrayList<String> totAutoreList = new ArrayList<>();
+
+
+        for (Libro l: listaLibri) {    //scorre la lista dei libri
+
+            aut = 0;    //numero di autori del libro 'l'
+
+            for (Autore a: l.autori) {  //scorre tutti gli autori del libro 'l'
+
+                if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                else linkString = linkString + " \n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+
+                aut++;  //incrementa il numero di autori di 'l'
+            }
+
+            totAutoreList.add(linkString);  //inserisce 'linkString' in 'totAutoreList'
+        }
+
+        return  totAutoreList;
+    }
+    public ArrayList<String> allAutoriDistintiLibri(){
+        ArrayList<String> distinctAutoreList = new ArrayList<>();
+        String linkString = "";
+        for (Libro l: listaLibri) {    //scorre la lista dei libri
+            for (Autore a : l.autori) { //scorre gli autori del libro 'l'
+
+                linkString = a.nome + " " + a.cognome;  //concatena in 'linkString' il nome e il cognome dell'autore 'a'
+
+                if (!distinctAutoreList.contains(linkString)) { //controlla se 'distinctAutoreList' non contiene 'linkString'
+                    distinctAutoreList.add(linkString);  //inserisce 'linkString' in 'distinctAutoreList'
+                }
+            }
+        }
+        return distinctAutoreList;
+    }
+
+    public String allAutoriLibro(ArrayList<Autore> autori){
+        String a = "";
+        for (Autore au: autori){
+            a = a + au.nome + " " + au.cognome + " ";
+        }
+
+        return a;
+    }
+
+    public String allAutoriArticolo(ArrayList<Autore> autori){
+        String a = "";
+        for (Autore au: autori){
+            a = a + au.nome + " " + au.cognome + " ";
+        }
+
+        return a;
     }
 
     // LIBRERIA //
@@ -305,9 +385,106 @@ public class Controller {
         return nTel;
     }
 
+    public ResultSet getDisponibilitaFascicolo(){    //ritorna un ResultSet con le disponibilita del libro con ISBN 'isbn_selected'
+        LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
+        ResultSet rs = l.disponibilitaFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo);    //ritorna tutte le dipsonibilità del libro selezionato
+
+        return rs;
+    }
+
+    public ArrayList<String> getDisponibilitaLibreriaFascicolo(){    //ritorna i nomi di tutte le librerie che possiedono il libro selezionato
+        ArrayList<String> libreria = new ArrayList<>(); //contiene i nomi delle librerie
+        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                libreria.add(rs.getString("nome")); //aggiunge un nuovo nome in 'libreria'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return libreria;
+    }
+
+    public ArrayList<Integer> getDisponibilitaQuantitaFascicolo(){   //ritorna le quantità disponibili del libro selezionato
+        ArrayList<Integer> quantita = new ArrayList<>();    //contiene le quantità disponibili
+        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                quantita.add(rs.getInt("quantita"));    //aggiunge una nuova quantità in 'quantita'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return quantita;
+    }
+
+    public ArrayList<String> getDisponibilitaFruizioneFascicolo(){  //ritorna le modalità di fruizione disponibili del libro selezionato
+        ArrayList<String> fruizione = new ArrayList<>();    //contiene le modalità di fruizione disponibili
+        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                fruizione.add(rs.getString("fruizione")); //aggiunge una nuova modalità di fruizione in 'fruizione'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return fruizione;
+    }
+
+    public ArrayList<String> getDisponibilitaIndirizzoFascicolo(){   //ritorna gli indirizzi delle librerie che possiedono il libro selezionato
+        ArrayList<String> indirizzo = new ArrayList<>();    //contiene gli indirizzi delle librerie che possiedono il libro selezionato
+        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                indirizzo.add(rs.getString("indirizzo"));   //aggiunge un nuovo indirizzo in 'indirizzo'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return indirizzo;
+    }
+
+    public ArrayList<String> getDisponibilitaSitoWebFascicolo(){ //ritorna i siti web delle librerie che possiedono il libro selezionato
+        ArrayList<String> sitoWeb = new ArrayList<>();  //contiene i siti web delle librerie che possiedono il libro selezionato
+        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                sitoWeb.add(rs.getString("sitoweb"));   //aggiunge un nuovo sito web in 'sitoWeb'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return sitoWeb;
+    }
+
+    public ArrayList<String> getDisponibilitaNumeroTelefonoFascicolo(){  //ritorna i numeri telefonici delle librerie che possiedono il libro selezionato
+        ArrayList<String> nTel = new ArrayList<>(); //contiene i numeri telefonici delle librerie che possiedono il libro selezionato
+        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                nTel.add(rs.getString("numerotelefonico")); //aggiunge un nuovo numero telefonico in 'nTel'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return nTel;
+    }
+
     // PRESENTAZIONE //
 
-    public ArrayList<Presentazione> getPresentazione(){    //ritorna i dati di tutte le presentazioni del libro con ISBN 'isbn_selected'
+    public void getPresentazione(){    //ritorna i dati di tutte le presentazioni del libro con ISBN 'isbn_selected'
         PresentazioneDAO p = new PresentazioneImplementazionePostgresDAO();
         ArrayList<Presentazione> presentazioni = new ArrayList<>(); //contiene tutte le presentazioni del libro selezionato
         ResultSet rs = p.getPresentazioneDB(isbn_selected); //cerca i dati di tutte le presentazioni del libro selezionato
@@ -327,7 +504,7 @@ public class Controller {
 
         p.chiudiConnessione();  //chiude la connessione al DB
 
-        return presentazioni;
+        listaPresentazioni = presentazioni;
     }
 
 
@@ -340,8 +517,8 @@ public class Controller {
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                ArrayList<Libro> libri = getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
-                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), libri, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
+                getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), listaLibriSerie, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -362,15 +539,15 @@ public class Controller {
         return s.getSerieAutoriDB();
     }
 
-    public ArrayList<Serie> getListaSerieGenere(String genere){ //ritorna una lista delle serie con libri del genere 'genere'
+    public void getListaSerieGenere(String genere){ //ritorna una lista delle serie con libri del genere 'genere'
         SerieDAO s = new SerieImplementazionePostgresDAO();
         ArrayList<Serie> serie = new ArrayList<>(); //contiene le serie con libri del genere 'genere'
         ResultSet rs = s.getListaSerieGenereDB(genere); //cerca le serie con libri del genere 'genere'
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                ArrayList<Libro> libri = getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
-                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), libri, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
+                getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), listaLibriSerie, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -378,18 +555,18 @@ public class Controller {
 
         s.chiudiConnessione();  //chiude la connessione al DB
 
-        return serie;
+        listaSerieGenere = serie;
     }
 
-    public ArrayList<Serie> getListaSerieAutore(String autore){ //ritorna una lista delle serie con libri dell'autore 'autore'
+    public void getListaSerieAutore(String autore){ //ritorna una lista delle serie con libri dell'autore 'autore'
         SerieDAO s = new SerieImplementazionePostgresDAO();
         ArrayList<Serie> serie = new ArrayList<>(); //contiene le serie con libri dell'autore 'autore'
         ResultSet rs = s.getListaSerieAutoreDB(autore); //cerca le serie con libri dell'autore 'autore'
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                ArrayList<Libro> libri = getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
-                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), libri, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
+                getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+                serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), listaLibriSerie, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -397,7 +574,7 @@ public class Controller {
 
         s.chiudiConnessione();   //chiude la connessione al DB
 
-        return serie;
+        listaSerieAutore = serie;
     }
 
     // RECENSIONE //
@@ -476,6 +653,39 @@ public class Controller {
         r.chiudiConnessione();  //chiude la connessione al DB
     }
 
+    public float valutazioneMediaFascicolo(){   //ritorna la media delle valutazioni del libro selezionato
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        return r.valutazioneMediaFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo);
+    }
+    public void likeFascicolo(){    //controlla se l'utente ha il libro selezionato tra i preferiti e pone il risultato in 'likeLibroSelected'
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        likeElementSelected = r.likeFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);
+    }
+
+    public void changeLikeFascicolo(){   //cambia il valore di 'likeLibroSelected' e togli/mette nei preferiti dell'utente il libro selezionato
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        likeElementSelected = r.changeLikeFascicoloDB(likeElementSelected, fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);
+    }
+    public void addRecensioneFascicolo(int valutazione, String text){   //aggiunge una nuova recensione con 'valutazione' e 'testo' fatta dall'utente al libro selezionato
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        r.addRecensioneFascicoloDB(valutazione, text, fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);
+        return;
+    }
+
+    public void allRecWithCommentFascicolo(){    //ritorna tutte le recensioni con testo fatte al libro selezionato
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        ResultSet rs = r.allRecWithCommentFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo);    //contiene tutte le recensioni fatte al libro selezionato
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le recensioni
+                recensioniConCommento.add(new Recensione(rs.getString("testo"), rs.getInt("valutazione"), rs.getBoolean("preferito"), getUtente(rs.getString("username")), null));  //aggiunge una nuova recensione in 'recensioneConCommento'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        r.chiudiConnessione();  //chiude la connessione al DB
+    }
     // RIVISTA //
 
     public ArrayList<Rivista> getRiviste() {   //ritorna i dati di tutte le serie nel DB
@@ -494,6 +704,60 @@ public class Controller {
         r.chiudiConnessione();  //chiude la connessione al DB
 
         return riviste;
+    }
+
+    // FASCICOLO //
+
+    public ArrayList<Fascicolo> getFascicoli(){
+        FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
+        ResultSet rs = f.getFascicoliDB();  //cerca i dati di tutti i libri nel DB
+        ArrayList<Fascicolo> fascicoli = new ArrayList<Fascicolo>();    //contiene tutti i libri
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri
+                for (int i = 0; i < listaRiviste.size(); i++){
+                    if(listaRiviste.get(i).issn.equals(rs.getString("issn"))){
+                        Rivista rivistaFascicolo = listaRiviste.get(i);
+                        i = listaRiviste.size();
+                        ArrayList<ArticoloScientifico> articoloScientifici = getArticoloScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                        fascicoli.add(new Fascicolo(rs.getInt("numero"), rivistaFascicolo, articoloScientifici, rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
+                    }
+                }
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        f.chiudiConnessione();  //chiude la connessione al DB
+
+        return fascicoli;
+    }
+
+    public void selezionaFascicolo(int numero, String titolo){
+        for(int i = 0; i < listaFascicoli.size(); i++){
+            if(listaFascicoli.get(i).rivista.titolo.equals(titolo) && listaFascicoli.get(i).numero == numero) {
+                fascicolo_selected = listaFascicoli.get(i);
+                i = listaFascicoli.size();
+            }
+
+        }
+    }
+    // ARTICOLO_SCIENTIFICO //
+
+    public ArrayList<ArticoloScientifico> getArticoloScientifici(String issn, int n){
+        ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
+        ArrayList<ArticoloScientifico> articoloScientifici = new ArrayList<ArticoloScientifico>();
+        ResultSet rs = as.getArticoliScientificiDB(issn, n);
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
+                articoloScientifici.add(new ArticoloScientifico(rs.getString("doi"), rs.getString("titolo"), rs.getInt("annoPubblicazione"), getAutoriArticolo(rs.getString("doi"))));   //inserisce una nuova serie in 'serie'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        return  articoloScientifici;
     }
 
 }

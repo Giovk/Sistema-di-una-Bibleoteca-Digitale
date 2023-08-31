@@ -5,18 +5,20 @@ import java.util.Date;
 
 public class Fascicolo extends Elemento{
     public int numero;
-    public Rivista r;
+    public Rivista rivista;
     public ArrayList<ArticoloScientifico> articoli;
 
-    public Fascicolo(int n, Rivista rivista, ArrayList<ArticoloScientifico> a, String t, Date dp){
-        super(t, dp);
+    public Fascicolo(int n, Rivista r, ArrayList<ArticoloScientifico> a, Date dp){
+        super(dp);
         numero = n;
-        r = rivista;
+        rivista = r;
 
         for (ArticoloScientifico articoloAttuale : a) {
+            if(articoli == null) articoli = new ArrayList<>();
             articoli.add(articoloAttuale);
         }
 
+        if (rivista.fascicoli == null) rivista.fascicoli = new ArrayList<>();
         rivista.fascicoli.add(this);
     }
 }
