@@ -132,6 +132,23 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
     }
 
     @Override
+    public ResultSet getInfoSeriePreferitiDB(String isbn){
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement getInfoSeriePreferitiPS = connection.prepareStatement(
+                    "SELECT * FROM Serie AS s NATURAL JOIN possesso_s AS ps NATURAL JOIN Libreria AS lib WHERE isbn = '"+isbn+"';"   //prepara la query che cerca tutti i libri della serie
+            );
+
+            rs = getInfoSeriePreferitiPS.executeQuery(); //esegue la query
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        return rs;
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

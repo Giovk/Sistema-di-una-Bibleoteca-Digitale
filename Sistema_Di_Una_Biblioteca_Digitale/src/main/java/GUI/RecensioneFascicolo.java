@@ -246,40 +246,11 @@ public class RecensioneFascicolo extends JDialog {
         });
 
 
-        frame.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
+        frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
                 frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-
             }
         });
 
@@ -298,7 +269,7 @@ public class RecensioneFascicolo extends JDialog {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 if(valutazione == 0){
-                    JOptionPane.showMessageDialog(frame, "Inserire la valutazione.");
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Inserire la valutazione");
                 } else {
                     controller.addRecensioneFascicolo(valutazione, editorPane1.getText());
                     DecimalFormat valMedForm = new DecimalFormat("#.#");

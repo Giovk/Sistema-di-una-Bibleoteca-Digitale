@@ -26,7 +26,7 @@
         <properties>
           <font name="Bebas Neue" size="25" style="0"/>
           <foreground color="-1"/>
-          <text value="Login"/>
+          <text value="Accedi"/>
         </properties>
       </component>
       <component id="8ed3f" class="javax.swing.JButton" binding="btSignUp" custom-create="true">
@@ -36,7 +36,7 @@
         <properties>
           <font name="Bebas Neue" size="25" style="0"/>
           <foreground color="-1"/>
-          <text value="SignIn"/>
+          <text value="Registrati"/>
         </properties>
       </component>
       <vspacer id="b6ae0">

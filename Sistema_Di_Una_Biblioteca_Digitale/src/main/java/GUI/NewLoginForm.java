@@ -2,10 +2,14 @@ package GUI;
 
 import Controller.Controller;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 
 public class NewLoginForm extends JDialog {
@@ -95,41 +99,12 @@ public class NewLoginForm extends JDialog {
             menuAcc = 0;
         }
 
-        frame.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
+        frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
                 frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
                 frameC.toFront();
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-
             }
         });
 
@@ -481,7 +456,7 @@ public class NewLoginForm extends JDialog {
         }
 
         if (controller.validaUtente(userEmail, password) < 1) { //controlla se non esiste un utente registrato che ha come username o email 'userMail' e come password 'password'
-            JOptionPane.showMessageDialog(frame, "L'Account non esiste.");
+            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo utente non esiste");
         } else {
             frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
             controller.setUtente(userEmail, password); //salva in memoria l'utente che ha accesso usando 'userEmail' e 'Password'
@@ -528,16 +503,18 @@ public class NewLoginForm extends JDialog {
             //fieldError.setText("Compilare tutti i campi obbligatori");  //imposta il testo di un messaggio di errore nella JLabel 'fieldError'
             //fieldError.setVisible(true);    //rende visibile la JLabel 'fieldError' contenente un messaggio di errore
             //frame.setResizable(true);   //permette all'utente di modificare le dimensioni del frame
-            JOptionPane.showMessageDialog(frame, "Compilare tutti i campi obbligatori.");
+            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obbligatori");
         } else {
             if (password1.equals(password2) == false) {//controlla se la password scelta dall'utente 'pass1' è diversa da quella ripetuta
                 //regError.setText("Le password non coincidono"); //imposta il testo di un messaggio di errore nella JLabel 'fieldError'
                 // regError.setVisible(true);  //rende visibile la JLabel 'fieldError' contenente un messaggio di errore
                 //frame.setResizable(true);   //permette all'utente di modificare le dimensioni del frame
-                JOptionPane.showMessageDialog(frame, "Le password non coincidono.");
+                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Le password non coincidono");
             } else {
                 //regError.setVisible(false); //rende invisibile la JLabel 'regError'
-                JOptionPane.showMessageDialog(frame, "Registrazione Completata.");
+                NewShowMessageDialog dialog = new NewShowMessageDialog(1, "Registrazione Completata");
+
+
 
                 dt = dataNascitaTF.getText();
                 if (dt.isBlank()) dt = null;
@@ -553,6 +530,7 @@ public class NewLoginForm extends JDialog {
             }
         }
     }
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

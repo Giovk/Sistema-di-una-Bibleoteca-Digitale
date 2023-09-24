@@ -3,6 +3,7 @@ package DAO;
 import Model.Fascicolo;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public interface RecensioneDAO {
     public float valutazioneMediaLibroDB(String isbn);  //ritorna la media delle valutazioni del libro con isbn 'isbn'
@@ -20,6 +21,7 @@ public interface RecensioneDAO {
     public boolean changeLikeFascicoloDB(boolean like, int numero, String titolo, String user);
     public void addRecensioneFascicoloDB(int valutazione, String text, int numero, String titolo, String user);  //aggiunge/aggiorna una recensione con 'valutazione' e 'testo' fatta dall'utente 'user' al libro 'isbn'
     public ResultSet allRecWithCommentFascicoloDB(int numero, String titolo);  //ritorna tutte le recensioni con un testo fatte al libro 'isbn'
-
+    public ArrayList<String> getLibriISBNPreferitiDB(String user);
+    public ArrayList<String> getSerieISBNPreferitiDB(String user);
     public void chiudiConnessione();    //chiude la connessione al DB
 }

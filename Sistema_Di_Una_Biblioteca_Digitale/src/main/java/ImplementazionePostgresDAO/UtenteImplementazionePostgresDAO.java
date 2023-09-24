@@ -177,11 +177,17 @@ public class UtenteImplementazionePostgresDAO implements UtenteDAO {
     @Override
     public void modUtenteDB(String email, String nome, String cognome, String username, String password, String partitaIVA, String oldUsername){    //modifica i dati nel DB dell'utente con l'username 'oldUsername'
         try {
-            PreparedStatement modUtentePS = connection.prepareStatement(
-                 "UPDATE utente SET email = '"+email+"', nome = '"+nome+"', cognome = '"+cognome+"', username = '"+username+"', passwordu = '"+password+"', partitaiva = '"+partitaIVA+"' WHERE username = '"+oldUsername+"';"  //prepara la query di modific dell'utente con 'oldUsername' come utente
-            );
-
-            modUtentePS.executeUpdate();    //esegue la query
+            if(partitaIVA != null) {
+                PreparedStatement modUtentePS = connection.prepareStatement(
+                        "UPDATE utente SET email = '" + email + "', nome = '" + nome + "', cognome = '" + cognome + "', username = '" + username + "', passwordu = '" + password + "', partitaiva = '" + partitaIVA + "' WHERE username = '" + oldUsername + "';"  //prepara la query di modific dell'utente con 'oldUsername' come utente
+                );
+                modUtentePS.executeUpdate();    //esegue la query
+            } else {
+                PreparedStatement modUtentePS = connection.prepareStatement(
+                        "UPDATE utente SET email = '" + email + "', nome = '" + nome + "', cognome = '" + cognome + "', username = '" + username + "', passwordu = '" + password + "', partitaiva = NULL WHERE username = '" + oldUsername + "';"  //prepara la query di modific dell'utente con 'oldUsername' come utente
+                );
+                modUtentePS.executeUpdate();    //esegue la query
+            }
             connection.close(); //chiude la connessione al DB
         } catch (SQLException var2){
             var2.printStackTrace();

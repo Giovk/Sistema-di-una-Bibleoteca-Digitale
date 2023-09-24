@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.Date;
-
 public class Utente {
     public String username;
     public String password;
@@ -61,4 +59,13 @@ public class Utente {
     public String getPassword(){return password;}   //ritorna la password dell'utente
 
     public String getDataNascita(){return dataNascita;} //ritorna la data di nascita dell'utente
+    public boolean VerifyPartitaIVA(String piva){
+        if (piva.length() == 0) return true;
+        if (piva.length() != 11) return false;
+        for(int i = 0; i < piva.length(); i++){
+            if(piva.charAt(i) < '0' || piva.charAt(i) > '9') return false;
+        }
+
+        return true;
+    }
 }

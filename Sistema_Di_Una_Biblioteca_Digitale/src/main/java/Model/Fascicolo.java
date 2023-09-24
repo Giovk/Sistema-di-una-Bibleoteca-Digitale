@@ -21,4 +21,14 @@ public class Fascicolo extends Elemento{
         if (rivista.fascicoli == null) rivista.fascicoli = new ArrayList<>();
         rivista.fascicoli.add(this);
     }
+
+    public Fascicolo(int n, Rivista r, Date dp){
+        super(dp);
+        numero = n;
+        rivista = r;
+
+
+        if (rivista.fascicoli == null) rivista.fascicoli = new ArrayList<>();
+        rivista.fascicoli.add(this);
+    }
 }

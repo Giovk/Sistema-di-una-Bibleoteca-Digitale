@@ -129,8 +129,9 @@ public class IssuesPage {
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
-        if (controller.getPartitaIva() == null) {   //controlla se la partita IVA dell'utente è nulla
+        if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
+            utenteMenu.setPopupSize(new Dimension(80, 50));
         }
 
         frame = new JFrame("Biblioteca Digitale");
@@ -227,6 +228,17 @@ public class IssuesPage {
                 frameC.setVisible(true); //rende visibile il frame chiamante
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
+            }
+        });
+
+        utenteLibrerie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'pf'
+                bsp.frame.setVisible(true);  //rende visible il frame 'pf'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+
             }
         });
 
@@ -637,6 +649,7 @@ public class IssuesPage {
         numeroNotifiche = controller.getNumeroNotificheNonLette();
 
         if(numeroNotifiche < 100 && numeroNotifiche > 0){
+            notificheLabel.setVisible(true);
             String numeroNotificheText = Integer.toString(numeroNotifiche);
             notificheLabel.setText(numeroNotificheText);
         }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");

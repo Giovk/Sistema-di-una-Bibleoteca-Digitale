@@ -598,6 +598,54 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
     }
 
     @Override
+    public ArrayList<String> getLibriISBNPreferitiDB(String user){
+        ArrayList<String> isbn = new ArrayList<>();
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement getLibriISBNPreferitiPS = connection.prepareStatement(
+                    "SELECT isbn FROM recensione_l WHERE username = '"+user+"' AND preferito = true" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+            );
+            rs = getLibriISBNPreferitiPS.executeQuery(); //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                isbn.add(rs.getString("isbn"));
+            }
+
+            rs.close();
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+        chiudiConnessione();
+
+        return isbn;
+    }
+
+    @Override
+    public ArrayList<String> getSerieISBNPreferitiDB(String user){
+        ArrayList<String> isbn = new ArrayList<>();
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement getLibriISBNPreferitiPS = connection.prepareStatement(
+                    "SELECT isbn FROM recensione_s WHERE username = '"+user+"' AND preferito = true" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+            );
+            rs = getLibriISBNPreferitiPS.executeQuery(); //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs'
+                isbn.add(rs.getString("isbn"));
+            }
+
+            rs.close();
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+        chiudiConnessione();
+
+        return isbn;
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

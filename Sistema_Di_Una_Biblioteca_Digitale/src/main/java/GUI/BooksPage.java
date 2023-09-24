@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.*;
 import java.awt.*;
@@ -129,8 +130,9 @@ public class BooksPage {
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
-        if (controller.getPartitaIva() == null) {   //controlla se la partita IVA dell'utente è nulla
+        if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
+            utenteMenu.setPopupSize(new Dimension(80, 50));
         }
 
         ArrayList<String> collanaList = controller.getCollanaNome();    //collane di libri nel DB
@@ -229,6 +231,17 @@ public class BooksPage {
                 frameC.setVisible(true); //rende visibile il frame chiamante
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
+            }
+        });
+
+        utenteLibrerie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'pf'
+                bsp.frame.setVisible(true);  //rende visible il frame 'pf'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+
             }
         });
 
@@ -440,8 +453,8 @@ public class BooksPage {
         collanaCB.setBorder(new LineBorder(Color.decode("#222831")));
 
         Object comp3 = collanaCB.getUI().getAccessibleChild(collanaCB, 0);
-        if(comp1 instanceof JPopupMenu){
-            JPopupMenu popup = (JPopupMenu) comp1;
+        if(comp3 instanceof JPopupMenu){
+            JPopupMenu popup = (JPopupMenu) comp3;
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
             scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
@@ -792,6 +805,7 @@ public class BooksPage {
         numeroNotifiche = controller.getNumeroNotificheNonLette();
 
         if(numeroNotifiche < 100 && numeroNotifiche > 0){
+            notificheLabel.setVisible(true);
             String numeroNotificheText = Integer.toString(numeroNotifiche);
             notificheLabel.setText(numeroNotificheText);
         }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");
@@ -812,11 +826,11 @@ public class BooksPage {
 
 
         ImageIcon radioIco = new ImageIcon(this.getClass().getResource("/r2.png"));
-        Image radioImg = radioIco.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
+        Image radioImg = radioIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         radioIco = new ImageIcon(radioImg);
 
         ImageIcon radioSelIco = new ImageIcon(this.getClass().getResource("/r1.png"));
-        Image radioSelImg = radioSelIco.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
+        Image radioSelImg = radioSelIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         radioSelIco = new ImageIcon(radioSelImg);
 
         groupRB = new ButtonGroup();
@@ -833,6 +847,9 @@ public class BooksPage {
         groupRB.add(autoreRB);
         groupRB.add(collanaRB);
 
+        genereCB = new JComboBox<>();
+
+
         ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/search.png"));
         Image searchImg = searchIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         searchIcon = new ImageIcon(searchImg);
@@ -840,12 +857,11 @@ public class BooksPage {
 
         ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
         Image notificaImg = notificaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        notificaIco = new ImageIcon(notificaImg);
 
+        notificaIco = new ImageIcon(notificaImg);
         notificheLabel = new JLabel();
         notificheLabel.setIcon(notificaIco);
     }
-
 }
 
 

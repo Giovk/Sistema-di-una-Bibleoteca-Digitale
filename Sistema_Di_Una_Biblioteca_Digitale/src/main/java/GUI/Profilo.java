@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
 
 
 public class Profilo {
@@ -65,12 +64,13 @@ public class Profilo {
     private JScrollPane notificheScrollPanel;
     private JTable notificheTable;
     private JPanel notifichePanel;
+    private JLabel partitaivaErrorLabel2;
     private JPopupMenu utenteMenu;
     private JPopupMenu tabellaMenu;
     private Boolean active = false;
     private DefaultTableModel model;
-    int row_selected;
-    int numeroNotifiche;
+    private int row_selected;
+    private int numeroNotifiche;
 
     public Profilo(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
@@ -164,6 +164,11 @@ public class Profilo {
         tabellaMenu.add(tabellaElimina);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
         tabellaMenu.add(tabellaVisualizzata); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
 
+        if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
+            utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
+            utenteMenu.setPopupSize(new Dimension(80, 50));
+        }
+
         frame = new JFrame("Profilo");
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(profilePanel);
@@ -203,6 +208,7 @@ public class Profilo {
         usernameErrorLabel.setVisible(false);   //rende invisibile la JLabel 'usernameErrorLabel'
         emailErrorLabel.setVisible(false);  //rende invisibile la JLabel 'emailErrorLabel'
         partitaivaErrorLabel.setVisible(false); //rende invisibile la JLabel 'partitaivaErrorLabel'
+        partitaivaErrorLabel2.setVisible(false);
         oldPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'oldPassErrorLabel'
         newPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'newPassErrorLabel'
 
@@ -237,6 +243,17 @@ public class Profilo {
             }
         });
 
+        utenteLibrerie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'pf'
+                bsp.frame.setVisible(true);  //rende visible il frame 'pf'
+                frame.setVisible(false);    //rende invisibile il frame
+                frame.dispose();
+
+            }
+        });
+
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -251,7 +268,7 @@ public class Profilo {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    utenteMenu.show(utenteButton, utenteButton.getWidth() - 78, utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
+                    utenteMenu.show(utenteButton, utenteButton.getWidth() - 80, utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
                 }
             }
         });
@@ -449,6 +466,7 @@ public class Profilo {
 
                 newPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'newPassErrorLabel'
                 partitaivaErrorLabel.setVisible(false); //rende invisibile la JLabel 'partitaivaErrorLabel'
+                partitaivaErrorLabel2.setVisible(false); //rende invisibile la JLabel 'partitaivaErrorLabel2'
                 usernameErrorLabel.setVisible(false);   //rende invisibile la JLabel 'usernameErrorLabel'
                 emailErrorLabel.setVisible(false);  //rende invisibile la JLabel 'emailErrorLabel'
                 oldPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'oldPassErrorLabel'
@@ -516,6 +534,11 @@ public class Profilo {
                     else
                         partitaivaErrorLabel.setVisible(false);    //se 'partitaIVA' non è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
 
+                    if (error[3] != 0)
+                        partitaivaErrorLabel2.setVisible(true);   //se 'partitaIVA' è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
+                    else
+                        partitaivaErrorLabel2.setVisible(false);    //se 'partitaIVA' non è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
+
                     //if (error[0] == 0) emailErrorLabel.setVisible(false);
                     //if (error[1] == 0) usernameErrorLabel.setVisible(false);
                     //if (error[2] == 0) partitaivaErrorLabel.setVisible(false);
@@ -551,6 +574,8 @@ public class Profilo {
                         oldPassLabel2.setVisible(false);
                         oldPasswordTextField.setVisible(false);
 
+                        if(partitaIVA.isBlank())partitaIVA = null;
+
                         if (pass1.isBlank())
                             controller.modUtente(emailU, nomeU, cognomeU, usernameU, controller.getPassword(), partitaIVA); //se la password non è stata modificata, allora modifica i dati del utente usando la password attuale dell'utente
                         else
@@ -566,8 +591,18 @@ public class Profilo {
                         passwordField2.setText(""); //imposta il testo di 'passwordField2' con la stringa vuota
                         oldPassField.setText("");   //imposta il testo di 'oldPassField' con la stringa vuota
 
+                        if (controller.getPartitaIva() == null) {   //controlla se la partita IVA dell'utente è nulla
+                            utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
+                            utenteMenu.setPopupSize(new Dimension(80, 50));
+                            controller.librerieUtente.clear();
+                        } else {
+                            utenteLibrerie.setVisible(true);   //rende invisibile la voce di menu 'utenteLibrerie'
+                            utenteMenu.setPopupSize(new Dimension(80, 75));
+                        }
+
                         newPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'newPassErrorLabel'
                         partitaivaErrorLabel.setVisible(false); //rende invisibile la JLabel 'partitaivaErrorLabel'
+                        partitaivaErrorLabel2.setVisible(false);
                         usernameErrorLabel.setVisible(false);   //rende invisibile la JLabel 'usernameErrorLabel'
                         emailErrorLabel.setVisible(false);  //rende invisibile la JLabel 'emailErrorLabel'
                     }
@@ -854,10 +889,10 @@ public class Profilo {
         tabellaElimina.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int comferma = 1;
+                int comferma = 0;
+                comferma = new NewComfirmMessageDialog().comfirmDialog("Vuoi davvero eliminare questa notifica?");
 
-                comferma = JOptionPane.showConfirmDialog(frame, "Vuoi davvero eliminare questa notifica?");
-                if(comferma == 0){
+                if(comferma == 1){
                     controller.rimuoviNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString());
                     model.removeRow(row_selected);
                     setNumeroNotifiche(controller);
@@ -884,6 +919,7 @@ public class Profilo {
         numeroNotifiche = controller.getNumeroNotificheNonLette();
 
         if(numeroNotifiche < 100 && numeroNotifiche > 0){
+            notificheLabel.setVisible(true);
             String numeroNotificheText = Integer.toString(numeroNotifiche);
             notificheLabel.setText(numeroNotificheText);
         }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");

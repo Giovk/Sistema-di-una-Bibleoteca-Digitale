@@ -19,4 +19,11 @@ public class Serie extends Elemento{
             libri.add(libroAttuale);
         }
     }
+
+    public Serie(String i, int nl, String t, Date dp){
+        super(dp);
+        titolo = t;
+        isbn = i;
+        nLibri = nl;
+    }
 }

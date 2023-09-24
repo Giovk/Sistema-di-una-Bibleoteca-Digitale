@@ -297,7 +297,7 @@ public class RecensioneSerie extends JDialog {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 if(valutazione == 0){
-                    JOptionPane.showMessageDialog(frame, "Inserire la valutazione.");
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Inserire la valutazione");
                 } else {
                     controller.addRecensioneSerie(valutazione, editorPane1.getText());
                     DecimalFormat valMedForm = new DecimalFormat("#.#");

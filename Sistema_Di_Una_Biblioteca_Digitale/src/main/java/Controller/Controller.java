@@ -8,26 +8,51 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Controller {
-    private Utente utente;
+    public Utente utente;
     public ArrayList<Libro> listaLibri = getLibri();
+    public Libro nuovoLibro;
+    public ArrayList<Autore> nuoviAutori = new ArrayList<>();
     public ArrayList<Libro> listaLibriCollana = new ArrayList<>();
     public ArrayList<Libro> listaLibriSerie = new ArrayList<>();
     public ArrayList<Serie> listaSerie = getSerie();
     public ArrayList<Serie> listaSerieAutore = new ArrayList<>();
     public ArrayList<Serie> listaSerieGenere = new ArrayList<>();
     public ArrayList<Rivista> listaRiviste = getRiviste();
-
     public ArrayList<Fascicolo> listaFascicoli = getFascicoli();
     public ArrayList<Presentazione> listaPresentazioni = new ArrayList<>();
     public ArrayList<Notifica> listaNotifiche = new ArrayList<>();
+    public ArrayList<String> libriISBNPreferiti = new ArrayList<>();
+    public ArrayList<String> libriTitoloPreferiti = new ArrayList<>();
+    public ArrayList<Possesso> possessolPreferiti = new ArrayList<>();
+    public ArrayList<Libreria> librerieLibriPreferiti = new ArrayList<>();
+    public ArrayList<String> serieISBNPreferiti = new ArrayList<>();
+    public ArrayList<String> serieTitoloPreferiti = new ArrayList<>();
+    public ArrayList<Possesso> possessosPreferiti = new ArrayList<>();
+    public ArrayList<Libreria> librerieSeriePreferiti = new ArrayList<>();
+    public ArrayList<String> fascicoliTitoloPreferiti = new ArrayList<>();
+    public ArrayList<Fascicolo> fascicoliPreferiti = new ArrayList<>();
+    public ArrayList<Possesso> possessofPreferiti = new ArrayList<>();
+    public ArrayList<Libreria> librerieFascicoliPreferiti = new ArrayList<>();
+    public ArrayList<Libreria> librerieUtente = new ArrayList<>();
     public String isbn_selected = "";
     public String nome_selected = "";
+    public Libreria libreria_selected = null;
     public Fascicolo fascicolo_selected = null;
     public boolean likeElementSelected;
     public ArrayList<Recensione> recensioniConCommento = new ArrayList<>();
+    public ArrayList<Possesso> possessoLLibreria = new ArrayList<>();
+    public ArrayList<Possesso> possessoSLibreria = new ArrayList<>();
+    public ArrayList<Possesso> possessoFLibreria = new ArrayList<>();
+    public ArrayList<String> titoloLibriLibreria = new ArrayList<>();
+    public ArrayList<String> titoloSerieLibreria = new ArrayList<>();
+    public ArrayList<Fascicolo> fascicoliLibreria = new ArrayList<>();
+
     public Controller(){
     }
 
@@ -75,7 +100,7 @@ public class Controller {
     }
 
     public int[] validaModUtente(String email, String username, String pIva){   //controlla se delle modifiche effettuate dallutente sono corrette, verificando che l'email 'email', l'username 'uername' e/o la partita IVA 'pIva' non siano già state utilizzate da altri utenti
-        int[] error = {0, 0, 0, 0};
+        int[] error = {0, 0, 0, 0, 0};
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
 
         if(!email.equals(utente.email)){    //controlla se l'email è stata modificata
@@ -86,8 +111,10 @@ public class Controller {
             error[1] = u.validaModUsernameDB(username); //mette in 'error[1]' il numero di utenti con 'username' trovati nel DB
         }
 
-        if(!pIva.equals(utente.partitaIVA)){    //controlla se l'username è stato modificato
-            error[2] = u.validaModPIVADB(pIva); //mette in 'error[2]' il numero di utenti con pIva' trovati nel DB
+        if(!pIva.equals(utente.partitaIVA)){    //controlla se la partita iva è stato modificato
+            if(utente.VerifyPartitaIVA(pIva) == false){
+                error[3] = 1;
+            } else error[2] = u.validaModPIVADB(pIva); //mette in 'error[2]' il numero di utenti con pIva' trovati nel DB
         }
 
         u.chiudiConnessione();  //chiude la connessione al DB
@@ -135,6 +162,14 @@ public class Controller {
     }
 
     // LIBRO //
+
+    public boolean creaLibro(String isbn, String titolo, String genere,String lingua, String editore,String dp){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        boolean presenzaLibro = l.creaLibroDB(isbn, titolo, genere, lingua, editore, dp);
+
+        nuovoLibro = new Libro(isbn, titolo, genere, editore, lingua, Date.valueOf(dp));
+        return presenzaLibro;
+    }
     public ArrayList<Libro> getLibri() {   //ritorna i dati di tutti i libri nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ResultSet rs = l.getLibriDB();  //cerca i dati di tutti i libri nel DB
@@ -191,7 +226,51 @@ public class Controller {
             var.printStackTrace();
         }
 
+        l.chiudiConnessione();
+
         listaLibriSerie = libri;
+    }
+
+    public void getInfoLibriPreferiti(){
+        getLibriISBNPreferiti();
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        ResultSet rs = null;
+
+
+        libriTitoloPreferiti.clear();
+        possessolPreferiti.clear();
+        librerieLibriPreferiti.clear();
+
+        for (int i = 0; i< libriISBNPreferiti.size(); i++){
+            rs = l.getInfoLibriPreferitiDB(libriISBNPreferiti.get(i));
+
+            try {
+                while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
+                    libriTitoloPreferiti.add(libriISBNPreferiti.get(i) + " - " + rs.getString("titolo"));
+                    Libro libro = new Libro(rs.getString("isbn"),rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), rs.getString("titolo") ,rs.getDate("datapubblicazione"));
+                    Libreria libreria = new Libreria(rs.getString("nome"),rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"));
+                    possessolPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), libro, libreria));
+                    librerieLibriPreferiti.add(libreria);
+                }
+            } catch (SQLException var){
+                var.printStackTrace();
+            }
+        }
+
+        l.chiudiConnessione();
+    }
+
+    public String getISBNLibro(String titolo){
+        String isbn = "";
+
+        for (int i = 0; i < listaLibri.size(); i++){
+            if (titolo.equals(listaLibri.get(i).titolo)){
+                isbn = listaLibri.get(i).isbn;
+                i = listaLibri.size();
+            }
+        }
+
+        return isbn;
     }
 
     // COLLANA //
@@ -201,6 +280,13 @@ public class Controller {
     }
 
     // AUTORE //
+    public void aggiungiAutore(String nome, String cognome, String nazionalita, String dn){
+        AutoreDAO a = new AutoreImplementazionePostgresDAO();
+        a.aggiungiAutoreDB(nome, cognome, nazionalita, dn, nuovoLibro.isbn);
+
+        if(!dn.isBlank())nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));
+        else nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, null));
+    }
     public ArrayList<Autore> getAutoriLibro(String isbn){    //ritorna gli autori del libro con ISBN 'isbn'
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
         ResultSet rs = a.getAutoriLibroDB(isbn); //ResultSet contenente tutti gli autori del libro con ISBN 'isbn'
@@ -485,6 +571,54 @@ public class Controller {
         return nTel;
     }
 
+    public void getLibrerieUtente(){
+        LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
+        ArrayList<Libreria> librerie = new ArrayList<>();
+
+        ResultSet rs = l.getLibrerieUtenteDB(utente.username);
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente la media
+                librerie.add(new Libreria(rs.getString("nome"), rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"), utente));
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        librerieUtente = librerie;
+    }
+
+    public boolean verificaNumeroTelefonicoLibreria(String nt){
+        if (nt.length() != 10) return false;
+        for(int i = 0; i < nt.length(); i++){
+            if(nt.charAt(i) < '0' || nt.charAt(i) > '9') return false;
+        }
+
+        return true;
+    }
+
+    public boolean presenzaNumeroTelefonicoLibreria(String nt){
+        LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
+        return l.presenzaNumeroTelefonicoLibreriaDB(nt);
+    }
+
+    public boolean presenzaLibreria(String nome, String sw, String indirizzo){
+        LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
+        return l.presenzaLibreriaDB(nome, sw, indirizzo);
+    }
+
+    public void addLibreria(String nome, String nt, String sw, String indirizzo){
+        LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
+        l.addLibreriaDB(nome, nt, sw, indirizzo,utente.username);
+        librerieUtente.add(new Libreria(nome, nt, indirizzo, sw, utente));
+    }
+
+    public void removeLibreria(int index){
+        LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
+        l.removeLibreriaDB(librerieUtente.get(index).numeroTelefonico);
+        librerieUtente.remove(index);
+    }
+
     // PRESENTAZIONE //
 
     public void getPresentazione(){    //ritorna i dati di tutte le presentazioni del libro con ISBN 'isbn_selected'
@@ -578,6 +712,48 @@ public class Controller {
         s.chiudiConnessione();   //chiude la connessione al DB
 
         listaSerieAutore = serie;
+    }
+
+    public void getInfoSeriePreferiti(){
+        getSerieISBNPreferiti();
+        SerieDAO s = new SerieImplementazionePostgresDAO();
+        ResultSet rs = null;
+
+
+        serieTitoloPreferiti.clear();
+        possessosPreferiti.clear();
+        librerieSeriePreferiti.clear();
+
+        for (int i = 0; i< serieISBNPreferiti.size(); i++){
+            rs = s.getInfoSeriePreferitiDB(serieISBNPreferiti.get(i));
+
+            try {
+                while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
+                    serieTitoloPreferiti.add(serieISBNPreferiti.get(i) + " - " + rs.getString("titolo"));
+                    Serie serie = new Serie(rs.getString("isbn"),rs.getInt("nlibri") ,rs.getString("titolo"), rs.getDate("datapubblicazione"));
+                    Libreria libreria = new Libreria(rs.getString("nome"),rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"));
+                    possessosPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), serie, libreria));
+                    librerieSeriePreferiti.add(libreria);
+                }
+            } catch (SQLException var){
+                var.printStackTrace();
+            }
+        }
+
+        s.chiudiConnessione();
+    }
+
+    public String getISBNSerie(String titolo){
+        String isbn = "";
+
+        for (int i = 0; i < listaSerie.size(); i++){
+            if (titolo.equals(listaSerie.get(i).titolo)){
+                isbn = listaSerie.get(i).isbn;
+                i = listaSerie.size();
+            }
+        }
+
+        return isbn;
     }
 
     // RECENSIONE //
@@ -689,6 +865,17 @@ public class Controller {
 
         r.chiudiConnessione();  //chiude la connessione al DB
     }
+
+    public void getLibriISBNPreferiti(){
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        libriISBNPreferiti = r.getLibriISBNPreferitiDB(utente.username);
+    }
+
+    public void getSerieISBNPreferiti(){
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+        serieISBNPreferiti = r.getSerieISBNPreferitiDB(utente.username);
+    }
+
     // RIVISTA //
 
     public ArrayList<Rivista> getRiviste() {   //ritorna i dati di tutte le serie nel DB
@@ -736,6 +923,31 @@ public class Controller {
         return fascicoli;
     }
 
+    public void getFascicoliPreferiti(){
+        FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
+        ResultSet rs = f.getFascicoliDB(utente.username);  //cerca i dati di tutti i libri nel DB
+        ArrayList<Fascicolo> fascicoli = new ArrayList<Fascicolo>();    //contiene tutti i libri
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri
+                for (int i = 0; i < listaRiviste.size(); i++){
+                    if(listaRiviste.get(i).issn.equals(rs.getString("issn"))){
+                        Rivista rivistaFascicolo = listaRiviste.get(i);
+                        i = listaRiviste.size();
+                        ArrayList<ArticoloScientifico> articoloScientifici = getArticoloScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                        fascicoli.add(new Fascicolo(rs.getInt("numero"), rivistaFascicolo, articoloScientifici, rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
+                    }
+                }
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        f.chiudiConnessione();  //chiude la connessione al DB
+
+        fascicoliPreferiti = fascicoli;
+    }
+
     public void selezionaFascicolo(int numero, String titolo){
         for(int i = 0; i < listaFascicoli.size(); i++){
             if(listaFascicoli.get(i).rivista.titolo.equals(titolo) && listaFascicoli.get(i).numero == numero) {
@@ -744,6 +956,34 @@ public class Controller {
             }
 
         }
+    }
+
+    public void getInfoFascicoliPreferiti(){
+        getFascicoliPreferiti();
+        FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
+        ResultSet rs = null;
+
+
+        fascicoliTitoloPreferiti.clear();
+        possessofPreferiti.clear();
+        librerieFascicoliPreferiti.clear();
+
+        for (int i = 0; i< fascicoliPreferiti.size(); i++){
+            rs = f.getInfoFascicoliPreferitiDB(fascicoliPreferiti.get(i).rivista.issn, fascicoliPreferiti.get(i).numero);
+
+            try {
+                while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
+                    fascicoliTitoloPreferiti.add(fascicoliPreferiti.get(i).rivista.titolo + " N°" + fascicoliPreferiti.get(i).numero);
+                    Libreria libreria = new Libreria(rs.getString("nome"),rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"));
+                    possessofPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), fascicoliPreferiti.get(i), libreria));
+                    librerieFascicoliPreferiti.add(libreria);
+                }
+            } catch (SQLException var){
+                var.printStackTrace();
+            }
+        }
+
+        f.chiudiConnessione();
     }
     // ARTICOLO_SCIENTIFICO //
 
@@ -827,4 +1067,89 @@ public class Controller {
 
         return true;
     }
+
+    // POSSESSO //
+
+    public void getPossessoLibreria(){
+        possessoLLibreria.clear();
+        possessoSLibreria.clear();
+        possessoFLibreria.clear();
+        titoloLibriLibreria.clear();
+        titoloSerieLibreria.clear();
+        fascicoliLibreria.clear();
+
+        getPossessoLLibreria();
+        getPossessoSLibreria();
+        getPossessoFLibreria();
+    }
+
+    public void getPossessoLLibreria(){
+        PossessoDAO p = new PossessoImplementazionePostgresDAO();
+        ResultSet rs = p.getPossessoLLibreriaDB(libreria_selected.nome, libreria_selected.sitoWeb, libreria_selected.indirizzo, utente.username);
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
+                Libro l = new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), rs.getString("titolo"), rs.getDate("datapubblicazione"));
+                titoloLibriLibreria.add(l.isbn + " - " + l.titolo);
+                possessoLLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), l, libreria_selected));   //inserisce un nuovo libro in 'libri'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+    }
+
+    public void getPossessoSLibreria(){
+        PossessoDAO p = new PossessoImplementazionePostgresDAO();
+        ResultSet rs = p.getPossessoSLibreriaDB(libreria_selected.nome, libreria_selected.sitoWeb, libreria_selected.indirizzo, utente.username);
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
+                Serie s = new Serie(rs.getString("isbn"), rs.getInt("nlibri"), rs.getString("titolo"), rs.getDate("datapubblicazione"));
+                titoloSerieLibreria.add(s.isbn + " - " + s.titolo);
+                possessoSLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), s, libreria_selected));   //inserisce un nuovo libro in 'libri'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+    }
+
+    public void getPossessoFLibreria(){
+        PossessoDAO p = new PossessoImplementazionePostgresDAO();
+        ResultSet rs = p.getPossessoFLibreriaDB(libreria_selected.nome, libreria_selected.sitoWeb, libreria_selected.indirizzo, utente.username);
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
+                Fascicolo f = new Fascicolo(rs.getInt("numero"), new Rivista(rs.getString("issn"), rs.getString("titolo"), rs.getString("editore"), rs.getInt("annopubblicazione"), rs.getString("nomer") + " " + rs.getString("cognomer"), rs.getString("argomento")) ,rs.getDate("datapubblicazione"));
+                fascicoliLibreria.add(f);
+                possessoFLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), f, libreria_selected));   //inserisce un nuovo libro in 'libri'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        p.chiudiConnessione();
+    }
+
+    public void modQuantitaLibro(String fruizione, int value){
+        PossessoDAO p = new PossessoImplementazionePostgresDAO();
+        p.modQuantitaLibroDB(isbn_selected, libreria_selected.numeroTelefonico, fruizione, value);
+    }
+
+    public void modQuantitaFascicolo(String fruizione, int value){
+        PossessoDAO p = new PossessoImplementazionePostgresDAO();
+        p.modQuantitaFascicoloDB(fascicolo_selected.rivista.issn, fascicolo_selected.numero,libreria_selected.numeroTelefonico, fruizione, value);
+    }
+
+    public boolean insertPossessoL(int quantita, String fruizione){
+        boolean presenzaPossessoL = false;
+        PossessoDAO p = new PossessoImplementazionePostgresDAO();
+        return presenzaPossessoL = p.insertPossessoLDB(nuovoLibro.isbn, libreria_selected.numeroTelefonico, quantita, fruizione);
+    }
+
+    public boolean insertPossessoL(String isbn,int quantita, String fruizione){
+        boolean presenzaPossessoL = false;
+        PossessoDAO p = new PossessoImplementazionePostgresDAO();
+        return presenzaPossessoL = p.insertPossessoLDB(isbn, libreria_selected.numeroTelefonico, quantita, fruizione);
+    }
+
 }
