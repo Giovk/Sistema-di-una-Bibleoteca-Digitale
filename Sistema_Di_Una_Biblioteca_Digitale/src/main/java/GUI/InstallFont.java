@@ -46,9 +46,31 @@ public class InstallFont {
     }
 
     private static void installFontOnUnix(String fontFilePath) {
-        // Codice per installare il font su sistemi Unix/Linux
-        // Devi utilizzare gli strumenti di sistema appropriati per l'installazione del font
-        // Questo codice dovrebbe essere implementato separatamente.
+        Process process;
+        try {
+            // Esegui il comando per copiare il font nella directory dei font
+            String copyCommand = "cp " + fontFilePath + " /usr/share/fonts/truetype/";
+            process = Runtime.getRuntime().exec(copyCommand);
+
+            int exitCode = process.waitFor();
+            if (exitCode != 0) {
+                System.err.println("Si è verificato un errore durante l'installazione del font su Unix/Lunix.");
+            }
+
+            // Aggiorna la cache dei font
+            String updateCacheCommand = "fc-cache -f -v";
+            process = Runtime.getRuntime().exec(updateCacheCommand);
+
+            exitCode = process.waitFor();
+            if (exitCode == 0) {
+                System.err.println("Si è verificato un errore durante l'installazione del font su Unix/Lunix.");
+            }
+
+            System.out.println("Il font è stato installato con successo su Unix/Linux.");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            System.err.println("Si è verificato un errore durante l'installazione del font su Unix/Lunix.");
+        }
     }
 }
 
