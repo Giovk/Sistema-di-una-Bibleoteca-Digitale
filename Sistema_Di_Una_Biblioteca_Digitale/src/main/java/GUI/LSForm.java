@@ -2,9 +2,13 @@ package GUI;
 
 import Controller.Controller;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.net.URL;
+import java.nio.Buffer;
 
 public class LSForm {
     private Controller controller;
@@ -123,6 +127,8 @@ public class LSForm {
 
         image = new JLabel();
         image.setText("");
+
+
         ImageIcon lb1igm = new ImageIcon(this.getClass().getResource("/b.png"));
         Image reslb1img = lb1igm.getImage().getScaledInstance(300, 169, Image.SCALE_SMOOTH);
         lb1igm = new ImageIcon(reslb1img);

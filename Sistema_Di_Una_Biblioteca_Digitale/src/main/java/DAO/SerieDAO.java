@@ -12,5 +12,6 @@ public interface SerieDAO {
     public ResultSet getListaSerieGenereDB(String genere);  //ritorna i dati delle serie con libri del genere 'genere'
     public ResultSet getListaSerieAutoreDB(String autore);  //ritorna i dati delle serie con libri dell'autore 'autore'
     public ResultSet getInfoSeriePreferitiDB(String isbn);
+    public boolean creaSerieDB(ArrayList<String> isbnList, String isbn, String titolo, String dp);
     public void chiudiConnessione();    //chiude la connessione al DB
 }

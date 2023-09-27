@@ -5,10 +5,7 @@ import Database.ConnessioneDatabase;
 import Model.Libro;
 import Model.Serie;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class SerieImplementazionePostgresDAO implements SerieDAO {
@@ -146,6 +143,89 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
         }
 
         return rs;
+    }
+
+    @Override
+    public boolean creaSerieDB(ArrayList<String> isbnList, String isbn, String titolo, String dp){
+        ResultSet rs = null;
+        int counter = 0;
+
+        try {
+            PreparedStatement creaSeriePS = connection.prepareStatement(
+                    "SELECT COUNT(*) AS conteggio FROM serie WHERE isbn = '"+isbn+"'"
+            );
+            rs = creaSeriePS.executeQuery();
+            try {
+                while (rs.next()){
+                    if (rs.getInt("conteggio") != 0){
+                        rs.close();
+                        chiudiConnessione();
+                        return false;
+                    } else {
+                        try {
+                            creaSeriePS = connection.prepareStatement(
+                                    "SELECT DISTINCT serie.isbn FROM serie JOIN inserimento ON serie.isbn = inserimento.serie WHERE serie.nlibri = '"+isbnList.size()+"'"
+                            );
+                            rs = creaSeriePS.executeQuery();
+                            try {
+                                while (rs.next()){
+                                    ResultSet rs2 = null;
+                                    creaSeriePS = connection.prepareStatement(
+                                            "SELECT libro FROM inserimento WHERE serie = '"+rs.getString(1)+"'"
+                                    );
+                                    rs2 = creaSeriePS.executeQuery();
+                                    try {
+                                        while (rs2.next()) {
+                                            if (isbnList.contains(rs2.getString(1))) counter++;
+                                            if (counter == isbnList.size()) {
+                                                rs.close();
+                                                rs2.close();
+                                                chiudiConnessione();
+                                                return false;
+                                            }
+                                        }
+                                        try {
+                                            creaSeriePS = connection.prepareStatement(
+                                                    "INSERT INTO serie(isbn, titolo, datapubblicazione, nlibri) VALUES ('"+isbn+"', '"+titolo+"', '"+Date.valueOf(dp)+"', '"+isbnList.size()+"')"
+                                            );
+                                            creaSeriePS.executeUpdate();
+                                        } catch (SQLException e){
+                                            e.printStackTrace();
+                                        }
+                                        for(String isbnSelected: isbnList){
+                                            try {
+                                                creaSeriePS = connection.prepareStatement(
+                                                        "INSERT INTO inserimento(serie, libro) VALUES ('"+isbn+"', '"+isbnSelected+"')"
+                                                );
+                                                creaSeriePS.executeUpdate();
+                                            } catch (SQLException e){
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                        rs.close();
+                                        rs2.close();
+                                        chiudiConnessione();
+                                        return true;
+                                    } catch (SQLException e){
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } catch (SQLException e){
+                                e.printStackTrace();
+                            }
+                        } catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     @Override

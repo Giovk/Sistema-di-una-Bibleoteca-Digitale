@@ -756,6 +756,11 @@ public class Controller {
         return isbn;
     }
 
+    public boolean creaSerie(ArrayList<String> isbnList, String isbn, String titolo, String dp){
+        SerieDAO s = new SerieImplementazionePostgresDAO();
+        return s.creaSerieDB(isbnList, isbn, titolo, dp);
+    }
+
     // RECENSIONE //
 
     public float valutazioneMediaLibro(){   //ritorna la media delle valutazioni del libro selezionato

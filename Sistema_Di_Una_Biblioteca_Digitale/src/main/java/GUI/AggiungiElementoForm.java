@@ -1,7 +1,6 @@
 package GUI;
 
 import Controller.Controller;
-import Model.Libro;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -12,6 +11,7 @@ import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class AggiungiElementoForm {
     public JFrame frame;
@@ -45,11 +45,25 @@ public class AggiungiElementoForm {
     private JLabel autoriLibroLabel;
     private JComboBox fruizioneLibroCB;
     private JSpinner quantitaLibroSpinner;
+    private JPanel seriePanel2;
+    private JTextField titoloSerieField;
+    private JTextField dataSerieField;
+    private JLabel calendarSerieIMG;
+    private JSpinner spinnerLibriSerie;
+    private JButton okSerieBT;
+    private JButton inviaSerieButton;
+    private JPanel isbnSeriePanel;
+    private JTextField isbnSerieField;
     private JPanel vSpacerForm;
     private DatePicker datePickerLibro;
     private int autoreLibroCount = 0;
+    private int isbnLibroCount = 0;
+    private DatePicker datePickerSerie;
+    private int libriISBNCount = 0;
     ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar2.png"));
     Image calendarImg = calendarIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+    private String isbnOld;
+    private ArrayList<String> isbnLibri;
 
     public AggiungiElementoForm(JFrame frameC, Controller controller, DefaultTableModel model){
         frame = new JFrame("Valutazione");
@@ -129,6 +143,9 @@ public class AggiungiElementoForm {
         serieBT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                isbnSeriePanel.removeAll();
+                isbnLibroCount = 0;
+                initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue());
                 seriePanel.setVisible(true);
                 bookPanel.setVisible(false);
                 issuePanel.setVisible(false);
@@ -512,6 +529,162 @@ public class AggiungiElementoForm {
                 }
             }
         });
+
+        // SERIE //
+        isbnLibri = new ArrayList<>();
+
+        for (String isbnLibro: controller.titoloLibriLibreria){
+            if(!isbnLibri.contains(isbnLibro.substring(0, 17))) isbnLibri.add(isbnLibro.substring(0, 17));
+        }
+        serieScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(0x222831);
+                this.trackColor= new Color(0xFFD369);
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                this.thumbLightShadowColor = new Color(0x323A48);
+                this.thumbHighlightColor = new Color(0x323A48);
+                this.trackHighlightColor = new Color(0xCF9E29);
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                decreaseButton.setBackground(new Color(0x222831));
+                return decreaseButton;
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(25, 15);
+                    }
+                };
+
+                increaseButton.setBackground(new Color(0x222831));
+                return increaseButton;
+            }
+
+            private Image getAppropriateIcon(int orientation){
+                switch(orientation){
+                    case SwingConstants.SOUTH: return dA;
+                    case SwingConstants.NORTH: return uA;
+                    case SwingConstants.EAST: return rA;
+                    default: return lA;
+                }
+            }
+        });
+
+        serieScrollPanel.setBackground(new Color(0x222831));
+        serieScrollPanel.setBorder(BorderFactory.createEmptyBorder());
+        serieScrollPanel.getViewport().setBackground(new Color(0x222831));
+
+        datePickerSerie = new DatePicker(calendarLibroIMG);
+
+        calendarSerieIMG.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(calendarSerieIMG.isEnabled() == true) {
+                    datePickerSerie.d.setVisible(true);
+                    dataSerieField.setText(datePickerSerie.setPickedDate());
+                }
+            }
+        });
+
+        spinnerLibriSerie.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if((int)spinnerLibriSerie.getValue() > 999) spinnerLibriSerie.setValue(999);
+                if((int)spinnerLibriSerie.getValue() < 0) spinnerLibriSerie.setValue(0);
+            }
+        });
+
+        okSerieBT.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                okSerieBT.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        okSerieBT.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                okSerieBT.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        okSerieBT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isbnSeriePanel.removeAll();
+                isbnLibroCount = 0;
+                initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue());
+                isbnSeriePanel.revalidate();
+                isbnSeriePanel.repaint();
+            }
+        });
+
+        inviaSerieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                inviaSerieButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+        inviaSerieButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                inviaSerieButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        inviaSerieButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!isbnSerieField.getText().isBlank()) {
+                    if(!titoloSerieField.getText().isBlank()) {
+                        if(!dataSerieField.getText().isBlank()) {
+                            ArrayList<String> libriISBN = takeISBN();
+                            if (libriISBN != null) {
+                                if(controller.creaSerie(libriISBN, isbnSerieField.getText().toString(), titoloSerieField.getText().toString(), dataSerieField.getText().toString()) == false){
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Serie già presente nel Database");
+                                } else {
+                                    frame.setVisible(false);
+                                    frameC.setEnabled(true);
+                                    frame.dispose();
+                                    frameC.toFront();
+                                }
+                            }
+                        }else {
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");
+                        }
+                    } else {
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");
+                    }
+                } else {
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");
+                }
+            }
+        });
     }
 
     private void takeAutori(Controller controller) {
@@ -559,7 +732,178 @@ public class AggiungiElementoForm {
         }
     }
 
-    private void initComponentsAutoreLibro() {
+    private ArrayList<String> takeISBN() {
+        ArrayList<String> isbn = new ArrayList<>();
+        int fieldCount = 0;
+        String nome = "";
+        String cognome = "";
+        String nazionalità = "";
+        String dn = "";
+        Component[] components = isbnSeriePanel.getComponents();
+        for (Component component : components) {
+            if (component instanceof JPanel) {
+                JPanel jPanel1 = (JPanel) component;
+                Component[] components2 = jPanel1.getComponents();
+
+                for (Component component2: components2){
+                    if(component2 instanceof JComboBox){
+                        JComboBox comboBox = (JComboBox) component2;
+                        if(comboBox.getSelectedItem() == null) {
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Aggiungere tutti gli isbn");
+                            return null;
+                        } else {
+                            isbn.add(comboBox.getSelectedItem().toString());
+                        }
+                    }
+                }
+            }
+        }
+        return isbn;
+    }
+
+    private void initComponentsISBNSerie(ArrayList<String> isbn, int ricorsive) {
+        if(ricorsive == 0) return;
+        isbnLibroCount++;
+        DefaultComboBoxModel model;
+        JPanel panel1 = new JPanel();
+        JLabel label2 = new JLabel();
+        JComboBox comboBox1 = new JComboBox();
+        String oldISBN = "";
+
+        //======== panel1 ========
+        {
+            panel1.setBackground(new Color(0x222831));
+            panel1.setLayout(new GridBagLayout());
+            ((GridBagLayout)panel1.getLayout()).columnWidths = new int[] {0, 0, 0};
+            ((GridBagLayout)panel1.getLayout()).rowHeights = new int[] {0, 0, 0, 0};
+            ((GridBagLayout)panel1.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
+            ((GridBagLayout)panel1.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
+
+            //---- label2 ----
+            label2.setText("ISBN Libro n°" + isbnLibroCount + ":");
+            label2.setForeground(new Color(0xeeeeee));
+            panel1.add(label2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 5, 5), 0, 0));
+
+            //---- comboBox1 ----
+            model = new DefaultComboBoxModel(isbn.toArray(new String[isbn.size()]));
+            comboBox1.setModel(model);
+            comboBox1.setMinimumSize(new Dimension(150, 26));
+            comboBox1.setPreferredSize(new Dimension(150, 26));
+            comboBox1.setBackground(Color.decode("#FFD369"));
+            comboBox1.setForeground(Color.decode("#222831"));
+            Object comp = comboBox1.getUI().getAccessibleChild(comboBox1, 0);
+            if(comp instanceof JPopupMenu){
+                JPopupMenu popup = (JPopupMenu) comp;
+                JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+                scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
+                scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                    ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+                    Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+                    Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+                    Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+                    Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    @Override
+                    protected void configureScrollBarColors() {
+                        this.thumbColor = new Color(0x222831);
+                        this.trackColor= new Color(0xFFD369);
+                        this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
+                        this.thumbLightShadowColor = new Color(0x323A48);
+                        this.thumbHighlightColor = new Color(0x323A48);
+                        this.trackHighlightColor = new Color(0xCF9E29);
+                    }
+
+                    @Override
+                    protected JButton createDecreaseButton(int orientation) {
+                        JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                            @Override
+                            public Dimension getPreferredSize() {
+                                return new Dimension(25, 15);
+                            }
+                        };
+
+                        decreaseButton.setBackground(new Color(0x222831));
+                        return decreaseButton;
+                    }
+
+                    @Override
+                    protected JButton createIncreaseButton(int orientation) {
+                        JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
+                            @Override
+                            public Dimension getPreferredSize() {
+                                return new Dimension(25, 15);
+                            }
+                        };
+
+                        increaseButton.setBackground(new Color(0x222831));
+                        return increaseButton;
+                    }
+
+                    private Image getAppropriateIcon(int orientation){
+                        switch(orientation){
+                            case SwingConstants.SOUTH: return dA;
+                            case SwingConstants.NORTH: return uA;
+                            case SwingConstants.EAST: return rA;
+                            default: return lA;
+                        }
+                    }
+                });
+            }
+
+            Component editorComp = comboBox1.getEditor().getEditorComponent();
+            if (editorComp instanceof JTextField) {
+                JTextField textField = (JTextField) editorComp;
+                textField.setBackground(new Color(0xFFD369));
+                textField.setForeground(new Color(0x222831));
+            }
+            comboBox1.setBorder(new LineBorder(Color.decode("#222831")));
+            comboBox1.setSelectedIndex(-1);
+
+            comboBox1.setName(String.valueOf(isbnLibroCount));
+            comboBox1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    checkDuplicateSelection(comboBox1.getSelectedIndex(), comboBox1);
+                }
+            });
+
+            panel1.add(comboBox1, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 5, 0), 0, 0));
+        }
+        isbnSeriePanel.add(panel1);
+        initComponentsISBNSerie(isbn, ricorsive-1);
+    }
+
+        private void checkDuplicateSelection(int index, JComboBox comboBoxPanel) {
+            int countCombobox = 1;
+
+            Component[] components = isbnSeriePanel.getComponents();
+            for (Component component : components) {
+                if (component instanceof JPanel) {
+                    JPanel jPanel1 = (JPanel) component;
+                    Component[] components2 = jPanel1.getComponents();
+                    for (Component component2: components2){
+                        if(component2 instanceof JComboBox){
+                            JComboBox comboBox1 = (JComboBox) component2;
+                            if(!comboBox1.getName().equals(comboBoxPanel.getName())){
+                                System.out.println(comboBox1.getName() + " - " + comboBoxPanel.getName());
+                                if(index == comboBox1.getSelectedIndex()){
+                                    comboBoxPanel.setSelectedIndex(-1);
+                                }
+                            }
+                        }
+                        countCombobox++;
+                    }
+                }
+            }
+        }
+
+        private void initComponentsAutoreLibro() {
         JPanel panel1 = new JPanel();
         JLabel label2 = new JLabel();
         JLabel label3 = new JLabel();
@@ -719,6 +1063,80 @@ public class AggiungiElementoForm {
         }
 
         quantitaLibroSpinner.setUI(new BasicSpinnerUI(){
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            Image uA = upArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            Image dA = downArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+
+            @Override
+            protected Component createPreviousButton() {
+                JButton button = new JButton(new ImageIcon(dA)){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(15, 15);
+                    }
+                };
+                button.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                    }
+                });
+                button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
+                button.setBorder(new LineBorder(new Color(0xFFD369)));
+                return button;
+            }
+
+            @Override
+            protected Component createNextButton() {
+                JButton button = new JButton(new ImageIcon(uA)){
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(15, 15);
+                    }
+                };
+                button.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        spinner.setValue(spinner.getNextValue()); // Azione per incrementare il valore
+                    }
+                });
+                button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
+                button.setBorder(new LineBorder(new Color(0xFFD369)));
+                return button;
+            }
+        });
+
+        // SERIE //
+        isbnSerieField = new JTextField();
+        isbnSerieField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+
+        titoloSerieField = new JTextField();
+        titoloSerieField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+
+        editoreLibroField = new JTextField();
+        editoreLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+
+        dataSerieField = new JTextField();
+        dataSerieField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+
+        calendarSerieIMG = new JLabel(calendarIco);
+
+        isbnSeriePanel = new JPanel();
+        isbnSeriePanel.setLayout(new GridLayout(-1, 2));
+
+        SpinnerNumberModel snm2 = new SpinnerNumberModel(2, 2, 999, 1);
+        spinnerLibriSerie = new JSpinner(snm2);
+
+        spinnerLibriSerie.setBorder(new LineBorder(new Color(0xFFD369)));
+
+        JComponent editor2 = spinnerLibriSerie.getEditor();
+        if (editor2 instanceof JSpinner.DefaultEditor) {
+            JTextField textField = ((JSpinner.DefaultEditor) editor2).getTextField();
+            textField.setForeground(new Color(0x222831));
+            textField.setBackground(new Color(0xFFD369));
+            textField.setBorder(new LineBorder(new Color(0x222831)));
+        }
+
+        spinnerLibriSerie.setUI(new BasicSpinnerUI(){
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
             Image uA = upArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
