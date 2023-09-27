@@ -8,7 +8,7 @@ public class ConnessioneDatabase {
     private static ConnessioneDatabase instance;
     public Connection connection = null;
     private String nome = "postgres";
-    private String password = "giovk";
+    private String password = "admibn";
     private String url = "jdbc:postgresql://localhost:5432/Biblioteca";
     private String driver = "org.postgresql.Driver";
 
