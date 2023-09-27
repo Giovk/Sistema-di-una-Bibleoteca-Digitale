@@ -1,17 +1,26 @@
 package GUI;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 public class InstallFont {
 
     public InstallFont() {
-        String fontFilePath = this.getClass().getResource("/BebasNeue-Regular.ttf").toString(); // Sostituisci con il percorso del tuo file font
+        String fontFilePath = this.getClass().getResource("/BebasNeue-Regular.ttf").toString().substring(6, this.getClass().getResource("/BebasNeue-Regular.ttf").toString().length()); // Sostituisci con il percorso del tuo file font
 
         String osName = System.getProperty("os.name").toLowerCase();
+        System.out.println(fontFilePath);
 
         if (osName.contains("win")) {
             // Codice per Windows
-            installFontOnWindows(fontFilePath);
+            boolean success = installFontOnWindows(fontFilePath);
+
+            if (success) {
+                System.out.println("Il font è stato installato con successo su Windows.");
+            } else {
+                System.err.println("Si è verificato un errore durante l'installazione del font su Windows.");
+            }
         } else if (osName.contains("mac")) {
             // Codice per macOS
             installFontOnMac(fontFilePath);
@@ -23,19 +32,39 @@ public class InstallFont {
         }
     }
 
-    private static void installFontOnWindows(String fontFilePath) {
-        // Codice per installare il font su Windows
+    private static boolean installFontOnWindows(String fontFilePath) {
         try {
-            Process process = Runtime.getRuntime().exec("cmd /c copy " + fontFilePath + " C:\\Windows\\Fonts\\");
-            int exitCode = process.waitFor();
+            // Copia il file del font nella directory dei font di Windows
+            File fontFile = new File(fontFilePath);
+            File destinationDir = new File(System.getProperty("user.home") + "\\AppData\\Local\\Microsoft\\Windows\\Fonts");
+            File destinationFile = new File(destinationDir, fontFile.getName());
 
-            if (exitCode == 0) {
-                System.out.println("Il font è stato installato con successo su Windows.");
-            } else {
-                System.err.println("Si è verificato un errore durante l'installazione del font su Windows.");
+            if (!destinationDir.exists() && !destinationDir.mkdirs()) {
+                return false;
             }
-        } catch (IOException | InterruptedException e) {
+
+            if (!fontFile.exists()) {
+                System.err.println("Il file del font non esiste.");
+                return false;
+            }
+
+            if (destinationFile.exists()) {
+                System.err.println("Il font è già presente nella directory dei font di Windows.");
+                return true; // Il font è già installato
+            }
+
+            java.nio.file.Files.copy(fontFile.toPath(), destinationFile.toPath());
+
+            // Registra il font nel registro di sistema
+            String fontRegistryPath = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
+            Preferences userRoot = Preferences.userRoot();
+            Preferences fontRegistry = userRoot.node(fontRegistryPath);
+            fontRegistry.put(fontFile.getName(), destinationFile.getAbsolutePath());
+
+            return true;
+        } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
