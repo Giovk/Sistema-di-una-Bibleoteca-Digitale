@@ -338,7 +338,7 @@
                         <constraints/>
                         <properties>
                           <background color="-11415"/>
-                          <font name="Bebas Neue"/>
+                          <font name="Impact"/>
                           <foreground color="-14538703"/>
                           <gridColor color="-14538703"/>
                           <rowMargin value="2"/>

@@ -327,7 +327,7 @@
                         <constraints/>
                         <properties>
                           <background color="-11415"/>
-                          <font name="Bebas Neue"/>
+                          <font name="Impact"/>
                           <foreground color="-14538703"/>
                           <gridColor color="-14538703"/>
                           <intercellSpacing width="1" height="2"/>

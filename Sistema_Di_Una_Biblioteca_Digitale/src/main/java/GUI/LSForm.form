@@ -24,9 +24,9 @@
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Bebas Neue" size="25" style="0"/>
-          <foreground color="-1"/>
-          <text value="Accedi"/>
+          <font name="Impact" size="25" style="0"/>
+          <foreground color="-1118482"/>
+          <text value="ACCEDI"/>
         </properties>
       </component>
       <component id="8ed3f" class="javax.swing.JButton" binding="btSignUp" custom-create="true">
@@ -34,9 +34,9 @@
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Bebas Neue" size="25" style="0"/>
-          <foreground color="-1"/>
-          <text value="Registrati"/>
+          <font name="Impact" size="25" style="0"/>
+          <foreground color="-1118482"/>
+          <text value="REGISTRATI"/>
         </properties>
       </component>
       <vspacer id="b6ae0">

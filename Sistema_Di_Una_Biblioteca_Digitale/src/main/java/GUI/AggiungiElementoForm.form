@@ -129,9 +129,9 @@
                 </constraints>
                 <properties>
                   <background color="-14538703"/>
-                  <font name="Bebas Neue" size="16" style="0"/>
+                  <font name="Impact" size="16" style="0"/>
                   <foreground color="-1118482"/>
-                  <text value="S c e g l i   u n   E l e m e n t o"/>
+                  <text value="SCEGLI UN ELEMENTO"/>
                 </properties>
               </component>
               <vspacer id="3b809">
@@ -191,10 +191,10 @@
                     </constraints>
                     <properties>
                       <background color="-14538703"/>
-                      <font name="Bebas Neue" size="16" style="0"/>
+                      <font name="Impact" size="16" style="0"/>
                       <foreground color="-1118482"/>
                       <horizontalAlignment value="0"/>
-                      <text value="L I B R O"/>
+                      <text value="LIBRO"/>
                     </properties>
                   </component>
                   <component id="ebb31" class="javax.swing.JLabel">
@@ -633,10 +633,10 @@
                     </constraints>
                     <properties>
                       <background color="-14538703"/>
-                      <font name="Bebas Neue" size="16" style="0"/>
+                      <font name="Impact" size="16" style="0"/>
                       <foreground color="-1118482"/>
                       <horizontalAlignment value="0"/>
-                      <text value="S E R I E"/>
+                      <text value="SERIE"/>
                     </properties>
                   </component>
                   <component id="d7690" class="javax.swing.JLabel">

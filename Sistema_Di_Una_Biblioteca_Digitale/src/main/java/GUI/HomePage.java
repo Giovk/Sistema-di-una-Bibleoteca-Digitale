@@ -351,7 +351,7 @@ public class HomePage {
         headerRenderer.setBackground(new Color(0xCF9E29));
         headerRenderer.setForeground(new Color(0xEEEEEE));
         headerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        Font headerFont = new Font("Bebas Neue", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
+        Font headerFont = new Font("Impact", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
         headerRenderer.setFont(headerFont);
         JTableHeader tableHeader = mainTable.getTableHeader();
         tableHeader.setDefaultRenderer(headerRenderer);

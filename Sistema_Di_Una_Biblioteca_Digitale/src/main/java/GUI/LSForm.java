@@ -121,8 +121,6 @@ public class LSForm {
     }
 
     private void createUIComponents() {
-        InstallFont installFont = new InstallFont();
-
         // TODO: place custom component creation code here
         txtPF = new JLabel();
         txtPF.setForeground(Color.decode("#EEEEEE"));

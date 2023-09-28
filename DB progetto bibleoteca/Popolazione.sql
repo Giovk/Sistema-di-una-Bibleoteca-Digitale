@@ -356,7 +356,7 @@ VALUES ('Steve', 'Kloves', 'Statunitense', '1960-03-18');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --67
 VALUES ('John R. R.', 'Tolkien', 'Britannica', '1892-01-03');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
-VALUES ('Libero', 'Iannuzzi', 'Italiano');
+VALUES ('Libero', 'Iannuzzi', 'Italiana');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
 VALUES ('Camillo', 'Bortolati', 'Italiana');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
@@ -794,83 +794,83 @@ VALUES ('978-88-3100-343-8', 'Harry Potter e il principe mezzosangue', 'Fantasy'
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-3100-344-5', 'Harry Potter e i doni della morte', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-3100-670-5', 'L''Ickabog', 'Fantasy', 'Italiana', 'Salani', '2020-11-10');
+VALUES ('978-88-3100-670-5', 'L''Ickabog', 'Fantasy', 'Italiano', 'Salani', '2020-11-10');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-9381-618-2', 'Animali fantastici e dove trovarli', 'Fantasy', 'Italiana', 'Salani', '2017-01-16');
+VALUES ('978-88-9381-618-2', 'Animali fantastici e dove trovarli', 'Fantasy', 'Italiano', 'Salani', '2017-01-16');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-9381-711-0', 'Animali fantastici - I crimini di Grindelwald', 'Fantasy', 'Italiana', 'Salani', '2018-12-03');
+VALUES ('978-88-9381-711-0', 'Animali fantastici - I crimini di Grindelwald', 'Fantasy', 'Italiano', 'Salani', '2018-12-03');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-3101-288-1', 'Animali fantastici - I Segreti di Silente', 'Fantasy', 'Italiana', 'Salani', '2022-07-19');
+VALUES ('978-88-3101-288-1', 'Animali fantastici - I Segreti di Silente', 'Fantasy', 'Italiano', 'Salani', '2022-07-19');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4526-834-2', 'Lo Hobbit', 'Fantasy', 'Italiana', 'Bonpiani', '2012-06-20');
+VALUES ('978-88-4526-834-2', 'Lo Hobbit', 'Fantasy', 'Italiano', 'Bonpiani', '2012-06-20');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-301-0526-3', 'Il Signore Degli Anelli: La compagnia dell''anello', 'Fantasy', 'Italiana', 'Bonpiani', '2021-09-01');
+VALUES ('978-88-301-0526-3', 'Il Signore Degli Anelli: La compagnia dell''anello', 'Fantasy', 'Italiano', 'Bonpiani', '2021-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-301-0527-0', 'Il Signore Degli Anelli: Le due torri', 'Fantasy', 'Italiana', 'Bonpiani', '2021-09-01');
+VALUES ('978-88-301-0527-0', 'Il Signore Degli Anelli: Le due torri', 'Fantasy', 'Italiano', 'Bonpiani', '2021-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-301-0528-6', 'Il Signore Degli Anelli: Il ritorno del re', 'Fantasy', 'Italiana', 'Bonpiani', '2021-09-01');
+VALUES ('978-88-301-0528-6', 'Il Signore Degli Anelli: Il ritorno del re', 'Fantasy', 'Italiano', 'Bonpiani', '2021-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-452-7240-0', 'Il Silmarillion', 'Fantasy', 'Italiana', 'Bonpiani', '2013-01-23');
+VALUES ('978-88-452-7240-0', 'Il Silmarillion', 'Fantasy', 'Italiano', 'Bonpiani', '2013-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-85-1878-937-1', 'Le quattro stagioni', 'Didattico', 'Italiana', 'Independently published', '2021-06-15');
+VALUES ('978-85-1878-937-1', 'Le quattro stagioni', 'Didattico', 'Italiano', 'Independently published', '2021-06-15');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-6137-869-8', 'Matematica al volo in quarta', 'Didattico', 'Italiana', 'Erickson', '2011-09-01');
+VALUES ('978-88-6137-869-8', 'Matematica al volo in quarta', 'Didattico', 'Italiano', 'Erickson', '2011-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-5902-669-3', 'Leggere al volo', 'Didattico', 'Italiana', 'Erickson', '2020-05-13');
+VALUES ('978-88-5902-669-3', 'Leggere al volo', 'Didattico', 'Italiano', 'Erickson', '2020-05-13');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-207-3383-4', 'Elementi di analisi matematica uno', 'Didattico', 'Italiana', 'Liguori', '2016-02-01');
+VALUES ('978-88-207-3383-4', 'Elementi di analisi matematica uno', 'Didattico', 'Italiano', 'Liguori', '2016-02-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-9190-165-1', 'Il linguaggio C', 'Didattico','Italiana', 'Pearson', '2016-09-01');
+VALUES ('978-88-9190-165-1', 'Il linguaggio C', 'Didattico','Italiano', 'Pearson', '2016-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4529-530-0', 'Shining', 'Horror', 'Italiana', 'Bonpiani', '2017-09-20');
+VALUES ('978-88-4529-530-0', 'Shining', 'Horror', 'Italiano', 'Bonpiani', '2017-09-20');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-2009-266-5', 'Doctor Sleep', 'Horror', 'Italiana', 'Sperling & Kupfer', '2013-09-24');
+VALUES ('978-88-2009-266-5', 'Doctor Sleep', 'Horror', 'Italiano', 'Sperling & Kupfer', '2013-09-24');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-6836-562-2', 'IT', 'Horror', 'Italiana', 'Sperling & Kupfer', '2019-07-23');
+VALUES ('978-88-6836-562-2', 'IT', 'Horror', 'Italiano', 'Sperling & Kupfer', '2019-07-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-8560-312-7', 'Dammi Mille Baci', 'Rosa', 'Italiani', 'Always Publishing', '2018-06-21');
+VALUES ('978-88-8560-312-7', 'Dammi Mille Baci', 'Rosa', 'Italiano', 'Always Publishing', '2018-06-21');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-12-8007-876-6', 'Non proprio un colpo di fulmine', 'Rosa', 'Italiana', 'Always Publishing', '2022-11-25');
+VALUES ('978-12-8007-876-6', 'Non proprio un colpo di fulmine', 'Rosa', 'Italiano', 'Always Publishing', '2022-11-25');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-12-8007-834-6', 'L''amico del cuore', 'Rosa', 'Italiana', 'Always Publishing', '2022-03-17');
+VALUES ('978-12-8007-834-6', 'L''amico del cuore', 'Rosa', 'Italiano', 'Always Publishing', '2022-03-17');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-8560-324-0', 'La fattoria dei nuovi inizi', 'Rosa', 'Italiana', 'Always Publishing', '2019-01-31');
+VALUES ('978-88-8560-324-0', 'La fattoria dei nuovi inizi', 'Rosa', 'Italiano', 'Always Publishing', '2019-01-31');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-6311-435-5', 'La fattoria degli animali', 'Classico', 'Italiana', 'Liberamente', '2020-01-01');
+VALUES ('978-88-6311-435-5', 'La fattoria degli animali', 'Classico', 'Italiano', 'Liberamente', '2020-01-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-9543-776-7', 'Christmas Carol', 'Classico', 'Italiana', 'Caravaggio Editore', '2018-10-15');
+VALUES ('978-88-9543-776-7', 'Christmas Carol', 'Classico', 'Italiano', 'Caravaggio Editore', '2018-10-15');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-241-3', 'Il guardiano degli innocenti', 'Fantasy', 'Italiana', 'Nord', '2019-10-24');
+VALUES ('978-88-4293-241-3', 'Il guardiano degli innocenti', 'Fantasy', 'Italiano', 'Nord', '2019-10-24');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-242-0', 'La spada del destino', 'Fantasy', 'Italiana', 'Nord', '2019-10-24');
+VALUES ('978-88-4293-242-0', 'La spada del destino', 'Fantasy', 'Italiano', 'Nord', '2019-10-24');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-243-7', 'Il sangue degli elfi', 'Fantasy', 'Italiana', 'Nord', '2019-10-24');
+VALUES ('978-88-4293-243-7', 'Il sangue degli elfi', 'Fantasy', 'Italiano', 'Nord', '2019-10-24');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-275-8', 'Il tempo della guerra', 'Fantasy', 'Italiana', 'Nord', '2020-03-05');
+VALUES ('978-88-4293-275-8', 'Il tempo della guerra', 'Fantasy', 'Italiano', 'Nord', '2020-03-05');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4292-359-6', 'Il battesimo del fuoco', 'Fantasy', 'Italiana', 'Nord', '2020-03-05');
+VALUES ('978-88-4292-359-6', 'Il battesimo del fuoco', 'Fantasy', 'Italiano', 'Nord', '2020-03-05');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-277-2', 'La torre della rondine', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+VALUES ('978-88-4293-277-2', 'La torre della rondine', 'Fantasy', 'Italiano', 'Nord', '2020-05-28');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-278-9', 'La signora del lago', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+VALUES ('978-88-4293-278-9', 'La signora del lago', 'Fantasy', 'Italiano', 'Nord', '2020-05-28');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-279-6', 'La stagione delle tempeste', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+VALUES ('978-88-4293-279-6', 'La stagione delle tempeste', 'Fantasy', 'Italiano', 'Nord', '2020-05-28');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-481-3', 'La strada senza ritorno', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+VALUES ('978-88-4293-481-3', 'La strada senza ritorno', 'Fantasy', 'Italiano', 'Nord', '2020-05-28');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-0983-331-9', 'Alaska', 'Thriller', 'Italiana', 'Giunti Editore', '2016-11-09');
+VALUES ('978-88-0983-331-9', 'Alaska', 'Thriller', 'Italiano', 'Giunti Editore', '2016-11-09');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-0987-707-8', 'Hanover House', 'Thriller', 'Italiana', 'Giunti Editore', '2018-10-10');
+VALUES ('978-88-0987-707-8', 'Hanover House', 'Thriller', 'Italiano', 'Giunti Editore', '2018-10-10');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-0989-463-1', 'Alaska. La resa dei conti', 'Thriller', 'Italiana', 'Giunti Editore', '2019-10-16');
+VALUES ('978-88-0989-463-1', 'Alaska. La resa dei conti', 'Thriller', 'Italiano', 'Giunti Editore', '2019-10-16');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-0989-782-3', 'Alaska. Il ritorno', 'Thriller', 'Italiana', 'Giunti Editore', '2020-10-14');
+VALUES ('978-88-0989-782-3', 'Alaska. Il ritorno', 'Thriller', 'Italiano', 'Giunti Editore', '2020-10-14');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-16-2647-952-4', 'Dopo: Lo shock', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2016-06-20');
+VALUES ('978-16-2647-952-4', 'Dopo: Lo shock', 'Thriller', 'Italiano', 'Haunted Computer Productions', '2016-06-20');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-16-2647-977-7', 'L''eco', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2017-03-16');
+VALUES ('978-16-2647-977-7', 'L''eco', 'Thriller', 'Italiano', 'Haunted Computer Productions', '2017-03-16');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-16-2647-954-8', 'Dopo: Il cartello 291', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2016-06-20');
+VALUES ('978-16-2647-954-8', 'Dopo: Il cartello 291', 'Thriller', 'Italiano', 'Haunted Computer Productions', '2016-06-20');
 
 
 -- SCRITTURA_L --
