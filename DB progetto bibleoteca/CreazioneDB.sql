@@ -1327,7 +1327,7 @@ BEGIN
 
     SELECT NLibri INTO numeroLibri
     FROM SERIE
-    WHERE ISBN = NEW.Serie;
+    WHERE ISBN = NEW.isbn;
 
     IF libriInseriti = numeroLibri THEN
 
