@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Sistema_Di_Una_Biblioteca_Digitale:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Sistema_Di_Una_Biblioteca_Digitale_jar</output-path>
+    <root id="archive" name="Sistema_Di_Una_Biblioteca_Digitale.jar">
+      <element id="module-output" name="Sistema_Di_Una_Biblioteca_Digitale" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/postgresql-42.6.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
