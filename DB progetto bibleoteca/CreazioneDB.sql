@@ -1306,7 +1306,7 @@ CREATE TRIGGER T_inserimentoUtente AFTER INSERT ON UTENTE
 
 
 --quando viene inserita una nuova serie bisogna controllare se ci sono librerie che già la possiedono.
-CREATE OR REPLACE FUNCTION controllo_inserimentoSerie() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION controllo_inserimentoLibroSerie() RETURNS trigger AS $$
 DECLARE
     libreria_corrente LIBRERIA.CodL%TYPE;
     fruizione_corrente POSSESSO_S.Fruizione%TYPE;   
@@ -1377,5 +1377,5 @@ BEGIN
 END; 
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER T_inserimentoSerie AFTER INSERT ON INSERIMENTO
-    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoSerie();
+CREATE TRIGGER T_inserimentoSerieLibro AFTER INSERT ON INSERIMENTO
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibroSerie();
