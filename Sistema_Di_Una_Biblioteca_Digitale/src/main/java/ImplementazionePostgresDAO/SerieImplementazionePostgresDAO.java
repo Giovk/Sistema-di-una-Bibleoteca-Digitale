@@ -177,39 +177,20 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
                                     try {
                                         while (rs2.next()) {
                                             if (isbnList.contains(rs2.getString(1))) counter++;
-                                            if (counter == isbnList.size()) {
+                                            if (counter == isbnList.size()) { // Errore serie più piccole
                                                 rs.close();
                                                 rs2.close();
                                                 chiudiConnessione();
                                                 return false;
                                             }
                                         }
-                                        try {
-                                            creaSeriePS = connection.prepareStatement(
-                                                    "INSERT INTO serie(isbn, titolo, datapubblicazione, nlibri) VALUES ('"+isbn+"', '"+titolo+"', '"+Date.valueOf(dp)+"', '"+isbnList.size()+"')"
-                                            );
-                                            creaSeriePS.executeUpdate();
-                                        } catch (SQLException e){
-                                            e.printStackTrace();
-                                        }
-                                        for(String isbnSelected: isbnList){
-                                            try {
-                                                creaSeriePS = connection.prepareStatement(
-                                                        "INSERT INTO inserimento(serie, libro) VALUES ('"+isbn+"', '"+isbnSelected+"')"
-                                                );
-                                                creaSeriePS.executeUpdate();
-                                            } catch (SQLException e){
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                        rs.close();
-                                        rs2.close();
-                                        chiudiConnessione();
-                                        return true;
+                                        counter = 0;
                                     } catch (SQLException e){
                                         e.printStackTrace();
                                     }
+                                    rs2.close();
                                 }
+
                             } catch (SQLException e){
                                 e.printStackTrace();
                             }
@@ -221,11 +202,37 @@ public class SerieImplementazionePostgresDAO implements SerieDAO {
             } catch (SQLException e){
                 e.printStackTrace();
             }
+            rs.close();
         } catch (SQLException e){
             e.printStackTrace();
         }
 
-        return false;
+        try {
+            System.out.println(isbn);
+            System.out.println(titolo);
+            System.out.println(dp);
+            PreparedStatement creaSeriePS = connection.prepareStatement(
+                    "INSERT INTO serie(isbn, titolo, datapubblicazione, nlibri) VALUES ('"+isbn+"', '"+titolo+"', '"+dp+"', "+isbnList.size()+")"
+            );
+            System.out.println("Mangatsu2");
+            creaSeriePS.executeUpdate();
+            System.out.println("Mangatsu3");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        for(String isbnSelected: isbnList){
+            try {
+                PreparedStatement creaSeriePS = connection.prepareStatement(
+                        "INSERT INTO inserimento(serie, libro) VALUES ('"+isbn+"', '"+isbnSelected+"')"
+                );
+                creaSeriePS.executeUpdate();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        chiudiConnessione();
+        return true;
     }
 
     @Override
