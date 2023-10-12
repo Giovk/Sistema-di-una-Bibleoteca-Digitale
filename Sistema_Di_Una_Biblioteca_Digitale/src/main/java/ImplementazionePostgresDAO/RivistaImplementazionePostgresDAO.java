@@ -39,6 +39,48 @@ public class RivistaImplementazionePostgresDAO implements RivistaDAO {
     }
 
     @Override
+    public boolean creaRivistaDB(String issn, String titolo, String argomento, String nomeR, String cognomeR, String editore, int ap){
+        ResultSet rs = null;
+        try {
+            PreparedStatement creaRivistaPS = connection.prepareStatement(
+                    "SELECT COUNT(*) AS contatore FROM rivista WHERE issn = '"+issn+"'"
+            );
+            rs = creaRivistaPS.executeQuery();
+
+            try {
+                while(rs.next()){
+                    if(rs.getInt("contatore") == 0){
+                        try{
+                            creaRivistaPS = connection.prepareStatement(
+                                    "INSERT INTO rivista(issn, titolo, argomento, editore, nomer, cognomer, annopubblicazione) " +
+                                            "VALUES ('"+issn+"', '"+titolo+"', '"+argomento+"', '"+editore+"', '"+nomeR+"', '"+cognomeR+"', "+ap+")"
+                            );
+
+                            creaRivistaPS.executeUpdate();
+                            chiudiConnessione();
+                            return true;
+                        } catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                    } else {
+                        chiudiConnessione();
+                        return false;
+                    }
+                }
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        chiudiConnessione();
+        return false;
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

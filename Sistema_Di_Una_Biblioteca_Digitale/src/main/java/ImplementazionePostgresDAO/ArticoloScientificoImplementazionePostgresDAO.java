@@ -1,5 +1,6 @@
 package ImplementazionePostgresDAO;
 
+import Controller.Controller;
 import DAO.ArticoloScientificoDAO;
 import Database.ConnessioneDatabase;
 
@@ -34,6 +35,113 @@ public class ArticoloScientificoImplementazionePostgresDAO implements ArticoloSc
         }
 
         return rs;
+    }
+
+    @Override
+    public boolean creaArticoloDB(String titolo, int anno, int numero, String issn){
+        ResultSet rs = null;
+        boolean enter = false;
+        try {
+            PreparedStatement creaArticoloPS = connection.prepareStatement(
+                    "SELECT COUNT(*) AS contatore FROM articolo_scientifico WHERE titolo = '"+titolo+"'"
+            );
+            rs = creaArticoloPS.executeQuery();
+
+            try {
+                while(rs.next()){
+                    if(rs.getInt("contatore") == 0){
+                        try{
+                            creaArticoloPS = connection.prepareStatement(
+                                    "INSERT INTO articolo_scientifico(titolo, annopubblicazione) " +
+                                            "VALUES ('"+titolo+"', "+anno+")"
+                            );
+
+                            creaArticoloPS.executeUpdate();
+                            enter = true;
+                        } catch (SQLException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+            rs.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        try{
+            String doi = "";
+            int codf = 0;
+            PreparedStatement creaArticoloPS = connection.prepareStatement(
+                    "SELECT doi FROM articolo_scientifico WHERE titolo = '"+titolo+"'"
+            );
+
+            rs = creaArticoloPS.executeQuery();
+            try {
+                while (rs.next()){
+                    doi = rs.getString("doi");
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            creaArticoloPS = connection.prepareStatement(
+                    "SELECT codf FROM fascicolo WHERE numero = "+numero+" AND issn = '"+issn+"'"
+            );
+
+            rs = creaArticoloPS.executeQuery();
+
+            try {
+                while (rs.next()){
+                    codf = rs.getInt("codf");
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            System.out.println(codf + " - " + doi);
+
+            creaArticoloPS = connection.prepareStatement(
+                    "INSERT INTO introduzione(codf, doi) VALUES('"+codf+"', '"+doi+"')"
+            );
+
+            creaArticoloPS.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return enter;
+    }
+
+    @Override
+    public String getDoiDB(String titolo){
+       ResultSet rs = null;
+       String doi = "";
+       try {
+           PreparedStatement getDoiPS = connection.prepareStatement(
+                   "SELECT doi FROM articolo_scientifico WHERE titolo = '"+titolo+"'"
+           );
+
+           rs = getDoiPS.executeQuery();
+           try {
+               while (rs.next()){
+                   doi = rs.getString("doi");
+
+               }
+           } catch (SQLException e){
+               e.printStackTrace();
+           }
+           rs.close();
+       }catch (SQLException e){
+           e.printStackTrace();
+       }
+
+       return doi;
     }
 
     @Override

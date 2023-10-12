@@ -877,6 +877,8 @@ public class Profilo {
             public void mouseClicked(MouseEvent e) {
                 if(e.getButton() == MouseEvent.BUTTON3){
                     row_selected = notificheTable.rowAtPoint(e.getPoint());
+                    notificheTable.setRowSelectionInterval(row_selected, row_selected);
+
 
                     if (controller.getLetturaNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString()) == true){
                         tabellaVisualizzata.setVisible(false);

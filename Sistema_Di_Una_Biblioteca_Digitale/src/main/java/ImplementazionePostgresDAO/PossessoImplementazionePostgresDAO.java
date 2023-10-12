@@ -85,6 +85,7 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
         return rs;
     }
 
+    @Override
     public void modQuantitaLibroDB(String isbn, String nt, String fruizione, int value){
         int codl = 0;
 
@@ -119,6 +120,7 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
         chiudiConnessione();
     }
 
+    @Override
     public void modQuantitaFascicoloDB(String issn, int numero ,String nt, String fruizione, int value){
         int codl = 0;
         int codf = 0;
@@ -170,6 +172,7 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
         chiudiConnessione();
     }
 
+    @Override
     public boolean insertPossessoLDB(String isbn, String nt, int quantita, String fruizione){
         ResultSet rs = null;
         int codl = 0;
@@ -245,6 +248,184 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
         return false;
     }
 
+    @Override
+    public boolean insertPossessoFDB(int numero, String issn, String nt, int quantita, String fruizione){
+        ResultSet rs = null;
+        int codl = 0;
+        int codf = 0;
+        try {
+            PreparedStatement insertPossessoFPS = connection.prepareStatement(
+                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"
+            );
+
+            rs = insertPossessoFPS.executeQuery();
+            try {
+                while (rs.next()){
+                    try {
+                        codl = rs.getInt("codl");
+                        try{
+
+                            insertPossessoFPS = connection.prepareStatement(
+                                    "SELECT codf FROM fascicolo WHERE issn = '"+issn+"' AND numero = '"+numero+"'"
+                            );
+
+                            System.out.println(numero);
+
+                            ResultSet rs2 = insertPossessoFPS.executeQuery();
+                            System.out.println(issn);
+
+                            try {
+                                while(rs2.next()) {
+                                    codf = rs2.getInt("codf");
+                                    System.out.println(codf);
+                                }
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+
+                            rs2.close();
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                        insertPossessoFPS = connection.prepareStatement(
+                                "SELECT COUNT(*) AS contatore FROM possesso_f WHERE codf = '"+codf+"' AND codl = '"+codl+"' AND fruizione = '"+fruizione+"'"
+                        );
+
+                        rs = insertPossessoFPS.executeQuery();
+                        try {
+                            while (rs.next()){
+                                if (rs.getInt("contatore") == 0){
+                                    if (!fruizione.equals("Cartaceo")){
+                                        try {
+                                            insertPossessoFPS = connection.prepareStatement(
+                                                    "INSERT INTO possesso_f(codl, codf, fruizione) " +
+                                                            "VALUES ('"+codl+"', '"+codf+"', '"+fruizione+"')"
+                                            );
+
+                                            insertPossessoFPS.executeUpdate();
+                                            rs.close();
+                                            chiudiConnessione();
+                                            return true;
+                                        } catch (SQLException e){
+                                            e.printStackTrace();
+                                        }
+                                    } else {
+                                        try {
+                                            insertPossessoFPS = connection.prepareStatement(
+                                                    "INSERT INTO possesso_f(codl, codf, fruizione, quantita) " +
+                                                            "VALUES ('"+codl+"', '"+codf+"', '"+fruizione+"', '"+quantita+"')"
+                                            );
+
+                                            insertPossessoFPS.executeUpdate();
+                                            rs.close();
+                                            chiudiConnessione();
+                                            return true;
+                                        } catch (SQLException e){
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                } else {
+                                    rs.close();
+                                    chiudiConnessione();
+                                    return false;
+                                }
+                            }
+                        } catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                    } catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                }
+                rs.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        chiudiConnessione();
+        return false;
+    }
+
+    @Override
+    public void eliminaPossessoLDB(String isbn, String nt, String fruizione){
+        ResultSet rs = null;
+        try {
+            int codl = 0;
+            PreparedStatement eliminaPossessoLPS = connection.prepareStatement(
+                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"
+            );
+
+            rs = eliminaPossessoLPS.executeQuery();
+            try {
+                while (rs.next()) {
+                    codl = rs.getInt("codl");
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            eliminaPossessoLPS = connection.prepareStatement(
+                    "DELETE FROM possesso_l WHERE codl = '"+codl+"' AND isbn = '"+isbn+"' AND fruizione = '"+fruizione+"'"
+            );
+
+            eliminaPossessoLPS.executeUpdate();
+            rs.close();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        chiudiConnessione();
+    }
+
+    @Override
+    public void eliminaPossessoFDB(String issn, int numero, String nt, String fruizione){
+        ResultSet rs = null;
+        try {
+            int codl = 0;
+            int codf = 0;
+            PreparedStatement eliminaPossessoFPS = connection.prepareStatement(
+                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"
+            );
+
+            rs = eliminaPossessoFPS.executeQuery();
+            try {
+                while (rs.next()) {
+                    codl = rs.getInt("codl");
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            eliminaPossessoFPS = connection.prepareStatement(
+                    "SELECT codf FROM fascicolo WHERE issn = '"+issn+"' AND numero = '"+numero+"'"
+            );
+
+            rs = eliminaPossessoFPS.executeQuery();
+            try {
+                while (rs.next()) {
+                    codf = rs.getInt("codf");
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            eliminaPossessoFPS = connection.prepareStatement(
+                    "DELETE FROM possesso_f WHERE codl = '"+codl+"' AND codf = '"+codf+"' AND fruizione = '"+fruizione+"'"
+            );
+
+            eliminaPossessoFPS.executeUpdate();
+            rs.close();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        chiudiConnessione();
+    }
     @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{

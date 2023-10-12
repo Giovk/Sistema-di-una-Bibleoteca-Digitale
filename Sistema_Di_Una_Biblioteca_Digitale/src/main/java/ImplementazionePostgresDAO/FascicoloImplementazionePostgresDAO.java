@@ -3,10 +3,7 @@ package ImplementazionePostgresDAO;
 import DAO.FascicoloDAO;
 import Database.ConnessioneDatabase;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class FascicoloImplementazionePostgresDAO implements FascicoloDAO {
     private Connection connection;
@@ -67,6 +64,48 @@ public class FascicoloImplementazionePostgresDAO implements FascicoloDAO {
         }
 
         return rs;
+    }
+
+    @Override
+    public boolean creaFascicoloDB(int numero, String data, String issn){
+        ResultSet rs = null;
+        try {
+            PreparedStatement creaFascicoloPS = connection.prepareStatement(
+                    "SELECT COUNT(*) AS contatore FROM fascicolo WHERE issn = '"+issn+"' AND numero = '"+numero+"'"
+            );
+            rs = creaFascicoloPS.executeQuery();
+
+            try {
+                while(rs.next()){
+                    if(rs.getInt("contatore") == 0){
+                        try{
+                            creaFascicoloPS = connection.prepareStatement(
+                                    "INSERT INTO fascicolo(numero, datapubblicazione, issn) " +
+                                            "VALUES ('"+numero+"', '"+data+"', '"+issn+"')"
+                            );
+
+                            creaFascicoloPS.executeUpdate();
+                            chiudiConnessione();
+                            return true;
+                        } catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                    } else {
+                        chiudiConnessione();
+                        return false;
+                    }
+                }
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        chiudiConnessione();
+        return false;
     }
 
     @Override

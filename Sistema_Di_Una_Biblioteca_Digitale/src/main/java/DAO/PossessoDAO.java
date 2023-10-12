@@ -9,5 +9,8 @@ public interface PossessoDAO {
     public void modQuantitaLibroDB(String isbn, String nt, String fruizione, int value);
     public void modQuantitaFascicoloDB(String issn, int numero, String nt, String fruizione, int value);
     public boolean insertPossessoLDB(String isbn, String nt, int quantita, String fruizione);
+    public boolean insertPossessoFDB(int numero, String issn, String nt, int quantita, String fruizione);
+    public void eliminaPossessoLDB(String isbn, String nt, String fruizione);
+    public void eliminaPossessoFDB(String issn, int numero, String nt, String fruizione);
     public void chiudiConnessione();    //chiude la connessione al DB
 }

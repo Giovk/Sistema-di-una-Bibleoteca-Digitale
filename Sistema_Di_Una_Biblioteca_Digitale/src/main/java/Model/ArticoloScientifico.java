@@ -21,4 +21,10 @@ public class ArticoloScientifico {
             autoreAttuale.articoliScritti.add(this);
         }
     }
+
+    public ArticoloScientifico(String d, String t, int ap){
+        doi = d;
+        titolo = t;
+        annoPubblicazione = ap;
+    }
 }

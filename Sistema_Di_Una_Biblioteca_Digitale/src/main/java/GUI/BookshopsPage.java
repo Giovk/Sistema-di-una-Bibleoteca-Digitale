@@ -401,7 +401,7 @@ public class BookshopsPage {
                     librerieTable.clearSelection();
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
                     row_selected = librerieTable.rowAtPoint(e.getPoint());
-
+                    librerieTable.setRowSelectionInterval(row_selected, row_selected);
                     libreriaMenu.show(librerieTable, e.getX(), e.getY());
                 } else {
                     controller.libreria_selected = controller.librerieUtente.get(librerieTable.getSelectedRow());

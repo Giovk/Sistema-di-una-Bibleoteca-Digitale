@@ -438,7 +438,7 @@ public class BookshopPage {
                 super.mousePressed(e);
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     row_selected = elementiTable.rowAtPoint(e.getPoint());
-
+                    elementiTable.setRowSelectionInterval(row_selected, row_selected);
                     if(!controller.titoloSerieLibreria.contains(elementiTable.getValueAt(row_selected, 0))) {
                         if (elementiTable.getValueAt(row_selected, 2).toString().contains("Digitale") || elementiTable.getValueAt(row_selected, 2).toString().contains("AudioLibro")){
                             modificaQuantita.setVisible(false);
@@ -449,6 +449,29 @@ public class BookshopPage {
                         }
                     }
                 }
+            }
+        });
+
+        eliminaElemento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int comferma = 0;
+                comferma = new NewComfirmMessageDialog().comfirmDialog("Vuoi davvero eliminare questa notifica?");
+
+                if(comferma == 1) {
+                    if (controller.titoloLibriLibreria.contains(elementiTable.getValueAt(elementiTable.getSelectedRow(), 0).toString())) {
+                        controller.isbn_selected = elementiTable.getValueAt(elementiTable.getSelectedRow(), 0).toString().substring(0, 17);
+                        controller.eliminaPossessoL(elementiTable.getValueAt(elementiTable.getSelectedRow(), 2).toString());
+                    } else {
+                        controller.nome_selected = elementiTable.getValueAt(elementiTable.getSelectedRow(), 0).toString();
+                        int numero = Integer.valueOf(controller.nome_selected.substring(controller.nome_selected.indexOf("N°") + 2, controller.nome_selected.length()));
+                        controller.selezionaFascicolo(numero, controller.nome_selected.substring(0, controller.nome_selected.indexOf("N°") - 1));
+                        controller.eliminaPossessoF(elementiTable.getValueAt(elementiTable.getSelectedRow(), 2).toString());
+                    }
+                    model.removeRow(row_selected);
+                    controller.getPossessoLibreria();
+                }
+                elementiTable.clearSelection();
             }
         });
 

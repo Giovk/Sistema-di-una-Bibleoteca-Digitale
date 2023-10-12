@@ -7,17 +7,15 @@ import Model.*;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Controller {
     public Utente utente;
     public ArrayList<Libro> listaLibri = getLibri();
     public Libro nuovoLibro;
-    public ArrayList<Autore> nuoviAutori = new ArrayList<>();
+    public Rivista nuovaRivista;
+    public Fascicolo nuovoFascicolo;
+    public ArticoloScientifico nuovoArticoloScientifico;
     public ArrayList<Libro> listaLibriCollana = new ArrayList<>();
     public ArrayList<Libro> listaLibriSerie = new ArrayList<>();
     public ArrayList<Serie> listaSerie = getSerie();
@@ -27,6 +25,7 @@ public class Controller {
     public ArrayList<Fascicolo> listaFascicoli = getFascicoli();
     public ArrayList<Presentazione> listaPresentazioni = new ArrayList<>();
     public ArrayList<Notifica> listaNotifiche = new ArrayList<>();
+    public ArrayList<Fascicolo> listaFascicoliRivista = new ArrayList<>();
     public ArrayList<String> libriISBNPreferiti = new ArrayList<>();
     public ArrayList<String> libriTitoloPreferiti = new ArrayList<>();
     public ArrayList<Possesso> possessolPreferiti = new ArrayList<>();
@@ -38,6 +37,7 @@ public class Controller {
     public ArrayList<String> fascicoliTitoloPreferiti = new ArrayList<>();
     public ArrayList<Fascicolo> fascicoliPreferiti = new ArrayList<>();
     public ArrayList<Possesso> possessofPreferiti = new ArrayList<>();
+    public ArrayList<ArticoloScientifico> listaArticoli = new ArrayList<>();
     public ArrayList<Libreria> librerieFascicoliPreferiti = new ArrayList<>();
     public ArrayList<Libreria> librerieUtente = new ArrayList<>();
     public String isbn_selected = "";
@@ -280,12 +280,20 @@ public class Controller {
     }
 
     // AUTORE //
-    public void aggiungiAutore(String nome, String cognome, String nazionalita, String dn){
+    public void aggiungiAutoreLibro(String nome, String cognome, String nazionalita, String dn){
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
-        a.aggiungiAutoreDB(nome, cognome, nazionalita, dn, nuovoLibro.isbn);
+        a.aggiungiAutoreLibroDB(nome, cognome, nazionalita, dn, nuovoLibro.isbn);
 
         if(!dn.isBlank())nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));
         else nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, null));
+    }
+
+    public void aggiungiAutoreArticolo(String nome, String cognome, String nazionalita, String dn){
+        AutoreDAO a = new AutoreImplementazionePostgresDAO();
+        a.aggiungiAutoreArticoloDB(nome, cognome, nazionalita, dn, nuovoArticoloScientifico.doi);
+
+        if(!dn.isBlank())nuovoArticoloScientifico.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));
+        else nuovoArticoloScientifico.autori.add(new Autore(nome, cognome, nazionalita, null));
     }
     public ArrayList<Autore> getAutoriLibro(String isbn){    //ritorna gli autori del libro con ISBN 'isbn'
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
@@ -890,7 +898,7 @@ public class Controller {
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                riviste.add(new Rivista(rs.getString("issn"), rs.getString("titolo"), rs.getString("editore"), rs.getInt("annoPubblicazione"), rs.getString("nomer") + " " + rs.getString("cognomer"), rs.getString("argomento")));   //inserisce una nuova serie in 'serie'
+                riviste.add(new Rivista(rs.getString("issn"), rs.getString("titolo"), rs.getString("editore"), rs.getInt("annoPubblicazione"), rs.getString("nomer") + "#" + rs.getString("cognomer"), rs.getString("argomento")));   //inserisce una nuova serie in 'serie'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -899,6 +907,14 @@ public class Controller {
         r.chiudiConnessione();  //chiude la connessione al DB
 
         return riviste;
+    }
+
+    public boolean creaRivista(String titolo, String issn, String argomento ,String nomeR, String cognomeR, String editore,int ap){
+        RivistaDAO r = new RivistaImplementazionePostgresDAO();
+        boolean presenzaRivista = r.creaRivistaDB(issn, titolo, argomento, nomeR, cognomeR, editore, ap);
+
+        nuovaRivista = new Rivista(issn, titolo, editore, ap, nomeR +"#"+ cognomeR, argomento);
+        return presenzaRivista;
     }
 
     // FASCICOLO //
@@ -926,6 +942,16 @@ public class Controller {
         f.chiudiConnessione();  //chiude la connessione al DB
 
         return fascicoli;
+    }
+
+    public void getFascicoliRivista(String issn){
+        ArrayList<Fascicolo> fascicoli = new ArrayList<>();
+
+        listaFascicoliRivista.clear();
+
+        for (Fascicolo f: listaFascicoli){
+            if(f.rivista.issn.equals(issn)) listaFascicoliRivista.add(f);
+        }
     }
 
     public void getFascicoliPreferiti(){
@@ -990,6 +1016,16 @@ public class Controller {
 
         f.chiudiConnessione();
     }
+
+    public boolean creaFascicolo(int numero, String data){
+        FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
+        boolean presenzaFascicolo = f.creaFascicoloDB(numero, data, nuovaRivista.issn);
+
+        nuovoFascicolo = new Fascicolo(numero, nuovaRivista, Date.valueOf(data));
+        nuovoFascicolo.articoli = new ArrayList<ArticoloScientifico>();
+        return presenzaFascicolo;
+    }
+
     // ARTICOLO_SCIENTIFICO //
 
     public ArrayList<ArticoloScientifico> getArticoloScientifici(String issn, int n){
@@ -1006,6 +1042,26 @@ public class Controller {
         }
 
         return  articoloScientifici;
+    }
+
+    public void getArticoliScientifici(){
+        listaArticoli.clear();
+
+        for (int i = 0; i < listaFascicoli.size(); i++){
+            for (int j = 0; j < listaFascicoli.get(i).articoli.size(); j++){
+                listaArticoli.add(listaFascicoli.get(i).articoli.get(j));
+            }
+        }
+    }
+
+    public boolean creaArticolo(String titolo, int anno){
+        ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
+        boolean presenzaArticolo = as.creaArticoloDB(titolo, anno, nuovoFascicolo.numero, nuovoFascicolo.rivista.issn);
+        nuovoArticoloScientifico = new ArticoloScientifico(as.getDoiDB(titolo), titolo, anno);
+
+        as.chiudiConnessione();
+
+        return presenzaArticolo;
     }
 
     // NOTIFICA //
@@ -1151,10 +1207,19 @@ public class Controller {
         return presenzaPossessoL = p.insertPossessoLDB(nuovoLibro.isbn, libreria_selected.numeroTelefonico, quantita, fruizione);
     }
 
-    public boolean insertPossessoL(String isbn,int quantita, String fruizione){
-        boolean presenzaPossessoL = false;
+    public boolean insertPossessoF(int quantita, String fruizione){
+        boolean presenzaPossessoF = false;
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
-        return presenzaPossessoL = p.insertPossessoLDB(isbn, libreria_selected.numeroTelefonico, quantita, fruizione);
+        return presenzaPossessoF = p.insertPossessoFDB(nuovoFascicolo.numero, nuovoFascicolo.rivista.issn, libreria_selected.numeroTelefonico, quantita, fruizione);
     }
 
+    public void eliminaPossessoL(String fruizione){
+        PossessoDAO p = new PossessoImplementazionePostgresDAO();
+        p.eliminaPossessoLDB(isbn_selected, libreria_selected.numeroTelefonico, fruizione);
+    }
+
+    public void eliminaPossessoF(String fruizione){
+        PossessoDAO p = new PossessoImplementazionePostgresDAO();
+        p.eliminaPossessoFDB(fascicolo_selected.rivista.issn, fascicolo_selected.numero, libreria_selected.numeroTelefonico, fruizione);
+    }
 }
