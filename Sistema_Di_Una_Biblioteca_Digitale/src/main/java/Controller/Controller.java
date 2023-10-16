@@ -52,6 +52,7 @@ public class Controller {
     public ArrayList<String> titoloLibriLibreria = new ArrayList<>();
     public ArrayList<String> titoloSerieLibreria = new ArrayList<>();
     public ArrayList<Fascicolo> fascicoliLibreria = new ArrayList<>();
+    public ArrayList<Collana> listaCollane = getCollane();
 
     public Controller(){
     }
@@ -277,6 +278,53 @@ public class Controller {
     public ArrayList<String> getCollanaNome(){  //ritorna tutti i nomi delle collane
         CollanaDAO c = new CollanaImplementazionePostgresDAO();
         return c.getCollanaNomeDB();   //contiene tutte le collane
+    }
+
+    public ArrayList<Collana> getCollane(){
+        CollanaDAO c = new CollanaImplementazionePostgresDAO();
+        ArrayList<Collana> collane = new ArrayList<>();
+        ResultSet rs = c.getCollaneDB();
+
+        try {
+            while (rs.next()){
+                getLibri(rs.getString("nome"));
+                collane.add(new Collana(rs.getString("caratteristica"), rs.getString("nome"), rs.getString("issn"), listaLibriCollana));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        c.chiudiConnessione();
+
+        return collane;
+    }
+
+    public void removeLibroFromCollana(String nomeCollana){
+        CollanaDAO c = new CollanaImplementazionePostgresDAO();
+        c.removeLibroFromCollanaDB(isbn_selected, nomeCollana);
+
+        listaCollane = getCollane();
+    }
+
+    public void addLibroInCollana(String nomeCollana){
+        CollanaDAO c = new CollanaImplementazionePostgresDAO();
+        c.addLibroInCollanaDB(isbn_selected, nomeCollana);
+
+        listaCollane = getCollane();
+    }
+
+    public boolean creaCollana(String nome, String caratteristica, String issn){
+        CollanaDAO c = new CollanaImplementazionePostgresDAO();
+        boolean creazione = c.creaCollanaDB(nome, caratteristica, issn);
+
+        if (creazione == false){
+            c.chiudiConnessione();
+            return false;
+        }
+
+        addLibroInCollana(nome);
+
+        return creazione;
     }
 
     // AUTORE //

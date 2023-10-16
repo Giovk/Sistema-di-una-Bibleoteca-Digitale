@@ -52,6 +52,7 @@ public class BookPage {
     private JLabel backButton;
     private JButton fascicoliButton;
     private JLabel notificheLabel;
+    private JLabel gestisciCollaneButton;
     private boolean active = false;
     ImageIcon favouriteVuotoIco;
     ImageIcon favouritePienoIco;
@@ -256,6 +257,7 @@ public class BookPage {
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
+            gestisciCollaneButton.setVisible(false);
             utenteMenu.setPopupSize(new Dimension(80, 50));
         }
 
@@ -643,6 +645,16 @@ public class BookPage {
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 RecensioneLibro recensioneLibro = new RecensioneLibro(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti);
+                frame.setEnabled(false); //disabilita il frame
+
+            }
+        });
+
+        gestisciCollaneButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                GestisciCollane gestisciCollane = new GestisciCollane(frame, controller);
                 frame.setEnabled(false); //disabilita il frame
             }
         });

@@ -46,6 +46,139 @@ public class CollanaImplementazionePostgresDAO implements CollanaDAO {
     }
 
     @Override
+    public ResultSet getCollaneDB(){
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement getCollanePS = connection.prepareStatement(
+                    "SELECT * FROM collana"
+            );
+
+            rs = getCollanePS.executeQuery();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return rs;
+    }
+
+    @Override
+    public void removeLibroFromCollanaDB(String isbn, String collana){
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement removeLibroFromCollanaPS = connection.prepareStatement(
+              "SELECT codc FROM collana WHERE nome = '"+collana+"'"
+            );
+
+            rs = removeLibroFromCollanaPS.executeQuery();
+            try {
+                while (rs.next()){
+                    removeLibroFromCollanaPS = connection.prepareStatement(
+                            "DELETE FROM appartenenza WHERE codc = '"+rs.getInt("codc")+"' AND isbn = '"+isbn+"'"
+                    );
+
+                    removeLibroFromCollanaPS.executeUpdate();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+            rs.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        chiudiConnessione();
+    }
+
+    @Override
+    public void addLibroInCollanaDB(String isbn, String collana){
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement addLibroInCollanaPS = connection.prepareStatement(
+                    "SELECT codc FROM collana WHERE nome = '"+collana+"'"
+            );
+
+            rs = addLibroInCollanaPS.executeQuery();
+            try {
+                while (rs.next()){
+                    addLibroInCollanaPS = connection.prepareStatement(
+                            "INSERT INTO appartenenza(codc, isbn) VALUES ('"+rs.getInt("codc")+"', '"+isbn+"')"
+                    );
+
+                    addLibroInCollanaPS.executeUpdate();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+            rs.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        chiudiConnessione();
+    }
+
+    public boolean creaCollanaDB(String nome, String caratteristica, String issn){
+        ResultSet rs = null;
+        try {
+            PreparedStatement creaCollanaPS = connection.prepareStatement(
+                    "SELECT COUNT(*) AS contatore FROM collana WHERE nome = '"+nome+"'"
+            );
+
+            rs = creaCollanaPS.executeQuery();
+            try {
+                while (rs.next()){
+                    if (rs.getInt("contatore") == 0){
+                        if(!issn.isBlank()){
+                            creaCollanaPS = connection.prepareStatement(
+                                    "SELECT COUNT(*) AS contatore FROM collana WHERE issn = '"+issn+"'"
+                            );
+
+                            rs = creaCollanaPS.executeQuery();
+                            try {
+                                while (rs.next()){
+                                    if (rs.getInt("contatore") == 0){
+                                        creaCollanaPS = connection.prepareStatement(
+                                                "INSERT INTO collana(nome, caratteristica, issn) VALUES('"+nome+"', '"+caratteristica+"', '"+issn+"')"
+                                        );
+
+                                        creaCollanaPS.executeUpdate();
+                                    } else{
+                                        rs.close();
+                                        chiudiConnessione();
+                                        return false;
+                                    }
+                                }
+                            } catch (SQLException e){
+                                e.printStackTrace();
+                            }
+                        } else {
+                            creaCollanaPS = connection.prepareStatement(
+                                    "INSERT INTO collana(nome, caratteristica) VALUES('"+nome+"', '"+caratteristica+"')"
+                            );
+
+                            creaCollanaPS.executeUpdate();
+                        }
+                    } else {
+                        rs.close();
+                        chiudiConnessione();
+                        return false;
+                    }
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+            rs.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){
