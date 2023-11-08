@@ -59,7 +59,7 @@ public class Utente {
     public String getPassword(){return password;}   //ritorna la password dell'utente
 
     public String getDataNascita(){return dataNascita;} //ritorna la data di nascita dell'utente
-    public boolean VerifyPartitaIVA(String piva){
+    public boolean verifyPartitaIVA(String piva){
         if (piva.length() == 0) return true;
         if (piva.length() != 11) return false;
         for(int i = 0; i < piva.length(); i++){

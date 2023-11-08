@@ -138,7 +138,7 @@ public class CreaPresentazione {
                         if(provinciaField.getText().isBlank() || provinciaField.getText().equals("(Opzionale)")) indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + nazioneField.getText();
                         else indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + provinciaField.getText() + ", " + nazioneField.getText();
 
-                        if(controller.addPresentazione(strutturaField.getText(), indirizzo, dataField.getText(), orario) == false) {
+                        if(controller.addPresentazione(strutturaField.getText().replace("'", "’"), indirizzo.replace("'", "’"), dataField.getText(), orario) == false) {
                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa struttura è gia occupata!");
                         } else {
                             controller.getPresentazione();

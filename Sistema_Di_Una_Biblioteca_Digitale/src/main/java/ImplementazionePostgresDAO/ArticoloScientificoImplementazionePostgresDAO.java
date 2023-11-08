@@ -173,10 +173,10 @@ public class ArticoloScientificoImplementazionePostgresDAO implements ArticoloSc
     @Override
     public void eliminaArticoloDB(String doi){
         try{
-            System.out.println(doi);
             PreparedStatement eliminaArticoloPS = connection.prepareStatement(
                     "DELETE FROM articolo_scientifico WHERE doi = '"+doi+"'"
             );
+            eliminaArticoloPS.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
         }

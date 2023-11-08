@@ -509,23 +509,29 @@ public class Conferenze {
                 if (strutturaField.getText().isBlank() || viaField.getText().isBlank() || ncField.getText().isBlank() || comuneField.getText().isBlank() || capField.getText().isBlank() || nazioneField.getText().isBlank() || dataInizioField.getText().isBlank() || dataFineField.getText().isBlank()){
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obbligatori");
                 } else {
-                    if(Date.valueOf(dataInizioField.getText()).after(Date.valueOf(dataFineField.getText())) == true || controller.anno_pubblicazione > Date.valueOf(dataInizioField.getText()).getYear()+1900){
-                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'evento non può finire prima che inizi");
+                    if(Date.valueOf(dataInizioField.getText()).after(Date.valueOf(dataFineField.getText())) == true){
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'evento non può finire prima che inizi!");
                     } else {
-                        String indirizzo = "";
-                        if(strutturaField.isEnabled() == true){
-                            if(provinciaField.getText().isBlank() || provinciaField.getText().equals("(Opzionale)")) indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + nazioneField.getText();
-                            else indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + provinciaField.getText() + ", " + nazioneField.getText();
-
-                            if(controller.addConferenza(strutturaField.getText(), indirizzo, dataInizioField.getText(), dataFineField.getText()) == false) {
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa struttura è gia occupata!");
-                            } else {
-                                    reload_table_cb(controller, indirizzo);
-                                    annulla_action();
-                            }
+                        if (controller.anno_pubblicazione > Date.valueOf(dataInizioField.getText()).getYear() + 1900) {
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'articolo è stato scritto dopo!");
                         } else {
-                            reload_table_cb(controller,controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);
-                            annulla_action();
+                            String indirizzo = "";
+                            if (strutturaField.isEnabled() == true) {
+                                if (provinciaField.getText().isBlank() || provinciaField.getText().equals("(Opzionale)"))
+                                    indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + nazioneField.getText();
+                                else
+                                    indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + provinciaField.getText() + ", " + nazioneField.getText();
+
+                                if (controller.addConferenza(strutturaField.getText().replace("'", "’"), indirizzo.replace("'", "’"), dataInizioField.getText(), dataFineField.getText()) == false) {
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa struttura è gia occupata!");
+                                } else {
+                                    reload_table_cb(controller, indirizzo.replace("'", "’"));
+                                    annulla_action();
+                                }
+                            } else {
+                                reload_table_cb(controller, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);
+                                annulla_action();
+                            }
                         }
                     }
                 }
@@ -554,7 +560,7 @@ public class Conferenze {
     }
 
     public void reload_table_cb(Controller controller, String indirizzo){
-        if (controller.addEsposizione(strutturaField.getText(), indirizzo, dataInizioField.getText(), dataFineField.getText()) == false){
+        if (controller.addEsposizione(strutturaField.getText().replace("'", "’"), indirizzo.replace("'", "’"), dataInizioField.getText(), dataFineField.getText()) == false){
             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo artico è gia esposto in questa conferenza!");
         } else {
             controller.getConferenzeArticolo();

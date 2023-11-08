@@ -667,7 +667,7 @@ public class IssuesPage {
 
                 String numero = String.valueOf(f.numero);
 
-                if (f.rivista.titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || f.rivista.argomento.toLowerCase().contains(searchBarField.getText().toLowerCase()) || f.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase()) || numero.toLowerCase().contains(searchBarField.getText().toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
+                if (f.rivista.titolo.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || f.rivista.argomento.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || f.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || numero.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
                     model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});
             }
         } else {

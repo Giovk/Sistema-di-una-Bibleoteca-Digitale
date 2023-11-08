@@ -134,7 +134,7 @@ public class GestisciCollane {
             public void actionPerformed(ActionEvent e) {
                 if (!caratteristicaField.getText().isBlank()) {
                     if (!nomeField.getText().isBlank()) {
-                        if (controller.creaCollana(nomeField.getText(), caratteristicaField.getText(), issnField.getText()) == true) {
+                        if (controller.creaCollana(nomeField.getText().replace("'", "’"), caratteristicaField.getText().replace("'", "’"), issnField.getText()) == true) {
                             inviaButton.setVisible(false);
                             collaneEsistentiPanel.setVisible(true);
                             collaneNuovePanel.setVisible(false);

@@ -585,6 +585,8 @@ public class HomePage {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
+            if(searchBarField.getText().contains("'")) searchBarField.setText(searchBarField.getText().replace("'", "’"));
+
             if (controller.libriTitoloPreferiti != null && controller.possessolPreferiti != null && controller.librerieLibriPreferiti != null) {
                 for (int i = 0; i < controller.libriTitoloPreferiti.size(); i++) {
                     String quantita = String.valueOf(controller.possessolPreferiti.get(i).quantita);

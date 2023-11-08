@@ -106,7 +106,7 @@ public class Controller {
     }
 
     public int[] validaModUtente(String email, String username, String pIva){   //controlla se delle modifiche effettuate dallutente sono corrette, verificando che l'email 'email', l'username 'uername' e/o la partita IVA 'pIva' non siano già state utilizzate da altri utenti
-        int[] error = {0, 0, 0, 0, 0};
+        int[] error = {0, 0, 0, 0};
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
 
         if(!email.equals(utente.email)){    //controlla se l'email è stata modificata
@@ -118,7 +118,7 @@ public class Controller {
         }
 
         if(!pIva.equals(utente.partitaIVA)){    //controlla se la partita iva è stato modificato
-            if(utente.VerifyPartitaIVA(pIva) == false){
+            if(utente.verifyPartitaIVA(pIva) == false){
                 error[3] = 1;
             } else error[2] = u.validaModPIVADB(pIva); //mette in 'error[2]' il numero di utenti con pIva' trovati nel DB
         }
@@ -126,6 +126,96 @@ public class Controller {
         u.chiudiConnessione();  //chiude la connessione al DB
 
         return error;
+    }
+
+    public int[] validaInsUtente(String email, String username, String pIva){   //controlla se delle modifiche effettuate dallutente sono corrette, verificando che l'email 'email', l'username 'uername' e/o la partita IVA 'pIva' non siano già state utilizzate da altri utenti
+        int[] error = {0, 0, 0};
+        UtenteDAO u = new UtenteImplementazionePostgresDAO();
+
+        error[0] = u.validaModEmailDB(email);   //mette in 'error[0]' il numero di utenti con 'email' trovati nel DB
+
+        error[1] = u.validaModUsernameDB(username); //mette in 'error[1]' il numero di utenti con 'username' trovati nel DB
+
+        error[2] = u.validaModPIVADB(pIva); //mette in 'error[2]' il numero di utenti con pIva' trovati nel DB
+
+        u.chiudiConnessione();  //chiude la connessione al DB
+
+        return error;
+    }
+
+    public boolean verificaPartitaIVA(String pIva){
+        if (pIva.length() == 0) return true;
+        if (pIva.length() != 11) return false;
+        for(int i = 0; i < pIva.length(); i++){
+            if(pIva.charAt(i) < '0' || pIva.charAt(i) > '9') return false;
+        }
+
+        return  true;
+    }
+
+    public boolean verificaNomeCognome(String nc){
+        if (nc.length() == 0) return false;
+        for(int i = 0; i < nc.length(); i++){
+            if(String.valueOf(nc.charAt(i)) == "'"){
+                while(String.valueOf(nc.charAt(i)) == "'") i++;
+            }
+            if(i < nc.length()) {
+                if (!((nc.charAt(i) >= 'a' && nc.charAt(i) <= 'z') || (nc.charAt(i) >= 'A' && nc.charAt(i) <= 'Z')))return false;
+            }
+        }
+
+        return  true;
+    }
+
+    public String changeEmail (String email){
+        for(int i = 0; i < email.length(); i++){
+            if(email.charAt(i) < 'A' || email.charAt(i) > 'Z'){
+                email.replace(email.charAt(i), (char) (email.charAt(i) + 32));
+            }
+        }
+
+        return email;
+    }
+    public boolean verificaEmail(String email){
+        if (email.length() <= 2) return false;
+        if (!email.contains("@") || !email.contains(".")) return false;
+
+        int index1 = 0, index2 = 0;
+
+        index1 = email.indexOf("@");
+        index2 = email.lastIndexOf(".");
+
+        if (index1 > index2) return false;
+
+        if (email.substring(0, index1) == null || email.substring(0, index1) == "") return false;
+        if (email.length() < index1+2) return false;
+        if (email.substring(index1+1, index2) == null || email.substring(index1+1, index2) == "") return false;
+        if (email.length() < index2+2) return false;
+        if (email.substring(index2+2, email.length()) == null || email.substring(index2+1, email.length()) == "") return false;
+
+        for(int i = 0; i < email.length(); i++){
+            if(!((email.charAt(i) >= '0' && email.charAt(i) <= '9') || (email.charAt(i) >= '@' && email.charAt(i) <= 'Z') || (email.charAt(i) >= 'a' && email.charAt(i) <= 'z') || (email.charAt(i) == '.'))) return false;
+        }
+
+        return  true;
+    }
+
+    public boolean verificaPassword(String password){
+        if (password.length() < 8) return false;
+
+        int numeri = 0;
+        int specialChar = 0;
+        int capsChar = 0;
+
+        for(int i = 0; i < password.length(); i++){
+            if(password.charAt(i) >= '0' && password.charAt(i) <= '9') numeri++;
+            if(password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') capsChar++;
+            if(!((password.charAt(i) >= '0' && password.charAt(i) <= '9') || (password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') || (password.charAt(i) >= 'a' && password.charAt(i) <= 'z'))) specialChar++;
+        }
+
+        if (numeri == 0 || specialChar == 0 || capsChar == 0) return false;
+
+        return  true;
     }
 
     public void modUtente(String email, String nome, String cognome, String username, String password, String partitaIVA){  //modifica i dati dell'utente
@@ -269,6 +359,16 @@ public class Controller {
     public Date getDataLibro(){
         LibroDAO l = new LibroImplementazionePostgresDAO();
         return l.getDataLibroDB(isbn_selected);
+    }
+
+    public Date getDataLibro(String isbn){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        return l.getDataLibroDB(isbn);
+    }
+
+    public void eliminaLibro(){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        l.eliminaLibroDB(nuovoLibro.isbn);
     }
 
     // COLLANA //

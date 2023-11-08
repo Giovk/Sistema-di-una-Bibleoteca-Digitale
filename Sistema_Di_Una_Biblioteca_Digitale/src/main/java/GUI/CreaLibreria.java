@@ -22,27 +22,18 @@ public class CreaLibreria {
     private JTextField provinciaField;
     private JTextField capField;
     private JTextField nazioneField;
-    private JLabel campiErrorLabel;
-    private JLabel ntErrorLabel;
-    private JLabel ntError2Label;
-    private JLabel libreriaErrorLabel;
-
     public CreaLibreria(JFrame frameC, Controller controller, DefaultTableModel model){
         frame = new JFrame("Crea Libreria");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(720, 480);
+        frame.setSize(720, 430);
         frame.setLocationRelativeTo(null);
         contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
         frame.setResizable(false);
         frame.setVisible(true);
 
-        campiErrorLabel.setVisible(false);
-        ntErrorLabel.setVisible(false);
-        ntError2Label.setVisible(false);
-        libreriaErrorLabel.setVisible(false);
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -68,40 +59,49 @@ public class CreaLibreria {
         aggiungiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(nomeField.getText().isBlank() || ntField.getText().isBlank()) campiErrorLabel.setVisible(true);
-                else campiErrorLabel.setVisible(false);
+                if(nomeField.getText().isBlank() || ntField.getText().isBlank()){
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obbligatori!");
+                } else {
+                    if (controller.verificaNumeroTelefonicoLibreria(ntField.getText()) == false) {
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Il numero telefonico è errato!");
+                    } else {
+                        if (controller.presenzaNumeroTelefonicoLibreria(ntField.getText()) == false) {
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Il numero telefonico è già presente!");
+                        } else {
 
-                if(controller.verificaNumeroTelefonicoLibreria(ntField.getText()) == false) ntErrorLabel.setVisible(true);
-                else ntErrorLabel.setVisible(false);
+                            String indirizzo = "";
 
-                if(controller.presenzaNumeroTelefonicoLibreria(ntField.getText()) == false) ntError2Label.setVisible(true);
-                else ntError2Label.setVisible(false);
+                            if (!viaField.getText().isBlank() && !ncField.getText().isBlank() && !comuneField.getText().isBlank() && !capField.getText().isBlank() && !nazioneField.getText().isBlank()) {
+                                if (provinciaField.getText().isBlank() || provinciaField.getText().equals("(Opzionale)"))
+                                    indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + nazioneField.getText();
+                                else
+                                    indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + provinciaField.getText() + ", " + nazioneField.getText();
+                            } else indirizzo = "";
 
-                String indirizzo = "";
+                            if (indirizzo.isBlank() && swField.getText().isBlank()) {
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Almeno uno dei campi tra indirizzo o sito web deve essere compilato!");
+                            } else {
 
-                if(!viaField.getText().isBlank() && !ncField.getText().isBlank() && !comuneField.getText().isBlank() && !capField.getText().isBlank() && !nazioneField.getText().isBlank()){
-                    if(provinciaField.getText().isBlank() || provinciaField.getText().equals("(Opzionale)")) indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + nazioneField.getText();
-                    else indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + provinciaField.getText() + ", " + nazioneField.getText();
-                } else indirizzo = "";
+                                if (controller.presenzaLibreria(nomeField.getText().replace("'", "’"), swField.getText(), indirizzo.replace("'", "’")) == false) {
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libreria è gia presente!");
+                                } else {
+                                    controller.addLibreria(nomeField.getText().replace("'", "’"), ntField.getText(), swField.getText(), indirizzo.replace("'", "’"));
 
+                                    model.setRowCount(0);
+                                    if (controller.librerieUtente != null) {
+                                        for (int i = 0; i < controller.librerieUtente.size(); i++) {
+                                            model.addRow(new Object[]{controller.librerieUtente.get(i).nome, controller.librerieUtente.get(i).numeroTelefonico, controller.librerieUtente.get(i).sitoWeb, controller.librerieUtente.get(i).indirizzo, controller.librerieUtente.get(i).sitoWeb});
+                                        }
+                                    }
 
-                if(controller.presenzaLibreria(nomeField.getText().replace("'", "’"), swField.getText(), indirizzo.replace("'", "’")) == false) libreriaErrorLabel.setVisible(true);
-                else libreriaErrorLabel.setVisible(false);
-
-                if (campiErrorLabel.isVisible() == false && ntErrorLabel.isVisible() == false && ntError2Label.isVisible() == false && libreriaErrorLabel.isVisible() == false){
-                    controller.addLibreria(nomeField.getText().replace("'", "’"), ntField.getText(),swField.getText(), indirizzo.replace("'", "’"));
-
-                    model.setRowCount(0);
-                    if (controller.librerieUtente != null) {
-                        for (int i = 0; i < controller.librerieUtente.size(); i++) {
-                            model.addRow(new Object[]{controller.librerieUtente.get(i).nome, controller.librerieUtente.get(i).numeroTelefonico, controller.librerieUtente.get(i).sitoWeb, controller.librerieUtente.get(i).indirizzo, controller.librerieUtente.get(i).sitoWeb});
+                                    frame.setVisible(false);
+                                    frameC.setEnabled(true);
+                                    frame.dispose();
+                                    frameC.toFront();
+                                }
+                            }
                         }
                     }
-
-                    frame.setVisible(false);
-                    frameC.setEnabled(true);
-                    frame.dispose();
-                    frameC.toFront();
                 }
             }
         });

@@ -499,30 +499,73 @@ public class NewLoginForm extends JDialog {
 
         String partitaIVA = partitaIVATF.getText(); //partita IVA inserita dall'utente per effettuare la registrazione
 
-        if (nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank() || password1.isBlank() || password2.isBlank()) { //controlla se qualche campo obbligatorio è stato lasciato vuoto
+        if (emailU.isBlank() || nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank() || password1.isBlank() || password2.isBlank()) { //controlla se qualche campo obbligatorio è stato lasciato vuoto
             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obbligatori");
         } else {
-            if (usernameU.contains("'") || password1.contains("'") || password2.contains("'")){
-                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "il carattere ' non è ammesso");
+            if (controller.verificaEmail(emailU) == false){
+                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "email non valida!");
             } else {
-                if (password1.equals(password2) == false) {//controlla se la password scelta dall'utente 'pass1' è diversa da quella ripetuta
-                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Le password non coincidono");
+                emailU = controller.changeEmail(emailU);
+                if (usernameU.contains("'") || password1.contains("'") || password2.contains("'")) {
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "il carattere ' non è ammesso");
                 } else {
-                    NewShowMessageDialog dialog = new NewShowMessageDialog(1, "Registrazione Completata");
+                    if (controller.verificaNomeCognome(nomeU) == false || controller.verificaNomeCognome(cognomeU) == false) {
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Il nome o il cognome non sono validi!");
+                    } else {
+                        if(controller.verificaPassword(password1) == false){
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La password deve contenere 8 caratteri di cui: una maiuscola, un numero e un carattare speciale");
+                        } else {
+                            if (password1.equals(password2) == false) {//controlla se la password scelta dall'utente 'pass1' è diversa da quella ripetuta
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Le password non coincidono");
+
+                            } else {
+                                if(controller.verificaPartitaIVA(partitaIVA) == false){
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La partita IVA non è corretta");
+                                } else {
+                                    int[] error = controller.validaInsUtente(emailU, usernameU, partitaIVA);
+                                    String errorString = "";
+                                    if(error[0] != 0){
+                                        errorString = "L'email";
+                                    }
+                                    if (error[1] != 0){
+                                        if (error[0] != 0 && error[2] != 0){
+                                            errorString = errorString + ", l'username";
+                                        } else if (error[0] != 0){
+                                            errorString = errorString + " e l'username";
+                                        } else {
+                                            errorString = "L'username";
+                                        }
+                                    }
+                                    if (error[2] != 0){
+                                        if (error[1] != 0 || error[0] != 0){
+                                            errorString = errorString + " e la partita iva";
+                                        } else {
+                                            errorString = "La partita iva";
+                                        }
+                                    }
+                                    if (error[0] != 0 || error[1] != 0 || error[2] != 0){
+                                        errorString = errorString + " sono/è gia esistenti/e";
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, errorString);
+                                    } else {
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(1, "Registrazione Completata");
 
 
-
-                    dt = dataNascitaTF.getText();
-                    if (dt.isBlank()) dt = null;
-                    nomeU = nomeU.replace("'", "''");
-                    cognomeU = cognomeU.replace("'", "’");
-                    controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, password1, dt, partitaIVA); //registra un nuovo utente con i dati che ha inserito
-                    frameC.setEnabled(true); //rende visibile il frame chiamante 'frameC'
-                    HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
-                    frameC.setVisible(false); //rende invisibile il frame chiamante 'frameC'
-                    hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
-                    frame.dispose();
-                    frameC.toFront();
+                                        dt = dataNascitaTF.getText();
+                                        if (dt.isBlank()) dt = null;
+                                        nomeU = nomeU.replace("'", "’");
+                                        cognomeU = cognomeU.replace("'", "’");
+                                        controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, password1, dt, partitaIVA); //registra un nuovo utente con i dati che ha inserito
+                                        frameC.setEnabled(true); //rende visibile il frame chiamante 'frameC'
+                                        HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
+                                        frameC.setVisible(false); //rende invisibile il frame chiamante 'frameC'
+                                        hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
+                                        frame.dispose();
+                                        frameC.toFront();
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

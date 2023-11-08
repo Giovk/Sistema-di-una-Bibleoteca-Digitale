@@ -784,6 +784,9 @@ public class BooksPage {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
+            if(searchBarField.getText().contains("'")) searchBarField.setText(searchBarField.getText().replace("'", "’"));
+
+
             for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'listaLibri'
                 for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del libro 'l'
                     if (j == 0) linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'

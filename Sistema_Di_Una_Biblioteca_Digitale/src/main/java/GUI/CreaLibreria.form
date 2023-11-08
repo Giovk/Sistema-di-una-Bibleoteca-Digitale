@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.CreaLibreria">
-  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="789" height="546"/>
+      <xy x="20" y="20" width="789" height="446"/>
     </constraints>
     <properties>
       <background color="-14538703"/>
@@ -270,7 +270,7 @@
       </grid>
       <component id="a72a5" class="javax.swing.JButton" binding="aggiungiButton" default-binding="true">
         <constraints>
-          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-11415"/>
@@ -280,45 +280,9 @@
       </component>
       <vspacer id="d8e6c">
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="a5d62" class="javax.swing.JLabel" binding="campiErrorLabel">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <foreground color="-4517880"/>
-          <text value="Compilare tutti i campi obbligatori."/>
-        </properties>
-      </component>
-      <component id="a27c3" class="javax.swing.JLabel" binding="ntErrorLabel">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <foreground color="-4517880"/>
-          <text value="Il numero telefonico è errato."/>
-        </properties>
-      </component>
-      <component id="858da" class="javax.swing.JLabel" binding="ntError2Label">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <foreground color="-4517880"/>
-          <text value="Il numero telefonico è già presente."/>
-        </properties>
-      </component>
-      <component id="e3769" class="javax.swing.JLabel" binding="libreriaErrorLabel">
-        <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <foreground color="-4517880"/>
-          <text value="La libreria è già presente."/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>

@@ -498,54 +498,107 @@ public class AggiungiElementoForm {
         inviaLibroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (titoloLibroField.isEnabled() == true) {
-                    if (controller.creaLibro(isbnLibroCB.getSelectedItem().toString(), titoloLibroField.getText().replace("'", "’"), genereLibroField.getText().replace("'", "’"), linguaLibroCB.getSelectedItem().toString(), editoreLibroField.getText().replace("'", "’"), dataLibroField.getText()) == true) {
-                        takeAutoriLibro(controller);
-                        controller.listaLibri.add(controller.nuovoLibro);
-                    }
+                if (isbnLibroCB.getSelectedItem() == null || isbnLibroCB.getSelectedItem().equals("")){
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Seleziona o crea un nuovo libro!");
                 } else {
-                    controller.nuovoLibro = controller.listaLibri.get(isbnLibroCB.getSelectedIndex());
-                }
+                    if (titoloLibroField.getText().isBlank() || linguaLibroCB.getSelectedItem() == null || linguaLibroCB.getSelectedItem().equals("") || editoreLibroField.getText().isBlank() || genereLibroField.getText().isBlank() || dataLibroField.getText().isBlank()){
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");
+                    } else {
+                        if (titoloLibroField.isEnabled() == true) {
+                            if (controller.creaLibro(isbnLibroCB.getSelectedItem().toString(), titoloLibroField.getText().replace("'", "’"), genereLibroField.getText().replace("'", "’"), linguaLibroCB.getSelectedItem().toString(), editoreLibroField.getText().replace("'", "’"), dataLibroField.getText()) == false) {
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro già esiste");
+                            } else {
+                                if (takeAutoriLibro(controller) == false) {
+                                    controller.eliminaLibro();
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro non ha autori");
+                                } else {
+                                    controller.listaLibri.add(controller.nuovoLibro);
 
+                                    if(controller.insertPossessoL((int) quantitaLibroSpinner.getValue(), fruizioneLibroCB.getSelectedItem().toString()) == false){
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro è già presente in Libreria");
+                                    } else {
+                                        model.setRowCount(0);
 
-                if(controller.insertPossessoL((int) quantitaLibroSpinner.getValue(), fruizioneLibroCB.getSelectedItem().toString()) == false){
-                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro è già presente in Libreria");
-                } else {
-                    model.setRowCount(0);
+                                        controller.getPossessoLibreria();
 
-                    controller.getPossessoLibreria();
+                                        if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
+                                            for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
 
-                    if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
-                        for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
+                                                if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
+                                                else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});
+                                                else model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita , controller.possessoLLibreria.get(i).fruizione});
+                                            }
+                                        }
 
-                            if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
-                            else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});
-                            else model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita , controller.possessoLLibreria.get(i).fruizione});
+                                        if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
+                                            for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
+
+                                                if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
+                                                else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});
+                                                else model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita , controller.possessoSLibreria.get(i).fruizione});
+                                            }
+                                        }
+
+                                        if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
+                                            for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
+
+                                                if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
+                                                else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});
+                                                else model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita , controller.possessoFLibreria.get(i).fruizione});
+                                            }
+                                        }
+
+                                        frame.setVisible(false);
+                                        frameC.setEnabled(true);
+                                        frame.dispose();
+                                        frameC.toFront();
+                                    }
+                                }
+                            }
+                        } else {
+                            controller.nuovoLibro = controller.listaLibri.get(isbnLibroCB.getSelectedIndex());
+
+                            if(controller.insertPossessoL((int) quantitaLibroSpinner.getValue(), fruizioneLibroCB.getSelectedItem().toString()) == false){
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro è già presente in Libreria");
+                            } else {
+                                model.setRowCount(0);
+
+                                controller.getPossessoLibreria();
+
+                                if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
+                                    for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
+
+                                        if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
+                                        else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});
+                                        else model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita , controller.possessoLLibreria.get(i).fruizione});
+                                    }
+                                }
+
+                                if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
+                                    for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
+
+                                        if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
+                                        else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});
+                                        else model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita , controller.possessoSLibreria.get(i).fruizione});
+                                    }
+                                }
+
+                                if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
+                                    for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
+
+                                        if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
+                                        else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});
+                                        else model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita , controller.possessoFLibreria.get(i).fruizione});
+                                    }
+                                }
+
+                                frame.setVisible(false);
+                                frameC.setEnabled(true);
+                                frame.dispose();
+                                frameC.toFront();
+                            }
                         }
                     }
-
-                    if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
-                        for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
-
-                            if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
-                            else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});
-                            else model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita , controller.possessoSLibreria.get(i).fruizione});
-                        }
-                    }
-
-                    if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
-                        for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
-
-                            if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
-                            else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});
-                            else model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita , controller.possessoFLibreria.get(i).fruizione});
-                        }
-                    }
-
-                    frame.setVisible(false);
-                    frameC.setEnabled(true);
-                    frame.dispose();
-                    frameC.toFront();
                 }
             }
         });
@@ -685,10 +738,21 @@ public class AggiungiElementoForm {
                         if(!dataSerieField.getText().isBlank()) {
                             ArrayList<String> libriISBN = takeISBN();
                             if (libriISBN != null) {
-                                if(controller.creaSerie(libriISBN, isbnSerieField.getText().toString(), titoloSerieField.getText().toString().replace("'", "’"), dataSerieField.getText().toString()) == false){
-                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Serie già presente nel Database");
+                                boolean error = false;
+                                int h = 0;
+                                while (error == false && h < libriISBN.size()) {
+                                    if (controller.getDataLibro(libriISBN.get(h)).after(Date.valueOf(dataSerieField.getText())) == true) {
+                                        error = true;
+                                    }
+                                    h++;
+                                }
+                                if (error == true) {
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Uno o più libri sono pubblicati dopo la serie");
                                 } else {
-                                    controller.listaSerie.add(controller.nuovoSerie);
+                                    if (controller.creaSerie(libriISBN, isbnSerieField.getText().toString(), titoloSerieField.getText().toString().replace("'", "’"), dataSerieField.getText().toString()) == false) {
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Serie già presente nel Database");
+                                    } else {
+                                        controller.listaSerie.add(controller.nuovoSerie);
 
                                         model.setRowCount(0);
 
@@ -697,34 +761,44 @@ public class AggiungiElementoForm {
                                         if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
                                             for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
 
-                                                if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
-                                                else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});
-                                                else model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita , controller.possessoLLibreria.get(i).fruizione});
+                                                if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro"))
+                                                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
+                                                else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0)
+                                                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione});
+                                                else
+                                                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione});
                                             }
                                         }
 
                                         if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
                                             for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
 
-                                                if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
-                                                else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});
-                                                else model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita , controller.possessoSLibreria.get(i).fruizione});
+                                                if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro"))
+                                                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
+                                                else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0)
+                                                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione});
+                                                else
+                                                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione});
                                             }
                                         }
 
                                         if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
                                             for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
 
-                                                if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
-                                                else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});
-                                                else model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita , controller.possessoFLibreria.get(i).fruizione});
+                                                if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro"))
+                                                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
+                                                else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0)
+                                                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});
+                                                else
+                                                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});
                                             }
                                         }
 
-                                    frame.setVisible(false);
-                                    frameC.setEnabled(true);
-                                    frame.dispose();
-                                    frameC.toFront();
+                                        frame.setVisible(false);
+                                        frameC.setEnabled(true);
+                                        frame.dispose();
+                                        frameC.toFront();
+                                    }
                                 }
                             }
                         }else {
@@ -1073,76 +1147,56 @@ public class AggiungiElementoForm {
         inviaFascicoloBT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(titoloRivistaCB.getSelectedItem() == null || titoloRivistaCB.getSelectedItem().equals("")){
+                if (titoloRivistaCB.getSelectedItem() == null || titoloRivistaCB.getSelectedItem().equals("")) {
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Seleziona o crea una Rivista!");
                 } else {
-                    if (issnRivistaField.isEnabled() == true) {
-                        if (controller.creaRivista(titoloRivistaCB.getSelectedItem().toString(), issnRivistaField.getText(), argomentoRivistaField.getText(), nomeRField.getText(), cognomeRField.getText(), editoreRivistaField.getText(), (int) annoPrivistaSpinner.getValue()) == false) {
-                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa rivista è già presente");
+                    if (issnRivistaField.getText().isBlank() || nomeRField.getText().isBlank() || cognomeRField.getText().isBlank() || editoreRivistaField.getText().isBlank() || argomentoRivistaField.getText().isBlank()) {
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");
+                    } else {
+                        if (issnRivistaField.isEnabled() == true) {
+                            if (controller.creaRivista(titoloRivistaCB.getSelectedItem().toString().replace("'", "’"), issnRivistaField.getText(), argomentoRivistaField.getText().replace("'", "’"), nomeRField.getText().replace("'", "’"), cognomeRField.getText().replace("'", "’"), editoreRivistaField.getText().replace("'", "’"), (int) annoPrivistaSpinner.getValue()) == false) {
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa rivista è già presente");
+                            } else {
+                                controller.listaRiviste.add(controller.nuovaRivista);
+
+                                if (dpFascicoloField.isEnabled() == true) {
+                                    if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
+                                        controller.eliminaRivista();
+                                    } else {
+                                        if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
+                                            controller.eliminaRivista();
+                                        } else {
+                                            if (takeArticoli(controller, true) == true) {
+                                                controller.listaFascicoli.add(controller.nuovoFascicolo);
+
+                                                inserimentoEaggiornamentoF(controller, model, true, frameC);
+                                            }
+                                        }
+                                    }
+
+                                } else {
+                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));
+
+                                    inserimentoEaggiornamentoF(controller, model, false, frameC);
+                                }
+                            }
                         } else {
-                            controller.listaRiviste.add(controller.nuovaRivista);
+                            controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());
 
                             if (dpFascicoloField.isEnabled() == true) {
                                 if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {
                                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
-                                    controller.eliminaRivista();
+
                                 } else {
                                     if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
-                                        controller.eliminaRivista();
                                     } else {
-                                        if (takeArticoli(controller, true) == true) {
+                                        if (takeArticoli(controller, false) == true) {
                                             controller.listaFascicoli.add(controller.nuovoFascicolo);
 
-                                            if (controller.insertPossessoF((int) quantitaFascicoloSpinner.getValue(), fruizoneFascicoloCB.getSelectedItem().toString()) == false) {
-                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa Fascicolo è già presente in Libreria");
-                                                controller.eliminaRivista();
-                                            } else {
-                                                model.setRowCount(0);
-
-                                                controller.getPossessoLibreria();
-
-                                                if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
-                                                    for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
-
-                                                        if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro"))
-                                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
-                                                        else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0)
-                                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione});
-                                                        else
-                                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione});
-                                                    }
-                                                }
-
-                                                if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
-                                                    for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
-
-                                                        if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro"))
-                                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
-                                                        else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0)
-                                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione});
-                                                        else
-                                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione});
-                                                    }
-                                                }
-
-                                                if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
-                                                    for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
-
-                                                        if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro"))
-                                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
-                                                        else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0)
-                                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});
-                                                        else
-                                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});
-                                                    }
-                                                }
-
-                                                frame.setVisible(false);
-                                                frameC.setEnabled(true);
-                                                frame.dispose();
-                                                frameC.toFront();
-                                            }
+                                            inserimentoEaggiornamentoF(controller, model, false, frameC);
                                         }
                                     }
                                 }
@@ -1150,172 +1204,7 @@ public class AggiungiElementoForm {
                             } else {
                                 controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));
 
-                                if (controller.insertPossessoF((int) quantitaFascicoloSpinner.getValue(), fruizoneFascicoloCB.getSelectedItem().toString()) == false) {
-                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa Fascicolo è già presente in Libreria");
-                                } else {
-                                    model.setRowCount(0);
-
-                                    controller.getPossessoLibreria();
-
-                                    if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
-                                        for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
-
-                                            if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro"))
-                                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
-                                            else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0)
-                                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione});
-                                            else
-                                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione});
-                                        }
-                                    }
-
-                                    if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
-                                        for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
-
-                                            if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro"))
-                                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
-                                            else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0)
-                                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione});
-                                            else
-                                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione});
-                                        }
-                                    }
-
-                                    if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
-                                        for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
-
-                                            if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro"))
-                                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
-                                            else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0)
-                                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});
-                                            else
-                                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});
-                                        }
-                                    }
-
-                                    frame.setVisible(false);
-                                    frameC.setEnabled(true);
-                                    frame.dispose();
-                                    frameC.toFront();
-                                }
-                            }
-                        }
-                    } else {
-                        controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());
-
-                        if (dpFascicoloField.isEnabled() == true) {
-                            if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
-
-                            } else {
-                                if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
-                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
-                                } else {
-                                    if (takeArticoli(controller, false) == true) {
-                                        controller.listaFascicoli.add(controller.nuovoFascicolo);
-
-                                        if (controller.insertPossessoF((int) quantitaFascicoloSpinner.getValue(), fruizoneFascicoloCB.getSelectedItem().toString()) == false) {
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa Fascicolo è già presente in Libreria");
-                                        } else {
-                                            model.setRowCount(0);
-
-                                            controller.getPossessoLibreria();
-
-                                            if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
-                                                for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
-
-                                                    if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro"))
-                                                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
-                                                    else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0)
-                                                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione});
-                                                    else
-                                                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione});
-                                                }
-                                            }
-
-                                            if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
-                                                for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
-
-                                                    if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro"))
-                                                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
-                                                    else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0)
-                                                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione});
-                                                    else
-                                                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione});
-                                                }
-                                            }
-
-                                            if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
-                                                for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
-
-                                                    if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro"))
-                                                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
-                                                    else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0)
-                                                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});
-                                                    else
-                                                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});
-                                                }
-                                            }
-
-                                            frame.setVisible(false);
-                                            frameC.setEnabled(true);
-                                            frame.dispose();
-                                            frameC.toFront();
-                                        }
-                                    }
-                                }
-                            }
-
-                        } else {
-                            controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));
-
-                            if (controller.insertPossessoF((int) quantitaFascicoloSpinner.getValue(), fruizoneFascicoloCB.getSelectedItem().toString()) == false) {
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa Fascicolo è già presente in Libreria");
-                            } else {
-                                model.setRowCount(0);
-
-                                controller.getPossessoLibreria();
-
-                                if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
-                                    for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
-
-                                        if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro"))
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
-                                        else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0)
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione});
-                                        else
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione});
-                                    }
-                                }
-
-                                if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
-                                    for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
-
-                                        if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro"))
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
-                                        else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0)
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione});
-                                        else
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione});
-                                    }
-                                }
-
-                                if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
-                                    for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
-
-                                        if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro"))
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
-                                        else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0)
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});
-                                        else
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});
-                                    }
-                                }
-
-                                frame.setVisible(false);
-                                frameC.setEnabled(true);
-                                frame.dispose();
-                                frameC.toFront();
+                                inserimentoEaggiornamentoF(controller, model, false, frameC);
                             }
                         }
                     }
@@ -1324,8 +1213,63 @@ public class AggiungiElementoForm {
         });
     }
 
-    private void takeAutoriLibro(Controller controller) {
+    private void inserimentoEaggiornamentoF(Controller controller, DefaultTableModel model, boolean nuova_rivista, JFrame frameC){
+        if (controller.insertPossessoF((int) quantitaFascicoloSpinner.getValue(), fruizoneFascicoloCB.getSelectedItem().toString()) == false) {
+            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa Fascicolo è già presente in Libreria");
+            if (nuova_rivista == true){
+                controller.eliminaRivista();
+            }
+        } else {
+            model.setRowCount(0);
+
+            controller.getPossessoLibreria();
+
+            if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
+                for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
+
+                    if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro"))
+                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
+                    else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0)
+                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione});
+                    else
+                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione});
+                }
+            }
+
+            if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
+                for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
+
+                    if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro"))
+                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
+                    else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0)
+                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione});
+                    else
+                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione});
+                }
+            }
+
+            if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
+                for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
+
+                    if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro"))
+                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
+                    else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0)
+                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});
+                    else
+                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});
+                }
+            }
+
+            frame.setVisible(false);
+            frameC.setEnabled(true);
+            frame.dispose();
+            frameC.toFront();
+        }
+    }
+
+    private boolean takeAutoriLibro(Controller controller) {
         int fieldCount = 0;
+        int n_autori = 0;
         String nome = "";
         String cognome = "";
         String nazionalità = "";
@@ -1355,7 +1299,12 @@ public class AggiungiElementoForm {
                             case 3:
                                 dn = textField.getText();
                                 fieldCount = 0;
-                                controller.aggiungiAutoreLibro(nome.replace("'", "’"), cognome.replace("'", "’"), nazionalità, dn);
+                                n_autori++;
+                                if (nome.isBlank() || cognome.isBlank()){
+                                    return false;
+                                } else{
+                                    controller.aggiungiAutoreLibro(nome.replace("'", "’"), cognome.replace("'", "’"), nazionalità, dn);
+                                }
                                 break;
                             default:
                                 fieldCount = 0;
@@ -1365,6 +1314,11 @@ public class AggiungiElementoForm {
                 }
             }
         }
+        if (n_autori >= 1){
+            return true;
+        }
+
+        return false;
     }
 
     private boolean takeArticoli(Controller controller, boolean nuova_rivista) {
@@ -1389,7 +1343,7 @@ public class AggiungiElementoForm {
                                             if(nuova_rivista == true) controller.eliminaRivista();
                                             return false;
                                         } else {
-                                            if (controller.creaArticolo(comboBox.getSelectedItem().toString(), (int) spinner.getValue())) {
+                                            if (controller.creaArticolo(comboBox.getSelectedItem().toString().replace("'", "’"), (int) spinner.getValue())) {
                                                 if (takeAutoriArticolo(controller, jpanel2) == false) {
                                                     controller.eliminaArticolo();
                                                     controller.eliminaFascicolo();
@@ -1454,7 +1408,7 @@ public class AggiungiElementoForm {
                                 if (nome.isBlank() || cognome.isBlank()){
                                     return false;
                                 } else{
-                                    controller.aggiungiAutoreArticolo(nome, cognome, nazionalità, dn);
+                                    controller.aggiungiAutoreArticolo(nome.replace("'", "’"), cognome.replace("'", "’"), nazionalità, dn);
                                 }
                                 break;
                             default:

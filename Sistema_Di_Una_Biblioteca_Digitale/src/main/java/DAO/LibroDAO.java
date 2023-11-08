@@ -14,5 +14,6 @@ public interface LibroDAO {
     public ResultSet getInfoLibriPreferitiDB(String isbn);
     public boolean creaLibroDB(String isbn, String titolo, String genere,String lingua, String editore,String dp);
     public Date getDataLibroDB(String isbn);
+    public void eliminaLibroDB(String isbn);
     public void chiudiConnessione(); //chiude la connessione al DB
 }

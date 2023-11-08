@@ -33,14 +33,9 @@ public class Profilo {
     private JTextField pIVAField;
     private JLabel pIVALabel;
     private JLabel ripPassLabel;
-    private JLabel usernameErrorLabel;
-    private JLabel emailErrorLabel;
-    private JLabel partitaivaErrorLabel;
     private JLabel oldPassLabel;
     private JPasswordField oldPassField;
     private JLabel oldPassNoteLabel;
-    private JLabel oldPassErrorLabel;
-    private JLabel newPassErrorLabel;
     private JPanel buttonPanel;
     private JLabel closeBT;
     private JButton libriButton;
@@ -64,8 +59,6 @@ public class Profilo {
     private JScrollPane notificheScrollPanel;
     private JTable notificheTable;
     private JPanel notifichePanel;
-    private JLabel partitaivaErrorLabel2;
-    private JLabel passUserErrorLabel;
     private JPopupMenu utenteMenu;
     private JPopupMenu tabellaMenu;
     private Boolean active = false;
@@ -205,14 +198,6 @@ public class Profilo {
         oldPassLabel.setVisible(false);     //rende invisibile la JLabel 'oldPassLabel'
         oldPassField.setVisible(false); //rende invisibile JPasswordField 'oldPassField'
         oldPassNoteLabel.setVisible(false); //rende invisibile la JLabel 'oldPassNoteLabel'
-
-        usernameErrorLabel.setVisible(false);   //rende invisibile la JLabel 'usernameErrorLabel'
-        emailErrorLabel.setVisible(false);  //rende invisibile la JLabel 'emailErrorLabel'
-        partitaivaErrorLabel.setVisible(false); //rende invisibile la JLabel 'partitaivaErrorLabel'
-        partitaivaErrorLabel2.setVisible(false);
-        oldPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'oldPassErrorLabel'
-        newPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'newPassErrorLabel'
-        passUserErrorLabel.setVisible(false);
 
         usernameField.setText(controller.getUsername()); //imposta il testo di 'usernameField' con l'username dell'utente
         nameField.setText(controller.getNome());    //imposta il testo di 'nameField' con il nome dell'utente
@@ -466,14 +451,6 @@ public class Profilo {
                 oldPasswordTextField.setVisible(false);
 
 
-                newPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'newPassErrorLabel'
-                partitaivaErrorLabel.setVisible(false); //rende invisibile la JLabel 'partitaivaErrorLabel'
-                partitaivaErrorLabel2.setVisible(false); //rende invisibile la JLabel 'partitaivaErrorLabel2'
-                usernameErrorLabel.setVisible(false);   //rende invisibile la JLabel 'usernameErrorLabel'
-                emailErrorLabel.setVisible(false);  //rende invisibile la JLabel 'emailErrorLabel'
-                oldPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'oldPassErrorLabel'
-                passUserErrorLabel.setVisible(false);
-
                 usernameField.setText(controller.getUsername());    //imposta il testo di 'usernameField' con l'username dell'utente
                 nameField.setText(controller.getNome());    //imposta il testo di 'nameField' con il nome dell'utente
                 cognomeField.setText(controller.getCognome());  //imposta il testo di 'cognomeField' con il cognome dell'utente
@@ -516,102 +493,110 @@ public class Profilo {
                     pass3 = oldPasswordTextField.getText();
                 }
 
-                if (!controller.getPassword().equals(pass3))
-                    oldPassErrorLabel.setVisible(true); //se la vecchia password è errata, allora rende visibile la JLabel 'oldPassErrorLabel'
-                else {
-                    oldPassErrorLabel.setVisible(false);    //rende invisibile JLabel 'oldPassErrorLabel'
-                    if (usernameField.getText().contains("'") || passwordField1.getText().contains("'") || passwordField2.getText().contains("'")){
-                        passUserErrorLabel.setVisible(true);
+
+                if (!controller.getPassword().equals(pass3)){
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La vecchia password non è corretta.");
+                } else {
+                    if(emailU.isBlank() || nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank()){
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Non puoi eliminare questi campi!");
+                        usernameField.setText(controller.getUsername());    //imposta il testo di 'usernameField' con l'username dell'utente
+                        nameField.setText(controller.getNome());    //imposta il testo di 'nameField' con il nome dell'utente
+                        cognomeField.setText(controller.getCognome());  //imposta il testo di 'cognomeField' con il cognome dell'utente
+                        emailField.setText(controller.getEmail());  //imposta il testo di 'emailField' con l'email dell'utente
                     } else {
-                        int[] error = controller.validaModUtente(emailU, usernameU, partitaIVA);    //controlla se 'emailU', 'usernameU' e/o 'partitaIVA' sono già stati utilizzati da un altro utente
-
-                        if (error[0] != 0)
-                            emailErrorLabel.setVisible(true);    //se 'emailU' è già stata utilizzata da un altro utente rende visibile la JLabel 'emailErrorLabel'
-                        else
-                            emailErrorLabel.setVisible(false); //se 'emailU' non è già stata utilizzata da un altro utente rende invisibile la JLabel 'emailErrorLabel'
-
-                        if (error[1] != 0)
-                            usernameErrorLabel.setVisible(true); //se 'usernameU' è gia stato utilizzato da un altro utente rende visibile la JLabel 'usernameErrorLabel'
-                        else
-                            usernameErrorLabel.setVisible(false);  //se 'usernameU' non è gia stato utilizzato da un altro utente rende visibile la JLabel 'usernameErrorLabel'
-
-                        if (error[2] != 0)
-                            partitaivaErrorLabel.setVisible(true);   //se 'partitaIVA' è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
-                        else
-                            partitaivaErrorLabel.setVisible(false);    //se 'partitaIVA' non è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
-
-                        if (error[3] != 0)
-                            partitaivaErrorLabel2.setVisible(true);   //se 'partitaIVA' è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
-                        else
-                            partitaivaErrorLabel2.setVisible(false);    //se 'partitaIVA' non è già stata utilizzata da un altro utente rende visibile la JLabel 'partitaivaErrorLabel'
-
-
-                        if (!pass1.equals(pass2)) {   //controlla se la nuova password è diversa da quella ripetuta
-                            newPassErrorLabel.setVisible(true); //rende visibile la JLabel 'newPassErrorLabel'
-                            error[3] = 1;   //mette a 1 'error[3]' che indica l'errore delle nuove password non coincidenti
-                        }
-
-                        if (error[0] == 0 && error[1] == 0 && error[2] == 0 && error[3] == 0) {  //ccontrolla se non ci sono errori
-                            modificaButton.setEnabled(true);  //abilita il JButton 'modificaDatiUtenteButton'
-                            annullaButton.setVisible(false);    //rende inivisibile il JButton 'annullaButton'
-                            salvaButton.setVisible(false); //rende inivisibile il JButton 'salvaModificheButton'
-                            usernameField.setEnabled(false);    //disabilita il JTextField 'usernameField'
-                            nameField.setEnabled(false);    //disabilita il JTextField 'nameField'
-                            cognomeField.setEnabled(false); //disabilita il JTextField 'cognomeField'
-                            emailField.setEnabled(false);   //disabilita il JTextField 'emailField'
-                            passwordField1.setEnabled(false);   //disabilita il JPasswordField 'passwordField1'
-                            ripPassLabel.setVisible(false); //rende invisibile la JLabel 'ripPassLabel'
-                            passwordField2.setVisible(false);   //rende invisibile il JPasswordField 'passwordField2'
-                            pIVAField.setEnabled(false);    //disabilita il JTextField 'pIVAField'
-                            oldPassLabel.setVisible(false); //rende invisibile la JLabel 'oldPassLabel'
-                            oldPassField.setVisible(false); //rende invisibile il JPasswordField 'oldPassField'
-                            oldPassNoteLabel.setVisible(false); //rende invisibile la JLabel 'oldPassNoteLabel'
-                            showPass.setVisible(false);
-                            showPass2.setVisible(false);
-                            hidePass.setVisible(false);
-                            hidePass2.setVisible(false);
-                            passLabel2.setVisible(false);
-                            passLabel.setVisible(true);
-                            passwordTextField.setVisible(false);
-                            passwordField1.setVisible(true);
-                            oldPassLabel2.setVisible(false);
-                            oldPasswordTextField.setVisible(false);
-
-                            nomeU = nomeU.replace("'", "’");
-                            cognomeU = cognomeU.replace("'", "’");
-
-                            if (partitaIVA.isBlank()) partitaIVA = null;
-
-                            if (pass1.isBlank())
-                                controller.modUtente(emailU, nomeU, cognomeU, usernameU, controller.getPassword(), partitaIVA); //se la password non è stata modificata, allora modifica i dati del utente usando la password attuale dell'utente
-                            else
-                                controller.modUtente(emailU, nomeU, cognomeU, usernameU, pass1, partitaIVA);   //se la password non è stata modificata, allora modifica i dati del utente usando la nuova password
-
-                            usernameField.setText(controller.getUsername());    //imposta il testo di 'usernameField' con l'username dell'utete
-                            nameField.setText(controller.getNome());    //imposta il testo di 'nameField' con il nome dell'utente
-                            cognomeField.setText(controller.getCognome());  //imposta il testo di 'cognomeField' con il cognome dell'utente
-                            emailField.setText(controller.getEmail());  //imposta il testo di 'emailField' con l'email dell'utente
-                            passwordField1.setText(controller.getPassword());   //imposta il testo di 'passwordField1' con la password dell'utente
-                            pIVAField.setText(controller.getPartitaIva());  //imposta il testo di 'pIVAField' con la partita IVA dell'utente
-
-                            passwordField2.setText(""); //imposta il testo di 'passwordField2' con la stringa vuota
-                            oldPassField.setText("");   //imposta il testo di 'oldPassField' con la stringa vuota
-
-                            if (controller.getPartitaIva() == null) {   //controlla se la partita IVA dell'utente è nulla
-                                utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
-                                utenteMenu.setPopupSize(new Dimension(80, 50));
-                                controller.librerieUtente.clear();
+                        if (usernameField.getText().contains("'") || passwordField1.getText().contains("'") || passwordField2.getText().contains("'")) {
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Il carattere \"'\" non è consentito per le Password e l'Username");
+                        } else {
+                            if (controller.verificaEmail(emailU) == false) {
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "email non valida!");
                             } else {
-                                utenteLibrerie.setVisible(true);   //rende invisibile la voce di menu 'utenteLibrerie'
-                                utenteMenu.setPopupSize(new Dimension(80, 75));
-                            }
+                                emailU = controller.changeEmail(emailU);
+                                if (controller.verificaNomeCognome(nomeU) == false || controller.verificaNomeCognome(cognomeU) == false) {
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Il nome o il cognome non sono validi!");
+                                } else {
+                                    if (controller.verificaPassword(pass1) == false && !pass1.isBlank()) {
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La password deve contenere 8 caratteri di cui: una maiuscola, un numero e un carattare speciale");
+                                    } else {
+                                        int[] error = controller.validaModUtente(emailU, usernameU, partitaIVA);    //controlla se 'emailU', 'usernameU' e/o 'partitaIVA' sono già stati utilizzati da un altro utente
 
-                            newPassErrorLabel.setVisible(false);    //rende invisibile la JLabel 'newPassErrorLabel'
-                            partitaivaErrorLabel.setVisible(false); //rende invisibile la JLabel 'partitaivaErrorLabel'
-                            partitaivaErrorLabel2.setVisible(false);
-                            usernameErrorLabel.setVisible(false);   //rende invisibile la JLabel 'usernameErrorLabel'
-                            emailErrorLabel.setVisible(false);  //rende invisibile la JLabel 'emailErrorLabel'
-                            passUserErrorLabel.setVisible(false);
+                                        if (error[0] != 0) {
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'email è gia presente nel sistema.");
+                                        } else {
+                                            if (error[1] != 0) {
+                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'username è gia stato preso.");
+                                            } else {
+                                                if (error[2] != 0) {
+                                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La Partita IVA è gia presente nel sistema.");
+                                                } else {
+                                                    if (error[3] != 0) {
+                                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La Partita IVA non è corretta.");
+                                                    } else {
+                                                        if (!pass1.equals(pass2)) {   //controlla se la nuova password è diversa da quella ripetuta
+                                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La nuova password non coincide.");
+                                                        } else {
+                                                            if (error[0] == 0 && error[1] == 0 && error[2] == 0 && error[3] == 0) {//ccontrolla se non ci sono errori
+                                                                modificaButton.setEnabled(true);  //abilita il JButton 'modificaDatiUtenteButton'
+                                                                annullaButton.setVisible(false);    //rende inivisibile il JButton 'annullaButton'
+                                                                salvaButton.setVisible(false); //rende inivisibile il JButton 'salvaModificheButton'
+                                                                usernameField.setEnabled(false);    //disabilita il JTextField 'usernameField'
+                                                                nameField.setEnabled(false);    //disabilita il JTextField 'nameField'
+                                                                cognomeField.setEnabled(false); //disabilita il JTextField 'cognomeField'
+                                                                emailField.setEnabled(false);   //disabilita il JTextField 'emailField'
+                                                                passwordField1.setEnabled(false);   //disabilita il JPasswordField 'passwordField1'
+                                                                ripPassLabel.setVisible(false); //rende invisibile la JLabel 'ripPassLabel'
+                                                                passwordField2.setVisible(false);   //rende invisibile il JPasswordField 'passwordField2'
+                                                                pIVAField.setEnabled(false);    //disabilita il JTextField 'pIVAField'
+                                                                oldPassLabel.setVisible(false); //rende invisibile la JLabel 'oldPassLabel'
+                                                                oldPassField.setVisible(false); //rende invisibile il JPasswordField 'oldPassField'
+                                                                oldPassNoteLabel.setVisible(false); //rende invisibile la JLabel 'oldPassNoteLabel'
+                                                                showPass.setVisible(false);
+                                                                showPass2.setVisible(false);
+                                                                hidePass.setVisible(false);
+                                                                hidePass2.setVisible(false);
+                                                                passLabel2.setVisible(false);
+                                                                passLabel.setVisible(true);
+                                                                passwordTextField.setVisible(false);
+                                                                passwordField1.setVisible(true);
+                                                                oldPassLabel2.setVisible(false);
+                                                                oldPasswordTextField.setVisible(false);
+
+                                                                nomeU = nomeU.replace("'", "’");
+                                                                cognomeU = cognomeU.replace("'", "’");
+
+                                                                if (partitaIVA.isBlank()) partitaIVA = null;
+
+                                                                if (pass1.isBlank())
+                                                                    controller.modUtente(emailU, nomeU, cognomeU, usernameU, controller.getPassword(), partitaIVA); //se la password non è stata modificata, allora modifica i dati del utente usando la password attuale dell'utente
+                                                                else
+                                                                    controller.modUtente(emailU, nomeU, cognomeU, usernameU, pass1, partitaIVA);   //se la password non è stata modificata, allora modifica i dati del utente usando la nuova password
+
+                                                                usernameField.setText(controller.getUsername());    //imposta il testo di 'usernameField' con l'username dell'utete
+                                                                nameField.setText(controller.getNome());    //imposta il testo di 'nameField' con il nome dell'utente
+                                                                cognomeField.setText(controller.getCognome());  //imposta il testo di 'cognomeField' con il cognome dell'utente
+                                                                emailField.setText(controller.getEmail());  //imposta il testo di 'emailField' con l'email dell'utente
+                                                                passwordField1.setText(controller.getPassword());   //imposta il testo di 'passwordField1' con la password dell'utente
+                                                                pIVAField.setText(controller.getPartitaIva());  //imposta il testo di 'pIVAField' con la partita IVA dell'utente
+
+                                                                passwordField2.setText(""); //imposta il testo di 'passwordField2' con la stringa vuota
+                                                                oldPassField.setText("");   //imposta il testo di 'oldPassField' con la stringa vuota
+
+                                                                if (controller.getPartitaIva() == null) {   //controlla se la partita IVA dell'utente è nulla
+                                                                    utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
+                                                                    utenteMenu.setPopupSize(new Dimension(80, 50));
+                                                                    controller.librerieUtente.clear();
+                                                                } else {
+                                                                    utenteLibrerie.setVisible(true);   //rende invisibile la voce di menu 'utenteLibrerie'
+                                                                    utenteMenu.setPopupSize(new Dimension(80, 75));
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

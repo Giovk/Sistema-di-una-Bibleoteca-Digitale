@@ -153,6 +153,18 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
     }
 
     @Override
+    public void eliminaLibroDB(String isbn){
+        try{
+            PreparedStatement eliminaLibroPS = connection.prepareStatement(
+                    "DELETE FROM libro WHERE isbn = '"+isbn+"'"
+            );
+            eliminaLibroPS.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){
