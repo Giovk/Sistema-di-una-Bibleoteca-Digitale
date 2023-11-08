@@ -1,14 +1,9 @@
 package GUI;
 
 import Controller.Controller;
-import Model.Autore;
-import Model.Libro;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
+import javax.swing.event.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -653,15 +648,16 @@ public class IssuePage {
         table2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                controller.isbn_selected = table2.getValueAt(table2.getSelectedRow(), 0).toString();
-                controller.nome_selected = table2.getValueAt(table2.getSelectedRow(), 1).toString();
-                BookPage bp = new BookPage(frameC, controller); //chiama il frame 'bp'
-                bp.frame.setVisible(true);  //rende visible il frame 'bp'
-                frame.setVisible(false);    //rende invisibile il frame
-                frame.dispose();
+                if (table2.getSelectedRow() != -1) {
+                    controller.doi_selected = table2.getValueAt(table2.getSelectedRow(), 0).toString();
+                    controller.nome_articolo = table2.getValueAt(table2.getSelectedRow(), 1).toString();
+                    controller.getAParticolo();
+                    Conferenze conferenze = new Conferenze(frame, controller);
+                    frame.setEnabled(false); // disabilita il frame
+                    table2.clearSelection();
+                }
             }
         });
-
 
         numeroNotifiche = controller.getNumeroNotificheNonLette();
 

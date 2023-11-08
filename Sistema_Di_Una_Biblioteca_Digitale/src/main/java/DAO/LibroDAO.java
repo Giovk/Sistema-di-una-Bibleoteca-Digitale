@@ -2,6 +2,7 @@ package DAO;
 
 import Model.Libro;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -12,5 +13,6 @@ public interface LibroDAO {
     public ResultSet getLibriSerieDB(String s); //ritorna i dati di tutti i libri della serie con ISBN 's' nel DB
     public ResultSet getInfoLibriPreferitiDB(String isbn);
     public boolean creaLibroDB(String isbn, String titolo, String genere,String lingua, String editore,String dp);
+    public Date getDataLibroDB(String isbn);
     public void chiudiConnessione(); //chiude la connessione al DB
 }

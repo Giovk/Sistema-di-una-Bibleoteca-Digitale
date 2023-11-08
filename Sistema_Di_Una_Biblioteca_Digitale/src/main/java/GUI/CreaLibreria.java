@@ -28,7 +28,7 @@ public class CreaLibreria {
     private JLabel libreriaErrorLabel;
 
     public CreaLibreria(JFrame frameC, Controller controller, DefaultTableModel model){
-        frame = new JFrame("Valutazione");
+        frame = new JFrame("Crea Libreria");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,43 +44,14 @@ public class CreaLibreria {
         ntError2Label.setVisible(false);
         libreriaErrorLabel.setVisible(false);
 
-        frame.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
+        frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
                 frame.setVisible(false);
                 frameC.setEnabled(true);
                 frame.dispose();
                 frameC.toFront();
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-
             }
         });
 
@@ -114,11 +85,11 @@ public class CreaLibreria {
                 } else indirizzo = "";
 
 
-                if(controller.presenzaLibreria(nomeField.getText(), swField.getText(), indirizzo) == false) libreriaErrorLabel.setVisible(true);
+                if(controller.presenzaLibreria(nomeField.getText().replace("'", "’"), swField.getText(), indirizzo.replace("'", "’")) == false) libreriaErrorLabel.setVisible(true);
                 else libreriaErrorLabel.setVisible(false);
 
                 if (campiErrorLabel.isVisible() == false && ntErrorLabel.isVisible() == false && ntError2Label.isVisible() == false && libreriaErrorLabel.isVisible() == false){
-                    controller.addLibreria(nomeField.getText(), ntField.getText(),swField.getText(), indirizzo);
+                    controller.addLibreria(nomeField.getText().replace("'", "’"), ntField.getText(),swField.getText(), indirizzo.replace("'", "’"));
 
                     model.setRowCount(0);
                     if (controller.librerieUtente != null) {

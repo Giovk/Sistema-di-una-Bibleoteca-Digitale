@@ -175,18 +175,6 @@
                           <margin top="2" left="6" bottom="2" right="6"/>
                         </properties>
                       </component>
-                      <component id="b1c59" class="javax.swing.JLabel" binding="cognomeLabel">
-                        <constraints>
-                          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false">
-                            <preferred-size width="-1" height="33"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <font name="Impact" size="15" style="0"/>
-                          <foreground color="-14538703"/>
-                          <text value="Cognome*:"/>
-                        </properties>
-                      </component>
                       <component id="9cfc3" class="javax.swing.JLabel" binding="emailLabel">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false">
@@ -426,7 +414,7 @@
                           </grid>
                         </constraints>
                         <properties>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Impact" size="15" style="0"/>
                           <foreground color="-14538703"/>
                           <text value="Password*:"/>
                           <visible value="false"/>
@@ -452,6 +440,18 @@
                         </constraints>
                         <properties>
                           <text value=""/>
+                        </properties>
+                      </component>
+                      <component id="b1c59" class="javax.swing.JLabel" binding="cognomeLabel">
+                        <constraints>
+                          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false">
+                            <preferred-size width="-1" height="33"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font name="Impact" size="15" style="0"/>
+                          <foreground color="-14538703"/>
+                          <text value="Cognome*:"/>
                         </properties>
                       </component>
                     </children>
@@ -534,7 +534,7 @@
                           </grid>
                         </constraints>
                         <properties>
-                          <font name="Bebas Neue" size="15" style="0"/>
+                          <font name="Impact" size="15" style="0"/>
                           <foreground color="-14538703"/>
                           <text value="Password:  "/>
                           <visible value="false"/>

@@ -109,6 +109,19 @@ public class FascicoloImplementazionePostgresDAO implements FascicoloDAO {
     }
 
     @Override
+    public void eliminaFascicoloDB(String issn, int numero){
+        try{
+            PreparedStatement eliminaFascicoloPS = connection.prepareStatement(
+                    "DELETE FROM fascicolo WHERE issn = '"+issn+"' AND numero = '"+numero+"'"
+            );
+
+            eliminaFascicoloPS.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

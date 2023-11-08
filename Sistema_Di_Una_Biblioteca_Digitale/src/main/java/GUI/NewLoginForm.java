@@ -67,7 +67,7 @@ public class NewLoginForm extends JDialog {
     public int menuAcc;
 
     private DatePicker datePicker;
-    private Boolean debug = true;
+    private Boolean debug = false;
 
     public NewLoginForm(int joinD, JFrame frameC, Controller controller) {
         datePicker = new DatePicker(calendarIMG);
@@ -500,33 +500,30 @@ public class NewLoginForm extends JDialog {
         String partitaIVA = partitaIVATF.getText(); //partita IVA inserita dall'utente per effettuare la registrazione
 
         if (nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank() || password1.isBlank() || password2.isBlank()) { //controlla se qualche campo obbligatorio è stato lasciato vuoto
-            //fieldError.setText("Compilare tutti i campi obbligatori");  //imposta il testo di un messaggio di errore nella JLabel 'fieldError'
-            //fieldError.setVisible(true);    //rende visibile la JLabel 'fieldError' contenente un messaggio di errore
-            //frame.setResizable(true);   //permette all'utente di modificare le dimensioni del frame
             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obbligatori");
         } else {
-            if (password1.equals(password2) == false) {//controlla se la password scelta dall'utente 'pass1' è diversa da quella ripetuta
-                //regError.setText("Le password non coincidono"); //imposta il testo di un messaggio di errore nella JLabel 'fieldError'
-                // regError.setVisible(true);  //rende visibile la JLabel 'fieldError' contenente un messaggio di errore
-                //frame.setResizable(true);   //permette all'utente di modificare le dimensioni del frame
-                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Le password non coincidono");
+            if (usernameU.contains("'") || password1.contains("'") || password2.contains("'")){
+                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "il carattere ' non è ammesso");
             } else {
-                //regError.setVisible(false); //rende invisibile la JLabel 'regError'
-                NewShowMessageDialog dialog = new NewShowMessageDialog(1, "Registrazione Completata");
+                if (password1.equals(password2) == false) {//controlla se la password scelta dall'utente 'pass1' è diversa da quella ripetuta
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Le password non coincidono");
+                } else {
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(1, "Registrazione Completata");
 
 
 
-                dt = dataNascitaTF.getText();
-                if (dt.isBlank()) dt = null;
-
-
-                controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, password1, dt, partitaIVA); //registra un nuovo utente con i dati che ha inserito
-                frameC.setEnabled(true); //rende visibile il frame chiamante 'frameC'
-                HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
-                frameC.setVisible(false); //rende invisibile il frame chiamante 'frameC'
-                hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
-                frame.dispose();
-                frameC.toFront();
+                    dt = dataNascitaTF.getText();
+                    if (dt.isBlank()) dt = null;
+                    nomeU = nomeU.replace("'", "''");
+                    cognomeU = cognomeU.replace("'", "’");
+                    controller.aggiungiUtente(emailU, nomeU, cognomeU, usernameU, password1, dt, partitaIVA); //registra un nuovo utente con i dati che ha inserito
+                    frameC.setEnabled(true); //rende visibile il frame chiamante 'frameC'
+                    HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
+                    frameC.setVisible(false); //rende invisibile il frame chiamante 'frameC'
+                    hp.frame.setVisible(true);  //rende visibile il frame chiamato 'hp'
+                    frame.dispose();
+                    frameC.toFront();
+                }
             }
         }
     }

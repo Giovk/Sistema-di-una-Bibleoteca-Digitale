@@ -13,6 +13,7 @@ public class Controller {
     public Utente utente;
     public ArrayList<Libro> listaLibri = getLibri();
     public Libro nuovoLibro;
+    public Serie nuovoSerie;
     public Rivista nuovaRivista;
     public Fascicolo nuovoFascicolo;
     public ArticoloScientifico nuovoArticoloScientifico;
@@ -24,6 +25,8 @@ public class Controller {
     public ArrayList<Rivista> listaRiviste = getRiviste();
     public ArrayList<Fascicolo> listaFascicoli = getFascicoli();
     public ArrayList<Presentazione> listaPresentazioni = new ArrayList<>();
+    public ArrayList<Conferenza> listaConferenze = new ArrayList<>();
+    public ArrayList<Conferenza> listaAllConferenze = new ArrayList<>();
     public ArrayList<Notifica> listaNotifiche = new ArrayList<>();
     public ArrayList<Fascicolo> listaFascicoliRivista = new ArrayList<>();
     public ArrayList<String> libriISBNPreferiti = new ArrayList<>();
@@ -53,7 +56,9 @@ public class Controller {
     public ArrayList<String> titoloSerieLibreria = new ArrayList<>();
     public ArrayList<Fascicolo> fascicoliLibreria = new ArrayList<>();
     public ArrayList<Collana> listaCollane = getCollane();
-
+    public String doi_selected = "";
+    public int anno_pubblicazione = 0;
+    public String nome_articolo = "";
     public Controller(){
     }
 
@@ -168,7 +173,7 @@ public class Controller {
         LibroDAO l = new LibroImplementazionePostgresDAO();
         boolean presenzaLibro = l.creaLibroDB(isbn, titolo, genere, lingua, editore, dp);
 
-        nuovoLibro = new Libro(isbn, titolo, genere, editore, lingua, Date.valueOf(dp));
+        nuovoLibro = new Libro(isbn, genere, editore, lingua, titolo, Date.valueOf(dp));
         return presenzaLibro;
     }
     public ArrayList<Libro> getLibri() {   //ritorna i dati di tutti i libri nel DB
@@ -261,17 +266,9 @@ public class Controller {
         l.chiudiConnessione();
     }
 
-    public String getISBNLibro(String titolo){
-        String isbn = "";
-
-        for (int i = 0; i < listaLibri.size(); i++){
-            if (titolo.equals(listaLibri.get(i).titolo)){
-                isbn = listaLibri.get(i).isbn;
-                i = listaLibri.size();
-            }
-        }
-
-        return isbn;
+    public Date getDataLibro(){
+        LibroDAO l = new LibroImplementazionePostgresDAO();
+        return l.getDataLibroDB(isbn_selected);
     }
 
     // COLLANA //
@@ -700,6 +697,11 @@ public class Controller {
         listaPresentazioni = presentazioni;
     }
 
+    public boolean addPresentazione(String struttura, String luogo, String data, String orario){
+        PresentazioneDAO p = new PresentazioneImplementazionePostgresDAO();
+        return p.addPresentazioneDB(struttura, luogo, data, orario, isbn_selected);
+    }
+
 
     // SERIE //
 
@@ -814,7 +816,10 @@ public class Controller {
 
     public boolean creaSerie(ArrayList<String> isbnList, String isbn, String titolo, String dp){
         SerieDAO s = new SerieImplementazionePostgresDAO();
-        return s.creaSerieDB(isbnList, isbn, titolo, dp);
+        boolean presenzaSerie = s.creaSerieDB(isbnList, isbn, titolo, dp);
+
+        nuovoSerie = new Serie(isbn, isbnList.size(), titolo, Date.valueOf(dp));
+        return presenzaSerie;
     }
 
     // RECENSIONE //
@@ -965,6 +970,11 @@ public class Controller {
         return presenzaRivista;
     }
 
+    public void eliminaRivista(){
+        RivistaDAO r = new RivistaImplementazionePostgresDAO();
+        r.eliminaRivistaDB(nuovaRivista.issn);
+    }
+
     // FASCICOLO //
 
     public ArrayList<Fascicolo> getFascicoli(){
@@ -978,7 +988,7 @@ public class Controller {
                     if(listaRiviste.get(i).issn.equals(rs.getString("issn"))){
                         Rivista rivistaFascicolo = listaRiviste.get(i);
                         i = listaRiviste.size();
-                        ArrayList<ArticoloScientifico> articoloScientifici = getArticoloScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                        ArrayList<ArticoloScientifico> articoloScientifici = getArticoliScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
                         fascicoli.add(new Fascicolo(rs.getInt("numero"), rivistaFascicolo, articoloScientifici, rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
                     }
                 }
@@ -1013,7 +1023,7 @@ public class Controller {
                     if(listaRiviste.get(i).issn.equals(rs.getString("issn"))){
                         Rivista rivistaFascicolo = listaRiviste.get(i);
                         i = listaRiviste.size();
-                        ArrayList<ArticoloScientifico> articoloScientifici = getArticoloScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                        ArrayList<ArticoloScientifico> articoloScientifici = getArticoliScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
                         fascicoli.add(new Fascicolo(rs.getInt("numero"), rivistaFascicolo, articoloScientifici, rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
                     }
                 }
@@ -1074,9 +1084,14 @@ public class Controller {
         return presenzaFascicolo;
     }
 
+    public void eliminaFascicolo(){
+        FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
+        f.eliminaFascicoloDB(nuovoFascicolo.rivista.issn, nuovoFascicolo.numero);
+    }
+
     // ARTICOLO_SCIENTIFICO //
 
-    public ArrayList<ArticoloScientifico> getArticoloScientifici(String issn, int n){
+    public ArrayList<ArticoloScientifico> getArticoliScientifici(String issn, int n){
         ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
         ArrayList<ArticoloScientifico> articoloScientifici = new ArrayList<ArticoloScientifico>();
         ResultSet rs = as.getArticoliScientificiDB(issn, n);
@@ -1095,9 +1110,14 @@ public class Controller {
     public void getArticoliScientifici(){
         listaArticoli.clear();
 
-        for (int i = 0; i < listaFascicoli.size(); i++){
-            for (int j = 0; j < listaFascicoli.get(i).articoli.size(); j++){
-                listaArticoli.add(listaFascicoli.get(i).articoli.get(j));
+
+        if(!listaFascicoli.isEmpty()) {
+            for (int i = 0; i < listaFascicoli.size(); i++) {
+                System.out.println(listaFascicoli.get(i).rivista.titolo);
+                for (int j = 0; j < listaFascicoli.get(i).articoli.size(); j++) {
+                    if (!listaArticoli.contains(listaFascicoli.get(i).articoli.get(j)))
+                        listaArticoli.add(listaFascicoli.get(i).articoli.get(j));
+                }
             }
         }
     }
@@ -1110,6 +1130,16 @@ public class Controller {
         as.chiudiConnessione();
 
         return presenzaArticolo;
+    }
+
+    public void getAParticolo(){
+        ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
+        anno_pubblicazione = as.getAPDB(doi_selected);
+    }
+
+    public void eliminaArticolo(){
+        ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
+        as.eliminaArticoloDB(nuovoArticoloScientifico.doi);
     }
 
     // NOTIFICA //
@@ -1269,5 +1299,53 @@ public class Controller {
     public void eliminaPossessoF(String fruizione){
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
         p.eliminaPossessoFDB(fascicolo_selected.rivista.issn, fascicolo_selected.numero, libreria_selected.numeroTelefonico, fruizione);
+    }
+
+    // CONFERENZA //
+    public void getConferenzeArticolo(){    //ritorna i dati di tutte le presentazioni del libro con ISBN 'isbn_selected'
+        ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
+        ArrayList<Conferenza> conferenze = new ArrayList<>(); //contiene tutte le presentazioni del libro selezionato
+        ResultSet rs = c.getConferenzeArticoloDB(doi_selected); //cerca i dati di tutte le presentazioni del libro selezionato
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le presentazioni del libro selezionato
+                conferenze.add(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine")));   //inserisce una nuova presentazione in 'Presentazioni'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        c.chiudiConnessione();  //chiude la connessione al DB
+
+        listaConferenze = conferenze;
+    }
+
+    public void getConferenze(){
+        ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
+        ArrayList<Conferenza> conferenze = new ArrayList<>(); //contiene tutte le presentazioni del libro selezionato
+        ResultSet rs = c.getConferenzeDB(); //cerca i dati di tutte le presentazioni del libro selezionato
+
+        try {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le presentazioni del libro selezionato
+                if (!conferenze.contains(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine"))) && anno_pubblicazione <= rs.getDate("datainizio").getYear()+1900)
+                conferenze.add(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine")));   //inserisce una nuova presentazione in 'Presentazioni'
+            }
+        } catch (SQLException var){
+            var.printStackTrace();
+        }
+
+        c.chiudiConnessione();  //chiude la connessione al DB
+
+        listaAllConferenze = conferenze;
+    }
+
+    public boolean addConferenza(String struttura, String luogo, String datai, String dataf){
+        ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
+        return c.addConferenzaDB(struttura, luogo, datai, dataf);
+    }
+
+    public boolean addEsposizione(String struttura, String luogo, String datai, String dataf){
+        ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
+        return c.addEsposizioneDB(struttura, luogo, datai, dataf, doi_selected);
     }
 }

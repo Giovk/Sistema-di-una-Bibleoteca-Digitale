@@ -80,6 +80,17 @@ public class RivistaImplementazionePostgresDAO implements RivistaDAO {
         return false;
     }
 
+    public void eliminaRivistaDB(String issn){
+        try{
+            PreparedStatement eliminaRivistaPS = connection.prepareStatement(
+                    "DELETE FROM rivista WHERE issn = '"+issn+"'"
+            );
+
+            eliminaRivistaPS.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
     @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{

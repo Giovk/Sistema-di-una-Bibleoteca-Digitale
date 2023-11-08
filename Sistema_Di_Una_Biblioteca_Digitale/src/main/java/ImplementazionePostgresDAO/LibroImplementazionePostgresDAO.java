@@ -129,6 +129,30 @@ public class LibroImplementazionePostgresDAO implements LibroDAO {
     }
 
     @Override
+    public Date getDataLibroDB(String isbn){
+        Date data = null;
+        ResultSet rs = null;
+        try{
+            PreparedStatement getDataLibroPS = connection.prepareStatement(
+                    "SELECT datapubblicazione FROM libro WHERE isbn = '"+isbn+"'"
+            );
+
+            rs = getDataLibroPS.executeQuery();
+            try {
+                while (rs.next()){
+                    data = rs.getDate("datapubblicazione");
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

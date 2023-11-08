@@ -37,6 +37,47 @@ public class PresentazioneImplementazionePostgresDAO implements PresentazioneDAO
     }
 
     @Override
+    public boolean addPresentazioneDB(String struttura, String luogo, String data, String orario, String isbn){
+        ResultSet rs = null;
+        try {
+            PreparedStatement addPresentazionePS = connection.prepareStatement(
+                    "SELECT COUNT(*) AS contatore FROM presentazione WHERE struttura = '"+struttura+"' AND luogo = '"+luogo+"' AND datap = '"+data+"' AND" +
+                            " ora = '"+orario+"'"
+            );
+
+            rs = addPresentazionePS.executeQuery();
+            try {
+                while(rs.next()){
+                    if (rs.getInt("contatore") >= 1){
+                        rs.close();
+                        chiudiConnessione();
+                        return false;
+                    }
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+            rs.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        try {
+            PreparedStatement addPresentazionePS = connection.prepareStatement(
+                    "INSERT INTO presentazione(isbn, struttura, luogo, datap, ora) " +
+                            "VALUES('"+isbn+"', '"+struttura+"', '"+luogo+"', '"+data+"', '"+orario+"')"
+            );
+
+            addPresentazionePS.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        chiudiConnessione();
+        return true;
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

@@ -145,6 +145,44 @@ public class ArticoloScientificoImplementazionePostgresDAO implements ArticoloSc
     }
 
     @Override
+    public int getAPDB(String doi){
+        ResultSet rs = null;
+        int anno = 0;
+        try {
+            PreparedStatement getAPPS = connection.prepareStatement(
+              "SELECT annopubblicazione FROM articolo_scientifico WHERE doi = '"+doi+"'"
+            );
+
+            rs = getAPPS.executeQuery();
+
+            try {
+                while (rs.next()){
+                    anno = rs.getInt("annopubblicazione");
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return anno;
+    }
+
+    @Override
+    public void eliminaArticoloDB(String doi){
+        try{
+            System.out.println(doi);
+            PreparedStatement eliminaArticoloPS = connection.prepareStatement(
+                    "DELETE FROM articolo_scientifico WHERE doi = '"+doi+"'"
+            );
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

@@ -52,7 +52,8 @@ public class BookPage {
     private JLabel backButton;
     private JButton fascicoliButton;
     private JLabel notificheLabel;
-    private JLabel gestisciCollaneButton;
+    private JButton gestisciCollaneButton;
+    private JButton presentazioniButton;
     private boolean active = false;
     ImageIcon favouriteVuotoIco;
     ImageIcon favouritePienoIco;
@@ -258,6 +259,7 @@ public class BookPage {
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
             gestisciCollaneButton.setVisible(false);
+            presentazioniButton.setVisible(false);
             utenteMenu.setPopupSize(new Dimension(80, 50));
         }
 
@@ -652,9 +654,49 @@ public class BookPage {
 
         gestisciCollaneButton.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                gestisciCollaneButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+
+        gestisciCollaneButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                gestisciCollaneButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        gestisciCollaneButton.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 GestisciCollane gestisciCollane = new GestisciCollane(frame, controller);
+                frame.setEnabled(false); //disabilita il frame
+            }
+        });
+
+        presentazioniButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                presentazioniButton.setBackground(Color.decode("#cf9e29"));
+            }
+        });
+
+        presentazioniButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                presentazioniButton.setBackground(Color.decode("#FFD369"));
+            }
+        });
+
+        presentazioniButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreaPresentazione creaPresentazione = new CreaPresentazione(frame, controller, model2);
                 frame.setEnabled(false); //disabilita il frame
             }
         });

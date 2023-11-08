@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Conferenza {
+    public String struttura;
     public String luogo;
     public Date dataInizio;
     public Date dataFine;
     public ArrayList<ArticoloScientifico> articoliEsposti;
 
-    public Conferenza(String l, Date di, Date df, ArrayList<ArticoloScientifico> a) {
+    public Conferenza(String s, String l, Date di, Date df, ArrayList<ArticoloScientifico> a) {
+        struttura = s;
         luogo = l;
         dataInizio = di;
         dataFine = df;
@@ -17,5 +19,12 @@ public class Conferenza {
             articoliEsposti.add(articoloAttuale);
             articoloAttuale.conferenze.add(this);
         }
+    }
+
+    public Conferenza(String s, String l, Date di, Date df) {
+        struttura = s;
+        luogo = l;
+        dataInizio = di;
+        dataFine = df;
     }
 }

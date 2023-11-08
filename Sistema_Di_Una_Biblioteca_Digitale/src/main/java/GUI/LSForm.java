@@ -22,6 +22,16 @@ public class LSForm {
 
     public LSForm() {
         controller = new Controller();
+
+        frame = new JFrame("Biblioteca Digitale");
+        frame.setUndecorated(true); //abilita le decorazioni del frame
+        frame.setContentPane(lsPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setSize(1280, 720);   //imposta larghezza e altezza del frame
+        frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
+        frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
+        frame.setVisible(true);
         btSignIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -108,7 +118,7 @@ public class LSForm {
         });
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(new LSForm().lsPanel);
@@ -118,7 +128,7 @@ public class LSForm {
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
-    }
+    }*/
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
