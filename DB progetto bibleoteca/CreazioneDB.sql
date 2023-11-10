@@ -891,7 +891,7 @@ BEGIN
     FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
     WHERE L.ISBN=NEW.ISBN;
     
-    IF Cods IS NOT NULL THEN --controlla se il libro inserito appartiene a una serie
+    IF CodS IS NOT NULL THEN --controlla se il libro inserito appartiene a una serie
         SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie del libro inserito posseduti dalla libreria 'NEW.Codl'
         FROM POSSESSO_L 
         WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
