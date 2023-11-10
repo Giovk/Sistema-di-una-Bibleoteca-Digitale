@@ -9,9 +9,11 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.Year;
 import java.util.ArrayList;
 
@@ -1164,15 +1166,19 @@ public class AggiungiElementoForm {
                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
                                         controller.eliminaRivista();
                                     } else {
-                                        if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
-                                            controller.eliminaRivista();
-                                        } else {
-                                            if (takeArticoli(controller, true) == true) {
-                                                controller.listaFascicoli.add(controller.nuovoFascicolo);
+                                        if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {
+                                            if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
+                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
+                                                controller.eliminaRivista();
+                                            } else {
+                                                if (takeArticoli(controller, true) == true) {
+                                                    controller.listaFascicoli.add(controller.nuovoFascicolo);
 
-                                                inserimentoEaggiornamentoF(controller, model, true, frameC);
+                                                    inserimentoEaggiornamentoF(controller, model, true, frameC);
+                                                }
                                             }
+                                        }else {
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");
                                         }
                                     }
 
@@ -1190,14 +1196,19 @@ public class AggiungiElementoForm {
                                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
 
                                 } else {
-                                    if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
-                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
-                                    } else {
-                                        if (takeArticoli(controller, false) == true) {
-                                            controller.listaFascicoli.add(controller.nuovoFascicolo);
+                                    if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {
+                                        if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
+                                        } else {
+                                            if (takeArticoli(controller, false) == true) {
+                                                controller.listaFascicoli.add(controller.nuovoFascicolo);
 
-                                            inserimentoEaggiornamentoF(controller, model, false, frameC);
+                                                inserimentoEaggiornamentoF(controller, model, false, frameC);
+                                            }
                                         }
+                                    }
+                                    else {
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");
                                     }
                                 }
 
@@ -1343,21 +1354,27 @@ public class AggiungiElementoForm {
                                             if(nuova_rivista == true) controller.eliminaRivista();
                                             return false;
                                         } else {
-                                            if (controller.creaArticolo(comboBox.getSelectedItem().toString().replace("'", "’"), (int) spinner.getValue())) {
-                                                if (takeAutoriArticolo(controller, jpanel2) == false) {
-                                                    controller.eliminaArticolo();
-                                                    controller.eliminaFascicolo();
-                                                    if(nuova_rivista == true) controller.eliminaRivista();
-                                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo non ha autori!");
-                                                    return false;
+                                            if (Date.valueOf(dpFascicoloField.getText()).getYear()+1900 >= (int) spinner.getValue()) {
+                                                if (controller.creaArticolo(comboBox.getSelectedItem().toString().replace("'", "’"), (int) spinner.getValue())) {
+                                                    if (takeAutoriArticolo(controller, jpanel2) == false) {
+                                                        controller.eliminaArticolo();
+                                                        controller.eliminaFascicolo();
+                                                        if (nuova_rivista == true) controller.eliminaRivista();
+                                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo non ha autori!");
+                                                        return false;
+                                                    } else {
+                                                        controller.listaArticoli.add(controller.nuovoArticoloScientifico);
+                                                        controller.nuovoFascicolo.articoli.add(controller.nuovoArticoloScientifico);
+                                                    }
                                                 } else {
-                                                    controller.listaArticoli.add(controller.nuovoArticoloScientifico);
-                                                    controller.nuovoFascicolo.articoli.add(controller.nuovoArticoloScientifico);
+                                                    controller.nuovoArticoloScientifico = controller.listaArticoli.get(comboBox.getSelectedIndex());
+                                                    controller.nuovoFascicolo.articoli.add(controller.listaArticoli.get(comboBox.getSelectedIndex()));
                                                 }
                                             } else {
-
-                                                controller.nuovoArticoloScientifico = controller.listaArticoli.get(comboBox.getSelectedIndex());
-                                                controller.nuovoFascicolo.articoli.add(controller.listaArticoli.get(comboBox.getSelectedIndex()));
+                                                controller.eliminaFascicolo();
+                                                if (nuova_rivista == true) controller.eliminaRivista();
+                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo è scritto dopo la pubblicazione del fascicolo!");
+                                                return false;
                                             }
                                         }
                                     }
@@ -2294,8 +2311,28 @@ public class AggiungiElementoForm {
         dpFascicoloField = new JTextField();
         dpFascicoloField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
 
-        SpinnerNumberModel snm3 = new SpinnerNumberModel(Year.now().getValue(), 1900, Year.now().getValue(), 1);
-        annoPrivistaSpinner = new JSpinner(snm3);
+        DecimalFormat decimalFormat = new DecimalFormat("0");
+        decimalFormat.setGroupingUsed(false); // Disabilita il separatore delle migliaia
+
+        // Crea un NumberFormatter con il NumberFormat personalizzato
+        NumberFormatter numberFormatter = new NumberFormatter(decimalFormat);
+
+        // Crea un JFormattedTextField con il NumberFormatter
+        JFormattedTextField formattedTextField = new JFormattedTextField(numberFormatter);
+
+        // Crea un SpinnerNumberModel con il valore iniziale, il valore minimo, il valore massimo e l'incremento
+        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(Year.now().getValue(), 1900, Year.now().getValue(), 1);
+
+
+        annoPrivistaSpinner = new JSpinner(spinnerModel);
+        annoPrivistaSpinner.setEditor(new JSpinner.DefaultEditor(annoPrivistaSpinner));
+        JSpinner.DefaultEditor editors = (JSpinner.DefaultEditor) annoPrivistaSpinner.getEditor();
+        editors.getTextField().setFormatterFactory(new JFormattedTextField.AbstractFormatterFactory() {
+            @Override
+            public JFormattedTextField.AbstractFormatter getFormatter(JFormattedTextField tf) {
+                return numberFormatter;
+            }
+        });
 
         annoPrivistaSpinner.setBorder(new LineBorder(new Color(0xFFD369)));
 
@@ -2323,7 +2360,9 @@ public class AggiungiElementoForm {
                 };
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                        if(spinner.getPreviousValue() != null) {
+                            spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                        }
                     }
                 });
                 button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
@@ -2341,7 +2380,9 @@ public class AggiungiElementoForm {
                 };
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        spinner.setValue(spinner.getNextValue()); // Azione per incrementare il valore
+                        if (spinner.getNextValue() != null) {
+                            spinner.setValue(spinner.getNextValue());
+                        }
                     }
                 });
                 button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
