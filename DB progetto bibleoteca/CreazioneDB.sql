@@ -898,7 +898,7 @@ BEGIN
     LOOP
         FETCH cursore_serie INTO CodS, LibriSerie;
 
-        EXIT WHEN NOT FOUND
+        EXIT WHEN NOT FOUND;
     
         IF CodS IS NOT NULL THEN --controlla se il libro inserito appartiene alla serie attuale
             SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie attuale posseduti dalla libreria 'NEW.Codl'
@@ -951,7 +951,7 @@ BEGIN
     LOOP
         FETCH cursore_serie INTO CodS, LibriSerie;
 
-        EXIT WHEN NOT FOUND
+        EXIT WHEN NOT FOUND;
 
         IF Cods IS NOT NULL THEN --controlla se il libro modificato appartiene alla serie attuale
             SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie attuale posseduti dalla libreria 'NEW.Codl'
@@ -1004,7 +1004,7 @@ BEGIN
     LOOP
         FETCH cursore_serie INTO CodS, LibriSerie;
 
-        EXIT WHEN NOT FOUND
+        EXIT WHEN NOT FOUND;
     
         IF Cods IS NOT NULL THEN --controlla se il libro eliminato appartiene a una serie
             DELETE FROM POSSESSO_S
