@@ -886,33 +886,43 @@ DECLARE
     CodS INSERIMENTO.Serie%TYPE:=NULL; --codice della serie del libro inserito
     LibriSerie SERIE.NLibri%TYPE:=NULL; --numero di libri inseriti nella serie del nuovo libro
     QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL; --quantità disponibile della serie del libro inserito
-BEGIN
-    SELECT I.Serie, S.NLibri INTO CodS, LibriSerie  --trova il codice della serie del libro inserito
-    FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
-    WHERE L.ISBN=NEW.ISBN;
-    
-    IF CodS IS NOT NULL THEN --controlla se il libro inserito appartiene a una serie
-        SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie del libro inserito posseduti dalla libreria 'NEW.Codl'
-        FROM POSSESSO_L 
-        WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
-                                                                    SELECT Libro
-                                                                    FROM INSERIMENTO
-                                                                    WHERE Serie=CodS
-                                                                );
 
-        IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie del libro inserito            
-            SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
-            FROM POSSESSO_L AS PL
-            WHERE PL.Fruizione=NEW.Fruizione AND ISBN IN(
-                                                            SELECT Libro
-                                                            FROM INSERIMENTO AS I
-                                                            WHERE I.Serie=CodS
-                                                        );
-        
-            INSERT INTO POSSESSO_S(Codl, ISBN, Fruizione, Quantita)
-            VALUES(NEW.Codl, CodS, NEW.Fruizione, QuantitaDisponibile);
+    cursore_serie CURSOR FOR
+        SELECT I.Serie, S.NLibri   --trova i codici delle serie del libro inserito
+        FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
+        WHERE L.ISBN=NEW.ISBN;
+
+BEGIN
+    OPEN cursore_serie;
+
+    LOOP
+        FETCH cursore_serie INTO CodS, LibriSerie;
+
+        EXIT WHEN NOT FOUND
+    
+        IF CodS IS NOT NULL THEN --controlla se il libro inserito appartiene alla serie attuale
+            SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie attuale posseduti dalla libreria 'NEW.Codl'
+            FROM POSSESSO_L 
+            WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
+                                                                        SELECT Libro
+                                                                        FROM INSERIMENTO
+                                                                        WHERE Serie=CodS
+                                                                    );
+
+            IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie attuale            
+                SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
+                FROM POSSESSO_L AS PL
+                WHERE PL.Fruizione=NEW.Fruizione AND ISBN IN(
+                                                                SELECT Libro
+                                                                FROM INSERIMENTO AS I
+                                                                WHERE I.Serie=CodS
+                                                            );
+
+                INSERT INTO POSSESSO_S(Codl, ISBN, Fruizione, Quantita)
+                VALUES(NEW.Codl, CodS, NEW.Fruizione, QuantitaDisponibile);
+            END IF;
         END IF;
-    END IF;
+    END LOOP;
 
     RETURN NEW;
 END; 
@@ -929,34 +939,44 @@ DECLARE
     CodS INSERIMENTO.Serie%TYPE:=NULL; --codice della serie del libro modificato
     LibriSerie SERIE.NLibri%TYPE:=NULL; --numero di libri inseriti nella serie del libro modificato
     QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL; --quantità disponibile della serie del libro modificato
-BEGIN
-    SELECT I.Serie, S.NLibri INTO CodS, LibriSerie  --trova il codice della serie del libro modificato
-    FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
-    WHERE L.ISBN=NEW.ISBN;
+
+    cursore_serie CURSOR FOR
+        SELECT I.Serie, S.NLibri  --trova i codici delle serie del libro modificato
+        FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
+        WHERE L.ISBN=NEW.ISBN;
     
-    IF Cods IS NOT NULL THEN --controlla se il libro modificato appartiene a una serie
-        SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie del libro inserito posseduti dalla libreria 'NEW.Codl'
-        FROM POSSESSO_L 
-        WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
-                                                                        SELECT Libro
-                                                                        FROM INSERIMENTO
-                                                                        WHERE Serie=CodS
-                                                                    );
+BEGIN
+    OPEN cursore_serie;
 
-        IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie del libro inserito            
-            SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
-            FROM POSSESSO_L AS PL
-            WHERE PL.Fruizione=NEW.Fruizione AND ISBN IN(
-                                                            SELECT Libro
-                                                            FROM INSERIMENTO AS I
-                                                            WHERE I.Serie=CodS
-                                                        );
+    LOOP
+        FETCH cursore_serie INTO CodS, LibriSerie;
 
-            UPDATE POSSESSO_S
-            SET Quantita=QuantitaDisponibile
-            WHERE Codl=NEW.Codl AND ISBN=CodS AND Fruizione=NEW.Fruizione;
+        EXIT WHEN NOT FOUND
+
+        IF Cods IS NOT NULL THEN --controlla se il libro modificato appartiene alla serie attuale
+            SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie attuale posseduti dalla libreria 'NEW.Codl'
+            FROM POSSESSO_L 
+            WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
+                                                                            SELECT Libro
+                                                                            FROM INSERIMENTO
+                                                                            WHERE Serie=CodS
+                                                                        );
+
+            IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie attuale            
+                SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
+                FROM POSSESSO_L AS PL
+                WHERE PL.Fruizione=NEW.Fruizione AND ISBN IN(
+                                                                SELECT Libro
+                                                                FROM INSERIMENTO AS I
+                                                                WHERE I.Serie=CodS
+                                                            );
+
+                UPDATE POSSESSO_S
+                SET Quantita=QuantitaDisponibile
+                WHERE Codl=NEW.Codl AND ISBN=CodS AND Fruizione=NEW.Fruizione;
+            END IF;
         END IF;
-    END IF;
+    END LOOP;
 
     RETURN NEW;
 END; 
@@ -972,15 +992,25 @@ DECLARE
     CodS INSERIMENTO.Serie%TYPE:=NULL; --codice della serie del libro eliminato
     LibriSerie SERIE.NLibri%TYPE:=NULL; --numero di libri inseriti nella serie del libro eliminato
     QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL; --quantità disponibile della serie del libro eliminato
+
+    cursore_serie CURSOR FOR
+        SELECT I.Serie, S.NLibri --trova il codice delle serie del libro eliminato
+        FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
+        WHERE L.ISBN=OLD.ISBN;
+
 BEGIN
-    SELECT I.Serie, S.NLibri INTO CodS, LibriSerie  --trova il codice della serie del libro eliminato
-    FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
-    WHERE L.ISBN=OLD.ISBN;
+    OPEN cursore_serie;
+
+    LOOP
+        FETCH cursore_serie INTO CodS, LibriSerie;
+
+        EXIT WHEN NOT FOUND
     
-    IF Cods IS NOT NULL THEN --controlla se il libro eliminato appartiene a una serie
-        DELETE FROM POSSESSO_S
-        WHERE ISBN=CodS AND CodL=OLD.CodL AND Fruizione=OLD.Fruizione;
-    END IF;
+        IF Cods IS NOT NULL THEN --controlla se il libro eliminato appartiene a una serie
+            DELETE FROM POSSESSO_S
+            WHERE ISBN=CodS AND CodL=OLD.CodL AND Fruizione=OLD.Fruizione;
+        END IF;
+    END LOOP;
 
     RETURN NEW;
 END; 
