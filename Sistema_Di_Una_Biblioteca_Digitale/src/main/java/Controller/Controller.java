@@ -329,9 +329,9 @@ public class Controller {
 
     public void getInfoLibriPreferiti(){
         getLibriISBNPreferiti();
+
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ResultSet rs = null;
-
 
         libriTitoloPreferiti.clear();
         possessolPreferiti.clear();
@@ -877,7 +877,6 @@ public class Controller {
         SerieDAO s = new SerieImplementazionePostgresDAO();
         ResultSet rs = null;
 
-
         serieTitoloPreferiti.clear();
         possessosPreferiti.clear();
         librerieSeriePreferiti.clear();
@@ -1151,7 +1150,6 @@ public class Controller {
         getFascicoliPreferiti();
         FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
         ResultSet rs = null;
-
 
         fascicoliTitoloPreferiti.clear();
         possessofPreferiti.clear();
