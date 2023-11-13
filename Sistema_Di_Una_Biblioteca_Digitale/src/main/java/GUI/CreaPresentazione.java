@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Date;
 
-public class CreaPresentazione {
+public class   CreaPresentazione {
     public JFrame frame;
     private JPanel contentPanel;
     private JPanel closePanel;
