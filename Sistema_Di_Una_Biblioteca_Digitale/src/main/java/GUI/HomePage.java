@@ -22,7 +22,6 @@ public class HomePage {
     private JButton homeButton;
     private JButton libriButton;
     private JButton utenteButton;
-    private JLabel text1;
     private JPanel buttonPanel;
     private JLabel closeBT;
     private JButton serieButton;
@@ -38,34 +37,34 @@ public class HomePage {
     private JLabel resetFiltriLabel;
     private JScrollPane mainScrollPanel;
     private JTable mainTable;
-
     private JPopupMenu utenteMenu;
     private Boolean active = false;
     private DefaultTableModel model;
     private int numeroNotifiche;
 
     public HomePage(JFrame frameC, Controller controller) {
-        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
-        UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
-        UIManager.put("ScrollPane.background\n", new Color(0x222831));
+        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
+        UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato
+        UIManager.put("ScrollPane.background\n", new Color(0x222831)); //imposta il colore dello sfondo del 'JScrollPane'
+
         mainScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
+            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
+            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
+            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png")); //carica l'immagine nel percorso /left.png
+            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true); //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48); //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
             }
 
             @Override
@@ -73,11 +72,11 @@ public class HomePage {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension(25, 15);   //inizializza le dimensioni del JButton 'decreaseButton'
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -86,64 +85,64 @@ public class HomePage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension(25, 15);   //inizializza le dimensioni del JButton 'increaseButton'
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
         utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
-        utenteExit.setBackground(new Color(0xFFD369));
-        utenteExit.setFocusPainted(false);
-        utenteExit.setBorder(BorderFactory.createEmptyBorder());
+        utenteExit.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteExit'
+        utenteExit.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteExit'
+        utenteExit.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteExit'
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
-        utenteProfilo.setBackground(new Color(0xFFD369));
-        utenteProfilo.setFocusPainted(false);
-        utenteProfilo.setBorder(BorderFactory.createEmptyBorder());
+        utenteProfilo.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo del JMenuItem 'utenteProfilo'
+        utenteProfilo.setFocusPainted(false);   //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteProfilo'
+        utenteProfilo.setBorder(BorderFactory.createEmptyBorder()); //toglie il bordo del JMenuItem 'utenteProfilo'
         utenteProfilo.setFocusable(false);
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
-        utenteLibrerie.setBackground(new Color(0xFFD369));
-        utenteLibrerie.setFocusPainted(false);
-        utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());
-        utenteMenu.setPopupSize(new Dimension(80, 75));
-        utenteMenu.setBorder(BorderFactory.createEmptyBorder());
-        utenteMenu.setBackground(new Color(0xFFD369));
+        utenteLibrerie.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteLibrerie'
+        utenteMenu.setPopupSize(new Dimension(80, 75)); //imposta le dimensioni del menu 'utenteMenu'
+        utenteMenu.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del menu 'utenteMenu'
+        utenteMenu.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del menu 'utenteMenu'
         utenteMenu.add(utenteProfilo);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
-            utenteMenu.setPopupSize(new Dimension(80, 50));
+            utenteMenu.setPopupSize(new Dimension(80, 50)); //adatta le dimensioni di 'utenteMenu'
         }
 
         frame = new JFrame("Homepage");
-        frame.setUndecorated(true); //abilita le decorazioni del frame
+        frame.setUndecorated(true); //rimuove la decorazione della finestra
         frame.setContentPane(homepagePanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //imposta la terminazione dell'applicazione come operazione predefinita da eseguire quando viene chiuso il frame
         frame.pack();
 
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                frame.setVisible(false);
-                frameC.setEnabled(true);
+                frame.setVisible(false);    //rende invisibile il frame
+                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
                 frame.dispose();
-                System.exit(0);
+                System.exit(0); //termina l'esecuzione
             }
         });
 
@@ -156,7 +155,7 @@ public class HomePage {
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
+                if (e.getButton() == MouseEvent.BUTTON1) {  //controlla se è stato cliccato con il tasto sinistro del mouse il JButton utenteButton
                     utenteMenu.show(utenteButton, utenteButton.getWidth() - 80, utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
                 }
             }
@@ -165,19 +164,19 @@ public class HomePage {
         utenteMenu.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                active = true;
+                active = true;  //aggiorna 'active'
             }
 
             @Override
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                active = false;
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                active = false; //aggiorna 'active'
+                utenteButton.setBackground(Color.decode("#FFD369")); //imposta lo sfondo del JButton 'utenteButton'
             }
 
             @Override
             public void popupMenuCanceled(PopupMenuEvent e) {
-                active = false;
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                active = false; //aggiorna 'active'
+                utenteButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'utenteButton'
             }
         });
 
@@ -227,8 +226,8 @@ public class HomePage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
-                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'sp'
+                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'sp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -238,8 +237,8 @@ public class HomePage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'bp'
-                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'ip'
+                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'ip'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -250,7 +249,7 @@ public class HomePage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                libriButton.setBackground(Color.decode("#cf9e29"));
+                libriButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'libriButton'
             }
         });
 
@@ -258,7 +257,7 @@ public class HomePage {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                libriButton.setBackground(Color.decode("#FFD369"));
+                libriButton.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'libriButton'
             }
         });
 
@@ -266,15 +265,16 @@ public class HomePage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                utenteButton.setBackground(Color.decode("#cf9e29"));
+                utenteButton.setBackground(Color.decode("#cf9e29"));    //imposta il colore dello sfondo del JButton 'utenteButton'
             }
         });
+
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
-                if (active == false){
+                if (active == false){   //controlla se è stato disattivato il menu "Utente"
                     super.mouseExited(e);
-                    utenteButton.setBackground(Color.decode("#FFD369"));
+                    utenteButton.setBackground(Color.decode("#FFD369"));    //imposta il colore dello sfondo del JButton 'utenteButton'
                 }
             }
         });
@@ -283,14 +283,15 @@ public class HomePage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                serieButton.setBackground(Color.decode("#cf9e29"));
+                serieButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'serieButton'
             }
         });
+
         serieButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                     super.mouseExited(e);
-                    serieButton.setBackground(Color.decode("#FFD369"));
+                    serieButton.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'serieButton'
             }
         });
 
@@ -298,46 +299,43 @@ public class HomePage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                fascicoliButton.setBackground(Color.decode("#cf9e29"));
+                fascicoliButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'fascicoliButton'
             }
         });
+
         fascicoliButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                fascicoliButton.setBackground(Color.decode("#FFD369"));
+                fascicoliButton.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'fascicoliButton'
             }
         });
 
-        controller.getNotificheUtente();
-
-        setNumeroNotifiche(controller);
+        controller.getNotificheUtente();    //inizializza 'controller.listaNotifiche'
+        setNumeroNotifiche(controller); //inizializza il testo della JLabel 'notificheLabel'
 
         Timer timer = new Timer(60000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setNumeroNotifiche(controller);
+                setNumeroNotifiche(controller); //aggiorna il testo della JLabel 'notificheLabel'
             }
         });
 
-        timer.start();
-        timer.setRepeats(true);
+        timer.start();  //avvia il timer
+        timer.setRepeats(true); //fa ripetere il timer dopo che è scaduto
 
-        // --------------------------------------------------------------------------------- //
-
-        UIManager.put("ComboBox.disabledForeground", new Color(0x222831));
-        UIManager.put("ComboBox.disabledBackground", new Color(0xFFD369));
+        UIManager.put("ComboBox.disabledForeground", new Color(0x222831));  //imposta il colore del testo di un combo box quando viene disabilitato
+        UIManager.put("ComboBox.disabledBackground", new Color(0xFFD369));  //imposta il colore dello sfondo di un combo box quando viene disabilitato
 
         ArrayList<String> distinctGenereList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
 
-        for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre l'ArrayList di tutti i generi dei libri
-            if (!distinctGenereList.contains(controller.listaLibri.get(i).genere))    //controlla se 'distinctGenereList' non contiene l'i-esimo elemento di genereList
-                distinctGenereList.add(controller.listaLibri.get(i).genere);  //inserisce l'i-esimo elemento di genereList  in 'distinctGenereList'
+        for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre l'ArrayList di tutti i libri
+            if (!distinctGenereList.contains(controller.listaLibri.get(i).genere))    //controlla se 'distinctGenereList' non contiene il genere dell'i-esimo libro di 'controller.listaLibri'
+                distinctGenereList.add(controller.listaLibri.get(i).genere);  //inserisce il genere dell'i-esimo libro in 'distinctGenereList'
         }
 
         ArrayList<String> totAutoreList = controller.allAutoriLibri(); //contiene i nomi e cognomi concatenati di tutti gli autori dei libri
-        ArrayList<String> distinctAutoreList = controller.allAutoriDistintiLibri();   //contiene i nomi e i cognomi concatenati di tutti gli autori dei libri
-
+        ArrayList<String> distinctAutoreList = controller.allAutoriDistintiLibri();   //contiene i nomi e i cognomi concatenati di tutti gli autori dei libri evitando dei duplicati
 
         model = new DefaultTableModel(new Object[][]{}, new String[]{"Prodotto", "Quantità", "Fruizione", "Libreria", "Indirizzo", "Numero Di Telefono", "Sito Web"}) {
             @Override
@@ -348,131 +346,129 @@ public class HomePage {
 
         // Renderer personalizzato per l'header della tabella
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(0xCF9E29));
-        headerRenderer.setForeground(new Color(0xEEEEEE));
-        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        Font headerFont = new Font("Impact", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
-        headerRenderer.setFont(headerFont);
-        JTableHeader tableHeader = mainTable.getTableHeader();
-        tableHeader.setDefaultRenderer(headerRenderer);
+        headerRenderer.setBackground(new Color(0xCF9E29));  //imposta il colore dello sfondo dell'header della tabella
+        headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);   //centra orizzontalmente il contenuto dell'header della tabella
+        Font headerFont = new Font("Impact", Font.PLAIN, 15); //inizializza il font Bebas Neue, grandezza 15 e stile Regular per i caratteri della tabella
+        headerRenderer.setFont(headerFont); //imposta il font del contenuto delle celle della tabella a 'headerFont'
+        JTableHeader tableHeader = mainTable.getTableHeader(); //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'mainTable'
+        tableHeader.setDefaultRenderer(headerRenderer); //imposta il render di default della tabella a 'headerRender'
 
-        // Impedire il ridimensionamento delle colonne
-        mainTable.getTableHeader().setResizingAllowed(false);
+        mainTable.getTableHeader().setResizingAllowed(false);   //impedisce il ridimensionamento delle colonne
 
-        // Impedire il riordinamento delle colonne
-        mainTable.getTableHeader().setReorderingAllowed(false);
+        mainTable.getTableHeader().setReorderingAllowed(false); //impedisce il riordinamento delle colonne
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader.setBorder(null);
+        tableHeader.setBorder(null);    //rimuove il bordo dell'header della tabella
 
-        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));
-
+        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));  //inposta il render di default della tabella
 
         mainTable.setModel(model); //imposta il modello dei dati della JTable 'mainTable'
-        mainScrollPanel.setBackground(new Color(0x222831));
-        mainScrollPanel.setBorder(BorderFactory.createEmptyBorder());
-        mainScrollPanel.getViewport().setBackground(new Color(0x222831));
+        mainScrollPanel.setBackground(new Color(0x222831)); //imposta il colore dello sfondo del JScrollPane 'mainScrollPanel'
+        mainScrollPanel.setBorder(BorderFactory.createEmptyBorder());   //toglie il bordo del JScrollPane 'mainScrollPanel'
+        mainScrollPanel.getViewport().setBackground(new Color(0x222831));   //imposta il colore dello sfondo della parte visibile del JScrollPane 'mainScrollPanel'
 
-        controller.getInfoLibriPreferiti();
-        controller.getInfoSeriePreferiti();
-        controller.getInfoFascicoliPreferiti();
+        controller.getInfoLibriPreferiti(); //inizializza 'controller.libriTitoloPreferiti', 'controller.possessolPreferiti' e 'controller.librerieLibriPreferiti'
+        controller.getInfoSeriePreferiti(); //inizializza 'controller.serieTitoloPreferiti', 'controller.possessosPreferiti' e 'controller.librerieSeriePreferiti'
+        controller.getInfoFascicoliPreferiti(); //inizializza 'controller.fascicoloTitoloPreferiti', 'controller.possessofPreferiti' e 'controller.librerieFascicoliPreferiti'
 
-        if (controller.libriTitoloPreferiti != null && controller.possessolPreferiti != null && controller.librerieLibriPreferiti != null) {
-            for (int i = 0; i < controller.libriTitoloPreferiti.size(); i++) {
-
-                if(controller.possessolPreferiti.get(i).fruizione.equals("Digitale") || controller.possessolPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "∞", controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
-                else if(controller.possessolPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessolPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "Non Diponibile" , controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
-                else model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), controller.possessolPreferiti.get(i).quantita , controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
+        if (controller.libriTitoloPreferiti != null && controller.possessolPreferiti != null && controller.librerieLibriPreferiti != null) {    //controlla se 'controller.libriTitoloPreferiti', 'controller.possessolPreferiti' e 'controller.librerieLibriPreferiti' non sono a null
+            for (int i = 0; i < controller.libriTitoloPreferiti.size(); i++) {  //scorre la lista dei libri preferiti dell'utente
+                if (controller.possessolPreferiti.get(i).fruizione.equals("Digitale") || controller.possessolPreferiti.get(i).fruizione.equals("AudioLibro")) { //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                    model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "∞", controller.possessolPreferiti.get(i).fruizione, controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});    //aggiunge una nuova riga nella tabella
+                } else if (controller.possessolPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessolPreferiti.get(i).quantita == 0) {   //controlla se l'i-esimo libro non è disponibile
+                    model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "Non Diponibile", controller.possessolPreferiti.get(i).fruizione, controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                } else {
+                    model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), controller.possessolPreferiti.get(i).quantita, controller.possessolPreferiti.get(i).fruizione, controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                }
             }
         }
 
-        if (controller.serieTitoloPreferiti != null && controller.possessosPreferiti != null && controller.librerieSeriePreferiti != null) {
-            for (int i = 0; i < controller.serieTitoloPreferiti.size(); i++) {
-
-                if(controller.possessosPreferiti.get(i).fruizione.equals("Digitale") || controller.possessosPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "∞", controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
-                else if(controller.possessosPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessosPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "Non Diponibile" , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
-                else model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), controller.possessosPreferiti.get(i).quantita , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
+        if (controller.serieTitoloPreferiti != null && controller.possessosPreferiti != null && controller.librerieSeriePreferiti != null) {    //controlla se 'controller.serieTitoloPreferiti', 'controller.possessosPreferiti' e 'controller.librerieSeriePreferiti' non sono a null
+            for (int i = 0; i < controller.serieTitoloPreferiti.size(); i++) {  //scorre la lista delle serie preferite dell'utente
+                if(controller.possessosPreferiti.get(i).fruizione.equals("Digitale") || controller.possessosPreferiti.get(i).fruizione.equals("AudioLibro")) {  //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                    model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "∞", controller.possessosPreferiti.get(i).fruizione, controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                }else if(controller.possessosPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessosPreferiti.get(i).quantita == 0) { //controlla se l'i-esima serie non è disponibile
+                    model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "Non Diponibile" , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                } else {
+                    model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), controller.possessosPreferiti.get(i).quantita , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                }
             }
         }
 
-        if (controller.fascicoliTitoloPreferiti != null && controller.possessofPreferiti != null && controller.librerieFascicoliPreferiti != null) {
-            for (int i = 0; i < controller.fascicoliTitoloPreferiti.size(); i++) {
-
-                if(controller.possessofPreferiti.get(i).fruizione.equals("Digitale") || controller.possessofPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "∞", controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
-                else if(controller.possessofPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessofPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "Non Diponibile" , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
-                else model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), controller.possessofPreferiti.get(i).quantita , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
+        if (controller.fascicoliTitoloPreferiti != null && controller.possessofPreferiti != null && controller.librerieFascicoliPreferiti != null) {    //controlla se 'controller.fascicoliTitoloPreferiti', 'controller.possessofPreferiti' e 'controller.librerieFascicoliPreferiti' non sono a null
+            for (int i = 0; i < controller.fascicoliTitoloPreferiti.size(); i++) {  //scorre la lista dei fascicoli referiti dallutente
+                if(controller.possessofPreferiti.get(i).fruizione.equals("Digitale") || controller.possessofPreferiti.get(i).fruizione.equals("AudioLibro")) {  //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                    model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "∞", controller.possessofPreferiti.get(i).fruizione, controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});    //aggiunge una nuova riga nella tabella
+                } else if(controller.possessofPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessofPreferiti.get(i).quantita == 0) {    //controlla se l'i-esimo fascicolo non è disponibile
+                    model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "Non Diponibile", controller.possessofPreferiti.get(i).fruizione, controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                } else {
+                    model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), controller.possessofPreferiti.get(i).quantita, controller.possessofPreferiti.get(i).fruizione, controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                }
             }
         }
 
         frame.setSize(1280, 720);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
-        frame.setVisible(true);
-
-       /* mainTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                controller.isbn_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString();
-                controller.nome_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 1).toString();
-                BookPage bp = new BookPage(frameC, controller); //chiama il frame 'bp'
-                bp.frame.setVisible(true);  //rende visible il frame 'bp'
-                frame.setVisible(false);    //rende invisibile il frame
-                frame.dispose();
-            }
-        });*/
+        frame.setVisible(true);     //rende visibile il frame
 
         mainTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                if(mainTable.isColumnSelected(6)){
+
+                if(mainTable.isColumnSelected(6)){  //controlla se è stata selezionata la colonna "Sito Web"
                     try {
-                        Desktop.getDesktop().browse(new URI(mainTable.getValueAt(mainTable.getSelectedRow(), 6).toString()));
+                        Desktop.getDesktop().browse(new URI(mainTable.getValueAt(mainTable.getSelectedRow(), 6).toString()));   //apre il link selezionato nella tabella
                     }catch (IOException | URISyntaxException e1) {
                         e1.printStackTrace();
                     }
                 } else {
-                    if(controller.libriTitoloPreferiti.contains(mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString())){
-                        controller.nome_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().substring(20,mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().length());
-                        controller.isbn_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().substring(0, 17);
+                    if(controller.libriTitoloPreferiti.contains(mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString())){   //controlla se il contenuto della cella "Prodotto" della riga selezionata è presente in 'controller.libriTitoloPreferiti'
+                        controller.nome_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().substring(20,mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().length()); //inizializza 'controller.nome_selected' con il titolo del libro selezionato
+                        controller.isbn_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().substring(0, 17); //inizializza 'controller.isbn_selected' con l'ISBN del libro selezionato
                         BookPage bp = new BookPage(frameC, controller); //chiama il frame 'bp'
                         bp.frame.setVisible(true);  //rende visible il frame 'bp'
                         frame.setVisible(false);    //rende invisibile il frame
                         frame.dispose();
-                    } else if(controller.serieTitoloPreferiti.contains(mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString())){
-                        controller.nome_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().substring(20,mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().length());
-                        controller.isbn_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().substring(0, 17);
-                        SeriePage sp = new SeriePage(frameC, controller); //chiama il frame 'bp'
-                        sp.frame.setVisible(true);  //rende visible il frame 'bp'
+                    } else if(controller.serieTitoloPreferiti.contains(mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString())){    //controlla se il contenuto della cella "Prodotto" della riga selezionata è presente in 'controller.serieTitoloPreferiti'
+                        controller.nome_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().substring(20,mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().length());    //inizializza 'controller.nome_selected' con il titolo della serie selezionata
+                        controller.isbn_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString().substring(0, 17); //inizializza 'controller.isbn_selected' con l'ISBN della serie selezionata
+                        SeriePage sp = new SeriePage(frameC, controller); //chiama il frame 'sp'
+                        sp.frame.setVisible(true);  //rende visible il frame 'sp'
                         frame.setVisible(false);    //rende invisibile il frame
                         frame.dispose();
                     } else {
-                            controller.nome_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString();
-                            int numero = Integer.valueOf(controller.nome_selected.substring(controller.nome_selected.indexOf("N°")+2, controller.nome_selected.length()));
-                            controller.selezionaFascicolo(numero, controller.nome_selected.substring(0, controller.nome_selected.indexOf("N°")-1));
-                            IssuePage ip = new IssuePage(frameC, controller); //chiama il frame 'bp'
-                            ip.frame.setVisible(true);  //rende visible il frame 'bp'
-                            frame.setVisible(false);    //rende invisibile il frame
-                            frame.dispose();
+                        controller.nome_selected = mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString();  //inizializza 'controller.nome_selected' con il contenuto della cella "Prodotto" della riga selezionata (titoloRivista N° numeroFascicolo)
+                        int numero = Integer.valueOf(controller.nome_selected.substring(controller.nome_selected.indexOf("N°")+2, controller.nome_selected.length()));  //numero del fascicolo selezionato
+                        controller.selezionaFascicolo(numero, controller.nome_selected.substring(0, controller.nome_selected.indexOf("N°")-1)); //inizializza 'controller.fascicolo_selected'
+                        IssuePage ip = new IssuePage(frameC, controller); //chiama il frame 'ip'
+                        ip.frame.setVisible(true);  //rende visible il frame 'ip'
+                        frame.setVisible(false);    //rende invisibile il frame
+                        frame.dispose();
                     }
                 }
-                mainTable.clearSelection();
+
+                mainTable.clearSelection(); //deseleziona tutte le celle selezionate in 'mainTable'
             }
         });
 
         libriRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED){
-                    model.setRowCount(0);
-                    searchBarField.setText("");
+                if (e.getStateChange() == ItemEvent.SELECTED){  //controlla se è stato selelzionato il JRadioButton 'libriRB'
+                    model.setRowCount(0);   //rimuove tutte le righe della tabella
+                    searchBarField.setText(""); //svuota il JTextField 'searchBarField'
 
-                    if (controller.libriTitoloPreferiti != null && controller.possessolPreferiti != null && controller.librerieLibriPreferiti != null) {
-                        for (int i = 0; i < controller.libriTitoloPreferiti.size(); i++) {
-
-                            if(controller.possessolPreferiti.get(i).fruizione.equals("Digitale") || controller.possessolPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "∞", controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
-                            else if(controller.possessolPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessolPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "Non Diponibile" , controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
-                            else model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), controller.possessolPreferiti.get(i).quantita , controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
+                    if (controller.libriTitoloPreferiti != null && controller.possessolPreferiti != null && controller.librerieLibriPreferiti != null) {    //controlla se 'controller.libriTitoloPreferiti', 'controller.possessolPreferiti' e 'controller.librerieLibriPreferiti' non sono a null
+                        for (int i = 0; i < controller.libriTitoloPreferiti.size(); i++) {  //scorre la lista dei libri preferiti dell'utente
+                            if(controller.possessolPreferiti.get(i).fruizione.equals("Digitale") || controller.possessolPreferiti.get(i).fruizione.equals("AudioLibro")) {  //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                                model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "∞", controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb}); //aggiunge una nuova riga nella tabella
+                            }else if(controller.possessolPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessolPreferiti.get(i).quantita == 0) { //controlla se l'i-esimo libro non è disponibile
+                                model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "Non Diponibile" , controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                            } else {
+                                model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), controller.possessolPreferiti.get(i).quantita, controller.possessolPreferiti.get(i).fruizione, controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                            }
                         }
                     }
                 }
@@ -483,31 +479,36 @@ public class HomePage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                searchBarField.setText("");
+                searchBarField.setText(""); //svuota il JTextField 'searchBarField'
                 groupRB.clearSelection();   //deseleziona tutti i JRadioButton del ButtonGroup 'groupRB'
-                model.setRowCount(0);
+                model.setRowCount(0);   //rimuove tutte le righe della tabella
 
-                if (controller.libriTitoloPreferiti != null && controller.possessolPreferiti != null && controller.librerieLibriPreferiti != null) {
-                    for (int i = 0; i < controller.libriTitoloPreferiti.size(); i++) {
-
-                        if(controller.possessolPreferiti.get(i).fruizione.equals("Digitale") || controller.possessolPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "∞", controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
-                        else if(controller.possessolPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessolPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "Non Diponibile" , controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
-                        else model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), controller.possessolPreferiti.get(i).quantita , controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
+                if (controller.libriTitoloPreferiti != null && controller.possessolPreferiti != null && controller.librerieLibriPreferiti != null) {    //controlla se 'controller.libriTitoloPreferiti', 'controller.possessolPreferiti' e 'controller.librerieLibriPreferiti' non sono a null
+                    for (int i = 0; i < controller.libriTitoloPreferiti.size(); i++) {  //scorre la lista dei libri preferiti dell'utente
+                        if(controller.possessolPreferiti.get(i).fruizione.equals("Digitale") || controller.possessolPreferiti.get(i).fruizione.equals("AudioLibro")) {  //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                            model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "∞", controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb}); //aggiunge una nuova riga nella tabella
+                        }else if(controller.possessolPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessolPreferiti.get(i).quantita == 0) { //controlla se l'i-esimo libro non è disponibile
+                            model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "Non Diponibile" , controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                        } else {
+                            model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), controller.possessolPreferiti.get(i).quantita, controller.possessolPreferiti.get(i).fruizione, controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                        }
                     }
                 }
 
-                if (controller.serieTitoloPreferiti != null && controller.possessosPreferiti != null && controller.librerieSeriePreferiti != null) {
-                    for (int i = 0; i < controller.serieTitoloPreferiti.size(); i++) {
-
-                        if(controller.possessosPreferiti.get(i).fruizione.equals("Digitale") || controller.possessosPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "∞", controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
-                        else if(controller.possessosPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessosPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "Non Diponibile" , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
-                        else model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), controller.possessosPreferiti.get(i).quantita , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
+                if (controller.serieTitoloPreferiti != null && controller.possessosPreferiti != null && controller.librerieSeriePreferiti != null) {    //controlla se 'controller.serieTitoloPreferiti', 'controller.possessosPreferiti' e 'controller.librerieSeriePreferiti' non sono a null
+                    for (int i = 0; i < controller.serieTitoloPreferiti.size(); i++) {  //scorre la lista delle serie preferite dell'utente
+                        if(controller.possessosPreferiti.get(i).fruizione.equals("Digitale") || controller.possessosPreferiti.get(i).fruizione.equals("AudioLibro")){   //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                            model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "∞", controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb}); //aggiunge una nuova riga nella tabella
+                        } else if(controller.possessosPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessosPreferiti.get(i).quantita == 0){ //controlla se l'i-esima serie non è disponibile
+                            model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "Non Diponibile" , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                        } else {
+                            model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), controller.possessosPreferiti.get(i).quantita, controller.possessosPreferiti.get(i).fruizione, controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                        }
                     }
                 }
 
                 if (controller.fascicoliTitoloPreferiti != null && controller.possessofPreferiti != null && controller.librerieFascicoliPreferiti != null) {
                     for (int i = 0; i < controller.fascicoliTitoloPreferiti.size(); i++) {
-
                         if(controller.possessofPreferiti.get(i).fruizione.equals("Digitale") || controller.possessofPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "∞", controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
                         else if(controller.possessofPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessofPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "Non Diponibile" , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
                         else model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), controller.possessofPreferiti.get(i).quantita , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
@@ -654,7 +655,6 @@ public class HomePage {
             }
         }
     }
-
 
     private void setNumeroNotifiche(Controller controller){
         numeroNotifiche = controller.getNumeroNotificheNonLette();
