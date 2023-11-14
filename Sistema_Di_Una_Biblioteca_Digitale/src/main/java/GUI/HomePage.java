@@ -344,7 +344,6 @@ public class HomePage {
             }
         };
 
-        // Renderer personalizzato per l'header della tabella
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setBackground(new Color(0xCF9E29));  //imposta il colore dello sfondo dell'header della tabella
         headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
@@ -396,7 +395,7 @@ public class HomePage {
         }
 
         if (controller.fascicoliTitoloPreferiti != null && controller.possessofPreferiti != null && controller.librerieFascicoliPreferiti != null) {    //controlla se 'controller.fascicoliTitoloPreferiti', 'controller.possessofPreferiti' e 'controller.librerieFascicoliPreferiti' non sono a null
-            for (int i = 0; i < controller.fascicoliTitoloPreferiti.size(); i++) {  //scorre la lista dei fascicoli referiti dallutente
+            for (int i = 0; i < controller.fascicoliTitoloPreferiti.size(); i++) {  //scorre la lista dei fascicoli preferiti dallutente
                 if(controller.possessofPreferiti.get(i).fruizione.equals("Digitale") || controller.possessofPreferiti.get(i).fruizione.equals("AudioLibro")) {  //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
                     model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "∞", controller.possessofPreferiti.get(i).fruizione, controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});    //aggiunge una nuova riga nella tabella
                 } else if(controller.possessofPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessofPreferiti.get(i).quantita == 0) {    //controlla se l'i-esimo fascicolo non è disponibile
@@ -507,11 +506,15 @@ public class HomePage {
                     }
                 }
 
-                if (controller.fascicoliTitoloPreferiti != null && controller.possessofPreferiti != null && controller.librerieFascicoliPreferiti != null) {
-                    for (int i = 0; i < controller.fascicoliTitoloPreferiti.size(); i++) {
-                        if(controller.possessofPreferiti.get(i).fruizione.equals("Digitale") || controller.possessofPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "∞", controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
-                        else if(controller.possessofPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessofPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "Non Diponibile" , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
-                        else model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), controller.possessofPreferiti.get(i).quantita , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
+                if (controller.fascicoliTitoloPreferiti != null && controller.possessofPreferiti != null && controller.librerieFascicoliPreferiti != null) {    //controlla se 'controller.fascicoliTitoloPreferiti', 'controller.possessofPreferiti' e 'controller.librerieFascicoliPreferiti' non sono a null
+                    for (int i = 0; i < controller.fascicoliTitoloPreferiti.size(); i++) {  //scorre la lista dei fascicoli preferiti dallutente
+                        if(controller.possessofPreferiti.get(i).fruizione.equals("Digitale") || controller.possessofPreferiti.get(i).fruizione.equals("AudioLibro")) {  //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                            model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "∞", controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb}); //aggiunge una nuova riga nella tabella
+                        } else if(controller.possessofPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessofPreferiti.get(i).quantita == 0){ //controlla se l'i-esimo fascicolo non è disponibile
+                            model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "Non Diponibile" , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                        } else {
+                            model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), controller.possessofPreferiti.get(i).quantita, controller.possessofPreferiti.get(i).fruizione, controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                        }
                     }
                 }
             }
@@ -520,16 +523,19 @@ public class HomePage {
         fascicoliRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    model.setRowCount(0);
-                    searchBarField.setText("");
+                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selelzionato il JRadioButton 'fascicoliRB'
+                    model.setRowCount(0);   //rimuove tutte le righe della tabella
+                    searchBarField.setText("");     //svuota il JTextField 'searchBarField'
 
-                    if (controller.fascicoliTitoloPreferiti != null && controller.possessofPreferiti != null && controller.librerieFascicoliPreferiti != null) {
-                        for (int i = 0; i < controller.fascicoliTitoloPreferiti.size(); i++) {
-
-                            if(controller.possessofPreferiti.get(i).fruizione.equals("Digitale") || controller.possessofPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "∞", controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
-                            else if(controller.possessofPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessofPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "Non Diponibile" , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
-                            else model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), controller.possessofPreferiti.get(i).quantita , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});
+                    if (controller.fascicoliTitoloPreferiti != null && controller.possessofPreferiti != null && controller.librerieFascicoliPreferiti != null) {    //controlla se 'controller.fascicoliTitoloPreferiti', 'controller.possessofPreferiti' e 'controller.librerieFascicoliPreferiti' non sono a null
+                        for (int i = 0; i < controller.fascicoliTitoloPreferiti.size(); i++) {  //scorre la lista dei fascicoli preferiti dallutente
+                            if(controller.possessofPreferiti.get(i).fruizione.equals("Digitale") || controller.possessofPreferiti.get(i).fruizione.equals("AudioLibro")) {  //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                                model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "∞", controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb}); //aggiunge una nuova riga nella tabella
+                            } else if(controller.possessofPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessofPreferiti.get(i).quantita == 0) {    //controlla se l'i-esimo fascicolo non è disponibile
+                                model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), "Non Diponibile" , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                            } else {
+                                model.addRow(new Object[]{controller.fascicoliTitoloPreferiti.get(i), controller.possessofPreferiti.get(i).quantita , controller.possessofPreferiti.get(i).fruizione,controller.librerieFascicoliPreferiti.get(i).nome, controller.librerieFascicoliPreferiti.get(i).indirizzo, controller.librerieFascicoliPreferiti.get(i).numeroTelefonico, controller.librerieFascicoliPreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                            }
                         }
                     }
                 }
@@ -539,15 +545,18 @@ public class HomePage {
         serieRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                model.setRowCount(0);
-                searchBarField.setText("");
+                model.setRowCount(0);   //rimuove tutte le righe della tabella
+                searchBarField.setText(""); //svuota il JTextField 'searchBarField'
 
-                if (controller.serieTitoloPreferiti != null && controller.possessosPreferiti != null && controller.librerieSeriePreferiti != null) {
-                    for (int i = 0; i < controller.serieTitoloPreferiti.size(); i++) {
-
-                        if(controller.possessosPreferiti.get(i).fruizione.equals("Digitale") || controller.possessosPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "∞", controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
-                        else if(controller.possessosPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessosPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "Non Diponibile" , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
-                        else model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), controller.possessosPreferiti.get(i).quantita , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
+                if (controller.serieTitoloPreferiti != null && controller.possessosPreferiti != null && controller.librerieSeriePreferiti != null) {    //controlla se 'controller.serieTitoloPreferiti', 'controller.possessosPreferiti' e 'controller.librerieSeriePreferiti' non sono a null
+                    for (int i = 0; i < controller.serieTitoloPreferiti.size(); i++) {  //scorre la lista delle serie preferite dell'utente
+                        if(controller.possessosPreferiti.get(i).fruizione.equals("Digitale") || controller.possessosPreferiti.get(i).fruizione.equals("AudioLibro")) {  //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                            model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "∞", controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb}); //aggiunge una nuova riga nella tabella
+                        } else if(controller.possessosPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessosPreferiti.get(i).quantita == 0){ //controlla se l'i-esimo fascicolo non è disponibile
+                            model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "Non Diponibile" , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                        } else{
+                            model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), controller.possessosPreferiti.get(i).quantita , controller.possessosPreferiti.get(i).fruizione,controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                        }
                     }
                 }
             }
@@ -586,27 +595,38 @@ public class HomePage {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            if(searchBarField.getText().contains("'")) searchBarField.setText(searchBarField.getText().replace("'", "’"));
+            if(searchBarField.getText().contains("'")) {    //controlla se è stato inserito il carattere ''' nella barra di ricerca
+                searchBarField.setText(searchBarField.getText().replace("'", "’")); //sostutuisce il carattere ''' nella barra di ricerca con il carattere '’'
+            }
 
-            if (controller.libriTitoloPreferiti != null && controller.possessolPreferiti != null && controller.librerieLibriPreferiti != null) {
-                for (int i = 0; i < controller.libriTitoloPreferiti.size(); i++) {
-                    String quantita = String.valueOf(controller.possessolPreferiti.get(i).quantita);
-                    if(controller.libriTitoloPreferiti.get(i).toLowerCase().contains(searchBarField.getText().toLowerCase()) || quantita.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.possessolPreferiti.get(i).fruizione.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.librerieLibriPreferiti.get(i).nome.toLowerCase().contains(searchBarField.getText().toLowerCase()) || (controller.librerieLibriPreferiti.get(i).indirizzo != null && controller.librerieLibriPreferiti.get(i).indirizzo.toLowerCase().contains(searchBarField.getText().toLowerCase())) || controller.librerieLibriPreferiti.get(i).numeroTelefonico.toLowerCase().contains(searchBarField.getText().toLowerCase()) || (controller.librerieLibriPreferiti.get(i).sitoWeb != null && controller.librerieLibriPreferiti.get(i).sitoWeb.toLowerCase().contains(searchBarField.getText().toLowerCase()))){
-                        if(controller.possessolPreferiti.get(i).fruizione.equals("Digitale") || controller.possessolPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "∞", controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
-                        else if(controller.possessolPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessolPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "Non Diponibile" , controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
-                        else model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), controller.possessolPreferiti.get(i).quantita , controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});
+            if (controller.libriTitoloPreferiti != null && controller.possessolPreferiti != null && controller.librerieLibriPreferiti != null) {    //controlla se 'controller.libriTitoloPreferiti', 'controller.possessolPreferiti' e 'controller.librerieLibriPreferiti' non sono a null
+                for (int i = 0; i < controller.libriTitoloPreferiti.size(); i++) {  //scorre la lista dei libri preferiti dell'utente
+                    String quantita = String.valueOf(controller.possessolPreferiti.get(i).quantita);    //quantità disponibile dell'i-esimo libro
+
+                    if(controller.libriTitoloPreferiti.get(i).toLowerCase().contains(searchBarField.getText().toLowerCase()) || quantita.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.possessolPreferiti.get(i).fruizione.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.librerieLibriPreferiti.get(i).nome.toLowerCase().contains(searchBarField.getText().toLowerCase()) || (controller.librerieLibriPreferiti.get(i).indirizzo != null && controller.librerieLibriPreferiti.get(i).indirizzo.toLowerCase().contains(searchBarField.getText().toLowerCase())) || controller.librerieLibriPreferiti.get(i).numeroTelefonico.toLowerCase().contains(searchBarField.getText().toLowerCase()) || (controller.librerieLibriPreferiti.get(i).sitoWeb != null && controller.librerieLibriPreferiti.get(i).sitoWeb.toLowerCase().contains(searchBarField.getText().toLowerCase()))){    //controlla se una delle celle dell'i-esima riga della tabella contiene il contenuto della barra di ricerca
+                        if(controller.possessolPreferiti.get(i).fruizione.equals("Digitale") || controller.possessolPreferiti.get(i).fruizione.equals("AudioLibro")) {  //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                            model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "∞", controller.possessolPreferiti.get(i).fruizione,controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb}); //aggiunge una nuova riga nella tabella
+                        } else if(controller.possessolPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessolPreferiti.get(i).quantita == 0) {    //controlla se l'i-esimo libro non è disponibile
+                            model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), "Non Diponibile", controller.possessolPreferiti.get(i).fruizione, controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                        }else {
+                            model.addRow(new Object[]{controller.libriTitoloPreferiti.get(i), controller.possessolPreferiti.get(i).quantita, controller.possessolPreferiti.get(i).fruizione, controller.librerieLibriPreferiti.get(i).nome, controller.librerieLibriPreferiti.get(i).indirizzo, controller.librerieLibriPreferiti.get(i).numeroTelefonico, controller.librerieLibriPreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                        }
                     }
                 }
             }
 
-            if (controller.serieTitoloPreferiti != null && controller.possessosPreferiti != null && controller.librerieSeriePreferiti != null) {
-                for (int i = 0; i < controller.serieTitoloPreferiti.size(); i++) {
-                    String quantita = String.valueOf(controller.possessosPreferiti.get(i).quantita);
+            if (controller.serieTitoloPreferiti != null && controller.possessosPreferiti != null && controller.librerieSeriePreferiti != null) {    //controlla se 'controller.serieTitoloPreferiti', 'controller.possessosPreferiti' e 'controller.librerieSeriePreferiti' non sono a null
+                for (int i = 0; i < controller.serieTitoloPreferiti.size(); i++) {  //scorre la lista delle serie preferite dell'utente
+                    String quantita = String.valueOf(controller.possessosPreferiti.get(i).quantita);    //quantità disponibile dell'i-esima serie
 
-                    if (controller.serieTitoloPreferiti.get(i).toLowerCase().contains(searchBarField.getText().toLowerCase()) || quantita.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.possessosPreferiti.get(i).fruizione.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.librerieSeriePreferiti.get(i).nome.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.librerieSeriePreferiti.get(i).indirizzo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.librerieSeriePreferiti.get(i).numeroTelefonico.toLowerCase().contains(searchBarField.getText().toLowerCase()) || (controller.librerieSeriePreferiti.get(i).sitoWeb != null && controller.librerieSeriePreferiti.get(i).sitoWeb.toLowerCase().contains(searchBarField.getText().toLowerCase()))){
-                        if (controller.possessosPreferiti.get(i).fruizione.equals("Digitale") || controller.possessosPreferiti.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "∞", controller.possessosPreferiti.get(i).fruizione, controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
-                        else if (controller.possessosPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessosPreferiti.get(i).quantita == 0) model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "Non Diponibile", controller.possessosPreferiti.get(i).fruizione, controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
-                        else model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), controller.possessosPreferiti.get(i).quantita, controller.possessosPreferiti.get(i).fruizione, controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});
+                    if (controller.serieTitoloPreferiti.get(i).toLowerCase().contains(searchBarField.getText().toLowerCase()) || quantita.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.possessosPreferiti.get(i).fruizione.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.librerieSeriePreferiti.get(i).nome.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.librerieSeriePreferiti.get(i).indirizzo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.librerieSeriePreferiti.get(i).numeroTelefonico.toLowerCase().contains(searchBarField.getText().toLowerCase()) || (controller.librerieSeriePreferiti.get(i).sitoWeb != null && controller.librerieSeriePreferiti.get(i).sitoWeb.toLowerCase().contains(searchBarField.getText().toLowerCase()))){   //controlla se una delle celle dell'i-esima riga della tabella contiene il contenuto della barra di ricerca
+                        if (controller.possessosPreferiti.get(i).fruizione.equals("Digitale") || controller.possessosPreferiti.get(i).fruizione.equals("AudioLibro")){  //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                            model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "∞", controller.possessosPreferiti.get(i).fruizione, controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});    //aggiunge una nuova riga nella tabella
+                        } else if (controller.possessosPreferiti.get(i).fruizione.equals("Cartaceo") && controller.possessosPreferiti.get(i).quantita == 0) {   //controlla se l'i-esimo fascicolo non è disponibile
+                            model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), "Non Diponibile", controller.possessosPreferiti.get(i).fruizione, controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});   //aggiunge una nuova riga nella tabella
+                        } else {
+                            model.addRow(new Object[]{controller.serieTitoloPreferiti.get(i), controller.possessosPreferiti.get(i).quantita, controller.possessosPreferiti.get(i).fruizione, controller.librerieSeriePreferiti.get(i).nome, controller.librerieSeriePreferiti.get(i).indirizzo, controller.librerieSeriePreferiti.get(i).numeroTelefonico, controller.librerieSeriePreferiti.get(i).sitoWeb});  //aggiunge una nuova riga nella tabella
+                        }
                     }
                 }
             }
