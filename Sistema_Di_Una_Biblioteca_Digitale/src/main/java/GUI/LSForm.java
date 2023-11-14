@@ -14,6 +14,8 @@ public class LSForm {
     private JLabel txtPF;
     private JLabel image;
     private JPanel lsPanel;
+    private int width = 0;
+    private int height = 0;
 
     public LSForm() {
         controller = new Controller();
@@ -23,7 +25,7 @@ public class LSForm {
         frame.setContentPane(lsPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(1280, 720);   //imposta larghezza e altezza del frame
+        frame.setSize(controller.screenWidth, controller.screenHeight);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true); //rende visibile il frame

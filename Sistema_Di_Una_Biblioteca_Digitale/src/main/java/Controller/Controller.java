@@ -4,6 +4,7 @@ import DAO.*;
 import ImplementazionePostgresDAO.*;
 import Model.*;
 
+import java.awt.*;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,6 +60,9 @@ public class Controller {
     public String doi_selected = "";
     public int anno_pubblicazione = 0;
     public String nome_articolo = "";
+
+    public int screenWidth = 0;
+    public int screenHeight = initDimension();
     public Controller(){
     }
 
@@ -1445,5 +1449,13 @@ public class Controller {
     public boolean addEsposizione(String struttura, String luogo, String datai, String dataf){
         ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
         return c.addEsposizioneDB(struttura, luogo, datai, dataf, doi_selected);
+    }
+
+    // FUNZIONI AGGIUNTIVE //
+
+    public int initDimension(){
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        screenWidth = (int) screenSize.width;
+        return (int) screenSize.getHeight();
     }
 }
