@@ -69,8 +69,8 @@ public class Controller {
 
     public int fontSize = getFontSize();
     public Font baseFontSize = new Font("Segoe UI", Font.PLAIN, fontSize);
-    public Font ImpactFontSize = new Font("Impact", Font.PLAIN, fontSize);
-    public Font textFieldFont = new Font("Berlin Sans FB", Font.PLAIN, fontSize);
+    public Font impactFontSize = new Font("Impact", Font.PLAIN, fontSize);
+    public Font textFieldFont = new Font("Berlin Sans FB", Font.PLAIN, fontSize-2);
     public Controller(){
     }
 

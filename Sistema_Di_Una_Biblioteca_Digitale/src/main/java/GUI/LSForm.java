@@ -14,8 +14,6 @@ public class LSForm {
     private JLabel txtPF;
     private JLabel image;
     private JPanel lsPanel;
-    private int width = 0;
-    private int height = 0;
 
     public LSForm() {
         controller = new Controller();
@@ -54,7 +52,7 @@ public class LSForm {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon bt1igm = new ImageIcon(this.getClass().getResource("/button-type1.png")); //carica l'immagine nel percorso /button-type1.png
-                Image resbt1img = bt1igm.getImage().getScaledInstance((int) (controller.screenWidth * (1 + (-88.28215/100))), (int) (controller.screenHeight * (1 + (-95.54/100))), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+                Image resbt1img = bt1igm.getImage().getScaledInstance((int) (controller.screenWidth/8.5333), (int) (controller.screenHeight/17.56097), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
                 bt1igm = new ImageIcon(resbt1img);
                 btSignIn.setIcon(bt1igm);   //imposta l'icona del JButton 'btSignIn' con l'immagine
                 btSignIn.setForeground(Color.decode("#EEEEEE"));    //imposta il colore dello sfondo del JButton 'btSignIn'
@@ -67,7 +65,7 @@ public class LSForm {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon bt1igm = new ImageIcon(this.getClass().getResource("/button-type2.png")); //carica l'immagine nel percorso /button-type2.png
-                Image resbt1img = bt1igm.getImage().getScaledInstance((int) (controller.screenWidth * (1 + (-88.28215/100))), (int) (controller.screenHeight * (1 + (-95.54/100))), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+                Image resbt1img = bt1igm.getImage().getScaledInstance((int) (controller.screenWidth/8.5333), (int) (controller.screenHeight/17.56097), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
                 bt1igm = new ImageIcon(resbt1img);
                 btSignIn.setIcon(bt1igm);   //imposta l'icona del JButton 'btSignIn' con l'immagine
                 btSignIn.setForeground(Color.decode("#D6D4D4"));    //imposta il colore dello sfondo del JButton 'btSignIn'
@@ -80,7 +78,7 @@ public class LSForm {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon bt2igm = new ImageIcon(this.getClass().getResource("/button-type1.png")); //carica l'immagine nel percorso /button-type1.png
-                Image resbt2img = bt2igm.getImage().getScaledInstance((int) (controller.screenWidth * (1 + (-88.28215/100))), (int) (controller.screenHeight * (1 + (-95.54/100))), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+                Image resbt2img = bt2igm.getImage().getScaledInstance((int) (controller.screenWidth/8.5333), (int) (controller.screenHeight/17.56097), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
                 bt2igm = new ImageIcon(resbt2img);
                 btSignUp.setIcon(bt2igm);   //imposta l'icona del JButton 'btSignUp' con l'immagine
                 btSignUp.setForeground(Color.decode("#EEEEEE"));    //imposta il colore dello sfondo del JButton 'btSignUp'
@@ -93,7 +91,7 @@ public class LSForm {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon bt2igm = new ImageIcon(this.getClass().getResource("/button-type2.png")); //carica l'immagine nel percorso /button-type2.png
-                Image resbt2img = bt2igm.getImage().getScaledInstance((int) (controller.screenWidth * (1 + (-88.28215/100))), (int) (controller.screenHeight * (1 + (-95.54/100))), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+                Image resbt2img = bt2igm.getImage().getScaledInstance((int) (controller.screenWidth/8.5333), (int) (controller.screenHeight/17.56097), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
                 bt2igm = new ImageIcon(resbt2img);
                 btSignUp.setIcon(bt2igm);   //imposta l'icona del JButton 'btSignUp' con l'immagine
                 btSignUp.setForeground(Color.decode("#D6D4D4"));    //imposta il colore delllo sfondo del JButton 'btSignUp'
@@ -134,7 +132,7 @@ public class LSForm {
         // 450 , 198,4
 
         //Image reslb1img = lb1igm.getImage().getScaledInstance(300, 169, Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
-        Image reslb1img = lb1igm.getImage().getScaledInstance((int) (screenWidht * (1 + (-76.56/100))), (int) (screenHeight * (1 + (-81.67/100))), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        Image reslb1img = lb1igm.getImage().getScaledInstance((int) (screenWidht/4.2667), (int) (screenHeight/4.2603), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
         lb1igm = new ImageIcon(reslb1img);
         image.setIcon(lb1igm);  //imposta l'icona della JLabel 'image' con l'immagine
 
@@ -143,7 +141,7 @@ public class LSForm {
         btSignIn.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));    //toglie il bordo del JButton 'btSignIn'
         btSignIn.setMargin(new Insets(0, 0, 0, 0)); //toglie il margine all'interno del JButton 'btSignIn'
         ImageIcon bt1igm = new ImageIcon(this.getClass().getResource("/button-type1.png")); //carica l'immagine nel percorso /button-type1.png
-        Image resbt1img = bt1igm.getImage().getScaledInstance((int) (screenWidht * (1 + (-88.28215/100))), (int) (screenHeight * (1 + (-95.54/100))), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+        Image resbt1img = bt1igm.getImage().getScaledInstance((int) (screenWidht/8.5333), (int) (screenHeight/17.56097), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
         bt1igm = new ImageIcon(resbt1img);
         btSignIn.setIcon(bt1igm);   //imposta l'icona del JButton 'btSignIn' con l'immagine
         btSignIn.setHorizontalTextPosition(JButton.CENTER); //centra orizzontalmente il contenuto dell JButton 'btSignIn'
@@ -155,7 +153,7 @@ public class LSForm {
         btSignUp.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));    //toglie il bordo dell JButton 'btSignUp'
         btSignUp.setMargin(new Insets(0, 0, 0, 0)); //toglie il margine all'interno del JButton 'btSignUp'
         ImageIcon bt2igm = new ImageIcon(this.getClass().getResource("/button-type1.png")); //carica l'immagine nel percorso /button-type1.png
-        Image resbt2img = bt2igm.getImage().getScaledInstance((int) (screenWidht * (1 + (-88.28215/100))), (int) (screenHeight * (1 + (-95.54/100))), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagin
+        Image resbt2img = bt2igm.getImage().getScaledInstance((int) (screenWidht/8.5333), (int) (screenHeight/17.56097), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagin
         bt2igm = new ImageIcon(resbt2img);
         btSignUp.setIcon(bt2igm);   //imposta l'icona del JButton 'btSignIn' con l'immagine
         btSignUp.setHorizontalTextPosition(JButton.CENTER); //centra orizzontalmente il contenuto dell JButton 'btSignUp'

@@ -47,6 +47,30 @@ public class HomePage {
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato
         UIManager.put("ScrollPane.background\n", new Color(0x222831)); //imposta il colore dello sfondo del 'JScrollPane'
 
+        homeButton.setFont(controller.baseFontSize);
+        homeButton.setSize((int) (controller.screenWidth/16), -1);
+        libriButton.setFont(controller.baseFontSize);
+        libriButton.setSize((int) (controller.screenWidth/16), -1);
+        fascicoliButton.setFont(controller.baseFontSize);
+        fascicoliButton.setSize((int) (controller.screenWidth/16), -1);
+        serieButton.setFont(controller.baseFontSize);
+        serieButton.setSize((int) (controller.screenWidth/16), -1);
+        utenteButton.setFont(controller.baseFontSize);
+        utenteButton.setSize((int) (controller.screenWidth/16), -1);
+
+        notificheLabel.setFont(controller.baseFontSize);
+
+        searchBarField.setFont(controller.textFieldFont);
+
+        libriRB.setFont(controller.impactFontSize);
+        serieRB.setFont(controller.impactFontSize);
+        fascicoliRB.setFont(controller.impactFontSize);
+        resetFiltriLabel.setFont(controller.impactFontSize);
+
+        mainTable.setFont(controller.impactFontSize);
+        //mainTable.setSize((int) (controller.screenWidth/2.8444), (int) (controller.screenHeight/1.8));
+        mainTable.setPreferredSize(new Dimension((int) (controller.screenWidth/2.8444), (int) (controller.screenHeight/1.8)));
+
         mainScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
             Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
@@ -691,8 +715,12 @@ public class HomePage {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
         ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
 
@@ -701,11 +729,11 @@ public class HomePage {
 
 
         ImageIcon radioIco = new ImageIcon(this.getClass().getResource("/r2.png"));
-        Image radioImg = radioIco.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
+        Image radioImg = radioIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8),Image.SCALE_SMOOTH);
         radioIco = new ImageIcon(radioImg);
 
         ImageIcon radioSelIco = new ImageIcon(this.getClass().getResource("/r1.png"));
-        Image radioSelImg = radioSelIco.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
+        Image radioSelImg = radioSelIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8),Image.SCALE_SMOOTH);
         radioSelIco = new ImageIcon(radioSelImg);
 
         groupRB = new ButtonGroup();
@@ -723,12 +751,12 @@ public class HomePage {
         groupRB.add(fascicoliRB);
 
         ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/search.png"));
-        Image searchImg = searchIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image searchImg = searchIcon.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         searchIcon = new ImageIcon(searchImg);
         searchImage = new JLabel(searchIcon);
 
         ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
-        Image notificaImg = notificaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         notificaIco = new ImageIcon(notificaImg);
 
         notificheLabel = new JLabel();
