@@ -116,6 +116,10 @@ public class LSForm {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidht = screenSize.width;
+        int screenHeight = screenSize.height;
+
         txtPF = new JLabel();
         txtPF.setForeground(Color.decode("#EEEEEE"));   //imposta il colore dello sfondo della JLabel 'txtPF'
 
@@ -123,7 +127,11 @@ public class LSForm {
         image.setText("");  //imposta il testo della 'JLabel'
 
         ImageIcon lb1igm = new ImageIcon(this.getClass().getResource("/b.png"));    //carica l'immagine nel percorso /b.png
+
+        // 450 , 198,4
+
         Image reslb1img = lb1igm.getImage().getScaledInstance(300, 169, Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        //Image reslb1img = lb1igm.getImage().getScaledInstance((int) (screenWidht * (1 + (-76.56/100))), (int) (screenHeight * (1 + (-81.67/100))), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
         lb1igm = new ImageIcon(reslb1img);
         image.setIcon(lb1igm);  //imposta l'icona della JLabel 'image' con l'immagine
 
