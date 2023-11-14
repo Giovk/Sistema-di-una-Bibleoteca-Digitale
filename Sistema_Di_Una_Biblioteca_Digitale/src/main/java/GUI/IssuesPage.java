@@ -443,6 +443,7 @@ public class IssuesPage {
             });
         }
 
+        System.out.println(fascicoliButton.getWidth());
 
         ArrayList<String> distinctRivisteList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
         for (int i = 0; i < controller.listaRiviste.size(); i++){

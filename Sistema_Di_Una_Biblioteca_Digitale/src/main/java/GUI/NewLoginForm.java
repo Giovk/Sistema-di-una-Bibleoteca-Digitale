@@ -61,7 +61,7 @@ public class NewLoginForm extends JDialog {
     private ImageIcon closeImg;
     public int menuAcc;
     private DatePicker datePicker;
-    private Boolean debug = false;
+    private Boolean debug = true;
 
     public NewLoginForm(int joinD, JFrame frameC, Controller controller) {
         accediButton.setFont(controller.baseFontSize);

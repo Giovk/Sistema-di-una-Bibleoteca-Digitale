@@ -37,6 +37,7 @@ public class HomePage {
     private JLabel resetFiltriLabel;
     private JScrollPane mainScrollPanel;
     private JTable mainTable;
+    private JPanel panel2;
     private JPopupMenu utenteMenu;
     private Boolean active = false;
     private DefaultTableModel model;
@@ -48,15 +49,15 @@ public class HomePage {
         UIManager.put("ScrollPane.background\n", new Color(0x222831)); //imposta il colore dello sfondo del 'JScrollPane'
 
         homeButton.setFont(controller.baseFontSize);
-        homeButton.setSize((int) (controller.screenWidth/16), -1);
+        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
         libriButton.setFont(controller.baseFontSize);
-        libriButton.setSize((int) (controller.screenWidth/16), -1);
+        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
         fascicoliButton.setFont(controller.baseFontSize);
-        fascicoliButton.setSize((int) (controller.screenWidth/16), -1);
+        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
         serieButton.setFont(controller.baseFontSize);
-        serieButton.setSize((int) (controller.screenWidth/16), -1);
+        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
         utenteButton.setFont(controller.baseFontSize);
-        utenteButton.setSize((int) (controller.screenWidth/16), -1);
+        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
 
         notificheLabel.setFont(controller.baseFontSize);
 
@@ -68,18 +69,20 @@ public class HomePage {
         resetFiltriLabel.setFont(controller.impactFontSize);
 
         mainTable.setFont(controller.impactFontSize);
-        //mainTable.setSize((int) (controller.screenWidth/2.8444), (int) (controller.screenHeight/1.8));
-        mainTable.setPreferredSize(new Dimension((int) (controller.screenWidth/2.8444), (int) (controller.screenHeight/1.8)));
+        mainTable.setRowMargin(controller.screenWidth/640);
+        mainTable.setRowHeight(controller.screenHeight/36);
+
+        panel2.setMinimumSize(new Dimension(controller.screenWidth, controller.screenHeight - ((int) (controller.screenHeight/4))));
 
         mainScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png")); //carica l'immagine nel percorso /left.png
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
@@ -89,6 +92,7 @@ public class HomePage {
                 this.thumbLightShadowColor = new Color(0x323A48); //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
                 this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
                 this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -96,7 +100,7 @@ public class HomePage {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);   //inizializza le dimensioni del JButton 'decreaseButton'
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
                     }
                 };
 
@@ -109,7 +113,7 @@ public class HomePage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);   //inizializza le dimensioni del JButton 'increaseButton'
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'increaseButton'
                     }
                 };
 
@@ -129,19 +133,29 @@ public class HomePage {
 
         utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
+        utenteExit.setFont(controller.baseFontSize);
+        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);
         utenteExit.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteExit'
         utenteExit.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteExit'
         utenteExit.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteExit'
+        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8))));
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
+        utenteProfilo.setFont(controller.baseFontSize);
+        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER);
         utenteProfilo.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo del JMenuItem 'utenteProfilo'
         utenteProfilo.setFocusPainted(false);   //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteProfilo'
         utenteProfilo.setBorder(BorderFactory.createEmptyBorder()); //toglie il bordo del JMenuItem 'utenteProfilo'
         utenteProfilo.setFocusable(false);
+        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
         utenteLibrerie.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setFont(controller.baseFontSize);
+        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);
         utenteLibrerie.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteLibrerie'
         utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteLibrerie'
-        utenteMenu.setPopupSize(new Dimension(80, 75)); //imposta le dimensioni del menu 'utenteMenu'
+        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteMenu.setPopupSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/9.6))); //imposta le dimensioni del menu 'utenteMenu'
+        //utenteMenu.getPop
         utenteMenu.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del menu 'utenteMenu'
         utenteMenu.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del menu 'utenteMenu'
         utenteMenu.add(utenteProfilo);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
@@ -150,7 +164,8 @@ public class HomePage {
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
-            utenteMenu.setPopupSize(new Dimension(80, 50)); //adatta le dimensioni di 'utenteMenu'
+            utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
+            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));
         }
 
         frame = new JFrame("Homepage");
@@ -159,6 +174,10 @@ public class HomePage {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //imposta la terminazione dell'applicazione come operazione predefinita da eseguire quando viene chiuso il frame
         frame.pack();
 
+        System.out.println(homeButton.getWidth());
+        System.out.println(libriButton.getWidth());
+        System.out.println(fascicoliButton.getWidth());
+        System.out.println(serieButton.getWidth());
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
@@ -180,7 +199,7 @@ public class HomePage {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {  //controlla se è stato cliccato con il tasto sinistro del mouse il JButton utenteButton
-                    utenteMenu.show(utenteButton, utenteButton.getWidth() - 80, utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
+                    utenteMenu.show(utenteButton, utenteButton.getWidth() - (int) (controller.screenWidth/15.24), utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
                 }
             }
         });
