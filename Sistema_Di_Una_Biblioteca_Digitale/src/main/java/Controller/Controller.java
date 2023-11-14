@@ -4,6 +4,7 @@ import DAO.*;
 import ImplementazionePostgresDAO.*;
 import Model.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -63,6 +64,13 @@ public class Controller {
 
     public int screenWidth = 0;
     public int screenHeight = initDimension();
+    public int titleImpactSize = getFontTitleImpactSize();
+    public Font titleImpact = new Font("Impact", Font.PLAIN, titleImpactSize);
+
+    public int fontSize = getFontSize();
+    public Font baseFontSize = new Font("Segoe UI", Font.PLAIN, fontSize);
+    public Font ImpactFontSize = new Font("Impact", Font.PLAIN, fontSize);
+    public Font textFieldFont = new Font("Berlin Sans FB", Font.PLAIN, fontSize);
     public Controller(){
     }
 
@@ -1457,5 +1465,17 @@ public class Controller {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = (int) screenSize.width;
         return (int) screenSize.getHeight();
+    }
+
+    public int getFontTitleImpactSize(){
+            // Calcola la dimensione del font in base alle dimensioni dello schermo
+            int fontSize = Math.min(screenWidth, screenHeight) / 33; // Modifica il coefficiente a seconda delle tue preferenze
+            return fontSize;
+    }
+
+    public int getFontSize(){
+        // Calcola la dimensione del font in base alle dimensioni dello schermo
+        int fontSize = Math.min(screenWidth, screenHeight) / 50; // Modifica il coefficiente a seconda delle tue preferenze
+        return fontSize;
     }
 }

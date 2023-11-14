@@ -161,9 +161,7 @@
                       </component>
                       <component id="86c41" class="javax.swing.JTextField" binding="nomeTF" custom-create="true">
                         <constraints>
-                          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
+                          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <alignmentY value="0.5"/>
@@ -177,15 +175,17 @@
                       </component>
                       <component id="9cfc3" class="javax.swing.JLabel" binding="emailLabel">
                         <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false">
-                            <preferred-size width="-1" height="33"/>
-                          </grid>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <font name="Impact" size="15" style="0"/>
+                          <font name="Impact" style="0"/>
                           <foreground color="-14538703"/>
+                          <iconTextGap value="4"/>
                           <text value="Email*:"/>
                         </properties>
+                        <clientProperties>
+                          <html.disable class="java.lang.Boolean" value="false"/>
+                        </clientProperties>
                       </component>
                       <component id="4e118" class="javax.swing.JLabel" binding="usernameLabel">
                         <constraints>
@@ -202,9 +202,7 @@
                       </component>
                       <component id="fc48b" class="javax.swing.JTextField" binding="usernameTF" custom-create="true">
                         <constraints>
-                          <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
+                          <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <background color="-14538703"/>
@@ -216,9 +214,7 @@
                       </component>
                       <component id="4894c" class="javax.swing.JTextField" binding="emailTF" custom-create="true">
                         <constraints>
-                          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
+                          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <alignmentY value="0.5"/>
@@ -233,9 +229,7 @@
                       </component>
                       <component id="aa556" class="javax.swing.JTextField" binding="cognomeTF" custom-create="true">
                         <constraints>
-                          <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
+                          <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <alignmentY value="0.5"/>
@@ -272,9 +266,7 @@
                       </component>
                       <component id="7fb83" class="javax.swing.JTextField" binding="partitaIVATF" custom-create="true">
                         <constraints>
-                          <grid row="9" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
+                          <grid row="9" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <background color="-14538703"/>
@@ -313,9 +305,7 @@
                       </grid>
                       <component id="e1521" class="javax.swing.JPasswordField" binding="passwordF3" custom-create="true">
                         <constraints>
-                          <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
+                          <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <alignmentY value="0.5"/>
@@ -365,9 +355,7 @@
                       </component>
                       <component id="7e5a" class="javax.swing.JTextField" binding="passwordF2" custom-create="true">
                         <constraints>
-                          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
+                          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <background color="-14538703"/>
@@ -422,9 +410,7 @@
                       </component>
                       <component id="47b59" class="javax.swing.JTextField" binding="dataNascitaTF" custom-create="true">
                         <constraints>
-                          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
+                          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <background color="-14538703"/>

@@ -64,6 +64,25 @@ public class NewLoginForm extends JDialog {
     private Boolean debug = false;
 
     public NewLoginForm(int joinD, JFrame frameC, Controller controller) {
+        emailLabel.setFont(controller.ImpactFontSize);
+        nomeLabel.setFont(controller.ImpactFontSize);
+        cognomeLabel.setFont(controller.ImpactFontSize);
+        usernameLabel.setFont(controller.ImpactFontSize);
+        passwordLabel1.setFont(controller.ImpactFontSize);
+        passwordLabel2.setFont(controller.ImpactFontSize);
+        ripetiPasswordLabel.setFont(controller.ImpactFontSize);
+        dataDiNascitaLabel.setFont(controller.ImpactFontSize);
+        partitaIvaLabel.setFont(controller.ImpactFontSize);
+        indicazioniLabel.setFont(controller.ImpactFontSize);
+        emailTF.setFont(controller.textFieldFont);
+        nomeTF.setFont(controller.textFieldFont);
+        cognomeTF.setFont(controller.textFieldFont);
+        usernameTF.setFont(controller.textFieldFont);
+        passwordF1.setFont(controller.textFieldFont);
+        passwordF3.setFont(controller.textFieldFont);
+        dataNascitaTF.setFont(controller.textFieldFont);
+        partitaIVATF.setFont(controller.textFieldFont);
+
         datePicker = new DatePicker(calendarIMG);
 
         frame = new JFrame("NewLoginForm");
@@ -72,7 +91,7 @@ public class NewLoginForm extends JDialog {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.pack();
-        frame.setSize(720, 480);    //imposta larghezza e altezza del frame
+        frame.setSize((int) (controller.screenWidth * (1 + (-43.75/100))), (int) (controller.screenHeight * (1 + (-47.74/100))));    //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));    //imposta il bordo del JPanel 'contentPane'
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
