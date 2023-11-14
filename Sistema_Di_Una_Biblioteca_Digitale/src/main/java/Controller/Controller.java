@@ -63,6 +63,8 @@ public class Controller {
 
     public int screenWidth = 0;
     public int screenHeight = initDimension();
+    public int titleSize = getFontTitleSize();
+    public Font title = new Font("Impact", Font.PLAIN, titleSize);
     public Controller(){
     }
 
@@ -1457,5 +1459,11 @@ public class Controller {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = (int) screenSize.width;
         return (int) screenSize.getHeight();
+    }
+
+    public int getFontTitleSize(){
+            // Calcola la dimensione del font in base alle dimensioni dello schermo
+            int fontSize = Math.min(screenWidth, screenHeight) / 33; // Modifica il coefficiente a seconda delle tue preferenze
+            return fontSize;
     }
 }
