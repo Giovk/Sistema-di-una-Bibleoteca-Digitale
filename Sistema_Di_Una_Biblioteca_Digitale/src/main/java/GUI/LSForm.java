@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
 public class LSForm {
     private Controller controller;
     private static JFrame frame;
