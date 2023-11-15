@@ -174,10 +174,6 @@ public class HomePage {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //imposta la terminazione dell'applicazione come operazione predefinita da eseguire quando viene chiuso il frame
         frame.pack();
 
-        System.out.println(homeButton.getWidth());
-        System.out.println(libriButton.getWidth());
-        System.out.println(fascicoliButton.getWidth());
-        System.out.println(serieButton.getWidth());
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
