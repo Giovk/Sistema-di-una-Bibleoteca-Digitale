@@ -1,12 +1,8 @@
 package GUI;
 
 import Controller.Controller;
-import Model.Presentazione;
 
-import javax.print.attribute.URISyntax;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
@@ -15,10 +11,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -646,7 +642,7 @@ public class BookPage {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                RecensioneLibro recensioneLibro = new RecensioneLibro(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti);
+                Recensione recensioneLibro = new Recensione(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti, 1);
                 frame.setEnabled(false); //disabilita il frame
 
             }
@@ -837,61 +833,125 @@ public class BookPage {
         }
 
     }
-
-    public void showComment(Controller controller, JPanel commenti){    //mostra i commenti del libro selezionato
+    public void showComment(Controller controller, JPanel commenti){
         controller.isbn_selected = isbn_selezionato;    //isbn del ibro selezionato
 
-        controller.allRecWithCommentLibro(); //inizializza 'controller.recensioniConCommento'
-
-        int n = controller.recensioniConCommento.size();    //numero di recensioni con commento del libro selezionato
-
-        JPanel[] valUser = new JPanel[n];
-        JPanel[] commento = new JPanel[n];
-        JLabel[] username = new JLabel[n];
-        JLabel[] valutazione = new JLabel[n*5];
-        JLabel[] commText = new JLabel[n];
-        JSeparator[] separators = new JSeparator[n];
-
-        for (int i = 0; i < n; i++){
-            username[i] = new JLabel(controller.recensioniConCommento.get(i).utenteRecensore.username);
-            username[i].setForeground(new Color(0xEEEEEE));
-            username[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale a sinistra della Jlabel con l'username dell'autore dell'i-esima recensione
-            valutazione[i*5] = new JLabel();
-            valutazione[i*5].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la prima stella dell'i-esima recensione a sinistra
-            valutazione[(i*5)+1] = new JLabel();
-            valutazione[(i*5)+1].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la seconda stella dell'i-esima recensione a sinistra
-            valutazione[(i*5)+2] = new JLabel();
-            valutazione[(i*5)+2].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la terza stella dell'i-esima recensione a sinistra
-            valutazione[(i*5)+3] = new JLabel();
-            valutazione[(i*5)+3].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la quarta stella dell'i-esima recensione a sinistra
-            valutazione[(i*5)+4] = new JLabel();
-            valutazione[(i*5)+4].setAlignmentX(Component.LEFT_ALIGNMENT);   //imposta l'allineamento orizzontale della Jlabel con la quinta stella dell'i-esima recensione a sinistra
-
-            changeStars(valutazione[i*5], valutazione[(i*5)+1], valutazione[(i*5)+2], valutazione[(i*5)+3], valutazione[(i*5)+4], controller.recensioniConCommento.get(i).valutazione); //aggiorna le cinque stelle dell'i-esima recensione del libro selezionato in base alla sua valutazione
-
-            valUser[i] = new JPanel();
-            valUser[i].setBackground(new Color(0x222831));
-            valUser[i].add(username[i]);    //aggiunge l'username dell'utente che ha fatto l'i-esima recensione in 'valUser'
-            valUser[i].add(valutazione[i*5]);   //aggiunge la prima stella della i-esima recensione in 'valUser'
-            valUser[i].add(valutazione[(i*5)+1]);   //aggiunge la seconda stella della i-esima recensione in 'valUser'
-            valUser[i].add(valutazione[(i*5)+2]);   //aggiunge la terza stella della i-esima recensione in 'valUser'
-            valUser[i].add(valutazione[(i*5)+3]);   //aggiunge la quarta stella della i-esima recensione in 'valUser'
-            valUser[i].add(valutazione[(i*5)+4]);   //aggiunge la quinta stella della i-esima recensione in 'valUser'
-            valUser[i].setAlignmentX(Component.LEFT_ALIGNMENT); //imposta l'allineamento orizzontale del Jpannel 'valUser' a sinistra
-            commText[i] = new JLabel(controller.recensioniConCommento.get(i).testo);
-            commText[i].setForeground(new Color(0xEEEEEE));
-            commText[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale della Jlabel con il testo del commento dell'i-esima recensione a sinistra
-            commento[i] = new JPanel();
-            commento[i].setLayout(new FlowLayout(FlowLayout.LEFT)); //imposta il layout del testo del commento dell'i-esima recensione, posizionandolo a sinistra
-            commento[i].setBackground(new Color(0x222831));
-            commento[i].add(commText[i]);   //aggiunge il testo del commento dell'i-esima recensione in 'commento'
-            commento[i].setAlignmentX(Component.LEFT_ALIGNMENT);    //imposta l'allineamento orizzontale della Jpannel con il testo del commento dell'i-esima recensione a sinistra
-            separators[i] = new JSeparator();
-            separators[i].setForeground(new Color(0xEEEEEE));
-            commenti.add(valUser[i]);   //aggiunge in 'commenti' l'username dell'autore e le stelle dell'i-esima recensione
-            commenti.add(commento[i]);  // aggiunge in 'commenti' il testo dell'i-esima recensione
-            commenti.add(separators[i]);    //aggiunge un 'Jseparator'
+        controller.allRecWithCommentLibro();
+        for (int i = 0; i < controller.recensioniConCommento.size(); i++){
+            addComment(controller.recensioniConCommento.get(i).utenteRecensore.username, controller.recensioniConCommento.get(i).valutazione, controller.recensioniConCommento.get(i).testo, commenti, i+1, controller);
         }
+    }
+
+    public void addComment(String utente, int val, String commentoUser, JPanel commenti, int n, Controller controller){
+        JPanel panel1;
+        JLabel jcomp1;
+        JLabel jcomp2;
+        JLabel jcomp3;
+        JLabel jcomp4;
+        JLabel jcomp5;
+        JLabel jcomp6;
+        JTextArea jcomp7;
+        JSeparator jcomp8;
+
+        int maxCaratteriPerLinea = 50;
+        StringBuilder newText = new StringBuilder();
+        int countCaratteri = 0;
+        int n_righe = 1;
+
+            //construct components
+        panel1 = new JPanel();
+        panel1.setBackground(new Color(0x222831));
+
+        jcomp1 = new JLabel (utente + ":");
+        jcomp1.setBackground(new Color(0x222831));
+        jcomp1.setForeground(new Color(0xEEEEEE));
+
+        jcomp2 = new JLabel ("");
+        jcomp2.setBackground(new Color(0x222831));
+
+        jcomp3 = new JLabel ("");
+        jcomp3.setBackground(new Color(0x222831));
+
+        jcomp4 = new JLabel ("");
+        jcomp4.setBackground(new Color(0x222831));
+
+        jcomp5 = new JLabel ("");
+        jcomp5.setBackground(new Color(0x222831));
+
+        jcomp6 = new JLabel ("");
+        jcomp6.setBackground(new Color(0x222831));
+
+        // Creazione della JTextArea
+        jcomp7 = new JTextArea();
+        jcomp7.setBackground(new Color(0x222831));
+        jcomp7.setForeground(new Color(0xEEEEEE));
+        jcomp7.setLineWrap(true);
+        jcomp7.setWrapStyleWord(true);
+        jcomp7.setEditable(false);
+
+        for (char carattere : commentoUser.toCharArray()) {
+            if (!(carattere == '\n')) {
+                newText.append(carattere);
+                countCaratteri++;
+            } else {
+                newText.append('\n');
+                countCaratteri = 0;
+                n_righe++;
+            }
+            if (countCaratteri >= maxCaratteriPerLinea) {
+                newText.append('\n');
+                countCaratteri = 0;
+                n_righe++;
+            }
+        }
+        jcomp7.setText(newText.toString());
+        Font font = new Font("Segoi UI", Font.PLAIN, 15);
+        jcomp7.setFont(font);
+
+        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setFont(font);
+        FontMetrics fm = g2d.getFontMetrics();
+        int fontHeight = fm.getHeight();
+        g2d.dispose();
+
+        jcomp8 = new JSeparator();
+        jcomp8.setForeground(new Color(0xEEEEEE));
+
+        changeStars(jcomp2, jcomp3, jcomp4, jcomp5, jcomp6, val);
+
+        //adjust size and set layout
+        panel1.setPreferredSize (new Dimension (626, 150));
+        panel1.setLayout (null);
+
+        //add components
+        panel1.add (jcomp1);
+        panel1.add (jcomp2);
+        panel1.add (jcomp3);
+        panel1.add (jcomp4);
+        panel1.add (jcomp5);
+        panel1.add (jcomp6);
+        panel1.add (jcomp7);
+        panel1.add (jcomp8);
+
+            //set component bounds (only needed by Absolute Positioning)
+        jcomp1.setBounds (0, 0, 100, 25);
+        jcomp2.setBounds (0, 25, 25, 25);
+        jcomp3.setBounds (25, 25, 25, 25);
+        jcomp4.setBounds (50, 25, 25, 25);
+        jcomp5.setBounds (75, 25, 25, 25);
+        jcomp6.setBounds (100, 25, 25, 25);
+        jcomp7.setBounds (0, 50, 500, fontHeight*n_righe);
+        jcomp8.setBounds (0, 50+(fontHeight*n_righe)+1, 500, 15);
+
+
+        panel1.setPreferredSize (new Dimension (500, jcomp1.getHeight()+jcomp2.getHeight()+jcomp7.getHeight()+jcomp8.getHeight()));
+
+
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0; // Colonna 1
+        constraints.gridy = (n-1); // Riga 0
+        commenti.add(panel1, constraints);
     }
 
     private void setNumeroNotifiche(Controller controller){
@@ -920,8 +980,11 @@ public class BookPage {
         backButton = new JLabel(backIco);
 
         commenti = new JPanel();
-        commenti.setLayout(new BoxLayout(commenti, BoxLayout.Y_AXIS));
-        commenti.setAlignmentX(Component.LEFT_ALIGNMENT);
+        commenti.setLayout(new GridBagLayout());
+        ((GridBagLayout)commenti.getLayout()).columnWidths = new int[] {0, 0};
+        ((GridBagLayout)commenti.getLayout()).rowHeights = new int[] {0, 0};
+        ((GridBagLayout)commenti.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};
+        ((GridBagLayout)commenti.getLayout()).rowWeights = new double[] {0.0, 1.0E-4};;
 
 
         ImageIcon checkIco = new ImageIcon(this.getClass().getResource("/c2.png"));
