@@ -22,13 +22,54 @@ public class CreaLibreria {
     private JTextField provinciaField;
     private JTextField capField;
     private JTextField nazioneField;
+    private JLabel nomeLabel;
+    private JLabel numeroTelefonicoLabel;
+    private JLabel sitoWebLabel;
+    private JLabel indirizzoLabel;
+    private JLabel viaLabel;
+    private JLabel comuneLabel;
+    private JLabel capLabel;
+    private JLabel numeroCivicoLabel;
+    private JLabel provinciaLabel;
+    private JLabel nazioneLabel;
+
     public CreaLibreria(JFrame frameC, Controller controller, DefaultTableModel model){
+        notificheLabelText.setFont(controller.impactFontSize);
+        nomeLabel.setFont(controller.baseFontSize);
+        numeroTelefonicoLabel.setFont(controller.baseFontSize);
+        sitoWebLabel.setFont(controller.baseFontSize);
+        indirizzoLabel.setFont(controller.baseFontSize);
+        viaLabel.setFont(controller.baseFontSize);
+        numeroCivicoLabel.setFont(controller.baseFontSize);
+        comuneLabel.setFont(controller.baseFontSize);
+        provinciaLabel.setFont(controller.baseFontSize);
+        nazioneLabel.setFont(controller.baseFontSize);
+        capLabel.setFont(controller.baseFontSize);
+
+        nomeField.setFont(controller.textFieldFont);
+        ntField.setFont(controller.textFieldFont);
+        swField.setFont(controller.textFieldFont);
+        viaField.setFont(controller.textFieldFont);
+        viaField.setMinimumSize(new Dimension((int)(controller.screenWidth/12.8), -1));
+        ncField.setFont(controller.textFieldFont);
+        ncField.setMinimumSize(new Dimension((int)(controller.screenWidth/12.8), -1));
+        comuneField.setFont(controller.textFieldFont);
+        comuneField.setMinimumSize(new Dimension((int)(controller.screenWidth/12.8), -1));
+        provinciaField.setFont(controller.textFieldFont);
+        provinciaField.setMinimumSize(new Dimension((int)(controller.screenWidth/12.8), -1));
+        capField.setFont(controller.textFieldFont);
+        capField.setMinimumSize(new Dimension((int)(controller.screenWidth/12.8), -1));
+        nazioneField.setFont(controller.textFieldFont);
+        nazioneField.setMinimumSize(new Dimension((int)(controller.screenWidth/12.8), -1));
+
+        aggiungiButton.setFont(controller.baseFontSize);
+
         frame = new JFrame("Crea Libreria");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(720, 430);
+        frame.setSize(new Dimension((int)(controller.screenWidth/1.7777), (int)(controller.screenHeight/1.6744)));
         frame.setLocationRelativeTo(null);
         contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
         frame.setResizable(false);
@@ -53,6 +94,22 @@ public class CreaLibreria {
                 frameC.setEnabled(true);
                 frame.dispose();
                 frameC.toFront();
+            }
+        });
+
+        aggiungiButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                aggiungiButton.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'serieButton'
+            }
+        });
+
+        aggiungiButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                aggiungiButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'fascicoliButton'
             }
         });
 
@@ -109,9 +166,13 @@ public class CreaLibreria {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
         ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine3 = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine3);
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
+        closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
 
         nomeField = new JTextField();

@@ -123,7 +123,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="6489a" class="javax.swing.JLabel">
+              <component id="6489a" class="javax.swing.JLabel" binding="scegliElementoLabel">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -183,7 +183,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="b3083" class="javax.swing.JLabel">
+                  <component id="b3083" class="javax.swing.JLabel" binding="libroLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="20"/>
@@ -197,7 +197,7 @@
                       <text value="LIBRO"/>
                     </properties>
                   </component>
-                  <component id="ebb31" class="javax.swing.JLabel">
+                  <component id="ebb31" class="javax.swing.JLabel" binding="isbnLibroLabel">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -208,7 +208,7 @@
                       <text value="ISBN:"/>
                     </properties>
                   </component>
-                  <component id="8e2b8" class="javax.swing.JLabel">
+                  <component id="8e2b8" class="javax.swing.JLabel" binding="titoloLibroLabel">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -221,9 +221,7 @@
                   </component>
                   <component id="d903e" class="javax.swing.JTextField" binding="titoloLibroField" custom-create="true">
                     <constraints>
-                      <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="327" height="30"/>
-                      </grid>
+                      <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -232,7 +230,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="fb1b2" class="javax.swing.JLabel">
+                  <component id="fb1b2" class="javax.swing.JLabel" binding="genereLibroLabel">
                     <constraints>
                       <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -245,9 +243,7 @@
                   </component>
                   <component id="633bc" class="javax.swing.JTextField" binding="genereLibroField" custom-create="true">
                     <constraints>
-                      <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="327" height="30"/>
-                      </grid>
+                      <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -256,7 +252,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="d3a51" class="javax.swing.JLabel">
+                  <component id="d3a51" class="javax.swing.JLabel" binding="linguaLibroLabel">
                     <constraints>
                       <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -269,9 +265,7 @@
                   </component>
                   <component id="ffbc0" class="javax.swing.JComboBox" binding="linguaLibroCB" custom-create="true">
                     <constraints>
-                      <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="-1" height="30"/>
-                      </grid>
+                      <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <editable value="false"/>
@@ -409,7 +403,7 @@
                       </model>
                     </properties>
                   </component>
-                  <component id="d9d91" class="javax.swing.JLabel">
+                  <component id="d9d91" class="javax.swing.JLabel" binding="editoreLabel">
                     <constraints>
                       <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -420,9 +414,7 @@
                   </component>
                   <component id="ec6b2" class="javax.swing.JTextField" binding="editoreLibroField" custom-create="true">
                     <constraints>
-                      <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="327" height="30"/>
-                      </grid>
+                      <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -433,9 +425,7 @@
                   </component>
                   <component id="27f38" class="javax.swing.JTextField" binding="dataLibroField" custom-create="true">
                     <constraints>
-                      <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="327" height="30"/>
-                      </grid>
+                      <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -446,13 +436,15 @@
                   </component>
                   <component id="6454b" class="javax.swing.JLabel" binding="calendarLibroIMG" custom-create="true">
                     <constraints>
-                      <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                      <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-14538703"/>
+                      <opaque value="true"/>
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="49404" class="javax.swing.JLabel">
+                  <component id="49404" class="javax.swing.JLabel" binding="dataPubblicazioneLabel">
                     <constraints>
                       <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -472,9 +464,7 @@
                   </component>
                   <component id="93936" class="javax.swing.JButton" binding="autoreLibroButton">
                     <constraints>
-                      <grid row="18" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                        <preferred-size width="80" height="-1"/>
-                      </grid>
+                      <grid row="18" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -486,9 +476,7 @@
                   </component>
                   <component id="6e6b" class="javax.swing.JButton" binding="inviaLibroButton">
                     <constraints>
-                      <grid row="20" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                        <preferred-size width="80" height="-1"/>
-                      </grid>
+                      <grid row="20" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -511,9 +499,7 @@
                   </grid>
                   <component id="f12d9" class="javax.swing.JComboBox" binding="isbnLibroCB" custom-create="true">
                     <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="-1" height="30"/>
-                      </grid>
+                      <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -522,7 +508,7 @@
                       <model/>
                     </properties>
                   </component>
-                  <component id="a879e" class="javax.swing.JLabel">
+                  <component id="a879e" class="javax.swing.JLabel" binding="quantitaLabel">
                     <constraints>
                       <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -531,7 +517,7 @@
                       <text value="Quantità:"/>
                     </properties>
                   </component>
-                  <component id="b7ae6" class="javax.swing.JLabel">
+                  <component id="b7ae6" class="javax.swing.JLabel" binding="fruizioneLabel">
                     <constraints>
                       <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -557,9 +543,7 @@
                   </component>
                   <component id="22151" class="javax.swing.JSpinner" binding="quantitaLibroSpinner" custom-create="true">
                     <constraints>
-                      <grid row="14" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="50" height="-1"/>
-                      </grid>
+                      <grid row="14" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -600,7 +584,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="9a7e1" class="javax.swing.JLabel">
+                  <component id="9a7e1" class="javax.swing.JLabel" binding="fascicoloLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="20"/>
@@ -614,7 +598,7 @@
                       <text value="FASCICOLO"/>
                     </properties>
                   </component>
-                  <component id="dc902" class="javax.swing.JLabel">
+                  <component id="dc902" class="javax.swing.JLabel" binding="titoloLabel1">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -638,7 +622,7 @@
                       <model/>
                     </properties>
                   </component>
-                  <component id="b9030" class="javax.swing.JLabel">
+                  <component id="b9030" class="javax.swing.JLabel" binding="issnLabel">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -662,7 +646,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="2e737" class="javax.swing.JLabel">
+                  <component id="2e737" class="javax.swing.JLabel" binding="argomentoLabel">
                     <constraints>
                       <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -686,7 +670,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="de848" class="javax.swing.JLabel">
+                  <component id="de848" class="javax.swing.JLabel" binding="nomeResponsabileLabel">
                     <constraints>
                       <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -710,7 +694,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="227f1" class="javax.swing.JLabel">
+                  <component id="227f1" class="javax.swing.JLabel" binding="editoreLabel1">
                     <constraints>
                       <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -734,7 +718,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="3ecad" class="javax.swing.JLabel">
+                  <component id="3ecad" class="javax.swing.JLabel" binding="numeroLabel">
                     <constraints>
                       <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -808,7 +792,7 @@
                       <text value="Aggiungi"/>
                     </properties>
                   </component>
-                  <component id="7e304" class="javax.swing.JLabel">
+                  <component id="7e304" class="javax.swing.JLabel" binding="fruizioneLabel1">
                     <constraints>
                       <grid row="19" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -847,7 +831,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="b86d3" class="javax.swing.JLabel">
+                  <component id="b86d3" class="javax.swing.JLabel" binding="cognomeResponsabileLabel">
                     <constraints>
                       <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -858,7 +842,7 @@
                       <text value="Cognome responsabile:"/>
                     </properties>
                   </component>
-                  <component id="d7d09" class="javax.swing.JLabel">
+                  <component id="d7d09" class="javax.swing.JLabel" binding="annoPubblicazioneLabel">
                     <constraints>
                       <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -881,7 +865,7 @@
                       <opaque value="false"/>
                     </properties>
                   </component>
-                  <component id="cbe8a" class="javax.swing.JLabel">
+                  <component id="cbe8a" class="javax.swing.JLabel" binding="dataLabel">
                     <constraints>
                       <grid row="17" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -913,7 +897,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="3335d" class="javax.swing.JLabel">
+                  <component id="3335d" class="javax.swing.JLabel" binding="quantitaLabel1">
                     <constraints>
                       <grid row="21" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -971,7 +955,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="3e75f" class="javax.swing.JLabel">
+                  <component id="3e75f" class="javax.swing.JLabel" binding="serieLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="20"/>
@@ -985,7 +969,7 @@
                       <text value="SERIE"/>
                     </properties>
                   </component>
-                  <component id="d7690" class="javax.swing.JLabel">
+                  <component id="d7690" class="javax.swing.JLabel" binding="isbnSerieLabel">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -996,7 +980,7 @@
                       <text value="ISBN:"/>
                     </properties>
                   </component>
-                  <component id="34080" class="javax.swing.JLabel">
+                  <component id="34080" class="javax.swing.JLabel" binding="titoloLabel">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="327" height="16"/>
@@ -1020,7 +1004,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="b4530" class="javax.swing.JLabel">
+                  <component id="b4530" class="javax.swing.JLabel" binding="dataPubblicazioneLabel1">
                     <constraints>
                       <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -1044,7 +1028,7 @@
                   </component>
                   <component id="54193" class="javax.swing.JLabel" binding="calendarSerieIMG" custom-create="true">
                     <constraints>
-                      <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                      <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <text value=""/>
@@ -1061,7 +1045,7 @@
                     <border type="none"/>
                     <children/>
                   </grid>
-                  <component id="6ec42" class="javax.swing.JLabel">
+                  <component id="6ec42" class="javax.swing.JLabel" binding="libriLabel">
                     <constraints>
                       <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>

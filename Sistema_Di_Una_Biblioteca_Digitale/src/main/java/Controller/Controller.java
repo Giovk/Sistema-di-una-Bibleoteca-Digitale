@@ -6,6 +6,7 @@ import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -1223,7 +1224,6 @@ public class Controller {
 
         if(!listaFascicoli.isEmpty()) {
             for (int i = 0; i < listaFascicoli.size(); i++) {
-                System.out.println(listaFascicoli.get(i).rivista.titolo);
                 for (int j = 0; j < listaFascicoli.get(i).articoli.size(); j++) {
                     if (!listaArticoli.contains(listaFascicoli.get(i).articoli.get(j)))
                         listaArticoli.add(listaFascicoli.get(i).articoli.get(j));
@@ -1477,5 +1477,15 @@ public class Controller {
         // Calcola la dimensione del font in base alle dimensioni dello schermo
         int fontSize = Math.min(screenWidth, screenHeight) / 50; // Modifica il coefficiente a seconda delle tue preferenze
         return fontSize;
+    }
+
+    public int calcolaAltezzaFont(Font font){
+        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setFont(font);
+        FontMetrics fm = g2d.getFontMetrics();
+        int fontHeight = fm.getHeight();
+        g2d.dispose();
+        return fontHeight;
     }
 }

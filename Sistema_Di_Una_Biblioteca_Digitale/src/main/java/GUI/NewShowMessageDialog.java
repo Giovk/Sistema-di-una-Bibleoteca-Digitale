@@ -1,5 +1,7 @@
 package GUI;
 
+import Controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,10 +11,16 @@ public class NewShowMessageDialog extends JDialog {
     private JLabel typeLabel;
     private JLabel typeMessageLabel;
     private JButton okButton;
+    private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+    public int fontSize = getFontSize();
+    public Font baseFontSize = new Font("Segoe UI", Font.PLAIN, fontSize);
+    public Font impactFontSize = new Font("Impact", Font.PLAIN, fontSize);
+    public Font textFieldFont = new Font("Berlin Sans FB", Font.PLAIN, fontSize-2);
 
     public NewShowMessageDialog(int typeIcon, String message) {
         this.setUndecorated(true);  //rimuove la decorazione della finestra
-        this.setSize(150,100);  //imposta le dimensioni della finestra
+        this.setSize((int) (screenWidth/8.5333),(int) (screenHeight/7.2));  //imposta le dimensioni della finestra
         this.setLocationRelativeTo(null);   //posiziona il frame al centro dello schermo
         setContentPane(contentPane);
         setModal(true); //imposta la finestra come modal
@@ -23,14 +31,14 @@ public class NewShowMessageDialog extends JDialog {
         switch (typeIcon){
             case 1:
                 ImageIcon doneIco = new ImageIcon(this.getClass().getResource("/done.png"));    //carica l'immagine nel percorso /done.png
-                Image doneImg = doneIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
+                Image doneImg = doneIco.getImage().getScaledInstance((int) (screenWidth/51.2),(int) (screenHeight/28.8), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
                 doneIco = new ImageIcon(doneImg);
                 typeLabel.setIcon(doneIco); //imposta l'icona della JLabel 'typeLabel' con l'immagine
                 break;
 
             case 2:
                 ImageIcon errorIco = new ImageIcon(this.getClass().getResource("/error.png"));  //carica l'immagine nel percorso /error.png
-                Image errorImg = errorIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+                Image errorImg = errorIco.getImage().getScaledInstance((int) (screenWidth/51.2),(int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
                 errorIco = new ImageIcon(errorImg);
                 typeLabel.setIcon(errorIco);    //imposta l'icona della JLabel 'typeLabel' con l'immagine
                 break;
@@ -39,7 +47,11 @@ public class NewShowMessageDialog extends JDialog {
                 typeLabel.setText("Image Not Found Or Not Selected");   //imposta il testo della JLabel typeLabel
         }
 
+        typeMessageLabel.setFont(baseFontSize);
         typeMessageLabel.setText(message);  //imposta il testo della JLabel 'typeMessageLabel' con 'message'
+
+        okButton.setMinimumSize(new Dimension((screenWidth/16), -1));
+        okButton.setFont(baseFontSize);
 
         okButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -62,6 +74,7 @@ public class NewShowMessageDialog extends JDialog {
                 onOK(); //chiude la finestra
             }
         });
+
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);  //imposta nessuna azione predefinita da eseguire quando viene chiusa la finestra
 
@@ -88,4 +101,9 @@ public class NewShowMessageDialog extends JDialog {
     private void onCancel() {   //chiude la finestra
         dispose();
     }//fine onCancel
+    public int getFontSize(){
+        // Calcola la dimensione del font in base alle dimensioni dello schermo
+        int fontSize = Math.min(screenWidth, screenHeight) / 50; // Modifica il coefficiente a seconda delle tue preferenze
+        return fontSize;
+    }
 }

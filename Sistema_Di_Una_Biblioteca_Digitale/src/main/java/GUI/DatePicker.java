@@ -20,12 +20,18 @@ class DatePicker extends JPanel{
     JButton previous = new JButton("<<");
     JButton next = new JButton(">>");
     java.util.Calendar cal = java.util.Calendar.getInstance();
+    int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+    int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+    public int fontSize = getFontSize();
+    public Font baseFontSize = new Font("Segoe UI", Font.PLAIN, fontSize);
+    public Font impactFontSize = new Font("Impact", Font.PLAIN, fontSize);
+    public Font textFieldFont = new Font("Berlin Sans FB", Font.PLAIN, fontSize-2);
 
     static ImageIcon ico;
     static Image img;
     public DatePicker(JLabel parent) {
         ico = new ImageIcon(this.getClass().getResource("/Calendar.png"));
-        img = ico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        img = ico.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         ico = new ImageIcon(img);
 
         d = new JDialog();
@@ -46,14 +52,15 @@ class DatePicker extends JPanel{
         text.setBackground(new Color(-14538703));
         text.setCaretColor(new Color(-1118482));
         text.setForeground(new Color(-1118482));
+        text.setFont(baseFontSize);
         text.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));
         text.setMargin(new Insets(2, 6, 2, 6));
         JButton b = new JButton(ico);
+        b.setFont(baseFontSize);
         b.setHorizontalTextPosition(SwingConstants.CENTER);
         b.setBorderPainted(false);
         b.setContentAreaFilled(false);
-        //b.setPreferredSize(new Dimension(25,25));
-        b.setSize(25, 25);
+        b.setSize((int) (screenWidth/51.2), (int) (screenHeight/28.8));
 
         setLayout(new BorderLayout(0,0));
         add(text);
@@ -68,6 +75,7 @@ class DatePicker extends JPanel{
         JPanel p2 = new JPanel(new GridLayout(1, 3));
         p2.setBorder(BorderFactory.createEmptyBorder());
         p2.setBackground(Color.decode("#222831"));
+        previous.setFont(baseFontSize);
         previous.setBackground(Color.decode("#222831"));
         previous.setForeground(Color.decode("#EEEEEE"));
         previous.setBorder(new LineBorder(Color.decode("#FFD369")));
@@ -100,6 +108,7 @@ class DatePicker extends JPanel{
         mesi.setBackground(Color.decode("#FFD369"));
         mesi.setForeground(Color.decode("#222831"));
         mesi.setBorder(new LineBorder(Color.decode("#222831")));
+        mesi.setFont(textFieldFont);
 
         Object comp1 = mesi.getUI().getAccessibleChild(mesi, 0);
         if(comp1 instanceof JPopupMenu){
@@ -108,13 +117,13 @@ class DatePicker extends JPanel{
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
             scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
                 ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image uA = upArrow.getImage().getScaledInstance(screenWidth/128, screenHeight/72, Image.SCALE_SMOOTH);
                 ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image dA = downArrow.getImage().getScaledInstance(screenWidth/128, screenHeight/72, Image.SCALE_SMOOTH);
                 ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image rA = rightArrow.getImage().getScaledInstance(screenWidth/128, screenHeight/72, Image.SCALE_SMOOTH);
                 ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image lA = leftArrow.getImage().getScaledInstance(screenWidth/128, screenHeight/72, Image.SCALE_SMOOTH);
                 @Override
                 protected void configureScrollBarColors() {
                     this.thumbColor = new Color(0x222831);
@@ -123,6 +132,7 @@ class DatePicker extends JPanel{
                     this.thumbLightShadowColor = new Color(0x323A48);
                     this.thumbHighlightColor = new Color(0x323A48);
                     this.trackHighlightColor = new Color(0xCF9E29);
+                    this.scrollBarWidth = (int)(screenWidth/75);
                 }
 
                 @Override
@@ -130,7 +140,7 @@ class DatePicker extends JPanel{
                     JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int) (screenWidth/51.2), screenHeight/48);
                         }
                     };
 
@@ -143,7 +153,7 @@ class DatePicker extends JPanel{
                     JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int) (screenWidth/51.2), screenHeight/48);
                         }
                     };
 
@@ -276,6 +286,7 @@ class DatePicker extends JPanel{
         anni.setBackground(Color.decode("#FFD369"));
         anni.setForeground(Color.decode("#222831"));
         anni.setBorder(new LineBorder(Color.decode("#222831")));
+        anni.setFont(textFieldFont);
 
 
         Object comp2 = anni.getUI().getAccessibleChild(anni, 0);
@@ -285,13 +296,13 @@ class DatePicker extends JPanel{
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
             scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
                 ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image uA = upArrow.getImage().getScaledInstance(screenWidth/128, screenHeight/72, Image.SCALE_SMOOTH);
                 ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image dA = downArrow.getImage().getScaledInstance(screenWidth/128, screenHeight/72, Image.SCALE_SMOOTH);
                 ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image rA = rightArrow.getImage().getScaledInstance(screenWidth/128, screenHeight/72, Image.SCALE_SMOOTH);
                 ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image lA = leftArrow.getImage().getScaledInstance(screenWidth/128, screenHeight/72, Image.SCALE_SMOOTH);
                 @Override
                 protected void configureScrollBarColors() {
                     this.thumbColor = new Color(0x222831);
@@ -300,6 +311,8 @@ class DatePicker extends JPanel{
                     this.thumbLightShadowColor = new Color(0x323A48);
                     this.thumbHighlightColor = new Color(0x323A48);
                     this.trackHighlightColor = new Color(0xCF9E29);
+                    this.scrollBarWidth = (int)(screenWidth/75);
+
                 }
 
                 @Override
@@ -307,7 +320,7 @@ class DatePicker extends JPanel{
                     JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int) (screenWidth/51.2), screenHeight/48);
                         }
                     };
 
@@ -320,7 +333,7 @@ class DatePicker extends JPanel{
                     JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int) (screenWidth/51.2), screenHeight/48);
                         }
                     };
 
@@ -380,7 +393,7 @@ class DatePicker extends JPanel{
         });
 
         //Aggiungere Combobox Mese -> Anno
-
+        next.setFont(baseFontSize);
         next.setBackground(Color.decode("#222831"));
         next.setForeground(Color.decode("#EEEEEE"));
         next.setBorder(new LineBorder(Color.decode("#FFD369")));
@@ -401,6 +414,7 @@ class DatePicker extends JPanel{
         for (int x = 0; x < button.length; x++) {
             final int selection = x;
             button[x] = new JButton();
+            button[x].setFont(baseFontSize);
             button[x].setBorder(BorderFactory.createEmptyBorder());
             button[x].setFocusPainted(false);
             button[x].setBackground(Color.decode("#222831"));
@@ -497,5 +511,11 @@ class DatePicker extends JPanel{
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.set(year, month, Integer.parseInt(day));
         return sdf.format(cal.getTime());
+    }
+
+    public int getFontSize(){
+        // Calcola la dimensione del font in base alle dimensioni dello schermo
+        int fontSize = Math.min(screenWidth, screenHeight) / 50; // Modifica il coefficiente a seconda delle tue preferenze
+        return fontSize;
     }
 }

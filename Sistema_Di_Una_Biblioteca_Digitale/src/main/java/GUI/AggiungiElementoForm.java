@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.time.Year;
@@ -75,24 +76,173 @@ public class AggiungiElementoForm {
     private JButton aggiungiArticoloBT;
     private JButton inviaFascicoloBT;
     private JLabel articoliFascicoloLabel;
+    private JLabel scegliElementoLabel;
+    private JLabel libroLabel;
+    private JLabel isbnLibroLabel;
+    private JLabel titoloLibroLabel;
+    private JLabel genereLibroLabel;
+    private JLabel linguaLibroLabel;
+    private JLabel editoreLabel;
+    private JLabel dataPubblicazioneLabel;
+    private JLabel quantitaLabel;
+    private JLabel fruizioneLabel;
+    private JLabel isbnSerieLabel;
+    private JLabel titoloLabel;
+    private JLabel dataPubblicazioneLabel1;
+    private JLabel libriLabel;
+    private JLabel serieLabel;
+    private JLabel fascicoloLabel;
+    private JLabel titoloLabel1;
+    private JLabel issnLabel;
+    private JLabel argomentoLabel;
+    private JLabel nomeResponsabileLabel;
+    private JLabel cognomeResponsabileLabel;
+    private JLabel editoreLabel1;
+    private JLabel annoPubblicazioneLabel;
+    private JLabel numeroLabel;
+    private JLabel dataLabel;
+    private JLabel fruizioneLabel1;
+    private JLabel quantitaLabel1;
     private JPanel vSpacerForm;
     private DatePicker datePickerLibro;
     private int autoreLibroCount = 0;
     private int isbnLibroCount = 0;
     private int articoliFascicoliCount = 0;
     private DatePicker datePickerSerie;
+
+    private int screenWidth = 0;
+    private int screenHeight = 0;
     ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar2.png"));
-    Image calendarImg = calendarIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+    Image calendarImg = calendarIco.getImage().getScaledInstance((int) (Toolkit.getDefaultToolkit().getScreenSize().width/51.2), (int) (Toolkit.getDefaultToolkit().getScreenSize().height/28.8), Image.SCALE_SMOOTH);
     private ArrayList<String> isbnLibri;
     private DatePicker datePickerFascicoli;
 
     public AggiungiElementoForm(JFrame frameC, Controller controller, DefaultTableModel model){
+        screenHeight = controller.screenHeight;
+        screenWidth = controller.screenWidth;
+
+        // Inizio //
+        libroBT.setFont(controller.baseFontSize);
+        libroBT.setMinimumSize(new Dimension((int)(controller.screenWidth/6.4),-1));
+        serieBT.setFont(controller.baseFontSize);
+        serieBT.setMinimumSize(new Dimension((int)(controller.screenWidth/6.4),-1));
+        fascicoloBT.setFont(controller.baseFontSize);
+        fascicoloBT.setMinimumSize(new Dimension((int)(controller.screenWidth/6.4),-1));
+
+        scegliElementoLabel.setFont(controller.impactFontSize);
+
+        // Libro //
+        libroLabel.setFont(controller.impactFontSize);
+
+        isbnLibroLabel.setFont(controller.baseFontSize);
+        isbnLibroCB.setFont(controller.textFieldFont);
+        isbnLibroCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        titoloLibroLabel.setFont(controller.baseFontSize);
+        titoloLibroField.setFont(controller.textFieldFont);
+        titoloLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        genereLibroLabel.setFont(controller.baseFontSize);
+        genereLibroField.setFont(controller.textFieldFont);
+        genereLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        linguaLibroLabel.setFont(controller.baseFontSize);
+        linguaLibroCB.setFont(controller.textFieldFont);
+        linguaLibroCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        editoreLabel.setFont(controller.baseFontSize);
+        editoreLibroField.setFont(controller.textFieldFont);
+        editoreLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        dataPubblicazioneLabel.setFont(controller.baseFontSize);
+        dataLibroField.setFont(controller.textFieldFont);
+        dataLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        calendarLibroIMG.setMinimumSize(new Dimension((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)));
+        calendarLibroIMG.setIcon(new ImageIcon(calendarImg));
+        quantitaLabel.setFont(controller.baseFontSize);
+        quantitaLibroSpinner.setFont(controller.textFieldFont);
+        quantitaLibroSpinner.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        fruizioneLabel.setFont(controller.baseFontSize);
+        fruizioneLibroCB.setFont(controller.textFieldFont);
+        fruizioneLibroCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+
+
+        autoriLibroLabel.setFont(controller.baseFontSize);
+        autoreLibroButton.setFont(controller.baseFontSize);
+
+
+
+        inviaLibroButton.setFont(controller.baseFontSize);
+
+        // Fascicolo //
+        fascicoloLabel.setFont(controller.impactFontSize);
+
+        titoloLabel1.setFont(controller.baseFontSize);
+        titoloRivistaCB.setFont(controller.textFieldFont);
+        titoloRivistaCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        issnLabel.setFont(controller.baseFontSize);
+        issnRivistaField.setFont(controller.textFieldFont);
+        issnRivistaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        argomentoLabel.setFont(controller.baseFontSize);
+        argomentoRivistaField.setFont(controller.textFieldFont);
+        argomentoRivistaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        nomeResponsabileLabel.setFont(controller.baseFontSize);
+        nomeRField.setFont(controller.textFieldFont);
+        nomeRField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        cognomeResponsabileLabel.setFont(controller.baseFontSize);
+        cognomeRField.setFont(controller.textFieldFont);
+        cognomeRField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        editoreLabel1.setFont(controller.baseFontSize);
+        editoreRivistaField.setFont(controller.textFieldFont);
+        editoreRivistaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        annoPubblicazioneLabel.setFont(controller.baseFontSize);
+        annoPrivistaSpinner.setFont(controller.textFieldFont);
+        annoPrivistaSpinner.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        numeroLabel.setFont(controller.baseFontSize);
+        numeroFascicoloCB.setFont(controller.textFieldFont);
+        numeroFascicoloCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        dataLabel.setFont(controller.baseFontSize);
+        dpFascicoloField.setFont(controller.textFieldFont);
+        dpFascicoloField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        calendarIssueIMG.setMinimumSize(new Dimension((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)));
+        calendarIssueIMG.setIcon(new ImageIcon(calendarImg));
+        fruizioneLabel1.setFont(controller.baseFontSize);
+        fruizoneFascicoloCB.setFont(controller.textFieldFont);
+        fruizoneFascicoloCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        quantitaLabel1.setFont(controller.baseFontSize);
+        quantitaFascicoloSpinner.setFont(controller.textFieldFont);
+        quantitaFascicoloSpinner.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+
+        articoliFascicoloLabel.setFont(controller.baseFontSize);
+        aggiungiArticoloBT.setFont(controller.baseFontSize);
+
+        inviaFascicoloBT.setFont(controller.baseFontSize);
+
+        // Serie//
+        serieLabel.setFont(controller.impactFontSize);
+
+        isbnSerieLabel.setFont(controller.baseFontSize);
+        isbnSerieField.setFont(controller.textFieldFont);
+        isbnSerieField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        titoloLabel.setFont(controller.baseFontSize);
+        titoloSerieField.setFont(controller.textFieldFont);
+        titoloSerieField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        dataPubblicazioneLabel1.setFont(controller.baseFontSize);
+        dataSerieField.setFont(controller.textFieldFont);
+        dataSerieField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        calendarSerieIMG.setMinimumSize(new Dimension((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)));
+        calendarSerieIMG.setIcon(new ImageIcon(calendarImg));
+        libriLabel.setFont(controller.baseFontSize);
+        spinnerLibriSerie.setFont(controller.textFieldFont);
+        spinnerLibriSerie.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+
+        okSerieBT.setFont(controller.baseFontSize);
+
+        inviaSerieButton.setFont(controller.baseFontSize);
+        // FINE //
+
+
         frame = new JFrame("Valutazione");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(720, 620);
+        frame.setSize((int)(controller.screenWidth/1.7777), (int) (controller.screenHeight/1.1612));
         frame.setLocationRelativeTo(null);
         contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
         frame.setResizable(false);
@@ -166,7 +316,7 @@ public class AggiungiElementoForm {
             public void actionPerformed(ActionEvent e) {
                 isbnSeriePanel.removeAll();
                 isbnLibroCount = 0;
-                initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue());
+                initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue(), controller.baseFontSize, controller.textFieldFont);
                 seriePanel.setVisible(true);
                 bookPanel.setVisible(false);
                 issuePanel.setVisible(false);
@@ -209,13 +359,13 @@ public class AggiungiElementoForm {
 
         bookScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine.
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
@@ -225,6 +375,7 @@ public class AggiungiElementoForm {
                 this.thumbLightShadowColor = new Color(0x323A48);
                 this.thumbHighlightColor = new Color(0x323A48);
                 this.trackHighlightColor = new Color(0xCF9E29);
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -232,7 +383,8 @@ public class AggiungiElementoForm {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -245,7 +397,8 @@ public class AggiungiElementoForm {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -270,13 +423,13 @@ public class AggiungiElementoForm {
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
             scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
                 ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 @Override
                 protected void configureScrollBarColors() {
                     this.thumbColor = new Color(0x222831);
@@ -285,6 +438,7 @@ public class AggiungiElementoForm {
                     this.thumbLightShadowColor = new Color(0x323A48);
                     this.thumbHighlightColor = new Color(0x323A48);
                     this.trackHighlightColor = new Color(0xCF9E29);
+                    this.scrollBarWidth = (int)(controller.screenWidth/75);
                 }
 
                 @Override
@@ -292,7 +446,8 @@ public class AggiungiElementoForm {
                     JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                         }
                     };
 
@@ -305,7 +460,8 @@ public class AggiungiElementoForm {
                     JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                         }
                     };
 
@@ -331,13 +487,13 @@ public class AggiungiElementoForm {
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
             scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
                 ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 @Override
                 protected void configureScrollBarColors() {
                     this.thumbColor = new Color(0x222831);
@@ -346,6 +502,7 @@ public class AggiungiElementoForm {
                     this.thumbLightShadowColor = new Color(0x323A48);
                     this.thumbHighlightColor = new Color(0x323A48);
                     this.trackHighlightColor = new Color(0xCF9E29);
+                    this.scrollBarWidth = (int)(controller.screenWidth/75);
                 }
 
                 @Override
@@ -353,7 +510,8 @@ public class AggiungiElementoForm {
                     JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                         }
                     };
 
@@ -366,7 +524,8 @@ public class AggiungiElementoForm {
                     JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                         }
                     };
 
@@ -477,7 +636,7 @@ public class AggiungiElementoForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 autoreLibroCount++;
-                initComponentsAutoreLibro();
+                initComponentsAutoreLibro(controller.baseFontSize, controller.textFieldFont);
                 autoriLibroPanel.revalidate();
                 autoriLibroPanel.repaint();
             }
@@ -613,13 +772,13 @@ public class AggiungiElementoForm {
         }
         serieScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagineALE_SMOOTH);
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
@@ -629,6 +788,7 @@ public class AggiungiElementoForm {
                 this.thumbLightShadowColor = new Color(0x323A48);
                 this.thumbHighlightColor = new Color(0x323A48);
                 this.trackHighlightColor = new Color(0xCF9E29);
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -636,7 +796,8 @@ public class AggiungiElementoForm {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -649,7 +810,8 @@ public class AggiungiElementoForm {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -711,7 +873,7 @@ public class AggiungiElementoForm {
             public void actionPerformed(ActionEvent e) {
                 isbnSeriePanel.removeAll();
                 isbnLibroCount = 0;
-                initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue());
+                initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue(),controller.baseFontSize, controller.textFieldFont);
                 isbnSeriePanel.revalidate();
                 isbnSeriePanel.repaint();
             }
@@ -819,13 +981,13 @@ public class AggiungiElementoForm {
         titoloRivistaCB.setSelectedIndex(-1);
         issueScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
@@ -835,6 +997,7 @@ public class AggiungiElementoForm {
                 this.thumbLightShadowColor = new Color(0x323A48);
                 this.thumbHighlightColor = new Color(0x323A48);
                 this.trackHighlightColor = new Color(0xCF9E29);
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -842,7 +1005,7 @@ public class AggiungiElementoForm {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
                     }
                 };
 
@@ -855,7 +1018,8 @@ public class AggiungiElementoForm {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -880,13 +1044,13 @@ public class AggiungiElementoForm {
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
             scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
                 ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 @Override
                 protected void configureScrollBarColors() {
                     this.thumbColor = new Color(0x222831);
@@ -895,6 +1059,7 @@ public class AggiungiElementoForm {
                     this.thumbLightShadowColor = new Color(0x323A48);
                     this.thumbHighlightColor = new Color(0x323A48);
                     this.trackHighlightColor = new Color(0xCF9E29);
+                    this.scrollBarWidth = (int)(controller.screenWidth/75);
                 }
 
                 @Override
@@ -902,7 +1067,8 @@ public class AggiungiElementoForm {
                     JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                         }
                     };
 
@@ -915,7 +1081,8 @@ public class AggiungiElementoForm {
                     JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                         }
                     };
 
@@ -948,13 +1115,13 @@ public class AggiungiElementoForm {
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
             scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
                 ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                 @Override
                 protected void configureScrollBarColors() {
                     this.thumbColor = new Color(0x222831);
@@ -963,6 +1130,7 @@ public class AggiungiElementoForm {
                     this.thumbLightShadowColor = new Color(0x323A48);
                     this.thumbHighlightColor = new Color(0x323A48);
                     this.trackHighlightColor = new Color(0xCF9E29);
+                    this.scrollBarWidth = (int)(controller.screenWidth/75);
                 }
 
                 @Override
@@ -970,7 +1138,8 @@ public class AggiungiElementoForm {
                     JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                         }
                     };
 
@@ -983,7 +1152,8 @@ public class AggiungiElementoForm {
                     JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                         }
                     };
 
@@ -1400,7 +1570,7 @@ public class AggiungiElementoForm {
             if (component instanceof JPanel) {
                 JPanel jPanel1 = (JPanel) component;
                 Component[] components2 = jPanel1.getComponents();
-                System.out.println("sono nel pannello");
+
 
                 for (Component component2: components2){
                     if(component2 instanceof JTextField){
@@ -1473,14 +1643,13 @@ public class AggiungiElementoForm {
         return isbn;
     }
 
-    private void initComponentsISBNSerie(ArrayList<String> isbn, int ricorsive) {
+    private void initComponentsISBNSerie(ArrayList<String> isbn, int ricorsive, Font fontbase, Font fontfield) {
         if(ricorsive == 0) return;
         isbnLibroCount++;
         DefaultComboBoxModel model;
         JPanel panel1 = new JPanel();
         JLabel label2 = new JLabel();
         JComboBox comboBox1 = new JComboBox();
-        String oldISBN = "";
 
         //======== panel1 ========
         {
@@ -1493,6 +1662,7 @@ public class AggiungiElementoForm {
 
             //---- label2 ----
             label2.setText("ISBN Libro n°" + isbnLibroCount + ":");
+            label2.setFont(fontbase);
             label2.setForeground(new Color(0xeeeeee));
             panel1.add(label2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -1501,8 +1671,9 @@ public class AggiungiElementoForm {
             //---- comboBox1 ----
             model = new DefaultComboBoxModel(isbn.toArray(new String[isbn.size()]));
             comboBox1.setModel(model);
-            comboBox1.setMinimumSize(new Dimension(150, 26));
-            comboBox1.setPreferredSize(new Dimension(150, 26));
+            comboBox1.setFont(fontfield);
+            comboBox1.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
+            comboBox1.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
             comboBox1.setBackground(Color.decode("#FFD369"));
             comboBox1.setForeground(Color.decode("#222831"));
             Object comp = comboBox1.getUI().getAccessibleChild(comboBox1, 0);
@@ -1512,13 +1683,13 @@ public class AggiungiElementoForm {
                 scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
                 scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
                     ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                    Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    Image uA = upArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                     ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                    Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    Image dA = downArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                     ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                    Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    Image rA = rightArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                     ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                    Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    Image lA = leftArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                     @Override
                     protected void configureScrollBarColors() {
                         this.thumbColor = new Color(0x222831);
@@ -1527,6 +1698,7 @@ public class AggiungiElementoForm {
                         this.thumbLightShadowColor = new Color(0x323A48);
                         this.thumbHighlightColor = new Color(0x323A48);
                         this.trackHighlightColor = new Color(0xCF9E29);
+                        this.scrollBarWidth = (int)(screenWidth/75);
                     }
 
                     @Override
@@ -1534,7 +1706,7 @@ public class AggiungiElementoForm {
                         JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                             @Override
                             public Dimension getPreferredSize() {
-                                return new Dimension(25, 15);
+                                return new Dimension((int)(screenWidth/51.2),(screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
                             }
                         };
 
@@ -1547,7 +1719,7 @@ public class AggiungiElementoForm {
                         JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                             @Override
                             public Dimension getPreferredSize() {
-                                return new Dimension(25, 15);
+                                return new Dimension((int)(screenWidth/51.2),(screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
                             }
                         };
 
@@ -1588,7 +1760,7 @@ public class AggiungiElementoForm {
                     new Insets(0, 0, 5, 0), 0, 0));
         }
         isbnSeriePanel.add(panel1);
-        initComponentsISBNSerie(isbn, ricorsive-1);
+        initComponentsISBNSerie(isbn, ricorsive-1, fontbase, fontfield);
     }
 
         private void checkDuplicateSelection(int index, JComboBox comboBoxPanel) {
@@ -1637,7 +1809,7 @@ public class AggiungiElementoForm {
         }
     }
 
-        private void initComponentsAutoreLibro() {
+        private void initComponentsAutoreLibro(Font fontbase, Font fontfield) {
         JPanel panel1 = new JPanel();
         JLabel label2 = new JLabel();
         JLabel label3 = new JLabel();
@@ -1663,6 +1835,7 @@ public class AggiungiElementoForm {
 
         //---- label2 ----
         label2.setText("Autore " + autoreLibroCount +":");
+        label2.setFont(fontbase);
         label2.setForeground(new Color(0xeeeeee));
         panel1.add(label2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -1670,6 +1843,7 @@ public class AggiungiElementoForm {
 
         //---- label3 ----
         label3.setText("Nome:");
+        label3.setFont(fontbase);
         label3.setForeground(new Color(0xeeeeee));
         panel1.add(label3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
@@ -1677,12 +1851,13 @@ public class AggiungiElementoForm {
         textField3.setBackground(new Color(0xffd369));
         textField3.setBorder(new LineBorder(new Color(0xffd369)));
         textField3.setCaretColor(new Color(0x222831));
-        textField3.setMinimumSize(new Dimension(150, 18));
-        textField3.setPreferredSize(new Dimension(150, 18));
+        textField3.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
+        textField3.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
         panel1.add(textField3, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
 
         //---- label4 ----
         label4.setText("Cognome:");
+        label4.setFont(fontbase);
         label4.setForeground(new Color(0xeeeeee));
         panel1.add(label4, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
@@ -1690,12 +1865,14 @@ public class AggiungiElementoForm {
         textField4.setBackground(new Color(0xffd369));
         textField4.setCaretColor(new Color(0x222831));
         textField4.setBorder(new LineBorder(new Color(0xffd369)));
-        textField4.setMinimumSize(new Dimension(150, 18));
-        textField4.setPreferredSize(new Dimension(150, 18));
+        textField4.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
+        textField4.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
+        textField4.setFont(fontfield);
         panel1.add(textField4, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
 
         //---- label5 ----
         label5.setText("Nazionalità:");
+        label5.setFont(fontbase);
         label5.setForeground(new Color(0xeeeeee));
         panel1.add(label5, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
@@ -1703,12 +1880,14 @@ public class AggiungiElementoForm {
         textField5.setBackground(new Color(0xffd369));
         textField5.setBorder(new LineBorder(new Color(0xffd369)));
         textField5.setCaretColor(new Color(0x222831));
-        textField5.setMinimumSize(new Dimension(150, 18));
-        textField5.setPreferredSize(new Dimension(150, 18));
+        textField5.setFont(fontbase);
+        textField5.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
+        textField5.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
         panel1.add(textField5, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
 
         //---- label6 ----
         label6.setText("Data di Nascita:");
+        label6.setFont(fontbase);
         label6.setForeground(new Color(0xeeeeee));
         panel1.add(label6, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
@@ -1730,10 +1909,22 @@ public class AggiungiElementoForm {
         textField6.setBackground(new Color(0xffd369));
         textField6.setCaretColor(new Color(0x222831));
         textField6.setBorder(new LineBorder(new Color(0xffd369)));
-        textField6.setMinimumSize(new Dimension(150, 18));
+        textField6.setFont(fontfield);
+        textField6.setMinimumSize(new Dimension((int)(screenWidth/8.5), calcolaAltezzaFont(label6.getFont())));
+        textField6.setPreferredSize(new Dimension((int)(screenWidth/8.5),calcolaAltezzaFont(label6.getFont())));
         panel1.add(textField6, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     }
         autoriLibroPanel.add(panel1);
+    }
+
+    public int calcolaAltezzaFont(Font font){
+        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setFont(font);
+        FontMetrics fm = g2d.getFontMetrics();
+        int fontHeight = fm.getHeight();
+        g2d.dispose();
+        return fontHeight;
     }
 
     private void initComponentsArticoli(Controller controller) {
@@ -1749,6 +1940,7 @@ public class AggiungiElementoForm {
         //======== panel1 ========
         {
             panel1.setBackground(new Color(0x222831));
+            panel1.setSize((int)(controller.screenWidth/2.1), -1);
             panel1.setMinimumSize(new Dimension(-1, -1));
             panel1.setPreferredSize(null);
             panel1.setLayout(new GridBagLayout());
@@ -1760,20 +1952,21 @@ public class AggiungiElementoForm {
             //---- label2 ----
             label2.setText("Articolo " + articoliFascicoliCount + ":");
             label2.setForeground(new Color(0xeeeeee));
+            label2.setFont(controller.baseFontSize);
             panel1.add(label2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 5), 0, 0));
 
             //---- label3 ----
             label3.setText("Titolo:");
+            label3.setFont(controller.baseFontSize);
             label3.setForeground(new Color(0xeeeeee));
             panel1.add(label3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 5), 0, 0));
 
             //---- comboBox1 ----
-            comboBox1.setMinimumSize(new Dimension(403, 26));
-            comboBox1.setPreferredSize(new Dimension(403, 26));
+            comboBox1.setFont(controller.textFieldFont);
             comboBox1.setBackground(new Color(0xffd369));
             Object comp = comboBox1.getUI().getAccessibleChild(comboBox1, 0);
             if(comp instanceof JPopupMenu){
@@ -1782,13 +1975,13 @@ public class AggiungiElementoForm {
                 scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
                 scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
                     ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                    Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    Image uA = upArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                     ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                    Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    Image dA = downArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                     ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                    Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    Image rA = rightArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                     ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                    Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                    Image lA = leftArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
                     @Override
                     protected void configureScrollBarColors() {
                         this.thumbColor = new Color(0x222831);
@@ -1797,6 +1990,7 @@ public class AggiungiElementoForm {
                         this.thumbLightShadowColor = new Color(0x323A48);
                         this.thumbHighlightColor = new Color(0x323A48);
                         this.trackHighlightColor = new Color(0xCF9E29);
+                        this.scrollBarWidth = (int)(controller.screenWidth/75);
                     }
 
                     @Override
@@ -1804,7 +1998,7 @@ public class AggiungiElementoForm {
                         JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                             @Override
                             public Dimension getPreferredSize() {
-                                return new Dimension(25, 15);
+                                return new Dimension((int)(screenWidth/51.2),(screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
                             }
                         };
 
@@ -1817,7 +2011,8 @@ public class AggiungiElementoForm {
                         JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                             @Override
                             public Dimension getPreferredSize() {
-                                return new Dimension(25, 15);
+                                return new Dimension((int)(screenWidth/51.2),(screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                             }
                         };
 
@@ -1881,6 +2076,7 @@ public class AggiungiElementoForm {
 
             //---- label6 ----
             label6.setText("Anno di pubblicazione:");
+            label6.setFont(controller.baseFontSize);
             label6.setForeground(new Color(0xeeeeee));
             panel1.add(label6, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -1888,6 +2084,7 @@ public class AggiungiElementoForm {
 
             //---- spinner1 ----
             spinner1.setBackground(new Color(0xffd369));
+            spinner1.setFont(controller.textFieldFont);
             SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1);
             spinner1.setModel(snm);
 
@@ -1902,16 +2099,16 @@ public class AggiungiElementoForm {
             }
             spinner1.setUI(new BasicSpinnerUI(){
                 ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+                Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
                 ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+                Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
 
                 @Override
                 protected Component createPreviousButton() {
                     JButton button = new JButton(new ImageIcon(dA)){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(15, 15);
+                            return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                         }
                     };
                     button.addActionListener(new ActionListener() {
@@ -1929,7 +2126,7 @@ public class AggiungiElementoForm {
                     JButton button = new JButton(new ImageIcon(uA)){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(15, 15);
+                            return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                         }
                     };
                     button.addActionListener(new ActionListener() {
@@ -1951,6 +2148,7 @@ public class AggiungiElementoForm {
 
             //---- label4 ----
             label4.setText("Autori:");
+            label4.setFont(controller.baseFontSize);
             label4.setForeground(new Color(0xeeeeee));
             panel1.add(label4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -1958,6 +2156,7 @@ public class AggiungiElementoForm {
 
             //---- button1 ----
             button1.setText("Aggiungi");
+            button1.setFont(controller.baseFontSize);
             button1.setBackground(new Color(0xffd369));
             button1.setBorderPainted(false);
             panel1.add(button1, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
@@ -1967,7 +2166,7 @@ public class AggiungiElementoForm {
             button1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    initComponentsAutoriArticoli(panel2);
+                    initComponentsAutoriArticoli(panel2, controller.baseFontSize, controller.textFieldFont);
                     panel2.revalidate();
                     panel2.repaint();
                 }
@@ -1990,7 +2189,7 @@ public class AggiungiElementoForm {
         articoliPanel.add(panel1, constraints);
     }
 
-    private void initComponentsAutoriArticoli(JPanel panelC) {
+    private void initComponentsAutoriArticoli(JPanel panelC, Font fontbase, Font fontfield) {
         JPanel panel1 = new JPanel();
         JLabel label2 = new JLabel();
         JLabel label3 = new JLabel();
@@ -2016,6 +2215,7 @@ public class AggiungiElementoForm {
 
             //---- label2 ----
             label2.setText("Autore:");
+            label2.setFont(fontbase);
             label2.setForeground(new Color(0xeeeeee));
             panel1.add(label2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -2023,23 +2223,26 @@ public class AggiungiElementoForm {
 
             //---- label3 ----
             label3.setText("Nome:");
+            label3.setFont(fontbase);
             label3.setForeground(new Color(0xeeeeee));
             panel1.add(label3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 5), 0, 0));
 
             //---- textField3 ----
+            textField3.setFont(fontfield);
             textField3.setBackground(new Color(0xffd369));
             textField3.setBorder(new LineBorder(new Color(0xffd369)));
             textField3.setCaretColor(new Color(0x222831));
-            textField3.setMinimumSize(new Dimension(150, 18));
-            textField3.setPreferredSize(new Dimension(150, 18));
+            textField3.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
+            textField3.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
             panel1.add(textField3, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));
 
             //---- label4 ----
             label4.setText("Cognome:");
+            label4.setFont(fontbase);
             label4.setForeground(new Color(0xeeeeee));
             panel1.add(label4, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -2047,16 +2250,18 @@ public class AggiungiElementoForm {
 
             //---- textField4 ----
             textField4.setBackground(new Color(0xffd369));
+            textField4.setFont(fontfield);
             textField4.setCaretColor(new Color(0x222831));
             textField4.setBorder(new LineBorder(new Color(0xffd369)));
-            textField4.setMinimumSize(new Dimension(150, 18));
-            textField4.setPreferredSize(new Dimension(150, 18));
+            textField4.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
+            textField4.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
             panel1.add(textField4, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));
 
             //---- label5 ----
             label5.setText("Nazionalit\u00e0:");
+            label5.setFont(fontbase);
             label5.setForeground(new Color(0xeeeeee));
             panel1.add(label5, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -2064,16 +2269,18 @@ public class AggiungiElementoForm {
 
             //---- textField5 ----
             textField5.setBackground(new Color(0xffd369));
+            textField5.setFont(fontfield);
             textField5.setBorder(new LineBorder(new Color(0xffd369)));
             textField5.setCaretColor(new Color(0x222831));
-            textField5.setMinimumSize(new Dimension(150, 18));
-            textField5.setPreferredSize(new Dimension(150, 18));
+            textField5.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
+            textField5.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
             panel1.add(textField5, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));
 
             //---- label6 ----
             label6.setText("Data di Nascita:");
+            label6.setFont(fontbase);
             label6.setForeground(new Color(0xeeeeee));
             panel1.add(label6, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -2100,7 +2307,9 @@ public class AggiungiElementoForm {
             textField6.setBackground(new Color(0xffd369));
             textField6.setCaretColor(new Color(0x222831));
             textField6.setBorder(new LineBorder(new Color(0xffd369)));
-            textField6.setMinimumSize(new Dimension(150, 18));
+            textField6.setFont(fontfield);
+            textField6.setMinimumSize(new Dimension((int)(screenWidth/8.5), calcolaAltezzaFont(label6.getFont())));
+            textField6.setPreferredSize(new Dimension((int)(screenWidth/8.5),calcolaAltezzaFont(label6.getFont())));
             panel1.add(textField6, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));
@@ -2111,14 +2320,14 @@ public class AggiungiElementoForm {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine3 = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine3);
-        closeBT = new JLabel(closeImg);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
 
-        ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar2.png"));
-        Image calendarImg = calendarIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        calendarIco = new ImageIcon(calendarImg);
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
+        closeImg = new ImageIcon(imagine);
+        closeBT = new JLabel(closeImg);
 
 
         // LIBRO //
@@ -2153,7 +2362,7 @@ public class AggiungiElementoForm {
         calendarLibroIMG = new JLabel(calendarIco);
 
         autoriLibroPanel = new JPanel();
-        autoriLibroPanel.setLayout(new GridLayout(-1, 2, 15, 15));
+        autoriLibroPanel.setLayout(new GridLayout(-1, 2, (int) (screenWidth/85.33), screenHeight/48));
         //autoriLibroPanel.setLayout(new BoxLayout(autoriLibroPanel, BoxLayout.PAGE_AXIS));
 
         SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1);
@@ -2171,16 +2380,16 @@ public class AggiungiElementoForm {
 
         quantitaLibroSpinner.setUI(new BasicSpinnerUI(){
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
 
             @Override
             protected Component createPreviousButton() {
                 JButton button = new JButton(new ImageIcon(dA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(15, 15);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
                 button.addActionListener(new ActionListener() {
@@ -2198,7 +2407,7 @@ public class AggiungiElementoForm {
                 JButton button = new JButton(new ImageIcon(uA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(15, 15);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
                 button.addActionListener(new ActionListener() {
@@ -2245,16 +2454,16 @@ public class AggiungiElementoForm {
 
         spinnerLibriSerie.setUI(new BasicSpinnerUI(){
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
 
             @Override
             protected Component createPreviousButton() {
                 JButton button = new JButton(new ImageIcon(dA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(15, 15);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
                 button.addActionListener(new ActionListener() {
@@ -2272,7 +2481,7 @@ public class AggiungiElementoForm {
                 JButton button = new JButton(new ImageIcon(uA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(15, 15);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
                 button.addActionListener(new ActionListener() {
@@ -2346,16 +2555,16 @@ public class AggiungiElementoForm {
 
         annoPrivistaSpinner.setUI(new BasicSpinnerUI(){
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
 
             @Override
             protected Component createPreviousButton() {
                 JButton button = new JButton(new ImageIcon(dA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(15, 15);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
                 button.addActionListener(new ActionListener() {
@@ -2416,16 +2625,16 @@ public class AggiungiElementoForm {
 
         quantitaFascicoloSpinner.setUI(new BasicSpinnerUI(){
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
 
             @Override
             protected Component createPreviousButton() {
                 JButton button = new JButton(new ImageIcon(dA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(15, 15);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
                 button.addActionListener(new ActionListener() {
@@ -2443,7 +2652,7 @@ public class AggiungiElementoForm {
                 JButton button = new JButton(new ImageIcon(uA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(15, 15);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
                 button.addActionListener(new ActionListener() {

@@ -20,6 +20,7 @@ public class Recensione extends JDialog {
     private JTextField textField1;
     private JButton button1;
     private JEditorPane editorPane1;
+    private JLabel valutazioneLabel;
     private JButton buttonOK;
     private JButton buttonCancel;
     private boolean active = false;
@@ -40,27 +41,32 @@ public class Recensione extends JDialog {
            numero = controller.fascicolo_selected.numero;
        }
 
+       valutazioneLabel.setFont(controller.baseFontSize);
+       editorPane1.setFont(controller.baseFontSize);
+       editorPane1.setPreferredSize(new Dimension((int) (controller.screenWidth/8.5333), (int) (controller.screenHeight/7.2)));
+       button1.setFont(controller.baseFontSize);
+
         frame = new JFrame("Valutazione");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(720, 240);
+        frame.setSize((int) (controller.screenWidth/1.7777), controller.screenHeight/3);
         frame.setLocationRelativeTo(null);
         contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
         frame.setResizable(false);
         frame.setVisible(true);
 
         stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
-        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         stellaVuotaIco = new ImageIcon(stellaVuotaImg);
 
         stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
-        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         stellaPienaIco = new ImageIcon(stellaPienaImg);
 
         stellaMezzaIco = new ImageIcon(this.getClass().getResource("/stella_mezza.png"));
-        Image stellaMezzaImg = stellaMezzaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image stellaMezzaImg = stellaMezzaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         stellaMezzaIco = new ImageIcon(stellaMezzaImg);
 
         stella1.setIcon(stellaVuotaIco);
@@ -252,40 +258,11 @@ public class Recensione extends JDialog {
         });
 
 
-        frame.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
+        frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
                 frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-
             }
         });
 
@@ -395,14 +372,14 @@ public class Recensione extends JDialog {
         });
     }
 
-    public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione){   //aggiorna le stelle della recensione con valutazione 'valutazione'
+    public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione, Controller controller){   //aggiorna le stelle della recensione con valutazione 'valutazione'
 
         ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
-        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         stellaVuotaIco = new ImageIcon(stellaVuotaImg);
 
         ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
-        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         stellaPienaIco = new ImageIcon(stellaPienaImg);
 
         switch (valutazione) {  //controlla 'valutazione' e aggiorna le stelle della recensione da mostrare
@@ -490,6 +467,7 @@ public class Recensione extends JDialog {
         panel1.setBackground(new Color(0x222831));
 
         jcomp1 = new JLabel (utente + ":");
+        jcomp1.setFont(controller.baseFontSize);
         jcomp1.setBackground(new Color(0x222831));
         jcomp1.setForeground(new Color(0xEEEEEE));
 
@@ -510,6 +488,7 @@ public class Recensione extends JDialog {
 
         // Creazione della JTextArea
         jcomp7 = new JTextArea();
+        jcomp7.setFont(controller.baseFontSize);
         jcomp7.setBackground(new Color(0x222831));
         jcomp7.setForeground(new Color(0xEEEEEE));
         jcomp7.setLineWrap(true);
@@ -532,23 +511,15 @@ public class Recensione extends JDialog {
             }
         }
         jcomp7.setText(newText.toString());
-        Font font = new Font("Segoi UI", Font.PLAIN, 15);
-        jcomp7.setFont(font);
-
-        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = image.createGraphics();
-        g2d.setFont(font);
-        FontMetrics fm = g2d.getFontMetrics();
-        int fontHeight = fm.getHeight();
-        g2d.dispose();
 
         jcomp8 = new JSeparator();
+        jcomp8.setFont(controller.baseFontSize);
         jcomp8.setForeground(new Color(0xEEEEEE));
 
-        changeStars(jcomp2, jcomp3, jcomp4, jcomp5, jcomp6, val);
+        changeStars(jcomp2, jcomp3, jcomp4, jcomp5, jcomp6, val, controller);
 
         //adjust size and set layout
-        panel1.setPreferredSize (new Dimension (626, 150));
+        panel1.setPreferredSize (new Dimension ((int) (controller.screenWidth/2.044), (int) (controller.screenHeight/4.8)));
         panel1.setLayout (null);
 
         //add components
@@ -562,17 +533,17 @@ public class Recensione extends JDialog {
         panel1.add (jcomp8);
 
         //set component bounds (only needed by Absolute Positioning)
-        jcomp1.setBounds (0, 0, 100, 25);
-        jcomp2.setBounds (0, 25, 25, 25);
-        jcomp3.setBounds (25, 25, 25, 25);
-        jcomp4.setBounds (50, 25, 25, 25);
-        jcomp5.setBounds (75, 25, 25, 25);
-        jcomp6.setBounds (100, 25, 25, 25);
-        jcomp7.setBounds (0, 50, 500, fontHeight*n_righe);
-        jcomp8.setBounds (0, 50+(fontHeight*n_righe)+1, 500, 15);
+        jcomp1.setBounds (0, 0, (int) (controller.screenWidth/12.8), (int) (controller.screenHeight/28.8));
+        jcomp2.setBounds (0, (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
+        jcomp3.setBounds ((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
+        jcomp4.setBounds ((int) (controller.screenWidth/25.6), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
+        jcomp5.setBounds ((int) (controller.screenWidth/17.0666), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
+        jcomp6.setBounds ((int) (controller.screenWidth/12.8), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
+        jcomp7.setBounds (0, (int) (controller.screenHeight/14.4), (int) (controller.screenWidth/2.56), controller.calcolaAltezzaFont(controller.baseFontSize)*n_righe);
+        jcomp8.setBounds (0, (int) (controller.screenHeight/14.4)+(controller.calcolaAltezzaFont(controller.baseFontSize)*n_righe)+1, (int) (controller.screenWidth/2.56), (int) (controller.screenHeight/48));
 
 
-        panel1.setPreferredSize (new Dimension (500, jcomp1.getHeight()+jcomp2.getHeight()+jcomp7.getHeight()+jcomp8.getHeight()));
+        panel1.setPreferredSize (new Dimension ((int) (controller.screenWidth/2.56), jcomp1.getHeight()+jcomp2.getHeight()+jcomp7.getHeight()+jcomp8.getHeight()));
 
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -653,9 +624,13 @@ public class Recensione extends JDialog {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
         ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine3 = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine3);
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
+        closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
 
         editorPane1 = new JEditorPane();

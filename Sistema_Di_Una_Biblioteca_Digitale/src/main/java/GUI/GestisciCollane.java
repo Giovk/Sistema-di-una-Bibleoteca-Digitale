@@ -23,16 +23,36 @@ public class GestisciCollane {
     private JTextField nomeField;
     private JTextField caratteristicaField;
     private JTextField issnField;
+    private JLabel collanaLabel;
+    private JLabel nomeLabel;
+    private JLabel caratteristicaLabel;
+    private JLabel issnLabel;
+    private JLabel iCampiChePresentanoLabel;
 
     private int collaneLibroCount = 0;
 
     public GestisciCollane(JFrame frameC, Controller controller){
+        creaCollanaButton.setFont(controller.baseFontSize);
+        creaCollanaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/8.5333),-1));
+        annullaButton.setFont(controller.baseFontSize);
+        annullaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/8.5333),-1));
+        collanaLabel.setFont(controller.baseFontSize);
+        nomeLabel.setFont(controller.baseFontSize);
+        nomeField.setFont(controller.textFieldFont);
+        caratteristicaLabel.setFont(controller.baseFontSize);
+        caratteristicaField.setFont(controller.textFieldFont);
+        issnLabel.setFont(controller.baseFontSize);
+        issnField.setFont(controller.textFieldFont);
+        iCampiChePresentanoLabel.setFont(controller.baseFontSize);
+        inviaButton.setFont(controller.baseFontSize);
+
+
         frame = new JFrame("Gestisci Collane");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(360, 480);
+        frame.setSize((int) (controller.screenWidth/3.5555), (int) (controller.screenHeight/1.5));
         frame.setLocationRelativeTo(null);
         contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
         frame.setResizable(false);
@@ -67,7 +87,7 @@ public class GestisciCollane {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                creaCollanaButton.setBackground(Color.decode("#FFD369"));
+                if (creaCollanaButton.isEnabled()) creaCollanaButton.setBackground(Color.decode("#FFD369"));
             }
         });
 
@@ -81,6 +101,7 @@ public class GestisciCollane {
                 creaCollanaButton.setEnabled(false);
                 contentPane.revalidate();
                 contentPane.repaint();
+                creaCollanaButton.setBackground(Color.decode("#FFD369"));
             }
         });
 
@@ -95,7 +116,7 @@ public class GestisciCollane {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                creaCollanaButton.setBackground(Color.decode("#FFD369"));
+                annullaButton.setBackground(Color.decode("#FFD369"));
             }
         });
 
@@ -180,13 +201,13 @@ public class GestisciCollane {
 
         collaneScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
@@ -196,6 +217,7 @@ public class GestisciCollane {
                 this.thumbLightShadowColor = new Color(0x323A48);
                 this.thumbHighlightColor = new Color(0x323A48);
                 this.trackHighlightColor = new Color(0xCF9E29);
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -203,7 +225,8 @@ public class GestisciCollane {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -216,7 +239,8 @@ public class GestisciCollane {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -267,9 +291,10 @@ public class GestisciCollane {
 
             //---- label2 ----
             label2.setText(nomeCollana);
-            label2.setMinimumSize(new Dimension(150, 16));
-            label2.setPreferredSize(new Dimension(150, 16));
-            label2.setMaximumSize(new Dimension(150, 16));
+            label2.setFont(controller.baseFontSize);
+            label2.setMinimumSize(new Dimension((int) (controller.screenWidth/8.53), controller.screenHeight/45));
+            label2.setPreferredSize(new Dimension((int) (controller.screenWidth/8.53), controller.screenHeight/45));
+            label2.setMaximumSize(new Dimension((int) (controller.screenWidth/8.53), controller.screenHeight/45));
             label2.setForeground(new Color(0xeeeeee));
             panel1.add(label2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.WEST, GridBagConstraints.NONE,
@@ -279,9 +304,10 @@ public class GestisciCollane {
             if(presenza == true){
                 button2.setText("-");
             } else button2.setText("+");
-            button2.setMinimumSize(new Dimension(45, 25));
-            button2.setPreferredSize(new Dimension(45, 25));
-            button2.setMaximumSize(new Dimension(45, 25));
+            button2.setMinimumSize(new Dimension((int) (controller.screenWidth/28.4444), (int) (controller.screenHeight/28.8)));
+            button2.setPreferredSize(new Dimension((int) (controller.screenWidth/28.4444), (int) (controller.screenHeight/28.8)));
+            button2.setMaximumSize(new Dimension((int) (controller.screenWidth/28.4444), (int) (controller.screenHeight/28.8)));
+            button2.setFont(controller.baseFontSize);
             button2.setBackground(new Color(0xffd369));
             button2.setForeground(new Color(0x222831));
             button2.setBorderPainted(false);
@@ -329,9 +355,13 @@ public class GestisciCollane {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
         ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine3 = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine3);
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
+        closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
 
         nomeField = new JTextField();

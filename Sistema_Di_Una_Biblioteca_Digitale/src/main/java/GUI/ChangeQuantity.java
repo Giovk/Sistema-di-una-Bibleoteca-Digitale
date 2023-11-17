@@ -3,7 +3,6 @@ package GUI;
 import Controller.Controller;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -18,14 +17,19 @@ public class ChangeQuantity {
     private JLabel closeBT;
     private JSpinner quantitaSpinner;
     private JButton okButton;
+    private JLabel quantitaLabel;
 
     public ChangeQuantity(JFrame frameC, Controller controller, DefaultTableModel model, String formato, int value){
+        quantitaLabel.setFont(controller.baseFontSize);
+        quantitaSpinner.setFont(controller.textFieldFont);
+        okButton.setFont(controller.baseFontSize);
+
         frame = new JFrame("Quantita");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(300, 80);
+        frame.setSize((int) (controller.screenWidth/4.2666), controller.screenHeight/9);
         frame.setLocationRelativeTo(null);
         contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
         frame.setResizable(false);
@@ -79,12 +83,16 @@ public class ChangeQuantity {
     }
 
     public ChangeQuantity(JFrame frameC, Controller controller, DefaultTableModel model, String formato, int numero, int value){
+        quantitaLabel.setFont(controller.baseFontSize);
+        quantitaSpinner.setFont(controller.textFieldFont);
+        okButton.setFont(controller.baseFontSize);
+
         frame = new JFrame("Quantita");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(300, 80);
+        frame.setSize((int) (controller.screenWidth/4.2666), controller.screenHeight/9);
         frame.setLocationRelativeTo(null);
         contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
         frame.setResizable(false);
@@ -231,10 +239,15 @@ public class ChangeQuantity {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
         ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine3 = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine3);
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
+        closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
+
 
         SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1);
         quantitaSpinner = new JSpinner(snm);
@@ -249,42 +262,19 @@ public class ChangeQuantity {
             textField.setBorder(new LineBorder(new Color(0x222831)));
         }
 
-        /*Component[] components = quantitaSpinner.getComponents();
-        for (Component component : components){
-            if (component instanceof JButton){
-                JButton button = (JButton) component;
-
-                if (button.getName() != null && button.getName().equals("Spinner.previousButton")) {
-                    button = new JButton(new ImageIcon(dA));
-                    button.setBackground(new Color(0xFFD369));
-                    button.setForeground(Color.RED);
-                    button.setBorder(new LineBorder(new Color(0x222831)));
-                } else if (button.getName() != null && button.getName().equals("Spinner.nextButton")) {
-                    button = new JButton(new ImageIcon(uA));
-                    button.setBackground(new Color(0xFFD369));
-                    button.setForeground(new Color(0xEEEEEE));
-                    button.setBorder(new LineBorder(new Color(0x222831)));
-                } else {
-                    button.setBackground(new Color(0xFFD369));
-                    button.setForeground(new Color(0xEEEEEE));
-                    button.setBorder(new LineBorder(new Color(0x222831)));
-                }
-            }
-
-        }*/
 
         quantitaSpinner.setUI(new BasicSpinnerUI(){
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
 
             @Override
             protected Component createPreviousButton() {
                 JButton button = new JButton(new ImageIcon(dA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(15, 15);
+                        return new Dimension((int) (screenWidth/85.3333), screenHeight/48);
                     }
                 };
                 button.addActionListener(new ActionListener() {
@@ -302,7 +292,7 @@ public class ChangeQuantity {
                 JButton button = new JButton(new ImageIcon(uA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(15, 15);
+                        return new Dimension((int) (screenWidth/85.3333), screenHeight/48);
                     }
                 };
                 button.addActionListener(new ActionListener() {

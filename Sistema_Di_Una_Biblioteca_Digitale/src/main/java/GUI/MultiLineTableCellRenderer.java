@@ -1,5 +1,7 @@
 package GUI;
 
+import Controller.Controller;
+
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
@@ -10,6 +12,7 @@ public class MultiLineTableCellRenderer extends JTextArea implements TableCellRe
             setLineWrap(true);
             setWrapStyleWord(true);
             setOpaque(true);
+            setFont(new Controller().impactFontSize);
         }
 
         @Override

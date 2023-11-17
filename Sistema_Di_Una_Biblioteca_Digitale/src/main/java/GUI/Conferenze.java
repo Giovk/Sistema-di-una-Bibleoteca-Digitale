@@ -39,6 +39,17 @@ public class Conferenze {
     private JLabel calendarIMG2;
     private JPanel addConferenzaPanel;
     private JComboBox conferenzeCB;
+    private JLabel conferenzeLabel;
+    private JLabel strutturaLabel;
+    private JLabel indirizzoLabel;
+    private JLabel viaLabel;
+    private JLabel comuneLabel;
+    private JLabel capLabel;
+    private JLabel nazioneLabel;
+    private JLabel provinciaLabel;
+    private JLabel numeroCivicoLabel;
+    private JLabel dataInizioLabel;
+    private JLabel dataFineLabel;
     private DatePickerMoreDay datePicker;
     private DatePickerMoreDay datePicker2;
     private DefaultTableModel model;
@@ -47,6 +58,50 @@ public class Conferenze {
     public Conferenze(JFrame frameC, Controller controller){
         datePicker = new DatePickerMoreDay(calendarIMG);
         datePicker2 = new DatePickerMoreDay(calendarIMG2);
+
+        conferenzaLabel.setFont(controller.baseFontSize);
+
+        conferenzeTable.setFont(controller.impactFontSize);
+        conferenzeTable.setRowMargin(controller.screenWidth/640);
+        conferenzeTable.setRowHeight(controller.screenHeight/36);
+
+        aggiungiButton.setFont(controller.baseFontSize);
+        annullaButton.setFont(controller.baseFontSize);
+        conferenzeLabel.setFont(controller.baseFontSize);
+        conferenzeCB.setFont(controller.textFieldFont);
+        conferenzeCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        strutturaLabel.setFont(controller.baseFontSize);
+        strutturaField.setFont(controller.textFieldFont);
+        strutturaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        indirizzoLabel.setFont(controller.baseFontSize);
+        viaLabel.setFont(controller.baseFontSize);
+        viaField.setFont(controller.textFieldFont);
+        viaField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
+        numeroCivicoLabel.setFont(controller.baseFontSize);
+        ncField.setFont(controller.textFieldFont);
+        ncField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
+        comuneLabel.setFont(controller.baseFontSize);
+        comuneField.setFont(controller.textFieldFont);
+        comuneField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
+        provinciaLabel.setFont(controller.baseFontSize);
+        provinciaField.setFont(controller.textFieldFont);
+        provinciaField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
+        capLabel.setFont(controller.baseFontSize);
+        capField.setFont(controller.textFieldFont);
+        capField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
+        nazioneLabel.setFont(controller.baseFontSize);
+        nazioneField.setFont(controller.textFieldFont);
+        nazioneField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
+
+        dataInizioLabel.setFont(controller.baseFontSize);
+        dataInizioField.setFont(controller.textFieldFont);
+        dataInizioField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        dataFineLabel.setFont(controller.baseFontSize);
+        dataFineField.setFont(controller.textFieldFont);
+        dataFineField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+
+
+        inviaButton.setFont(controller.baseFontSize);
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             aggiungiButton.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
@@ -59,13 +114,13 @@ public class Conferenze {
 
         conferenzeScroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
 
             @Override
             protected void configureScrollBarColors() {
@@ -75,6 +130,7 @@ public class Conferenze {
                 this.thumbLightShadowColor = new Color(0x323A48);
                 this.thumbHighlightColor = new Color(0x323A48);
                 this.trackHighlightColor = new Color(0xCF9E29);
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -82,7 +138,8 @@ public class Conferenze {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -95,7 +152,8 @@ public class Conferenze {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -115,13 +173,13 @@ public class Conferenze {
 
         scrollpage.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
 
             @Override
             protected void configureScrollBarColors() {
@@ -131,6 +189,7 @@ public class Conferenze {
                 this.thumbLightShadowColor = new Color(0x323A48);
                 this.thumbHighlightColor = new Color(0x323A48);
                 this.trackHighlightColor = new Color(0xCF9E29);
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -138,7 +197,8 @@ public class Conferenze {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -151,7 +211,8 @@ public class Conferenze {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -178,7 +239,7 @@ public class Conferenze {
         frame.setContentPane(this.contentPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(820, 500);
+        frame.setSize((int) (controller.screenWidth/1.5609), (int) (controller.screenHeight/1.44));
         frame.setLocationRelativeTo(null);
         contentPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
         frame.setResizable(false);
@@ -341,13 +402,13 @@ public class Conferenze {
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
             scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
                 ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
                 ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
                 ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
                 ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
                 @Override
                 protected void configureScrollBarColors() {
                     this.thumbColor = new Color(0x222831);
@@ -356,6 +417,7 @@ public class Conferenze {
                     this.thumbLightShadowColor = new Color(0x323A48);
                     this.thumbHighlightColor = new Color(0x323A48);
                     this.trackHighlightColor = new Color(0xCF9E29);
+                    this.scrollBarWidth = (int)(controller.screenWidth/75);
                 }
 
                 @Override
@@ -363,7 +425,8 @@ public class Conferenze {
                     JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                         }
                     };
 
@@ -376,7 +439,8 @@ public class Conferenze {
                     JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
+                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                         }
                     };
 
@@ -596,9 +660,13 @@ public class Conferenze {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
         ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine3 = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine3);
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
+        closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
 
         conferenzeCB = new JComboBox<>();
@@ -607,7 +675,7 @@ public class Conferenze {
         conferenzeCB.setBorder(new LineBorder(Color.decode("#222831")));
 
         ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar2.png"));
-        Image calendarIm = calendarIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image calendarIm = calendarIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         calendarIco = new ImageIcon(calendarIm);
         calendarIMG = new JLabel(calendarIco);
         calendarIMG2 = new JLabel(calendarIco);
