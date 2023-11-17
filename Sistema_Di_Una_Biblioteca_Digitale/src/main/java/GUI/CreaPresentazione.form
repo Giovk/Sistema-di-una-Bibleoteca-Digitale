@@ -55,7 +55,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="8dc2d" class="javax.swing.JLabel">
+          <component id="8dc2d" class="javax.swing.JLabel" binding="strutturaLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -69,7 +69,7 @@
               <grid row="0" column="2" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
           </hspacer>
-          <component id="1b318" class="javax.swing.JLabel">
+          <component id="1b318" class="javax.swing.JLabel" binding="indirizzoLabel">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -78,7 +78,7 @@
               <text value="Indirizzo*:"/>
             </properties>
           </component>
-          <component id="3cab5" class="javax.swing.JLabel">
+          <component id="3cab5" class="javax.swing.JLabel" binding="viaLabel">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -87,7 +87,7 @@
               <text value="Via:"/>
             </properties>
           </component>
-          <component id="f90f7" class="javax.swing.JLabel">
+          <component id="f90f7" class="javax.swing.JLabel" binding="numeroCivicoLabel">
             <constraints>
               <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -96,7 +96,7 @@
               <text value="Numero Civico:"/>
             </properties>
           </component>
-          <component id="4d423" class="javax.swing.JLabel">
+          <component id="4d423" class="javax.swing.JLabel" binding="comuneLabel">
             <constraints>
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -105,7 +105,7 @@
               <text value="Comune:"/>
             </properties>
           </component>
-          <component id="1e3c6" class="javax.swing.JLabel">
+          <component id="1e3c6" class="javax.swing.JLabel" binding="provinciaLabel">
             <constraints>
               <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -114,7 +114,7 @@
               <text value="Provincia:"/>
             </properties>
           </component>
-          <component id="ee87d" class="javax.swing.JLabel">
+          <component id="ee87d" class="javax.swing.JLabel" binding="capLabel">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -123,7 +123,7 @@
               <text value="CAP:"/>
             </properties>
           </component>
-          <component id="e739a" class="javax.swing.JLabel">
+          <component id="e739a" class="javax.swing.JLabel" binding="nazioneLabel">
             <constraints>
               <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -216,7 +216,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="99e1a" class="javax.swing.JLabel">
+          <component id="99e1a" class="javax.swing.JLabel" binding="dataLabel">
             <constraints>
               <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -243,7 +243,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="4339b" class="javax.swing.JLabel">
+          <component id="4339b" class="javax.swing.JLabel" binding="oraLabel">
             <constraints>
               <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>

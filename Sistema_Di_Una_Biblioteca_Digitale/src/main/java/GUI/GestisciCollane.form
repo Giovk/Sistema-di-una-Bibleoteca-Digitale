@@ -43,9 +43,7 @@
       </grid>
       <component id="ef53e" class="javax.swing.JButton" binding="creaCollanaButton">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-11415"/>
@@ -55,9 +53,7 @@
       </component>
       <component id="9a08a" class="javax.swing.JButton" binding="inviaButton">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="80" height="-1"/>
-          </grid>
+          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-11415"/>
@@ -105,7 +101,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="d4e77" class="javax.swing.JLabel">
+                  <component id="d4e77" class="javax.swing.JLabel" binding="collanaLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -119,7 +115,7 @@
                       <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                     </constraints>
                   </vspacer>
-                  <component id="5d3f5" class="javax.swing.JLabel">
+                  <component id="5d3f5" class="javax.swing.JLabel" binding="nomeLabel">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -128,7 +124,7 @@
                       <text value="Nome*:"/>
                     </properties>
                   </component>
-                  <component id="41d34" class="javax.swing.JLabel">
+                  <component id="41d34" class="javax.swing.JLabel" binding="caratteristicaLabel">
                     <constraints>
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -139,9 +135,7 @@
                   </component>
                   <component id="85603" class="javax.swing.JTextField" binding="nomeField" custom-create="true">
                     <constraints>
-                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="30"/>
-                      </grid>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -152,9 +146,7 @@
                   </component>
                   <component id="ff262" class="javax.swing.JTextField" binding="caratteristicaField" custom-create="true">
                     <constraints>
-                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="30"/>
-                      </grid>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -163,7 +155,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="d8989" class="javax.swing.JLabel">
+                  <component id="d8989" class="javax.swing.JLabel" binding="issnLabel">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -174,9 +166,7 @@
                   </component>
                   <component id="e39eb" class="javax.swing.JTextField" binding="issnField" custom-create="true">
                     <constraints>
-                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="30"/>
-                      </grid>
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-11415"/>
@@ -185,7 +175,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="2781a" class="javax.swing.JLabel">
+                  <component id="2781a" class="javax.swing.JLabel" binding="iCampiChePresentanoLabel">
                     <constraints>
                       <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -202,9 +192,7 @@
       </scrollpane>
       <component id="a8479" class="javax.swing.JButton" binding="annullaButton">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-11415"/>

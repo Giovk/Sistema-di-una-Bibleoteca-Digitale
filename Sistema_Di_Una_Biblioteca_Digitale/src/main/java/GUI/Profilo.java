@@ -71,15 +71,84 @@ public class Profilo {
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
         UIManager.put("ScrollPane.background\n", new Color(0x222831));
 
+        homeButton.setFont(controller.baseFontSize);
+        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        libriButton.setFont(controller.baseFontSize);
+        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        fascicoliButton.setFont(controller.baseFontSize);
+        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        serieButton.setFont(controller.baseFontSize);
+        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        utenteButton.setFont(controller.baseFontSize);
+        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+
+        modificaButton.setFont(controller.baseFontSize);
+        modificaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/13.4736), (int) (controller.screenHeight/28.8)));
+        annullaButton.setFont(controller.baseFontSize);
+        annullaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/13.4736), (int) (controller.screenHeight/28.8)));
+        salvaButton.setFont(controller.baseFontSize);
+        salvaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/13.4736), (int) (controller.screenHeight/28.8)));
+
+        username.setFont(controller.impactFontSize);
+        nomeLabel.setFont(controller.impactFontSize);
+        cognomeLabel.setFont(controller.impactFontSize);
+        emailLabel.setFont(controller.impactFontSize);
+        passLabel.setFont(controller.impactFontSize);
+        passLabel2.setFont(controller.impactFontSize);
+        ripPassLabel.setFont(controller.impactFontSize);
+        pIVALabel.setFont(controller.impactFontSize);
+        oldPassLabel.setFont(controller.impactFontSize);
+        oldPassLabel2.setFont(controller.impactFontSize);
+        oldPassNoteLabel.setFont(controller.impactFontSize);
+
+        usernameField.setFont(controller.textFieldFont);
+        usernameField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        usernameField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        nameField.setFont(controller.textFieldFont);
+        nameField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        nameField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        cognomeField.setFont(controller.textFieldFont);
+        cognomeField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        cognomeField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        emailField.setFont(controller.textFieldFont);
+        emailField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        emailField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        passwordField1.setFont(controller.textFieldFont);
+        passwordField1.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        passwordField1.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        passwordField2.setFont(controller.textFieldFont);
+        passwordField2.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        passwordField2.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        oldPassField.setFont(controller.textFieldFont);
+        oldPassField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        oldPassField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        oldPasswordTextField.setFont(controller.textFieldFont);
+        oldPasswordTextField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        oldPasswordTextField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        passwordTextField.setFont(controller.textFieldFont);
+        passwordTextField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        passwordTextField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        pIVAField.setFont(controller.textFieldFont);
+        pIVAField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        pIVAField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+
+
+        notificheLabel.setFont(controller.baseFontSize);
+        notificheLabelText.setFont(controller.impactFontSize);
+
+        notificheTable.setFont(controller.impactFontSize);
+        notificheTable.setRowMargin(controller.screenWidth/640);
+        //notificheTable.setRowHeight(controller.screenHeight/36);
+
         notificheScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
 
             @Override
             protected void configureScrollBarColors() {
@@ -89,6 +158,7 @@ public class Profilo {
                 this.thumbLightShadowColor = new Color(0x323A48);
                 this.thumbHighlightColor = new Color(0x323A48);
                 this.trackHighlightColor = new Color(0xCF9E29);
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -96,7 +166,7 @@ public class Profilo {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));
                     }
                 };
 
@@ -109,7 +179,7 @@ public class Profilo {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));
                     }
                 };
 
@@ -129,17 +199,30 @@ public class Profilo {
 
         utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
-        utenteExit.setBackground(new Color(0xFFD369));
-        utenteExit.setBorder(BorderFactory.createEmptyBorder());
+        utenteExit.setFont(controller.baseFontSize);
+        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteExit.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteExit'
+        utenteExit.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteExit'
+        utenteExit.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteExit'
+        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8))));
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
-        utenteProfilo.setBackground(new Color(0xCF9E29));
-        utenteProfilo.setBorder(BorderFactory.createEmptyBorder());
+        utenteProfilo.setFont(controller.baseFontSize);
+        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteProfilo.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo del JMenuItem 'utenteProfilo'
+        utenteProfilo.setFocusPainted(false);   //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteProfilo'
+        utenteProfilo.setBorder(BorderFactory.createEmptyBorder()); //toglie il bordo del JMenuItem 'utenteProfilo'
+        utenteProfilo.setFocusable(false);
+        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
-        utenteLibrerie.setBackground(new Color(0xFFD369));
-        utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());
-        utenteMenu.setPopupSize(new Dimension(80, 75));
-        utenteMenu.setBorder(BorderFactory.createEmptyBorder());
-        utenteMenu.setBackground(new Color(0xFFD369));
+        utenteLibrerie.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setFont(controller.baseFontSize);
+        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteLibrerie.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteMenu.setPopupSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/9.6))); //imposta le dimensioni del menu 'utenteMenu'
+        utenteMenu.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del menu 'utenteMenu'
+        utenteMenu.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del menu 'utenteMenu'
         utenteMenu.add(utenteProfilo);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
@@ -148,10 +231,12 @@ public class Profilo {
         JMenuItem tabellaElimina = new JMenuItem("Elimina");//crea la voce del menu "Logout"
         tabellaElimina.setBackground(new Color(0xFFD369));
         tabellaElimina.setFocusPainted(false);
+        tabellaElimina.setFont(controller.baseFontSize);
         tabellaElimina.setBorder(BorderFactory.createEmptyBorder());
         JMenuItem tabellaVisualizzata = new JMenuItem("Notifica Visualizzata"); //crea la voce del menu "Profilo"
         tabellaVisualizzata.setBackground(new Color(0xFFD369));
         tabellaVisualizzata.setFocusPainted(false);
+        tabellaVisualizzata.setFont(controller.baseFontSize);
         tabellaVisualizzata.setBorder(BorderFactory.createEmptyBorder());
         tabellaMenu.setBorder(BorderFactory.createEmptyBorder());
         tabellaMenu.setBackground(new Color(0xFFD369));
@@ -160,7 +245,8 @@ public class Profilo {
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
-            utenteMenu.setPopupSize(new Dimension(80, 50));
+            utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
+            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));
         }
 
         frame = new JFrame("Profilo");
@@ -214,8 +300,8 @@ public class Profilo {
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    utenteMenu.show(utenteButton, utenteButton.getWidth() - 80, utenteButton.getHeight());   //mostra le voci del menu 'utenteMenu'
+                if (e.getButton() == MouseEvent.BUTTON1) {  //controlla se è stato cliccato con il tasto sinistro del mouse il JButton utenteButton
+                    utenteMenu.show(utenteButton, utenteButton.getWidth() - (int) (controller.screenWidth/15.24), utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
                 }
             }
         });
@@ -248,15 +334,6 @@ public class Profilo {
                 hp.frame.setVisible(true);  //rende visibile il frame 'hp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
-            }
-        });
-
-        utenteButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    utenteMenu.show(utenteButton, utenteButton.getWidth() - 80, utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
-                }
             }
         });
 
@@ -582,11 +659,11 @@ public class Profilo {
 
                                                                 if (controller.getPartitaIva() == null) {   //controlla se la partita IVA dell'utente è nulla
                                                                     utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
-                                                                    utenteMenu.setPopupSize(new Dimension(80, 50));
+                                                                    utenteMenu.setPopupSize(new Dimension(controller.screenWidth/16, (int) (controller.screenHeight/14.4)));
                                                                     controller.librerieUtente.clear();
                                                                 } else {
                                                                     utenteLibrerie.setVisible(true);   //rende invisibile la voce di menu 'utenteLibrerie'
-                                                                    utenteMenu.setPopupSize(new Dimension(80, 75));
+                                                                    utenteMenu.setPopupSize(new Dimension(controller.screenWidth/16, (int) (controller.screenHeight/9.6)));
                                                                 }
                                                             }
                                                         }
@@ -607,7 +684,7 @@ public class Profilo {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 modificaButton.setIcon(modIco);
 
@@ -616,7 +693,7 @@ public class Profilo {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 modificaButton.setIcon(modIco);
             }
@@ -628,7 +705,7 @@ public class Profilo {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 annullaButton.setIcon(modIco);
 
@@ -637,7 +714,7 @@ public class Profilo {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 annullaButton.setIcon(modIco);
             }
@@ -649,7 +726,7 @@ public class Profilo {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 salvaButton.setIcon(modIco);
 
@@ -658,7 +735,7 @@ public class Profilo {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 modIco = new ImageIcon(modImg);
                 salvaButton.setIcon(modIco);
             }
@@ -669,7 +746,7 @@ public class Profilo {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e4.png"));
-                Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 showPico = new ImageIcon(showPimg);
                 showPass2.setIcon(showPico);
             }
@@ -679,7 +756,7 @@ public class Profilo {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png"));
-                Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 showPico = new ImageIcon(showPimg);
                 showPass2.setIcon(showPico);
             }
@@ -689,7 +766,7 @@ public class Profilo {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e3.png"));
-                Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 hidePico = new ImageIcon(hidePimg);
                 hidePass2.setIcon(hidePico);
             }
@@ -699,7 +776,7 @@ public class Profilo {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png"));
-                Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 hidePico = new ImageIcon(hidePimg);
                 hidePass2.setIcon(hidePico);
             }
@@ -710,7 +787,7 @@ public class Profilo {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e4.png"));
-                Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 showPico = new ImageIcon(showPimg);
                 showPass.setIcon(showPico);
             }
@@ -720,7 +797,7 @@ public class Profilo {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png"));
-                Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 showPico = new ImageIcon(showPimg);
                 showPass.setIcon(showPico);
             }
@@ -730,7 +807,7 @@ public class Profilo {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e3.png"));
-                Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 hidePico = new ImageIcon(hidePimg);
                 hidePass.setIcon(hidePico);
             }
@@ -740,7 +817,7 @@ public class Profilo {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png"));
-                Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
                 hidePico = new ImageIcon(hidePimg);
                 hidePass.setIcon(hidePico);
             }
@@ -925,6 +1002,10 @@ public class Profilo {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
         usernameField = new JTextField();
         usernameField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
         cognomeField = new JTextField();
@@ -947,34 +1028,33 @@ public class Profilo {
         passwordField2.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
 
         ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png"));
-        Image showPimg = showPico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image showPimg = showPico.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         showPico = new ImageIcon(showPimg);
         showPass = new JLabel(showPico);
         showPass2 = new JLabel(showPico);
 
         ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png"));
-        Image hidePimg = hidePico.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image hidePimg = hidePico.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         hidePico = new ImageIcon(hidePimg);
         hidePass = new JLabel(hidePico);
         hidePass2 = new JLabel(hidePico);
 
         ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
 
 
         ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-        Image modImg = modIco.getImage().getScaledInstance(90, 25, Image.SCALE_SMOOTH);
+        Image modImg = modIco.getImage().getScaledInstance((int) (screenWidth/14.2222), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         modIco = new ImageIcon(modImg);
         modificaButton = new JButton(modIco);
         annullaButton = new JButton(modIco);
         salvaButton = new JButton(modIco);
 
         ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
-        Image notificaImg = notificaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         notificaIco = new ImageIcon(notificaImg);
-
 
         notificheLabel = new JLabel();
         notificheLabel.setIcon(notificaIco);

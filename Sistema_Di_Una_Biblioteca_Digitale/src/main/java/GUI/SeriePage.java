@@ -52,6 +52,7 @@ public class SeriePage {
     private JLabel backButton;
     private JButton fascicoliButton;
     private JLabel notificheLabel;
+    private JLabel valLabel;
     private boolean active = false;
     ImageIcon favouriteVuotoIco;
     ImageIcon favouritePienoIco;
@@ -63,17 +64,47 @@ public class SeriePage {
     public SeriePage (JFrame frameC, Controller controller) {
         isbn_selezionato = controller.isbn_selected;
 
+        homeButton.setFont(controller.baseFontSize);
+        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        libriButton.setFont(controller.baseFontSize);
+        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        fascicoliButton.setFont(controller.baseFontSize);
+        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        serieButton.setFont(controller.baseFontSize);
+        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        utenteButton.setFont(controller.baseFontSize);
+        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+
+        nomeIsbn.setFont(controller.baseFontSize);
+        valutaButton.setFont(controller.baseFontSize);
+
+
+        disponibilitaCheckBox.setFont(controller.baseFontSize);
+        presentazioniCheckBox.setFont(controller.baseFontSize);
+
+        table1.setFont(controller.impactFontSize);
+        table1.setRowMargin(controller.screenWidth/640);
+        table1.setRowHeight(controller.screenHeight/36);
+
+        table2.setFont(controller.impactFontSize);
+        table2.setRowMargin(controller.screenWidth/640);
+        table2.setRowHeight(controller.screenHeight/36);
+
+        valLabel.setFont(controller.impactFontSize);
+
+        notificheLabel.setFont(controller.baseFontSize);
+
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
         allScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
@@ -83,6 +114,7 @@ public class SeriePage {
                 this.thumbLightShadowColor = new Color(0x323A48);
                 this.thumbHighlightColor = new Color(0x323A48);
                 this.trackHighlightColor = new Color(0xCF9E29);
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -90,7 +122,8 @@ public class SeriePage {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -103,7 +136,8 @@ public class SeriePage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -123,13 +157,13 @@ public class SeriePage {
 
         jscroll1.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
@@ -139,6 +173,7 @@ public class SeriePage {
                 this.thumbLightShadowColor = new Color(0x323A48);
                 this.thumbHighlightColor = new Color(0x323A48);
                 this.trackHighlightColor = new Color(0xCF9E29);
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -146,7 +181,8 @@ public class SeriePage {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -159,7 +195,8 @@ public class SeriePage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -179,13 +216,13 @@ public class SeriePage {
 
         jscroll2.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
             ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
@@ -195,6 +232,7 @@ public class SeriePage {
                 this.thumbLightShadowColor = new Color(0x323A48);
                 this.thumbHighlightColor = new Color(0x323A48);
                 this.trackHighlightColor = new Color(0xCF9E29);
+                this.scrollBarWidth = (int)(controller.screenWidth/75);
             }
 
             @Override
@@ -202,7 +240,8 @@ public class SeriePage {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -215,7 +254,8 @@ public class SeriePage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(25, 15);
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+
                     }
                 };
 
@@ -235,28 +275,38 @@ public class SeriePage {
 
         JPopupMenu utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
-        utenteExit.setBackground(new Color(0xFFD369));
-        utenteExit.setFocusPainted(false);
-        utenteExit.setBorder(BorderFactory.createEmptyBorder());
+        utenteExit.setFont(controller.baseFontSize);
+        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteExit.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteExit'
+        utenteExit.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteExit'
+        utenteExit.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteExit'
+        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8))));
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
-        utenteProfilo.setBackground(new Color(0xFFD369));
-        utenteProfilo.setFocusPainted(false);
-        utenteProfilo.setBorder(BorderFactory.createEmptyBorder());
+        utenteProfilo.setFont(controller.baseFontSize);
+        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteProfilo.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo del JMenuItem 'utenteProfilo'
+        utenteProfilo.setFocusPainted(false);   //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteProfilo'
+        utenteProfilo.setBorder(BorderFactory.createEmptyBorder()); //toglie il bordo del JMenuItem 'utenteProfilo'
         utenteProfilo.setFocusable(false);
+        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
-        utenteLibrerie.setBackground(new Color(0xFFD369));
-        utenteLibrerie.setFocusPainted(false);
-        utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());
-        utenteMenu.setPopupSize(new Dimension(80, 75));
-        utenteMenu.setBorder(BorderFactory.createEmptyBorder());
-        utenteMenu.setBackground(new Color(0xFFD369));
+        utenteLibrerie.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setFont(controller.baseFontSize);
+        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteLibrerie.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteMenu.setPopupSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/9.6))); //imposta le dimensioni del menu 'utenteMenu'
+        utenteMenu.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del menu 'utenteMenu'
+        utenteMenu.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del menu 'utenteMenu'
         utenteMenu.add(utenteProfilo);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
-            utenteMenu.setPopupSize(new Dimension(80, 50));
+            utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
+            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));
         }
 
         frame = new JFrame("Biblioteca Digitale");
@@ -279,26 +329,26 @@ public class SeriePage {
         valutazione.setText(valMedForm.format(valutazioneMedia));   //mostra la media delle valutazioni del libro selezionato
 
         ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
-        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         stellaVuotaIco = new ImageIcon(stellaVuotaImg);
 
         ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
-        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         stellaPienaIco = new ImageIcon(stellaPienaImg);
 
         ImageIcon stellaMezzaIco = new ImageIcon(this.getClass().getResource("/stella_mezza.png"));
-        Image stellaMezzaImg = stellaMezzaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image stellaMezzaImg = stellaMezzaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         stellaMezzaIco = new ImageIcon(stellaMezzaImg);
 
         changeStars(stellaPienaIco, stellaVuotaIco, stellaMezzaIco);    //aggiorna le stelle della valutazione media
 
 
         favouriteVuotoIco = new ImageIcon(this.getClass().getResource("/favorite1.png"));
-        Image favouriteVuotoImg = favouriteVuotoIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image favouriteVuotoImg = favouriteVuotoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         favouriteVuotoIco = new ImageIcon(favouriteVuotoImg);
 
         favouritePienoIco = new ImageIcon(this.getClass().getResource("/favorite2.png"));
-        Image favouritePienoImg = favouritePienoIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image favouritePienoImg = favouritePienoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         favouritePienoIco = new ImageIcon(favouritePienoImg);
 
         controller.likeSerie(); //controlla se l'utente ha il libro selezionato nei preferiti e inizializza 'controller.likeLibroSelected'
@@ -340,8 +390,8 @@ public class SeriePage {
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    utenteMenu.show(utenteButton, utenteButton.getWidth() - 80, utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
+                if (e.getButton() == MouseEvent.BUTTON1) {  //controlla se è stato cliccato con il tasto sinistro del mouse il JButton utenteButton
+                    utenteMenu.show(utenteButton, utenteButton.getWidth() - (int) (controller.screenWidth/15.24), utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
                 }
             }
         });
@@ -759,14 +809,14 @@ public class SeriePage {
         }
     }
 
-    public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione){   //aggiorna le stelle della recensione con valutazione 'valutazione'
+    public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione, Controller controller){   //aggiorna le stelle della recensione con valutazione 'valutazione'
 
         ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
-        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         stellaVuotaIco = new ImageIcon(stellaVuotaImg);
 
         ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
-        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
         stellaPienaIco = new ImageIcon(stellaPienaImg);
 
         switch (valutazione) {  //controlla 'valutazione' e aggiorna le stelle della recensione da mostrare
@@ -841,6 +891,7 @@ public class SeriePage {
         panel1.setBackground(new Color(0x222831));
 
         jcomp1 = new JLabel (utente + ":");
+        jcomp1.setFont(controller.baseFontSize);
         jcomp1.setBackground(new Color(0x222831));
         jcomp1.setForeground(new Color(0xEEEEEE));
 
@@ -861,6 +912,7 @@ public class SeriePage {
 
         // Creazione della JTextArea
         jcomp7 = new JTextArea();
+        jcomp7.setFont(controller.baseFontSize);
         jcomp7.setBackground(new Color(0x222831));
         jcomp7.setForeground(new Color(0xEEEEEE));
         jcomp7.setLineWrap(true);
@@ -883,23 +935,15 @@ public class SeriePage {
             }
         }
         jcomp7.setText(newText.toString());
-        Font font = new Font("Segoi UI", Font.PLAIN, 15);
-        jcomp7.setFont(font);
-
-        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = image.createGraphics();
-        g2d.setFont(font);
-        FontMetrics fm = g2d.getFontMetrics();
-        int fontHeight = fm.getHeight();
-        g2d.dispose();
 
         jcomp8 = new JSeparator();
+        jcomp8.setFont(controller.baseFontSize);
         jcomp8.setForeground(new Color(0xEEEEEE));
 
-        changeStars(jcomp2, jcomp3, jcomp4, jcomp5, jcomp6, val);
+        changeStars(jcomp2, jcomp3, jcomp4, jcomp5, jcomp6, val, controller);
 
         //adjust size and set layout
-        panel1.setPreferredSize (new Dimension (626, 150));
+        panel1.setPreferredSize (new Dimension ((int) (controller.screenWidth/2.044), (int) (controller.screenHeight/4.8)));
         panel1.setLayout (null);
 
         //add components
@@ -913,17 +957,17 @@ public class SeriePage {
         panel1.add (jcomp8);
 
         //set component bounds (only needed by Absolute Positioning)
-        jcomp1.setBounds (0, 0, 100, 25);
-        jcomp2.setBounds (0, 25, 25, 25);
-        jcomp3.setBounds (25, 25, 25, 25);
-        jcomp4.setBounds (50, 25, 25, 25);
-        jcomp5.setBounds (75, 25, 25, 25);
-        jcomp6.setBounds (100, 25, 25, 25);
-        jcomp7.setBounds (0, 50, 500, fontHeight*n_righe);
-        jcomp8.setBounds (0, 50+(fontHeight*n_righe)+1, 500, 15);
+        jcomp1.setBounds (0, 0, (int) (controller.screenWidth/12.8), (int) (controller.screenHeight/28.8));
+        jcomp2.setBounds (0, (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
+        jcomp3.setBounds ((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
+        jcomp4.setBounds ((int) (controller.screenWidth/25.6), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
+        jcomp5.setBounds ((int) (controller.screenWidth/17.0666), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
+        jcomp6.setBounds ((int) (controller.screenWidth/12.8), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
+        jcomp7.setBounds (0, (int) (controller.screenHeight/14.4), (int) (controller.screenWidth/2.56), controller.calcolaAltezzaFont(controller.baseFontSize)*n_righe);
+        jcomp8.setBounds (0, (int) (controller.screenHeight/14.4)+(controller.calcolaAltezzaFont(controller.baseFontSize)*n_righe)+1, (int) (controller.screenWidth/2.56), (int) (controller.screenHeight/48));
 
 
-        panel1.setPreferredSize (new Dimension (500, jcomp1.getHeight()+jcomp2.getHeight()+jcomp7.getHeight()+jcomp8.getHeight()));
+        panel1.setPreferredSize (new Dimension ((int) (controller.screenWidth/2.56), jcomp1.getHeight()+jcomp2.getHeight()+jcomp7.getHeight()+jcomp8.getHeight()));
 
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -934,13 +978,17 @@ public class SeriePage {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
         ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine = closeImg.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
 
         ImageIcon backIco = new ImageIcon(this.getClass().getResource("/back.png"));
-        Image backImg = backIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image backImg = backIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         backIco = new ImageIcon(backImg);
         backButton = new JLabel(backIco);
 
@@ -951,12 +999,13 @@ public class SeriePage {
         ((GridBagLayout)commenti.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};
         ((GridBagLayout)commenti.getLayout()).rowWeights = new double[] {0.0, 1.0E-4};;
 
+
         ImageIcon checkIco = new ImageIcon(this.getClass().getResource("/c2.png"));
-        Image checkImg = checkIco.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
+        Image checkImg = checkIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         checkIco = new ImageIcon(checkImg);
 
         ImageIcon checkSelIco = new ImageIcon(this.getClass().getResource("/c1.png"));
-        Image checkSelImg = checkSelIco.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
+        Image checkSelImg = checkSelIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         checkSelIco = new ImageIcon(checkSelImg);
 
         disponibilitaCheckBox = new JCheckBox();
@@ -969,7 +1018,7 @@ public class SeriePage {
         showComment(new Controller(), commenti);
 
         ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
-        Image notificaImg = notificaIco.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
         notificaIco = new ImageIcon(notificaImg);
 
         notificheLabel = new JLabel();
