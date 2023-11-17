@@ -104,7 +104,8 @@ public class   CreaPresentazione {
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 frame.setVisible(false);
                 frameC.setEnabled(true);
                 frame.dispose();
@@ -114,7 +115,8 @@ public class   CreaPresentazione {
 
         calendarIMG.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 datePicker.d.setVisible(true);
                 dataField.setText(datePicker.setPickedDate());
             }
@@ -158,9 +160,10 @@ public class   CreaPresentazione {
             }
         });
 
-        aggiungiButton.addActionListener(new ActionListener() {
+        aggiungiButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 String orario = "";
                 if ((int) hourSpinner.getValue() < 10){
                     orario += "0" + hourSpinner.getValue().toString() + ":";

@@ -89,7 +89,8 @@ public class CreaLibreria {
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 frame.setVisible(false);
                 frameC.setEnabled(true);
                 frame.dispose();
@@ -113,9 +114,10 @@ public class CreaLibreria {
             }
         });
 
-        aggiungiButton.addActionListener(new ActionListener() {
+        aggiungiButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 if(nomeField.getText().isBlank() || ntField.getText().isBlank()){
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obbligatori!");
                 } else {

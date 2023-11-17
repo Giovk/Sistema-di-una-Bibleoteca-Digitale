@@ -258,7 +258,8 @@ public class Conferenze {
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 frame.setVisible(false);
                 frame.dispose();
                 frameC.setEnabled(true);
@@ -329,7 +330,8 @@ public class Conferenze {
 
         calendarIMG.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 datePicker.d.setVisible(true);
                 dataInizioField.setText(datePicker.setPickedDate());
             }
@@ -337,7 +339,8 @@ public class Conferenze {
 
         calendarIMG2.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 datePicker2.d.setVisible(true);
                 dataFineField.setText(datePicker2.setPickedDate());
             }
@@ -357,9 +360,10 @@ public class Conferenze {
                 if (active == true) aggiungiButton.setBackground(Color.decode("#FFD369"));
             }
         });
-        aggiungiButton.addActionListener(new ActionListener() {
+        aggiungiButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 annullaButton.setVisible(true);
                 aggiungiButton.setEnabled(false);
                 active = false;
@@ -382,9 +386,10 @@ public class Conferenze {
                 annullaButton.setBackground(Color.decode("#FFD369"));
             }
         });
-        annullaButton.addActionListener(new ActionListener() {
+        annullaButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 annulla_action();
             }
         });
@@ -567,9 +572,10 @@ public class Conferenze {
                 inviaButton.setBackground(Color.decode("#FFD369"));
             }
         });
-        inviaButton.addActionListener(new ActionListener() {
+        inviaButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 if (strutturaField.getText().isBlank() || viaField.getText().isBlank() || ncField.getText().isBlank() || comuneField.getText().isBlank() || capField.getText().isBlank() || nazioneField.getText().isBlank() || dataInizioField.getText().isBlank() || dataFineField.getText().isBlank()){
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obbligatori");
                 } else {

@@ -262,7 +262,8 @@ public class AggiungiElementoForm {
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 frame.setVisible(false);
                 frameC.setEnabled(true);
                 frame.dispose();
@@ -284,9 +285,10 @@ public class AggiungiElementoForm {
                 libroBT.setBackground(Color.decode("#FFD369"));
             }
         });
-        libroBT.addActionListener(new ActionListener() {
+        libroBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 bookPanel.setVisible(true);
                 seriePanel.setVisible(false);
                 issuePanel.setVisible(false);
@@ -311,9 +313,10 @@ public class AggiungiElementoForm {
                 serieBT.setBackground(Color.decode("#FFD369"));
             }
         });
-        serieBT.addActionListener(new ActionListener() {
+        serieBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 isbnSeriePanel.removeAll();
                 isbnLibroCount = 0;
                 initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue(), controller.baseFontSize, controller.textFieldFont);
@@ -338,9 +341,10 @@ public class AggiungiElementoForm {
                 fascicoloBT.setBackground(Color.decode("#FFD369"));
             }
         });
-        fascicoloBT.addActionListener(new ActionListener() {
+        fascicoloBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 articoliFascicoliCount = 0;
                 issuePanel.setVisible(true);
                 seriePanel.setVisible(false);
@@ -632,9 +636,10 @@ public class AggiungiElementoForm {
             }
         });
 
-        autoreLibroButton.addActionListener(new ActionListener() {
+        autoreLibroButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 autoreLibroCount++;
                 initComponentsAutoreLibro(controller.baseFontSize, controller.textFieldFont);
                 autoriLibroPanel.revalidate();
@@ -656,9 +661,10 @@ public class AggiungiElementoForm {
                 inviaLibroButton.setBackground(Color.decode("#FFD369"));
             }
         });
-        inviaLibroButton.addActionListener(new ActionListener() {
+        inviaLibroButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 if (isbnLibroCB.getSelectedItem() == null || isbnLibroCB.getSelectedItem().equals("")){
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Seleziona o crea un nuovo libro!");
                 } else {
@@ -868,9 +874,10 @@ public class AggiungiElementoForm {
             }
         });
 
-        okSerieBT.addActionListener(new ActionListener() {
+        okSerieBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 isbnSeriePanel.removeAll();
                 isbnLibroCount = 0;
                 initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue(),controller.baseFontSize, controller.textFieldFont);
@@ -894,9 +901,10 @@ public class AggiungiElementoForm {
             }
         });
 
-        inviaSerieButton.addActionListener(new ActionListener() {
+        inviaSerieButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 if(!isbnSerieField.getText().isBlank()) {
                     if(!titoloSerieField.getText().isBlank()) {
                         if(!dataSerieField.getText().isBlank()) {
@@ -1227,9 +1235,10 @@ public class AggiungiElementoForm {
             }
         });
 
-        aggiungiArticoloBT.addActionListener(new ActionListener() {
+        aggiungiArticoloBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 articoliFascicoliCount++;
                 initComponentsArticoli(controller);
                 articoliPanel.revalidate();
@@ -1316,9 +1325,10 @@ public class AggiungiElementoForm {
             }
         });
 
-        inviaFascicoloBT.addActionListener(new ActionListener() {
+        inviaFascicoloBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 if (titoloRivistaCB.getSelectedItem() == null || titoloRivistaCB.getSelectedItem().equals("")) {
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Seleziona o crea una Rivista!");
                 } else {

@@ -356,7 +356,8 @@ public class IssuePage {
 
         likeButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 if (controller.likeElementSelected == false) likeButton.setIcon(favouritePienoIco);
                 else likeButton.setIcon(favouriteVuotoIco);
                 controller.changeLikeFascicolo();    //aggiorna il valore di 'controller.likeLibroSelected' e aggiorna il contenuto del DB
@@ -365,7 +366,8 @@ public class IssuePage {
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 frame.setVisible(false);
                 frameC.setEnabled(true);
                 frame.dispose();
@@ -374,9 +376,10 @@ public class IssuePage {
         });
 
         // -------------------------------------------------------------------------------------- //
-        homeButton.addActionListener(new ActionListener() {
+        homeButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
                 hp.frame.setVisible(true);  //rende visibile il frame 'hp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -386,7 +389,8 @@ public class IssuePage {
 
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 if (e.getButton() == MouseEvent.BUTTON1) {  //controlla se è stato cliccato con il tasto sinistro del mouse il JButton utenteButton
                     utenteMenu.show(utenteButton, utenteButton.getWidth() - (int) (controller.screenWidth/15.24), utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
                 }
@@ -411,9 +415,10 @@ public class IssuePage {
             }
         });
 
-        utenteProfilo.addActionListener(new ActionListener() {
+        utenteProfilo.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 Profilo pf = new Profilo(frameC, controller); //chiama il frame 'pf'
                 pf.frame.setVisible(true);  //rende visible il frame 'pf'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -422,18 +427,20 @@ public class IssuePage {
             }
         });
 
-        utenteExit.addActionListener(new ActionListener() {
+        utenteExit.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 frameC.setVisible(true); //rende visibile il frame chiamante
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
         });
 
-        utenteLibrerie.addActionListener(new ActionListener() {
+        utenteLibrerie.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'pf'
                 bsp.frame.setVisible(true);  //rende visible il frame 'pf'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -493,8 +500,8 @@ public class IssuePage {
 
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 BooksPage bp = new BooksPage(frameC, controller);   //chiama il frame 'bp'
                 bp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -504,8 +511,8 @@ public class IssuePage {
 
         serieButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
                 sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -515,8 +522,8 @@ public class IssuePage {
 
         backButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 IssuesPage ip = new IssuesPage(frameC, controller);
                 ip.frame.setVisible(true);
                 frame.setVisible(false);
@@ -689,8 +696,8 @@ public class IssuePage {
         });
         valutaButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 Recensione recensioneFascicolo = new Recensione(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti, 3);
                 frame.setEnabled(false); //disabilita il frame
             }

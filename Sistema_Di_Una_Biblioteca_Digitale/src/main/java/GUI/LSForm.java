@@ -31,17 +31,19 @@ public class LSForm {
         btSignIn.setFont(controller.titleImpact);
         btSignUp.setFont(controller.titleImpact);
 
-        btSignIn.addActionListener(new ActionListener() {
+        btSignIn.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 NewLoginForm newLoginForm = new NewLoginForm(0, frame, controller); //chiama il frame 'NewLoginForm'
                 frame.setEnabled(false); //disabilita il frame
             }
         });
 
-        btSignUp.addActionListener(new ActionListener() {
+        btSignUp.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 NewLoginForm newLoginForm = new NewLoginForm(1, frame, controller); //chiama il frame 'NewLoginForm'
                 frame.setEnabled(false);    //disabilita il frame
             }

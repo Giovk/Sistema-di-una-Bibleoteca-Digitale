@@ -262,7 +262,8 @@ public class Profilo {
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 frame.setVisible(false);
                 frameC.setEnabled(true);
                 frame.dispose();
@@ -299,7 +300,8 @@ public class Profilo {
 
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 if (e.getButton() == MouseEvent.BUTTON1) {  //controlla se è stato cliccato con il tasto sinistro del mouse il JButton utenteButton
                     utenteMenu.show(utenteButton, utenteButton.getWidth() - (int) (controller.screenWidth/15.24), utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
                 }
@@ -307,18 +309,20 @@ public class Profilo {
         });
 
 
-        utenteExit.addActionListener(new ActionListener() {
+        utenteExit.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 frameC.setVisible(true);    //rende visibile il frame chiamante
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
         });
 
-        utenteLibrerie.addActionListener(new ActionListener() {
+        utenteLibrerie.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'pf'
                 bsp.frame.setVisible(true);  //rende visible il frame 'pf'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -327,9 +331,10 @@ public class Profilo {
             }
         });
 
-        homeButton.addActionListener(new ActionListener() {
+        homeButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 HomePage hp = new HomePage(frameC, controller); //chiama il frame 'hp'
                 hp.frame.setVisible(true);  //rende visibile il frame 'hp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -356,19 +361,11 @@ public class Profilo {
             }
         });
 
-        utenteExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frameC.setVisible(true); //rende visibile il frame chiamante
-                frame.setVisible(false);    //rende invisibile il frame
-                frame.dispose();
-            }
-        });
 
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 BooksPage bp = new BooksPage(frameC, controller);   //chiama il frame 'bp'
                 bp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -438,8 +435,8 @@ public class Profilo {
 
         serieButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
                 sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -449,8 +446,8 @@ public class Profilo {
 
         fascicoliButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'bp'
                 ip.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -475,9 +472,10 @@ public class Profilo {
 
         //-------------------------------------------------------------------------------------------------//
 
-        modificaButton.addActionListener(new ActionListener() {
+        modificaButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 modificaButton.setEnabled(false); //abilita il JButton 'modificaDatiUtenteButton'
                 salvaButton.setVisible(true);  //rende visibile il JButton 'salvaModificheButton'
                 annullaButton.setVisible(true); //rende visibile il JButton 'annullaButton'
@@ -499,9 +497,10 @@ public class Profilo {
             }
         });
 
-        annullaButton.addActionListener(new ActionListener() {
+        annullaButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 modificaButton.setEnabled(true);  //abilita il JButton 'modificaDatiUtenteButton'
                 annullaButton.setVisible(false);    //rende invisibile il JButton 'annullaButton'
                 salvaButton.setVisible(false); //rende invisibile il JButton 'salvaButton'
@@ -539,9 +538,10 @@ public class Profilo {
             }
         });
 
-        salvaButton.addActionListener(new ActionListener() {
+        salvaButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 String emailU = emailField.getText();   //nuova email modificata dall'utente
                 String nomeU = nameField.getText(); //nuovo nome modificato dall'utente
                 String cognomeU = cognomeField.getText();   //nuovo cognome modificato dall'utente

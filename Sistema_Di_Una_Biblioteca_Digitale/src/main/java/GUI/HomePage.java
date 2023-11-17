@@ -176,7 +176,8 @@ public class HomePage {
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 frame.setVisible(false);    //rende invisibile il frame
                 frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
                 frame.dispose();
@@ -184,11 +185,6 @@ public class HomePage {
             }
         });
 
-        homeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
 
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -218,9 +214,10 @@ public class HomePage {
             }
         });
 
-        utenteProfilo.addActionListener(new ActionListener() {
+        utenteProfilo.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 Profilo pf = new Profilo(frameC, controller); //chiama il frame 'pf'
                 pf.frame.setVisible(true);  //rende visible il frame 'pf'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -229,18 +226,20 @@ public class HomePage {
             }
         });
 
-        utenteExit.addActionListener(new ActionListener() {
+        utenteExit.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 frameC.setVisible(true); //rende visibile il frame chiamante
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
         });
 
-        utenteLibrerie.addActionListener(new ActionListener() {
+        utenteLibrerie.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'pf'
                 bsp.frame.setVisible(true);  //rende visible il frame 'pf'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -251,8 +250,8 @@ public class HomePage {
 
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 BooksPage bp = new BooksPage(frameC, controller);   //chiama il frame 'bp'
                 bp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -262,8 +261,8 @@ public class HomePage {
 
         serieButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'sp'
                 sp.frame.setVisible(true);  //rende visibile il frame chiamato 'sp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -273,8 +272,8 @@ public class HomePage {
 
         fascicoliButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
                 IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'ip'
                 ip.frame.setVisible(true);  //rende visibile il frame chiamato 'ip'
                 frame.setVisible(false);    //rende invisibile il frame
