@@ -5,7 +5,6 @@ import Model.Autore;
 import Model.Libro;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
@@ -363,14 +362,14 @@ public class BooksPage {
 
         Dimension dim = new Dimension((int) (controller.screenWidth/6.5), controller.screenHeight/24);
 
-        ComboBoxSuggestion autoreCB = new ComboBoxSuggestion<>();
+        NewComboBox autoreCB = new NewComboBox<>();
         autoreCB.setPreferredSize(dim);
         autoreCB.setFont(controller.impactFontSize);
         autoreCB.setFocusable(false);
         autoreCB.setEditable(false);
         autorePanel.add(autoreCB);
 
-        ComboBoxSuggestion collanaCB = new ComboBoxSuggestion<>();
+        NewComboBox collanaCB = new NewComboBox<>();
         collanaCB.setPreferredSize(dim);
         collanaCB.setFont(controller.impactFontSize);
         collanaCB.setFocusable(false);
@@ -378,7 +377,7 @@ public class BooksPage {
         collanaPanel.add(collanaCB);
 
 
-        ComboBoxSuggestion genereCB = new ComboBoxSuggestion<>();
+        NewComboBox genereCB = new NewComboBox<>();
         genereCB.setPreferredSize(dim);
         genereCB.setFont(controller.impactFontSize);
         genereCB.setFocusable(false);

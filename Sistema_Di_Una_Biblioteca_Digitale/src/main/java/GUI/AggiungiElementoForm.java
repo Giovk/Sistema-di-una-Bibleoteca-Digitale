@@ -424,7 +424,7 @@ public class AggiungiElementoForm {
         if(comp1 instanceof JPopupMenu){
             JPopupMenu popup = (JPopupMenu) comp1;
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
             scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
         }
@@ -433,7 +433,7 @@ public class AggiungiElementoForm {
         if(comp2 instanceof JPopupMenu){
             JPopupMenu popup = (JPopupMenu) comp2;
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
             scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
         }
@@ -939,7 +939,7 @@ public class AggiungiElementoForm {
         if(comp3 instanceof JPopupMenu){
             JPopupMenu popup = (JPopupMenu) comp3;
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
             scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
         }
@@ -955,7 +955,7 @@ public class AggiungiElementoForm {
         if(comp4 instanceof JPopupMenu){
             JPopupMenu popup = (JPopupMenu) comp4;
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
             scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
             scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
 
@@ -1471,7 +1471,7 @@ public class AggiungiElementoForm {
             if(comp instanceof JPopupMenu){
                 JPopupMenu popup = (JPopupMenu) comp;
                 JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-                scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+                scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
                 scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
                 scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
             }
@@ -1710,7 +1710,7 @@ public class AggiungiElementoForm {
             if(comp instanceof JPopupMenu){
                 JPopupMenu popup = (JPopupMenu) comp;
                 JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-                scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+                scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
                 scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
                 scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
             }

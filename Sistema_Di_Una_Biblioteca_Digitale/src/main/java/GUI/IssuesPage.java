@@ -4,7 +4,6 @@ import Controller.Controller;
 import Model.Fascicolo;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
@@ -358,14 +357,14 @@ public class IssuesPage {
 
         Dimension dim = new Dimension((int) (controller.screenWidth/6.5), controller.screenHeight/24);
 
-        ComboBoxSuggestion rivistaCB = new ComboBoxSuggestion<>();
+        NewComboBox rivistaCB = new NewComboBox<>();
         rivistaCB.setPreferredSize(dim);
         rivistaCB.setFont(controller.impactFontSize);
         rivistaCB.setFocusable(false);
         rivistaCB.setEditable(false);
         rivistaPanel.add(rivistaCB);
 
-        ComboBoxSuggestion argomentoCB = new ComboBoxSuggestion<>();
+        NewComboBox argomentoCB = new NewComboBox<>();
         argomentoCB.setPreferredSize(dim);
         argomentoCB.setFont(controller.impactFontSize);
         argomentoCB.setFocusable(false);

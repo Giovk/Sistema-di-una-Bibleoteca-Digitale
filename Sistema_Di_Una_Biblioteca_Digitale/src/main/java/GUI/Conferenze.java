@@ -3,12 +3,10 @@ package GUI;
 import Controller.Controller;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Date;
@@ -53,7 +51,7 @@ public class Conferenze {
     private DatePickerMoreDay datePicker;
     private DatePickerMoreDay datePicker2;
     private DefaultTableModel model;
-    private ComboBoxSuggestion conferenzeCB = new ComboBoxSuggestion<>();
+    private NewComboBox conferenzeCB = new NewComboBox<>();
     private boolean active = true;
 
     public Conferenze(JFrame frameC, Controller controller){
