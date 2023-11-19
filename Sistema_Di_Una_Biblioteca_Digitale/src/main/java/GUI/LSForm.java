@@ -19,6 +19,8 @@ public class LSForm {
         controller = new Controller();
 
         frame = new JFrame("Biblioteca Digitale");
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+        frame.setIconImage(icona);
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(lsPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,8 +37,11 @@ public class LSForm {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                NewLoginForm newLoginForm = new NewLoginForm(0, frame, controller); //chiama il frame 'NewLoginForm'
-                frame.setEnabled(false); //disabilita il frame
+                if (frame.isEnabled()) {
+                    NewLoginForm newLoginForm = new NewLoginForm(0, frame, controller); //chiama il frame 'NewLoginForm'
+                    frame.setEnabled(false); //disabilita il frame
+                }
+
             }
         });
 
@@ -44,8 +49,10 @@ public class LSForm {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                NewLoginForm newLoginForm = new NewLoginForm(1, frame, controller); //chiama il frame 'NewLoginForm'
-                frame.setEnabled(false);    //disabilita il frame
+                if(frame.isEnabled() ){
+                    NewLoginForm newLoginForm = new NewLoginForm(1, frame, controller); //chiama il frame 'NewLoginForm'
+                    frame.setEnabled(false);    //disabilita il frame
+                }
             }
         });
 

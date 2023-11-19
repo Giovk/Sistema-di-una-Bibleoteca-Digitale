@@ -47,7 +47,9 @@ public class GestisciCollane {
         inviaButton.setFont(controller.baseFontSize);
 
 
-        frame = new JFrame("Gestisci Collane");
+        frame = new JFrame("Biblioteca Digitale");
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+        frame.setIconImage(icona);
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

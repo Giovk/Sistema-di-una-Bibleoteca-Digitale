@@ -1,9 +1,7 @@
 package GUI;
 
 import Controller.Controller;
-import Model.Autore;
 import Model.Fascicolo;
-import Model.Libro;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -25,8 +23,6 @@ public class IssuesPage {
     private JRadioButton rivistaRB;
     private JRadioButton argomentoRB;
     private ButtonGroup groupRB;
-    private JComboBox rivistaCB;
-    private JComboBox argomentoCB;
     private JTable issuesTable;
     private JTextField searchBarField;
     private JLabel searchImage;
@@ -42,6 +38,8 @@ public class IssuesPage {
     private JButton fascicoliButton;
     private JLabel notificheLabel;
     private JPanel panel2;
+    private JPanel rivistaPanel;
+    private JPanel argomentoPanel;
     private String linkString = "";
     private int aut;
     private Boolean active = false;
@@ -69,9 +67,8 @@ public class IssuesPage {
         searchBarField.setFont(controller.textFieldFont);
 
         rivistaRB.setFont(controller.impactFontSize);
-        rivistaCB.setFont(controller.impactFontSize);
+
         argomentoRB.setFont(controller.impactFontSize);
-        argomentoCB.setFont(controller.impactFontSize);
 
         resetFiltriLabel.setFont(controller.impactFontSize);
 
@@ -174,7 +171,9 @@ public class IssuesPage {
             utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));
         }
 
-        frame = new JFrame("Issues Page");
+        frame = new JFrame("Biblioteca Digitale");
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+        frame.setIconImage(icona);
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(jpanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -190,6 +189,7 @@ public class IssuesPage {
                 System.exit(0);
             }
         });
+
 
         // -------------------------------------------------------------------------------------- //
         homeButton.addMouseListener(new MouseAdapter() {
@@ -356,147 +356,31 @@ public class IssuesPage {
         UIManager.put("ComboBox.disabledForeground", new Color(0x222831));
         UIManager.put("ComboBox.disabledBackground", new Color(0xFFD369));
 
+        Dimension dim = new Dimension((int) (controller.screenWidth/6.5), controller.screenHeight/24);
+
+        ComboBoxSuggestion rivistaCB = new ComboBoxSuggestion<>();
+        rivistaCB.setPreferredSize(dim);
+        rivistaCB.setFont(controller.impactFontSize);
+        rivistaCB.setFocusable(false);
+        rivistaCB.setEditable(false);
+        rivistaPanel.add(rivistaCB);
+
+        ComboBoxSuggestion argomentoCB = new ComboBoxSuggestion<>();
+        argomentoCB.setPreferredSize(dim);
+        argomentoCB.setFont(controller.impactFontSize);
+        argomentoCB.setFocusable(false);
+        argomentoCB.setEditable(false);
+        argomentoPanel.add(argomentoCB);
+
+
         rivistaCB.setEnabled(false); //disabilita il JComboBox 'rivistaCB'
         argomentoCB.setEnabled(false); //disabilita il JComboBox 'autoreCB'
-
-        argomentoCB.setBackground(Color.decode("#FFD369"));
-        argomentoCB.setForeground(Color.decode("#222831"));
-        argomentoCB.setBorder(new LineBorder(Color.decode("#222831")));
-
-        rivistaCB.setBackground(Color.decode("#FFD369"));
-        rivistaCB.setForeground(Color.decode("#222831"));
-        rivistaCB.setBorder(new LineBorder(Color.decode("#222831")));
-
-        Object comp1 = argomentoCB.getUI().getAccessibleChild(argomentoCB, 0);
-        if(comp1 instanceof JPopupMenu){
-            JPopupMenu popup = (JPopupMenu) comp1;
-            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
-            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-                @Override
-                protected void configureScrollBarColors() {
-                    this.thumbColor = new Color(0x222831);
-                    this.trackColor= new Color(0xFFD369);
-                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                    this.thumbLightShadowColor = new Color(0x323A48);
-                    this.thumbHighlightColor = new Color(0x323A48);
-                    this.trackHighlightColor = new Color(0xCF9E29);
-                    this.scrollBarWidth = (int)(controller.screenWidth/75);
-                }
-
-                @Override
-                protected JButton createDecreaseButton(int orientation) {
-                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
-                        }
-                    };
-
-                    decreaseButton.setBackground(new Color(0x222831));
-                    return decreaseButton;
-                }
-
-                @Override
-                protected JButton createIncreaseButton(int orientation) {
-                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension(25, 15);
-                        }
-                    };
-
-                    increaseButton.setBackground(new Color(0x222831));
-                    return increaseButton;
-                }
-
-                private Image getAppropriateIcon(int orientation){
-                    switch(orientation){
-                        case SwingConstants.SOUTH: return dA;
-                        case SwingConstants.NORTH: return uA;
-                        case SwingConstants.EAST: return rA;
-                        default: return lA;
-                    }
-                }
-            });
-        }
-
-        Object comp2 = rivistaCB.getUI().getAccessibleChild(rivistaCB, 0);
-        if(comp1 instanceof JPopupMenu){
-            JPopupMenu popup = (JPopupMenu) comp1;
-            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
-            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-                @Override
-                protected void configureScrollBarColors() {
-                    this.thumbColor = new Color(0x222831);
-                    this.trackColor= new Color(0xFFD369);
-                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                    this.thumbLightShadowColor = new Color(0x323A48);
-                    this.thumbHighlightColor = new Color(0x323A48);
-                    this.trackHighlightColor = new Color(0xCF9E29);
-                    this.scrollBarWidth = (int)(controller.screenWidth/75);
-                }
-
-                @Override
-                protected JButton createDecreaseButton(int orientation) {
-                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));
-                        }
-                    };
-
-                    decreaseButton.setBackground(new Color(0x222831));
-                    return decreaseButton;
-                }
-
-                @Override
-                protected JButton createIncreaseButton(int orientation) {
-                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));
-                        }
-                    };
-
-                    increaseButton.setBackground(new Color(0x222831));
-                    return increaseButton;
-                }
-
-                private Image getAppropriateIcon(int orientation){
-                    switch(orientation){
-                        case SwingConstants.SOUTH: return dA;
-                        case SwingConstants.NORTH: return uA;
-                        case SwingConstants.EAST: return rA;
-                        default: return lA;
-                    }
-                }
-            });
-        }
-
-        System.out.println(fascicoliButton.getWidth());
 
         ArrayList<String> distinctRivisteList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
         for (int i = 0; i < controller.listaRiviste.size(); i++){
             distinctRivisteList.add(controller.listaRiviste.get(i).titolo);
         }
+
 
         rivistaCB.setModel(new DefaultComboBoxModel<String>(distinctRivisteList.toArray(new String[distinctRivisteList.size()]))); //inserisce tutti gli elementi di 'distinctGenereList' come voci del JComboBox 'genereCB'
         rivistaCB.setSelectedIndex(-1);  //permette di avere 'rivistaCB' non selezionato

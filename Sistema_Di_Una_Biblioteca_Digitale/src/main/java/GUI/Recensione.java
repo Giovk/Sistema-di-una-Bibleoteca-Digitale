@@ -46,9 +46,11 @@ public class Recensione extends JDialog {
        editorPane1.setPreferredSize(new Dimension((int) (controller.screenWidth/8.5333), (int) (controller.screenHeight/7.2)));
        button1.setFont(controller.baseFontSize);
 
-        frame = new JFrame("Valutazione");
+        frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+        frame.setIconImage(icona);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize((int) (controller.screenWidth/1.7777), controller.screenHeight/3);

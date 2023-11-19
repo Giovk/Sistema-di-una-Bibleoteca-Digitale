@@ -159,7 +159,9 @@ public class BookshopsPage {
         libreriaMenu.setBackground(new Color(0xFFD369));
         libreriaMenu.add(eliminaLibreria);
 
-        frame = new JFrame("Profilo");
+        frame = new JFrame("Biblioteca Digitale");
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+        frame.setIconImage(icona);
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(bookshopsPagePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

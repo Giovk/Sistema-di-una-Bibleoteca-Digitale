@@ -249,7 +249,7 @@ public class Profilo {
             utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));
         }
 
-        frame = new JFrame("Profilo");
+        frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(profilePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -22,6 +22,8 @@ public class NewShowMessageDialog extends JDialog {
         this.setUndecorated(true);  //rimuove la decorazione della finestra
         this.setSize((int) (screenWidth/8.5333),(int) (screenHeight/7.2));  //imposta le dimensioni della finestra
         this.setLocationRelativeTo(null);   //posiziona il frame al centro dello schermo
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+        this.setIconImage(icona);
         setContentPane(contentPane);
         setModal(true); //imposta la finestra come modal
         getRootPane().setDefaultButton(okButton); //imposta il JButton 'okButton' come bottone predefinito della finestra

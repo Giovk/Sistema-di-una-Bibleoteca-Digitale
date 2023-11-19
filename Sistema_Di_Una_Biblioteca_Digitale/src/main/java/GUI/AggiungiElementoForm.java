@@ -237,7 +237,7 @@ public class AggiungiElementoForm {
         // FINE //
 
 
-        frame = new JFrame("Valutazione");
+        frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -424,128 +424,18 @@ public class AggiungiElementoForm {
         if(comp1 instanceof JPopupMenu){
             JPopupMenu popup = (JPopupMenu) comp1;
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
-            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                @Override
-                protected void configureScrollBarColors() {
-                    this.thumbColor = new Color(0x222831);
-                    this.trackColor= new Color(0xFFD369);
-                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                    this.thumbLightShadowColor = new Color(0x323A48);
-                    this.thumbHighlightColor = new Color(0x323A48);
-                    this.trackHighlightColor = new Color(0xCF9E29);
-                    this.scrollBarWidth = (int)(controller.screenWidth/75);
-                }
-
-                @Override
-                protected JButton createDecreaseButton(int orientation) {
-                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-
-                        }
-                    };
-
-                    decreaseButton.setBackground(new Color(0x222831));
-                    return decreaseButton;
-                }
-
-                @Override
-                protected JButton createIncreaseButton(int orientation) {
-                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-
-                        }
-                    };
-
-                    increaseButton.setBackground(new Color(0x222831));
-                    return increaseButton;
-                }
-
-                private Image getAppropriateIcon(int orientation){
-                    switch(orientation){
-                        case SwingConstants.SOUTH: return dA;
-                        case SwingConstants.NORTH: return uA;
-                        case SwingConstants.EAST: return rA;
-                        default: return lA;
-                    }
-                }
-            });
+            scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
         }
 
         Object comp2 = isbnLibroCB.getUI().getAccessibleChild(isbnLibroCB, 0);
         if(comp2 instanceof JPopupMenu){
             JPopupMenu popup = (JPopupMenu) comp2;
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
-            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                @Override
-                protected void configureScrollBarColors() {
-                    this.thumbColor = new Color(0x222831);
-                    this.trackColor= new Color(0xFFD369);
-                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                    this.thumbLightShadowColor = new Color(0x323A48);
-                    this.thumbHighlightColor = new Color(0x323A48);
-                    this.trackHighlightColor = new Color(0xCF9E29);
-                    this.scrollBarWidth = (int)(controller.screenWidth/75);
-                }
-
-                @Override
-                protected JButton createDecreaseButton(int orientation) {
-                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-
-                        }
-                    };
-
-                    decreaseButton.setBackground(new Color(0x222831));
-                    return decreaseButton;
-                }
-
-                @Override
-                protected JButton createIncreaseButton(int orientation) {
-                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-
-                        }
-                    };
-
-                    increaseButton.setBackground(new Color(0x222831));
-                    return increaseButton;
-                }
-
-                private Image getAppropriateIcon(int orientation){
-                    switch(orientation){
-                        case SwingConstants.SOUTH: return dA;
-                        case SwingConstants.NORTH: return uA;
-                        case SwingConstants.EAST: return rA;
-                        default: return lA;
-                    }
-                }
-            });
+            scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
         }
 
         Component editorComp = isbnLibroCB.getEditor().getEditorComponent();
@@ -1049,64 +939,9 @@ public class AggiungiElementoForm {
         if(comp3 instanceof JPopupMenu){
             JPopupMenu popup = (JPopupMenu) comp3;
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
-            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                @Override
-                protected void configureScrollBarColors() {
-                    this.thumbColor = new Color(0x222831);
-                    this.trackColor= new Color(0xFFD369);
-                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                    this.thumbLightShadowColor = new Color(0x323A48);
-                    this.thumbHighlightColor = new Color(0x323A48);
-                    this.trackHighlightColor = new Color(0xCF9E29);
-                    this.scrollBarWidth = (int)(controller.screenWidth/75);
-                }
-
-                @Override
-                protected JButton createDecreaseButton(int orientation) {
-                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-
-                        }
-                    };
-
-                    decreaseButton.setBackground(new Color(0x222831));
-                    return decreaseButton;
-                }
-
-                @Override
-                protected JButton createIncreaseButton(int orientation) {
-                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-
-                        }
-                    };
-
-                    increaseButton.setBackground(new Color(0x222831));
-                    return increaseButton;
-                }
-
-                private Image getAppropriateIcon(int orientation){
-                    switch(orientation){
-                        case SwingConstants.SOUTH: return dA;
-                        case SwingConstants.NORTH: return uA;
-                        case SwingConstants.EAST: return rA;
-                        default: return lA;
-                    }
-                }
-            });
+            scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
         }
 
         Component editorComp2 = titoloRivistaCB.getEditor().getEditorComponent();
@@ -1120,64 +955,10 @@ public class AggiungiElementoForm {
         if(comp4 instanceof JPopupMenu){
             JPopupMenu popup = (JPopupMenu) comp4;
             JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
-            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                @Override
-                protected void configureScrollBarColors() {
-                    this.thumbColor = new Color(0x222831);
-                    this.trackColor= new Color(0xFFD369);
-                    this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                    this.thumbLightShadowColor = new Color(0x323A48);
-                    this.thumbHighlightColor = new Color(0x323A48);
-                    this.trackHighlightColor = new Color(0xCF9E29);
-                    this.scrollBarWidth = (int)(controller.screenWidth/75);
-                }
+            scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
 
-                @Override
-                protected JButton createDecreaseButton(int orientation) {
-                    JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-
-                        }
-                    };
-
-                    decreaseButton.setBackground(new Color(0x222831));
-                    return decreaseButton;
-                }
-
-                @Override
-                protected JButton createIncreaseButton(int orientation) {
-                    JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                        @Override
-                        public Dimension getPreferredSize() {
-                            return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-
-                        }
-                    };
-
-                    increaseButton.setBackground(new Color(0x222831));
-                    return increaseButton;
-                }
-
-                private Image getAppropriateIcon(int orientation){
-                    switch(orientation){
-                        case SwingConstants.SOUTH: return dA;
-                        case SwingConstants.NORTH: return uA;
-                        case SwingConstants.EAST: return rA;
-                        default: return lA;
-                    }
-                }
-            });
         }
 
         Component editorComp3 = numeroFascicoloCB.getEditor().getEditorComponent();
@@ -1690,62 +1471,9 @@ public class AggiungiElementoForm {
             if(comp instanceof JPopupMenu){
                 JPopupMenu popup = (JPopupMenu) comp;
                 JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-                scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
-                scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-                    ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                    Image uA = upArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                    ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                    Image dA = downArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                    ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                    Image rA = rightArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                    ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                    Image lA = leftArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                    @Override
-                    protected void configureScrollBarColors() {
-                        this.thumbColor = new Color(0x222831);
-                        this.trackColor= new Color(0xFFD369);
-                        this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                        this.thumbLightShadowColor = new Color(0x323A48);
-                        this.thumbHighlightColor = new Color(0x323A48);
-                        this.trackHighlightColor = new Color(0xCF9E29);
-                        this.scrollBarWidth = (int)(screenWidth/75);
-                    }
-
-                    @Override
-                    protected JButton createDecreaseButton(int orientation) {
-                        JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                            @Override
-                            public Dimension getPreferredSize() {
-                                return new Dimension((int)(screenWidth/51.2),(screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-                            }
-                        };
-
-                        decreaseButton.setBackground(new Color(0x222831));
-                        return decreaseButton;
-                    }
-
-                    @Override
-                    protected JButton createIncreaseButton(int orientation) {
-                        JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                            @Override
-                            public Dimension getPreferredSize() {
-                                return new Dimension((int)(screenWidth/51.2),(screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-                            }
-                        };
-
-                        increaseButton.setBackground(new Color(0x222831));
-                        return increaseButton;
-                    }
-
-                    private Image getAppropriateIcon(int orientation){
-                        switch(orientation){
-                            case SwingConstants.SOUTH: return dA;
-                            case SwingConstants.NORTH: return uA;
-                            case SwingConstants.EAST: return rA;
-                            default: return lA;
-                        }
-                    }
-                });
+                scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+                scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
+                scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
             }
 
             Component editorComp = comboBox1.getEditor().getEditorComponent();
@@ -1982,63 +1710,9 @@ public class AggiungiElementoForm {
             if(comp instanceof JPopupMenu){
                 JPopupMenu popup = (JPopupMenu) comp;
                 JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-                scrollPane.getVerticalScrollBar().setBackground(new Color(0xFFD369));
-                scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-                    ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                    Image uA = upArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                    ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                    Image dA = downArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                    ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-                    Image rA = rightArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                    ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-                    Image lA = leftArrow.getImage().getScaledInstance((screenWidth/128),(screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                    @Override
-                    protected void configureScrollBarColors() {
-                        this.thumbColor = new Color(0x222831);
-                        this.trackColor= new Color(0xFFD369);
-                        this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                        this.thumbLightShadowColor = new Color(0x323A48);
-                        this.thumbHighlightColor = new Color(0x323A48);
-                        this.trackHighlightColor = new Color(0xCF9E29);
-                        this.scrollBarWidth = (int)(controller.screenWidth/75);
-                    }
-
-                    @Override
-                    protected JButton createDecreaseButton(int orientation) {
-                        JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                            @Override
-                            public Dimension getPreferredSize() {
-                                return new Dimension((int)(screenWidth/51.2),(screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-                            }
-                        };
-
-                        decreaseButton.setBackground(new Color(0x222831));
-                        return decreaseButton;
-                    }
-
-                    @Override
-                    protected JButton createIncreaseButton(int orientation) {
-                        JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
-                            @Override
-                            public Dimension getPreferredSize() {
-                                return new Dimension((int)(screenWidth/51.2),(screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
-
-                            }
-                        };
-
-                        increaseButton.setBackground(new Color(0x222831));
-                        return increaseButton;
-                    }
-
-                    private Image getAppropriateIcon(int orientation){
-                        switch(orientation){
-                            case SwingConstants.SOUTH: return dA;
-                            case SwingConstants.NORTH: return uA;
-                            case SwingConstants.EAST: return rA;
-                            default: return lA;
-                        }
-                    }
-                });
+                scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+                scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
+                scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
             }
 
             Component editorComp = comboBox1.getEditor().getEditorComponent();

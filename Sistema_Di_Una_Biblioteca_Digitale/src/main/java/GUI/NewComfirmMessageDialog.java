@@ -27,6 +27,8 @@ public class NewComfirmMessageDialog extends JDialog {
         this.setUndecorated(true);
         this.setSize((int) (screenWidth/8.5333),(int) (screenHeight/7.2));  //imposta le dimensioni della finestra
         this.setLocationRelativeTo(null);
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+        this.setIconImage(icona);
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(okButton);

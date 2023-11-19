@@ -64,7 +64,9 @@ public class CreaLibreria {
 
         aggiungiButton.setFont(controller.baseFontSize);
 
-        frame = new JFrame("Crea Libreria");
+        frame = new JFrame("Biblioteca Digitale");
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+        frame.setIconImage(icona);
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

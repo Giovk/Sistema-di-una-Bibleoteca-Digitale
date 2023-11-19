@@ -99,7 +99,9 @@ public class NewLoginForm extends JDialog {
 
         datePicker = new DatePicker(calendarIMG);
 
-        frame = new JFrame("NewLoginForm");
+        frame = new JFrame("Biblioteca Digitale");
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+        frame.setIconImage(icona);
         frame.setUndecorated(true); //rimuove la decorazione del frame
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -130,7 +132,10 @@ public class NewLoginForm extends JDialog {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
+                frame.setVisible(false);
                 frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+                frame.dispose();
+
                 frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
             }
         });

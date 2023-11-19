@@ -24,7 +24,9 @@ public class ChangeQuantity {
         quantitaSpinner.setFont(controller.textFieldFont);
         okButton.setFont(controller.baseFontSize);
 
-        frame = new JFrame("Quantita");
+        frame = new JFrame("Biblioteca Digitale");
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+        frame.setIconImage(icona);
         frame.setUndecorated(true);
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -282,7 +284,9 @@ public class ChangeQuantity {
                 };
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                        if(spinner.getPreviousValue() != null) {
+                            spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                        }
                     }
                 });
                 button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
@@ -300,7 +304,9 @@ public class ChangeQuantity {
                 };
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        spinner.setValue(spinner.getNextValue()); // Azione per incrementare il valore
+                        if(spinner.getNextValue() != null) {
+                            spinner.setValue(spinner.getNextValue()); // Azione per decrementare il valore
+                        }
                     }
                 });
                 button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
