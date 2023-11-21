@@ -33,7 +33,6 @@ public class AggiungiElementoForm {
     private JScrollPane bookScrollPanel;
     private JScrollPane serieScrollPanel;
     private JScrollPane issueScrollPanel;
-    private JTextField isbnLibroField;
     private JTextField titoloLibroField;
     private JPanel bookPanel2;
     private JTextField genereLibroField;
@@ -103,13 +102,11 @@ public class AggiungiElementoForm {
     private JLabel dataLabel;
     private JLabel fruizioneLabel1;
     private JLabel quantitaLabel1;
-    private JPanel vSpacerForm;
     private DatePicker datePickerLibro;
     private int autoreLibroCount = 0;
     private int isbnLibroCount = 0;
     private int articoliFascicoliCount = 0;
     private DatePicker datePickerSerie;
-
     private int screenWidth = 0;
     private int screenHeight = 0;
     ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar2.png"));
@@ -118,139 +115,134 @@ public class AggiungiElementoForm {
     private DatePicker datePickerFascicoli;
 
     public AggiungiElementoForm(JFrame frameC, Controller controller, DefaultTableModel model){
-        screenHeight = controller.screenHeight;
-        screenWidth = controller.screenWidth;
+        screenHeight = controller.screenHeight; //inizializza l'altezza dello schermo
+        screenWidth = controller.screenWidth;   //inizializza la larghezza dello schermo
 
-        // Inizio //
-        libroBT.setFont(controller.baseFontSize);
-        libroBT.setMinimumSize(new Dimension((int)(controller.screenWidth/6.4),-1));
-        serieBT.setFont(controller.baseFontSize);
-        serieBT.setMinimumSize(new Dimension((int)(controller.screenWidth/6.4),-1));
-        fascicoloBT.setFont(controller.baseFontSize);
-        fascicoloBT.setMinimumSize(new Dimension((int)(controller.screenWidth/6.4),-1));
+        libroBT.setFont(controller.baseFontSize);   //imposta il font del JButton 'libroBT'
+        libroBT.setMinimumSize(new Dimension((int)(controller.screenWidth/6.4),-1));    //imposta la dimensione minima del JButton 'libroBT'
+        serieBT.setFont(controller.baseFontSize);   //imposta il font del JButton 'serieBT'
+        serieBT.setMinimumSize(new Dimension((int)(controller.screenWidth/6.4),-1));    //imposta la dimensione minima del JButton 'serieBT'
+        fascicoloBT.setFont(controller.baseFontSize);   //imposta il font del JButton 'fascicoloBT'
+        fascicoloBT.setMinimumSize(new Dimension((int)(controller.screenWidth/6.4),-1));    //imposta la dimensione minima del JButton 'fascicoloBT'
 
-        scegliElementoLabel.setFont(controller.impactFontSize);
-
-        // Libro //
-        libroLabel.setFont(controller.impactFontSize);
-
-        isbnLibroLabel.setFont(controller.baseFontSize);
-        isbnLibroCB.setFont(controller.textFieldFont);
-        isbnLibroCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        titoloLibroLabel.setFont(controller.baseFontSize);
-        titoloLibroField.setFont(controller.textFieldFont);
-        titoloLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        genereLibroLabel.setFont(controller.baseFontSize);
-        genereLibroField.setFont(controller.textFieldFont);
-        genereLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        linguaLibroLabel.setFont(controller.baseFontSize);
-        linguaLibroCB.setFont(controller.textFieldFont);
-        linguaLibroCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        editoreLabel.setFont(controller.baseFontSize);
-        editoreLibroField.setFont(controller.textFieldFont);
-        editoreLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        dataPubblicazioneLabel.setFont(controller.baseFontSize);
-        dataLibroField.setFont(controller.textFieldFont);
-        dataLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        calendarLibroIMG.setMinimumSize(new Dimension((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)));
-        calendarLibroIMG.setIcon(new ImageIcon(calendarImg));
-        quantitaLabel.setFont(controller.baseFontSize);
-        quantitaLibroSpinner.setFont(controller.textFieldFont);
-        quantitaLibroSpinner.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        fruizioneLabel.setFont(controller.baseFontSize);
-        fruizioneLibroCB.setFont(controller.textFieldFont);
-        fruizioneLibroCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        scegliElementoLabel.setFont(controller.impactFontSize); //imposta il font della JLabel 'scegliElementoLabel'
 
 
-        autoriLibroLabel.setFont(controller.baseFontSize);
-        autoreLibroButton.setFont(controller.baseFontSize);
+        libroLabel.setFont(controller.impactFontSize);  //imposta il font della JLabel 'libroLabel'
+
+        isbnLibroLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'isbnLibroLabel'
+        isbnLibroCB.setFont(controller.textFieldFont);  //imposta il font del JComboBox 'isbnLibroCB'
+        isbnLibroCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));   //imposta la dimensione minima del JComboBox 'isbnLibroCB'
+        titoloLibroLabel.setFont(controller.baseFontSize);  //imposta il font della JLabel 'titoloLibroLabel'
+        titoloLibroField.setFont(controller.textFieldFont); //imposta il font del JTextField 'titoloLibroField'
+        titoloLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));  //imposta la dimensione minima del JTextField 'titoloLibroField'
+        genereLibroLabel.setFont(controller.baseFontSize);  //imposta il font della JLabel 'genereLibroLabel'
+        genereLibroField.setFont(controller.textFieldFont); //imposta il font del JTextField 'genereLibroField'
+        genereLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));  //imposta la dimensione minima del JTextField 'genereLibroField'
+        linguaLibroLabel.setFont(controller.baseFontSize);  //imposta il font della JLabel 'linguaLibroLabel'
+        linguaLibroCB.setFont(controller.textFieldFont);    //imposta il font del JComboBox 'linguaLibroCB'
+        linguaLibroCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24))); //imposta la dimensione minima del JComboBox 'linguaLibroCB'
+        editoreLabel.setFont(controller.baseFontSize);  //imposta il font della JLabel 'editoreLabel'
+        editoreLibroField.setFont(controller.textFieldFont);    //imposta il font del JTextField 'editoreLibroField'
+        editoreLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24))); //imposta la dimensione minima del JTextField 'editoreLibroField'
+        dataPubblicazioneLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'dataPubblicazioneLabel'
+        dataLibroField.setFont(controller.textFieldFont);   //imposta il font del JTextField 'dataLibroField'
+        dataLibroField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));    //imposta la dimensione minima del JTextField 'dataLibroField'
+        calendarLibroIMG.setMinimumSize(new Dimension((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)));  //imposta la dimensione minima della JLabel 'calendarLibroIMG'
+        calendarLibroIMG.setIcon(new ImageIcon(calendarImg));   //imposta l'icona della JLabel 'calendarLibroIMG' con l'immagine 'calendarImg'
+        quantitaLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'quantitaLabel'
+        quantitaLibroSpinner.setFont(controller.textFieldFont); //imposta il font dello JSpinner 'quantitaLibroSpinner'
+        quantitaLibroSpinner.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));  //imposta la dimensione minima dello JSpinner 'quantitaLibroSpinner'
+        fruizioneLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'fruizioneLabel'
+        fruizioneLibroCB.setFont(controller.textFieldFont); //imposta il font del JComboBox 'fruizioneLibroCB'
+        fruizioneLibroCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));  //imposta la dimensione minima del JComboBox 'fruizioneLibroCB'
+
+        autoriLibroLabel.setFont(controller.baseFontSize);  //imposta il font della JLabel 'autoriLibroLabel'
+        autoreLibroButton.setFont(controller.baseFontSize); //imposta il font del JButton 'autoreLibroButton'
+
+        inviaLibroButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'inviaLibroButton'
 
 
+        fascicoloLabel.setFont(controller.impactFontSize);  //imposta il font della JLabel 'libroLabel'
 
-        inviaLibroButton.setFont(controller.baseFontSize);
+        titoloLabel1.setFont(controller.baseFontSize);  //imposta il font della JLabel 'titoloLabel1'
+        titoloRivistaCB.setFont(controller.textFieldFont);  //imposta il font del JComboBox 'titoloRivistaCB'
+        titoloRivistaCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));   //imposta la dimensione minima del JComboBox 'titoloRivistaCB'
+        issnLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'issnLabel'
+        issnRivistaField.setFont(controller.textFieldFont); //imposta il font del JTextField 'issnRivistaField'
+        issnRivistaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));  //imposta la dimensione minima del JTextField 'issnRivistaField'
+        argomentoLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'argomentoLabel'
+        argomentoRivistaField.setFont(controller.textFieldFont);    //imposta il font del JTextField 'argomentoRivistaField'
+        argomentoRivistaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24))); //imposta la dimensione minima del JTextField 'argomentoRivistaField'
+        nomeResponsabileLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'nomeResonsabileLabel'
+        nomeRField.setFont(controller.textFieldFont);   //imposta il font del JTextField 'nomeRField'
+        nomeRField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));    //imposta la dimensione minima del JTextField 'nomeRField'
+        cognomeResponsabileLabel.setFont(controller.baseFontSize);  //imposta il font della JLabel 'cognomeResonsabileLabel'
+        cognomeRField.setFont(controller.textFieldFont);    //imposta il font del JTextField 'cognomeRField'
+        cognomeRField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24))); //imposta la dimensione minima del JTextField 'cognomeRField'
+        editoreLabel1.setFont(controller.baseFontSize); //imposta il font della JLabel 'editoreLabel1'
+        editoreRivistaField.setFont(controller.textFieldFont);  //imposta il font del JTextField 'editoreRivistaField'
+        editoreRivistaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));   //imposta la dimensione minima del JTextField 'editoreRivistaField'
+        annoPubblicazioneLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'annoPubblicazioneLabel'
+        annoPrivistaSpinner.setFont(controller.textFieldFont);  //imposta il font dello JSpinner 'annoPrivistaSpinner'
+        annoPrivistaSpinner.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));   //imposta la dimensione minima dello JSpinner 'annoPrivistaSpinner'
+        numeroLabel.setFont(controller.baseFontSize);   //imposta il font della JLabel 'numeroLabel'
+        numeroFascicoloCB.setFont(controller.textFieldFont);    //imposta il font del JComboBox 'numeroFascicoloCB'
+        numeroFascicoloCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24))); //imposta la dimensione minima del JComboBox 'numeroFascicoloCB'
+        dataLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'dataLabel'
+        dpFascicoloField.setFont(controller.textFieldFont); //imposta il font del JTextField 'dpFascicoloField'
+        dpFascicoloField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));  //imposta la dimensione minima del JTextField 'dpFascicoloField'
+        calendarIssueIMG.setMinimumSize(new Dimension((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)));  //imposta la dimensione minima della JLabel 'calendarIssueIMG'
+        calendarIssueIMG.setIcon(new ImageIcon(calendarImg));   //imposta l'icona della JLabel 'calendarIssueIMG' con l'immagine 'calendarImg'
+        fruizioneLabel1.setFont(controller.baseFontSize);   //imposta il font della JLabel 'fruizioneLabel1'
+        fruizoneFascicoloCB.setFont(controller.textFieldFont);  //imposta il font del JComboBox 'fruizioneFascicoloCB'
+        fruizoneFascicoloCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));   //imposta la dimensione minima del JComboBox 'fruizioneFascicoloCB'
+        quantitaLabel1.setFont(controller.baseFontSize);    //imposta il font della JLabel 'quantitaLabel1'
+        quantitaFascicoloSpinner.setFont(controller.textFieldFont); //imposta il font dello JSpinner 'quantitaFascicoloSpinner'
+        quantitaFascicoloSpinner.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));  //imposta la dimensione minima dello JSpinner 'quantitaFascicoloSpinner'
 
-        // Fascicolo //
-        fascicoloLabel.setFont(controller.impactFontSize);
+        articoliFascicoloLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'articoliFascicoloLabel'
+        aggiungiArticoloBT.setFont(controller.baseFontSize);    //imposta il font del JButton 'aggiungiArticoloBT'
 
-        titoloLabel1.setFont(controller.baseFontSize);
-        titoloRivistaCB.setFont(controller.textFieldFont);
-        titoloRivistaCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        issnLabel.setFont(controller.baseFontSize);
-        issnRivistaField.setFont(controller.textFieldFont);
-        issnRivistaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        argomentoLabel.setFont(controller.baseFontSize);
-        argomentoRivistaField.setFont(controller.textFieldFont);
-        argomentoRivistaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        nomeResponsabileLabel.setFont(controller.baseFontSize);
-        nomeRField.setFont(controller.textFieldFont);
-        nomeRField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        cognomeResponsabileLabel.setFont(controller.baseFontSize);
-        cognomeRField.setFont(controller.textFieldFont);
-        cognomeRField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        editoreLabel1.setFont(controller.baseFontSize);
-        editoreRivistaField.setFont(controller.textFieldFont);
-        editoreRivistaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        annoPubblicazioneLabel.setFont(controller.baseFontSize);
-        annoPrivistaSpinner.setFont(controller.textFieldFont);
-        annoPrivistaSpinner.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        numeroLabel.setFont(controller.baseFontSize);
-        numeroFascicoloCB.setFont(controller.textFieldFont);
-        numeroFascicoloCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        dataLabel.setFont(controller.baseFontSize);
-        dpFascicoloField.setFont(controller.textFieldFont);
-        dpFascicoloField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        calendarIssueIMG.setMinimumSize(new Dimension((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)));
-        calendarIssueIMG.setIcon(new ImageIcon(calendarImg));
-        fruizioneLabel1.setFont(controller.baseFontSize);
-        fruizoneFascicoloCB.setFont(controller.textFieldFont);
-        fruizoneFascicoloCB.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        quantitaLabel1.setFont(controller.baseFontSize);
-        quantitaFascicoloSpinner.setFont(controller.textFieldFont);
-        quantitaFascicoloSpinner.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        inviaFascicoloBT.setFont(controller.baseFontSize);  //imposta il font del JButton 'inviaFascicoloBT'
 
-        articoliFascicoloLabel.setFont(controller.baseFontSize);
-        aggiungiArticoloBT.setFont(controller.baseFontSize);
 
-        inviaFascicoloBT.setFont(controller.baseFontSize);
+        serieLabel.setFont(controller.impactFontSize);  //imposta il font della JLabel 'serieLabel'
 
-        // Serie//
-        serieLabel.setFont(controller.impactFontSize);
+        isbnSerieLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'isbnSerieLabel'
+        isbnSerieField.setFont(controller.textFieldFont);   //imposta il font del JTextField 'isbnSerieField'
+        isbnSerieField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));    //imposta la dimensione minima del JTextField 'isbnSerieField'
+        titoloLabel.setFont(controller.baseFontSize);   //imposta il font della JLabel 'titoloLabel'
+        titoloSerieField.setFont(controller.textFieldFont); //imposta il font del JTextField 'titoloSerieField'
+        titoloSerieField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));  //imposta la dimensione minima del JTextField 'titoloSerieField'
+        dataPubblicazioneLabel1.setFont(controller.baseFontSize);   //imposta il font della JLabel 'dataPubblicazioneLabel1'
+        dataSerieField.setFont(controller.textFieldFont);   //imposta il font del JTextField 'dataSerieField'
+        dataSerieField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));    //imposta del JTextField 'dataSerieField'
+        calendarSerieIMG.setMinimumSize(new Dimension((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)));  //imposta la dimensione minima della JLabel 'calendarSerieIMG'
+        calendarSerieIMG.setIcon(new ImageIcon(calendarImg));   //imposta l'icona della JLabel 'calendarSerieIMG' con l'immagine 'calendarImg'
+        libriLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'libriLabel'
+        spinnerLibriSerie.setFont(controller.textFieldFont);    //imposta il font dello JSpinner 'spinnerLibriSerie'
+        spinnerLibriSerie.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24))); //imposta dello JSpinner 'spinnerLibriSerie'
 
-        isbnSerieLabel.setFont(controller.baseFontSize);
-        isbnSerieField.setFont(controller.textFieldFont);
-        isbnSerieField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        titoloLabel.setFont(controller.baseFontSize);
-        titoloSerieField.setFont(controller.textFieldFont);
-        titoloSerieField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        dataPubblicazioneLabel1.setFont(controller.baseFontSize);
-        dataSerieField.setFont(controller.textFieldFont);
-        dataSerieField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        calendarSerieIMG.setMinimumSize(new Dimension((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)));
-        calendarSerieIMG.setIcon(new ImageIcon(calendarImg));
-        libriLabel.setFont(controller.baseFontSize);
-        spinnerLibriSerie.setFont(controller.textFieldFont);
-        spinnerLibriSerie.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        okSerieBT.setFont(controller.baseFontSize); //imposta il font del JButton 'okSerieBT'
 
-        okSerieBT.setFont(controller.baseFontSize);
-
-        inviaSerieButton.setFont(controller.baseFontSize);
-        // FINE //
+        inviaSerieButton.setFont(controller.baseFontSize); //imposta il font del JButton 'inviaSerieBT'
 
 
         frame = new JFrame("Biblioteca Digitale");
-        frame.setUndecorated(true);
+        frame.setUndecorated(true); //rimuove la decorazione del frame
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize((int)(controller.screenWidth/1.7777), (int) (controller.screenHeight/1.1612));
-        frame.setLocationRelativeTo(null);
-        contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
-        frame.setResizable(false);
-        frame.setVisible(true);
+        frame.setSize((int)(controller.screenWidth/1.7777), (int) (controller.screenHeight/1.1612)); //imposta larghezza e altezza del frame
+        frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
+        contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));    //imposta il bordo del JPanel 'contentPane'
+        frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
+        frame.setVisible(true); //rende visibile il frame
 
-        bookPanel.setVisible(false);
-        seriePanel.setVisible(false);
-        issuePanel.setVisible(false);
+        bookPanel.setVisible(false);    //rende invisibile il JPanel 'bookPanel'
+        seriePanel.setVisible(false);   //rende invisibile il JPanel 'seriePanel'
+        issuePanel.setVisible(false);   //rende invisibile il JPanel 'issuePanel'
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -264,10 +256,10 @@ public class AggiungiElementoForm {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                frame.setVisible(false);
-                frameC.setEnabled(true);
+                frame.setVisible(false);    //rende visibile il frame
+                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
                 frame.dispose();
-                frameC.toFront();
+                frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
             }
         });
 
@@ -275,27 +267,29 @@ public class AggiungiElementoForm {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                libroBT.setBackground(Color.decode("#cf9e29"));
+                libroBT.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'libroBT'
             }
         });
+
         libroBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                libroBT.setBackground(Color.decode("#FFD369"));
+                libroBT.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'libroBT'
             }
         });
+
         libroBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                bookPanel.setVisible(true);
-                seriePanel.setVisible(false);
-                issuePanel.setVisible(false);
-                questionPanel.setVisible(false);
+                bookPanel.setVisible(true); //rende visibile il JPannel 'bookPanel'
+                seriePanel.setVisible(false);   //rende invisibile il JPannel 'seriePanel'
+                issuePanel.setVisible(false);   //rende invisibile il JPannel 'issuePanel'
+                questionPanel.setVisible(false);    //rende invisibile il JPannel 'questionPanel'
 
-                contentPane.revalidate();
-                contentPane.repaint();
+                contentPane.revalidate();   //aggiorna il contenuto del JPanel 'contentPane'
+                contentPane.repaint();  //ridisegna il JPanel 'contentPane'
             }
         });
 
@@ -303,27 +297,29 @@ public class AggiungiElementoForm {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                serieBT.setBackground(Color.decode("#cf9e29"));
+                serieBT.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'serieBT'
             }
         });
+
         serieBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                serieBT.setBackground(Color.decode("#FFD369"));
+                serieBT.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'serieBT'
             }
         });
+
         serieBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                isbnSeriePanel.removeAll();
-                isbnLibroCount = 0;
-                initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue(), controller.baseFontSize, controller.textFieldFont);
-                seriePanel.setVisible(true);
-                bookPanel.setVisible(false);
-                issuePanel.setVisible(false);
-                questionPanel.setVisible(false);
+                isbnSeriePanel.removeAll(); //rimuove tutti i componenti del JPanel 'isbnSeriePanel'
+                isbnLibroCount = 0; //azzera il numero di libri della serie che si sta inserendo
+                initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue(), controller.baseFontSize, controller.textFieldFont);  //inizializza tutti i componenti necessari per inserire la serie
+                seriePanel.setVisible(true);    //rende visibile il JPanel 'seriePanel'
+                bookPanel.setVisible(false);    //rende invisibile il JPanel 'bookPanel'
+                issuePanel.setVisible(false);   //rende invisibile il JPanel 'issuePanel'
+                questionPanel.setVisible(false);    //rende invisibile il JPanel 'questionPanel'
             }
         });
 
@@ -331,55 +327,56 @@ public class AggiungiElementoForm {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                fascicoloBT.setBackground(Color.decode("#cf9e29"));
+                fascicoloBT.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'fascicoloBT'
             }
         });
+
         fascicoloBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                fascicoloBT.setBackground(Color.decode("#FFD369"));
+                fascicoloBT.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'fascicoloBT'
             }
         });
+
         fascicoloBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                articoliFascicoliCount = 0;
-                issuePanel.setVisible(true);
-                seriePanel.setVisible(false);
-                bookPanel.setVisible(false);
-                questionPanel.setVisible(false);
+                articoliFascicoliCount = 0; //azzera il numero di libri della serie che si sta inserendo
+                issuePanel.setVisible(true);    //rende visibile il JPanel 'issuePanel'
+                seriePanel.setVisible(false);   //rende invisibile il JPanel 'seriePanel'
+                bookPanel.setVisible(false);    //rende invisibile il JPanel 'bookPanel'
+                questionPanel.setVisible(false);    //rende invisibile il JPanel 'questionPanel'
             }
         });
 
-        // LIBRO //
 
-        for (int i = 0; i < controller.listaLibri.size(); i++){
-            isbnLibroCB.addItem(controller.listaLibri.get(i).isbn);
+        for (int i = 0; i < controller.listaLibri.size(); i++){ //scorre la lista di tutti i libri
+            isbnLibroCB.addItem(controller.listaLibri.get(i).isbn); //aggiunge nel menu del JComboBox 'isbnLibroCB' l'ISBN del i-esimo libro
         }
 
-        isbnLibroCB.setSelectedIndex(-1);
+        isbnLibroCB.setSelectedIndex(-1);   //deseleziona tutti gli elementi del menu del JComboBox 'isbnLibroCB'
 
         bookScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine.
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -392,7 +389,7 @@ public class AggiungiElementoForm {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -401,54 +398,61 @@ public class AggiungiElementoForm {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'increaseButton'
 
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
-        Object comp1 = linguaLibroCB.getUI().getAccessibleChild(linguaLibroCB, 0);
-        if(comp1 instanceof JPopupMenu){
-            JPopupMenu popup = (JPopupMenu) comp1;
-            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
-            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
-            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
+        Object comp1 = linguaLibroCB.getUI().getAccessibleChild(linguaLibroCB, 0);  //ComboBoxUI del JComboBox 'linguaLibroCB' per personalizzarlo
+
+        if(comp1 instanceof JPopupMenu){    //controlla se 'comp1' è un JPopupMenu
+            JPopupMenu popup = (JPopupMenu) comp1;  //JPopupMenu del JComboBox 'linguaLibroCB'
+            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);   //primo componente della barra di scorrimento di 'popup'
+
+            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());  //imposta lo stile della barra di scorrimento
+            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49)); //imposta il colore della parte mobile della barra di scorrimento
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));   //imposta il colore della parte fissa (cioè lo sfondo) della barra di scorrimento
         }
 
-        Object comp2 = isbnLibroCB.getUI().getAccessibleChild(isbnLibroCB, 0);
-        if(comp2 instanceof JPopupMenu){
-            JPopupMenu popup = (JPopupMenu) comp2;
-            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
-            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
-            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
+        Object comp2 = isbnLibroCB.getUI().getAccessibleChild(isbnLibroCB, 0);  //ComboBoxUI del JComboBox 'isbnLibroCB' per personalizzarlo
+
+        if(comp2 instanceof JPopupMenu){    //controlla se 'comp2' è un JPopupMenu
+            JPopupMenu popup = (JPopupMenu) comp2;  //JPopupMenu del JComboBox 'isbnLibroCB'
+            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);   //primo componente della barra di scorrimento di 'popup'
+
+            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());  //imposta lo stile della barra di scorrimento
+            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49)); //imposta il colore della parte mobile della barra di scorrimento
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));   //imposta il colore della parte fissa (cioè lo sfondo) della barra di scorrimento
         }
 
-        Component editorComp = isbnLibroCB.getEditor().getEditorComponent();
-        if (editorComp instanceof JTextField) {
-            JTextField textField = (JTextField) editorComp;
-            textField.setBackground(new Color(0xFFD369));
-            textField.setForeground(new Color(0x222831));
+        Component editorComp = isbnLibroCB.getEditor().getEditorComponent();    //editor del JComboBox 'isbnLibroCB' per personalizzarlo
+
+        if (editorComp instanceof JTextField) { //controlla se 'editorComp' è un JTextField
+            JTextField textField = (JTextField) editorComp; //JtextField del JComboBox 'isbnLibroCB'
+
+            textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
+            textField.setForeground(new Color(0x222831));   //imposta il colore del testo di 'textField'
         }
 
         isbnLibroCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 isbnLibroCB.getSelectedIndex();
+
                 if(isbnLibroCB.getSelectedIndex() >= 0 && isbnLibroCB.getSelectedIndex() <= (controller.listaLibri.size()-1)){
                     titoloLibroField.setEnabled(false);
                     genereLibroField.setEnabled(false);
@@ -466,6 +470,8 @@ public class AggiungiElementoForm {
                     linguaLibroCB.setSelectedItem((controller.listaLibri.get(isbnLibroCB.getSelectedIndex()).lingua));
                     editoreLibroField.setText(controller.listaLibri.get(isbnLibroCB.getSelectedIndex()).editore);
                     dataLibroField.setText(controller.listaLibri.get(isbnLibroCB.getSelectedIndex()).dataPubblicazione.toString());
+
+                    System.out.println("e stato selezionato un libro");
                 } else{
                     titoloLibroField.setEnabled(true);
                     genereLibroField.setEnabled(true);
@@ -481,6 +487,7 @@ public class AggiungiElementoForm {
                     linguaLibroCB.setSelectedItem(1);
                     editoreLibroField.setText("");
                     dataLibroField.setText("");
+                    System.out.println("non e stato selezionato un libro");
                 }
             }
         });
