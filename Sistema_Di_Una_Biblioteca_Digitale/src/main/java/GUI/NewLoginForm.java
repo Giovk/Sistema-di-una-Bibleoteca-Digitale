@@ -132,7 +132,7 @@ public class NewLoginForm extends JDialog {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
-                frame.setVisible(false);
+                frame.setVisible(false);    //rende invisibile il frame
                 frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
                 frame.dispose();
 
