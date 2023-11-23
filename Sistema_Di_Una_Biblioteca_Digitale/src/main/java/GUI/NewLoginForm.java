@@ -96,7 +96,6 @@ public class NewLoginForm extends JDialog {
         passwordTF4.setFont(controller.textFieldFont);
         passwordTF5.setFont(controller.textFieldFont);
 
-
         datePicker = new DatePicker(calendarIMG);
 
         frame = new JFrame("Biblioteca Digitale");
@@ -346,7 +345,7 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 datePicker.d.setVisible(true);  //rende visibile il calendario
-                dataNascitaTF.setText(datePicker.setPickedDate());  //imposta il testo 'JTextField' con la data scelta dall'utente
+                dataNascitaTF.setText(datePicker.setPickedDate());  //imposta il testo del JTextField 'dataNascitaTF' con la data scelta dall'utente
             }
         });
 
