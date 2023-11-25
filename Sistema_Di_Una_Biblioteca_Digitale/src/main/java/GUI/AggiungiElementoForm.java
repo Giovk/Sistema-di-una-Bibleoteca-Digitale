@@ -697,24 +697,24 @@ public class AggiungiElementoForm {
         }
 
         serieScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagineALE_SMOOTH);
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine;
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -727,7 +727,7 @@ public class AggiungiElementoForm {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -741,32 +741,32 @@ public class AggiungiElementoForm {
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
-        serieScrollPanel.setBackground(new Color(0x222831));
-        serieScrollPanel.setBorder(BorderFactory.createEmptyBorder());
-        serieScrollPanel.getViewport().setBackground(new Color(0x222831));
+        serieScrollPanel.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPanel 'serieScrollPanel'
+        serieScrollPanel.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'serieScrollPanel'
+        serieScrollPanel.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'serieScrollPanel'
 
         datePickerSerie = new DatePicker(calendarLibroIMG);
 
         calendarSerieIMG.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(calendarSerieIMG.isEnabled() == true) {
-                    datePickerSerie.d.setVisible(true);
-                    dataSerieField.setText(datePickerSerie.setPickedDate());
+                if(calendarSerieIMG.isEnabled() == true) {  //controlla se è stato attivato il calendario
+                    datePickerSerie.d.setVisible(true); //rende visibile il calendario
+                    dataSerieField.setText(datePickerSerie.setPickedDate());    //imposta il testo del JTextField 'dataSerieField' con la data scelta dall'utente
                 }
             }
         });
@@ -774,8 +774,13 @@ public class AggiungiElementoForm {
         spinnerLibriSerie.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if((int)spinnerLibriSerie.getValue() > 999) spinnerLibriSerie.setValue(999);
-                if((int)spinnerLibriSerie.getValue() < 0) spinnerLibriSerie.setValue(0);
+                if((int)spinnerLibriSerie.getValue() > 999) {   //controlla se il valore dello JSpinner 'spinnerLibriSerie' è maggiore di 9999
+                    spinnerLibriSerie.setValue(999);    //imposta il valore di 'spinnerLibriSerie' a 9999
+                }
+
+                if((int)spinnerLibriSerie.getValue() < 0){  //controlla se il valore dello JSpinner 'spinnerLibriSerie' è minore di  9999
+                    spinnerLibriSerie.setValue(0);  //imposta il valore di 'spinnerLibriSerie' a 0
+                }
             }
         });
 
@@ -783,7 +788,7 @@ public class AggiungiElementoForm {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                okSerieBT.setBackground(Color.decode("#cf9e29"));
+                okSerieBT.setBackground(Color.decode("#cf9e29"));   //imposta il colore dello sfondo del JButton 'okSerieBT'
             }
         });
 
@@ -791,7 +796,7 @@ public class AggiungiElementoForm {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                okSerieBT.setBackground(Color.decode("#FFD369"));
+                okSerieBT.setBackground(Color.decode("#FFD369"));   //imposta il colore dello sfondo del JButton 'okSerieBT'
             }
         });
 
@@ -1104,7 +1109,7 @@ public class AggiungiElementoForm {
                     for (int i = 0; i < controller.listaFascicoliRivista.size(); i++){
                         numeroFascicoloCB.addItem(controller.listaFascicoliRivista.get(i).numero);
                     }
-                    
+
                     numeroFascicoloCB.setSelectedIndex(-1);
                 } else {
                     issnRivistaField.setText("");
