@@ -804,11 +804,11 @@ public class AggiungiElementoForm {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                isbnSeriePanel.removeAll();
-                isbnLibroCount = 0;
-                initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue(),controller.baseFontSize, controller.textFieldFont);
-                isbnSeriePanel.revalidate();
-                isbnSeriePanel.repaint();
+                isbnSeriePanel.removeAll(); //elimina tutti i componenti del JPanel 'isbnSeriePanel'
+                isbnLibroCount = 0; //azzera il numero di libri della serie che si sta inserendo
+                initComponentsISBNSerie(isbnLibri, (int) spinnerLibriSerie.getValue(),controller.baseFontSize, controller.textFieldFont);   //inizializza tutti i componenti necessari per inserire i libri della serie
+                isbnSeriePanel.revalidate();    //aggiorna il contenuto del JPanel 'isbnSeriePanel'
+                isbnSeriePanel.repaint();   //ridisegna il JPanel 'isbnSeriePanel'
             }
         });
 
@@ -816,7 +816,7 @@ public class AggiungiElementoForm {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                inviaSerieButton.setBackground(Color.decode("#cf9e29"));
+                inviaSerieButton.setBackground(Color.decode("#cf9e29"));    //imposta il colore dello sfondo del JButton 'okSerieBT'
             }
         });
 
@@ -824,7 +824,7 @@ public class AggiungiElementoForm {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                inviaSerieButton.setBackground(Color.decode("#FFD369"));
+                inviaSerieButton.setBackground(Color.decode("#FFD369"));    //imposta il colore dello sfondo del JButton 'okSerieBT'
             }
         });
 
@@ -864,7 +864,6 @@ public class AggiungiElementoForm {
 
                                         if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
                                             for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
-
                                                 if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro"))
                                                     model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
                                                 else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0)
@@ -876,7 +875,6 @@ public class AggiungiElementoForm {
 
                                         if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
                                             for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
-
                                                 if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro"))
                                                     model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
                                                 else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0)
@@ -888,7 +886,6 @@ public class AggiungiElementoForm {
 
                                         if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
                                             for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
-
                                                 if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro"))
                                                     model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
                                                 else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0)
