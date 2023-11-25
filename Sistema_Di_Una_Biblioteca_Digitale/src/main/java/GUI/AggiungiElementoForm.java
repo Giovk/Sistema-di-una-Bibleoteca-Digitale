@@ -833,9 +833,15 @@ public class AggiungiElementoForm {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
 
-                if(!isbnSerieField.getText().isBlank()) {
-                    if(!titoloSerieField.getText().isBlank()) {
-                        if(!dataSerieField.getText().isBlank()) {
+                if(isbnSerieField.getText().isBlank()) {
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");
+                } else {
+                    if(titoloSerieField.getText().isBlank()) {
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");
+                    } else {
+                        if(dataSerieField.getText().isBlank()) {
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");
+                        }else {
                             ArrayList<String> libriISBN = takeISBN();
 
                             if (libriISBN != null) {
@@ -902,14 +908,8 @@ public class AggiungiElementoForm {
                                     }
                                 }
                             }
-                        }else {
-                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");
                         }
-                    } else {
-                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");
                     }
-                } else {
-                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");
                 }
             }
         });
