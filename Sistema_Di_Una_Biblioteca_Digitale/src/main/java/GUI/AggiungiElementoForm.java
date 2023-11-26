@@ -633,7 +633,7 @@ public class AggiungiElementoForm {
                                     controller.listaLibri.add(controller.nuovoLibro);   //aggiunge il nuovo libro nell'ArrayList dei libri
 
                                     if(controller.insertPossessoL((int) quantitaLibroSpinner.getValue(), fruizioneLibroCB.getSelectedItem().toString()) == false){  //controlla se il libro è già posseduto dalla libreria
-                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro è già presente in Libreria");   //mostra un messaggio di errore
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro è già presente nell libreria");   //mostra un messaggio di errore
                                     } else {
                                         model.setRowCount(0);   //rimuove tutte le righe della tabella
 
@@ -982,7 +982,7 @@ public class AggiungiElementoForm {
 
         Component editorComp2 = titoloRivistaCB.getEditor().getEditorComponent();   //editor del JComboBox 'titoloRivistaCB' per personalizzarlo
 
-        if (editorComp2 instanceof JTextField) {    //controlla se 'editorComp' è un JTextField
+        if (editorComp2 instanceof JTextField) {    //controlla se 'editorComp2' è un JTextField
             JTextField textField = (JTextField) editorComp2;    //JtextField del JComboBox 'titoloRivistaCB'
 
             textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
@@ -1002,7 +1002,7 @@ public class AggiungiElementoForm {
 
         Component editorComp3 = numeroFascicoloCB.getEditor().getEditorComponent(); //editor del JComboBox 'numeroFascicoloCB' per personalizzarlo
 
-        if (editorComp3 instanceof JTextField) {    //controlla se 'editorComp' è un JTextField
+        if (editorComp3 instanceof JTextField) {    //controlla se 'editorComp3' è un JTextField
             JTextField textField = (JTextField) editorComp3;    //JtextField del JComboBox 'numeroFascicoloCB'
 
             textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
@@ -1163,7 +1163,7 @@ public class AggiungiElementoForm {
                 super.mouseReleased(e);
 
                 if (titoloRivistaCB.getSelectedItem() == null || titoloRivistaCB.getSelectedItem().equals("")) {    //controlla se non è stato selezionato nessuna rivista oppure non è stato inserito nessun ISSN
-                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Seleziona o crea una Rivista!"); //mostra un messaggio di errore
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Selezionare o creare una Rivista!"); //mostra un messaggio di errore
                 } else {
                     if (issnRivistaField.getText().isBlank() || nomeRField.getText().isBlank() || cognomeRField.getText().isBlank() || editoreRivistaField.getText().isBlank() || argomentoRivistaField.getText().isBlank()) {  //controlla se non è stato inserito uno dei campi obbligatori
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");  //mostra un messaggio di errore
@@ -1230,107 +1230,107 @@ public class AggiungiElementoForm {
         });
     }
 
-    private void inserimentoEaggiornamentoF(Controller controller, DefaultTableModel model, boolean nuova_rivista, JFrame frameC){
-        if (controller.insertPossessoF((int) quantitaFascicoloSpinner.getValue(), fruizoneFascicoloCB.getSelectedItem().toString()) == false) {
-            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa Fascicolo è già presente in Libreria");
+    private void inserimentoEaggiornamentoF(Controller controller, DefaultTableModel model, boolean nuovaRivista, JFrame frameC){  //la funzione, se è possibile, aggiunge il nuovo fascicolo tra quelli posseduti dalla libreria e aggiorna il contenuto della tabella ritornando TRUE, altrrimenti ritorna FALSE
+        if (controller.insertPossessoF((int) quantitaFascicoloSpinner.getValue(), fruizoneFascicoloCB.getSelectedItem().toString()) == false) { //controlla se il fascicolo è già posseduto dalla libreria
+            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è già presente nella libreria");    //mostra un messaggio di errore
 
-            if (nuova_rivista == true){
-                controller.eliminaRivista();
+            if (nuovaRivista == true){  //controlla se è stata creata una nuova rivista
+                controller.eliminaRivista();    //elimina la nuova rivista
             }
+
         } else {
-            model.setRowCount(0);
+            model.setRowCount(0);   //rimuove tutte le righe della tabella
 
-            controller.getPossessoLibreria();
+            controller.getPossessoLibreria();   //aggiorna le ArrayList contenenti gli elementi posseduti dalla libreria
 
-            if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
-                for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
-
-                    if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro"))
-                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
-                    else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0)
-                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione});
-                    else
-                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione});
+            if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se la libreria possiede dei libri
+                for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria
+                    if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                    } else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) { //controlla se l'i-esimo libro non è disponibile
+                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                    }else {
+                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                    }
                 }
             }
 
             if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
-                for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
-
-                    if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro"))
-                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
-                    else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0)
-                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione});
-                    else
-                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione});
+                for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //controlla se la libreria possiede delle serie
+                    if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                    } else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) { //controlla se l'i-esima serie non è disponibile
+                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                    } else {
+                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                    }
                 }
             }
 
-            if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
-                for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
-
-                    if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro"))
-                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
-                    else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0)
-                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});
-                    else
-                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});
+            if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se la libreria possiede dei fascicoli
+                for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria
+                    if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                    }else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) {  //controlla se l'i-esimo fascicolo non è disponibile
+                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
+                    }else {
+                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
+                    }
                 }
             }
 
-            frame.setVisible(false);
-            frameC.setEnabled(true);
+            frame.setVisible(false);    //rende invisibile il frame
+            frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
             frame.dispose();
-            frameC.toFront();
+            frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
         }
-    }
+    }//fine inserimentoEaggiornamentoF
 
-    private boolean takeAutoriLibro(Controller controller) {
-        int fieldCount = 0;
-        int n_autori = 0;
-        String nome = "";
-        String cognome = "";
-        String nazionalità = "";
-        String dn = "";
-        Component[] components = autoriLibroPanel.getComponents();
+    private boolean takeAutoriLibro(Controller controller) {    //la funzione, se è possibile, aggiunge gli autori del nuovo libro assoiandoli e ritorna TRUE, altrimenti ritorna FALSE
+        int fieldCount = 0; //contatore dei campi necessari per inserire un nuovo autore
+        int nAutori = 0;   //numero di autori del nuovo libro
+        String nome = "";   //nome dell'autore attuale
+        String cognome = "";    //cognome dell'autore attuale
+        String nazionalita = "";    //nazionalità dell'autore attuale
+        String dn = ""; //data di nascita dell'autore attuale
+        Component[] components = autoriLibroPanel.getComponents();  //componenti nel JPanel 'autoriLibroPanel'
 
-        for (Component component : components) {
-            if (component instanceof JPanel) {
-                JPanel jPanel1 = (JPanel) component;
-                Component[] components2 = jPanel1.getComponents();
+        for (Component component : components) {    //scorre 'components'
+            if (component instanceof JPanel) {  //controlla se il componente attuale 'component' è un JPanel
+                JPanel jPanel1 = (JPanel) component;    //inizializza il JPanel 'jPanel1' con 'component'
+                Component[] components2 = jPanel1.getComponents();  //componenti nel JPanel 'jPanel1'
 
-                for (Component component2: components2){
-                    if(component2 instanceof JTextField){
-
-                        JTextField textField = (JTextField) component2;
+                for (Component component2: components2){    //scorre 'components2'
+                    if(component2 instanceof JTextField){   //controlla se il componente attuale 'component2' è un JTextField
+                        JTextField textField = (JTextField) component2; //inizializza il JTextField 'textField' con 'component2'
 
                         switch (fieldCount){
                             case 0:
-                                nome = textField.getText();
-                                fieldCount++;
+                                nome = textField.getText(); //assegna a 'nome' il nome inserito nel testo di 'textField'
+                                fieldCount++;   //passa al campo successivo
                                 break;
                             case 1:
-                                cognome = textField.getText();
-                                fieldCount++;
+                                cognome = textField.getText();  //assegna a 'cognome' il cognome inserito nel testo di 'textField'
+                                fieldCount++;   //passa al campo successivo
                                 break;
                             case 2:
-                                nazionalità = textField.getText();
-                                fieldCount++;
+                                nazionalita = textField.getText();  //assegna a 'nazionalita' la nazionalità inserita nel testo di 'textField'
+                                fieldCount++;   //passa al campo successivo
                                 break;
                             case 3:
-                                dn = textField.getText();
-                                fieldCount = 0;
-                                n_autori++;
+                                dn = textField.getText();   //assegna a 'dn' la data inserita nel testo di 'textField'
+                                fieldCount = 0; //passa al primo campo
+                                nAutori++;  //incrementa il numero di autori del nuovo libro
 
-                                if (nome.isBlank() || cognome.isBlank()){
+                                if (nome.isBlank() || cognome.isBlank()){   //controlla se non è stato inserito il nome o il cognome dell'autore
                                     return false;
                                 } else{
-                                    controller.aggiungiAutoreLibro(nome.replace("'", "’"), cognome.replace("'", "’"), nazionalità, dn);
+                                    controller.aggiungiAutoreLibro(nome.replace("'", "’"), cognome.replace("'", "’"), nazionalita, dn); //aggiunge l'autore associandolo al nuovo libro
                                 }
 
                                 break;
                             default:
-                                fieldCount = 0;
+                                fieldCount = 0; //passa al primo campo del prossimo autore
                                 break;
                         }
                     }
@@ -1338,75 +1338,73 @@ public class AggiungiElementoForm {
             }
         }
 
-        if (n_autori >= 1){
+        if (nAutori >= 1){  //controlla se è stato inserito almeno un autore
             return true;
         }
 
         return false;
-    }
+    }//fine takeAutoriLibro
 
-    private boolean takeArticoli(Controller controller, boolean nuova_rivista) {
+    private boolean takeArticoli(Controller controller, boolean nuovaRivista) { //la funzione, se è possibile, aggiunge un nuovo fascicolo con gli articoli sientifici ritornando TRUE, altrimenti ritorna FALSE
+        Component[] components = articoliPanel.getComponents(); //componenti nel JPanel 'articoliPanel'
 
-        Component[] components = articoliPanel.getComponents();
+        for (Component component : components) {    //scorre 'components'
+            if (component instanceof JPanel) {  //controlla se il componente attuale 'component' è un JPanel
+                JPanel jPanel1 = (JPanel) component;    //inizializza il JPanel 'jPanel1' con 'component'
+                Component[] components2 = jPanel1.getComponents();  //componenti nel JPanel 'jPanel1'
 
-        for (Component component : components) {
-            if (component instanceof JPanel) {
-                JPanel jPanel1 = (JPanel) component;
-                Component[] components2 = jPanel1.getComponents();
+                for (Component component2: components2){    //scorre 'components2'
+                    if(component2 instanceof JComboBox){    //controlla se il componente attuale 'component2' è un JComboBox
+                        JComboBox comboBox = (JComboBox) component2;    //inizializza il JComboBox 'comboBox' con 'component2'
 
-                for (Component component2: components2){
-                    if(component2 instanceof JComboBox){
-                        JComboBox comboBox = (JComboBox) component2;
+                        for (Component component3: components2){    //scorre 'components2'
+                            if(component3 instanceof JSpinner){ //controlla se il componente attuale 'component3' è uno JSpinner
+                                JSpinner spinner = (JSpinner) component3;   //inizializza lo JSpinner 'spinner' con 'component3'
 
-                        for (Component component3: components2){
-                            if(component3 instanceof JSpinner){
-                                JSpinner spinner = (JSpinner) component3;
+                                for (Component component4: components2){    //scorre 'components2'
+                                    if(component4 instanceof JPanel){   //controlla se il componente attuale 'component4' è un JPannel
+                                        JPanel jpanel2 = (JPanel) component4;   //inizializza il JPannel 'jpanel2' con 'component4'
 
-                                for (Component component4: components2){
-                                    if(component4 instanceof JPanel){
+                                        if(comboBox.getSelectedItem() == null || comboBox.getSelectedItem().equals("")){    //controlla se non è stato selezionato o creato nessun articolo scientifico
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Devi selezionare o creare un articolo"); //mostra un messaggio di errore
 
-                                        JPanel jpanel2 = (JPanel) component4;
+                                            controller.eliminaFascicolo();  //elimina il nuovo fascicolo
 
-                                        if(comboBox.getSelectedItem() == null || comboBox.getSelectedItem().equals("")){
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Devi selezionare o creare un articolo!");
-
-                                            controller.eliminaFascicolo();
-
-                                            if(nuova_rivista == true) {
-                                                controller.eliminaRivista();
+                                            if(nuovaRivista == true) {  //controlla se è stata creata una nuova rivista
+                                                controller.eliminaRivista();    //elimina la nuova rivista
                                             }
 
                                             return false;
                                         } else {
-                                            if (Date.valueOf(dpFascicoloField.getText()).getYear()+1900 >= (int) spinner.getValue()) {
-                                                if (controller.creaArticolo(comboBox.getSelectedItem().toString().replace("'", "’"), (int) spinner.getValue())) {
-                                                    if (takeAutoriArticolo(controller, jpanel2) == false) {
-                                                        controller.eliminaArticolo();
-                                                        controller.eliminaFascicolo();
+                                            if (Date.valueOf(dpFascicoloField.getText()).getYear()+1900 < (int) spinner.getValue()) {   //controlla se l'anno di pubbliazione del fascicolo inserito nel 'dpFascicoloField' è minore di quello dell'articolo sientifico inserito nello JSpinner 'spinner'
+                                                controller.eliminaFascicolo();  //elimina il nuovo fascicolo
 
-                                                        if (nuova_rivista == true){
-                                                            controller.eliminaRivista();
+                                                if (nuovaRivista == true) { //controlla se è stata creata una nuova rivista
+                                                    controller.eliminaRivista();    //elimina la nuova rivista
+                                                }
+
+                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo è scritto dopo la pubblicazione del fascicolo");    //mostra un messaggio di pubblicazione
+                                                return false;
+                                            } else {
+                                                if (!(controller.creaArticolo(comboBox.getSelectedItem().toString().replace("'", "’"), (int) spinner.getValue()))) {    //controlla se l'articolo non esiste già
+                                                    controller.nuovoArticoloScientifico = controller.listaArticoli.get(comboBox.getSelectedIndex());    //inizializza 'controller.nuovoArticoloScientifico' con l'artiolo selezionato
+                                                    controller.nuovoFascicolo.articoli.add(controller.listaArticoli.get(comboBox.getSelectedIndex()));  //aggiunge in 'controller.nuovoFascicolo.articoli' l'artiolo selezionato
+                                                } else {
+                                                    if (takeAutoriArticolo(controller, jpanel2) == true) {  //controlla se sono stati inseriti degli autori al nuovo articolo
+                                                        controller.listaArticoli.add(controller.nuovoArticoloScientifico);  //aggiunge in 'controller.listaArticoli' il nuovo articolo
+                                                        controller.nuovoFascicolo.articoli.add(controller.nuovoArticoloScientifico);    //aggiunge in 'controller.nuovoFascicolo.articoli' il nuovo articolo
+                                                    } else {
+                                                        controller.eliminaArticolo();   //elimina il nuovo articolo
+                                                        controller.eliminaFascicolo();  //elimina il nuovo fascicolo
+
+                                                        if (nuovaRivista == true){  //controlla se è stata creata una nuova rivista
+                                                            controller.eliminaRivista();     //elimina la nuova rivista
                                                         }
 
-                                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo non ha autori!");
+                                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo non ha autori"); //mostra un messaggio di errore
                                                         return false;
-                                                    } else {
-                                                        controller.listaArticoli.add(controller.nuovoArticoloScientifico);
-                                                        controller.nuovoFascicolo.articoli.add(controller.nuovoArticoloScientifico);
                                                     }
-                                                } else {
-                                                    controller.nuovoArticoloScientifico = controller.listaArticoli.get(comboBox.getSelectedIndex());
-                                                    controller.nuovoFascicolo.articoli.add(controller.listaArticoli.get(comboBox.getSelectedIndex()));
                                                 }
-                                            } else {
-                                                controller.eliminaFascicolo();
-
-                                                if (nuova_rivista == true) {
-                                                    controller.eliminaRivista();
-                                                }
-
-                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo è scritto dopo la pubblicazione del fascicolo!");
-                                                return false;
                                             }
                                         }
                                     }
@@ -1418,7 +1416,7 @@ public class AggiungiElementoForm {
             }
         }
         return true;
-    }
+    }//fine takeArticoli
 
     private boolean takeAutoriArticolo(Controller controller, JPanel panelArticolo) {
         int fieldCount = 0;
