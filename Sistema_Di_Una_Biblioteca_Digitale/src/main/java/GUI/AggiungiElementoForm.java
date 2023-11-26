@@ -497,7 +497,7 @@ public class AggiungiElementoForm {
         calendarLibroIMG.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(calendarLibroIMG.isEnabled() == true) {  //controlla se è stato attivato il calendario
+                if(calendarLibroIMG.isEnabled() == true) {  //controlla se è stato disabilitato il calendario
                     datePickerLibro.d.setVisible(true); //rende visibile il calendario
                     dataLibroField.setText(datePickerLibro.setPickedDate());    //imposta il testo del JTextField 'dataLibroField' con la data scelta dall'utente
                 }
@@ -571,7 +571,7 @@ public class AggiungiElementoForm {
                     if (titoloLibroField.getText().isBlank() || linguaLibroCB.getSelectedItem() == null || linguaLibroCB.getSelectedItem().equals("") || editoreLibroField.getText().isBlank() || genereLibroField.getText().isBlank() || dataLibroField.getText().isBlank()){  //controlla se non è stato inserito uno dei campi obbligatori
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");  //mostra un messaggio di errore
                     } else {
-                        if (titoloLibroField.isEnabled() == false) {    //controlla se è stato disattivato il JTextField 'titoloLibroField'
+                        if (titoloLibroField.isEnabled() == false) {    //controlla se è stato disabilitato il JTextField 'titoloLibroField'
                             controller.nuovoLibro = controller.listaLibri.get(isbnLibroCB.getSelectedIndex());  //inizializza 'controller.nuovoLibro' con il libro selezionato
 
                             if(controller.insertPossessoL((int) quantitaLibroSpinner.getValue(), fruizioneLibroCB.getSelectedItem().toString()) == false){  //controlla se il libro è già posseduto dalla libreria
@@ -764,7 +764,7 @@ public class AggiungiElementoForm {
         calendarSerieIMG.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(calendarSerieIMG.isEnabled() == true) {  //controlla se è stato attivato il calendario
+                if(calendarSerieIMG.isEnabled() == true) {  //controlla se è stato abilitato il calendario
                     datePickerSerie.d.setVisible(true); //rende visibile il calendario
                     dataSerieField.setText(datePickerSerie.setPickedDate());    //imposta il testo del JTextField 'dataSerieField' con la data scelta dall'utente
                 }
@@ -854,7 +854,7 @@ public class AggiungiElementoForm {
                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Uno o più libri sono pubblicati dopo la serie"); //mostra un messaggio d'errore
                         } else {
                             if (controller.creaSerie(libriISBN, isbnSerieField.getText().toString(), titoloSerieField.getText().toString().replace("'", "’"), dataSerieField.getText().toString()) == false) {  //controlla se la serie esiste già
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa serie già esiste");
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa serie già esiste");   //mostra un messaggio d'errore
                             } else {
                                 controller.listaSerie.add(controller.nuovoSerie);   //aggiunge la nuova serue nell'ArrayList delle serie
 
@@ -1018,7 +1018,7 @@ public class AggiungiElementoForm {
         calendarIssueIMG.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(calendarIssueIMG.isEnabled() == true) {  //controlla se è stato attivato il calendario
+                if(calendarIssueIMG.isEnabled() == true) {  //controlla se è stato abilitato il calendario
                     datePickerFascicoli.d.setVisible(true); //rende visibile il calendario
                     dpFascicoloField.setText(datePickerFascicoli.setPickedDate());  //imposta il testo del JTextField 'dpFascicoloField' con la data scelta dall'utente
                 }
@@ -1162,69 +1162,66 @@ public class AggiungiElementoForm {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
 
-                if (titoloRivistaCB.getSelectedItem() == null || titoloRivistaCB.getSelectedItem().equals("")) {    //controlla se non è stata selezionata nessuna rivista oppure non è stato inserito nessun titolo
+                if (titoloRivistaCB.getSelectedItem() == null || titoloRivistaCB.getSelectedItem().equals("")) {    //controlla se non è stato selezionato nessuna rivista oppure non è stato inserito nessun ISSN
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Seleziona o crea una Rivista!"); //mostra un messaggio di errore
                 } else {
                     if (issnRivistaField.getText().isBlank() || nomeRField.getText().isBlank() || cognomeRField.getText().isBlank() || editoreRivistaField.getText().isBlank() || argomentoRivistaField.getText().isBlank()) {  //controlla se non è stato inserito uno dei campi obbligatori
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");  //mostra un messaggio di errore
                     } else {
-                        if (issnRivistaField.isEnabled() == false) {    //controlla se è stato disattivato il JTextField 'issnRivistaField'
+                        if (issnRivistaField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'issnRivistaField'
                             if (controller.creaRivista(titoloRivistaCB.getSelectedItem().toString().replace("'", "’"), issnRivistaField.getText(), argomentoRivistaField.getText().replace("'", "’"), nomeRField.getText().replace("'", "’"), cognomeRField.getText().replace("'", "’"), editoreRivistaField.getText().replace("'", "’"), (int) annoPrivistaSpinner.getValue()) == false) { //controlla se la rivista esiste già
                                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa rivista già esiste"); //mostra un messaggio di errore
                             } else {
-                                controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());  //inizializza 'controller.nuovaRivista' con la rivista selezionata
+                                controller.listaRiviste.add(controller.nuovaRivista);   //aggiunge la nuova rivista in 'controller.listaRiviste'
 
-                                if (dpFascicoloField.isEnabled() == false) {    //controlla se è stato disattivato il JTextField 'dpFascicoloField'
-                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
-
-                                    inserimentoEaggiornamentoF(controller, model, false, frameC);
-                                } else {
-                                    if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {
-                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
+                                if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
+                                    if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {   //controlla se il nuovo fascicolo non ha articoli oppure qualche campo non è stato inserito
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");    //mostra un messaggio di errore
+                                        controller.eliminaRivista();    //elimina la nuova rivista
                                     } else {
-                                        if ((int) annoPrivistaSpinner.getValue() > Date.valueOf(dpFascicoloField.getText()).getYear() + 1900) {
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");
-                                        } else {
-                                            if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
-                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
+                                        if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è minore o uguale a quello del fasciciolo selezionato
+                                            if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {   //controlla se il fascicolo esiste già
+                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo già esiste!");  //mostra un messaggio di errore
+                                                controller.eliminaRivista();    //elimina la nuova rivista
                                             } else {
-                                                if (takeArticoli(controller, false) == true) {
-                                                    controller.listaFascicoli.add(controller.nuovoFascicolo);
-
-                                                    inserimentoEaggiornamentoF(controller, model, false, frameC);
+                                                if (takeArticoli(controller, true) == true) {   //controlla se l'artiolo è stato creato correttamente
+                                                    controller.listaFascicoli.add(controller.nuovoFascicolo);   //aggiunge il nuovo fascicolo in 'controller.listaFascicoli'
+                                                    inserimentoEaggiornamentoF(controller, model, true, frameC);    //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
                                                 }
                                             }
+                                        }else {
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
                                         }
                                     }
+                                } else {
+                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
+                                    inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
                                 }
                             }
                         } else {
-                            controller.listaRiviste.add(controller.nuovaRivista);
+                            controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());  //inizializza 'controller.nuovoRivista' con la rivista selezionata
 
-                            if (dpFascicoloField.isEnabled() == false) {
-                                controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));
-
-                                inserimentoEaggiornamentoF(controller, model, false, frameC);
-                            } else {
-                                if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {
-                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
-                                    controller.eliminaRivista();
+                            if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
+                                if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {   //controlla se il nuovo fascicolo non ha articoli oppure qualche campo non è stato inserito
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");    //mostra un messaggio di errore
                                 } else {
-                                    if ((int) annoPrivistaSpinner.getValue() > Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {
-                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");
-                                    }else {
-                                        if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
-                                            controller.eliminaRivista();
+                                    if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è minore o uguale a quello del fasciciolo selezionato
+                                        if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {   //controlla se il fascicolo esiste già
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo già esiste!");  //mostra un messaggio di errore
                                         } else {
-                                            if (takeArticoli(controller, true) == true) {
-                                                controller.listaFascicoli.add(controller.nuovoFascicolo);
-
-                                                inserimentoEaggiornamentoF(controller, model, true, frameC);
+                                            if (takeArticoli(controller, false) == true) {  //controlla se l'artiolo è stato creato correttamente
+                                                controller.listaFascicoli.add(controller.nuovoFascicolo);   //aggiunge il nuovo fascicolo in 'controller.listaFascicoli'
+                                                inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
                                             }
                                         }
                                     }
+                                    else {
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
+                                    }
                                 }
+                            } else {
+                                controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
+                                inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
                             }
                         }
                     }
