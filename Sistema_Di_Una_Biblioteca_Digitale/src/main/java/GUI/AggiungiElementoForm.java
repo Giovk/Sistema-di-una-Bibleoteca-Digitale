@@ -511,7 +511,7 @@ public class AggiungiElementoForm {
                     quantitaLibroSpinner.setValue(9999);    //imposta il valore di 'quantitaLibroSpinner' a 9999
                 }
 
-                if((int)quantitaLibroSpinner.getValue() < 0) {  //controlla se il valore dello JSpinner 'quantitaLibroSpinner' è minore di  9999
+                if((int)quantitaLibroSpinner.getValue() < 0) {  //controlla se il valore dello JSpinner 'quantitaLibroSpinner' è minore di  0
                     quantitaLibroSpinner.setValue(0);   //imposta il valore di 'quantitaLibroSpinner' a 0
                 }
             }
@@ -565,14 +565,14 @@ public class AggiungiElementoForm {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
 
-                if (isbnLibroCB.getSelectedItem() == null || isbnLibroCB.getSelectedItem().equals("")){ //controlla se non  stato selezionato nessun libro oppure non è stato inserito nessun isbn
+                if (isbnLibroCB.getSelectedItem() == null || isbnLibroCB.getSelectedItem().equals("")){ //controlla se non è stato selezionato nessun libro oppure non è stato inserito nessun ISBN
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Seleziona o crea un nuovo libro!");  //mostra un messaggio di errore
                 } else {
                     if (titoloLibroField.getText().isBlank() || linguaLibroCB.getSelectedItem() == null || linguaLibroCB.getSelectedItem().equals("") || editoreLibroField.getText().isBlank() || genereLibroField.getText().isBlank() || dataLibroField.getText().isBlank()){  //controlla se non è stato inserito uno dei campi obbligatori
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");  //mostra un messaggio di errore
                     } else {
                         if (titoloLibroField.isEnabled() == false) {    //controlla se è stato disattivato il JTextField 'titoloLibroField'
-                            controller.nuovoLibro = controller.listaLibri.get(isbnLibroCB.getSelectedIndex());  //inizializza il 'controller.nuovoLibro' con il libro selezionato
+                            controller.nuovoLibro = controller.listaLibri.get(isbnLibroCB.getSelectedIndex());  //inizializza 'controller.nuovoLibro' con il libro selezionato
 
                             if(controller.insertPossessoL((int) quantitaLibroSpinner.getValue(), fruizioneLibroCB.getSelectedItem().toString()) == false){  //controlla se il libro è già posseduto dalla libreria
                                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro è già presente in Libreria");   //mostra un messaggio di errore
@@ -833,72 +833,75 @@ public class AggiungiElementoForm {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
 
-                if(isbnSerieField.getText().isBlank() || titoloSerieField.getText().isBlank() || dataSerieField.getText().isBlank()) {
-                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");
+                if(isbnSerieField.getText().isBlank() || titoloSerieField.getText().isBlank() || dataSerieField.getText().isBlank()) {  //controlla se almeno uno dei campi non è stato compilato
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");   //mostra un messaggio di errore
                 } else {
-                    ArrayList<String> libriISBN = takeISBN();
+                    ArrayList<String> libriISBN = takeISBN();   //ISBN dei libri della serie che si sta inserendo
 
-                    if (libriISBN != null) {
-                        boolean error = false;
-                        int h = 0;
+                    if (libriISBN != null) {    //controlla se è stata inizializzata 'libriISBN'
+                        boolean error = false;  //flag di errore
+                        int h = 0;  //contatore
 
-                        while (error == false && h < libriISBN.size()) {
-                            if (controller.getDataLibro(libriISBN.get(h)).after(Date.valueOf(dataSerieField.getText())) == true) {
-                                error = true;
+                        while (error == false && h < libriISBN.size()) {    //scorre 'libriISBN'
+                            if (controller.getDataLibro(libriISBN.get(h)).after(Date.valueOf(dataSerieField.getText())) == true) {  //controlla se il libro h-esimo è stato pubblicato dopo la serie
+                                error = true;   //segnala l'errore
                             }
 
-                            h++;
+                            h++;    //incrementa il contatore
                         }
 
-                        if (error == true) {
-                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Uno o più libri sono pubblicati dopo la serie");
+                        if (error == true) {    //controlla se c'è qualche libro pubblicato dopo la serie
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Uno o più libri sono pubblicati dopo la serie"); //mostra un messaggio d'errore
                         } else {
-                            if (controller.creaSerie(libriISBN, isbnSerieField.getText().toString(), titoloSerieField.getText().toString().replace("'", "’"), dataSerieField.getText().toString()) == false) {
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Serie già presente nel Database");
+                            if (controller.creaSerie(libriISBN, isbnSerieField.getText().toString(), titoloSerieField.getText().toString().replace("'", "’"), dataSerieField.getText().toString()) == false) {  //controlla se la serie esiste già
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa serie già esiste");
                             } else {
-                                controller.listaSerie.add(controller.nuovoSerie);
+                                controller.listaSerie.add(controller.nuovoSerie);   //aggiunge la nuova serue nell'ArrayList delle serie
 
-                                model.setRowCount(0);
+                                model.setRowCount(0);   //rimuove tutte le righe della tabella
 
-                                controller.getPossessoLibreria();
+                                controller.getPossessoLibreria();   //aggiorna le ArrayList contenenti gli elementi posseduti dalla libreria
 
-                                if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
-                                    for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
-                                        if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro"))
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
-                                        else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0)
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione});
-                                        else
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione});
+                                if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se la libreria possiede dei libri
+                                    for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria
+                                        if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                        }else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) {  //controlla se l'i-esimo libro non è disponibile
+                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                        }else {
+                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                        }
                                     }
                                 }
 
-                                if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
-                                    for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
-                                        if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro"))
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
-                                        else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0)
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione});
-                                        else
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione});
+                                if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se la libreria possiede delle serie
+                                    for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria
+                                        if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) { //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                        }else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) { //controlla se l'i-esima serie non è disponibile
+                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                        }else {
+                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                        }
                                     }
                                 }
 
-                                if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
-                                    for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
-                                        if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro"))
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
-                                        else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0)
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});
-                                        else
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});
+                                if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se la libreria possiede dei fascicoli
+                                    for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria
+                                        if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                        }else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) {  //controlla se l'i-esimo fascicolo non è disponibile
+                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
+                                        }else {
+                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
+                                        }
                                     }
                                 }
 
-                                frame.setVisible(false);
-                                frameC.setEnabled(true);
+                                frame.setVisible(false);    //rende invisibile il frame
+                                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
                                 frame.dispose();
-                                frameC.toFront();
+                                frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
                             }
                         }
                     }
@@ -906,27 +909,27 @@ public class AggiungiElementoForm {
             }
         });
 
-        // FASCICOLI //
-        titoloRivistaCB.setSelectedIndex(-1);
+
+        titoloRivistaCB.setSelectedIndex(-1);   //deseleziona tutti gli elementi del menu del JComboBox 'titoloRivistaCBB'
         issueScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorse /up.png
             Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorse /up.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorse /up.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorse /up.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -938,7 +941,7 @@ public class AggiungiElementoForm {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -952,70 +955,72 @@ public class AggiungiElementoForm {
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
-        Object comp3 = titoloRivistaCB.getUI().getAccessibleChild(titoloRivistaCB, 0);
+        Object comp3 = titoloRivistaCB.getUI().getAccessibleChild(titoloRivistaCB, 0);  //ComboBoxUI del JComboBox 'titoloRivistaCB' per personalizzarlo
 
-        if(comp3 instanceof JPopupMenu){
-            JPopupMenu popup = (JPopupMenu) comp3;
-            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
-            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
-            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
+        if(comp3 instanceof JPopupMenu){    //controlla se 'comp3' è un JPopupMenu
+            JPopupMenu popup = (JPopupMenu) comp3;  //JPopupMenu del JComboBox 'titoloRivistaCB'
+            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);   //primo componente della barra di scorrimento di 'popup'
+
+            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());  //imposta lo stile della barra di scorrimento
+            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49)); //imposta il colore della parte mobile della barra di scorrimento
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));   //imposta il colore della parte fissa (cioè lo sfondo) della barra di scorrimento
         }
 
-        Component editorComp2 = titoloRivistaCB.getEditor().getEditorComponent();
+        Component editorComp2 = titoloRivistaCB.getEditor().getEditorComponent();   //editor del JComboBox 'titoloRivistaCB' per personalizzarlo
 
-        if (editorComp2 instanceof JTextField) {
-            JTextField textField = (JTextField) editorComp2;
-            textField.setBackground(new Color(0xFFD369));
-            textField.setForeground(new Color(0x222831));
+        if (editorComp2 instanceof JTextField) {    //controlla se 'editorComp' è un JTextField
+            JTextField textField = (JTextField) editorComp2;    //JtextField del JComboBox 'titoloRivistaCB'
+
+            textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
+            textField.setForeground(new Color(0x222831));   //imposta il colore del testo di 'textField'
         }
 
-        Object comp4 = numeroFascicoloCB.getUI().getAccessibleChild(numeroFascicoloCB, 0);
+        Object comp4 = numeroFascicoloCB.getUI().getAccessibleChild(numeroFascicoloCB, 0);  //ComboBoxUI del JComboBox 'numeroFascicoloCB' per personalizzarlo
 
-        if(comp4 instanceof JPopupMenu){
-            JPopupMenu popup = (JPopupMenu) comp4;
-            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
-            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
-            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
+        if(comp4 instanceof JPopupMenu){    //controlla se 'comp4' è un JPopupMenu
+            JPopupMenu popup = (JPopupMenu) comp4;  //JPopupMenu del JComboBox 'numeroFascicoloCB'
+            JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);   //primo componente della barra di scorrimento di 'popup'
 
+            scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());  //imposta lo stile della barra di scorrimento
+            scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49)); //imposta il colore della parte mobile della barra di scorrimento
+            scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));   //imposta il colore della parte fissa (cioè lo sfondo) della barra di scorrimento
         }
 
-        Component editorComp3 = numeroFascicoloCB.getEditor().getEditorComponent();
+        Component editorComp3 = numeroFascicoloCB.getEditor().getEditorComponent(); //editor del JComboBox 'numeroFascicoloCB' per personalizzarlo
 
-        if (editorComp3 instanceof JTextField) {
-            JTextField textField = (JTextField) editorComp3;
-            textField.setBackground(new Color(0xFFD369));
-            textField.setForeground(new Color(0x222831));
+        if (editorComp3 instanceof JTextField) {    //controlla se 'editorComp' è un JTextField
+            JTextField textField = (JTextField) editorComp3;    //JtextField del JComboBox 'numeroFascicoloCB'
+
+            textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
+            textField.setForeground(new Color(0x222831));   //imposta il colore del testo di 'textField'
         }
 
-        issueScrollPanel.setBackground(new Color(0x222831));
-        issueScrollPanel.setBorder(BorderFactory.createEmptyBorder());
-        issueScrollPanel.getViewport().setBackground(new Color(0x222831));
-
+        issueScrollPanel.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPanel 'issueScrollPanel'
+        issueScrollPanel.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'issueScrollPanel'
+        issueScrollPanel.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'issueScrollPanel'
 
         datePickerFascicoli = new DatePicker(calendarIssueIMG);
 
         calendarIssueIMG.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(calendarIssueIMG.isEnabled() == true) {
-                    datePickerFascicoli.d.setVisible(true);
-                    dpFascicoloField.setText(datePickerFascicoli.setPickedDate());
+                if(calendarIssueIMG.isEnabled() == true) {  //controlla se è stato attivato il calendario
+                    datePickerFascicoli.d.setVisible(true); //rende visibile il calendario
+                    dpFascicoloField.setText(datePickerFascicoli.setPickedDate());  //imposta il testo del JTextField 'dpFascicoloField' con la data scelta dall'utente
                 }
             }
         });
@@ -1023,16 +1028,26 @@ public class AggiungiElementoForm {
         annoPrivistaSpinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if((int)annoPrivistaSpinner.getValue() > Year.now().getValue()) annoPrivistaSpinner.setValue(Year.now().getValue());
-                if((int)annoPrivistaSpinner.getValue() < 1900) annoPrivistaSpinner.setValue(1900);
+                if((int)annoPrivistaSpinner.getValue() > Year.now().getValue()) {   //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è maggiore dell'anno attuale
+                    annoPrivistaSpinner.setValue(Year.now().getValue());    //imposta il valore di 'annoPrivistaSpinner' all'anno attuale
+                }
+
+                if((int)annoPrivistaSpinner.getValue() < 1900){ //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è minore del 1900
+                    annoPrivistaSpinner.setValue(1900); //imposta il valore di 'annoPrivistaSpinner' al 1900
+                }
             }
         });
 
         quantitaFascicoloSpinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if((int)quantitaFascicoloSpinner.getValue() > 9999) quantitaFascicoloSpinner.setValue(9999);
-                if((int)quantitaFascicoloSpinner.getValue() < 0) quantitaFascicoloSpinner.setValue(0);
+                if((int)quantitaFascicoloSpinner.getValue() > 9999) {   //controlla se il valore dello JSpinner 'quantitaFascicoloSpinner' è maggiore di 9999
+                    quantitaFascicoloSpinner.setValue(9999);    //imposta il valore di 'quantitaFascicoloSpinner' a 9999
+                }
+
+                if((int)quantitaFascicoloSpinner.getValue() < 0) {  //controlla se il valore dello JSpinner 'quantitaFascicoloSpinner' è minore di 0
+                    quantitaFascicoloSpinner.setValue(0);   //imposta il valore di 'quantitaFascicoloSpinner' a 0
+                }
             }
         });
 
@@ -1040,7 +1055,7 @@ public class AggiungiElementoForm {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                aggiungiArticoloBT.setBackground(Color.decode("#cf9e29"));
+                aggiungiArticoloBT.setBackground(Color.decode("#cf9e29"));  //imposta il colore dello sfondo del JButton 'aggiungiArticoloBT'
             }
         });
 
@@ -1048,7 +1063,7 @@ public class AggiungiElementoForm {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                aggiungiArticoloBT.setBackground(Color.decode("#FFD369"));
+                aggiungiArticoloBT.setBackground(Color.decode("#FFD369"));  //imposta il colore dello sfondo del JButton 'aggiungiArticoloBT'
             }
         });
 
@@ -1056,68 +1071,67 @@ public class AggiungiElementoForm {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                articoliFascicoliCount++;
-                initComponentsArticoli(controller);
-                articoliPanel.revalidate();
-                articoliPanel.repaint();
+                articoliFascicoliCount++;   //incrementa il numero di articoli nel fascicolo che si sta inserendo
+                initComponentsArticoli(controller); //inizializza tutti i componenti necessari per inserire gli articoli del fascicolo
+                articoliPanel.revalidate(); //aggiorna il contenuto del JPanel 'articoliPanel'
+                articoliPanel.repaint();    //ridisegna il JPanel 'articoliPanel'
             }
         });
 
-        for (int i = 0; i < controller.listaRiviste.size(); i++) {
-            titoloRivistaCB.addItem(controller.listaRiviste.get(i).titolo);
+        for (int i = 0; i < controller.listaRiviste.size(); i++) {   //scorre la lista di tutte le riviste
+            titoloRivistaCB.addItem(controller.listaRiviste.get(i).titolo); //aggiunge nel menu del JComboBox 'titoloRivistaCB' il titolo dell'i-esima rivista
         }
 
-        titoloRivistaCB.setSelectedIndex(-1);
+        titoloRivistaCB.setSelectedIndex(-1);   //deseleziona tutti gli elementi del menu del JComboBox 'titoloRivistaCB'
 
         titoloRivistaCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                titoloRivistaCB.getSelectedIndex();
-                if(titoloRivistaCB.getSelectedIndex() >= 0 && titoloRivistaCB.getSelectedIndex() <= controller.listaRiviste.size()){
-                    issnRivistaField.setText(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).issn);
-                    issnRivistaField.setEnabled(false);
+                if(titoloRivistaCB.getSelectedIndex() < 0 || titoloRivistaCB.getSelectedIndex() > controller.listaRiviste.size()){  //controlla se l'indice selezionato nel JComboBox 'titoloRivistaCB' non è in [0, controller.listaRiviste.size()]
+                    issnRivistaField.setText("");   //svuota il testo del JTextField 'issnRivistaField'
+                    issnRivistaField.setEnabled(true);  //abilita il JTextField 'issnRivistaField'
 
-                    argomentoRivistaField.setText(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).argomento);
-                    argomentoRivistaField.setEnabled(false);
+                    argomentoRivistaField.setText("");  //svuota il testo del JTextField 'argomentoRivistaField'
+                    argomentoRivistaField.setEnabled(true); //abilita il JTextField 'argomentoRivistaField'
 
-                    nomeRField.setText(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).responsabile.substring(0,controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).responsabile.indexOf('#')));
-                    nomeRField.setEnabled(false);
+                    nomeRField.setText(""); //svuota il testo del JTextField 'nomeRField'
+                    nomeRField.setEnabled(true);    //abilita il JTextField 'nomeRField'
 
-                    cognomeRField.setText(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).responsabile.substring(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).responsabile.indexOf('#')+1, controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).responsabile.length()));
-                    cognomeRField.setEnabled(false);
+                    cognomeRField.setText("");  //svuota il testo del JTextField 'cognomeRField'
+                    cognomeRField.setEnabled(true); //abilita il JTextField 'cognomeRField'
 
-                    editoreRivistaField.setText(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).editore);
-                    editoreRivistaField.setEnabled(false);
+                    editoreRivistaField.setText("");    //svuota il testo del JTextField 'editoreRivistaField'
+                    editoreRivistaField.setEnabled(true);   //abilita il JTextField 'editoreRivistaField'
 
-                    annoPrivistaSpinner.setValue(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).annoPubblicazione);
-                    annoPrivistaSpinner.setEnabled(false);
-                    numeroFascicoloCB.removeAllItems();
+                    annoPrivistaSpinner.setValue(Year.now().getValue());    //imposta il valore dello JSpinner 'annoPrivistaSpinner'
+                    annoPrivistaSpinner.setEnabled(true);   //abilita lo JSpinner 'annoPrivistaSpinner'
+                } else {
+                    issnRivistaField.setText(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).issn); //imposta il testo del JTextField 'issnRivistaField' con il titolo della rivista selezionata
+                    issnRivistaField.setEnabled(false); //disabilita il JTextField 'issnRivistaField'
 
-                    controller.getFascicoliRivista((controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).issn));
+                    argomentoRivistaField.setText(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).argomento);   //imposta il testo del JTextField 'argomentoRivistaField' con l'argomento della rivista selezionata
+                    argomentoRivistaField.setEnabled(false);    //disabilita il JTextField 'argomentoRivistaField'
 
-                    for (int i = 0; i < controller.listaFascicoliRivista.size(); i++){
-                        numeroFascicoloCB.addItem(controller.listaFascicoliRivista.get(i).numero);
+                    nomeRField.setText(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).responsabile.substring(0,controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).responsabile.indexOf('#')));    //imposta il testo del JTextField 'nomeRField' con il nome della rivista selezionata
+                    nomeRField.setEnabled(false);   //disabilita il JTextField 'nomeRField'
+
+                    cognomeRField.setText(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).responsabile.substring(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).responsabile.indexOf('#')+1, controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).responsabile.length()));  //imposta il testo del JTextField 'cognomeRField' con il cognome della rivista selezionata
+                    cognomeRField.setEnabled(false);    //disabilita il JTextField 'cognomeRField'
+
+                    editoreRivistaField.setText(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).editore);   //imposta il testo del JTextField 'editoreRivistaField' con l'editore della rivista selezionata
+                    editoreRivistaField.setEnabled(false);  //disabilita il JTextField 'editoreRivistaField'
+
+                    annoPrivistaSpinner.setValue(controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).annoPubblicazione);    //imposta il valore dello JSpinner 'annoPrivistaSpinner' con l'anno di pubblicazione della rivista selezionata
+                    annoPrivistaSpinner.setEnabled(false);  //abilita lo JSpinner 'annoPrivistaSpinner'
+                    numeroFascicoloCB.removeAllItems(); //rimuove tutti gli elementi nel JComboBox 'numeroFascicoloCB'
+
+                    controller.getFascicoliRivista((controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).issn)); //inizializza 'controller.listaFascicoliRivista' contenente i fascicoli della rivista selezionata
+
+                    for (int i = 0; i < controller.listaFascicoliRivista.size(); i++){  //scorre la lista di tutti i fascicoli della rivista selezionata
+                         numeroFascicoloCB.addItem(controller.listaFascicoliRivista.get(i).numero); //aggiunge nel menu del JComboBox 'numeroFascicoloCB' il numero del i-esimo fscicolo  della rivista selezionata
                     }
 
-                    numeroFascicoloCB.setSelectedIndex(-1);
-                } else {
-                    issnRivistaField.setText("");
-                    issnRivistaField.setEnabled(true);
-
-                    argomentoRivistaField.setText("");
-                    argomentoRivistaField.setEnabled(true);
-
-                    nomeRField.setText("");
-                    nomeRField.setEnabled(true);
-
-                    cognomeRField.setText("");
-                    cognomeRField.setEnabled(true);
-
-                    editoreRivistaField.setText("");
-                    editoreRivistaField.setEnabled(true);
-
-                    annoPrivistaSpinner.setValue(Year.now().getValue());
-                    annoPrivistaSpinner.setEnabled(true);
+                    numeroFascicoloCB.setSelectedIndex(-1); //deseleziona tutti gli elementi del menu del JComboBox 'numeroFascicoloCB'
                 }
             }
         });
@@ -1125,21 +1139,20 @@ public class AggiungiElementoForm {
         numeroFascicoloCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                numeroFascicoloCB.getSelectedIndex();
-                if(numeroFascicoloCB.getSelectedIndex() >= 0 && numeroFascicoloCB.getSelectedIndex() <= controller.listaFascicoliRivista.size()){
-                    dpFascicoloField.setText(String.valueOf(controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex()).dataPubblicazione));
-                    dpFascicoloField.setEnabled(false);
+                if(numeroFascicoloCB.getSelectedIndex() >= 0 && numeroFascicoloCB.getSelectedIndex() <= controller.listaFascicoliRivista.size()){   //controlla se l'indice selezionato nel JComboBox 'numeroFascicoloCB'  è in [0,  controller.listaFascicoliRivista.size()]
+                    dpFascicoloField.setText(String.valueOf(controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex()).dataPubblicazione)); //imposta il testo del JTextField 'dpFascicoloField' con la data di pubblicazione del fascicolo selezionato
+                    dpFascicoloField.setEnabled(false); //disabilita il JTextField 'dpFascicoloField'
 
-                    calendarIssueIMG.setEnabled(false);
-                    articoliFascicoloLabel.setVisible(false);
-                    aggiungiArticoloBT.setVisible(false);
+                    calendarIssueIMG.setEnabled(false); //disabilita la JLabel 'calendarIssueIMG'
+                    articoliFascicoloLabel.setVisible(false);   //rende invisibile la JLabel 'articoliFascicoloLabel'
+                    aggiungiArticoloBT.setVisible(false);   //rende invisibile il JButton 'aggiungiArticoloBT'
                 } else {
-                    dpFascicoloField.setText("");
-                    dpFascicoloField.setEnabled(true);
+                    dpFascicoloField.setText("");   //svuota il testo del JTextField 'dpFascicoloField'
+                    dpFascicoloField.setEnabled(true);  //abilita il JTextField 'dpFascicoloField'
 
-                    calendarIssueIMG.setEnabled(true);
-                    articoliFascicoloLabel.setVisible(true);
-                    aggiungiArticoloBT.setVisible(true);
+                    calendarIssueIMG.setEnabled(true);  //abilita la JLabel 'calendarIssueIMG'
+                    articoliFascicoloLabel.setVisible(true);    //rende visibile la JLabel 'articoliFascicoloLabel'
+                    aggiungiArticoloBT.setVisible(true);    //rende visibile il JButton 'aggiungiArticoloBT'
                 }
             }
         });
@@ -1148,73 +1161,70 @@ public class AggiungiElementoForm {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if (titoloRivistaCB.getSelectedItem() == null || titoloRivistaCB.getSelectedItem().equals("")) {
-                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Seleziona o crea una Rivista!");
+
+                if (titoloRivistaCB.getSelectedItem() == null || titoloRivistaCB.getSelectedItem().equals("")) {    //controlla se non è stata selezionata nessuna rivista oppure non è stato inserito nessun titolo
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Seleziona o crea una Rivista!"); //mostra un messaggio di errore
                 } else {
-                    if (issnRivistaField.getText().isBlank() || nomeRField.getText().isBlank() || cognomeRField.getText().isBlank() || editoreRivistaField.getText().isBlank() || argomentoRivistaField.getText().isBlank()) {
-                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");
+                    if (issnRivistaField.getText().isBlank() || nomeRField.getText().isBlank() || cognomeRField.getText().isBlank() || editoreRivistaField.getText().isBlank() || argomentoRivistaField.getText().isBlank()) {  //controlla se non è stato inserito uno dei campi obbligatori
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");  //mostra un messaggio di errore
                     } else {
-                        if (issnRivistaField.isEnabled() == true) {
-                            if (controller.creaRivista(titoloRivistaCB.getSelectedItem().toString().replace("'", "’"), issnRivistaField.getText(), argomentoRivistaField.getText().replace("'", "’"), nomeRField.getText().replace("'", "’"), cognomeRField.getText().replace("'", "’"), editoreRivistaField.getText().replace("'", "’"), (int) annoPrivistaSpinner.getValue()) == false) {
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa rivista è già presente");
+                        if (issnRivistaField.isEnabled() == false) {    //controlla se è stato disattivato il JTextField 'issnRivistaField'
+                            if (controller.creaRivista(titoloRivistaCB.getSelectedItem().toString().replace("'", "’"), issnRivistaField.getText(), argomentoRivistaField.getText().replace("'", "’"), nomeRField.getText().replace("'", "’"), cognomeRField.getText().replace("'", "’"), editoreRivistaField.getText().replace("'", "’"), (int) annoPrivistaSpinner.getValue()) == false) { //controlla se la rivista esiste già
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa rivista già esiste"); //mostra un messaggio di errore
                             } else {
-                                controller.listaRiviste.add(controller.nuovaRivista);
+                                controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());  //inizializza 'controller.nuovaRivista' con la rivista selezionata
 
-                                if (dpFascicoloField.isEnabled() == true) {
-                                    if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {
-                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
-                                        controller.eliminaRivista();
-                                    } else {
-                                        if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {
-                                            if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
-                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
-                                                controller.eliminaRivista();
-                                            } else {
-                                                if (takeArticoli(controller, true) == true) {
-                                                    controller.listaFascicoli.add(controller.nuovoFascicolo);
-
-                                                    inserimentoEaggiornamentoF(controller, model, true, frameC);
-                                                }
-                                            }
-                                        }else {
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");
-                                        }
-                                    }
-
-                                } else {
-                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));
+                                if (dpFascicoloField.isEnabled() == false) {    //controlla se è stato disattivato il JTextField 'dpFascicoloField'
+                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
 
                                     inserimentoEaggiornamentoF(controller, model, false, frameC);
+                                } else {
+                                    if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
+                                    } else {
+                                        if ((int) annoPrivistaSpinner.getValue() > Date.valueOf(dpFascicoloField.getText()).getYear() + 1900) {
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");
+                                        } else {
+                                            if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
+                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
+                                            } else {
+                                                if (takeArticoli(controller, false) == true) {
+                                                    controller.listaFascicoli.add(controller.nuovoFascicolo);
+
+                                                    inserimentoEaggiornamentoF(controller, model, false, frameC);
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         } else {
-                            controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());
+                            controller.listaRiviste.add(controller.nuovaRivista);
 
-                            if (dpFascicoloField.isEnabled() == true) {
-                                if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {
-                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
-
-                                } else {
-                                    if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {
-                                        if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
-                                        } else {
-                                            if (takeArticoli(controller, false) == true) {
-                                                controller.listaFascicoli.add(controller.nuovoFascicolo);
-
-                                                inserimentoEaggiornamentoF(controller, model, false, frameC);
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");
-                                    }
-                                }
-
-                            } else {
+                            if (dpFascicoloField.isEnabled() == false) {
                                 controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));
 
                                 inserimentoEaggiornamentoF(controller, model, false, frameC);
+                            } else {
+                                if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");
+                                    controller.eliminaRivista();
+                                } else {
+                                    if ((int) annoPrivistaSpinner.getValue() > Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");
+                                    }else {
+                                        if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è gia presente!!");
+                                            controller.eliminaRivista();
+                                        } else {
+                                            if (takeArticoli(controller, true) == true) {
+                                                controller.listaFascicoli.add(controller.nuovoFascicolo);
+
+                                                inserimentoEaggiornamentoF(controller, model, true, frameC);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -1226,6 +1236,7 @@ public class AggiungiElementoForm {
     private void inserimentoEaggiornamentoF(Controller controller, DefaultTableModel model, boolean nuova_rivista, JFrame frameC){
         if (controller.insertPossessoF((int) quantitaFascicoloSpinner.getValue(), fruizoneFascicoloCB.getSelectedItem().toString()) == false) {
             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa Fascicolo è già presente in Libreria");
+
             if (nuova_rivista == true){
                 controller.eliminaRivista();
             }
@@ -1285,6 +1296,7 @@ public class AggiungiElementoForm {
         String nazionalità = "";
         String dn = "";
         Component[] components = autoriLibroPanel.getComponents();
+
         for (Component component : components) {
             if (component instanceof JPanel) {
                 JPanel jPanel1 = (JPanel) component;
@@ -1292,7 +1304,9 @@ public class AggiungiElementoForm {
 
                 for (Component component2: components2){
                     if(component2 instanceof JTextField){
+
                         JTextField textField = (JTextField) component2;
+
                         switch (fieldCount){
                             case 0:
                                 nome = textField.getText();
@@ -1310,11 +1324,13 @@ public class AggiungiElementoForm {
                                 dn = textField.getText();
                                 fieldCount = 0;
                                 n_autori++;
+
                                 if (nome.isBlank() || cognome.isBlank()){
                                     return false;
                                 } else{
                                     controller.aggiungiAutoreLibro(nome.replace("'", "’"), cognome.replace("'", "’"), nazionalità, dn);
                                 }
+
                                 break;
                             default:
                                 fieldCount = 0;
@@ -1324,6 +1340,7 @@ public class AggiungiElementoForm {
                 }
             }
         }
+
         if (n_autori >= 1){
             return true;
         }
@@ -1332,7 +1349,9 @@ public class AggiungiElementoForm {
     }
 
     private boolean takeArticoli(Controller controller, boolean nuova_rivista) {
+
         Component[] components = articoliPanel.getComponents();
+
         for (Component component : components) {
             if (component instanceof JPanel) {
                 JPanel jPanel1 = (JPanel) component;
@@ -1341,16 +1360,25 @@ public class AggiungiElementoForm {
                 for (Component component2: components2){
                     if(component2 instanceof JComboBox){
                         JComboBox comboBox = (JComboBox) component2;
+
                         for (Component component3: components2){
                             if(component3 instanceof JSpinner){
                                 JSpinner spinner = (JSpinner) component3;
+
                                 for (Component component4: components2){
                                     if(component4 instanceof JPanel){
+
                                         JPanel jpanel2 = (JPanel) component4;
+
                                         if(comboBox.getSelectedItem() == null || comboBox.getSelectedItem().equals("")){
                                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Devi selezionare o creare un articolo!");
+
                                             controller.eliminaFascicolo();
-                                            if(nuova_rivista == true) controller.eliminaRivista();
+
+                                            if(nuova_rivista == true) {
+                                                controller.eliminaRivista();
+                                            }
+
                                             return false;
                                         } else {
                                             if (Date.valueOf(dpFascicoloField.getText()).getYear()+1900 >= (int) spinner.getValue()) {
@@ -1358,7 +1386,11 @@ public class AggiungiElementoForm {
                                                     if (takeAutoriArticolo(controller, jpanel2) == false) {
                                                         controller.eliminaArticolo();
                                                         controller.eliminaFascicolo();
-                                                        if (nuova_rivista == true) controller.eliminaRivista();
+
+                                                        if (nuova_rivista == true){
+                                                            controller.eliminaRivista();
+                                                        }
+
                                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo non ha autori!");
                                                         return false;
                                                     } else {
@@ -1371,7 +1403,11 @@ public class AggiungiElementoForm {
                                                 }
                                             } else {
                                                 controller.eliminaFascicolo();
-                                                if (nuova_rivista == true) controller.eliminaRivista();
+
+                                                if (nuova_rivista == true) {
+                                                    controller.eliminaRivista();
+                                                }
+
                                                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo è scritto dopo la pubblicazione del fascicolo!");
                                                 return false;
                                             }
@@ -1395,15 +1431,16 @@ public class AggiungiElementoForm {
         String nazionalità = "";
         String dn = "";
         Component[] components = panelArticolo.getComponents();
+
         for (Component component : components) {
             if (component instanceof JPanel) {
                 JPanel jPanel1 = (JPanel) component;
                 Component[] components2 = jPanel1.getComponents();
 
-
                 for (Component component2: components2){
                     if(component2 instanceof JTextField){
                         JTextField textField = (JTextField) component2;
+
                         switch (fieldCount){
                             case 0:
                                 nome = textField.getText();
@@ -1421,11 +1458,13 @@ public class AggiungiElementoForm {
                                 dn = textField.getText();
                                 fieldCount = 0;
                                 n_autori++;
+
                                 if (nome.isBlank() || cognome.isBlank()){
                                     return false;
                                 } else{
                                     controller.aggiungiAutoreArticolo(nome.replace("'", "’"), cognome.replace("'", "’"), nazionalità, dn);
                                 }
+
                                 break;
                             default:
                                 fieldCount = 0;
@@ -1451,6 +1490,7 @@ public class AggiungiElementoForm {
         String nazionalità = "";
         String dn = "";
         Component[] components = isbnSeriePanel.getComponents();
+
         for (Component component : components) {
             if (component instanceof JPanel) {
                 JPanel jPanel1 = (JPanel) component;
@@ -1459,6 +1499,7 @@ public class AggiungiElementoForm {
                 for (Component component2: components2){
                     if(component2 instanceof JComboBox){
                         JComboBox comboBox = (JComboBox) component2;
+
                         if(comboBox.getSelectedItem() == null) {
                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Aggiungere tutti gli isbn");
                             return null;
@@ -1473,8 +1514,12 @@ public class AggiungiElementoForm {
     }
 
     private void initComponentsISBNSerie(ArrayList<String> isbn, int ricorsive, Font fontbase, Font fontfield) {
-        if(ricorsive == 0) return;
+        if(ricorsive == 0) {
+            return;
+        }
+
         isbnLibroCount++;
+
         DefaultComboBoxModel model;
         JPanel panel1 = new JPanel();
         JLabel label2 = new JLabel();
@@ -1505,7 +1550,9 @@ public class AggiungiElementoForm {
             comboBox1.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
             comboBox1.setBackground(Color.decode("#FFD369"));
             comboBox1.setForeground(Color.decode("#222831"));
+
             Object comp = comboBox1.getUI().getAccessibleChild(comboBox1, 0);
+
             if(comp instanceof JPopupMenu){
                 JPopupMenu popup = (JPopupMenu) comp;
                 JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
@@ -1515,11 +1562,13 @@ public class AggiungiElementoForm {
             }
 
             Component editorComp = comboBox1.getEditor().getEditorComponent();
+
             if (editorComp instanceof JTextField) {
                 JTextField textField = (JTextField) editorComp;
                 textField.setBackground(new Color(0xFFD369));
                 textField.setForeground(new Color(0x222831));
             }
+
             comboBox1.setBorder(new LineBorder(Color.decode("#222831")));
             comboBox1.setSelectedIndex(-1);
 
@@ -1535,50 +1584,59 @@ public class AggiungiElementoForm {
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));
         }
+
         isbnSeriePanel.add(panel1);
         initComponentsISBNSerie(isbn, ricorsive-1, fontbase, fontfield);
     }
 
-        private void checkDuplicateSelection(int index, JComboBox comboBoxPanel) {
-            int countCombobox = 1;
-
-            Component[] components = isbnSeriePanel.getComponents();
-            for (Component component : components) {
-                if (component instanceof JPanel) {
-                    JPanel jPanel1 = (JPanel) component;
-                    Component[] components2 = jPanel1.getComponents();
-                    for (Component component2: components2){
-                        if(component2 instanceof JComboBox){
-                            JComboBox comboBox1 = (JComboBox) component2;
-                            if(!comboBox1.getName().equals(comboBoxPanel.getName())){
-                                if(index == comboBox1.getSelectedIndex()){
-                                    comboBoxPanel.setSelectedIndex(-1);
-                                }
-                            }
-                        }
-                        countCombobox++;
-                    }
-                }
-            }
-        }
-
-    private void checkDuplicateSelectionFascicoli(int index, JComboBox comboBoxPanel) {
+    private void checkDuplicateSelection(int index, JComboBox comboBoxPanel) {
         int countCombobox = 1;
 
-        Component[] components = articoliPanel.getComponents();
+        Component[] components = isbnSeriePanel.getComponents();
+
         for (Component component : components) {
             if (component instanceof JPanel) {
                 JPanel jPanel1 = (JPanel) component;
                 Component[] components2 = jPanel1.getComponents();
+
                 for (Component component2: components2){
                     if(component2 instanceof JComboBox){
                         JComboBox comboBox1 = (JComboBox) component2;
+
                         if(!comboBox1.getName().equals(comboBoxPanel.getName())){
                             if(index == comboBox1.getSelectedIndex()){
                                 comboBoxPanel.setSelectedIndex(-1);
                             }
                         }
                     }
+
+                    countCombobox++;
+                }
+            }
+        }
+    }
+
+    private void checkDuplicateSelectionFascicoli(int index, JComboBox comboBoxPanel) {
+        int countCombobox = 1;
+
+        Component[] components = articoliPanel.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof JPanel) {
+                JPanel jPanel1 = (JPanel) component;
+                Component[] components2 = jPanel1.getComponents();
+
+                for (Component component2: components2){
+                    if(component2 instanceof JComboBox){
+                        JComboBox comboBox1 = (JComboBox) component2;
+
+                        if(!comboBox1.getName().equals(comboBoxPanel.getName())){
+                            if(index == comboBox1.getSelectedIndex()){
+                                comboBoxPanel.setSelectedIndex(-1);
+                            }
+                        }
+                    }
+
                     countCombobox++;
                 }
             }
