@@ -1769,21 +1769,26 @@ public class AggiungiElementoForm {
             label3.setFont(controller.baseFontSize);    //imposta il font testo di 'label3'
             label3.setForeground(new Color(0xeeeeee));  //imposta il colore del testo di 'label3'
             panel1.add(label3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0)); //inserisce 'label3' in 'panel1'
-            
-            comboBox1.setFont(controller.textFieldFont);
-            comboBox1.setBackground(new Color(0xffd369));
-            Object comp = comboBox1.getUI().getAccessibleChild(comboBox1, 0);
+
+            comboBox1.setFont(controller.textFieldFont);    //imposta il fonto del testo del JComboBox 'comboBox1'
+            comboBox1.setBackground(new Color(0xffd369));   //imposta il colore dello sfondo del JComboBox 'comboBox1'
+
+            Object comp = comboBox1.getUI().getAccessibleChild(comboBox1, 0);   //ComboBoxUI del JComboBox 'comboBox1' per personalizzarlo
+
             if(comp instanceof JPopupMenu){
                 JPopupMenu popup = (JPopupMenu) comp;
                 JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+
                 scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
                 scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
                 scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
             }
 
             Component editorComp = comboBox1.getEditor().getEditorComponent();
+
             if (editorComp instanceof JTextField) {
                 JTextField textField = (JTextField) editorComp;
+
                 textField.setBackground(new Color(0xFFD369));
                 textField.setForeground(new Color(0x222831));
             }
@@ -1798,6 +1803,7 @@ public class AggiungiElementoForm {
             comboBox1.setSelectedIndex(-1);
             comboBox1.setEditable(true);
             comboBox1.setName(String.valueOf(articoliFascicoliCount));
+
             comboBox1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -1820,19 +1826,13 @@ public class AggiungiElementoForm {
                 }
             });
 
-            panel1.add(comboBox1, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+            panel1.add(comboBox1, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
 
-            //---- label6 ----
             label6.setText("Anno di pubblicazione:");
             label6.setFont(controller.baseFontSize);
             label6.setForeground(new Color(0xeeeeee));
-            panel1.add(label6, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 5), 0, 0));
+            panel1.add(label6, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
-            //---- spinner1 ----
             spinner1.setBackground(new Color(0xffd369));
             spinner1.setFont(controller.textFieldFont);
             SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1);
@@ -1841,8 +1841,10 @@ public class AggiungiElementoForm {
             spinner1.setBorder(new LineBorder(new Color(0xFFD369)));
 
             JComponent editor = spinner1.getEditor();
+
             if (editor instanceof JSpinner.DefaultEditor) {
                 JTextField textField = ((JSpinner.DefaultEditor) editor).getTextField();
+
                 textField.setForeground(new Color(0x222831));
                 textField.setBackground(new Color(0xFFD369));
                 textField.setBorder(new LineBorder(new Color(0x222831)));
@@ -1861,11 +1863,13 @@ public class AggiungiElementoForm {
                             return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                         }
                     };
+
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
                         }
                     });
+
                     button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
                     button.setBorder(new LineBorder(new Color(0xFFD369)));
                     return button;
@@ -1879,11 +1883,13 @@ public class AggiungiElementoForm {
                             return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                         }
                     };
+
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             spinner.setValue(spinner.getNextValue()); // Azione per incrementare il valore
                         }
                     });
+
                     button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
                     button.setBorder(new LineBorder(new Color(0xFFD369)));
                     return button;
@@ -1892,26 +1898,18 @@ public class AggiungiElementoForm {
 
             spinner1.setValue(Year.now().getValue());
 
-            panel1.add(spinner1, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+            panel1.add(spinner1, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
 
-            //---- label4 ----
             label4.setText("Autori:");
             label4.setFont(controller.baseFontSize);
             label4.setForeground(new Color(0xeeeeee));
-            panel1.add(label4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 5), 0, 0));
+            panel1.add(label4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
-            //---- button1 ----
             button1.setText("Aggiungi");
             button1.setFont(controller.baseFontSize);
             button1.setBackground(new Color(0xffd369));
             button1.setBorderPainted(false);
-            panel1.add(button1, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 5), 0, 0));
+            panel1.add(button1, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
             button1.addActionListener(new ActionListener() {
                 @Override
@@ -1922,18 +1920,18 @@ public class AggiungiElementoForm {
                 }
             });
 
-            //======== panel2 ========
             {
                 panel2.setBackground(new Color(0x222831));
                 panel2.setLayout(new GridLayout(1, 2, 15, 15));
                 panel2.setName("pannello " + articoliFascicoliCount);
 
             }
-            panel1.add(panel2, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 0), 0, 0));
+
+            panel1.add(panel2, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
         }
+
         GridBagConstraints constraints = new GridBagConstraints();
+
         constraints.gridx = 0; // Colonna 1
         constraints.gridy = (articoliFascicoliCount-1); // Riga 0
         articoliPanel.add(panel1, constraints);
@@ -1952,7 +1950,6 @@ public class AggiungiElementoForm {
         JLabel label7 = new JLabel();
         JTextField textField6 = new JTextField();
 
-        //======== panel1 ========
         {
             panel1.setBackground(new Color(0x222831));
             panel1.setMinimumSize(new Dimension(-1, -1));
@@ -1963,80 +1960,55 @@ public class AggiungiElementoForm {
             ((GridBagLayout)panel1.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
             ((GridBagLayout)panel1.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
-            //---- label2 ----
             label2.setText("Autore:");
             label2.setFont(fontbase);
             label2.setForeground(new Color(0xeeeeee));
-            panel1.add(label2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 5), 0, 0));
+            panel1.add(label2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
-            //---- label3 ----
             label3.setText("Nome:");
             label3.setFont(fontbase);
             label3.setForeground(new Color(0xeeeeee));
-            panel1.add(label3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 5), 0, 0));
+            panel1.add(label3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
-            //---- textField3 ----
             textField3.setFont(fontfield);
             textField3.setBackground(new Color(0xffd369));
             textField3.setBorder(new LineBorder(new Color(0xffd369)));
             textField3.setCaretColor(new Color(0x222831));
             textField3.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
             textField3.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
-            panel1.add(textField3, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+            panel1.add(textField3, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
 
-            //---- label4 ----
             label4.setText("Cognome:");
             label4.setFont(fontbase);
             label4.setForeground(new Color(0xeeeeee));
-            panel1.add(label4, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 5), 0, 0));
+            panel1.add(label4, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
-            //---- textField4 ----
             textField4.setBackground(new Color(0xffd369));
             textField4.setFont(fontfield);
             textField4.setCaretColor(new Color(0x222831));
             textField4.setBorder(new LineBorder(new Color(0xffd369)));
             textField4.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
             textField4.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
-            panel1.add(textField4, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+            panel1.add(textField4, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
 
-            //---- label5 ----
             label5.setText("Nazionalit\u00e0:");
             label5.setFont(fontbase);
             label5.setForeground(new Color(0xeeeeee));
-            panel1.add(label5, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 5), 0, 0));
+            panel1.add(label5, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
-            //---- textField5 ----
             textField5.setBackground(new Color(0xffd369));
             textField5.setFont(fontfield);
             textField5.setBorder(new LineBorder(new Color(0xffd369)));
             textField5.setCaretColor(new Color(0x222831));
             textField5.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
             textField5.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
-            panel1.add(textField5, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+            panel1.add(textField5, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
 
-            //---- label6 ----
             label6.setText("Data di Nascita:");
             label6.setFont(fontbase);
             label6.setForeground(new Color(0xeeeeee));
-            panel1.add(label6, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 5), 0, 0));
+            panel1.add(label6, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
 
-            //---- label7 ----
             label7.setIcon(new ImageIcon(calendarImg));
 
             DatePicker datePicker = new DatePicker(label7);
@@ -2049,20 +2021,15 @@ public class AggiungiElementoForm {
                 }
             });
 
-            panel1.add(label7, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+            panel1.add(label7, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
 
-            //---- textField6 ----
             textField6.setBackground(new Color(0xffd369));
             textField6.setCaretColor(new Color(0x222831));
             textField6.setBorder(new LineBorder(new Color(0xffd369)));
             textField6.setFont(fontfield);
             textField6.setMinimumSize(new Dimension((int)(screenWidth/8.5), calcolaAltezzaFont(label6.getFont())));
             textField6.setPreferredSize(new Dimension((int)(screenWidth/8.5),calcolaAltezzaFont(label6.getFont())));
-            panel1.add(textField6, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 0), 0, 0));
+            panel1.add(textField6, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
         }
             panelC.setLayout(new GridLayout(-1, 2, 15, 15));
             panelC.add(panel1);
@@ -2079,13 +2046,10 @@ public class AggiungiElementoForm {
         closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
 
-
-        // LIBRO //
         linguaLibroCB = new JComboBox<>();
         linguaLibroCB.setBackground(Color.decode("#FFD369"));
         linguaLibroCB.setForeground(Color.decode("#222831"));
         linguaLibroCB.setBorder(new LineBorder(Color.decode("#222831")));
-
 
         isbnLibroCB = new JComboBox<>();
         isbnLibroCB.setBackground(Color.decode("#FFD369"));
@@ -2113,14 +2077,15 @@ public class AggiungiElementoForm {
 
         autoriLibroPanel = new JPanel();
         autoriLibroPanel.setLayout(new GridLayout(-1, 2, (int) (screenWidth/85.33), screenHeight/48));
-        //autoriLibroPanel.setLayout(new BoxLayout(autoriLibroPanel, BoxLayout.PAGE_AXIS));
 
         SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1);
+
         quantitaLibroSpinner = new JSpinner(snm);
 
         quantitaLibroSpinner.setBorder(new LineBorder(new Color(0xFFD369)));
 
         JComponent editor = quantitaLibroSpinner.getEditor();
+
         if (editor instanceof JSpinner.DefaultEditor) {
             JTextField textField = ((JSpinner.DefaultEditor) editor).getTextField();
             textField.setForeground(new Color(0x222831));
@@ -2142,11 +2107,13 @@ public class AggiungiElementoForm {
                         return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
+
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
                     }
                 });
+
                 button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
                 button.setBorder(new LineBorder(new Color(0xFFD369)));
                 return button;
@@ -2160,18 +2127,19 @@ public class AggiungiElementoForm {
                         return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
+
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         spinner.setValue(spinner.getNextValue()); // Azione per incrementare il valore
                     }
                 });
+
                 button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
                 button.setBorder(new LineBorder(new Color(0xFFD369)));
                 return button;
             }
         });
 
-        // SERIE //
         isbnSerieField = new JTextField();
         isbnSerieField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
 
@@ -2195,6 +2163,7 @@ public class AggiungiElementoForm {
         spinnerLibriSerie.setBorder(new LineBorder(new Color(0xFFD369)));
 
         JComponent editor2 = spinnerLibriSerie.getEditor();
+
         if (editor2 instanceof JSpinner.DefaultEditor) {
             JTextField textField = ((JSpinner.DefaultEditor) editor2).getTextField();
             textField.setForeground(new Color(0x222831));
@@ -2216,11 +2185,13 @@ public class AggiungiElementoForm {
                         return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
+
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
                     }
                 });
+
                 button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
                 button.setBorder(new LineBorder(new Color(0xFFD369)));
                 return button;
@@ -2234,18 +2205,18 @@ public class AggiungiElementoForm {
                         return new Dimension((int) (screenWidth/85.33), screenHeight/48);
                     }
                 };
+
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         spinner.setValue(spinner.getNextValue()); // Azione per incrementare il valore
                     }
                 });
+
                 button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
                 button.setBorder(new LineBorder(new Color(0xFFD369)));
                 return button;
             }
         });
-
-        // RIVISTA //
 
         titoloRivistaCB = new JComboBox<>();
         titoloRivistaCB.setBackground(Color.decode("#FFD369"));
