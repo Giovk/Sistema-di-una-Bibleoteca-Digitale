@@ -602,7 +602,7 @@ CREATE OR REPLACE FUNCTION controllo_modificaRivista() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER:=0;
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false AND LENGTH(NEW.ISSN)!=9 THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
         UPDATE RIVISTA
         SET ISSN=OLD.ISSN
         WHERE ISSN=NEW.ISSN;
@@ -844,7 +844,7 @@ DECLARE
         FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS PR
         WHERE PR.DataP<L.DataPubblicazione AND L.ISBN=NEW.ISBN;
 BEGIN
-    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISBN)=false AND LENGTH(NEW.ISBN)!=17 THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
         UPDATE LIBRO
         SET ISBN=OLD.ISBN
         WHERE ISBN=NEW.ISBN;
@@ -1207,7 +1207,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false AND LENGTH(NEW.ISSN)!=9 THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
         DELETE FROM RIVISTA
         WHERE ISSN=NEW.ISSN;
 
@@ -1225,7 +1225,7 @@ CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
 CREATE OR REPLACE FUNCTION controllo_inserimentoCollana() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false AND LENGTH(NEW.ISSN)!=9 THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
         DELETE FROM COLLANA
         WHERE ISSN=NEW.ISSN;
 
@@ -1244,7 +1244,7 @@ CREATE TRIGGER T_inserimentoCollana AFTER INSERT ON COLLANA
 CREATE OR REPLACE FUNCTION controllo_modificaCollana() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false AND LENGTH(NEW.ISSN)!=9 THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
         UPDATE COLLANA
         SET ISSN=OLD.ISSN
         WHERE ISSN=NEW.ISSN;
@@ -1264,7 +1264,7 @@ CREATE TRIGGER T_modificaCollana AFTER UPDATE OF ISSN ON COLLANA
 CREATE OR REPLACE FUNCTION controllo_inserimentoLibro() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISBN)=false AND LENGTH(NEW.ISBN)!=17 THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
         DELETE FROM LIBRO
         WHERE ISBN=NEW.ISBN;
 
@@ -1282,7 +1282,7 @@ CREATE TRIGGER T_inserimentoLibro AFTER INSERT ON LIBRO
 CREATE OR REPLACE FUNCTION controllo_inserimentoSerie() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISBN)=false AND LENGTH(NEW.ISBN)!=17 THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
         DELETE FROM SERIE
         WHERE ISBN=NEW.ISBN;
 
@@ -1300,7 +1300,7 @@ CREATE TRIGGER T_inserimentoSerie AFTER INSERT ON SERIE
 CREATE OR REPLACE FUNCTION controllo_modificaSerie() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISBN)=false AND LENGTH(NEW.ISBN)!=17 THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
         UPDATE SERIE
         SET ISBN=OLD.ISBN
         WHERE ISBN=NEW.ISBN;
