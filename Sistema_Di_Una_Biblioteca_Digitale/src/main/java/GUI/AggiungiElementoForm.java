@@ -1194,7 +1194,7 @@ public class AggiungiElementoForm {
                                         }
                                     }
                                 } else {
-                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
+                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex());  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
                                     inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
                                 }
                             }
@@ -1220,7 +1220,7 @@ public class AggiungiElementoForm {
                                     }
                                 }
                             } else {
-                                controller.nuovoFascicolo = controller.listaFascicoliRivista.get(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()));  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
+                                controller.nuovoFascicolo = controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex());  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
                                 inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
                             }
                         }
