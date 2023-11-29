@@ -116,6 +116,7 @@ public class GestisciCollane {
                 annullaButton.setBackground(Color.decode("#cf9e29"));
             }
         });
+
         annullaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -148,6 +149,7 @@ public class GestisciCollane {
                 inviaButton.setBackground(Color.decode("#cf9e29"));
             }
         });
+
         inviaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -155,45 +157,50 @@ public class GestisciCollane {
                 inviaButton.setBackground(Color.decode("#FFD369"));
             }
         });
+
         inviaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if (!caratteristicaField.getText().isBlank()) {
-                    if (!nomeField.getText().isBlank()) {
-                        if (controller.creaCollana(nomeField.getText().replace("'", "’"), caratteristicaField.getText().replace("'", "’"), issnField.getText()) == true) {
-                            inviaButton.setVisible(false);
-                            collaneEsistentiPanel.setVisible(true);
-                            collaneNuovePanel.setVisible(false);
-                            annullaButton.setVisible(false);
-                            creaCollanaButton.setEnabled(true);
-                            nomeField.setText("");
-                            issnField.setText("");
-                            caratteristicaField.setText("");
+                if(!(controller.verificaISSN(issnField.getText()))) {
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "ISSN non valido");   //mostra un messaggio di errore
+                }else{
+                    if (!caratteristicaField.getText().isBlank()) {
+                        if (!nomeField.getText().isBlank()) {
+                            if (controller.creaCollana(nomeField.getText().replace("'", "’"), caratteristicaField.getText().replace("'", "’"), issnField.getText()) == true) {
+                                inviaButton.setVisible(false);
+                                collaneEsistentiPanel.setVisible(true);
+                                collaneNuovePanel.setVisible(false);
+                                annullaButton.setVisible(false);
+                                creaCollanaButton.setEnabled(true);
+                                nomeField.setText("");
+                                issnField.setText("");
+                                caratteristicaField.setText("");
 
-                            collaneEsistentiPanel.removeAll();
+                                collaneEsistentiPanel.removeAll();
 
-                            for (int i = 0; i < controller.listaCollane.size(); i++) {
-                                boolean presenza = false;
-                                for (int j = 0; j < controller.listaCollane.get(i).libri.size(); j++) {
-                                    if (controller.listaCollane.get(i).libri.get(j).isbn.equals(controller.isbn_selected)) {
-                                        presenza = true;
+                                for (int i = 0; i < controller.listaCollane.size(); i++) {
+                                    boolean presenza = false;
+                                    for (int j = 0; j < controller.listaCollane.get(i).libri.size(); j++) {
+                                        if (controller.listaCollane.get(i).libri.get(j).isbn.equals(controller.isbn_selected)) {
+                                            presenza = true;
+                                        }
                                     }
+                                    collaneLibroCount++;
+                                    initCollaneExist(controller.listaCollane.get(i).nome, presenza, controller);
                                 }
-                                collaneLibroCount++;
-                                initCollaneExist(controller.listaCollane.get(i).nome, presenza, controller);
-                            }
 
-                            contentPane.revalidate();
-                            contentPane.repaint();
+                                contentPane.revalidate();
+                                contentPane.repaint();
+                            } else {
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Collana già presente nel Database.");
+                            }
                         } else {
-                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Collana già presente nel Database.");
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obligatori.");
                         }
                     } else {
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obligatori.");
                     }
-                } else {
-                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obligatori.");
                 }
             }
         });
