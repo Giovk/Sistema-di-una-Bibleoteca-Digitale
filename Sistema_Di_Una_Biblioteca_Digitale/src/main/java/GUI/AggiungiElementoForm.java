@@ -571,114 +571,118 @@ public class AggiungiElementoForm {
                     if (titoloLibroField.getText().isBlank() || linguaLibroCB.getSelectedItem() == null || linguaLibroCB.getSelectedItem().equals("") || editoreLibroField.getText().isBlank() || genereLibroField.getText().isBlank() || dataLibroField.getText().isBlank()){  //controlla se non è stato inserito uno dei campi obbligatori
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");  //mostra un messaggio di errore
                     } else {
-                        if (titoloLibroField.isEnabled() == false) {    //controlla se è stato disabilitato il JTextField 'titoloLibroField'
-                            controller.nuovoLibro = controller.listaLibri.get(isbnLibroCB.getSelectedIndex());  //inizializza 'controller.nuovoLibro' con il libro selezionato
+                        if(controller.verificaISBN(isbnLibroCB.getSelectedItem().toString())==false) {
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "ISBN non valido!");  //mostra un messaggio di errore
+                        }else {
+                            if (titoloLibroField.isEnabled() == false) {    //controlla se è stato disabilitato il JTextField 'titoloLibroField'
+                                controller.nuovoLibro = controller.listaLibri.get(isbnLibroCB.getSelectedIndex());  //inizializza 'controller.nuovoLibro' con il libro selezionato
 
-                            if(controller.insertPossessoL((int) quantitaLibroSpinner.getValue(), fruizioneLibroCB.getSelectedItem().toString()) == false){  //controlla se il libro è già posseduto dalla libreria
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro è già presente in Libreria");   //mostra un messaggio di errore
-                            } else {
-                                model.setRowCount(0);   //rimuove tutte le righe della tabella
-
-                                controller.getPossessoLibreria();   //aggiorna le ArrayList contenenti gli elementi posseduti dalla libreria
-
-                                if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se la libreria possiede dei libri
-                                    for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria
-                                        if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) {    //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                                        } else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0){   //controlla se l'i-esimo libro non è disponibile
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
-                                        } else {
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
-                                        }
-                                    }
-                                }
-
-                                if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se la libreria possiede delle serie
-                                    for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria
-                                        if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) {    //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                                        } else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0){   //controlla se l'i-esima serie non è disponibile
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
-                                        } else {
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
-                                        }
-                                    }
-                                }
-
-                                if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se la libreria possiede dei fascicoli
-                                    for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria
-                                        if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
-                                        } else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0){   //controlla se l'i-esimo fascicolo non è disponibile
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                                        } else {
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
-                                        }
-                                    }
-                                }
-
-                                frame.setVisible(false);    //rende invisibile il frame
-                                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
-                                frame.dispose();
-                                frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
-                            }
-                        } else {
-                            if (controller.creaLibro(isbnLibroCB.getSelectedItem().toString(), titoloLibroField.getText().replace("'", "’"), genereLibroField.getText().replace("'", "’"), linguaLibroCB.getSelectedItem().toString(), editoreLibroField.getText().replace("'", "’"), dataLibroField.getText()) == false) { //controlla se il libro esiste già
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro già esiste");   //mostra un messaggio di errore
-                            } else {
-                                if (takeAutoriLibro(controller) == false) { //controlla se non sono stati inseriti degli autori al nuovo libro
-                                    controller.eliminaLibro();  //elimina il nuovo libro
-                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro non ha autori");    //mostra un messaggio di errore
+                                if (controller.insertPossessoL((int) quantitaLibroSpinner.getValue(), fruizioneLibroCB.getSelectedItem().toString()) == false) {  //controlla se il libro è già posseduto dalla libreria
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro è già presente in Libreria");   //mostra un messaggio di errore
                                 } else {
-                                    controller.listaLibri.add(controller.nuovoLibro);   //aggiunge il nuovo libro nell'ArrayList dei libri
+                                    model.setRowCount(0);   //rimuove tutte le righe della tabella
 
-                                    if(controller.insertPossessoL((int) quantitaLibroSpinner.getValue(), fruizioneLibroCB.getSelectedItem().toString()) == false){  //controlla se il libro è già posseduto dalla libreria
-                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro è già presente nell libreria");   //mostra un messaggio di errore
+                                    controller.getPossessoLibreria();   //aggiorna le ArrayList contenenti gli elementi posseduti dalla libreria
+
+                                    if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se la libreria possiede dei libri
+                                        for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria
+                                            if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) {    //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                            } else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) {   //controlla se l'i-esimo libro non è disponibile
+                                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                            } else {
+                                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                            }
+                                        }
+                                    }
+
+                                    if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se la libreria possiede delle serie
+                                        for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria
+                                            if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) {    //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                            } else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) {   //controlla se l'i-esima serie non è disponibile
+                                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                            } else {
+                                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                            }
+                                        }
+                                    }
+
+                                    if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se la libreria possiede dei fascicoli
+                                        for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria
+                                            if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) { //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                            } else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) {   //controlla se l'i-esimo fascicolo non è disponibile
+                                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                            } else {
+                                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
+                                            }
+                                        }
+                                    }
+
+                                    frame.setVisible(false);    //rende invisibile il frame
+                                    frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+                                    frame.dispose();
+                                    frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
+                                }
+                            } else {
+                                if (controller.creaLibro(isbnLibroCB.getSelectedItem().toString(), titoloLibroField.getText().replace("'", "’"), genereLibroField.getText().replace("'", "’"), linguaLibroCB.getSelectedItem().toString(), editoreLibroField.getText().replace("'", "’"), dataLibroField.getText()) == false) { //controlla se il libro esiste già
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro già esiste");   //mostra un messaggio di errore
+                                } else {
+                                    if (takeAutoriLibro(controller) == false) { //controlla se non sono stati inseriti degli autori al nuovo libro
+                                        controller.eliminaLibro();  //elimina il nuovo libro
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro non ha autori");    //mostra un messaggio di errore
                                     } else {
-                                        model.setRowCount(0);   //rimuove tutte le righe della tabella
+                                        controller.listaLibri.add(controller.nuovoLibro);   //aggiunge il nuovo libro nell'ArrayList dei libri
 
-                                        controller.getPossessoLibreria();   //aggiorna le ArrayList contenenti gli elementi posseduti dalla libreria
+                                        if (controller.insertPossessoL((int) quantitaLibroSpinner.getValue(), fruizioneLibroCB.getSelectedItem().toString()) == false) {  //controlla se il libro è già posseduto dalla libreria
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa libro è già presente nell libreria");   //mostra un messaggio di errore
+                                        } else {
+                                            model.setRowCount(0);   //rimuove tutte le righe della tabella
 
-                                        if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se la libreria possiede dei libri
-                                            for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria
-                                                if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
-                                                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                                                } else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0){   //controlla se l'i-esimo libro non è disponibile
-                                                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
-                                                } else {
-                                                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita , controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                            controller.getPossessoLibreria();   //aggiorna le ArrayList contenenti gli elementi posseduti dalla libreria
+
+                                            if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se la libreria possiede dei libri
+                                                for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria
+                                                    if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) { //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                                                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                                    } else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) {   //controlla se l'i-esimo libro non è disponibile
+                                                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                                    } else {
+                                                        model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                                    }
                                                 }
                                             }
-                                        }
 
-                                        if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se la libreria possiede delle serie
-                                            for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria
-                                                if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) {    //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
-                                                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                                                } else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) {  //controlla se l'i-esima serie non è disponibile
-                                                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
-                                                } else{
-                                                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita , controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                            if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se la libreria possiede delle serie
+                                                for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria
+                                                    if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) {    //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                                                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                                    } else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) {  //controlla se l'i-esima serie non è disponibile
+                                                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                                    } else {
+                                                        model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                                    }
                                                 }
                                             }
-                                        }
 
-                                        if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se la libreria possiede dei fascicoli
-                                            for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria
-                                                if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
-                                                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
-                                                } else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) {  //controlla se l'i-esimo fascicolo non è disponibile
-                                                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                                                } else{
-                                                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                            if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se la libreria possiede dei fascicoli
+                                                for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria
+                                                    if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) { //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                                                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                                    } else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) {  //controlla se l'i-esimo fascicolo non è disponibile
+                                                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                                    } else {
+                                                        model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                                    }
                                                 }
                                             }
-                                        }
 
-                                        frame.setVisible(false);    //rende invisibile il frame
-                                        frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
-                                        frame.dispose();
-                                        frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
+                                            frame.setVisible(false);    //rende invisibile il frame
+                                            frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+                                            frame.dispose();
+                                            frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
+                                        }
                                     }
                                 }
                             }
@@ -836,72 +840,76 @@ public class AggiungiElementoForm {
                 if(isbnSerieField.getText().isBlank() || titoloSerieField.getText().isBlank() || dataSerieField.getText().isBlank()) {  //controlla se almeno uno dei campi non è stato compilato
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");   //mostra un messaggio di errore
                 } else {
-                    ArrayList<String> libriISBN = takeISBN();   //ISBN dei libri della serie che si sta inserendo
+                    if(controller.verificaISBN(isbnSerieField.getText())==false) {
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "ISBN non valido");   //mostra un messaggio di errore
+                    } else {
+                        ArrayList<String> libriISBN = takeISBN();   //ISBN dei libri della serie che si sta inserendo
 
-                    if (libriISBN != null) {    //controlla se è stata inizializzata 'libriISBN'
-                        boolean error = false;  //flag di errore
-                        int h = 0;  //contatore
+                        if (libriISBN != null) {    //controlla se è stata inizializzata 'libriISBN'
+                            boolean error = false;  //flag di errore
+                            int h = 0;  //contatore
 
-                        while (error == false && h < libriISBN.size()) {    //scorre 'libriISBN'
-                            if (controller.getDataLibro(libriISBN.get(h)).after(Date.valueOf(dataSerieField.getText())) == true) {  //controlla se il libro h-esimo è stato pubblicato dopo la serie
-                                error = true;   //segnala l'errore
+                            while (error == false && h < libriISBN.size()) {    //scorre 'libriISBN'
+                                if (controller.getDataLibro(libriISBN.get(h)).after(Date.valueOf(dataSerieField.getText())) == true) {  //controlla se il libro h-esimo è stato pubblicato dopo la serie
+                                    error = true;   //segnala l'errore
+                                }
+
+                                h++;    //incrementa il contatore
                             }
 
-                            h++;    //incrementa il contatore
-                        }
-
-                        if (error == true) {    //controlla se c'è qualche libro pubblicato dopo la serie
-                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Uno o più libri sono pubblicati dopo la serie"); //mostra un messaggio d'errore
-                        } else {
-                            if (controller.creaSerie(libriISBN, isbnSerieField.getText().toString(), titoloSerieField.getText().toString().replace("'", "’"), dataSerieField.getText().toString()) == false) {  //controlla se la serie esiste già
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa serie già esiste");   //mostra un messaggio d'errore
+                            if (error == true) {    //controlla se c'è qualche libro pubblicato dopo la serie
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Uno o più libri sono pubblicati dopo la serie"); //mostra un messaggio d'errore
                             } else {
-                                controller.listaSerie.add(controller.nuovoSerie);   //aggiunge la nuova serue nell'ArrayList delle serie
+                                if (controller.creaSerie(libriISBN, isbnSerieField.getText().toString(), titoloSerieField.getText().toString().replace("'", "’"), dataSerieField.getText().toString()) == false) {  //controlla se la serie esiste già
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa serie già esiste");   //mostra un messaggio d'errore
+                                } else {
+                                    controller.listaSerie.add(controller.nuovoSerie);   //aggiunge la nuova serue nell'ArrayList delle serie
 
-                                model.setRowCount(0);   //rimuove tutte le righe della tabella
+                                    model.setRowCount(0);   //rimuove tutte le righe della tabella
 
-                                controller.getPossessoLibreria();   //aggiorna le ArrayList contenenti gli elementi posseduti dalla libreria
+                                    controller.getPossessoLibreria();   //aggiorna le ArrayList contenenti gli elementi posseduti dalla libreria
 
-                                if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se la libreria possiede dei libri
-                                    for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria
-                                        if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                                        }else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) {  //controlla se l'i-esimo libro non è disponibile
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
-                                        }else {
-                                            model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                    if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se la libreria possiede dei libri
+                                        for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria
+                                            if (controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                            } else if (controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) {  //controlla se l'i-esimo libro non è disponibile
+                                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile", controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                            } else {
+                                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                            }
                                         }
                                     }
-                                }
 
-                                if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se la libreria possiede delle serie
-                                    for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria
-                                        if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) { //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                                        }else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) { //controlla se l'i-esima serie non è disponibile
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
-                                        }else {
-                                            model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                    if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se la libreria possiede delle serie
+                                        for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria
+                                            if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) { //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                                            } else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) { //controlla se l'i-esima serie non è disponibile
+                                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                            } else {
+                                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                                            }
                                         }
                                     }
-                                }
 
-                                if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se la libreria possiede dei fascicoli
-                                    for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria
-                                        if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
-                                        }else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) {  //controlla se l'i-esimo fascicolo non è disponibile
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
-                                        }else {
-                                            model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
+                                    if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se la libreria possiede dei fascicoli
+                                        for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria
+                                            if (controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                                            } else if (controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) {  //controlla se l'i-esimo fascicolo non è disponibile
+                                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile", controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
+                                            } else {
+                                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
+                                            }
                                         }
                                     }
-                                }
 
-                                frame.setVisible(false);    //rende invisibile il frame
-                                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
-                                frame.dispose();
-                                frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
+                                    frame.setVisible(false);    //rende invisibile il frame
+                                    frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+                                    frame.dispose();
+                                    frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
+                                }
                             }
                         }
                     }
@@ -1168,62 +1176,65 @@ public class AggiungiElementoForm {
                     if (issnRivistaField.getText().isBlank() || nomeRField.getText().isBlank() || cognomeRField.getText().isBlank() || editoreRivistaField.getText().isBlank() || argomentoRivistaField.getText().isBlank()) {  //controlla se non è stato inserito uno dei campi obbligatori
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");  //mostra un messaggio di errore
                     } else {
-                        if (issnRivistaField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'issnRivistaField'
-                            if (controller.creaRivista(titoloRivistaCB.getSelectedItem().toString().replace("'", "’"), issnRivistaField.getText(), argomentoRivistaField.getText().replace("'", "’"), nomeRField.getText().replace("'", "’"), cognomeRField.getText().replace("'", "’"), editoreRivistaField.getText().replace("'", "’"), (int) annoPrivistaSpinner.getValue()) == false) { //controlla se la rivista esiste già
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa rivista già esiste"); //mostra un messaggio di errore
-                            } else {
-                                controller.listaRiviste.add(controller.nuovaRivista);   //aggiunge la nuova rivista in 'controller.listaRiviste'
+                        if(controller.verificaISSN(issnRivistaField.getText())==false) {
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "ISSN non valido");   //mostra un messaggio di errore
+                        } else {
+                            if (issnRivistaField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'issnRivistaField'
+                                if (controller.creaRivista(titoloRivistaCB.getSelectedItem().toString().replace("'", "’"), issnRivistaField.getText(), argomentoRivistaField.getText().replace("'", "’"), nomeRField.getText().replace("'", "’"), cognomeRField.getText().replace("'", "’"), editoreRivistaField.getText().replace("'", "’"), (int) annoPrivistaSpinner.getValue()) == false) { //controlla se la rivista esiste già
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa rivista già esiste"); //mostra un messaggio di errore
+                                } else {
+                                    controller.listaRiviste.add(controller.nuovaRivista);   //aggiunge la nuova rivista in 'controller.listaRiviste'
 
-                                //if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
+                                    //if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
                                     if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {   //controlla se il nuovo fascicolo non ha articoli oppure qualche campo non è stato inserito
                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");    //mostra un messaggio di errore
                                         controller.eliminaRivista();    //elimina la nuova rivista
-                                        controller.listaRiviste.remove(controller.listaRiviste.size()-1);
+                                        controller.listaRiviste.remove(controller.listaRiviste.size() - 1);
                                     } else {
-                                        if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è minore o uguale a quello del fasciciolo selezionato
+                                        if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear() + 1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è minore o uguale a quello del fasciciolo selezionato
                                             if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {   //controlla se il fascicolo esiste già
                                                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo già esiste!");  //mostra un messaggio di errore
                                                 controller.eliminaRivista();    //elimina la nuova rivista
-                                                controller.listaRiviste.remove(controller.listaRiviste.size()-1);
+                                                controller.listaRiviste.remove(controller.listaRiviste.size() - 1);
                                             } else {
                                                 if (takeArticoli(controller, true) == true) {   //controlla se l'artiolo è stato creato correttamente
                                                     controller.listaFascicoli.add(controller.nuovoFascicolo);   //aggiunge il nuovo fascicolo in 'controller.listaFascicoli'
                                                     inserimentoEaggiornamentoF(controller, model, true, frameC);    //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
                                                 }
                                             }
-                                        }else {
+                                        } else {
                                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
                                         }
                                     }
-                                /*} else {
-                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex());  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
-                                    inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
-                                }*/
-                            }
-                        } else {
-                            controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());  //inizializza 'controller.nuovoRivista' con la rivista selezionata
-
-                            if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
-                                if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {   //controlla se il nuovo fascicolo non ha articoli oppure qualche campo non è stato inserito
-                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");    //mostra un messaggio di errore
-                                } else {
-                                    if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è minore o uguale a quello del fasciciolo selezionato
-                                        if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {   //controlla se il fascicolo esiste già
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo già esiste!");  //mostra un messaggio di errore
-                                        } else {
-                                            if (takeArticoli(controller, false) == true) {  //controlla se l'artiolo è stato creato correttamente
-                                                controller.listaFascicoli.add(controller.nuovoFascicolo);   //aggiunge il nuovo fascicolo in 'controller.listaFascicoli'
-                                                inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
-                                    }
+                                    /*} else {
+                                        controller.nuovoFascicolo = controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex());  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
+                                        inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
+                                    }*/
                                 }
                             } else {
-                                controller.nuovoFascicolo = controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex());  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
-                                inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
+                                controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());  //inizializza 'controller.nuovoRivista' con la rivista selezionata
+
+                                if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
+                                    if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {   //controlla se il nuovo fascicolo non ha articoli oppure qualche campo non è stato inserito
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");    //mostra un messaggio di errore
+                                    } else {
+                                        if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear() + 1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è minore o uguale a quello del fasciciolo selezionato
+                                            if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {   //controlla se il fascicolo esiste già
+                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo già esiste!");  //mostra un messaggio di errore
+                                            } else {
+                                                if (takeArticoli(controller, false) == true) {  //controlla se l'artiolo è stato creato correttamente
+                                                    controller.listaFascicoli.add(controller.nuovoFascicolo);   //aggiunge il nuovo fascicolo in 'controller.listaFascicoli'
+                                                    inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
+                                                }
+                                            }
+                                        } else {
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
+                                        }
+                                    }
+                                } else {
+                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex());  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
+                                    inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
+                                }
                             }
                         }
                     }
