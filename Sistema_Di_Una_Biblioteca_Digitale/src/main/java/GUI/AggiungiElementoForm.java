@@ -1174,15 +1174,17 @@ public class AggiungiElementoForm {
                             } else {
                                 controller.listaRiviste.add(controller.nuovaRivista);   //aggiunge la nuova rivista in 'controller.listaRiviste'
 
-                                if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
+                                //if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
                                     if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {   //controlla se il nuovo fascicolo non ha articoli oppure qualche campo non è stato inserito
                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");    //mostra un messaggio di errore
                                         controller.eliminaRivista();    //elimina la nuova rivista
+                                        controller.listaRiviste.remove(controller.listaRiviste.size()-1);
                                     } else {
                                         if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear()+1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è minore o uguale a quello del fasciciolo selezionato
                                             if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {   //controlla se il fascicolo esiste già
                                                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo già esiste!");  //mostra un messaggio di errore
                                                 controller.eliminaRivista();    //elimina la nuova rivista
+                                                controller.listaRiviste.remove(controller.listaRiviste.size()-1);
                                             } else {
                                                 if (takeArticoli(controller, true) == true) {   //controlla se l'artiolo è stato creato correttamente
                                                     controller.listaFascicoli.add(controller.nuovoFascicolo);   //aggiunge il nuovo fascicolo in 'controller.listaFascicoli'
@@ -1193,10 +1195,10 @@ public class AggiungiElementoForm {
                                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
                                         }
                                     }
-                                } else {
+                                /*} else {
                                     controller.nuovoFascicolo = controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex());  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
                                     inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
-                                }
+                                }*/
                             }
                         } else {
                             controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());  //inizializza 'controller.nuovoRivista' con la rivista selezionata
@@ -1233,9 +1235,10 @@ public class AggiungiElementoForm {
     private void inserimentoEaggiornamentoF(Controller controller, DefaultTableModel model, boolean nuovaRivista, JFrame frameC){  //la funzione, se è possibile, aggiunge il nuovo fascicolo tra quelli posseduti dalla libreria e aggiorna il contenuto della tabella ritornando TRUE, altrrimenti ritorna FALSE
         if (controller.insertPossessoF((int) quantitaFascicoloSpinner.getValue(), fruizoneFascicoloCB.getSelectedItem().toString()) == false) { //controlla se il fascicolo è già posseduto dalla libreria
             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è già presente nella libreria");    //mostra un messaggio di errore
-
+            controller.listaFascicoli.remove(controller.listaFascicoli.size()-1);
             if (nuovaRivista == true){  //controlla se è stata creata una nuova rivista
                 controller.eliminaRivista();    //elimina la nuova rivista
+                controller.listaRiviste.remove(controller.listaRiviste.size()-1);
             }
 
         } else {
@@ -1370,8 +1373,11 @@ public class AggiungiElementoForm {
 
                                             controller.eliminaFascicolo();  //elimina il nuovo fascicolo
 
+
+
                                             if(nuovaRivista == true) {  //controlla se è stata creata una nuova rivista
                                                 controller.eliminaRivista();    //elimina la nuova rivista
+                                                controller.listaRiviste.remove(controller.listaRiviste.size()-1);
                                             }
 
                                             return false;
@@ -1381,12 +1387,13 @@ public class AggiungiElementoForm {
 
                                                 if (nuovaRivista == true) { //controlla se è stata creata una nuova rivista
                                                     controller.eliminaRivista();    //elimina la nuova rivista
+                                                    controller.listaRiviste.remove(controller.listaRiviste.size()-1);
                                                 }
 
                                                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo è scritto dopo la pubblicazione del fascicolo");    //mostra un messaggio di pubblicazione
                                                 return false;
                                             } else {
-                                                if (!(controller.creaArticolo(comboBox.getSelectedItem().toString().replace("'", "’"), (int) spinner.getValue()))) {    //controlla se l'articolo non esiste già
+                                                if (controller.creaArticolo(comboBox.getSelectedItem().toString().replace("'", "’"), (int) spinner.getValue()) == false) {    //controlla se l'articolo non esiste già
                                                     controller.nuovoArticoloScientifico = controller.listaArticoli.get(comboBox.getSelectedIndex());    //inizializza 'controller.nuovoArticoloScientifico' con l'artiolo selezionato
                                                     controller.nuovoFascicolo.articoli.add(controller.listaArticoli.get(comboBox.getSelectedIndex()));  //aggiunge in 'controller.nuovoFascicolo.articoli' l'artiolo selezionato
                                                 } else {
@@ -1399,8 +1406,10 @@ public class AggiungiElementoForm {
 
                                                         if (nuovaRivista == true){  //controlla se è stata creata una nuova rivista
                                                             controller.eliminaRivista();     //elimina la nuova rivista
+                                                            controller.listaRiviste.remove(controller.listaRiviste.size()-1);
                                                         }
 
+                                                        System.out.println(comboBox.getSelectedItem().toString());
                                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo non ha autori"); //mostra un messaggio di errore
                                                         return false;
                                                     }
@@ -1455,6 +1464,7 @@ public class AggiungiElementoForm {
                                 nAutori++;  //incrementa il numero di autori del nuovo articolo
 
                                 if (nome.isBlank() || cognome.isBlank()){   //controlla se non è stato inserito il nome o il cognome dell'autore
+                                    System.out.println("ciao");
                                     return false;
                                 } else{
                                     controller.aggiungiAutoreArticolo(nome.replace("'", "’"), cognome.replace("'", "’"), nazionalita, dn);  //aggiunge l'autore associandolo al nuovo articolo
@@ -1474,6 +1484,7 @@ public class AggiungiElementoForm {
             return true;
         }
 
+        System.out.println("ciao2");
         return false;
     }//fine takeAutoriArticolo
 
