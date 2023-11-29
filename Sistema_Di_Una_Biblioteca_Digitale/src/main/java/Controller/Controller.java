@@ -231,6 +231,26 @@ public class Controller {
         return  true;
     }
 
+    public boolean verificaISBN(String isbn){
+        if (isbn.length() != 17) return false;
+
+        for(int i = 0; i < isbn.length(); i++){
+            if((isbn.charAt(i) < '0' || isbn.charAt(i) > '9') && (isbn.charAt(i) != '-')) return false;;
+        }
+
+        return  true;
+    }
+
+    public boolean verificaISSN(String issn){
+        if (issn.length() < 9) return false;
+
+        for(int i = 0; i < issn.length(); i++){
+            if((issn.charAt(i) < '0' || issn.charAt(i) > '9') && (issn.charAt(i) != '-')) return false;;
+        }
+
+        return  true;
+    }
+
     public void modUtente(String email, String nome, String cognome, String username, String password, String partitaIVA){  //modifica i dati dell'utente
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
 
