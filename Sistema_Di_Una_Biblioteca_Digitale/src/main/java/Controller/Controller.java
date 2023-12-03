@@ -1241,7 +1241,6 @@ public class Controller {
     public void getArticoliScientifici(){
         listaArticoli.clear();
 
-
         if(!listaFascicoli.isEmpty()) {
             for (int i = 0; i < listaFascicoli.size(); i++) {
                 for (int j = 0; j < listaFascicoli.get(i).articoli.size(); j++) {
