@@ -1180,6 +1180,7 @@ public class AggiungiElementoForm {
                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "ISSN non valido");   //mostra un messaggio di errore
                         } else {
                             if (issnRivistaField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'issnRivistaField'
+                                System.out.println("è stata inserita una nuova rivista");
                                 if (controller.creaRivista(titoloRivistaCB.getSelectedItem().toString().replace("'", "’"), issnRivistaField.getText(), argomentoRivistaField.getText().replace("'", "’"), nomeRField.getText().replace("'", "’"), cognomeRField.getText().replace("'", "’"), editoreRivistaField.getText().replace("'", "’"), (int) annoPrivistaSpinner.getValue()) == false) { //controlla se la rivista esiste già
                                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa rivista già esiste"); //mostra un messaggio di errore
                                 } else {
@@ -1212,6 +1213,7 @@ public class AggiungiElementoForm {
                                     }*/
                                 }
                             } else {
+                                System.out.println("è stata inserita una rivista già esistente");
                                 controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());  //inizializza 'controller.nuovoRivista' con la rivista selezionata
 
                                 if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
