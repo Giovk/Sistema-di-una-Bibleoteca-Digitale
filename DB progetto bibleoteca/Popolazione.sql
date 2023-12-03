@@ -104,17 +104,17 @@ VALUES ('0036-4681', 'Edizioni Dedalo', 'Scienze', 'Armaroli', 'Nicola', 'Sapere
 
 -- ARTICOLO_SCIENTIFICO --
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('Che cosa significa allineare l''inteliggenza artificiale ai valori umani?', 2022); 
+VALUES ('Che cosa significa allineare l’inteliggenza artificiale ai valori umani?', 2022); 
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Evaluating Understanding on Conceptual Abstraction Benchmarks', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('Un''intelligenza artificiale è capace di prevedere le nuove sostanze psicoattive', 2022);
+VALUES ('Un’intelligenza artificiale è capace di prevedere le nuove sostanze psicoattive', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('A volte ritornano? Viaggio tra i tentativi di riportare in vita "il mondo perduto"', 2019);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Uguale o diverso? Le reti neurali stentano a rispondere', 2021);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('Combattere i tumori con l''intelligenza artificiale', 2020);
+VALUES ('Combattere i tumori con l’intelligenza artificiale', 2020);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Computers tell us who to date, who to jail: But should they?', 2018);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
@@ -128,7 +128,7 @@ VALUES ('How will this pandemic disrupt science?', 2020);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Bluer blues and blacker blacks? How science is enhancing colors', 2020);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('La mente e l''ambiente', 2022);
+VALUES ('La mente e l’ambiente', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Psichiatria digitale', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
@@ -178,7 +178,7 @@ VALUES ('Quali sono le password più sicure?', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Un esame virtuale per rinnovare la patente?', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('Una tempesta solare può provocare un''apocalisse digitale', 2022);
+VALUES ('Una tempesta solare può provocare un’apocalisse digitale', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Il triangolo di Feynman', 2012);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
@@ -200,7 +200,7 @@ VALUES ('Il discorso filosofico della matematica', 2020);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Divisione «per svuotamento»', 2020);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('Modelli matematici di decisione per fare bene i conti con l''incertezza', 2021);
+VALUES ('Modelli matematici di decisione per fare bene i conti con l’incertezza', 2021);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Le certezze irraggiungibili della matematica', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
@@ -308,7 +308,7 @@ VALUES ('Angela', 'Guido', 'Italiana');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
 VALUES ('Maurizio', 'Berni', 'Italiana');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
-VALUES ('Alessandro', 'D''Andrea', 'Italiana', '1972-03-09');
+VALUES ('Alessandro', 'D’Andrea', 'Italiana', '1972-03-09');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
 VALUES ('Luigi', 'Squillante', 'Italiana', '1965-09-02');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
@@ -698,7 +698,7 @@ VALUES ('Piazza Guerrazzi 1, 82100, Benevento, Italia', 'Università Del Sannio'
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
 VALUES ('Via De Sanctis, 86100, Campobasso, Italia', 'Università Del Molise', '2018-10-07', '2018-10-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Viale Dell''Università, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2018-11-07', '2018-11-14');
+VALUES ('Viale Dell’Università, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2018-11-07', '2018-11-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
 VALUES ('Corso Matteotti 22, 21053, Castellanza (Va), Varese, Italia', 'Università Carlo Cattaneo LIUC', '2018-10-15', '2018-10-28');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
@@ -788,13 +788,13 @@ VALUES ('978-88-3100-340-7', 'Harry Potter e il prigioniero di Azkaban', 'Fantas
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-3100-341-4', 'Harry Potter e il calice di fuoco', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-3100-342-1', 'Harry Potter e l''ordine della fenice', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
+VALUES ('978-88-3100-342-1', 'Harry Potter e l’ordine della fenice', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-3100-343-8', 'Harry Potter e il principe mezzosangue', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-3100-344-5', 'Harry Potter e i doni della morte', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-3100-670-5', 'L''Ickabog', 'Fantasy', 'Italiano', 'Salani', '2020-11-10');
+VALUES ('978-88-3100-670-5', 'L’Ickabog', 'Fantasy', 'Italiano', 'Salani', '2020-11-10');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-9381-618-2', 'Animali fantastici e dove trovarli', 'Fantasy', 'Italiano', 'Salani', '2017-01-16');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
@@ -804,7 +804,7 @@ VALUES ('978-88-3101-288-1', 'Animali fantastici - I Segreti di Silente', 'Fanta
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-4526-834-2', 'Lo Hobbit', 'Fantasy', 'Italiano', 'Bonpiani', '2012-06-20');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-301-0526-3', 'Il Signore Degli Anelli: La compagnia dell''anello', 'Fantasy', 'Italiano', 'Bonpiani', '2021-09-01');
+VALUES ('978-88-301-0526-3', 'Il Signore Degli Anelli: La compagnia dell’anello', 'Fantasy', 'Italiano', 'Bonpiani', '2021-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-301-0527-0', 'Il Signore Degli Anelli: Le due torri', 'Fantasy', 'Italiano', 'Bonpiani', '2021-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
@@ -832,7 +832,7 @@ VALUES ('978-88-8560-312-7', 'Dammi Mille Baci', 'Rosa', 'Italiano', 'Always Pub
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-12-8007-876-6', 'Non proprio un colpo di fulmine', 'Rosa', 'Italiano', 'Always Publishing', '2022-11-25');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-12-8007-834-6', 'L''amico del cuore', 'Rosa', 'Italiano', 'Always Publishing', '2022-03-17');
+VALUES ('978-12-8007-834-6', 'L’amico del cuore', 'Rosa', 'Italiano', 'Always Publishing', '2022-03-17');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-8560-324-0', 'La fattoria dei nuovi inizi', 'Rosa', 'Italiano', 'Always Publishing', '2019-01-31');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
@@ -868,7 +868,7 @@ VALUES ('978-88-0989-782-3', 'Alaska. Il ritorno', 'Thriller', 'Italiano', 'Giun
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-16-2647-952-4', 'Dopo: Lo shock', 'Thriller', 'Italiano', 'Haunted Computer Productions', '2016-06-20');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-16-2647-977-7', 'L''eco', 'Thriller', 'Italiano', 'Haunted Computer Productions', '2017-03-16');
+VALUES ('978-16-2647-977-7', 'L’eco', 'Thriller', 'Italiano', 'Haunted Computer Productions', '2017-03-16');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-16-2647-954-8', 'Dopo: Il cartello 291', 'Thriller', 'Italiano', 'Haunted Computer Productions', '2016-06-20');
 
