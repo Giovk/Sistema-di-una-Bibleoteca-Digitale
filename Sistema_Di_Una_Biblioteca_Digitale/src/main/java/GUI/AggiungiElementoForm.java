@@ -571,7 +571,7 @@ public class AggiungiElementoForm {
                     if (titoloLibroField.getText().isBlank() || linguaLibroCB.getSelectedItem() == null || linguaLibroCB.getSelectedItem().equals("") || editoreLibroField.getText().isBlank() || genereLibroField.getText().isBlank() || dataLibroField.getText().isBlank()){  //controlla se non è stato inserito uno dei campi obbligatori
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");  //mostra un messaggio di errore
                     } else {
-                        if(controller.verificaISBN(isbnLibroCB.getSelectedItem().toString())==false) {
+                        if(controller.verificaISBN(isbnLibroCB.getSelectedItem().toString())==false) {  //controlla se l'ISBN inserito non è valido
                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "ISBN non valido!");  //mostra un messaggio di errore
                         }else {
                             if (titoloLibroField.isEnabled() == false) {    //controlla se è stato disabilitato il JTextField 'titoloLibroField'
@@ -840,7 +840,7 @@ public class AggiungiElementoForm {
                 if(isbnSerieField.getText().isBlank() || titoloSerieField.getText().isBlank() || dataSerieField.getText().isBlank()) {  //controlla se almeno uno dei campi non è stato compilato
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi");   //mostra un messaggio di errore
                 } else {
-                    if(controller.verificaISBN(isbnSerieField.getText())==false) {
+                    if(controller.verificaISBN(isbnSerieField.getText())==false) {  //controlla se l'ISBN inserito non è valido
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "ISBN non valido");   //mostra un messaggio di errore
                     } else {
                         ArrayList<String> libriISBN = takeISBN();   //ISBN dei libri della serie che si sta inserendo
@@ -1176,17 +1176,15 @@ public class AggiungiElementoForm {
                     if (issnRivistaField.getText().isBlank() || nomeRField.getText().isBlank() || cognomeRField.getText().isBlank() || editoreRivistaField.getText().isBlank() || argomentoRivistaField.getText().isBlank()) {  //controlla se non è stato inserito uno dei campi obbligatori
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi!");  //mostra un messaggio di errore
                     } else {
-                        if(controller.verificaISSN(issnRivistaField.getText())==false) {
+                        if(controller.verificaISSN(issnRivistaField.getText())==false) {    //controlla se l'ISSN inserito non è valido
                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "ISSN non valido");   //mostra un messaggio di errore
                         } else {
                             if (issnRivistaField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'issnRivistaField'
-                                System.out.println("è stata inserita una nuova rivista");
                                 if (controller.creaRivista(titoloRivistaCB.getSelectedItem().toString().replace("'", "’"), issnRivistaField.getText(), argomentoRivistaField.getText().replace("'", "’"), nomeRField.getText().replace("'", "’"), cognomeRField.getText().replace("'", "’"), editoreRivistaField.getText().replace("'", "’"), (int) annoPrivistaSpinner.getValue()) == false) { //controlla se la rivista esiste già
                                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa rivista già esiste"); //mostra un messaggio di errore
                                 } else {
                                     controller.listaRiviste.add(controller.nuovaRivista);   //aggiunge la nuova rivista in 'controller.listaRiviste'
 
-                                    //if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
                                     if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {   //controlla se il nuovo fascicolo non ha articoli oppure qualche campo non è stato inserito
                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");    //mostra un messaggio di errore
                                         controller.eliminaRivista();    //elimina la nuova rivista
@@ -1207,13 +1205,8 @@ public class AggiungiElementoForm {
                                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
                                         }
                                     }
-                                    /*} else {
-                                        controller.nuovoFascicolo = controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex());  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
-                                        inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
-                                    }*/
                                 }
                             } else {
-                                System.out.println("è stata inserita una rivista già esistente");
                                 controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());  //inizializza 'controller.nuovoRivista' con la rivista selezionata
 
                                 if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
