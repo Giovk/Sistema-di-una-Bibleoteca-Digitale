@@ -1188,9 +1188,13 @@ public class AggiungiElementoForm {
                                     if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {   //controlla se il nuovo fascicolo non ha articoli oppure qualche campo non è stato inserito
                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");    //mostra un messaggio di errore
                                         controller.eliminaRivista();    //elimina la nuova rivista
-                                        controller.listaRiviste.remove(controller.listaRiviste.size() - 1);
+                                        controller.listaRiviste.remove(controller.listaRiviste.size() - 1); //rimuove la nuova rivista da 'controller.listaRiviste'
                                     } else {
-                                        if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear() + 1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è minore o uguale a quello del fasciciolo selezionato
+                                        if ((int) annoPrivistaSpinner.getValue() > Date.valueOf(dpFascicoloField.getText()).getYear() + 1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è maggiore a quello del fasciciolo selezionato
+                                            controller.eliminaRivista();    //elimina la nuova rivista
+                                            controller.listaRiviste.remove(controller.listaRiviste.size() - 1);
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
+                                        } else {
                                             if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {   //controlla se il fascicolo esiste già
                                                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo già esiste!");  //mostra un messaggio di errore
                                                 controller.eliminaRivista();    //elimina la nuova rivista
@@ -1201,8 +1205,6 @@ public class AggiungiElementoForm {
                                                     inserimentoEaggiornamentoF(controller, model, true, frameC);    //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
                                                 }
                                             }
-                                        } else {
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
                                         }
                                     }
                                 }
@@ -1213,7 +1215,9 @@ public class AggiungiElementoForm {
                                     if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {   //controlla se il nuovo fascicolo non ha articoli oppure qualche campo non è stato inserito
                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");    //mostra un messaggio di errore
                                     } else {
-                                        if ((int) annoPrivistaSpinner.getValue() <= Date.valueOf(dpFascicoloField.getText()).getYear() + 1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è minore o uguale a quello del fasciciolo selezionato
+                                        if ((int) annoPrivistaSpinner.getValue() > Date.valueOf(dpFascicoloField.getText()).getYear() + 1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è maggiore a quello del fasciciolo selezionato
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
+                                        } else {
                                             if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {   //controlla se il fascicolo esiste già
                                                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo già esiste!");  //mostra un messaggio di errore
                                             } else {
@@ -1222,8 +1226,6 @@ public class AggiungiElementoForm {
                                                     inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
                                                 }
                                             }
-                                        } else {
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
                                         }
                                     }
                                 } else {
