@@ -1211,7 +1211,10 @@ public class AggiungiElementoForm {
                             } else {
                                 controller.nuovaRivista = controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex());  //inizializza 'controller.nuovoRivista' con la rivista selezionata
 
-                                if (dpFascicoloField.isEnabled() == true) { //controlla se è stato abilitato il JTextField 'dpFascicoloField'
+                                if (dpFascicoloField.isEnabled() == false) { //controlla se non è stato abilitato il JTextField 'dpFascicoloField'
+                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex());  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
+                                    inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
+                                } else {
                                     if (articoliFascicoliCount <= 0 || numeroFascicoloCB.getSelectedItem() == null || dpFascicoloField.getText().isBlank() == true) {   //controlla se il nuovo fascicolo non ha articoli oppure qualche campo non è stato inserito
                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo non ha articoli o non è presente il numero o la data!");    //mostra un messaggio di errore
                                     } else {
@@ -1228,9 +1231,6 @@ public class AggiungiElementoForm {
                                             }
                                         }
                                     }
-                                } else {
-                                    controller.nuovoFascicolo = controller.listaFascicoliRivista.get(numeroFascicoloCB.getSelectedIndex());  //inizializza 'controller.nuovoFascicolo' con il fascicolo selezionato
-                                    inserimentoEaggiornamentoF(controller, model, false, frameC);   //inserisce il nuovo fascicolo e aggiorna gli elementi posseduti dalla libreria
                                 }
                             }
                         }
