@@ -1136,7 +1136,7 @@ public class AggiungiElementoForm {
                     controller.getFascicoliRivista((controller.listaRiviste.get(titoloRivistaCB.getSelectedIndex()).issn)); //inizializza 'controller.listaFascicoliRivista' contenente i fascicoli della rivista selezionata
 
                     for (int i = 0; i < controller.listaFascicoliRivista.size(); i++){  //scorre la lista di tutti i fascicoli della rivista selezionata
-                         numeroFascicoloCB.addItem(controller.listaFascicoliRivista.get(i).numero); //aggiunge nel menu del JComboBox 'numeroFascicoloCB' il numero del i-esimo fscicolo  della rivista selezionata
+                         numeroFascicoloCB.addItem(controller.listaFascicoliRivista.get(i).numero); //aggiunge nel menu del JComboBox 'numeroFascicoloCB' il numero del i-esimo fascicolo  della rivista selezionata
                     }
 
                     numeroFascicoloCB.setSelectedIndex(-1); //deseleziona tutti gli elementi del menu del JComboBox 'numeroFascicoloCB'
@@ -1192,13 +1192,13 @@ public class AggiungiElementoForm {
                                     } else {
                                         if ((int) annoPrivistaSpinner.getValue() > Date.valueOf(dpFascicoloField.getText()).getYear() + 1900) {  //controlla se l'anno selezionato nello JSpinner 'annoPrivistaSpinner' è maggiore a quello del fasciciolo selezionato
                                             controller.eliminaRivista();    //elimina la nuova rivista
-                                            controller.listaRiviste.remove(controller.listaRiviste.size() - 1);
+                                            controller.listaRiviste.remove(controller.listaRiviste.size() - 1); //elimina la nuova rivista da 'controller.listaRiviste'
                                             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è pubblicato prima della rivista!");    //mostra un messaggio di errore
                                         } else {
                                             if (controller.creaFascicolo(Integer.valueOf(numeroFascicoloCB.getSelectedItem().toString()), dpFascicoloField.getText()) == false) {   //controlla se il fascicolo esiste già
                                                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo già esiste!");  //mostra un messaggio di errore
                                                 controller.eliminaRivista();    //elimina la nuova rivista
-                                                controller.listaRiviste.remove(controller.listaRiviste.size() - 1);
+                                                controller.listaRiviste.remove(controller.listaRiviste.size() - 1); //elimina la nuova rivista da 'controller.listaRiviste'
                                             } else {
                                                 if (takeArticoli(controller, true) == true) {   //controlla se l'artiolo è stato creato correttamente
                                                     controller.listaFascicoli.add(controller.nuovoFascicolo);   //aggiunge il nuovo fascicolo in 'controller.listaFascicoli'
@@ -1243,10 +1243,11 @@ public class AggiungiElementoForm {
     private void inserimentoEaggiornamentoF(Controller controller, DefaultTableModel model, boolean nuovaRivista, JFrame frameC){  //la funzione, se è possibile, aggiunge il nuovo fascicolo tra quelli posseduti dalla libreria e aggiorna il contenuto della tabella ritornando TRUE, altrrimenti ritorna FALSE
         if (controller.insertPossessoF((int) quantitaFascicoloSpinner.getValue(), fruizoneFascicoloCB.getSelectedItem().toString()) == false) { //controlla se il fascicolo è già posseduto dalla libreria
             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo fascicolo è già presente nella libreria");    //mostra un messaggio di errore
-            controller.listaFascicoli.remove(controller.listaFascicoli.size()-1);
+            controller.listaFascicoli.remove(controller.listaFascicoli.size()-1);   //rimuove il nuovo fascicolo da 'controller.listaFascicoli'
+
             if (nuovaRivista == true){  //controlla se è stata creata una nuova rivista
                 controller.eliminaRivista();    //elimina la nuova rivista
-                controller.listaRiviste.remove(controller.listaRiviste.size()-1);
+                controller.listaRiviste.remove(controller.listaRiviste.size()-1);   //elimina la nuova rivista da 'controller.listaRiviste'
             }
 
         } else {
@@ -1266,7 +1267,7 @@ public class AggiungiElementoForm {
                 }
             }
 
-            if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
+            if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se la libreria possiede delle serie
                 for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //controlla se la libreria possiede delle serie
                     if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
                         model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
@@ -1381,11 +1382,9 @@ public class AggiungiElementoForm {
 
                                             controller.eliminaFascicolo();  //elimina il nuovo fascicolo
 
-
-
                                             if(nuovaRivista == true) {  //controlla se è stata creata una nuova rivista
                                                 controller.eliminaRivista();    //elimina la nuova rivista
-                                                controller.listaRiviste.remove(controller.listaRiviste.size()-1);
+                                                controller.listaRiviste.remove(controller.listaRiviste.size()-1);   //elimina la nuova rivista da 'controller.listaRiviste'
                                             }
 
                                             return false;
@@ -1395,7 +1394,7 @@ public class AggiungiElementoForm {
 
                                                 if (nuovaRivista == true) { //controlla se è stata creata una nuova rivista
                                                     controller.eliminaRivista();    //elimina la nuova rivista
-                                                    controller.listaRiviste.remove(controller.listaRiviste.size()-1);
+                                                    controller.listaRiviste.remove(controller.listaRiviste.size()-1);   //elimina la nuova rivista da 'controller.listaRiviste'
                                                 }
 
                                                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo è scritto dopo la pubblicazione del fascicolo");    //mostra un messaggio di pubblicazione
@@ -1417,7 +1416,6 @@ public class AggiungiElementoForm {
                                                             controller.listaRiviste.remove(controller.listaRiviste.size()-1);
                                                         }
 
-                                                        System.out.println(comboBox.getSelectedItem().toString());
                                                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo non ha autori"); //mostra un messaggio di errore
                                                         return false;
                                                     }
@@ -1472,7 +1470,6 @@ public class AggiungiElementoForm {
                                 nAutori++;  //incrementa il numero di autori del nuovo articolo
 
                                 if (nome.isBlank() || cognome.isBlank()){   //controlla se non è stato inserito il nome o il cognome dell'autore
-                                    System.out.println("ciao");
                                     return false;
                                 } else{
                                     controller.aggiungiAutoreArticolo(nome.replace("'", "’"), cognome.replace("'", "’"), nazionalita, dn);  //aggiunge l'autore associandolo al nuovo articolo
@@ -1492,7 +1489,6 @@ public class AggiungiElementoForm {
             return true;
         }
 
-        System.out.println("ciao2");
         return false;
     }//fine takeAutoriArticolo
 
@@ -1794,103 +1790,106 @@ public class AggiungiElementoForm {
 
             Object comp = comboBox1.getUI().getAccessibleChild(comboBox1, 0);   //ComboBoxUI del JComboBox 'comboBox1' per personalizzarlo
 
-            if(comp instanceof JPopupMenu){
-                JPopupMenu popup = (JPopupMenu) comp;
-                JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+            if(comp instanceof JPopupMenu){ //controlla se 'comp' è un JPopupMenu
+                JPopupMenu popup = (JPopupMenu) comp;   //JPopupMenu del JComboBox 'comboBox1'
+                JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);   //primo componente della barra di scorrimento di 'popup'
 
-                scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());
-                scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49));
-                scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));
+                scrollPane.getVerticalScrollBar().setUI(new NewScrollBarUI());  //imposta lo stile della barra di scorrimento
+                scrollPane.getVerticalScrollBar().setForeground(new Color(34, 40, 49)); //imposta il colore della parte mobile della barra di scorrimento
+                scrollPane.getVerticalScrollBar().setBackground(new Color(0xCF9E29));   //imposta il colore della parte fissa (cioè lo sfondo) della barra di scorrimento
             }
 
-            Component editorComp = comboBox1.getEditor().getEditorComponent();
+            Component editorComp = comboBox1.getEditor().getEditorComponent();  //editor del JComboBox 'comboBox1' per personalizzarlo
 
-            if (editorComp instanceof JTextField) {
-                JTextField textField = (JTextField) editorComp;
+            if (editorComp instanceof JTextField) { //controlla se 'editorComp' è un JTextField
+                JTextField textField = (JTextField) editorComp; //JtextField del JComboBox 'comboBox1'
 
-                textField.setBackground(new Color(0xFFD369));
-                textField.setForeground(new Color(0x222831));
+                textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
+                textField.setForeground(new Color(0x222831));   //imposta il colore del testo di 'textField'
             }
 
-            controller.listaFascicoli = controller.getFascicoli();
-            controller.getArticoliScientifici();
+            controller.listaFascicoli = controller.getFascicoli();  //inizializza 'controller.listaFascicoli'
+            controller.getArticoliScientifici();    //inizilizza l'ArrayList di tutti gli artioli scientifici
 
-            for (int i = 0; i < controller.listaArticoli.size(); i++){
-                    comboBox1.addItem(controller.listaArticoli.get(i).titolo);
+            for (int i = 0; i < controller.listaArticoli.size(); i++){  //scorre 'controller.listaArticoli'
+                    comboBox1.addItem(controller.listaArticoli.get(i).titolo);  //aggiunge nel menu del JComboBox 'comboBox1' il titolo del i-esimo articolo in 'controller.listaArticoli'
             }
 
-            comboBox1.setSelectedIndex(-1);
-            comboBox1.setEditable(true);
-            comboBox1.setName(String.valueOf(articoliFascicoliCount));
+            comboBox1.setSelectedIndex(-1); //deseleziona tutti gli elementi del menu del JComboBox 'comboBox1'
+            comboBox1.setEditable(true);    //permette all'utente di inserire il testo nel JComboBox 'comboBox1'
+            comboBox1.setName(String.valueOf(articoliFascicoliCount));  //imposta il nome del JComboBox 'comboBox1'
 
             comboBox1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    checkDuplicateSelectionFascicoli(comboBox1.getSelectedIndex(), comboBox1);
+                    checkDuplicateSelectionFascicoli(comboBox1.getSelectedIndex(), comboBox1); //deseleziona un'eventuale selezione duplicata nel JComboBox 'comboBox1'
 
-                    if(comboBox1.getSelectedIndex() >= 0 && comboBox1.getSelectedIndex() <= controller.listaArticoli.size()){
-                        spinner1.setEnabled(false);
-                        spinner1.setValue(controller.listaArticoli.get(comboBox1.getSelectedIndex()).annoPubblicazione);
-                        label4.setVisible(false);
-                        button1.setVisible(false);
-                        panel2.setVisible(false);
-                        panel2.removeAll();
+                    if(comboBox1.getSelectedIndex() < 0 || comboBox1.getSelectedIndex() > controller.listaArticoli.size()){ //controlla se l'indice selezionato nel JComboBox 'comboBox1' non è in [0, controller.listaArticoli.size()]
+                        spinner1.setEnabled(true);  //abilita lo JSpinner 'spinner1'
+                        spinner1.setValue(Year.now().getValue());   //imposta il valore dello lo JSpinner 'spinner1' con l'anno corrente
+                        label4.setVisible(true);    //rende visibile la JLabel 'label4'
+                        button1.setVisible(true);   //rende visibile il JButton 'button1'
+                        panel2.setVisible(true);    //rende visibile il JPanel 'panel2'
                     } else {
-                        spinner1.setEnabled(true);
-                        spinner1.setValue(Year.now().getValue());
-                        label4.setVisible(true);
-                        button1.setVisible(true);
-                        panel2.setVisible(true);
+                        spinner1.setEnabled(false); //disabilita lo JSpinner 'spinner1'
+                        spinner1.setValue(controller.listaArticoli.get(comboBox1.getSelectedIndex()).annoPubblicazione); //imposta il valore dello lo JSpinner 'spinner1' con l'anno di pubblicazione dell'articolo selezionato
+                        label4.setVisible(false);   //rende invisibile la JLabel 'label4'
+                        button1.setVisible(false);  //rende invisibile il JButton 'button1'
+                        panel2.setVisible(false);   //rende invisibile il JPanel 'panel2'
+                        panel2.removeAll(); //elimina tutti i componenti del JPanel 'panel2'
                     }
                 }
             });
 
-            panel1.add(comboBox1, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
+            panel1.add(comboBox1, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));  //inserisce 'comboBox1' in 'panel1'
 
-            label6.setText("Anno di pubblicazione:");
-            label6.setFont(controller.baseFontSize);
-            label6.setForeground(new Color(0xeeeeee));
-            panel1.add(label6, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
+            label6.setText("Anno di pubblicazione:");   //imposta il testo della JLabel 'label6'
+            label6.setFont(controller.baseFontSize);    //imposta il font testo di 'label6'
+            label6.setForeground(new Color(0xeeeeee));  //imposta il colore del testo di 'label6'
+            panel1.add(label6, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0)); //inserisce 'label6' in 'panel1'
 
-            spinner1.setBackground(new Color(0xffd369));
-            spinner1.setFont(controller.textFieldFont);
-            SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1);
-            spinner1.setModel(snm);
+            spinner1.setBackground(new Color(0xffd369));    //imposta il colore dello sfondo dello JSpinner 'spinner1'
+            spinner1.setFont(controller.textFieldFont); //imposta il fonto del testo di 'spinner1'
 
-            spinner1.setBorder(new LineBorder(new Color(0xFFD369)));
+            SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1); //inizializza il model dello JSpinner
 
-            JComponent editor = spinner1.getEditor();
+            spinner1.setModel(snm); //imposta il SpinnerNumberModel 'snm' come model di 'spinner1'
 
-            if (editor instanceof JSpinner.DefaultEditor) {
-                JTextField textField = ((JSpinner.DefaultEditor) editor).getTextField();
+            spinner1.setBorder(new LineBorder(new Color(0xFFD369)));    //imposta il colore del bordo di 'spinner1'
 
-                textField.setForeground(new Color(0x222831));
-                textField.setBackground(new Color(0xFFD369));
-                textField.setBorder(new LineBorder(new Color(0x222831)));
+            JComponent editor = spinner1.getEditor();   //editor di 'spinner1' per personalizzarlo
+
+            if (editor instanceof JSpinner.DefaultEditor) { //controlla se 'editor' è un JSpinner.DefaultEditor (editor di default degli JSpinner)
+                JTextField textField = ((JSpinner.DefaultEditor) editor).getTextField();    //JtextField di 'spinner1'
+
+                textField.setForeground(new Color(0x222831));   //imposta il colore del testo di 'textField'
+                textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
+                textField.setBorder(new LineBorder(new Color(0x222831)));   //imposta il colore del bordo di 'spinner1'
             }
+
             spinner1.setUI(new BasicSpinnerUI(){
-                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-                Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
-                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-                Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
+                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorse /up.png
+                Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorse /up.png
+                Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
                 @Override
                 protected Component createPreviousButton() {
                     JButton button = new JButton(new ImageIcon(dA)){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension((int) (screenWidth/85.33), screenHeight/48);
+                            return new Dimension((int) (screenWidth/85.33), screenHeight/48);   //inizializza le dimensioni del JButton 'button'
                         }
                     };
 
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                            spinner.setValue(spinner.getPreviousValue());   //imposta il valore dello JSpinner 'spinner' con il suo valore precedente
                         }
                     });
 
-                    button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
-                    button.setBorder(new LineBorder(new Color(0xFFD369)));
+                    button.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'button'
+                    button.setBorder(new LineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JButton 'button'
                     return button;
                 }
 
@@ -1899,115 +1898,115 @@ public class AggiungiElementoForm {
                     JButton button = new JButton(new ImageIcon(uA)){
                         @Override
                         public Dimension getPreferredSize() {
-                            return new Dimension((int) (screenWidth/85.33), screenHeight/48);
+                            return new Dimension((int) (screenWidth/85.33), screenHeight/48);   //inizializza le dimensioni del JButton 'button'
                         }
                     };
 
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            spinner.setValue(spinner.getNextValue()); // Azione per incrementare il valore
+                            spinner.setValue(spinner.getNextValue()); //imposta il valore dello JSpinner 'spinner' con il suo valore precedente
                         }
                     });
 
-                    button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
-                    button.setBorder(new LineBorder(new Color(0xFFD369)));
+                    button.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'button'
+                    button.setBorder(new LineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JButton 'button'
                     return button;
                 }
             });
 
-            spinner1.setValue(Year.now().getValue());
+            spinner1.setValue(Year.now().getValue());    //imposta il valore dello lo JSpinner 'spinner1' con l'anno corrente
 
-            panel1.add(spinner1, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
+            panel1.add(spinner1, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));   //inserisce 'spinner1' in 'panel1'
 
-            label4.setText("Autori:");
-            label4.setFont(controller.baseFontSize);
-            label4.setForeground(new Color(0xeeeeee));
-            panel1.add(label4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
+            label4.setText("Autori:");  //imposta il testo della JLabel 'label4'
+            label4.setFont(controller.baseFontSize);    //imposta il font testo di 'label4'
+            label4.setForeground(new Color(0xeeeeee));  //imposta il colore del testo di 'label4'
+            panel1.add(label4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0)); //inserisce 'label4' in 'panel1'
 
-            button1.setText("Aggiungi");
-            button1.setFont(controller.baseFontSize);
-            button1.setBackground(new Color(0xffd369));
-            button1.setBorderPainted(false);
-            panel1.add(button1, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
+            button1.setText("Aggiungi");    //imposta il testo della JButton 'button1'
+            button1.setFont(controller.baseFontSize);   //imposta il font testo di 'button1'
+            button1.setBackground(new Color(0xffd369)); //imposta il colore dello sfondo di 'button1'
+            button1.setBorderPainted(false);    //disabilita il bordo pulsante di 'button1'
+            panel1.add(button1, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));    //inserisce 'button1' in 'panel1'
 
             button1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    initComponentsAutoriArticoli(panel2, controller.baseFontSize, controller.textFieldFont);
-                    panel2.revalidate();
-                    panel2.repaint();
+                    initComponentsAutoriArticoli(panel2, controller.baseFontSize, controller.textFieldFont);    //inizializza tutti i componenti necessari per inserire gli autori dell'articolo
+                    panel2.revalidate();    //aggiorna il contenuto del JPanel 'panel2l'
+                    panel2.repaint();   //ridisegna il JPanel 'articoliPanel'
                 }
             });
 
             {
-                panel2.setBackground(new Color(0x222831));
-                panel2.setLayout(new GridLayout(1, 2, 15, 15));
-                panel2.setName("pannello " + articoliFascicoliCount);
+                panel2.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JPanel 'panel1'
+                panel2.setLayout(new GridLayout(1, 2, 15, 15)); //imposta il layout del JPanel 'panel1'
+                panel2.setName("pannello " + articoliFascicoliCount);   //imposta il nome del JPanel 'panel1'
 
             }
 
-            panel1.add(panel2, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+            panel1.add(panel2, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0)); //inserisce 'panel2' in 'panel1'
         }
 
         GridBagConstraints constraints = new GridBagConstraints();
 
-        constraints.gridx = 0; // Colonna 1
-        constraints.gridy = (articoliFascicoliCount-1); // Riga 0
-        articoliPanel.add(panel1, constraints);
-    }
+        constraints.gridx = 0;  //imposta a 0 la colonna del layout in cui inserire 'panel1'
+        constraints.gridy = (articoliFascicoliCount-1); //imposta a articoliFascicoliCount-1 la riga del layout in cui inserire 'panel1'
+        articoliPanel.add(panel1, constraints); //inserisce 'panel1' in 'articoliPanel'
+    }//fine initComponentsArticoli
 
-    private void initComponentsAutoriArticoli(JPanel panelC, Font fontbase, Font fontfield) {
-        JPanel panel1 = new JPanel();
-        JLabel label2 = new JLabel();
-        JLabel label3 = new JLabel();
-        JTextField textField3 = new JTextField();
-        JLabel label4 = new JLabel();
-        JTextField textField4 = new JTextField();
-        JLabel label5 = new JLabel();
-        JTextField textField5 = new JTextField();
-        JLabel label6 = new JLabel();
-        JLabel label7 = new JLabel();
-        JTextField textField6 = new JTextField();
+    private void initComponentsAutoriArticoli(JPanel panelC, Font fontbase, Font fontfield) {   //inizializza tutti i componenti necessari per inserire gli autori dell'articolo
+        JPanel panel1 = new JPanel();   //inizializza il JPanel 'panel1'
+        JLabel label2 = new JLabel();   //inizializza la JLabel 'label2'
+        JLabel label3 = new JLabel();   //inizializza la JLabel 'label3'
+        JTextField textField3 = new JTextField();   //inizializza il JTextField 'textField3'
+        JLabel label4 = new JLabel();   //inizializza la JLabel 'label4'
+        JTextField textField4 = new JTextField();   //inizializza il JTextField 'textField4'
+        JLabel label5 = new JLabel();   //inizializza la JLabel 'label5'
+        JTextField textField5 = new JTextField();   //inizializza il JTextField 'textField5'
+        JLabel label6 = new JLabel();   //inizializza la JLabel 'label6'
+        JLabel label7 = new JLabel();   //inizializza la JLabel 'label7'
+        JTextField textField6 = new JTextField();   //inizializza il JTextField 'textField6'
 
         {
-            panel1.setBackground(new Color(0x222831));
-            panel1.setMinimumSize(new Dimension(-1, -1));
-            panel1.setPreferredSize(null);
-            panel1.setLayout(new GridBagLayout());
-            ((GridBagLayout)panel1.getLayout()).columnWidths = new int[] {0, 0, 0};
-            ((GridBagLayout)panel1.getLayout()).rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
-            ((GridBagLayout)panel1.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
-            ((GridBagLayout)panel1.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
+            panel1.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JPanel 'panel1'
+            panel1.setMinimumSize(new Dimension(-1, -1));   //imposta la dimensione minima del JPanel 'panel1'
+            panel1.setPreferredSize(null);  //imposta a NULL la dimensione preferita del JPanel 'setPreferredSize'
+            panel1.setLayout(new GridBagLayout());  //imposta il layout del JPanel 'panel1'
+            ((GridBagLayout)panel1.getLayout()).columnWidths = new int[] {0, 0, 0}; //le larghezze delle colonne del layout di 'panel1' vengono impostate dinamicamente in base alle componenti contenute
+            ((GridBagLayout)panel1.getLayout()).rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};   //le altezze delle righe del layout di 'panel1' vengono impostate dinamicamente in base alle componenti contenute
+            ((GridBagLayout)panel1.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};    //assegna le priorità delle colonne del layout di 'panel1' per impostare le loro larghezze
+            ((GridBagLayout)panel1.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};   //assegna le priorità delle righe del layout di 'panel1' impostare le loro altezze
 
-            label2.setText("Autore:");
-            label2.setFont(fontbase);
-            label2.setForeground(new Color(0xeeeeee));
-            panel1.add(label2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
+            label2.setText("Autore:");  //imposta il testo della JLabel 'label2'
+            label2.setFont(fontbase);   //imposta il font testo di 'label2'
+            label2.setForeground(new Color(0xeeeeee));  //imposta il colore del testo di 'label2'
+            panel1.add(label2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0)); //inserisce 'label2' in 'panel1'
 
-            label3.setText("Nome:");
-            label3.setFont(fontbase);
-            label3.setForeground(new Color(0xeeeeee));
-            panel1.add(label3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
+            label3.setText("Nome:");    //imposta il testo della JLabel 'label3'
+            label3.setFont(fontbase);   //imposta il font testo di 'label3'
+            label3.setForeground(new Color(0xeeeeee));  //imposta il colore del testo di 'label3'
+            panel1.add(label3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0)); //inserisce 'label3' in 'panel1'
 
-            textField3.setFont(fontfield);
-            textField3.setBackground(new Color(0xffd369));
-            textField3.setBorder(new LineBorder(new Color(0xffd369)));
-            textField3.setCaretColor(new Color(0x222831));
-            textField3.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
-            textField3.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
-            panel1.add(textField3, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
+            textField3.setFont(fontfield);  //imposta il font testo di 'textField3'
+            textField3.setBackground(new Color(0xffd369));  //imposta il colore dello sfondo di 'textField3'
+            textField3.setBorder(new LineBorder(new Color(0xffd369)));  //imposta il colore del bordo di 'textField3'
+            textField3.setCaretColor(new Color(0x222831));  //imposta il colore del cursore in 'textField3'
+            textField3.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));    //imposta la dimensione minima di 'textField3'
+            textField3.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));  //imposta la dimensione preferita di 'textField3'
+            panel1.add(textField3, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0)); //inserisce 'textField3' in 'panel1'
 
-            label4.setText("Cognome:");
-            label4.setFont(fontbase);
-            label4.setForeground(new Color(0xeeeeee));
-            panel1.add(label4, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
+            label4.setText("Cognome:"); //imposta il testo della JLabel 'label4'
+            label4.setFont(fontbase);   //imposta il font testo di 'label4'
+            label4.setForeground(new Color(0xeeeeee));  //imposta il colore del testo di 'label4'
+            panel1.add(label4, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0)); //inserisce 'label4' in 'panel1'
 
-            textField4.setBackground(new Color(0xffd369));
-            textField4.setFont(fontfield);
-            textField4.setCaretColor(new Color(0x222831));
-            textField4.setBorder(new LineBorder(new Color(0xffd369)));
-            textField4.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
-            textField4.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
+            textField4.setBackground(new Color(0xffd369));   //imposta il colore dello sfondo di 'textField4'
+            textField4.setFont(fontfield);  //imposta il font testo di 'textField4'
+            textField4.setCaretColor(new Color(0x222831));  //imposta il colore del cursore in 'textField4'
+            textField4.setBorder(new LineBorder(new Color(0xffd369)));  //imposta il colore del bordo di 'textField4'
+            textField4.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));    //imposta la dimensione minima di 'textField4'
+            textField4.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));  //imposta la dimensione preferita di 'textField4'
             panel1.add(textField4, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
 
             label5.setText("Nazionalit\u00e0:");
