@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -55,67 +54,67 @@ public class BookPage {
     ImageIcon favouriteVuotoIco;
     ImageIcon favouritePienoIco;
     private float valutazioneMedia;
-    private String isbn_selezionato;
+    private String isbnSelezionato;
     int numeroNotifiche;
 
 
     public BookPage(JFrame frameC, Controller controller) {
-        isbn_selezionato = controller.isbn_selected;
+        isbnSelezionato = controller.isbn_selected;    //inizializza 'isbnSelezionato' con l'ISBN del libro selezionato
 
-        homeButton.setFont(controller.baseFontSize);
-        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        libriButton.setFont(controller.baseFontSize);
-        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        fascicoliButton.setFont(controller.baseFontSize);
-        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        serieButton.setFont(controller.baseFontSize);
-        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        utenteButton.setFont(controller.baseFontSize);
-        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        homeButton.setFont(controller.baseFontSize);    //imposta il font del JButton 'homeButton'
+        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight())); //imposta la dimensione minima del JButton 'homeButton'
+        libriButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'libriButton'
+        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'libriButton'
+        fascicoliButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'fascicoliButton'
+        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'fascicoliButton'
+        serieButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'serieButton'
+        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'serieButton'
+        utenteButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'utenteButton'
+        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));   //imposta la dimensione minima del JButton 'utenteButton'
 
-        nomeIsbn.setFont(controller.baseFontSize);
-        valutaButton.setFont(controller.baseFontSize);
-        gestisciCollaneButton.setFont(controller.baseFontSize);
-        gestisciCollaneButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), -1));
-        presentazioniButton.setFont(controller.baseFontSize);
-        presentazioniButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), -1));
+        nomeIsbn.setFont(controller.baseFontSize);  //imposta il font della JLabel 'nomeIsbn'
+        valutaButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'valutaButton'
+        gestisciCollaneButton.setFont(controller.baseFontSize); //imposta il font del JButton 'gestisciCollaneButton'
+        gestisciCollaneButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), -1)); //imposta la dimensione minima del JButton 'gestisciCollaneButton'
+        presentazioniButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'presentazioniButton'
+        presentazioniButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), -1));    //imposta la dimensione minima del JButton 'presentazioniButton'
 
-        disponibilitaCheckBox.setFont(controller.baseFontSize);
-        presentazioniCheckBox.setFont(controller.baseFontSize);
+        disponibilitaCheckBox.setFont(controller.baseFontSize); //imposta il fonr del del JCheckBox 'disponibilitaCheckBox'
+        presentazioniCheckBox.setFont(controller.baseFontSize); //imposta il fonr del del JCheckBox 'presentazioniCheckBox'
 
-        table1.setFont(controller.impactFontSize);
-        table1.setRowMargin(controller.screenWidth/640);
-        table1.setRowHeight(controller.screenHeight/36);
+        table1.setFont(controller.impactFontSize);  //imposta il font della JTable 'table1'
+        table1.setRowMargin(controller.screenWidth/640);    //imposta il margine tra le celle della JTable 'table1'
+        table1.setRowHeight(controller.screenHeight/36);    //imposta l'altezza delle righe della JTable 'table1'
 
-        table2.setFont(controller.impactFontSize);
-        table2.setRowMargin(controller.screenWidth/640);
-        table2.setRowHeight(controller.screenHeight/36);
+        table2.setFont(controller.impactFontSize);  //imposta il font della JTable 'table2'
+        table2.setRowMargin(controller.screenWidth/640);    //imposta il margine tra le celle della JTable 'table2'
+        table2.setRowHeight(controller.screenHeight/36);    //imposta l'altezza delle righe della JTable 'table2'
 
-        valLabel.setFont(controller.impactFontSize);
+        valLabel.setFont(controller.impactFontSize);    //imposta il font della JLabel 'valLabel'
 
-        notificheLabel.setFont(controller.baseFontSize);
+        notificheLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'notificheLabel'
 
-        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
-        UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
+        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
+        UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato
         allScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
             Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -128,7 +127,7 @@ public class BookPage {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -142,39 +141,40 @@ public class BookPage {
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
+
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
         jscroll1.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
             Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -187,7 +187,7 @@ public class BookPage {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -201,39 +201,40 @@ public class BookPage {
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
+
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
         jscroll2.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
             Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -246,7 +247,7 @@ public class BookPage {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -260,43 +261,44 @@ public class BookPage {
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
+
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
         JPopupMenu utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
-        utenteExit.setFont(controller.baseFontSize);
-        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteExit.setFont(controller.baseFontSize);    //imposta il font del JMenuItem 'utenteExit'
+        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);    //centra orizzontalmente il testo del JMenuItem 'utenteExit'
         utenteExit.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteExit'
         utenteExit.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteExit'
         utenteExit.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteExit'
-        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8))));
+        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)))); //imposta la dimensione minima del JMenuItem 'utenteExit'
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
-        utenteProfilo.setFont(controller.baseFontSize);
-        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteProfilo.setFont(controller.baseFontSize); //imposta il font del JMenuItem 'utenteProfilo'
+        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER); //centra orizzontalmente il testo del JMenuItem 'utenteProfilo'
         utenteProfilo.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo del JMenuItem 'utenteProfilo'
         utenteProfilo.setFocusPainted(false);   //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteProfilo'
         utenteProfilo.setBorder(BorderFactory.createEmptyBorder()); //toglie il bordo del JMenuItem 'utenteProfilo'
-        utenteProfilo.setFocusable(false);
-        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteProfilo.setFocusable(false);  //impedisce all'utente di interagire con il JMenuItem 'utenteProfilo' tramite tastiera
+        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));    //imposta la dimensione minima del JMenuItem 'utenteExit'
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
         utenteLibrerie.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteLibrerie'
-        utenteLibrerie.setFont(controller.baseFontSize);
-        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteLibrerie.setFont(controller.baseFontSize);    //imposta il font del JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);    //centra orizzontalmente il testo del JMenuItem 'utenteLibrerie'
         utenteLibrerie.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteLibrerie'
         utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteLibrerie'
-        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));   //imposta la dimensione minima del JMenuItem 'utenteLibrerie'
         utenteMenu.setPopupSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/9.6))); //imposta le dimensioni del menu 'utenteMenu'
         utenteMenu.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del menu 'utenteMenu'
         utenteMenu.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del menu 'utenteMenu'
@@ -306,15 +308,17 @@ public class BookPage {
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
-            gestisciCollaneButton.setVisible(false);
-            presentazioniButton.setVisible(false);
+            gestisciCollaneButton.setVisible(false);    //rende invisibile il JButton 'gestisciCollaneButton'
+            presentazioniButton.setVisible(false);  //rende invisibile il JButton 'presentazioniButton'
             utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
-            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));
+            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));    //adatta le dimensioni minime di 'utenteMenu'
         }
 
         frame = new JFrame("Biblioteca Digitale");
-        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
-        frame.setIconImage(icona);
+
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage(); //carica l'immagine nel percorso /icon.png
+
+        frame.setIconImage(icona);  //imposta la l'icona dell'applicazione
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(jpanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -322,9 +326,7 @@ public class BookPage {
         frame.setSize(controller.screenWidth, controller.screenHeight);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
-        frame.setVisible(true);
-        //frame.setAlwaysOnTop(true);
-
+        frame.setVisible(true); //rende visibile il frame
 
         nomeIsbn.setText(controller.nome_selected + " - (" + controller.isbn_selected + ")");  //imposta il tetsto della JLabel 'nomeIsbn' con il nome e l'ISBN del libro selezionato
 
@@ -333,57 +335,67 @@ public class BookPage {
         valutazioneMedia = controller.valutazioneMediaLibro();  //calcola la media delle valutazioni del libro selezionato
         valutazione.setText(valMedForm.format(valutazioneMedia));   //mostra la media delle valutazioni del libro selezionato
 
-        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
-        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        stellaVuotaIco = new ImageIcon(stellaVuotaImg);
+        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png")); //carica l'immagine nel percorso /stella_vuota.png
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        stellaVuotaIco = new ImageIcon(stellaVuotaImg); //reinizializza l'ImageIcon 'stellaVuotaIco' con l'Image 'stellaVuotaImg'
 
-        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
-        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        stellaPienaIco = new ImageIcon(stellaPienaImg);
+        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png")); //carica l'immagine nel percorso /stella_piena.png
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        stellaPienaIco = new ImageIcon(stellaPienaImg); //reinizializza l'ImageIcon 'stellaPienaIco' con l'Image 'stellaPienaImg'
 
-        ImageIcon stellaMezzaIco = new ImageIcon(this.getClass().getResource("/stella_mezza.png"));
-        Image stellaMezzaImg = stellaMezzaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        stellaMezzaIco = new ImageIcon(stellaMezzaImg);
+        ImageIcon stellaMezzaIco = new ImageIcon(this.getClass().getResource("/stella_mezza.png")); //carica l'immagine nel percorso /stella_mezza.png
+        Image stellaMezzaImg = stellaMezzaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        stellaMezzaIco = new ImageIcon(stellaMezzaImg); //reinizializza l'ImageIcon 'stellaMezzaIco' con l'Image 'stellaMezzaImg'
 
         changeStars(stellaPienaIco, stellaVuotaIco, stellaMezzaIco);    //aggiorna le stelle della valutazione media
 
+        favouriteVuotoIco = new ImageIcon(this.getClass().getResource("/favorite1.png"));   //carica l'immagine nel percorso /favorite1.png
+        Image favouriteVuotoImg = favouriteVuotoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
+        favouriteVuotoIco = new ImageIcon(favouriteVuotoImg);   //reinizializza l'ImageIcon 'favouriteVuotoIco' con l'Image 'favouriteVuotoImg'
 
-        favouriteVuotoIco = new ImageIcon(this.getClass().getResource("/favorite1.png"));
-        Image favouriteVuotoImg = favouriteVuotoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        favouriteVuotoIco = new ImageIcon(favouriteVuotoImg);
-
-        favouritePienoIco = new ImageIcon(this.getClass().getResource("/favorite2.png"));
-        Image favouritePienoImg = favouritePienoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        favouritePienoIco = new ImageIcon(favouritePienoImg);
+        favouritePienoIco = new ImageIcon(this.getClass().getResource("/favorite2.png"));   //carica l'immagine nel percorso /favorite2.png
+        Image favouritePienoImg = favouritePienoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
+        favouritePienoIco = new ImageIcon(favouritePienoImg);   //reinizializza l'ImageIcon 'favouritePienoIco' con l'Image 'favouritePienoImg'
 
         controller.likeLibro(); //controlla se l'utente ha il libro selezionato nei preferiti e inizializza 'controller.likeLibroSelected'
         controller.allRecWithCommentLibro(); //inizializza 'recensioniConCommento'
 
-        if (controller.likeElementSelected == false) likeButton.setIcon(favouriteVuotoIco);   //controlla se l'utente ha il libro selelzionato nei preferiti
-        else likeButton.setIcon(favouritePienoIco);
+        if (controller.likeElementSelected == false){   //controlla se l'utente non ha il libro selelzionato nei preferiti
+            likeButton.setIcon(favouriteVuotoIco);  //imposta l'icona della JLabel 'likeButton' con l'immagine 'favouriteVuotoIco'
+        }
+        else {
+            likeButton.setIcon(favouritePienoIco);  //imposta l'icona della JLabel 'likeButton' con l'immagine 'favouritePienoIco'
+        }
 
         likeButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if (controller.likeElementSelected == false) likeButton.setIcon(favouritePienoIco);
-                else likeButton.setIcon(favouriteVuotoIco);
+
+                if (controller.likeElementSelected == false){   //controlla se l'utente non ha il libro selelzionato nei preferiti
+                    likeButton.setIcon(favouritePienoIco);  //imposta l'icona della JLabel 'likeButton' con l'immagine 'favouritePienoIco'
+                }
+                else {
+                    likeButton.setIcon(favouriteVuotoIco);  //imposta l'icona della JLabel 'likeButton' con l'immagine 'favouriteVuotoIco'
+                }
+
                 controller.changeLikeLibro();    //aggiorna il valore di 'controller.likeLibroSelected' e aggiorna il contenuto del DB
             }
         });
+
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                frame.setVisible(false);
-                frameC.setEnabled(true);
+
+                frame.setVisible(false);    //rende invisibile il frame
+                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
                 frame.dispose();
                 System.exit(0);
             }
         });
 
-        // -------------------------------------------------------------------------------------- //
         homeButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -403,21 +415,22 @@ public class BookPage {
                 }
             }
         });
+
         utenteMenu.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                active = true;
+                active = true;  //aggiorna 'active'
             }
 
             @Override
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                active = false;
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                active = false; //aggiorna 'active'
+                utenteButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'utenteButton'
             }
             @Override
             public void popupMenuCanceled(PopupMenuEvent e) {
-                active = false;
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                active = false; //aggiorna 'active'
+                utenteButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'utenteButton'
             }
         });
 
@@ -436,7 +449,7 @@ public class BookPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                frameC.setVisible(true); //rende visibile il frame chiamante
+                frameC.setVisible(true);    //rende visibile il frame chiamante
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -446,8 +459,8 @@ public class BookPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'pf'
-                bsp.frame.setVisible(true);  //rende visible il frame 'pf'
+                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'bsp'
+                bsp.frame.setVisible(true);  //rende visible il frame 'bsp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
 
@@ -458,16 +471,16 @@ public class BookPage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                utenteButton.setBackground(Color.decode("#cf9e29"));
+                utenteButton.setBackground(Color.decode("#cf9e29"));    //imposta il colore dello sfondo del JButton 'utenteButton'
             }
         });
 
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
-                if (active == false){
+                if (active == false){   //controlla se è stato disattivato il menu "Utente"
                     super.mouseExited(e);
-                    utenteButton.setBackground(Color.decode("#FFD369"));
+                    utenteButton.setBackground(Color.decode("#FFD369"));    //imposta il colore dello sfondo del JButton 'utenteButton'
                 }
             }
         });
@@ -476,7 +489,7 @@ public class BookPage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                homeButton.setBackground(Color.decode("#cf9e29"));
+                homeButton.setBackground(Color.decode("#cf9e29"));  //imposta il colore dello sfondo del JButton 'homeButton'
             }
         });
 
@@ -484,7 +497,7 @@ public class BookPage {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                homeButton.setBackground(Color.decode("#FFD369"));
+                homeButton.setBackground(Color.decode("#FFD369"));  //imposta il colore dello sfondo del JButton 'homeButton'
             }
         });
 
@@ -492,14 +505,15 @@ public class BookPage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                serieButton.setBackground(Color.decode("#cf9e29"));
+                serieButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'serieButton'
             }
         });
+
         serieButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                serieButton.setBackground(Color.decode("#FFD369"));
+                serieButton.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'serieButton'
             }
         });
 
@@ -507,8 +521,8 @@ public class BookPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
-                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'sp'
+                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'sp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -518,8 +532,8 @@ public class BookPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'bp'
-                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'ip'
+                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'ip'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -529,9 +543,9 @@ public class BookPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                BooksPage bp = new BooksPage(frameC, controller);
-                bp.frame.setVisible(true);
-                frame.setVisible(false);
+                BooksPage bp = new BooksPage(frameC, controller);   //chiama il frame 'bp'
+                bp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
         });
@@ -540,23 +554,22 @@ public class BookPage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                fascicoliButton.setBackground(Color.decode("#cf9e29"));
+                fascicoliButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'fascicoliButtonButton'
             }
         });
+
         fascicoliButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                fascicoliButton.setBackground(Color.decode("#FFD369"));
+                fascicoliButton.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'fascicoliButtonButton'
             }
         });
 
-        // --------------------------------------------------------------------------- //
 
-
-        allScrollPanel.setBackground(new Color(0x222831));
-        allScrollPanel.setBorder(BorderFactory.createEmptyBorder());
-        allScrollPanel.getViewport().setBackground(new Color(0x222831));
+        allScrollPanel.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JScrollPane 'allScrollPanel'
+        allScrollPanel.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JScrollPane 'allScrollPanel'
+        allScrollPanel.getViewport().setBackground(new Color(0x222831));    //imposta il colore dello sfondo della parte visibile del JScrollPane 'allScrollPanel'
 
         DefaultTableModel model1 = new DefaultTableModel(new Object[][]{}, new String[]{"Libreria", "Quantità", "Fruizione", "Indirizzo", "Sito Web", "N. di Telefono"}) {
             @Override
@@ -572,65 +585,66 @@ public class BookPage {
             }
         };
 
-        // Renderer personalizzato per l'header della tabella
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(0xCF9E29));
-        headerRenderer.setForeground(new Color(0xEEEEEE));
-        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();   //DefaultTableCellRenderer per la formattazione dell'header della tabella
+
+        headerRenderer.setBackground(new Color(0xCF9E29));  //imposta il colore dello sfondo dell'header della tabella
+        headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);   //centra orizzontalmente il contenuto dell'header della tabella
+
         Font headerFont = new Font("Impact", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
-        headerRenderer.setFont(headerFont);
-        JTableHeader tableHeader1 = table1.getTableHeader();
-        tableHeader1.setDefaultRenderer(headerRenderer);
 
-        // Impedire il ridimensionamento delle colonne
-        table1.getTableHeader().setResizingAllowed(false);
+        headerRenderer.setFont(headerFont); //inizializza il font Bebas Neue, grandezza 15 e stile Regular per i caratteri della tabella
 
-        // Impedire il riordinamento delle colonne
-        table1.getTableHeader().setReorderingAllowed(false);
+        JTableHeader tableHeader1 = table1.getTableHeader();    //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'table1'
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader1.setBorder(null);
+        tableHeader1.setDefaultRenderer(headerRenderer);    //imposta il render di default della tabella a 'headerRender'
 
-        tableHeader1.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader1.getDefaultRenderer()));
+        table1.getTableHeader().setResizingAllowed(false);  //impedisce il ridimensionamento delle colonne
+
+        table1.getTableHeader().setReorderingAllowed(false);    //impedisce il riordinamento delle colonne
+
+        tableHeader1.setBorder(null);   //rimuove il bordo dell'header della tabella
+
+        tableHeader1.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader1.getDefaultRenderer()));    //inposta il render di default della tabella
 
 
-        table1.setModel(model1); //imposta il modello dei dati della JTable 'booksTable'
-        jscroll1.setBackground(new Color(0x222831));
-        jscroll1.setBorder(BorderFactory.createEmptyBorder());
-        jscroll1.getViewport().setBackground(new Color(0x222831));
+        table1.setModel(model1);    //imposta il modello dei dati della JTable 'table1'
+        jscroll1.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPane 'jscroll1'
+        jscroll1.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'jscroll1'
+        jscroll1.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'jscroll1'
 
 
         table1.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                        if(table1.isColumnSelected(4)){
-                            try {
-                                Desktop.getDesktop().browse(new URI(table1.getValueAt(table1.getSelectedRow(), 4).toString()));
-                            }catch (IOException | URISyntaxException e1) {
-                                e1.printStackTrace();
-                            }
-                        }
-                        table1.clearSelection();
+
+                if(table1.isColumnSelected(4)){ //controlla se è stata selezionata la 4 colonna dalla JTable 'table1'
+                    try {
+                        Desktop.getDesktop().browse(new URI(table1.getValueAt(table1.getSelectedRow(), 4).toString())); //inserisce un link nella cella (table1.getSelectedRow(), 4)
+                    }catch (IOException | URISyntaxException e1) {
+                        e1.printStackTrace();
                     }
-                });
+                }
 
-        JTableHeader tableHeader2 = table2.getTableHeader();
-        tableHeader2.setDefaultRenderer(headerRenderer);
+                table1.clearSelection();    //deseleziona tutte le celle selezionate in 'table1'
+            }
+        });
 
-        // Impedire il ridimensionamento delle colonne
-        table2.getTableHeader().setResizingAllowed(false);
+        JTableHeader tableHeader2 = table2.getTableHeader();    //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'table2'
 
-        // Impedire il riordinamento delle colonne
-        table2.getTableHeader().setReorderingAllowed(false);
+        tableHeader2.setDefaultRenderer(headerRenderer);    //imposta il render di default della tabella a 'headerRender'
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader2.setBorder(null);
+        table2.getTableHeader().setResizingAllowed(false);  //impedisce il ridimensionamento delle colonne
 
-        tableHeader2.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader2.getDefaultRenderer()));
+        table2.getTableHeader().setReorderingAllowed(false);    //impedisce il riordinamento delle colonne
+
+        tableHeader2.setBorder(null);   //rimuove il bordo dell'header della tabella
+
+        tableHeader2.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader2.getDefaultRenderer()));    //inposta il render di default della tabella
 
 
-        table2.setModel(model2); //imposta il modello dei dati della JTable 'booksTable'
+        table2.setModel(model2); //imposta il modello dei dati della JTable 'table2'
         jscroll2.setBackground(new Color(0x222831));
         jscroll2.setBorder(BorderFactory.createEmptyBorder());
         jscroll2.getViewport().setBackground(new Color(0x222831));
@@ -893,7 +907,7 @@ public class BookPage {
 
     }
     public void showComment(Controller controller, JPanel commenti){
-        controller.isbn_selected = isbn_selezionato;    //isbn del ibro selezionato
+        controller.isbn_selected = isbnSelezionato;    //isbn del ibro selezionato
 
         controller.allRecWithCommentLibro();
         for (int i = 0; i < controller.recensioniConCommento.size(); i++){
