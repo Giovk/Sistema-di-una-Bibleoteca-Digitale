@@ -46,8 +46,7 @@ public class HomePage {
     public HomePage(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato
-        UIManager.put("ScrollPane.background\n", new Color(0x222831)); //imposta il colore dello sfondo del 'JScrollPane'
-
+        UIManager.put("ScrollPane.background\n", new Color(0x222831)); //imposta il colore dello sfondo del JScrollPane
         homeButton.setFont(controller.baseFontSize);
         homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
         libriButton.setFont(controller.baseFontSize);
@@ -122,6 +121,7 @@ public class HomePage {
             }
 
             private Image getAppropriateIcon(int orientation){
+
                 switch(orientation){
                     case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
                     case SwingConstants.NORTH: return uA;   //restituisce 'uA'
@@ -383,13 +383,19 @@ public class HomePage {
             }
         };
 
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();   //DefaultTableCellRenderer per la formattazione dell'header della tabella
+
         headerRenderer.setBackground(new Color(0xCF9E29));  //imposta il colore dello sfondo dell'header della tabella
         headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
         headerRenderer.setHorizontalAlignment(JLabel.CENTER);   //centra orizzontalmente il contenuto dell'header della tabella
+
         Font headerFont = new Font("Impact", Font.PLAIN, 15); //inizializza il font Bebas Neue, grandezza 15 e stile Regular per i caratteri della tabella
+
+
         headerRenderer.setFont(headerFont); //imposta il font del contenuto delle celle della tabella a 'headerFont'
+
         JTableHeader tableHeader = mainTable.getTableHeader(); //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'mainTable'
+
         tableHeader.setDefaultRenderer(headerRenderer); //imposta il render di default della tabella a 'headerRender'
 
         mainTable.getTableHeader().setResizingAllowed(false);   //impedisce il ridimensionamento delle colonne
