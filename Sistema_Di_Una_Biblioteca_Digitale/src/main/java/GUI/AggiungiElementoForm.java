@@ -920,13 +920,13 @@ public class AggiungiElementoForm {
 
         titoloRivistaCB.setSelectedIndex(-1);   //deseleziona tutti gli elementi del menu del JComboBox 'titoloRivistaCBB'
         issueScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorse /up.png
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
             Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorse /up.png
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorse /up.png
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorse /up.png
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
@@ -1868,9 +1868,9 @@ public class AggiungiElementoForm {
             }
 
             spinner1.setUI(new BasicSpinnerUI(){
-                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorse /up.png
+                ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
                 Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorse /up.png
+                ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
                 Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
                 @Override
@@ -1904,7 +1904,7 @@ public class AggiungiElementoForm {
 
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            spinner.setValue(spinner.getNextValue()); //imposta il valore dello JSpinner 'spinner' con il suo valore precedente
+                            spinner.setValue(spinner.getNextValue()); //imposta il valore dello JSpinner 'spinner' con il suo valore successivo
                         }
                     });
 
@@ -2007,133 +2007,135 @@ public class AggiungiElementoForm {
             textField4.setBorder(new LineBorder(new Color(0xffd369)));  //imposta il colore del bordo di 'textField4'
             textField4.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));    //imposta la dimensione minima di 'textField4'
             textField4.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));  //imposta la dimensione preferita di 'textField4'
-            panel1.add(textField4, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
+            panel1.add(textField4, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0)); //inserisce 'textField4' in 'panel1'
 
-            label5.setText("Nazionalit\u00e0:");
-            label5.setFont(fontbase);
-            label5.setForeground(new Color(0xeeeeee));
-            panel1.add(label5, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
+            label5.setText("Nazionalit\u00e0:");    //imposta il testo della JLabel 'label5'
+            label5.setFont(fontbase);   //imposta il font testo di 'label5'
+            label5.setForeground(new Color(0xeeeeee));  //imposta il colore del testo di 'label5'
+            panel1.add(label5, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0)); //inserisce 'label5' in 'panel1'
 
-            textField5.setBackground(new Color(0xffd369));
-            textField5.setFont(fontfield);
-            textField5.setBorder(new LineBorder(new Color(0xffd369)));
-            textField5.setCaretColor(new Color(0x222831));
-            textField5.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));
-            textField5.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));
-            panel1.add(textField5, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
+            textField5.setBackground(new Color(0xffd369));  //imposta il colore dello sfondo del JTextField 'textField5'
+            textField5.setFont(fontfield);  //imposta il font testo di 'textField5'
+            textField5.setBorder(new LineBorder(new Color(0xffd369)));  //imposta il colore del bordo di 'textField5'
+            textField5.setCaretColor(new Color(0x222831));  //imposta il colore del cursore in 'textField5'
+            textField5.setMinimumSize(new Dimension((int)(screenWidth/8.5),-1));    //imposta la dimensione minima di 'textField5
+            textField5.setPreferredSize(new Dimension((int)(screenWidth/8.5),-1));  //imposta la dimensione preferita di 'textField5'
+            panel1.add(textField5, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0)); //inserisce 'textField5' in 'panel1'
 
-            label6.setText("Data di Nascita:");
-            label6.setFont(fontbase);
-            label6.setForeground(new Color(0xeeeeee));
-            panel1.add(label6, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0));
+            label6.setText("Data di Nascita:"); //imposta il testo della JLabel 'label6'
+            label6.setFont(fontbase);    //imposta il font testo di 'label6'
+            label6.setForeground(new Color(0xeeeeee));  //imposta il colore del testo di 'label6'
+            panel1.add(label6, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0)); //inserisce 'label6' in 'panel1'
 
-            label7.setIcon(new ImageIcon(calendarImg));
+            label7.setIcon(new ImageIcon(calendarImg)); //imposta l'icona della JLabel 'label7' con l'immagine 'calendarImg'
 
             DatePicker datePicker = new DatePicker(label7);
 
             label7.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                        datePicker.d.setVisible(true);
-                        textField6.setText(datePicker.setPickedDate());
+                        datePicker.d.setVisible(true);  //rende visibile il calendario
+                        textField6.setText(datePicker.setPickedDate()); //imposta il testo del JTextField 'textField6' con la data scelta dall'utente
                 }
             });
 
-            panel1.add(label7, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
+            panel1.add(label7, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0)); //inserisce 'label7' in 'panel1'
 
-            textField6.setBackground(new Color(0xffd369));
-            textField6.setCaretColor(new Color(0x222831));
-            textField6.setBorder(new LineBorder(new Color(0xffd369)));
-            textField6.setFont(fontfield);
-            textField6.setMinimumSize(new Dimension((int)(screenWidth/8.5), calcolaAltezzaFont(label6.getFont())));
-            textField6.setPreferredSize(new Dimension((int)(screenWidth/8.5),calcolaAltezzaFont(label6.getFont())));
-            panel1.add(textField6, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+            textField6.setBackground(new Color(0xffd369));  //imposta il colore dello sfondo del JTextField 'textField6'
+            textField6.setCaretColor(new Color(0x222831));  //imposta il colore del cursore in 'textField6'
+            textField6.setBorder(new LineBorder(new Color(0xffd369)));  //imposta il colore del bordo di 'textField6'
+            textField6.setFont(fontfield);  //imposta il font testo di 'textField6'
+            textField6.setMinimumSize(new Dimension((int)(screenWidth/8.5), calcolaAltezzaFont(label6.getFont()))); //imposta la dimensione minima di 'textField6'
+            textField6.setPreferredSize(new Dimension((int)(screenWidth/8.5),calcolaAltezzaFont(label6.getFont())));    //imposta la dimensione preferita di 'textField6'
+            panel1.add(textField6, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0)); //inserisce 'textField6' in 'panel1'
         }
-            panelC.setLayout(new GridLayout(-1, 2, 15, 15));
-            panelC.add(panel1);
+            panelC.setLayout(new GridLayout(-1, 2, 15, 15));    //imposta il layout del JPanel 'panelC'
+            panelC.add(panel1); //inserisce 'panel1' nel JPanel 'panelC'
     }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //dimensioni dello schermo
+        int screenWidth = screenSize.width; //larghezza dello schermo
+        int screenHeight = screenSize.height;   //altezza dello schermo
 
-        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine);
-        closeBT = new JLabel(closeImg);
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));  //carica l'immagine nel percorse /close.png
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
-        linguaLibroCB = new JComboBox<>();
-        linguaLibroCB.setBackground(Color.decode("#FFD369"));
-        linguaLibroCB.setForeground(Color.decode("#222831"));
-        linguaLibroCB.setBorder(new LineBorder(Color.decode("#222831")));
+        closeImg = new ImageIcon(imagine);  //reinizializza l'ImageIcon 'closeImg' con l'Image 'image'
+        closeBT = new JLabel(closeImg); //inizializza la JLabel 'closeBT' con 'closeImg'
 
-        isbnLibroCB = new JComboBox<>();
-        isbnLibroCB.setBackground(Color.decode("#FFD369"));
-        isbnLibroCB.setForeground(Color.decode("#222831"));
-        isbnLibroCB.setBorder(new LineBorder(Color.decode("#222831")));
+        linguaLibroCB = new JComboBox<>();  //inizializza il JComboBox 'linguaLibroCB'
+        linguaLibroCB.setBackground(Color.decode("#FFD369"));   //imposta il colore dello sfondo del JComboBox 'linguaLibroCB'
+        linguaLibroCB.setForeground(Color.decode("#222831"));   //imposta il colore del testo del JComboBox 'linguaLibroCB'
+        linguaLibroCB.setBorder(new LineBorder(Color.decode("#222831")));   //imposta il colore del bordo del JComboBox 'linguaLibroCB'
 
-        fruizioneLibroCB = new JComboBox<>();
-        fruizioneLibroCB.setBackground(Color.decode("#FFD369"));
-        fruizioneLibroCB.setForeground(Color.decode("#222831"));
-        fruizioneLibroCB.setBorder(new LineBorder(Color.decode("#222831")));
+        isbnLibroCB = new JComboBox<>();    //inizializza il JComboBox 'isbnLibroCB'
+        isbnLibroCB.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JComboBox 'isbnLibroCB'
+        isbnLibroCB.setForeground(Color.decode("#222831")); //imposta il colore del testo del JComboBox 'isbnLibroCB'
+        isbnLibroCB.setBorder(new LineBorder(Color.decode("#222831"))); //imposta il colore del bordo del JComboBox 'isbnLibroCB'
 
-        titoloLibroField = new JTextField();
-        titoloLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        fruizioneLibroCB = new JComboBox<>();   //inizializza il JComboBox 'fruizioneLibroCB'
+        fruizioneLibroCB.setBackground(Color.decode("#FFD369"));    //imposta il colore dello sfondo del JComboBox 'fruizioneLibroCB'
+        fruizioneLibroCB.setForeground(Color.decode("#222831"));    //imposta il colore del testo del JComboBox 'fruizioneLibroCB'
+        fruizioneLibroCB.setBorder(new LineBorder(Color.decode("#222831")));    //imposta il colore del bordo del JComboBox 'fruizioneLibroCB'
 
-        editoreLibroField = new JTextField();
-        editoreLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        titoloLibroField = new JTextField();    //inizializza il JTextField 'titoloLibroField'
+        titoloLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JTextField 'titoloLibroField'
 
-        genereLibroField = new JTextField();
-        genereLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        editoreLibroField = new JTextField();   //inizializza il JTextField 'editoreLibroField'
+        editoreLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));   //imposta il colore del bordo del JTextField 'editoreLibroField'
 
-        dataLibroField = new JTextField();
-        dataLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        genereLibroField = new JTextField();    //inizializza il JTextField 'genereLibroField'
+        genereLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JTextField 'genereLibroField'
 
-        calendarLibroIMG = new JLabel(calendarIco);
+        dataLibroField = new JTextField();  //inizializza il JTextField 'dataLibroField'
+        dataLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JTextField 'dataLibroField'
 
-        autoriLibroPanel = new JPanel();
-        autoriLibroPanel.setLayout(new GridLayout(-1, 2, (int) (screenWidth/85.33), screenHeight/48));
+        calendarLibroIMG = new JLabel(calendarIco); //inizializza la JLabel 'calendarLibroIMG' dell'icona del calendario
 
-        SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1);
+        autoriLibroPanel = new JPanel();    //inizializza il JPanel 'autoriLibroPanel'
+        autoriLibroPanel.setLayout(new GridLayout(-1, 2, (int) (screenWidth/85.33), screenHeight/48));  //imposta il layout del JPanel 'autoriLibroPanel'
 
-        quantitaLibroSpinner = new JSpinner(snm);
+        SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1); //inizializza il model dello JSpinner
 
-        quantitaLibroSpinner.setBorder(new LineBorder(new Color(0xFFD369)));
+        quantitaLibroSpinner = new JSpinner(snm);   //inizializza lo JSpinner 'quantitaLibroSpinner' con model 'snm'
 
-        JComponent editor = quantitaLibroSpinner.getEditor();
+        quantitaLibroSpinner.setBorder(new LineBorder(new Color(0xFFD369)));    //imposta il colore del bordo di 'quantitaLibroSpinner'
 
-        if (editor instanceof JSpinner.DefaultEditor) {
-            JTextField textField = ((JSpinner.DefaultEditor) editor).getTextField();
-            textField.setForeground(new Color(0x222831));
-            textField.setBackground(new Color(0xFFD369));
-            textField.setBorder(new LineBorder(new Color(0x222831)));
+        JComponent editor = quantitaLibroSpinner.getEditor();   //editor di 'quantitaLibroSpinner' per personalizzarlo
+
+        if (editor instanceof JSpinner.DefaultEditor) { //controlla se 'editor' è un JSpinner.DefaultEditor (editor di default degli JSpinner)
+            JTextField textField = ((JSpinner.DefaultEditor) editor).getTextField();    //JtextField di 'quantitaLibroSpinner'
+
+            textField.setForeground(new Color(0x222831));   //imposta il colore del testo di 'textField'
+            textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
+            textField.setBorder(new LineBorder(new Color(0x222831)));   //imposta il colore del bordo di 'quantitaLibroSpinner'
         }
 
         quantitaLibroSpinner.setUI(new BasicSpinnerUI(){
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
+            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
+            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
             @Override
             protected Component createPreviousButton() {
                 JButton button = new JButton(new ImageIcon(dA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);   //inizializza le dimensioni del JButton 'button'
                     }
                 };
 
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                        spinner.setValue(spinner.getPreviousValue());   //imposta il valore dello JSpinner 'spinner' con il suo valore precedente
                     }
                 });
 
-                button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
-                button.setBorder(new LineBorder(new Color(0xFFD369)));
+                button.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'button'
+                button.setBorder(new LineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JButton 'button'
                 return button;
             }
 
@@ -2142,76 +2144,78 @@ public class AggiungiElementoForm {
                 JButton button = new JButton(new ImageIcon(uA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);   //inizializza le dimensioni del JButton 'button'
                     }
                 };
 
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        spinner.setValue(spinner.getNextValue()); // Azione per incrementare il valore
+                        spinner.setValue(spinner.getNextValue());   //imposta il valore dello JSpinner 'spinner' con il suo valore successivo
                     }
                 });
 
-                button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
-                button.setBorder(new LineBorder(new Color(0xFFD369)));
+                button.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'button'
+                button.setBorder(new LineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JButton 'button'
                 return button;
             }
         });
 
-        isbnSerieField = new JTextField();
-        isbnSerieField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        isbnSerieField = new JTextField();  //inizializza il JTextField 'isbnSerieField'
+        isbnSerieField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JTextField 'isbnSerieField'
 
-        titoloSerieField = new JTextField();
-        titoloSerieField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        titoloSerieField = new JTextField();    //inizializza il JTextField 'titoloSerieField'
+        titoloSerieField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JTextField 'titoloSerieField'
 
-        editoreLibroField = new JTextField();
-        editoreLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        editoreLibroField = new JTextField();   //inizializza il JTextField 'editoreSerieField'
+        editoreLibroField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));   //imposta il colore del bordo del JTextField 'editoreSerieField'
 
-        dataSerieField = new JTextField();
-        dataSerieField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        dataSerieField = new JTextField();  //inizializza il JTextField 'dataSerieField'
+        dataSerieField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JTextField 'dataSerieField'
 
-        calendarSerieIMG = new JLabel(calendarIco);
+        calendarSerieIMG = new JLabel(calendarIco); //inizializza la JLabel 'calendarSerieIMG' dell'icona del calendario
 
-        isbnSeriePanel = new JPanel();
-        isbnSeriePanel.setLayout(new GridLayout(-1, 2));
+        isbnSeriePanel = new JPanel();  //inizializza il JTextField 'isbnSerieField'
+        isbnSeriePanel.setLayout(new GridLayout(-1, 2));    //imposta il layout del JPanel 'autoriLibroPanel'
 
-        SpinnerNumberModel snm2 = new SpinnerNumberModel(2, 2, 999, 1);
-        spinnerLibriSerie = new JSpinner(snm2);
+        SpinnerNumberModel snm2 = new SpinnerNumberModel(2, 2, 999, 1); //inizializza il model dello JSpinner
 
-        spinnerLibriSerie.setBorder(new LineBorder(new Color(0xFFD369)));
+        spinnerLibriSerie = new JSpinner(snm2); //inizializza lo JSpinner 'quantitaLibroSpinner' con model 'snm2'
 
-        JComponent editor2 = spinnerLibriSerie.getEditor();
+        spinnerLibriSerie.setBorder(new LineBorder(new Color(0xFFD369)));   //imposta il colore del bordo di 'quantitaLibroSpinner'
 
-        if (editor2 instanceof JSpinner.DefaultEditor) {
-            JTextField textField = ((JSpinner.DefaultEditor) editor2).getTextField();
-            textField.setForeground(new Color(0x222831));
-            textField.setBackground(new Color(0xFFD369));
-            textField.setBorder(new LineBorder(new Color(0x222831)));
+        JComponent editor2 = spinnerLibriSerie.getEditor(); //editor di 'spinnerLibriSerie' per personalizzarlo
+
+        if (editor2 instanceof JSpinner.DefaultEditor) {    //controlla se 'editor' è un JSpinner.DefaultEditor (editor di default degli JSpinner)
+            JTextField textField = ((JSpinner.DefaultEditor) editor2).getTextField();   //JtextField di 'spinnerLibriSerie'
+
+            textField.setForeground(new Color(0x222831));   //imposta il colore del testo di 'textField'
+            textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
+            textField.setBorder(new LineBorder(new Color(0x222831)));   //imposta il colore del bordo di 'spinnerLibriSerie'
         }
 
         spinnerLibriSerie.setUI(new BasicSpinnerUI(){
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
+            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
+            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
             @Override
             protected Component createPreviousButton() {
                 JButton button = new JButton(new ImageIcon(dA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);    //inizializza le dimensioni del JButton 'button'
                     }
                 };
 
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                        spinner.setValue(spinner.getPreviousValue());   //imposta il valore dello JSpinner 'spinner' con il suo valore precedente
                     }
                 });
 
-                button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
-                button.setBorder(new LineBorder(new Color(0xFFD369)));
+                button.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'button'
+                button.setBorder(new LineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JButton 'button'
                 return button;
             }
 
@@ -2220,61 +2224,60 @@ public class AggiungiElementoForm {
                 JButton button = new JButton(new ImageIcon(uA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);    //inizializza le dimensioni del JButton 'button'
                     }
                 };
 
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        spinner.setValue(spinner.getNextValue()); // Azione per incrementare il valore
+                        spinner.setValue(spinner.getNextValue());   //imposta il valore dello JSpinner 'spinner' con il suo valore successivo
                     }
                 });
 
-                button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
-                button.setBorder(new LineBorder(new Color(0xFFD369)));
+                button.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'button'
+                button.setBorder(new LineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JButton 'button'
                 return button;
             }
         });
 
-        titoloRivistaCB = new JComboBox<>();
-        titoloRivistaCB.setBackground(Color.decode("#FFD369"));
-        titoloRivistaCB.setForeground(Color.decode("#222831"));
-        titoloRivistaCB.setBorder(new LineBorder(Color.decode("#222831")));
+        titoloRivistaCB = new JComboBox<>();    //inizializza il JComboBox 'titoloLibroCB'
+        titoloRivistaCB.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JComboBox 'titoloRivistaCB'
+        titoloRivistaCB.setForeground(Color.decode("#222831")); //imposta il colore del testo del JComboBox 'titoloRivistaCB'
+        titoloRivistaCB.setBorder(new LineBorder(Color.decode("#222831"))); //imposta il colore del bordo del JComboBox 'titoloRivistaCB'
 
-        issnRivistaField = new JTextField();
-        issnRivistaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        issnRivistaField = new JTextField();    //inizializza il JTextField 'issnRivistaField'
+        issnRivistaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JTextField 'issnRivistaField'
 
-        argomentoRivistaField = new JTextField();
-        argomentoRivistaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        argomentoRivistaField = new JTextField();   //inizializza il JTextField 'argomentoRivistaField'
+        argomentoRivistaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));   //imposta il colore del bordo del JTextField 'argomentoRivistaField'
 
-        nomeRField = new JTextField();
-        nomeRField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        nomeRField = new JTextField();  //inizializza il JTextField 'nomeRField'
+        nomeRField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JTextField 'nomeRField'
 
-        cognomeRField = new JTextField();
-        cognomeRField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        cognomeRField = new JTextField();   //inizializza il JTextField 'cognomeRField'
+        cognomeRField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));   //imposta il colore del bordo del JTextField 'cognomeRField'
 
-        editoreRivistaField = new JTextField();
-        editoreRivistaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        editoreRivistaField = new JTextField(); //inizializza il JTextField 'editoreRivistaField'
+        editoreRivistaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369))); //imposta il colore del bordo del JTextField 'editoreRivistaField'
 
-        dpFascicoloField = new JTextField();
-        dpFascicoloField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        dpFascicoloField = new JTextField();    //inizializza il JTextField 'dpFascicoloField'
+        dpFascicoloField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JTextField 'dpFascicoloField'
 
-        DecimalFormat decimalFormat = new DecimalFormat("0");
-        decimalFormat.setGroupingUsed(false); // Disabilita il separatore delle migliaia
+        DecimalFormat decimalFormat = new DecimalFormat("0");   //formato con le cifre decimali disabilitate
 
-        // Crea un NumberFormatter con il NumberFormat personalizzato
-        NumberFormatter numberFormatter = new NumberFormatter(decimalFormat);
+        decimalFormat.setGroupingUsed(false);   //disabilita il '.' che separa le migliaia
 
-        // Crea un JFormattedTextField con il NumberFormatter
-        JFormattedTextField formattedTextField = new JFormattedTextField(numberFormatter);
+        NumberFormatter numberFormatter = new NumberFormatter(decimalFormat);   //formato del numero
 
-        // Crea un SpinnerNumberModel con il valore iniziale, il valore minimo, il valore massimo e l'incremento
-        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(Year.now().getValue(), 1900, Year.now().getValue(), 1);
+        JFormattedTextField formattedTextField = new JFormattedTextField(numberFormatter);  //formato del testo
 
+        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(Year.now().getValue(), 1900, Year.now().getValue(), 1);    //model dello JSpinner
 
-        annoPrivistaSpinner = new JSpinner(spinnerModel);
-        annoPrivistaSpinner.setEditor(new JSpinner.DefaultEditor(annoPrivistaSpinner));
-        JSpinner.DefaultEditor editors = (JSpinner.DefaultEditor) annoPrivistaSpinner.getEditor();
+        annoPrivistaSpinner = new JSpinner(spinnerModel); //inizializza lo JSpinner 'annoPrivistaSpinner' con il SpinnerNumberModel 'spinnerModel'
+        annoPrivistaSpinner.setEditor(new JSpinner.DefaultEditor(annoPrivistaSpinner)); //imposta l'editor dello JSpinner 'annoPrivistaSpinner' con quello personalizzato
+
+        JSpinner.DefaultEditor editors = (JSpinner.DefaultEditor) annoPrivistaSpinner.getEditor();  //editor dello JSpinner 'annoPrivistaSpinner'
+
         editors.getTextField().setFormatterFactory(new JFormattedTextField.AbstractFormatterFactory() {
             @Override
             public JFormattedTextField.AbstractFormatter getFormatter(JFormattedTextField tf) {
@@ -2282,39 +2285,42 @@ public class AggiungiElementoForm {
             }
         });
 
-        annoPrivistaSpinner.setBorder(new LineBorder(new Color(0xFFD369)));
+        annoPrivistaSpinner.setBorder(new LineBorder(new Color(0xFFD369))); //imposta il colore del bordo di 'annoPrivistaSpinner'
 
-        JComponent editor3 = annoPrivistaSpinner.getEditor();
-        if (editor3 instanceof JSpinner.DefaultEditor) {
-            JTextField textField = ((JSpinner.DefaultEditor) editor3).getTextField();
-            textField.setForeground(new Color(0x222831));
-            textField.setBackground(new Color(0xFFD369));
-            textField.setBorder(new LineBorder(new Color(0x222831)));
+        JComponent editor3 = annoPrivistaSpinner.getEditor();   //editor di 'annoPrivistaSpinner' per personalizzarlo
+
+        if (editor3 instanceof JSpinner.DefaultEditor) {    //controlla se 'editor3' è un JSpinner.DefaultEditor (editor di default degli JSpinner)
+            JTextField textField = ((JSpinner.DefaultEditor) editor3).getTextField();   //JtextField di 'annoPrivistaSpinner'
+
+            textField.setForeground(new Color(0x222831));   //imposta il colore del testo di 'textField'
+            textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
+            textField.setBorder(new LineBorder(new Color(0x222831)));   //imposta il colore del bordo di 'annoPrivistaSpinner'
         }
 
         annoPrivistaSpinner.setUI(new BasicSpinnerUI(){
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
+            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
+            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
             @Override
             protected Component createPreviousButton() {
                 JButton button = new JButton(new ImageIcon(dA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);   //inizializza le dimensioni del JButton 'button'
                     }
                 };
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        if(spinner.getPreviousValue() != null) {
-                            spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                        if(spinner.getPreviousValue() != null) {    //controlla se il valore precedente dello JSpinner è 'spinner' è diverso da null
+                            spinner.setValue(spinner.getPreviousValue());   //imposta il valore dello JSpinner 'spinner' con il suo valore precedente
                         }
                     }
                 });
-                button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
-                button.setBorder(new LineBorder(new Color(0xFFD369)));
+
+                button.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'button'
+                button.setBorder(new LineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JButton 'button'
                 return button;
             }
 
@@ -2323,66 +2329,74 @@ public class AggiungiElementoForm {
                 JButton button = new JButton(new ImageIcon(uA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension(15, 15);
+                        return new Dimension(15, 15);   //inizializza le dimensioni del JButton 'button'
                     }
                 };
+
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        if (spinner.getNextValue() != null) {
-                            spinner.setValue(spinner.getNextValue());
+                        if (spinner.getNextValue() != null) {   //controlla se il valore successivo dello JSpinner è 'spinner' è diverso da null
+                            spinner.setValue(spinner.getNextValue());   //imposta il valore dello JSpinner 'spinner' con il suo valore successivo
                         }
                     }
                 });
-                button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
-                button.setBorder(new LineBorder(new Color(0xFFD369)));
+
+                button.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'button'
+                button.setBorder(new LineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JButton 'button'
                 return button;
             }
         });
 
-        numeroFascicoloCB = new JComboBox<>();
-        numeroFascicoloCB.setBackground(Color.decode("#FFD369"));
-        numeroFascicoloCB.setForeground(Color.decode("#222831"));
-        numeroFascicoloCB.setBorder(new LineBorder(Color.decode("#222831")));
+        numeroFascicoloCB = new JComboBox<>();  //inizializza il JComboBox 'numeroFascicoloCB'
+        numeroFascicoloCB.setBackground(Color.decode("#FFD369"));   //imposta il colore dello sfondo del JComboBox 'numeroFascicoloCB'
+        numeroFascicoloCB.setForeground(Color.decode("#222831"));   //imposta il colore del testo del JComboBox 'numeroFascicoloCB'
+        numeroFascicoloCB.setBorder(new LineBorder(Color.decode("#222831")));   //imposta il colore del bordo del JComboBox 'numeroFascicoloCB'
 
-        fruizoneFascicoloCB = new JComboBox<>();
-        fruizoneFascicoloCB.setBackground(Color.decode("#FFD369"));
-        fruizoneFascicoloCB.setForeground(Color.decode("#222831"));
-        fruizoneFascicoloCB.setBorder(new LineBorder(Color.decode("#222831")));
+        fruizoneFascicoloCB = new JComboBox<>();    //inizializza il JComboBox 'fruizoneFascicoloCB'
+        fruizoneFascicoloCB.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JComboBox 'fruizoneFascicoloCB'
+        fruizoneFascicoloCB.setForeground(Color.decode("#222831")); //imposta il colore del testo del JComboBox 'fruizoneFascicoloCB'
+        fruizoneFascicoloCB.setBorder(new LineBorder(Color.decode("#222831"))); //imposta il colore del bordo del JComboBox 'fruizoneFascicoloCB'
 
-        SpinnerNumberModel snm4 = new SpinnerNumberModel(0, 0, 9999, 1);
-        quantitaFascicoloSpinner = new JSpinner(snm4);
+        SpinnerNumberModel snm4 = new SpinnerNumberModel(0, 0, 9999, 1);    //inizializza il model dello JSpinner
 
-        quantitaFascicoloSpinner.setBorder(new LineBorder(new Color(0xFFD369)));
+        quantitaFascicoloSpinner = new JSpinner(snm4);  //inizializza lo JSpinner 'quantitaLibroSpinner' con model 'snm4'
 
-        JComponent editor4 = quantitaFascicoloSpinner.getEditor();
-        if (editor4 instanceof JSpinner.DefaultEditor) {
-            JTextField textField = ((JSpinner.DefaultEditor) editor4).getTextField();
-            textField.setForeground(new Color(0x222831));
-            textField.setBackground(new Color(0xFFD369));
-            textField.setBorder(new LineBorder(new Color(0x222831)));
+        quantitaFascicoloSpinner.setBorder(new LineBorder(new Color(0xFFD369)));    //imposta il colore del bordo di 'annoPrivistaSpinner'
+
+        JComponent editor4 = quantitaFascicoloSpinner.getEditor();  //editor di 'annoPrivistaSpinner' per personalizzarlo
+
+        if (editor4 instanceof JSpinner.DefaultEditor) {    //controlla se 'editor4' è un JSpinner.DefaultEditor (editor di default degli JSpinner)
+            JTextField textField = ((JSpinner.DefaultEditor) editor4).getTextField();   //JtextField di 'quantitaFascicoloSpinner'
+
+            textField.setForeground(new Color(0x222831));   //imposta il colore del testo di 'textField'
+            textField.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo di 'textField'
+            textField.setBorder(new LineBorder(new Color(0x222831)));   //imposta il colore del bordo di 'quantitaFascicoloSpinner'
         }
 
         quantitaFascicoloSpinner.setUI(new BasicSpinnerUI(){
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
+            Image uA = upArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
+            Image dA = downArrow.getImage().getScaledInstance(screenWidth/256, screenHeight/144, Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
             @Override
             protected Component createPreviousButton() {
                 JButton button = new JButton(new ImageIcon(dA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);   //inizializza le dimensioni del JButton 'button'
                     }
                 };
+
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                        spinner.setValue(spinner.getPreviousValue());   //imposta il valore dello JSpinner 'spinner' con il suo valore precedente
                     }
                 });
-                button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
-                button.setBorder(new LineBorder(new Color(0xFFD369)));
+
+                button.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'button'
+                button.setBorder(new LineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JButton 'button'
+
                 return button;
             }
 
@@ -2391,27 +2405,29 @@ public class AggiungiElementoForm {
                 JButton button = new JButton(new ImageIcon(uA)){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);
+                        return new Dimension((int) (screenWidth/85.33), screenHeight/48);   //inizializza le dimensioni del JButton 'button'
                     }
                 };
+
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        spinner.setValue(spinner.getNextValue()); // Azione per incrementare il valore
+                        spinner.setValue(spinner.getNextValue());   //imposta il valore dello JSpinner 'spinner' con il suo valore successivo
                     }
                 });
-                button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
-                button.setBorder(new LineBorder(new Color(0xFFD369)));
+
+                button.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'button'
+                button.setBorder(new LineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JButton 'button'
                 return button;
             }
         });
 
-        calendarIssueIMG = new JLabel(calendarIco);
+        calendarIssueIMG = new JLabel(calendarIco); //inizializza la JLabel 'calendarSerieIMG' dell'icona del calendario
 
-        articoliPanel = new JPanel();
-        articoliPanel.setLayout(new GridBagLayout());
-        ((GridBagLayout)articoliPanel.getLayout()).columnWidths = new int[] {0, 0};
-        ((GridBagLayout)articoliPanel.getLayout()).rowHeights = new int[] {0, 0};
-        ((GridBagLayout)articoliPanel.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};
-        ((GridBagLayout)articoliPanel.getLayout()).rowWeights = new double[] {0.0, 1.0E-4};
+        articoliPanel = new JPanel();   //inizializza il JTextField 'articoliPaneld'
+        articoliPanel.setLayout(new GridBagLayout());   //imposta il layout del JPanel 'articoliPanel'
+        ((GridBagLayout)articoliPanel.getLayout()).columnWidths = new int[] {0, 0}; //le larghezze delle colonne del layout di 'articoliPanel' vengono impostate dinamicamente in base alle componenti contenute
+        ((GridBagLayout)articoliPanel.getLayout()).rowHeights = new int[] {0, 0};   //le altezze delle righe del layout di 'articoliPanel' vengono impostate dinamicamente in base alle componenti contenute
+        ((GridBagLayout)articoliPanel.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};  //assegna le priorità delle colonne del layout di 'articoliPanel' per impostare le loro larghezze
+        ((GridBagLayout)articoliPanel.getLayout()).rowWeights = new double[] {0.0, 1.0E-4}; //assegna le priorità delle righe del layout di 'articoliPanel' impostare le loro altezze
     }
 }
