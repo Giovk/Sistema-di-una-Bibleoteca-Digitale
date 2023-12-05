@@ -645,9 +645,9 @@ public class BookPage {
 
 
         table2.setModel(model2); //imposta il modello dei dati della JTable 'table2'
-        jscroll2.setBackground(new Color(0x222831));
-        jscroll2.setBorder(BorderFactory.createEmptyBorder());
-        jscroll2.getViewport().setBackground(new Color(0x222831));
+        jscroll2.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPane 'jscroll2'
+        jscroll2.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'jscroll2'
+        jscroll2.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'jscroll2'
 
         ArrayList<String> libreria = controller.getDisponibilitaLibreria(); //nomi delle librerie che possiedono il libro selezionato
         ArrayList<Integer> quantita = controller.getDisponibilitaQuantita();    //quantità disponibili del libro selezionato
@@ -656,36 +656,40 @@ public class BookPage {
         ArrayList<String> sitoWeb = controller.getDisponibilitaSitoWeb();   //siti web delle librerie che possiedono il libro selezionato
         ArrayList<String> nTel = controller.getDisponibilitaNumeroTelefono();   //numeri telefonici delle librerie che possiedono il libro selezionato
 
-        for(int i = 0; i < libreria.size(); i++){
-            if(fruizione.get(i).equals("Digitale") || fruizione.get(i).equals("AudioLibro")) model1.addRow(new Object[]{libreria.get(i), "∞", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
-            else if(fruizione.get(i).equals("Cartaceo") && quantita.get(i) == 0) model1.addRow(new Object[]{libreria.get(i), "Non Disponibile", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
-            else model1.addRow(new Object[]{libreria.get(i), quantita.get(i), fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
+        for(int i = 0; i < libreria.size(); i++){   //scorre 'libreria'
+            if(fruizione.get(i).equals("Digitale") || fruizione.get(i).equals("AudioLibro")){   //controlla se l'i-esima libreria possiede il libro selezionato
+                model1.addRow(new Object[]{libreria.get(i), "∞", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)}); //aggiunge una nuova riga nella tabella
+            }
+            else if(fruizione.get(i).equals("Cartaceo") && quantita.get(i) == 0){   //controlla nell'i-esima libreria non è disponibile il libro selezionato
+                model1.addRow(new Object[]{libreria.get(i), "Non Disponibile", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});   //aggiunge una nuova riga nella tabella
+            }
+            else{
+                model1.addRow(new Object[]{libreria.get(i), quantita.get(i), fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)}); //aggiunge una nuova riga nella tabella
+            }
         }
 
-        controller.getPresentazione();
+        controller.getPresentazione();  //inizializza 'controller.listaPresentazioni' con tutte le presentazioni del libro
 
-        for(int i = 0; i < controller.listaPresentazioni.size(); i++){
-            model2.addRow(new Object[]{controller.listaPresentazioni.get(i).luogo, controller.listaPresentazioni.get(i).struttura, controller.listaPresentazioni.get(i).data, controller.listaPresentazioni.get(i).ora});
+        for(int i = 0; i < controller.listaPresentazioni.size(); i++){  //scorre 'controller.listaPresentazioni'
+            model2.addRow(new Object[]{controller.listaPresentazioni.get(i).luogo, controller.listaPresentazioni.get(i).struttura, controller.listaPresentazioni.get(i).data, controller.listaPresentazioni.get(i).ora});   //aggiunge una nuova riga nella tabella
         }
 
         disponibilitaCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                if(presentazioniCheckBox.isSelected()) {    //controlla se è stato selezionato il JCheckBox 'presentazioniCheckBox'
-
+                if(!(presentazioniCheckBox.isSelected())) {    //controlla se è stato selezionato il JCheckBox 'presentazioniCheckBox'
+                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");    //mostra un messaggio di errore
+                    disponibilitaCheckBox.setSelected(true);    //seleziona 'disponibilitaCheckBox'
+                    allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
+                    jscroll1.setVisible(true);  //rende visibile il JScrollPane 'jscroll1'
+                } else {
                     if (!disponibilitaCheckBox.isSelected()) {   //controlla se non è stato selezionato il JCheckBox 'disponibilitaCheckBox'
                         jscroll1.setVisible(false); //rende invisibile il JScrollPane 'jscroll1'
-                        allScrollPanel.revalidate();
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                     } else {
                         jscroll1.setVisible(true); //rende visibile il JScrollPane 'jscroll1'
-                        allScrollPanel.revalidate();
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                     }
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
-                    disponibilitaCheckBox.setSelected(true);    //seleziona 'disponibilitaCheckBox'
-                    allScrollPanel.revalidate();
-                    jscroll1.setVisible(true);  //rende visibile il JScrollPane 'jscroll1'
                 }
             }
         });
@@ -694,30 +698,29 @@ public class BookPage {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(disponibilitaCheckBox.isSelected()){ //controlla se è stato selezionato il JCheckBox 'disponibilitaCheckBox'
-
-                    if(!presentazioniCheckBox.isSelected()){    //controlla se non è stato selezionato il JCheckBox 'presentazioniCheckBox'
-                        jscroll2.setVisible(false); //rende invisibile il JScrollPane 'jscroll2'
-                        allScrollPanel.revalidate();
-                    } else {
-                        jscroll2.setVisible(true); //rende visibile il JScrollPane 'jscroll2'
-                        allScrollPanel.revalidate();
-                    }
-                } else{
-                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
+                if(!(disponibilitaCheckBox.isSelected())){ //controlla se è stato selezionato il JCheckBox 'disponibilitaCheckBox'
+                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");    //mostra un messaggio di errore
                     presentazioniCheckBox.setSelected(true);  //seleziona 'presentazioniCheckBox'
                     jscroll2.setVisible(true);  //rende visibile il JScrollPane 'jscroll2'
-                    allScrollPanel.revalidate();
+                    allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
+                } else{
+                    if(!presentazioniCheckBox.isSelected()){    //controlla se non è stato selezionato il JCheckBox 'presentazioniCheckBox'
+                        jscroll2.setVisible(false); //rende invisibile il JScrollPane 'jscroll2'
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
+                    } else {
+                        jscroll2.setVisible(true); //rende visibile il JScrollPane 'jscroll2'
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
+                    }
                 }
             }
         });
+
         valutaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                Recensione recensioneLibro = new Recensione(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti, 1);
+                Recensione recensioneLibro = new Recensione(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti, 1);  //chiama il JDialog (Recensione) 'recensioneLibro'
                 frame.setEnabled(false); //disabilita il frame
-
             }
         });
 
@@ -725,7 +728,7 @@ public class BookPage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                gestisciCollaneButton.setBackground(Color.decode("#cf9e29"));
+                gestisciCollaneButton.setBackground(Color.decode("#cf9e29"));   //imposta il colore dello sfondo del JButton 'gestisciCollaneButton'
             }
         });
 
@@ -733,7 +736,7 @@ public class BookPage {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                gestisciCollaneButton.setBackground(Color.decode("#FFD369"));
+                gestisciCollaneButton.setBackground(Color.decode("#FFD369"));   //imposta il colore dello sfondo del JButton 'gestisciCollaneButton'
             }
         });
 
@@ -741,7 +744,7 @@ public class BookPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                GestisciCollane gestisciCollane = new GestisciCollane(frame, controller);
+                GestisciCollane gestisciCollane = new GestisciCollane(frame, controller);   //chiama il JDialog (GestisciCollane) 'gestisciCollane'
                 frame.setEnabled(false); //disabilita il frame
             }
         });
@@ -750,7 +753,7 @@ public class BookPage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                presentazioniButton.setBackground(Color.decode("#cf9e29"));
+                presentazioniButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'presentazioniButton'
             }
         });
 
@@ -758,164 +761,163 @@ public class BookPage {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                presentazioniButton.setBackground(Color.decode("#FFD369"));
+                presentazioniButton.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'presentazioniButton'
             }
         });
 
         presentazioniButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreaPresentazione creaPresentazione = new CreaPresentazione(frame, controller, model2);
+                CreaPresentazione creaPresentazione = new CreaPresentazione(frame, controller, model2); //chiama il JDialog (CreaPresentazione) 'creaPresentazione'
                 frame.setEnabled(false); //disabilita il frame
             }
         });
 
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
-
-        setNumeroNotifiche(controller);
+        numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'controller.listaNotifiche'
+        setNumeroNotifiche(controller); //imposta il testo della JLabel 'notificheLabel'
 
         Timer timer = new Timer(60000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setNumeroNotifiche(controller);
+                setNumeroNotifiche(controller); //aggiorna il testo della JLabel 'notificheLabel'
             }
         });
 
-        timer.start();
-        timer.setRepeats(true);
+        timer.start();  //avvia il timer
+        timer.setRepeats(true); //fa ripetere il timer dopo che è scaduto
     }
 
     public void changeStars(ImageIcon stellaPienaIco, ImageIcon stellaVuotaIco, ImageIcon stellaMezzaIco){  //aggiorna le stelle della valutazione media
         if(valutazioneMedia <= 0.25){   //controlla se la media è minore uguale a 0,25
-            stella1.setIcon(stellaVuotaIco);
-            stella2.setIcon(stellaVuotaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaVuotaIco'
+            stella2.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaVuotaIco'
+            stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 0.75){    //controlla se la media è in [0.25,0.75[
-            stella1.setIcon(stellaMezzaIco);
-            stella2.setIcon(stellaVuotaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaMezzaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaMezzaIco'
+            stella2.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaVuotaIco'
+            stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 1.25){    //controlla se la media è in [0.75,1.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaVuotaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaVuotaIco'
+            stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 1.75){    //controlla se la media è in [1.25,1.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaMezzaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaMezzaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaMezzaIco'
+            stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 2.25){    //controlla se la media è in [1.75,2.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 2.75){    //controlla se la media è in [2.25,2.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaMezzaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaMezzaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaMezzaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 3.25){    //controlla se la media è in [2.75,3.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 3.75){    //controlla se la media è in [3.25,3.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaMezzaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+            stella4.setIcon(stellaMezzaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaMezzaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 4.25){    //controlla se la media è in [3.75,4.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaPienaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+            stella4.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaPienaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 4.75){    //controlla se la media è in [4.25,4.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaPienaIco);
-            stella5.setIcon(stellaMezzaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+            stella4.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaPienaIco'
+            stella5.setIcon(stellaMezzaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaMezzaIco'
         } else {
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaPienaIco);
-            stella5.setIcon(stellaPienaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+            stella4.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaPienaIco'
+            stella5.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaPienaIco'
         }
-    }
+    }//fine changeStars
 
     public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione, Controller controller){   //aggiorna le stelle della recensione con valutazione 'valutazione'
+        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png")); //carica l'immagine nel percorso /stella_vuota.png
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        stellaVuotaIco = new ImageIcon(stellaVuotaImg); //reinizializza l'ImageIcon 'stellaVuotaIco' con l'Image 'stellaVuotaImg'
 
-        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
-        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        stellaVuotaIco = new ImageIcon(stellaVuotaImg);
-
-        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
-        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        stellaPienaIco = new ImageIcon(stellaPienaImg);
+        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png")); //carica l'immagine nel percorso /stella_piena.png
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        stellaPienaIco = new ImageIcon(stellaPienaImg); //reinizializza l'ImageIcon 'stellaPienaIco' con l'Image 'stellaPienaImg'
 
         switch (valutazione) {  //controlla 'valutazione' e aggiorna le stelle della recensione da mostrare
             case 1:
-                stella1.setIcon(stellaPienaIco);
-                stella2.setIcon(stellaVuotaIco);
-                stella3.setIcon(stellaVuotaIco);
-                stella4.setIcon(stellaVuotaIco);
-                stella5.setIcon(stellaVuotaIco);
+                stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+                stella2.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaVuotaIco'
+                stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+                stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+                stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
                 break;
             case 2:
-                stella1.setIcon(stellaPienaIco);
-                stella2.setIcon(stellaPienaIco);
-                stella3.setIcon(stellaVuotaIco);
-                stella4.setIcon(stellaVuotaIco);
-                stella5.setIcon(stellaVuotaIco);
+                stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+                stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+                stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+                stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+                stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
                 break;
             case 3:
-                stella1.setIcon(stellaPienaIco);
-                stella2.setIcon(stellaPienaIco);
-                stella3.setIcon(stellaPienaIco);
-                stella4.setIcon(stellaVuotaIco);
-                stella5.setIcon(stellaVuotaIco);
+                stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+                stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+                stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+                stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+                stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
                 break;
             case 4:
-                stella1.setIcon(stellaPienaIco);
-                stella2.setIcon(stellaPienaIco);
-                stella3.setIcon(stellaPienaIco);
-                stella4.setIcon(stellaPienaIco);
-                stella5.setIcon(stellaVuotaIco);
+                stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+                stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+                stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+                stella4.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaPienaIco'
+                stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
                 break;
             case 5:
-                stella1.setIcon(stellaPienaIco);
-                stella2.setIcon(stellaPienaIco);
-                stella3.setIcon(stellaPienaIco);
-                stella4.setIcon(stellaPienaIco);
-                stella5.setIcon(stellaPienaIco);
+                stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+                stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+                stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+                stella4.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaPienaIco'
+                stella5.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaPienaIco'
                 break;
             default:
                 break;
         }
+    }//fine changeStars
 
-    }
-    public void showComment(Controller controller, JPanel commenti){
-        controller.isbn_selected = isbnSelezionato;    //isbn del ibro selezionato
+    public void showComment(Controller controller, JPanel commenti){        //mostra tutti i commenti fatti al libro selezionato
+        controller.isbn_selected = isbnSelezionato;    //inizializza 'controller.isbn_selected' con 'isbnSelezionato'
 
-        controller.allRecWithCommentLibro();
-        for (int i = 0; i < controller.recensioniConCommento.size(); i++){
-            addComment(controller.recensioniConCommento.get(i).utenteRecensore.username, controller.recensioniConCommento.get(i).valutazione, controller.recensioniConCommento.get(i).testo, commenti, i+1, controller);
+        controller.allRecWithCommentLibro();    //inizializza 'controller.recensioniConCommento'
+
+        for (int i = 0; i < controller.recensioniConCommento.size(); i++){  //scorre 'controller.recensioniConCommento'
+            addComment(controller.recensioniConCommento.get(i).utenteRecensore.username, controller.recensioniConCommento.get(i).valutazione, controller.recensioniConCommento.get(i).testo, commenti, i+1, controller);    //mostra l'i-esimo commento
         }
-    }
+    }//fine showComment
 
-    public void addComment(String utente, int val, String commentoUser, JPanel commenti, int n, Controller controller){
+    public void addComment(String utente, int val, String commentoUser, JPanel commenti, int n, Controller controller){ //mostra un commento
         JPanel panel1;
         JLabel jcomp1;
         JLabel jcomp2;
@@ -926,62 +928,63 @@ public class BookPage {
         JTextArea jcomp7;
         JSeparator jcomp8;
 
-        int maxCaratteriPerLinea = 50;
+        int maxCaratteriPerLinea = 50;  //numero massimo di caratteri per linea
         StringBuilder newText = new StringBuilder();
-        int countCaratteri = 0;
-        int n_righe = 1;
+        int countCaratteri = 0; //numero di caratteri in una riga
+        int nRighe = 1;    //numero di righe
 
-            //construct components
-        panel1 = new JPanel();
-        panel1.setBackground(new Color(0x222831));
+        panel1 = new JPanel();  //inizializza il JPanel 'panel1'
+        panel1.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JPanel 'panel1'
 
-        jcomp1 = new JLabel (utente + ":");
-        jcomp1.setFont(controller.baseFontSize);
-        jcomp1.setBackground(new Color(0x222831));
-        jcomp1.setForeground(new Color(0xEEEEEE));
+        jcomp1 = new JLabel (utente + ":"); //inizialliza la JLabel 'jcomp1' impostando il testo
+        jcomp1.setFont(controller.baseFontSize);    //imposta il font di 'jcomp1'
+        jcomp1.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp1'
+        jcomp1.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo di 'jcomp1'
 
-        jcomp2 = new JLabel ("");
-        jcomp2.setBackground(new Color(0x222831));
+        jcomp2 = new JLabel ("");   //inizialliza la JLabel 'jcomp2' impostando il testo
+        jcomp2.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp2'
 
-        jcomp3 = new JLabel ("");
-        jcomp3.setBackground(new Color(0x222831));
+        jcomp3 = new JLabel ("");   //inizialliza la JLabel 'jcomp3' impostando il testo
+        jcomp3.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp3'
 
-        jcomp4 = new JLabel ("");
-        jcomp4.setBackground(new Color(0x222831));
+        jcomp4 = new JLabel ("");   //inizialliza la JLabel 'jcomp4' impostando il testo
+        jcomp4.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp4'
 
-        jcomp5 = new JLabel ("");
-        jcomp5.setBackground(new Color(0x222831));
+        jcomp5 = new JLabel ("");   //inizialliza la JLabel 'jcomp5' impostando il testo
+        jcomp5.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp5'
 
-        jcomp6 = new JLabel ("");
-        jcomp6.setBackground(new Color(0x222831));
+        jcomp6 = new JLabel ("");   //inizialliza la JLabel 'jcomp6' impostando il testo
+        jcomp6.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp6'
 
-        // Creazione della JTextArea
-        jcomp7 = new JTextArea();
-        jcomp7.setFont(controller.baseFontSize);
-        jcomp7.setBackground(new Color(0x222831));
-        jcomp7.setForeground(new Color(0xEEEEEE));
-        jcomp7.setLineWrap(true);
-        jcomp7.setWrapStyleWord(true);
-        jcomp7.setEditable(false);
+        jcomp7 = new JTextArea();   //inizialliza la JTextArea 'jcomp7'
 
-        for (char carattere : commentoUser.toCharArray()) {
-            if (!(carattere == '\n')) {
-                newText.append(carattere);
-                countCaratteri++;
+        jcomp7.setFont(controller.baseFontSize);    //imposta il font di 'jcomp7'
+        jcomp7.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp7'
+        jcomp7.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo di 'jcomp7'
+        jcomp7.setLineWrap(true);   //permette di andare a capo automaticamente quando il testo raggiunge la fine della riga in 'jcomp7'
+        jcomp7.setWrapStyleWord(true);  //evita che quando si va a capo venga interrotta l'ultima parola della riga non venga interrotta in 'jcomp7'
+        jcomp7.setEditable(false);  //evita che l'utente inserisca del testo in 'jcomp7'
+
+        for (char carattere : commentoUser.toCharArray()) { //scorre i caratteri del commento
+            if (!(carattere == '\n')) { //controlla se il carattere corrente 'carattere' è "\n"
+                newText.append(carattere);  //aggiunge 'carattere' alla fine di 'newText'
+                countCaratteri++;   //incrementa il numero di caratteri nella riga corrente
             } else {
-                newText.append('\n');
-                countCaratteri = 0;
-                n_righe++;
+                newText.append('\n');   //aggiunge 'carattere' alla fine di 'newText'
+                countCaratteri = 0; //azzere il numero di caratteri nella riga corrente
+                nRighe++;  //incrementa il numero di righe
             }
-            if (countCaratteri >= maxCaratteriPerLinea) {
-                newText.append('\n');
-                countCaratteri = 0;
-                n_righe++;
+
+            if (countCaratteri >= maxCaratteriPerLinea) {   //controlla se il numero di caratteri nella riga corrente  maggiore o uguale al numero massimo di caratteri per linea
+                newText.append('\n');   //aggiunge 'carattere' alla fine di 'newText'
+                countCaratteri = 0; //azzere il numero di caratteri nella riga corrente
+                nRighe++;   //incrementa il numero di righe
             }
         }
-        jcomp7.setText(newText.toString());
 
-        jcomp8 = new JSeparator();
+        jcomp7.setText(newText.toString()); //imposta il testo di 'jcomp7' a 'newText'
+
+        jcomp8 = new JSeparator();  //inizialliza il JSeparator 'jcomp8'
         jcomp8.setFont(controller.baseFontSize);
         jcomp8.setForeground(new Color(0xEEEEEE));
 
@@ -1008,8 +1011,8 @@ public class BookPage {
         jcomp4.setBounds ((int) (controller.screenWidth/25.6), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
         jcomp5.setBounds ((int) (controller.screenWidth/17.0666), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
         jcomp6.setBounds ((int) (controller.screenWidth/12.8), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
-        jcomp7.setBounds (0, (int) (controller.screenHeight/14.4), (int) (controller.screenWidth/2.56), controller.calcolaAltezzaFont(controller.baseFontSize)*n_righe);
-        jcomp8.setBounds (0, (int) (controller.screenHeight/14.4)+(controller.calcolaAltezzaFont(controller.baseFontSize)*n_righe)+1, (int) (controller.screenWidth/2.56), (int) (controller.screenHeight/48));
+        jcomp7.setBounds (0, (int) (controller.screenHeight/14.4), (int) (controller.screenWidth/2.56), controller.calcolaAltezzaFont(controller.baseFontSize)*nRighe);
+        jcomp8.setBounds (0, (int) (controller.screenHeight/14.4)+(controller.calcolaAltezzaFont(controller.baseFontSize)*nRighe)+1, (int) (controller.screenWidth/2.56), (int) (controller.screenHeight/48));
 
 
         panel1.setPreferredSize (new Dimension ((int) (controller.screenWidth/2.56), jcomp1.getHeight()+jcomp2.getHeight()+jcomp7.getHeight()+jcomp8.getHeight()));
