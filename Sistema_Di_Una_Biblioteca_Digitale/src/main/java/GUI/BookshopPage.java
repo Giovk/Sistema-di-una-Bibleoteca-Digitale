@@ -128,7 +128,7 @@ public class BookshopPage {
         utenteExit.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteExit'
         utenteExit.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteExit'
         utenteExit.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteExit'
-        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8))));
+        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)))); //imposta la dimensione minima del JMenuItem 'utenteExit'
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
         utenteProfilo.setFont(controller.baseFontSize); //imposta il font del JMenuItem 'utenteProfilo'
         utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER); //centra orizzontalmente il testo del JMenuItem 'utenteProfilo'
@@ -149,7 +149,7 @@ public class BookshopPage {
         utenteMenu.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del menu 'utenteMenu'
         utenteMenu.add(utenteProfilo);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
-        utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
+        utenteMenu.add(utenteExit); //aggiunge la voce 'utenteExit' al menu 'utenteMenu'
 
         elementiMenu = new JPopupMenu();    //crea il menu 'elementiMenu'
         JMenuItem eliminaElemento = new JMenuItem("Elimina");   //crea la voce del menu "Elimina"
@@ -160,8 +160,8 @@ public class BookshopPage {
         modificaQuantita.setBackground(new Color(0xFFD369));    //imposta il colore dello sfondo del JMenuItem 'modificaQuantita'
         modificaQuantita.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JMenuItem 'modificaQuantita'
         modificaQuantita.setFont(controller.baseFontSize);  //imposta il font del JMenuItem 'modificaQuantita'
-        elementiMenu.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JPoppUp 'elementiMenu'
-        elementiMenu.setBackground(new Color(0xFFD369));    //imposta il colore dello sfondo del JPoppUp 'elementiMenu'
+        elementiMenu.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JPoppupMenu 'elementiMenu'
+        elementiMenu.setBackground(new Color(0xFFD369));    //imposta il colore dello sfondo del JPoppupMenu 'elementiMenu'
         elementiMenu.add(eliminaElemento);  //aggiunge la voce 'eliminaElemento' al menu 'elementiMenu.'
         elementiMenu.add(modificaQuantita); //aggiunge la voce 'modificaQuantita' al menu 'elementiMenu.'
 
@@ -435,7 +435,7 @@ public class BookshopPage {
 
         controller.getPossessoLibreria();   //inizializza 'controller.possessoLLibreria', 'controller.possessoSLibreria' e 'controller.possessoFLibreria'
 
-        if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se 'controller.titoloLibriLibreria' e 'controller.possessoLLibreria' non sono A NULL
+        if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se 'controller.titoloLibriLibreria' e 'controller.possessoLLibreria' non sono a NULL
             for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria selezionata
                 if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
                     model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
@@ -484,15 +484,15 @@ public class BookshopPage {
 
             if(e.getButton() == MouseEvent.BUTTON3) {   //controlla se è stato cliccato con il tasto destro del mouse la JTable 'elementiTable'
                 row_selected = elementiTable.rowAtPoint(e.getPoint());  //inizializza 'row_selected' con l'indice della riga nel punto cliccato
-                elementiTable.setRowSelectionInterval(row_selected, row_selected);
+                elementiTable.setRowSelectionInterval(row_selected, row_selected);  //seleziona la riga con indice 'row_selected'
 
-                if(!controller.titoloSerieLibreria.contains(elementiTable.getValueAt(row_selected, 0))) {
-                    if (elementiTable.getValueAt(row_selected, 2).toString().contains("Digitale") || elementiTable.getValueAt(row_selected, 2).toString().contains("AudioLibro")){
-                        modificaQuantita.setVisible(false);
-                        elementiMenu.show(elementiTable, e.getX(), e.getY());
+                if(!controller.titoloSerieLibreria.contains(elementiTable.getValueAt(row_selected, 0))) {   //controlla se l'elemento selezionato una serie
+                    if (elementiTable.getValueAt(row_selected, 2).toString().contains("Digitale") || elementiTable.getValueAt(row_selected, 2).toString().contains("AudioLibro")){  //controlla se l'elemento selelzionato è disponibile modalità digitale o audiolibro
+                        modificaQuantita.setVisible(false); //rende invisibile il JMenuItem 'modificaQuantita'
+                        elementiMenu.show(elementiTable, e.getX(), e.getY());   //mostra il JPoppupMenu 'elementiMenu'
                     } else {
-                        modificaQuantita.setVisible(true);
-                        elementiMenu.show(elementiTable, e.getX(), e.getY());
+                        modificaQuantita.setVisible(true);  //rende visibile il JMenuItem 'modificaQuantita'
+                        elementiMenu.show(elementiTable, e.getX(), e.getY());   //mostra il JPoppupMenu 'elementiMenu'
                     }
                 }
             }
@@ -502,107 +502,138 @@ public class BookshopPage {
         eliminaElemento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int comferma = 0;
-                comferma = new NewComfirmMessageDialog().comfirmDialog("Vuoi davvero eliminare questa notifica?");
+                int comferma = 0;   //flag di conferma dell'utente
 
-                if(comferma == 1) {
-                    if (controller.titoloLibriLibreria.contains(elementiTable.getValueAt(elementiTable.getSelectedRow(), 0).toString())) {
-                        controller.isbn_selected = elementiTable.getValueAt(elementiTable.getSelectedRow(), 0).toString().substring(0, 17);
-                        controller.eliminaPossessoL(elementiTable.getValueAt(elementiTable.getSelectedRow(), 2).toString());
+                comferma = new NewComfirmMessageDialog().comfirmDialog("Vuoi davvero eliminare questo elemento?");  //mostra un messaggio di conferma e aggiorna 'conferma'
+
+                if(comferma == 1) { //controlla la conferma dell'utente
+                    if (controller.titoloLibriLibreria.contains(elementiTable.getValueAt(elementiTable.getSelectedRow(), 0).toString())) {  //controlla se l'elemento selezionato è un libro posseduto dalla libreria selezionata
+                        controller.isbn_selected = elementiTable.getValueAt(elementiTable.getSelectedRow(), 0).toString().substring(0, 17); //inizializza 'controller.isbn_selected' con l'ISBN del libro selezionato
+                        controller.eliminaPossessoL(elementiTable.getValueAt(elementiTable.getSelectedRow(), 2).toString());    //elimina il libro selezionato da i libri posseduti dalla libreria selezionata
                     } else {
-                        controller.nome_selected = elementiTable.getValueAt(elementiTable.getSelectedRow(), 0).toString();
-                        int numero = Integer.valueOf(controller.nome_selected.substring(controller.nome_selected.indexOf("N°") + 2, controller.nome_selected.length()));
-                        controller.selezionaFascicolo(numero, controller.nome_selected.substring(0, controller.nome_selected.indexOf("N°") - 1));
-                        controller.eliminaPossessoF(elementiTable.getValueAt(elementiTable.getSelectedRow(), 2).toString());
+                        controller.nome_selected = elementiTable.getValueAt(elementiTable.getSelectedRow(), 0).toString();  //inizializza 'controller.nome_selected' con il nome della rivista e il numero del fascicolo selezionato
+
+                        int numero = Integer.valueOf(controller.nome_selected.substring(controller.nome_selected.indexOf("N°") + 2, controller.nome_selected.length()));    //numero del fascicolo selezionato
+
+                        controller.selezionaFascicolo(numero, controller.nome_selected.substring(0, controller.nome_selected.indexOf("N°") - 1));   //inizializza 'controller.fascicolo_selected' con il fascicolo selezionato
+                        controller.eliminaPossessoF(elementiTable.getValueAt(elementiTable.getSelectedRow(), 2).toString());    //elimina il dascicolo selezionato da i fascicoli posseduti dalla libreria selezionata
                     }
-                    model.removeRow(row_selected);
-                    model.setRowCount(0);
 
-                    controller.getPossessoLibreria();
+                    model.removeRow(row_selected);  //rimuove la riga selezionata dalla tabella
+                    model.setRowCount(0);   //rimuove tutte le righe della tabella
 
-                    if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
-                        for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
+                    controller.getPossessoLibreria();   //aggiorna 'controller.possessoLLibreria', 'controller.possessoSLibreria' e 'controller.possessoFLibreria'
 
-                            if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
-                            else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});
-                            else model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita , controller.possessoLLibreria.get(i).fruizione});
+                    if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se 'controller.titoloLibriLibreria' e 'controller.possessoLLibreria' non sono a NULL
+                        for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria selezionata
+                            if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                            }else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0){    //controlla se l'i-esimo libro non è disponibile
+                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                            } else{
+                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita , controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                            }
                         }
                     }
 
-                    if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
-                        for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
-
-                            if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
-                            else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});
-                            else model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita , controller.possessoSLibreria.get(i).fruizione});
+                    if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se 'controller.titoloSerieLibreria' e 'controller.possessoSLibreria' non sono a NULL
+                        for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria selezionata
+                            if (controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) {   //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                            } else if (controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) { //controlla se l'i-esima serie non è disponibile
+                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile", controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                            } else {
+                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita, controller.possessoSLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                            }
                         }
                     }
 
-                    if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
-                        for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
-
-                            if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
-                            else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});
-                            else model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita , controller.possessoFLibreria.get(i).fruizione});
+                    if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se 'controller.fascicoliLibreria' e 'controller.possessoSLibreria' non sono a NULL
+                        for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria selezionata
+                            if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                            } else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0){   //controlla se l'i-esimo fascicolo non è disponibile
+                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                            } else{
+                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                            }
                         }
                     }
                 }
-                elementiTable.clearSelection();
+
+                elementiTable.clearSelection(); //deseleziona tutte le celle selezionate in 'elementiTable'
             }
         });
 
         modificaQuantita.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    if(controller.titoloLibriLibreria.contains(elementiTable.getValueAt(row_selected, 0).toString())){
-                        controller.isbn_selected = elementiTable.getValueAt(row_selected, 0).toString().substring(0, 17);
+                    if(controller.titoloLibriLibreria.contains(elementiTable.getValueAt(row_selected, 0).toString())){  //controlla se l'elemento selezionato è un libro posseduto dalla libreria selezionata
+                        controller.isbn_selected = elementiTable.getValueAt(row_selected, 0).toString().substring(0, 17);   //inizializza 'controller.isbn_selected' con l'ISBN del libro selezionato
 
-                        int valore = 0;
-                        if(elementiTable.getValueAt(row_selected, 1).toString().equals("Non Diponibile")) valore = 0;
-                        else valore = ((int) elementiTable.getValueAt(row_selected, 1));
+                        int valore = 0; //quantità dell'elemento selezionato
 
-                        ChangeQuantity cq = new ChangeQuantity(frame, controller, model, elementiTable.getValueAt(row_selected, 2).toString(), valore);
-                        frame.setEnabled(false);
+                        if(elementiTable.getValueAt(row_selected, 1).toString().equals("Non Diponibile")) { //controlla se l'elemento selezionato non è disponibile
+                            valore = 0; //pone 'valore' a 0
+                        } else {
+                            valore = ((int) elementiTable.getValueAt(row_selected, 1)); //pone valore uguale alla quantità presente nella riga selezionata
+                        }
+
+                        ChangeQuantity cq = new ChangeQuantity(frame, controller, model, elementiTable.getValueAt(row_selected, 2).toString(), valore); //chiama il JDialog (ChangeQuantity) 'cq'
+                        frame.setEnabled(false);    //disabilita il frame
                     } else {
-                        controller.nome_selected = elementiTable.getValueAt(row_selected, 0).toString();
-                        int numero = Integer.valueOf(controller.nome_selected.substring(controller.nome_selected.indexOf("N°")+2, controller.nome_selected.length()));
+                        controller.nome_selected = elementiTable.getValueAt(row_selected, 0).toString();    //inizializza 'controller.nome_selected' con il nome della rivista e il numero del fascicolo selezionato
 
-                        int valore = 0;
-                        if(elementiTable.getValueAt(row_selected, 1).toString().equals("Non Diponibile")) valore = 0;
-                        else valore = ((int) elementiTable.getValueAt(row_selected, 1));
+                        int numero = Integer.valueOf(controller.nome_selected.substring(controller.nome_selected.indexOf("N°")+2, controller.nome_selected.length()));  //numero del fascicolo selezionato
+                        int valore = 0; //quantità dell'elemento selezionato
 
-                        ChangeQuantity cq = new ChangeQuantity(frame, controller, model, elementiTable.getValueAt(row_selected, 2).toString(), numero ,valore);
-                        frame.setEnabled(false);
+                        if(elementiTable.getValueAt(row_selected, 1).toString().equals("Non Diponibile")){ //controlla se l'elemento selezionato non è disponibile
+                            valore = 0; //pone 'valore' a 0
+                        }else{
+                            valore = ((int) elementiTable.getValueAt(row_selected, 1)); //pone valore uguale alla quantità presente nella riga selezionata
+                        }
+
+                        ChangeQuantity cq = new ChangeQuantity(frame, controller, model, elementiTable.getValueAt(row_selected, 2).toString(), numero, valore); //chiama il JDialog (ChangeQuantity) 'cq'
+                        frame.setEnabled(false);    //disabilita il frame
                     }
 
-                    model.setRowCount(0);
+                    model.setRowCount(0);   //rimuove tutte le righe della tabella
 
-                    controller.getPossessoLibreria();
+                    controller.getPossessoLibreria();   //aggiorna 'controller.possessoLLibreria', 'controller.possessoSLibreria' e 'controller.possessoFLibreria'
 
-                    if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {
-                        for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {
-
-                            if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});
-                            else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});
-                            else model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita , controller.possessoLLibreria.get(i).fruizione});
+                    if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se 'controller.titoloLibriLibreria' e 'controller.possessoLLibreria' non sono a NULL
+                        for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria selezionata
+                            if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                            } else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0){   //controlla se l'i-esimo libro non è disponibile
+                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                            } else {
+                                model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita, controller.possessoLLibreria.get(i).fruizione}); //aggiunge una nuova riga nella tabella
+                            }
                         }
                     }
 
-                    if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {
-                        for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {
-
-                            if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});
-                            else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});
-                            else model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita , controller.possessoSLibreria.get(i).fruizione});
+                    if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se 'controller.titoloSerieLibreria' e 'controller.possessoSLibreria' non sono a NULL
+                        for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria selezionata
+                            if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                            } else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0){   //controlla se l'i-esima serie non è disponibile
+                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                            } else {
+                                model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita , controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                            }
                         }
                     }
 
-                    if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) {
-                        for (int i = 0; i < controller.fascicoliLibreria.size(); i++) {
-
-                            if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});
-                            else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0) model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});
-                            else model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita , controller.possessoFLibreria.get(i).fruizione});
+                    if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se 'controller.fascicoliLibreria' e 'controller.possessoSLibreria' non sono a NULL
+                        for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria selezionata
+                            if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                            } else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0){   //controlla se l'i-esimo fascicolo non è disponibile
+                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                            } else {
+                                model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita, controller.possessoFLibreria.get(i).fruizione});   //aggiunge una nuova riga nella tabella
+                            }
                         }
                     }
             }
@@ -612,46 +643,53 @@ public class BookshopPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                AggiungiElementoForm aef = new AggiungiElementoForm(frame, controller, model);
-                frame.setEnabled(false);
+                AggiungiElementoForm aef = new AggiungiElementoForm(frame, controller, model);  //chiama il JDialog (AggiungiElementoForm) 'aef'
+                frame.setEnabled(false);    //disabilita il frame
             }
         });
     }
 
-    private void setNumeroNotifiche(Controller controller){
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
+    private void setNumeroNotifiche(Controller controller){ //aggiorna il testo della JLabel 'notificheLabel' con in base al numero di notifiche dell'utente non lette
+        numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
 
-        if(numeroNotifiche < 100 && numeroNotifiche > 0){
-            notificheLabel.setVisible(true);
-            String numeroNotificheText = Integer.toString(numeroNotifiche);
-            notificheLabel.setText(numeroNotificheText);
-        }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");
-        else {
-            notificheLabel.setVisible(false);
+        if (numeroNotifiche >= 100){    //controlla se ci sono almeno 100 notifiche non lette
+            notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
+            notificheLabel.setText("99+");  //imposta il testo della JLabel 'notificheLabel'
+        }else if (numeroNotifiche <= 0) {   //controlla se non ci sono notifiche non lette
+            notificheLabel.setVisible(false);   //rende invisibile la JLabel 'notificheLabel'
+        }else{
+            notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
+
+            String numeroNotificheText = Integer.toString(numeroNotifiche); //inizializza numeroNotificheText con 'numeroNotifiche'
+
+            notificheLabel.setText(numeroNotificheText);    //imposta il testo della JLabel 'notificheLabel' con 'numeroNotificheText'
         }
-    }
+    }//fine setNumeroNotifiche
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //dimensioni dello schermo
+        int screenWidth = screenSize.width; //larghezza dello schermo
+        int screenHeight = screenSize.height;   //altezza dello schermo
 
-        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine);
-        closeBT = new JLabel(closeImg);
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));  //carica l'immagine nel percorso /close.png
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
-        ImageIcon backIco = new ImageIcon(this.getClass().getResource("/back.png"));
-        Image backImg = backIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        backIco = new ImageIcon(backImg);
-        backButton = new JLabel(backIco);
+        closeImg = new ImageIcon(imagine);  //reinizializza l'ImageIcon 'closeImg' con l'Image 'image'
+        closeBT = new JLabel(closeImg); //inizializza la JLabel 'closeBT' con 'closeImg'
 
-        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
-        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        notificaIco = new ImageIcon(notificaImg);
+        ImageIcon backIco = new ImageIcon(this.getClass().getResource("/back.png"));    //carica l'immagine nel percorso /back.png
+        Image backImg = backIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+        backIco = new ImageIcon(backImg);   //reinizializza l'ImageIcon 'backIco' con l'Image 'backImg'
+        backButton = new JLabel(backIco);   //inizializza la JLabel 'backButton' con 'backIco'
+
+        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));    //carica l'immagine nel percorso /notifica.png
+        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+        notificaIco = new ImageIcon(notificaImg);   //reinizializza l'ImageIcon 'notificaIco' con l'Image 'notificaImg'
 
         notificheLabel = new JLabel();
-        notificheLabel.setIcon(notificaIco);
+        notificheLabel.setIcon(notificaIco);    //imposta l'icona della JLabel 'notificheLabel' con l'immagine 'notificaIco'
     }
 }
