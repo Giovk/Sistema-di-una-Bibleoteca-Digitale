@@ -359,29 +359,28 @@ public class BooksPage {
         UIManager.put("ComboBox.disabledForeground", new Color(0x222831));  //imposta il colore del testo di un combo box quando viene disabilitato
         UIManager.put("ComboBox.disabledBackground", new Color(0xFFD369));  //imposta il colore dello sfondo di un combo box quando viene disabilitato
 
-        Dimension dim = new Dimension((int) (controller.screenWidth/6.5), controller.screenHeight/24);
+        Dimension dim = new Dimension((int) (controller.screenWidth/6.5), controller.screenHeight/24);  //dimensione preferita di 'panel1'
 
         NewComboBox autoreCB = new NewComboBox<>();
-        autoreCB.setPreferredSize(dim);
-        autoreCB.setFont(controller.impactFontSize);
-        autoreCB.setFocusable(false);
-        autoreCB.setEditable(false);
-        autorePanel.add(autoreCB);
+        autoreCB.setPreferredSize(dim); //imposta a 'dim' la dimensione preferita del combo box 'autoreCB'
+        autoreCB.setFont(controller.impactFontSize);    //imposta il font del combo box 'autoreCB'
+        autoreCB.setFocusable(false);   //impedisce all'utente di interagire con il combo box 'autoreCB' tramite tastiera
+        autoreCB.setEditable(false);    //impedisce all'utente di inserire il testo nel combo box 'autoreCB'
+        autorePanel.add(autoreCB);  //inserisce 'autoreCB' nel JPanel 'autorePanel'
 
         NewComboBox collanaCB = new NewComboBox<>();
-        collanaCB.setPreferredSize(dim);
-        collanaCB.setFont(controller.impactFontSize);
-        collanaCB.setFocusable(false);
-        collanaCB.setEditable(false);
-        collanaPanel.add(collanaCB);
-
+        collanaCB.setPreferredSize(dim);    //imposta a 'dim' la dimensione preferita del combo box 'collanaCB'
+        collanaCB.setFont(controller.impactFontSize);   //imposta il font del combo box 'collanaCB'
+        collanaCB.setFocusable(false);  //impedisce all'utente di interagire con il combo box 'collanaCB' tramite tastiera
+        collanaCB.setEditable(false);   //impedisce all'utente di inserire il testo nel combo box 'collanaCB'
+        collanaPanel.add(collanaCB);    //inserisce 'collanaCB' nel JPanel 'collanaPanel'
 
         NewComboBox genereCB = new NewComboBox<>();
-        genereCB.setPreferredSize(dim);
-        genereCB.setFont(controller.impactFontSize);
-        genereCB.setFocusable(false);
-        genereCB.setEditable(false);
-        generePanel.add(genereCB);
+        genereCB.setPreferredSize(dim); //imposta a 'dim' la dimensione preferita del combo box 'genereCB'
+        genereCB.setFont(controller.impactFontSize);    //imposta il font del combo box 'genereCB'
+        genereCB.setFocusable(false);   //impedisce all'utente di interagire con il combo box 'genereCB' tramite tastiera
+        genereCB.setEditable(false);    //impedisce all'utente di inserire il testo nel combo box 'genereCB'
+        generePanel.add(genereCB);  //inserisce 'genereCB' nel JPanel 'generePanel'
 
         collanaCB.setEnabled(false);    //disabilita il JComboBox 'collanaCB'
         genereCB.setEnabled(false); //disabilita il JComboBox 'genereCB'
@@ -413,49 +412,50 @@ public class BooksPage {
             }
         };
 
-        // Renderer personalizzato per l'header della tabella
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(0xCF9E29));
-        headerRenderer.setForeground(new Color(0xEEEEEE));
-        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        Font headerFont = new Font("Impact", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
-        headerRenderer.setFont(headerFont);
-        JTableHeader tableHeader = booksTable.getTableHeader();
-        tableHeader.setDefaultRenderer(headerRenderer);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();   //DefaultTableCellRenderer per la formattazione dell'header della tabella
 
-        // Impedire il ridimensionamento delle colonne
-        booksTable.getTableHeader().setResizingAllowed(false);
+        headerRenderer.setBackground(new Color(0xCF9E29));  //imposta il colore dello sfondo dell'header della tabella
+        headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);   //centra orizzontalmente il contenuto dell'header della tabella
 
-        // Impedire il riordinamento delle colonne
-        booksTable.getTableHeader().setReorderingAllowed(false);
+        Font headerFont = new Font("Impact", Font.PLAIN, 15); //imposta il font Bebas Neue, grandezza 15 e stile Regular
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader.setBorder(null);
+        headerRenderer.setFont(headerFont); //inizializza il font Bebas Neue, grandezza 15 e stile Regular per i caratteri della tabella
 
-        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));
+        JTableHeader tableHeader = booksTable.getTableHeader(); //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'booksTable'
 
+        tableHeader.setDefaultRenderer(headerRenderer); //imposta il render di default della tabella a 'headerRender'
+
+        booksTable.getTableHeader().setResizingAllowed(false);  //impedisce il ridimensionamento delle colonne
+
+        booksTable.getTableHeader().setReorderingAllowed(false);    //impedisce il ridimensionamento delle colonne
+
+        tableHeader.setBorder(null);    //rimuove il bordo dell'header della tabella
+
+        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));  //imposta il render di default della tabella
 
         booksTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
-        booksScrollPanel.setBackground(new Color(0x222831));
-        booksScrollPanel.setBorder(BorderFactory.createEmptyBorder());
-        booksScrollPanel.getViewport().setBackground(new Color(0x222831));
+        booksScrollPanel.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPane 'booksScrollPanel'
+        booksScrollPanel.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'booksScrollPanel'
+        booksScrollPanel.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibooks JScrollPane
 
-        if (controller.listaLibri != null) {
-            for (int i = 0; i < controller.listaLibri.size(); i++) {
-                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+        if (controller.listaLibri != null) {    //controlla se 'controller.listaLibri' non è vuota
+            for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre 'controller.listaLibri'
+                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
             }
         }
 
         frame.setSize(controller.screenWidth, controller.screenHeight);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
-        frame.setVisible(true);
+        frame.setVisible(true); //rende visibile il frame
 
         booksTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                controller.isbn_selected = booksTable.getValueAt(booksTable.getSelectedRow(), 0).toString();
-                controller.nome_selected = booksTable.getValueAt(booksTable.getSelectedRow(), 1).toString();
+                controller.isbn_selected = booksTable.getValueAt(booksTable.getSelectedRow(), 0).toString();    //inizializza 'controller.isbn_selected' con l'ISBN del libro selezionato
+                controller.nome_selected = booksTable.getValueAt(booksTable.getSelectedRow(), 1).toString();    //inizializza 'controller.nome_selected' con il nome del libro selezionato
+
                 BookPage bp = new BookPage(frameC, controller); //chiama il frame 'bp'
                 bp.frame.setVisible(true);  //rende visible il frame 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -466,16 +466,16 @@ public class BooksPage {
         genereRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'genereRB'
-                    searchBarField.setText("");
+                if (e.getStateChange() == ItemEvent.DESELECTED) {   //controlla se è stato deselezionato 'genereRB'
+                    genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
+                    genereCB.setEnabled(false); //disabilita 'genereCB'
+                } else if (e.getStateChange() == ItemEvent.SELECTED) {  //controlla se è stato selezionato 'genereRB'
+                    searchBarField.setText(""); //svuota il testo del JTextField 'searchBarField'
                     genereCB.setEnabled(true);  //abilita 'genereCB'
                     collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
                     collanaCB.setEnabled(false);    //disabilita 'collanaCB'
                     autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
                     autoreCB.setEnabled(false); //disabilita 'autoreCB'
-                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'genereRB'
-                    genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
-                    genereCB.setEnabled(false); //disabilita 'genereCB'
                 }
             }
         });
@@ -485,26 +485,29 @@ public class BooksPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                searchBarField.setText("");
+                searchBarField.setText(""); //svuota il testo del JTextField 'searchBarField'
                 groupRB.clearSelection();   //deseleziona tutti i JRadioButton del ButtonGroup 'groupRB'
-                model.setRowCount(0);
-                for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+                model.setRowCount(0);   //rimuove tutte le righe della tabella
+
+                for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre 'controller.listaLibri'
+                    model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
+                }
             }
         });
 
         collanaRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'collanaRB'
-                    searchBarField.setText("");
+                if (e.getStateChange() == ItemEvent.DESELECTED) {   //controlla se è stato deselezionato 'collanaRB'
+                    collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
+                    collanaCB.setEnabled(false);    //disabilita 'collanaCB'
+                } else if (e.getStateChange() == ItemEvent.SELECTED) {  //controlla se è stato selezionato 'collanaRB'
+                    searchBarField.setText(""); //svuota il testo del JTextField 'searchBarField'
                     collanaCB.setEnabled(true); //abilita 'collanaCB'
                     genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
                     genereCB.setEnabled(false); //disabilita 'genereCB'
                     autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
                     autoreCB.setEnabled(false); //disabilita 'autoreCB'
-                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
-                    collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
-                    collanaCB.setEnabled(false);    //disabilita 'collanaCB'
                 }
             }
         });
@@ -512,16 +515,16 @@ public class BooksPage {
         autoreRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'autoreRB'
-                    searchBarField.setText("");
+                if (e.getStateChange() == ItemEvent.DESELECTED) {    //controlla se è stato deselezionato 'collanaRB'
+                    autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
+                    autoreCB.setEnabled(false); //disabilita 'autoreCB'
+                } else if (e.getStateChange() == ItemEvent.SELECTED) {  //controlla se è stato selezionato 'autoreRB'
+                    searchBarField.setText(""); //svuota il testo del JTextField 'searchBarField'
                     autoreCB.setEnabled(true);  //abilita 'autoreCB'
                     genereCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
                     genereCB.setEnabled(false); //disabilita 'genereCB'
                     collanaCB.setSelectedIndex(-1); //deseleziona 'collanaCB'
                     collanaCB.setEnabled(false);    //disabilita 'collanaCB'
-                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
-                    autoreCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
-                    autoreCB.setEnabled(false); //disabilita 'autoreCB'
                 }
             }
         });
@@ -535,19 +538,20 @@ public class BooksPage {
                     ArrayList<Libro> listaLibri = controller.listaLibri;    //lista contenente tutti i libri
 
                     for (Libro l : listaLibri) {    //scorre la lista dei libri 'listaLibri'
-
                         if (genereCB.getSelectedItem() != null && genereCB.getSelectedItem().equals(l.genere)) {    //controlla se l'elemento selezionato di 'genereCB' è uguale al genere del libro 'l'
                             aut = 0;    //numero di autori del libro 'l'
 
                             for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-
-                                if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                                else linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+                                if (aut == 0){  //controlla se 'a' è il primo autore
+                                    linkString = a.nome + " " + a.cognome;    //concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                                } else {
+                                    linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+                                }
 
                                 aut++;  //incrementa il numero di autori di 'l'
                             }
 
-                            model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});
+                            model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});   //aggiunge una nuova riga nella tabella
                         }
                     }
                 }
@@ -561,16 +565,18 @@ public class BooksPage {
                     model.setRowCount(0);   //elimina le righe della tabella
 
                     for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'listaLibri'
-
-                        if (autoreCB.getSelectedItem() != null) {
-                            for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del libro 'l'
-
-                                if (j == 0) linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                                else linkString = linkString + " \n" + controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+                        if (autoreCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'autoreCB'
+                            for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del i-esimo libro
+                                if (j == 0){    //controlla se si sta concatenando il primo autore
+                                    linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //concatena il nome e il cognome j-esimo autore dell'i-esimo libro in 'linkString'
+                                } else{
+                                    linkString = linkString + " \n" + controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome; //concatena il nome e il cognome del j-esimo autore dell'i-esimo libro in 'linkString' andando a capo
+                                }
                             }
 
-                            if (linkString.contains(autoreCB.getSelectedItem().toString())) //controlla se l'elemento selezionato di 'autoreCB' è contenuto in 'linkString'
-                                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+                            if (linkString.contains(autoreCB.getSelectedItem().toString())) { //controlla se l'elemento selezionato di 'autoreCB' è contenuto in 'linkString'
+                                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione}); //aggiunge una nuova riga nella tabella
+                            }
                         }
                     }
                 }
@@ -588,15 +594,16 @@ public class BooksPage {
                 }
 
                 for (int i = 0; i < controller.listaLibriCollana.size(); i++) {  //scorre i libri della collana selezionata
-
-                    if (collanaCB.getSelectedItem() != null) {
+                    if (collanaCB.getSelectedItem() != null) {  //controlla se è stato selezionato un elemento di 'collanaCB'
                         for (int j = 0; j < controller.listaLibriCollana.get(i).autori.size(); j++) { //scorre tutti gli autori del libro 'l'
-
-                            if (j == 0) linkString = controller.listaLibriCollana.get(i).autori.get(j).nome + " " + controller.listaLibriCollana.get(i).autori.get(j).cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                            else linkString = linkString + " \n" + controller.listaLibriCollana.get(i).autori.get(j).nome + " " + controller.listaLibriCollana.get(i).autori.get(j).cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+                            if (j == 0) {    //controlla se si sta concatenando il primo autore
+                                linkString = controller.listaLibriCollana.get(i).autori.get(j).nome + " " + controller.listaLibriCollana.get(i).autori.get(j).cognome;    //concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                            } else{
+                                linkString = linkString + " \n" + controller.listaLibriCollana.get(i).autori.get(j).nome + " " + controller.listaLibriCollana.get(i).autori.get(j).cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+                            }
                         }
 
-                        model.addRow(new Object[]{controller.listaLibriCollana.get(i).isbn, controller.listaLibriCollana.get(i).titolo, linkString, controller.listaLibriCollana.get(i).genere, controller.listaLibriCollana.get(i).lingua, controller.listaLibriCollana.get(i).editore, controller.listaLibriCollana.get(i).dataPubblicazione});
+                        model.addRow(new Object[]{controller.listaLibriCollana.get(i).isbn, controller.listaLibriCollana.get(i).titolo, linkString, controller.listaLibriCollana.get(i).genere, controller.listaLibriCollana.get(i).lingua, controller.listaLibriCollana.get(i).editore, controller.listaLibriCollana.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
                     }
                 }
             }
@@ -629,106 +636,122 @@ public class BooksPage {
             }
         });
 
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
+        numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
 
-        setNumeroNotifiche(controller);
+        setNumeroNotifiche(controller); //imposta il testo della JLabel 'notificheLabel'
 
         Timer timer = new Timer(60000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setNumeroNotifiche(controller);
+                setNumeroNotifiche(controller); //imposta il testo della JLabel 'notificheLabel'
             }
         });
 
-        timer.start();
-        timer.setRepeats(true);
+        timer.start();  //avvia il timer
+        timer.setRepeats(true); //fa ripetere il timer dopo che è scaduto
     }
 
     private void search(Controller controller, ArrayList<String> totAutoreList){    //esegue una ricerca nella tabella
-        if (!searchBarField.getText().isBlank()) {  //controlla se è stato inserito un testo nel JTextField 'searchBarField'
-            groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
+        if (searchBarField.getText().isBlank()) {  //controlla se non è stato inserito un testo nel JTextField 'searchBarField'
+            groupRB.clearSelection();   //deseleziona tutti i bottoni del ButtonGroup 'groupRB'
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            if(searchBarField.getText().contains("'")) searchBarField.setText(searchBarField.getText().replace("'", "’"));
-
-
-            for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'listaLibri'
-                for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del libro 'l'
-                    if (j == 0) linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                    else linkString = linkString + " \n" + controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
-                }
-
-                if (controller.listaLibri.get(i).isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) ||controller.listaLibri.get(i).titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || controller.listaLibri.get(i).editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
-                    model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
+            for (int i = 0; i < controller.listaLibri.size(); i++){
+                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
             }
         } else {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            for (int i = 0; i < controller.listaLibri.size(); i++) model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});
-        }
-    }
+            if(searchBarField.getText().contains("'")){ //controlla se il tetsto in 'searchBarField' contiene il carattere "'"
+                searchBarField.setText(searchBarField.getText().replace("'", "’")); //sostituisce i "'" in 'searchBarField' con "'"
+            }
 
-    private void setNumeroNotifiche(Controller controller){
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
+            for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'listaLibri'
+                for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del i-esimo libro
+                    if (j == 0){    //controlla se si sta concatenando il primo autore
+                        linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //concatena il nome e il cognome j-esimo autore dell'i-esimo libro in 'linkString'
+                    } else{
+                        linkString = linkString + " \n" + controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome; //concatena il nome e il cognome del j-esimo autore dell'i-esimo libro in 'linkString' andando a capo
+                    }
+                }
 
-        if(numeroNotifiche < 100 && numeroNotifiche > 0){
-            notificheLabel.setVisible(true);
-            String numeroNotificheText = Integer.toString(numeroNotifiche);
-            notificheLabel.setText(numeroNotificheText);
-        }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");
-        else {
-            notificheLabel.setVisible(false);
+                if (controller.listaLibri.get(i).isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || controller.listaLibri.get(i).editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) { //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
+                    model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione}); //aggiunge una nuova riga nella tabella
+                }
+            }
         }
-    }
+    }//fine search
+
+    private void setNumeroNotifiche(Controller controller){ //aggiorna il testo della JLabel 'notificheLabel' con in base al numero di notifiche dell'utente non lette
+        numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
+
+        if (numeroNotifiche <= 0){  //controlla se non ci sono notifiche non lette
+            notificheLabel.setVisible(false);   //rende invisibile la JLabel 'notificheLabel'
+        }else if (numeroNotifiche >= 100) { //controlla se ci sono almeno 100 notifiche non lette
+            notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
+            notificheLabel.setText("99+");  //imposta il testo della JLabel 'notificheLabel'
+        }else{
+            notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
+
+            String numeroNotificheText = Integer.toString(numeroNotifiche); //inizializza numeroNotificheText con 'numeroNotifiche'
+
+            notificheLabel.setText(numeroNotificheText);    //imposta il testo della JLabel 'notificheLabel' con 'numeroNotificheText'
+        }
+    }//fine setNumeroNotifiche
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //dimensioni dello schermo
+        int screenWidth = screenSize.width; //larghezza dello schermo
+        int screenHeight = screenSize.height;   //altezza dello schermo
 
-        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine);
-        closeBT = new JLabel(closeImg);
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));  //carica l'immagine nel percorso /close.png
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
-        searchBarField = new JTextField();
-        searchBarField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        closeImg = new ImageIcon(imagine);  //reinizializza l'ImageIcon 'closeImg' con l'Image 'image'
+        closeBT = new JLabel(closeImg); //inizializza la JLabel 'closeBT' con 'closeImg'
 
+        searchBarField = new JTextField();  //inizializza il JTextField 'searchBarField'
+        searchBarField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JTextField 'searchBarField'
 
-        ImageIcon radioIco = new ImageIcon(this.getClass().getResource("/r2.png"));
-        Image radioImg = radioIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8),Image.SCALE_SMOOTH);
-        radioIco = new ImageIcon(radioImg);
+        ImageIcon radioIco = new ImageIcon(this.getClass().getResource("/r2.png")); //carica l'immagine nel percorso /r2.png
+        Image radioImg = radioIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8),Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
-        ImageIcon radioSelIco = new ImageIcon(this.getClass().getResource("/r1.png"));
-        Image radioSelImg = radioSelIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8),Image.SCALE_SMOOTH);
-        radioSelIco = new ImageIcon(radioSelImg);
+        radioIco = new ImageIcon(radioImg); //reinizializza l'ImageIcon 'radioIco' con l'Image 'radioImg'
 
-        groupRB = new ButtonGroup();
-        genereRB = new JRadioButton();
-        genereRB.setIcon(radioIco);
-        genereRB.setSelectedIcon(radioSelIco);
-        autoreRB = new JRadioButton();
-        autoreRB.setIcon(radioIco);
-        autoreRB.setSelectedIcon(radioSelIco);
-        collanaRB = new JRadioButton();
-        collanaRB.setIcon(radioIco);
-        collanaRB.setSelectedIcon(radioSelIco);
-        groupRB.add(genereRB);
-        groupRB.add(autoreRB);
-        groupRB.add(collanaRB);
+        ImageIcon radioSelIco = new ImageIcon(this.getClass().getResource("/r1.png"));  //carica l'immagine nel percorso /r2.png
+        Image radioSelImg = radioSelIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8),Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
-        ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/search.png"));
-        Image searchImg = searchIcon.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        searchIcon = new ImageIcon(searchImg);
-        searchImage = new JLabel(searchIcon);
+        radioSelIco = new ImageIcon(radioSelImg);   //reinizializza l'ImageIcon 'radioSelIco' con l'Image 'radioSelImg'
 
-        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
-        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        notificaIco = new ImageIcon(notificaImg);
+        groupRB = new ButtonGroup();    //inizializza il ButtonGroup 'groupRB'
+        genereRB = new JRadioButton();  //inizializza il JRadioButton 'genereRB'
+        genereRB.setIcon(radioIco); //imposta l'icona della 'genereRB' con l'immagine 'radioIco'
+        genereRB.setSelectedIcon(radioSelIco);  //imposta l'icona dI 'genereRB' quando una suo bottone viene selzionato con l'immagine 'radioSelIco'
+        autoreRB = new JRadioButton();  //inizializza il JRadioButton 'autoreRB'
+        autoreRB.setIcon(radioIco); //imposta l'icona della 'autoreRB' con l'immagine 'radioIco'
+        autoreRB.setSelectedIcon(radioSelIco);  //imposta l'icona di 'autoreRB' quando una suo bottone viene selzionato con l'immagine 'radioSelIco'
+        collanaRB = new JRadioButton(); //inizializza il JRadioButton 'collanaRB'
+        collanaRB.setIcon(radioIco);    //imposta l'icona della 'collanaRB' con l'immagine 'radioIco'
+        collanaRB.setSelectedIcon(radioSelIco); //imposta l'icona di 'collanaRB' quando una suo bottone viene selzionato con l'immagine 'radioSelIco'
+        groupRB.add(genereRB);  //aggiunge 'genereRB' in 'gruopRB'
+        groupRB.add(autoreRB);  //aggiunge 'autoreRB' in 'gruopRB'
+        groupRB.add(collanaRB); //aggiunge 'collanaRB' in 'gruopRB'
+
+        ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/search.png"));   //carica l'immagine nel percorso /search.png
+        Image searchImg = searchIcon.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+
+        searchIcon = new ImageIcon(searchImg);  //reinizializza l'ImageIcon 'searchIcon' con l'Image 'searchImg'
+        searchImage = new JLabel(searchIcon);   //inizializza la JLabel 'searchImage' con l'ImageIcon 'searchImage'
+
+        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));    //carica l'immagine nel percorso /notifica.png
+        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+        notificaIco = new ImageIcon(notificaImg);   //reinizializza l'ImageIcon 'notificaIco' con l'Image 'notificaImg'
 
         notificheLabel = new JLabel();
-        notificheLabel.setIcon(notificaIco);
+        notificheLabel.setIcon(notificaIco);    //imposta l'icona della JLabel 'notificheLabel' con l'immagine 'notificaIco'
     }
 }
