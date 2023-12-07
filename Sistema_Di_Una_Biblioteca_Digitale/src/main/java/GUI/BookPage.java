@@ -304,7 +304,7 @@ public class BookPage {
         utenteMenu.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del menu 'utenteMenu'
         utenteMenu.add(utenteProfilo);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
-        utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
+        utenteMenu.add(utenteExit); //aggiunge la voce 'utenteExit' al menu 'utenteMenu'
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
@@ -1041,13 +1041,13 @@ public class BookPage {
         int screenWidth = screenSize.width; //larghezza dello schermo
         int screenHeight = screenSize.height;   //altezza dello schermo
 
-        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));  //carica l'immagine nel percorse /close.png
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));  //carica l'immagine nel percorso /close.png
         Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
         closeImg = new ImageIcon(imagine);  //reinizializza l'ImageIcon 'closeImg' con l'Image 'image'
         closeBT = new JLabel(closeImg); //inizializza la JLabel 'closeBT' con 'closeImg'
 
-        ImageIcon backIco = new ImageIcon(this.getClass().getResource("/back.png"));    //carica l'immagine nel percorse /back.png
+        ImageIcon backIco = new ImageIcon(this.getClass().getResource("/back.png"));    //carica l'immagine nel percorso /back.png
         Image backImg = backIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
 
         backIco = new ImageIcon(backImg);   //reinizializza l'ImageIcon 'backIco' con l'Image 'backImg'
@@ -1060,12 +1060,12 @@ public class BookPage {
         ((GridBagLayout)commenti.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};   //assegna le priorità delle colonne del layout di 'commenti' per impostare le loro larghezze
         ((GridBagLayout)commenti.getLayout()).rowWeights = new double[] {0.0, 1.0E-4};  //assegna le priorità delle righe del layout di 'commenti' impostare le loro altezze
 
-        ImageIcon checkIco = new ImageIcon(this.getClass().getResource("/c2.png")); //carica l'immagine nel percorse /c2.png
+        ImageIcon checkIco = new ImageIcon(this.getClass().getResource("/c2.png")); //carica l'immagine nel percorso /c2.png
         Image checkImg = checkIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
         checkIco = new ImageIcon(checkImg); //reinizializza l'ImageIcon 'checkIco' con l'Image 'checkImg'
 
-        ImageIcon checkSelIco = new ImageIcon(this.getClass().getResource("/c1.png"));  //carica l'immagine nel percorse /c1.png
+        ImageIcon checkSelIco = new ImageIcon(this.getClass().getResource("/c1.png"));  //carica l'immagine nel percorso /c1.png
         Image checkSelImg = checkSelIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
 
         checkSelIco = new ImageIcon(checkSelImg);   //reinizializza l'ImageIcon 'checkSelIco' con l'Image 'checkSelImg'
@@ -1079,7 +1079,7 @@ public class BookPage {
 
         showComment(new Controller(), commenti);    //mostra tutti i commenti fatti al libro selezionato
 
-        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));    //carica l'immagine nel percorse /notifica.png
+        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));    //carica l'immagine nel percorso /notifica.png
         Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
 
         notificaIco = new ImageIcon(notificaImg);   //reinizializza l'ImageIcon 'notificaIco' con l'Image 'notificaImg'
