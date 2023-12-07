@@ -1272,7 +1272,6 @@ public class Controller {
     }
 
     // NOTIFICA //
-
     public int getNumeroNotificheNonLette(){
         NotificaDAO n = new NotificaImplementazionePostgresDAO();
         return n.getNumeroNotificheNonLetteDB(utente.username);
