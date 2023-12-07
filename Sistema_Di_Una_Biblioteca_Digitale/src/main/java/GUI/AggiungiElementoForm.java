@@ -2423,7 +2423,7 @@ public class AggiungiElementoForm {
 
         calendarIssueIMG = new JLabel(calendarIco); //inizializza la JLabel 'calendarSerieIMG' dell'icona del calendario
 
-        articoliPanel = new JPanel();   //inizializza il JTextField 'articoliPaneld'
+        articoliPanel = new JPanel();   //inizializza il JPanel 'articoliPaneld'
         articoliPanel.setLayout(new GridBagLayout());   //imposta il layout del JPanel 'articoliPanel'
         ((GridBagLayout)articoliPanel.getLayout()).columnWidths = new int[] {0, 0}; //le larghezze delle colonne del layout di 'articoliPanel' vengono impostate dinamicamente in base alle componenti contenute
         ((GridBagLayout)articoliPanel.getLayout()).rowHeights = new int[] {0, 0};   //le altezze delle righe del layout di 'articoliPanel' vengono impostate dinamicamente in base alle componenti contenute
