@@ -1021,11 +1021,11 @@ public class BookPage {
     private void setNumeroNotifiche(Controller controller){ //aggiorna il testo della JLabel 'notificheLabel' con in base al numero di notifiche dell'utente non lette
         numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
 
-        if (numeroNotifiche >= 100){    //controlla se ci sono almeno 100 notifiche non lette
+        if (numeroNotifiche <= 0){  //controlla se non ci sono notifiche non lette
+            notificheLabel.setVisible(false);   //rende invisibile la JLabel 'notificheLabel'
+        }else if (numeroNotifiche >= 100) { //controlla se ci sono almeno 100 notifiche non lette
             notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
             notificheLabel.setText("99+");  //imposta il testo della JLabel 'notificheLabel'
-        }else if (numeroNotifiche <= 0) {   //controlla se non ci sono notifiche non lette
-            notificheLabel.setVisible(false);   //rende invisibile la JLabel 'notificheLabel'
         }else{
             notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
 
