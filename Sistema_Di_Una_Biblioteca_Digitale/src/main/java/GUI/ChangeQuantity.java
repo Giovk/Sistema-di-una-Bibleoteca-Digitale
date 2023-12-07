@@ -20,30 +20,33 @@ public class ChangeQuantity {
     private JLabel quantitaLabel;
 
     public ChangeQuantity(JFrame frameC, Controller controller, DefaultTableModel model, String formato, int value){
-        quantitaLabel.setFont(controller.baseFontSize);
-        quantitaSpinner.setFont(controller.textFieldFont);
-        okButton.setFont(controller.baseFontSize);
+        quantitaLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'quantitaLabel'
+        quantitaSpinner.setFont(controller.textFieldFont);  //imposta il font dello JSpinner 'quantitaSpinner'
+        okButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'okButton'
+
 
         frame = new JFrame("Biblioteca Digitale");
-        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
-        frame.setIconImage(icona);
-        frame.setUndecorated(true);
+
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();   //carica l'immagine nel percorso /icon.png
+
+        frame.setIconImage(icona);  //imposta la l'icona dell'applicazione
+        frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(this.contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize((int) (controller.screenWidth/4.2666), controller.screenHeight/9);
-        frame.setLocationRelativeTo(null);
-        contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
-        frame.setResizable(false);
-        frame.setVisible(true);
+        frame.setSize((int) (controller.screenWidth/4.2666), controller.screenHeight/9);    //imposta larghezza e altezza del frame
+        frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
+        contentPane.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));    //imposta il bordo del JPanel 'contentPane'
+        frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
+        frame.setVisible(true); //rende visibile il frame
 
-        quantitaSpinner.setValue(value);
+        quantitaSpinner.setValue(value);    //imposta il valore di 'quantitaSpinner' a 'valuea'
 
         okButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                okButton.setBackground(Color.decode("#cf9e29"));
+                okButton.setBackground(Color.decode("#cf9e29"));    //imposta lo sfondo del JButton 'okButton'
             }
         });
 
@@ -51,7 +54,7 @@ public class ChangeQuantity {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                okButton.setBackground(Color.decode("#FFD369"));
+                okButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'okButton'
             }
         });
 
@@ -83,8 +86,6 @@ public class ChangeQuantity {
                 frameC.toFront();
             }
         });
-
-
     }
 
     public ChangeQuantity(JFrame frameC, Controller controller, DefaultTableModel model, String formato, int numero, int value){
@@ -253,7 +254,6 @@ public class ChangeQuantity {
         closeImg = new ImageIcon(imagine);
         closeBT = new JLabel(closeImg);
 
-
         SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1);
         quantitaSpinner = new JSpinner(snm);
 
@@ -266,7 +266,6 @@ public class ChangeQuantity {
             textField.setBackground(new Color(0xFFD369));
             textField.setBorder(new LineBorder(new Color(0x222831)));
         }
-
 
         quantitaSpinner.setUI(new BasicSpinnerUI(){
             ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
@@ -282,6 +281,7 @@ public class ChangeQuantity {
                         return new Dimension((int) (screenWidth/85.3333), screenHeight/48);
                     }
                 };
+
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if(spinner.getPreviousValue() != null) {
@@ -289,6 +289,7 @@ public class ChangeQuantity {
                         }
                     }
                 });
+
                 button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
                 button.setBorder(new LineBorder(new Color(0xFFD369)));
                 return button;
@@ -302,6 +303,7 @@ public class ChangeQuantity {
                         return new Dimension((int) (screenWidth/85.3333), screenHeight/48);
                     }
                 };
+
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if(spinner.getNextValue() != null) {
@@ -309,6 +311,7 @@ public class ChangeQuantity {
                         }
                     }
                 });
+
                 button.setBackground(new Color(0x222831)); // Imposta il colore di sfondo del bottone
                 button.setBorder(new LineBorder(new Color(0xFFD369)));
                 return button;
