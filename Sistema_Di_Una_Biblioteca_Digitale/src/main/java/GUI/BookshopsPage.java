@@ -409,7 +409,7 @@ public class BookshopsPage {
         headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
         headerRenderer.setHorizontalAlignment(JLabel.CENTER);   //centra orizzontalmente il contenuto dell'header della tabella
 
-        Font headerFont = new Font("Impact", Font.PLAIN, 15); // imposta il font Bebas Neue, grandezza 15 e stile Regular
+        Font headerFont = new Font("Impact", Font.PLAIN, 15); //imposta il font Bebas Neue, grandezza 15 e stile Regular
 
         headerRenderer.setFont(headerFont); //inizializza il font Bebas Neue, grandezza 15 e stile Regular per i caratteri della tabella
 
@@ -423,7 +423,7 @@ public class BookshopsPage {
 
         tableHeader.setBorder(null);    //rimuove il bordo dell'header della tabella
 
-        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));  //inposta il render di default della tabella
+        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));  //imposta il render di default della tabella
 
         controller.getLibrerieUtente(); //inizializza 'controller.librerieUtente' con tutte le librerie dell'utente
 
@@ -496,11 +496,11 @@ public class BookshopsPage {
     private void setNumeroNotifiche(Controller controller){ //aggiorna il testo della JLabel 'notificheLabel' con in base al numero di notifiche dell'utente non lette
         numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
 
-        if (numeroNotifiche >= 100){    //controlla se ci sono almeno 100 notifiche non lette
+        if (numeroNotifiche <= 0){  //controlla se non ci sono notifiche non lette
+            notificheLabel.setVisible(false);   //rende invisibile la JLabel 'notificheLabel'
+        }else if (numeroNotifiche >= 100) { //controlla se ci sono almeno 100 notifiche non lette
             notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
             notificheLabel.setText("99+");  //imposta il testo della JLabel 'notificheLabel'
-        }else if (numeroNotifiche <= 0) {   //controlla se non ci sono notifiche non lette
-            notificheLabel.setVisible(false);   //rende invisibile la JLabel 'notificheLabel'
         }else{
             notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
 
