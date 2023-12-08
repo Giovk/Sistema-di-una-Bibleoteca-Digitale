@@ -58,77 +58,76 @@ public class Conferenze {
         datePicker = new DatePickerMoreDay(calendarIMG);
         datePicker2 = new DatePickerMoreDay(calendarIMG2);
 
-        conferenzaLabel.setFont(controller.baseFontSize);
+        conferenzaLabel.setFont(controller.baseFontSize);   //imposta il font della JLabel 'conferenzaLabel'
 
-        conferenzeTable.setFont(controller.impactFontSize);
-        conferenzeTable.setRowMargin(controller.screenWidth/640);
-        conferenzeTable.setRowHeight(controller.screenHeight/36);
+        conferenzeTable.setFont(controller.impactFontSize); //imposta il font della JTable 'elementiTable'
+        conferenzeTable.setRowMargin(controller.screenWidth/640);   //imposta il margine tra le celle della JTable 'conferenzeTable'
+        conferenzeTable.setRowHeight(controller.screenHeight/36);   //imposta l'altezza delle righe della JTable 'conferenzeTable'
 
-        aggiungiButton.setFont(controller.baseFontSize);
-        annullaButton.setFont(controller.baseFontSize);
-        conferenzeLabel.setFont(controller.baseFontSize);
+        aggiungiButton.setFont(controller.baseFontSize);    //imposta il font del JButton 'aggiungiButton'
+        annullaButton.setFont(controller.baseFontSize); //imposta il font del JButton 'annullaButton'
+        conferenzeLabel.setFont(controller.baseFontSize);   //imposta il font del JButton 'conferenzeButton'
 
-        strutturaLabel.setFont(controller.baseFontSize);
-        strutturaField.setFont(controller.textFieldFont);
-        strutturaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        indirizzoLabel.setFont(controller.baseFontSize);
-        viaLabel.setFont(controller.baseFontSize);
-        viaField.setFont(controller.textFieldFont);
-        viaField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
-        numeroCivicoLabel.setFont(controller.baseFontSize);
-        ncField.setFont(controller.textFieldFont);
-        ncField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
-        comuneLabel.setFont(controller.baseFontSize);
-        comuneField.setFont(controller.textFieldFont);
-        comuneField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
-        provinciaLabel.setFont(controller.baseFontSize);
-        provinciaField.setFont(controller.textFieldFont);
-        provinciaField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
-        capLabel.setFont(controller.baseFontSize);
-        capField.setFont(controller.textFieldFont);
-        capField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
-        nazioneLabel.setFont(controller.baseFontSize);
-        nazioneField.setFont(controller.textFieldFont);
-        nazioneField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));
+        strutturaLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'strutturaLabel'
+        strutturaField.setFont(controller.textFieldFont);   //imposta il font della JTextField 'strutturaField'
+        strutturaField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));    //imposta la dimensione minima del JTextField 'strutturaField'
+        indirizzoLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'indirizzoLabel'
+        viaLabel.setFont(controller.baseFontSize);  //imposta il font della JLabel 'viaLabel'
+        viaField.setFont(controller.textFieldFont); //imposta il font della JLabel 'viaLabel'
+        viaField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));    //imposta la dimensione minima del JTextField 'viaField'
+        numeroCivicoLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'numeroCivicoLabel'
+        ncField.setFont(controller.textFieldFont);  //imposta il font della JTextField 'ncField'
+        ncField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24))); //imposta la dimensione minima del JTextField 'ncField'
+        comuneLabel.setFont(controller.baseFontSize);   //imposta il font della JLabel 'comuneLabel'
+        comuneField.setFont(controller.textFieldFont);  //imposta il font della JTextField 'comuneField'
+        comuneField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24))); //imposta la dimensione minima del JTextField 'comuneField'
+        provinciaLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'provinciaLabel'
+        provinciaField.setFont(controller.textFieldFont);   //imposta il font della JTextField 'provinciaField'
+        provinciaField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));  //imposta la dimensione minima del JTextField 'provinciaField'
+        capLabel.setFont(controller.baseFontSize);  //imposta il font della JLabel 'capLabel'
+        capField.setFont(controller.textFieldFont); //imposta il font della JTextField 'capField'
+        capField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));    //imposta la dimensione minima del JTextField 'capField'
+        nazioneLabel.setFont(controller.baseFontSize);  //imposta il font della JLabel 'nazioneLabel'
+        nazioneField.setFont(controller.textFieldFont); //imposta il font della JTextField 'nazioneField'
+        nazioneField.setMinimumSize(new Dimension((int)(controller.screenHeight/5), (int)(controller.screenHeight/24)));    //imposta la dimensione minima del JTextField 'capField'
 
-        dataInizioLabel.setFont(controller.baseFontSize);
-        dataInizioField.setFont(controller.textFieldFont);
-        dataInizioField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
-        dataFineLabel.setFont(controller.baseFontSize);
-        dataFineField.setFont(controller.textFieldFont);
-        dataFineField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));
+        dataInizioLabel.setFont(controller.baseFontSize);   //imposta il font della JLabel 'dataInizioLabel'
+        dataInizioField.setFont(controller.textFieldFont);  //imposta il font della JTextField 'dataInizioField'
+        dataInizioField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24)));   //imposta la dimensione minima del JTextField 'dataInizioField'
+        dataFineLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'dataFineLabel'
+        dataFineField.setFont(controller.textFieldFont);    //imposta il font della JTextField 'dataFineField'
+        dataFineField.setMinimumSize(new Dimension(-1, (int)(controller.screenHeight/24))); //imposta la dimensione minima del JTextField 'dataFineField'
 
-
-        inviaButton.setFont(controller.baseFontSize);
+        inviaButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'inviaButton'
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             aggiungiButton.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
         }
 
-        UIManager.put("ScrollPane.background\n", new Color(0x222831));
+        UIManager.put("ScrollPane.background\n", new Color(0x222831));  //imposta il colore dello sfondo del JScrollPane
 
-        conferenzaLabel.setText("("+ controller.doi_selected + ") " + controller.nome_articolo.substring(0,15) + "... - CONFERENZE:");
-        conferenzaLabel.setToolTipText(controller.nome_articolo);
+        conferenzaLabel.setText("("+ controller.doi_selected + ") " + controller.nome_articolo.substring(0,15) + "... - CONFERENZE:");  //imposta il testo della JLabel 'conferenzaLabel' con il DOI e il nome dell'articolo selezionato
+        conferenzaLabel.setToolTipText(controller.nome_articolo);   //imposta a 'controller.nome_articolo' il testo da visualizzare quando il mouse si trova sopra 'conferenzaLabel'
 
         conferenzeScroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -141,7 +140,7 @@ public class Conferenze {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -155,39 +154,39 @@ public class Conferenze {
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
         scrollpage.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
             Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'imma
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -200,7 +199,7 @@ public class Conferenze {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -214,45 +213,47 @@ public class Conferenze {
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
-        scrollpage.setBackground(new Color(0x222831));
-        scrollpage.setBorder(BorderFactory.createEmptyBorder());
-        scrollpage.getViewport().setBackground(new Color(0x222831));
+        scrollpage.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JScrollPane 'scrollpage'
+        scrollpage.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JScrollPane 'scrollpage'
+        scrollpage.getViewport().setBackground(new Color(0x222831));    //imposta il colore dello sfondo della parte visibile del JScrollPane 'scrollpage'
 
         frame = new JFrame("Biblioteca Digitale");
-        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
-        frame.setIconImage(icona);
-        frame.setUndecorated(true);
+
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();   //carica l'immagine nel percorso /icon.png
+
+        frame.setIconImage(icona);  //imposta la l'icona dell'applicazione
+        frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(this.contentPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize((int) (controller.screenWidth/1.5609), (int) (controller.screenHeight/1.44));
-        frame.setLocationRelativeTo(null);
-        contentPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));
-        frame.setResizable(false);
-        frame.setVisible(true);
+        frame.setSize((int) (controller.screenWidth/1.5609), (int) (controller.screenHeight/1.44)); //imposta larghezza e altezza del frame
+        frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
+        contentPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));   //imposta il bordo del JPanel 'contentPane'
+        frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
+        frame.setVisible(true); //rende visibile il frame
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
-                frame.setVisible(false);
+                frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
-                frameC.setEnabled(true);
-                frameC.toFront();
+                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+                frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
             }
         });
 
@@ -260,10 +261,10 @@ public class Conferenze {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                frame.setVisible(false);
+                frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
-                frameC.setEnabled(true);
-                frameC.toFront();
+                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
+                frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
             }
         });
 
@@ -274,49 +275,46 @@ public class Conferenze {
             }
         };
 
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();   //DefaultTableCellRenderer per la formattazione dell'header della tabella
 
-        // Renderer personalizzato per l'header della tabella
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(0xCF9E29));
-        headerRenderer.setForeground(new Color(0xEEEEEE));
-        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        Font headerFont = new Font("Impact", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
-        headerRenderer.setFont(headerFont);
-        JTableHeader tableHeader = conferenzeTable.getTableHeader();
-        tableHeader.setDefaultRenderer(headerRenderer);
+        headerRenderer.setBackground(new Color(0xCF9E29));  //imposta il colore dello sfondo dell'header della tabella
+        headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);   //centra orizzontalmente il contenuto dell'header della tabella
 
-        // Impedire il ridimensionamento delle colonne
-        conferenzeTable.getTableHeader().setResizingAllowed(false);
+        Font headerFont = new Font("Impact", Font.PLAIN, 15); //imposta il font Bebas Neue, grandezza 15 e stile Regular
 
-        // Impedire il riordinamento delle colonne
-        conferenzeTable.getTableHeader().setReorderingAllowed(false);
+        headerRenderer.setFont(headerFont); //inizializza il font Bebas Neue, grandezza 15 e stile Regular per i caratteri della tabella
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader.setBorder(null);
+        JTableHeader tableHeader = conferenzeTable.getTableHeader();    //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'conferenzaTable'
 
-        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));
+        tableHeader.setDefaultRenderer(headerRenderer); //imposta il render di default della tabella a 'headerRender'
 
+        conferenzeTable.getTableHeader().setResizingAllowed(false); //impedisce il ridimensionamento delle colonne
 
-        conferenzeTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
-        conferenzeScroll.setBackground(new Color(0x222831));
-        conferenzeScroll.setBorder(BorderFactory.createEmptyBorder());
-        conferenzeScroll.getViewport().setBackground(new Color(0x222831));
+        conferenzeTable.getTableHeader().setReorderingAllowed(false);   //impedisce il ridimensionamento delle colonne
 
-        controller.getConferenzeArticolo();
+        tableHeader.setBorder(null);    //rimuove il bordo dell'header della tabella
 
-        for(int i = 0; i < controller.listaConferenze.size(); i++){
-            model.addRow(new Object[]{controller.listaConferenze.get(i).luogo, controller.listaConferenze.get(i).struttura, controller.listaConferenze.get(i).dataInizio, controller.listaConferenze.get(i).dataFine});
+        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));  //imposta il render di default della tabella
+
+        conferenzeTable.setModel(model); //imposta il modello dei dati della JTable 'conferenzeTable'
+        conferenzeScroll.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPane 'conferenzeScroll'
+        conferenzeScroll.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'conferenzeScroll'
+        conferenzeScroll.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'conferenzeScroll'
+
+        controller.getConferenzeArticolo(); //inizializza 'controller.listaConferenze'
+
+        for(int i = 0; i < controller.listaConferenze.size(); i++){ //scorre 'controller.listaConferenze'
+            model.addRow(new Object[]{controller.listaConferenze.get(i).luogo, controller.listaConferenze.get(i).struttura, controller.listaConferenze.get(i).dataInizio, controller.listaConferenze.get(i).dataFine}); //aggiunge una nuova riga nella tabella
         }
-
-
 
         conferenzeTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
                 super.mouseMoved(e);
-                Point point = e.getPoint();
-                int row = conferenzeTable.rowAtPoint(point);
-                int column = 0;
+                Point point = e.getPoint(); //punto cliccato
+                int row = conferenzeTable.rowAtPoint(point);    //riga selezionata
+                int column = 0; //inizializza la colonna selezionata a 0
 
                 if (row >= 0 && column >= 0) {
                     Object cellValue = conferenzeTable.getValueAt(row, column);
