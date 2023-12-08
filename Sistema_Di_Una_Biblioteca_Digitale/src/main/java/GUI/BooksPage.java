@@ -437,7 +437,7 @@ public class BooksPage {
         booksTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
         booksScrollPanel.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPane 'booksScrollPanel'
         booksScrollPanel.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'booksScrollPanel'
-        booksScrollPanel.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibooks JScrollPane
+        booksScrollPanel.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'booksScrollPanel'
 
         if (controller.listaLibri != null) {    //controlla se 'controller.listaLibri' non è vuota
             for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre 'controller.listaLibri'
