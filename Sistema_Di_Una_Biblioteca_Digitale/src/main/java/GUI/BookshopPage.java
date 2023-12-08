@@ -579,7 +579,7 @@ public class BookshopPage {
                             valore = ((int) elementiTable.getValueAt(row_selected, 1)); //pone valore uguale alla quantità presente nella riga selezionata
                         }
 
-                        ChangeQuantity cq = new ChangeQuantity(frame, controller, model, elementiTable.getValueAt(row_selected, 2).toString(), valore); //chiama il JDialog (ChangeQuantity) 'cq'
+                        ChangeQuantity cq = new ChangeQuantity(frame, controller, model, elementiTable.getValueAt(row_selected, 2).toString(), valore); //chiama il frame 'cq'
                         frame.setEnabled(false);    //disabilita il frame
                     } else {
                         controller.nome_selected = elementiTable.getValueAt(row_selected, 0).toString();    //inizializza 'controller.nome_selected' con il nome della rivista e il numero del fascicolo selezionato
@@ -593,7 +593,7 @@ public class BookshopPage {
                             valore = ((int) elementiTable.getValueAt(row_selected, 1)); //pone valore uguale alla quantità presente nella riga selezionata
                         }
 
-                        ChangeQuantity cq = new ChangeQuantity(frame, controller, model, elementiTable.getValueAt(row_selected, 2).toString(), numero, valore); //chiama il JDialog (ChangeQuantity) 'cq'
+                        ChangeQuantity cq = new ChangeQuantity(frame, controller, model, elementiTable.getValueAt(row_selected, 2).toString(), numero, valore); //chiama il frame 'cq'
                         frame.setEnabled(false);    //disabilita il frame
                     }
 
@@ -643,7 +643,7 @@ public class BookshopPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                AggiungiElementoForm aef = new AggiungiElementoForm(frame, controller, model);  //chiama il JDialog (AggiungiElementoForm) 'aef'
+                AggiungiElementoForm aef = new AggiungiElementoForm(frame, controller, model);  //chiama il frame 'aef'
                 frame.setEnabled(false);    //disabilita il frame
             }
         });
