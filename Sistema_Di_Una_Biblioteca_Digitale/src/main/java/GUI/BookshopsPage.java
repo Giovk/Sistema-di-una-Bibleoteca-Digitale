@@ -472,7 +472,7 @@ public class BookshopsPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                CreaLibreria cl = new CreaLibreria(frame, controller, model);   //chiama il JDialog (CreaLibreria) 'cl'
+                CreaLibreria cl = new CreaLibreria(frame, controller, model);   //chiama il frame 'cl'
                 frame.setEnabled(false);    //rende invisibile il frame
             }
         });
