@@ -2335,7 +2335,7 @@ public class AggiungiElementoForm {
 
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        if (spinner.getNextValue() != null) {   //controlla se il valore successivo dello JSpinner è 'spinner' è diverso da null
+                        if (spinner.getNextValue() != null) {   //controlla se il valore successivo dello JSpinner è 'spinner' è diverso da NULL
                             spinner.setValue(spinner.getNextValue());   //imposta il valore dello JSpinner 'spinner' con il suo valore successivo
                         }
                     }
