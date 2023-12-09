@@ -224,7 +224,7 @@ public class BookshopPage {
         utenteMenu.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                active = true;
+                active = true;  //aggiorna 'active'
             }
 
             @Override
