@@ -313,7 +313,7 @@ public class ChangeQuantity {
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if(spinner.getPreviousValue() != null) {    //controlla se il valore precedente dello JSpinner è 'spinner' è diverso da null
-                            spinner.setValue(spinner.getPreviousValue()); // Azione per decrementare il valore
+                            spinner.setValue(spinner.getPreviousValue()); //imposta il valore dello JSpinner 'spinner' con il suo valore precedente
                         }
                     }
                 });
