@@ -3,7 +3,6 @@ package GUI;
 import Controller.Controller;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.*;
@@ -28,7 +27,6 @@ public class GestisciCollane {
     private JLabel caratteristicaLabel;
     private JLabel issnLabel;
     private JLabel iCampiChePresentanoLabel;
-
     private int collaneLibroCount = 0;
 
     public GestisciCollane(JFrame frameC, Controller controller){
@@ -86,6 +84,7 @@ public class GestisciCollane {
                 creaCollanaButton.setBackground(Color.decode("#cf9e29"));
             }
         });
+
         creaCollanaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
