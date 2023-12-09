@@ -359,7 +359,7 @@ public class BooksPage {
         UIManager.put("ComboBox.disabledForeground", new Color(0x222831));  //imposta il colore del testo di un combo box quando viene disabilitato
         UIManager.put("ComboBox.disabledBackground", new Color(0xFFD369));  //imposta il colore dello sfondo di un combo box quando viene disabilitato
 
-        Dimension dim = new Dimension((int) (controller.screenWidth/6.5), controller.screenHeight/24);  //dimensione preferita di 'panel1'
+        Dimension dim = new Dimension((int) (controller.screenWidth/6.5), controller.screenHeight/24);  //dimensione preferita dei combo box
 
         NewComboBox autoreCB = new NewComboBox<>();
         autoreCB.setPreferredSize(dim); //imposta a 'dim' la dimensione preferita del combo box 'autoreCB'
