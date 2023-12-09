@@ -126,7 +126,7 @@ public class CreaLibreria {
                 if(nomeField.getText().isBlank() || ntField.getText().isBlank()){   //controlla se non è stato inserito uno dei campi obbligatori
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obbligatori");  //mostra un messaggio di errore
                 } else {
-                    if (controller.verificaNumeroTelefonicoLibreria(ntField.getText()) == false) {  //controlla se il formato del telefonico è errato
+                    if (controller.verificaNumeroTelefonicoLibreria(ntField.getText()) == false) {  //controlla se il formato del numero telefonico è errato
                         NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Il numero telefonico è errato!");    //mostra un messaggio di errore
                     } else {
                         if (controller.presenzaNumeroTelefonicoLibreria(ntField.getText()) == false) {  //controlla se il numero telefonico è stato già registrato
