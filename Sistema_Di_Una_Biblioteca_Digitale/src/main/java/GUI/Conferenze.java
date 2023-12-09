@@ -101,7 +101,7 @@ public class Conferenze {
         inviaButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'inviaButton'
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
-            aggiungiButton.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
+            aggiungiButton.setVisible(false);   //rende invisibile il JButton 'aggiungiButton'
         }
 
         UIManager.put("ScrollPane.background\n", new Color(0x222831));  //imposta il colore dello sfondo del JScrollPane
@@ -242,7 +242,7 @@ public class Conferenze {
         frame.pack();
         frame.setSize((int) (controller.screenWidth/1.5609), (int) (controller.screenHeight/1.44)); //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
-        contentPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));   //imposta il bordo del JPanel 'contentPane'
+        contentPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(0xEEEEEE)));   //imposta il bordo del JPanel 'contentPanel'
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true); //rende visibile il frame
 
@@ -316,22 +316,22 @@ public class Conferenze {
                 int row = conferenzeTable.rowAtPoint(point);    //riga selezionata
                 int column = 0; //inizializza la colonna selezionata a 0
 
-                if (row >= 0 && column >= 0) {
-                    Object cellValue = conferenzeTable.getValueAt(row, column);
-                    conferenzeTable.setToolTipText(cellValue.toString());
+                if (row >= 0 && column >= 0) {  //controlla se la riga e la colonna sono maggiore o uguale a 0
+                    Object cellValue = conferenzeTable.getValueAt(row, column); //contenuto della cella selezionato
+                    conferenzeTable.setToolTipText(cellValue.toString());   //imposta a 'controller.nome_articolo' il testo da visualizzare quando il mouse si trova sopra 'conferenzeTable'
                 }
             }
         });
 
-        annullaButton.setVisible(false);
-        addConferenzaPanel.setVisible(false);
+        annullaButton.setVisible(false);    //rende invisibile il JButton 'annullaButton'
+        addConferenzaPanel.setVisible(false);   //rende invisibile il JPanel 'addConferenzaPanel'
 
         calendarIMG.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                datePicker.d.setVisible(true);
-                dataInizioField.setText(datePicker.setPickedDate());
+                datePicker.d.setVisible(true);  //rende visibile il calendario
+                dataInizioField.setText(datePicker.setPickedDate());    //imposta il testo del JTextField 'dataInizioField' con la data scelta dall'utente
             }
         });
 
@@ -339,8 +339,8 @@ public class Conferenze {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                datePicker2.d.setVisible(true);
-                dataFineField.setText(datePicker2.setPickedDate());
+                datePicker2.d.setVisible(true); //rende visibile il calendario
+                dataFineField.setText(datePicker2.setPickedDate()); //imposta il testo del JTextField 'dataFineField' con la data scelta dall'utente
             }
         });
 
@@ -348,25 +348,31 @@ public class Conferenze {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                if (active == true)  aggiungiButton.setBackground(Color.decode("#cf9e29"));
+                if (active == true){    //controlla se bisogna attivare il JButton 'aggiungiButton'
+                    aggiungiButton.setBackground(Color.decode("#cf9e29"));  //imposta lo sfondo del JButton 'aggiungiButton'
+                }
             }
         });
+
         aggiungiButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                if (active == true) aggiungiButton.setBackground(Color.decode("#FFD369"));
+                if (active == true) {   //controlla se bisogna attivare il JButton 'aggiungiButton'
+                    aggiungiButton.setBackground(Color.decode("#FFD369"));  //imposta lo sfondo del JButton 'aggiungiButton'
+                }
             }
         });
+
         aggiungiButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                annullaButton.setVisible(true);
-                aggiungiButton.setEnabled(false);
-                active = false;
-                addConferenzaPanel.setVisible(true);
-                aggiungiButton.setBackground(Color.decode("#FFD369"));
+                annullaButton.setVisible(true); //rende visibile il JButton 'annullaButton'
+                aggiungiButton.setEnabled(false);   //disabilita il JButton 'aggiungiButton'
+                active = false; //pone a false 'active'
+                addConferenzaPanel.setVisible(true);    //rende visibile il JPanel 'addConferenzaPanel'
+                aggiungiButton.setBackground(Color.decode("#FFD369"));  //imposta lo sfondo del JButton 'aggiungiButton'
             }
         });
 
@@ -374,122 +380,120 @@ public class Conferenze {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                annullaButton.setBackground(Color.decode("#cf9e29"));
+                annullaButton.setBackground(Color.decode("#cf9e29"));   //imposta lo sfondo del JButton 'annullaButton'
             }
         });
+
         annullaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                annullaButton.setBackground(Color.decode("#FFD369"));
+                annullaButton.setBackground(Color.decode("#FFD369"));   //imposta lo sfondo del JButton 'annullaButton'
             }
         });
+
         annullaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                annulla_action();
+                annulla_action();   //annulla la creazione della nuova conferenza
             }
         });
 
-        controller.getConferenze();
+        controller.getConferenze(); //inizializza 'controller.listaAllConferenze'
 
-        Dimension dim = new Dimension((int) (strutturaField.getSize().width), controller.screenHeight/24);
+        Dimension dim = new Dimension((int) (strutturaField.getSize().width), controller.screenHeight/24);  //dimensione preferita dei combo box 'conferenzeCB'
 
-        conferenzeCB.setPreferredSize(dim);
-        conferenzeCB.setFont(controller.textFieldFont);
-        conferenzeCB.setFocusable(false);
-        conferenzeCB.setEditable(false);
-        conferenzePanel2.add(conferenzeCB);
+        conferenzeCB.setPreferredSize(dim); //imposta a 'dim' la dimensione preferita del combo box 'conferenzeCB'
+        conferenzeCB.setFont(controller.textFieldFont); //imposta il font del combo box 'conferenzeCB'
+        conferenzeCB.setFocusable(false);   //impedisce all'utente di interagire con il combo box 'conferenzeCB' tramite tastiera
+        conferenzeCB.setEditable(false);    //impedisce all'utente di inserire il testo nel combo box 'conferenzeCB'
+        conferenzePanel2.add(conferenzeCB); //inserisce 'conferenzeCB' nel JPanel 'conferenzePanel2'
 
-        for (int i = 0; i < controller.listaAllConferenze.size(); i++){
-                conferenzeCB.addItem(controller.listaAllConferenze.get(i).struttura + " " + controller.listaAllConferenze.get(i).dataInizio.toString() + "/" + controller.listaAllConferenze.get(i).dataFine.toString());
+        for (int i = 0; i < controller.listaAllConferenze.size(); i++){ //scorre 'controller.listaAllConferenze'
+                conferenzeCB.addItem(controller.listaAllConferenze.get(i).struttura + " " + controller.listaAllConferenze.get(i).dataInizio.toString() + "/" + controller.listaAllConferenze.get(i).dataFine.toString());   //aggiunge nel menu del JComboBox 'conferenzeCB' il luogo e le date di inizio e di fine dell'i-esima conferenza
         }
 
-
-
-        conferenzeCB.setSelectedIndex(-1);
+        conferenzeCB.setSelectedIndex(-1);  //deseleziona 'conferenzeCB'
 
         conferenzeCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(conferenzeCB.getSelectedIndex() >= 0 && conferenzeCB.getSelectedIndex() <= (controller.listaAllConferenze.size()-1)){
-                    strutturaField.setEnabled(false);
-                    viaField.setEnabled(false);
-                    ncField.setEnabled(false);
-                    provinciaField.setEnabled(false);
-                    dataInizioField.setEnabled(false);
-                    dataFineField.setEnabled(false);
-                    nazioneField.setEnabled(false);
-                    comuneField.setEnabled(false);
-                    capField.setEnabled(false);
+                if(conferenzeCB.getSelectedIndex() < 0 || conferenzeCB.getSelectedIndex() > (controller.listaAllConferenze.size()-1)){  //controlla se l'indice selezionato nel JComboBox 'titoloRivistaCB' non è in [0, //controlla se l'indice selezionato nel JComboBox 'titoloRivistaCB' non è in [0, controller.listaRiviste.size().size()-1]
+                    strutturaField.setEnabled(true);    //abilita il JTextField 'strutturaField'
+                    viaField.setEnabled(true);  //abilita il JTextField 'viaField'
+                    ncField.setEnabled(true);   //abilita il JTextField 'ncField'
+                    provinciaField.setEnabled(true);    //abilita il JTextField 'provinciaField'
+                    dataInizioField.setEnabled(true);   //abilita il JTextField 'dataInizioField'
+                    dataFineField.setEnabled(true); //abilita il JTextField 'dataFineField'
+                    nazioneField.setEnabled(true);  //abilita il JTextField 'nazioneField'
+                    comuneField.setEnabled(true);   //abilita il JTextField 'comuneField'
+                    capField.setEnabled(true);  //abilita il JTextField 'comuneField'
 
-                    strutturaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).struttura);
-                    dataInizioField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).dataInizio.toString());
-                    dataFineField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).dataFine.toString());
-
-                    if(!controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.contains("(")){
-                        int pos1 = findFirstNumberPosition(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);
-                        int pos2 = 0;
-
-
-                        String temp = "";
-                        viaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(0, (pos1)-1));
-
-                        pos2 = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.indexOf(",");
-
-                        ncField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos1, pos2));
-                        temp = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos2+2, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.length());
-                        pos2 = temp.indexOf(",");
-                        capField.setText(temp.substring(0, pos2));
-                        temp = temp.substring(pos2+2, temp.length());
-                        pos2 = temp.indexOf(",");
-                        comuneField.setText(temp.substring(0, pos2));
-                        temp = temp.substring(pos2+2, temp.length());
-                        nazioneField.setText(temp.substring(0, temp.length()));
-                    } else {
-                        int pos1 = findFirstNumberPosition(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);
-                        int pos2 = 0;
-
-
-                        String temp = "";
-                        viaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(0, (pos1)-1));
-
-                        pos2 = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.indexOf(",");
-
-                        ncField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos1, pos2));
-                        temp = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos2+2, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.length());
-                        pos2 = temp.indexOf(",");
-                        capField.setText(temp.substring(0, pos2));
-                        temp = temp.substring(pos2+2, temp.length());
-                        pos2 = temp.indexOf(",");
-                        comuneField.setText(temp.substring(0, pos2));
-                        temp = temp.substring(pos2+2, temp.length());
-                        pos2 = temp.indexOf(",");
-                        provinciaField.setText(temp.substring(0, pos2));
-                        temp = temp.substring(pos2+2, temp.length());
-                        nazioneField.setText(temp.substring(0, temp.length()));
-                    }
+                    strutturaField.setText(""); //svuota il testo del JTextField 'strutturaField'
+                    viaField.setText("");   //svuota il testo del JTextField 'viaField'
+                    ncField.setText("");    //svuota il testo del JTextField 'ncField'
+                    provinciaField.setText(""); //svuota il testo del JTextField 'provinciaField'
+                    dataInizioField.setText("");    //svuota il testo del JTextField 'dataInizioField'
+                    dataFineField.setText("");  //svuota il testo del JTextField 'dataFineField'
+                    nazioneField.setText("");   //svuota il testo del JTextField 'nazioneField'
+                    comuneField.setText("");    //svuota il testo del JTextField 'comuneField'
+                    capField.setText("");   //svuota il testo del JTextField 'capField'
                 } else{
-                    strutturaField.setEnabled(true);
-                    viaField.setEnabled(true);
-                    ncField.setEnabled(true);
-                    provinciaField.setEnabled(true);
-                    dataInizioField.setEnabled(true);
-                    dataFineField.setEnabled(true);
-                    nazioneField.setEnabled(true);
-                    comuneField.setEnabled(true);
-                    capField.setEnabled(true);
+                    strutturaField.setEnabled(false);   //disabilita il JTextField 'strutturaField'
+                    viaField.setEnabled(false); //disabilita il JTextField 'viaField'
+                    ncField.setEnabled(false);  //disabilita il JTextField 'ncField'
+                    provinciaField.setEnabled(false);   //disabilita il JTextField 'provinciaField'
+                    dataInizioField.setEnabled(false);  //disabilita il JTextField 'dataInizioField'
+                    dataFineField.setEnabled(false);    //disabilita il JTextField 'dataFineField'
+                    nazioneField.setEnabled(false); //disabilita il JTextField 'nazioneField'
+                    comuneField.setEnabled(false);  //disabilita il JTextField 'comuneField'
+                    capField.setEnabled(false); //disabilita il JTextField 'comuneField'
 
-                    strutturaField.setText("");
-                    viaField.setText("");
-                    ncField.setText("");
-                    provinciaField.setText("");
-                    dataInizioField.setText("");
-                    dataFineField.setText("");
-                    nazioneField.setText("");
-                    comuneField.setText("");
-                    capField.setText("");
+                    strutturaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).struttura);   //imposta il testo del JTextField 'strutturaField' con il nome della struttura organizzatrice della conferenza selelezionata
+                    dataInizioField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).dataInizio.toString());  //imposta il testo del JTextField 'dataInizioField' con la data di inizio della conferenza selezionata
+                    dataFineField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).dataFine.toString());  //imposta il testo del JTextField 'dataFineField' con la data di fine della conferenza selezionata
+
+                    if(!controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.contains("(")){    //controlla se la provincia del luogo della conferenza selezionata non è stata inserita
+                        int pos1 = findFirstNumberPosition(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);   //posizione della rima cifra del numero civico del luogo della conferenza selezionata
+                        int pos2 = 0; //seconda posizione
+                        String temp = "";   //stringa temporanea
+
+                        viaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(0, (pos1)-1));  //imposta il testo del JTextField 'viaField' con la via del luogo della conferenza selezionata
+
+                        pos2 = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.indexOf(",");   //inserise in 'pos2' l'indice successivo alla fine del numero civico del luogo della conferenza selezionata
+
+                        ncField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos1, pos2));    //imposta il testo del JTextField 'viaField' con il numero civico del luogo della conferenza selezionata
+                        temp = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos2+2, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.length());   //inserisce in 'temp' il CAP, il comune e la nazione del luogo della conferenza selezionata
+                        pos2 = temp.indexOf(",");   //inserisce in 'pos2' l'indice successivo alla fine del CAP del luogo della conferenza selezionata
+                        capField.setText(temp.substring(0, pos2));  //imposta il testo del JTextField 'capField' con il CAP del luogo della conferenza selezionata
+                        temp = temp.substring(pos2+2, temp.length());   //toglie da 'temp' il CAP del luogo della conferenza selezionata
+                        pos2 = temp.indexOf(",");   //inserisce in 'pos2' l'indice successivo alla fine del comune del luogo della conferenza selezionata
+                        comuneField.setText(temp.substring(0, pos2));   //imposta il testo del JTextField 'comuneField' con il comune del luogo della conferenza selezionata
+                        temp = temp.substring(pos2+2, temp.length());   //toglie da 'temp' il comune del luogo della conferenza selezionata
+                        nazioneField.setText(temp.substring(0, temp.length())); //imposta il testo del JTextField 'nazioneField' con la nazione del luogo della conferenza selezionata
+                    } else {
+                        int pos1 = findFirstNumberPosition(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);   //posizione della rima cifra del numero civico del luogo della conferenza selezionata
+                        int pos2 = 0;   //seconda posizione
+                        String temp = "";   //stringa temporanea
+
+                        viaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(0, (pos1)-1));  //imposta il testo del JTextField 'viaField' con la via del luogo della conferenza selezionata
+
+                        pos2 = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.indexOf(",");   //inserise in 'pos2' l'indice successivo alla fine del numero civico del luogo della conferenza selezionata
+
+                        ncField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos1, pos2));    //imposta il testo del JTextField 'viaField' con il numero civico del luogo della conferenza selezionata
+                        temp = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos2+2, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.length());   //inserisce in 'temp' il CAP, il comune, la provincia e la nazione del luogo della conferenza selezionata
+                        pos2 = temp.indexOf(",");   //inserisce in 'pos2' l'indice successivo alla fine del CAP del luogo della conferenza selezionata
+                        capField.setText(temp.substring(0, pos2));  //imposta il testo del JTextField 'capField' con il CAP del luogo della conferenza selezionata
+                        temp = temp.substring(pos2+2, temp.length());   //toglie da 'temp' il CAP del luogo della conferenza selezionata
+                        pos2 = temp.indexOf(",");   //inserisce in 'pos2' l'indice successivo alla fine del comune del luogo della conferenza selezionata
+                        comuneField.setText(temp.substring(0, pos2));   //imposta il testo del JTextField 'comuneField' con il comune del luogo della conferenza selezionata
+                        temp = temp.substring(pos2+2, temp.length());   //toglie da 'temp' il comune del luogo della conferenza selezionata
+                        pos2 = temp.indexOf(",");   //inserisce in 'pos2' l'indice successivo alla fine della provincia del luogo della conferenza selezionata
+                        provinciaField.setText(temp.substring(0, pos2));    //imposta il testo del JTextField 'provinciaField' con la provincia del luogo della conferenza selezionata
+                        temp = temp.substring(pos2+2, temp.length());   //toglie da 'temp' la provincia del luogo della conferenza selezionata
+                        nazioneField.setText(temp.substring(0, temp.length())); //imposta il testo del JTextField 'nazioneField' con la nazione del luogo della conferenza selezionata
+                    }
                 }
             }
         });
@@ -499,45 +503,50 @@ public class Conferenze {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                inviaButton.setBackground(Color.decode("#cf9e29"));
+                inviaButton.setBackground(Color.decode("#cf9e29")); //imposta lo sfondo del JButton 'inviaButton'
             }
         });
+
         inviaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                inviaButton.setBackground(Color.decode("#FFD369"));
+                inviaButton.setBackground(Color.decode("#FFD369")); //imposta lo sfondo del JButton 'inviaButton'
             }
         });
+
         inviaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if (strutturaField.getText().isBlank() || viaField.getText().isBlank() || ncField.getText().isBlank() || comuneField.getText().isBlank() || capField.getText().isBlank() || nazioneField.getText().isBlank() || dataInizioField.getText().isBlank() || dataFineField.getText().isBlank()){
-                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obbligatori");
-                } else {
-                    if(Date.valueOf(dataInizioField.getText()).after(Date.valueOf(dataFineField.getText())) == true){
-                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'evento non può finire prima che inizi!");
-                    } else {
-                        if (controller.anno_pubblicazione > Date.valueOf(dataInizioField.getText()).getYear() + 1900) {
-                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'articolo è stato scritto dopo!");
-                        } else {
-                            String indirizzo = "";
-                            if (strutturaField.isEnabled() == true) {
-                                if (provinciaField.getText().isBlank() || provinciaField.getText().equals("(Opzionale)"))
-                                    indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + nazioneField.getText();
-                                else
-                                    indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + provinciaField.getText() + ", " + nazioneField.getText();
 
-                                if (controller.addConferenza(strutturaField.getText().replace("'", "’"), indirizzo.replace("'", "’"), dataInizioField.getText(), dataFineField.getText()) == false) {
-                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa struttura è gia occupata!");
-                                } else {
-                                    reload_table_cb(controller, indirizzo.replace("'", "’"));
-                                    annulla_action();
-                                }
+                if (strutturaField.getText().isBlank() || viaField.getText().isBlank() || ncField.getText().isBlank() || comuneField.getText().isBlank() || capField.getText().isBlank() || nazioneField.getText().isBlank() || dataInizioField.getText().isBlank() || dataFineField.getText().isBlank()){  //controlla se non è stato inserito uno dei campi obbligatori
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Compilare tutti i campi obbligatori");   //mostra un messaggio di errore
+                } else {
+                    if(Date.valueOf(dataInizioField.getText()).after(Date.valueOf(dataFineField.getText())) == true){   //controlla se la data di fine della conferenza viene prima di quella di inizio
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'evento non può finire prima che inizi!");  //mostra un messaggio di errore
+                    } else {
+                        if (controller.anno_pubblicazione > Date.valueOf(dataInizioField.getText()).getYear() + 1900) { //controlla se l'articolo è stato pubblicato dopo l'inizio della conferenza
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'articolo è stato scritto dopo!");  //mostra un messaggio di errore
+                        } else {
+                            String indirizzo = "";  //inidirizzo della conferenza
+
+                            if (strutturaField.isEnabled() == false) {  //controlla se è stato disabilitato il JTextField 'strutturaField'
+                                reload_table_cb(controller, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);  //se l'articolo selezionato non è stato gia esposto nella conferenza selezionata, aggiorna il contenuto della tabella, altrimenti mostra un messaggio di errore
+                                annulla_action();   //chiude il JPanel per aggiungere una nuova conferenza
                             } else {
-                                reload_table_cb(controller, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);
-                                annulla_action();
+                                if (provinciaField.getText().isBlank() || provinciaField.getText().equals("(Opzionale)")) { //controlla se non è stata inserita la provincia
+                                    indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + nazioneField.getText();    //inserisce in 'indirizzo' l'indirizzo inserito
+                                }else {
+                                    indirizzo = viaField.getText() + " " + ncField.getText() + ", " + capField.getText() + ", " + comuneField.getText() + ", " + provinciaField.getText() + ", " + nazioneField.getText();  //inserisce in 'indirizzo' l'indirizzo inserito
+                                }
+
+                                if (controller.addConferenza(strutturaField.getText().replace("'", "’"), indirizzo.replace("'", "’"), dataInizioField.getText(), dataFineField.getText()) == false) {   //controlla se questa struttura gia è occupata per un'altra conferenza
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questa struttura è gia occupata!");  //mostra un messaggio di errore
+                                } else {
+                                    reload_table_cb(controller, indirizzo.replace("'", "’"));   //sostituisce i "'" in 'indirizzo' con "'"
+                                    annulla_action();   //chiude il JPanel per aggiungere una nuova conferenza
+                                }
                             }
                         }
                     }
@@ -546,104 +555,106 @@ public class Conferenze {
         });
     }
 
-    public void annulla_action(){
-        strutturaField.setText("");
-        viaField.setText("");
-        nazioneField.setText("");
-        ncField.setText("");
-        comuneField.setText("");
-        provinciaField.setText("(Opzionale)");
-        capField.setText("");
-        dataInizioField.setText("");
-        dataFineField.setText("");
+    public void annulla_action(){   //chiude il JPanel er inserire una nuova conferenza
+        strutturaField.setText(""); //svuota il testo del JTextField 'strutturaField'
+        viaField.setText("");   //svuota il testo del JTextField 'viaField'
+        nazioneField.setText("");   //svuota il testo del JTextField 'nazioneField'
+        ncField.setText("");    //svuota il testo del JTextField 'ncField'
+        comuneField.setText("");    //svuota il testo del JTextField 'comuneField'
+        provinciaField.setText("(Opzionale)");  //imposta il testo del JTextField 'provinciaField'
+        capField.setText("");   //svuota il testo del JTextField 'capField'
+        dataInizioField.setText("");    //svuota il testo del JTextField 'dataInizioField'
+        dataFineField.setText("");  //svuota il testo del JTextField 'dataFineField'
 
-        addConferenzaPanel.setVisible(false);
-        annullaButton.setVisible(false);
+        addConferenzaPanel.setVisible(false);   //rende invisibile il JPanel 'addConferenzaPanel'
+        annullaButton.setVisible(false);    //rende invisibile il JButton 'annullaButton'
 
-        aggiungiButton.setEnabled(true);
-        active = true;
+        aggiungiButton.setEnabled(true);    //abilita il JButton 'aggiungiButton'
+        active = true;  //aggiorna 'active'
 
-        conferenzeCB.setSelectedIndex(-1);
-    }
+        conferenzeCB.setSelectedIndex(-1);  //deseleziona 'conferenzeCB'
+    }//fine annulla_action
 
-    public void reload_table_cb(Controller controller, String indirizzo){
-        if (controller.addEsposizione(strutturaField.getText().replace("'", "’"), indirizzo.replace("'", "’"), dataInizioField.getText(), dataFineField.getText()) == false){
-            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo artico è gia esposto in questa conferenza!");
+    public void reload_table_cb(Controller controller, String indirizzo){   //se l'articolo selezionato non è stato gia esposto nella conferenza selezionata, aggiorna il contenuto della tabella, altrimenti mostra un messaggio di errorea
+        if (controller.addEsposizione(strutturaField.getText().replace("'", "’"), indirizzo.replace("'", "’"), dataInizioField.getText(), dataFineField.getText()) == false){   //controlla se l'articolo è gia stato inserito nella conferenza
+            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo è già esposto in questa conferenza!");   //mostra un messaggio di errore
         } else {
-            controller.getConferenzeArticolo();
+            controller.getConferenzeArticolo(); //inizializza 'controller.listaConferenze'
 
-            model.setRowCount(0);
+            model.setRowCount(0);   //rimuove tutte le righe della tabella
 
-            for (int i = 0; i < controller.listaConferenze.size(); i++) {
-                model.addRow(new Object[]{controller.listaConferenze.get(i).luogo, controller.listaConferenze.get(i).struttura, controller.listaConferenze.get(i).dataInizio, controller.listaConferenze.get(i).dataFine});
+            for (int i = 0; i < controller.listaConferenze.size(); i++) {   //scorre la lista 'controller.listaConferenze'
+                model.addRow(new Object[]{controller.listaConferenze.get(i).luogo, controller.listaConferenze.get(i).struttura, controller.listaConferenze.get(i).dataInizio, controller.listaConferenze.get(i).dataFine}); //aggiunge una nuova riga nella tabella
             }
 
-            controller.getConferenze();
+            controller.getConferenze(); //inizializza 'controller.listaAllConferenze'
 
-            conferenzeCB.removeAllItems();
+            conferenzeCB.removeAllItems();  //rimuove tutti gli elementi nel JComboBox 'conferenzeCB'
 
-            for (int i = 0; i < controller.listaAllConferenze.size(); i++){
-                    conferenzeCB.addItem(controller.listaAllConferenze.get(i).struttura + " " + controller.listaAllConferenze.get(i).dataInizio.toString() + "/" + controller.listaAllConferenze.get(i).dataFine.toString());
+            for (int i = 0; i < controller.listaAllConferenze.size(); i++){ //scorre la lista 'controller.listaAllConferenze'
+                    conferenzeCB.addItem(controller.listaAllConferenze.get(i).struttura + " " + controller.listaAllConferenze.get(i).dataInizio.toString() + "/" + controller.listaAllConferenze.get(i).dataFine.toString());   //aggiunge una nuova riga nella tabella
             }
 
-            conferenzeCB.setSelectedIndex(-1);
+            conferenzeCB.setSelectedIndex(-1);  //deseleziona 'conferenzeCB'
         }
-    }
-    public static int findFirstNumberPosition(String input) {
-        int length = input.length();
+    }//fine reload_table_cb
 
-        for (int i = 0; i < length; i++) {
-            if (Character.isDigit(input.charAt(i))) {
-                return i;
+    public static int findFirstNumberPosition(String input) {   //se c'è, restituisce l'indice della prima cifra in 'input', altrimenti restituise -1
+        int length = input.length();    //lunghezza di 'input'
+
+        for (int i = 0; i < length; i++) {  //scorre 'input'
+            if (Character.isDigit(input.charAt(i))) {   //controlla se l'i-esimo carattere di 'input' è una cifra
+                return i;   //restituisce l'indice della prima cifra in 'input'
             }
         }
 
-        return -1; // Nessun numero trovato
-    }
+        return -1;  //restituisce -1
+    }//fine findFirstNumberPosition
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //dimensioni dello schermo
+        int screenWidth = screenSize.width; //larghezza dello schermo
+        int screenHeight = screenSize.height;   //altezza dello schermo
 
-        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine);
-        closeBT = new JLabel(closeImg);
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));  //carica l'immagine nel percorso /close.png
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
+        closeImg = new ImageIcon(imagine);  //reinizializza l'ImageIcon 'closeImg' con l'Image 'image'
+        closeBT = new JLabel(closeImg); //inizializza la JLabel 'closeBT' con 'closeImg'
 
-        ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar2.png"));
-        Image calendarIm = calendarIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        calendarIco = new ImageIcon(calendarIm);
-        calendarIMG = new JLabel(calendarIco);
-        calendarIMG2 = new JLabel(calendarIco);
+        ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar2.png"));   //carica l'immagine nel percorso /Calendar2.png
+        Image calendarIm = calendarIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
-        strutturaField = new JTextField();
-        strutturaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        calendarIco = new ImageIcon(calendarIm);    //reinizializza l'ImageIcon 'calendarIco' con l'Image 'calendarIm'
+        calendarIMG = new JLabel(calendarIco);  //inizializza la JLabel 'calendarIMG' dell'icona del calendario
+        calendarIMG2 = new JLabel(calendarIco); //inizializza la JLabel 'calendarIMG2' dell'icona del calendario
 
-        viaField = new JTextField();
-        viaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        strutturaField = new JTextField();  //inizializza il JTextField 'strutturaField'
+        strutturaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JTextField 'strutturaField'
 
-        ncField = new JTextField();
-        ncField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        viaField = new JTextField();    //inizializza il JTextField 'viaField'
+        viaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JTextField 'viaField'
 
-        comuneField = new JTextField();
-        comuneField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        ncField = new JTextField(); //inizializza il JTextField 'ncField'
+        ncField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369))); //imposta il colore del bordo del JTextField 'ncField'
 
-        provinciaField = new JTextField();
-        provinciaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        comuneField = new JTextField(); //inizializza il JTextField 'comuneSerieField'
+        comuneField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369))); //imposta il colore del bordo del JTextField 'comuneField'
 
-        capField = new JTextField();
-        capField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        provinciaField = new JTextField();  //inizializza il JTextField 'provinciaField'
+        provinciaField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JTextField 'provinciaField'
 
-        nazioneField = new JTextField();
-        nazioneField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        capField = new JTextField();    //inizializza il JTextField 'capField'
+        capField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JTextField 'capField'
 
-        dataInizioField = new JTextField();
-        dataInizioField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        nazioneField = new JTextField();    //inizializza il JTextField 'nazioneField'
+        nazioneField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JTextField 'nazioneField'
 
-        dataFineField = new JTextField();
-        dataFineField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        dataInizioField = new JTextField(); //inizializza il JTextField 'isbnSerieField'
+        dataInizioField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369))); //imposta il colore del bordo del JTextField 'dataInizioField'
+
+        dataFineField = new JTextField();   //inizializza il JTextField 'dataFineField'
+        dataFineField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));   //imposta il colore del bordo del JTextField 'dataFineField'
     }
 }
