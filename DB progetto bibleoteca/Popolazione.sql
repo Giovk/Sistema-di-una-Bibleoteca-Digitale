@@ -692,13 +692,13 @@ VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2006-04-01
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
 VALUES ('Piazza Guerrazzi 1, 82100, Benevento, Italia', 'Università Del Sannio', '2006-06-21', '2006-06-30');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Via De Sanctis, 86100, Campobasso, Italia', 'Università Del Molise', '2018-10-07', '2018-10-14');
+VALUES ('Via De Sanctis 13, 86100, Campobasso, Italia', 'Università Del Molise', '2018-10-07', '2018-10-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Viale Dell’Università, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2018-11-07', '2018-11-14');
+VALUES ('Viale Dell’Università 7, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2018-11-07', '2018-11-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
 VALUES ('Corso Matteotti 22, 21053, Castellanza (Va), Varese, Italia', 'Università Carlo Cattaneo LIUC', '2018-10-15', '2018-10-28');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Viale Europa, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2018-11-15', '2018-11-28');
+VALUES ('Viale Europa 7, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2018-11-15', '2018-11-28');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
 VALUES ('Corso Umberto I 40, 80138, Napoli, Italia', 'Università Degli Studi Federico II', '2020-04-10', '2020-04-16');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
@@ -712,15 +712,15 @@ VALUES ('10-00005', 1);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
 VALUES ('10-00006', 1);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00018', 2);
+VALUES ('10-00018', 13);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00019', 2);
+VALUES ('10-00019', 13);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00020', 2);
+VALUES ('10-00020', 13);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00021', 2);
+VALUES ('10-00021', 13);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00022', 2);
+VALUES ('10-00022', 13);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
 VALUES ('10-00023', 3);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
@@ -736,19 +736,19 @@ VALUES ('10-00043', 4);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
 VALUES ('10-00051', 4);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00044', 5);
+VALUES ('10-00044', 14);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00052', 5);
+VALUES ('10-00052', 14);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00053', 5);
+VALUES ('10-00053', 14);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00054', 5);
+VALUES ('10-00054', 14);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00042', 6);
+VALUES ('10-00042', 15);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00043', 6);
+VALUES ('10-00043', 15);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00051', 6);
+VALUES ('10-00051', 15);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
 VALUES ('10-00044', 7);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
