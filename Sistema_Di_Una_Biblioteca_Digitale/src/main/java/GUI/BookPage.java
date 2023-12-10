@@ -328,7 +328,7 @@ public class BookPage {
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true); //rende visibile il frame
 
-        nomeIsbn.setText(controller.nome_selected + " - (" + controller.isbn_selected + ")");  //imposta il tetsto della JLabel 'nomeIsbn' con il nome e l'ISBN del libro selezionato
+        nomeIsbn.setText(controller.nome_selected + " - (" + controller.isbn_selected + ")");  //imposta il testo della JLabel 'nomeIsbn' con il nome e l'ISBN del libro selezionato
 
         DecimalFormat valMedForm = new DecimalFormat("#.#");    //formato da mostrare del numero decimale
 
@@ -357,7 +357,7 @@ public class BookPage {
         Image favouritePienoImg = favouritePienoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
         favouritePienoIco = new ImageIcon(favouritePienoImg);   //reinizializza l'ImageIcon 'favouritePienoIco' con l'Image 'favouritePienoImg'
 
-        controller.likeLibro(); //controlla se l'utente ha il libro selezionato nei preferiti e inizializza 'controller.likeLibroSelected'
+        controller.likeLibro(); //controlla se l'utente ha il libro selezionato nei preferiti e inizializza 'controller.likeElementSelected'
         controller.allRecWithCommentLibro(); //inizializza 'recensioniConCommento'
 
         if (controller.likeElementSelected == false){   //controlla se l'utente non ha il libro selelzionato nei preferiti
