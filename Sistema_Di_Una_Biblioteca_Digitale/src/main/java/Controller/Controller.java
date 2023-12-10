@@ -967,7 +967,7 @@ public class Controller {
         return;
     }
 
-    public void changeLikeLibro(){   //cambia il valore di 'likeLibroSelected' e togli/mette nei preferiti dell'utente il libro selezionato
+    public void changeLikeLibro(){   //cambia il valore di 'likeElementSelected' e togli/mette nei preferiti dell'utente il libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         likeElementSelected = r.changeLikeLibroDB(likeElementSelected, isbn_selected, utente.username);
     }
@@ -1034,12 +1034,12 @@ public class Controller {
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         return r.valutazioneMediaFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo);
     }
-    public void likeFascicolo(){    //controlla se l'utente ha il libro selezionato tra i preferiti e pone il risultato in 'likeLibroSelected'
+    public void likeFascicolo(){    //controlla se l'utente ha il libro selezionato tra i preferiti e pone il risultato in 'likeElementSelected'
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         likeElementSelected = r.likeFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);
     }
 
-    public void changeLikeFascicolo(){   //cambia il valore di 'likeLibroSelected' e togli/mette nei preferiti dell'utente il libro selezionato
+    public void changeLikeFascicolo(){   //cambia il valore di 'likeElementSelected' e togli/mette nei preferiti dell'utente il libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         likeElementSelected = r.changeLikeFascicoloDB(likeElementSelected, fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);
     }
