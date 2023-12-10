@@ -79,8 +79,8 @@ public class BookPage {
         presentazioniButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'presentazioniButton'
         presentazioniButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), -1));    //imposta la dimensione minima del JButton 'presentazioniButton'
 
-        disponibilitaCheckBox.setFont(controller.baseFontSize); //imposta il fonr del del JCheckBox 'disponibilitaCheckBox'
-        presentazioniCheckBox.setFont(controller.baseFontSize); //imposta il fonr del del JCheckBox 'presentazioniCheckBox'
+        disponibilitaCheckBox.setFont(controller.baseFontSize); //imposta il font del del JCheckBox 'disponibilitaCheckBox'
+        presentazioniCheckBox.setFont(controller.baseFontSize); //imposta il font del del JCheckBox 'presentazioniCheckBox'
 
         table1.setFont(controller.impactFontSize);  //imposta il font della JTable 'table1'
         table1.setRowMargin(controller.screenWidth/640);    //imposta il margine tra le celle della JTable 'table1'
@@ -291,7 +291,7 @@ public class BookPage {
         utenteProfilo.setFocusPainted(false);   //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteProfilo'
         utenteProfilo.setBorder(BorderFactory.createEmptyBorder()); //toglie il bordo del JMenuItem 'utenteProfilo'
         utenteProfilo.setFocusable(false);  //impedisce all'utente di interagire con il JMenuItem 'utenteProfilo' tramite tastiera
-        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));    //imposta la dimensione minima del JMenuItem 'utenteExit'
+        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));    //imposta la dimensione minima del JMenuItem 'utenteProfilo'
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
         utenteLibrerie.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteLibrerie'
         utenteLibrerie.setFont(controller.baseFontSize);    //imposta il font del JMenuItem 'utenteLibrerie'
