@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -58,49 +57,48 @@ public class IssuePage {
 
 
     public IssuePage (JFrame frameC, Controller controller) {
-        titolo = controller.fascicolo_selected.rivista.titolo;
-        numero = controller.fascicolo_selected.numero;
+        titolo = controller.fascicolo_selected.rivista.titolo;  //inizializza 'titolo' con il titolo della rivista del fascicolo selezionato
+        numero = controller.fascicolo_selected.numero;  //inizializza 'numero' con il numero del fascicolo selezionato
 
-        homeButton.setFont(controller.baseFontSize);
-        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        libriButton.setFont(controller.baseFontSize);
-        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        fascicoliButton.setFont(controller.baseFontSize);
-        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        serieButton.setFont(controller.baseFontSize);
-        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        utenteButton.setFont(controller.baseFontSize);
-        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        informazioniLabel.setFont(controller.baseFontSize);
+        homeButton.setFont(controller.baseFontSize);    //imposta il font del JButton 'homeButton'
+        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight())); //imposta la dimensione minima del JButton 'homeButton'
+        libriButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'libriButton'
+        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'libriButton'
+        fascicoliButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'fascicoliButton'
+        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'fascicoliButton'
+        serieButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'serieButton'
+        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'serieButton'
+        utenteButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'utenteButton'
+        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));   //imposta la dimensione minima del JButton 'utenteButton'
+        informazioniLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'informazioniLabel'
 
+        valutaButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'valutaButton'
 
-        valutaButton.setFont(controller.baseFontSize);
+        disponibilitaCheckBox.setFont(controller.baseFontSize); //imposta il font del del JCheckBox 'disponibilitaCheckBox'
+        articoliCheckBox.setFont(controller.baseFontSize);  //imposta il font del del JCheckBox 'articoliCheckBox'
 
-        disponibilitaCheckBox.setFont(controller.baseFontSize);
-        articoliCheckBox.setFont(controller.baseFontSize);
+        table1.setFont(controller.impactFontSize);  //imposta il font della JTable 'table1'
+        table1.setRowMargin(controller.screenWidth/640);    //imposta il margine tra le celle della JTable 'table1'
+        table1.setRowHeight(controller.screenHeight/36);    //imposta l'altezza delle righe della JTable 'table1'
 
-        table1.setFont(controller.impactFontSize);
-        table1.setRowMargin(controller.screenWidth/640);
-        table1.setRowHeight(controller.screenHeight/36);
+        table2.setFont(controller.impactFontSize);  //imposta il font della JTable 'table2'
+        table2.setRowMargin(controller.screenWidth/640);    //imposta il margine tra le celle della JTable 'table2'
+        table2.setRowHeight(controller.screenHeight/36);    //imposta l'altezza delle righe della JTable 'table2'
 
-        table2.setFont(controller.impactFontSize);
-        table2.setRowMargin(controller.screenWidth/640);
-        table2.setRowHeight(controller.screenHeight/36);
+        valLabel.setFont(controller.impactFontSize);    //imposta il font della JLabel 'valLabel'
 
-        valLabel.setFont(controller.impactFontSize);
+        notificheLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'notificheLabel'
 
-        notificheLabel.setFont(controller.baseFontSize);
-
-        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
-        UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
+        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
+        UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato
         allScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
             Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
