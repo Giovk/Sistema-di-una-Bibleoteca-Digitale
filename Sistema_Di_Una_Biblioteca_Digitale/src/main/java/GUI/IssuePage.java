@@ -662,7 +662,6 @@ public class IssuePage {
         disponibilitaCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 if(!articoliCheckBox.isSelected()) {    //controlla se è stato selezionato il JCheckBox 'articoliCheckBox'
                     JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");    //mostra un messaggio di errore
                     disponibilitaCheckBox.setSelected(true);    //seleziona 'disponibilitaCheckBox'
@@ -674,7 +673,7 @@ public class IssuePage {
                         jscroll1.setVisible(false); //rende invisibile il JScrollPane 'jscroll1'
                     } else {
                         jscroll1.setVisible(true); //rende visibile il JScrollPane 'jscroll1'
-                        allScrollPanel.revalidate();
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                     }
                 }
             }
@@ -683,29 +682,28 @@ public class IssuePage {
         articoliCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                if(disponibilitaCheckBox.isSelected()){ //controlla se è stato selezionato il JCheckBox 'disponibilitaCheckBox'
-
+                if(!disponibilitaCheckBox.isSelected()){ //controlla se è stato selezionato il JCheckBox 'disponibilitaCheckBox'
+                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");    //mostra un messaggio di errore
+                    articoliCheckBox.setSelected(true);  //seleziona 'presentazioniCheckBox'
+                    allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
+                    jscroll2.setVisible(true);  //rende visibile il JScrollPane 'jscroll2'
+                } else{
                     if(!articoliCheckBox.isSelected()){    //controlla se non è stato selezionato il JCheckBox 'presentazioniCheckBox'
                         jscroll2.setVisible(false); //rende invisibile il JScrollPane 'jscroll2'
-                        allScrollPanel.revalidate();
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                     } else {
                         jscroll2.setVisible(true); //rende visibile il JScrollPane 'jscroll2'
-                        allScrollPanel.revalidate();
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                     }
-                } else{
-                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
-                    articoliCheckBox.setSelected(true);  //seleziona 'presentazioniCheckBox'
-                    allScrollPanel.revalidate();
-                    jscroll2.setVisible(true);  //rende visibile il JScrollPane 'jscroll2'
                 }
             }
         });
+
         valutaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                Recensione recensioneFascicolo = new Recensione(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti, 3);
+                Recensione recensioneFascicolo = new Recensione(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti, 3);  //chiama il JDialog (Recensione) 'recensioneFascicolo'
                 frame.setEnabled(false); //disabilita il frame
             }
         });
@@ -713,30 +711,30 @@ public class IssuePage {
         table2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (table2.getSelectedRow() != -1) {
-                    controller.doi_selected = table2.getValueAt(table2.getSelectedRow(), 0).toString();
-                    controller.nome_articolo = table2.getValueAt(table2.getSelectedRow(), 1).toString();
-                    controller.getAParticolo();
-                    Conferenze conferenze = new Conferenze(frame, controller);
+                if (table2.getSelectedRow() != -1) {    //controlla se è stat selelzionata almeno una riga nella JTable in 'table2'
+                    controller.doi_selected = table2.getValueAt(table2.getSelectedRow(), 0).toString(); //inizializza 'controller.doi_selected' con il DOI dell'articolo selezionato
+                    controller.nome_articolo = table2.getValueAt(table2.getSelectedRow(), 1).toString();    //inizializza 'controller.nome_articolo' con il nome dell'articolo selezionato
+                    controller.getAParticolo(); //inizializza 'controller.anno_pubblicazione' con l'anno di pubblicazione dell'articolo selezionato
+                    Conferenze conferenze = new Conferenze(frame, controller);  //chiama il frame 'conferenze'
                     frame.setEnabled(false); // disabilita il frame
-                    table2.clearSelection();
+                    table2.clearSelection();    //deseleziona tutte le celle selezionate in 'table2'
                 }
             }
         });
 
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
+        numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
 
-        setNumeroNotifiche(controller);
+        setNumeroNotifiche(controller); //inizializza il testo della JLabel 'notificheLabel'
 
         Timer timer = new Timer(60000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setNumeroNotifiche(controller);
+                setNumeroNotifiche(controller); //inizializza il testo della JLabel 'notificheLabel'
             }
         });
 
-        timer.start();
-        timer.setRepeats(true);
+        timer.start();  //avvia il timer
+        timer.setRepeats(true); //fa ripetere il timer dopo che è scaduto
     }
 
     private void setNumeroNotifiche(Controller controller){
