@@ -553,11 +553,10 @@ public class IssuePage {
             }
         });
 
-
-        allScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        allScrollPanel.setBackground(new Color(0x222831));
-        allScrollPanel.setBorder(BorderFactory.createEmptyBorder());
-        allScrollPanel.getViewport().setBackground(new Color(0x222831));
+        allScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);   //permette di visualizzare sempre la barra di scorrimento del JScrollPane 'allScrollPanel'
+        allScrollPanel.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JScrollPane 'allScrollPanel'
+        allScrollPanel.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JScrollPane 'allScrollPanel'
+        allScrollPanel.getViewport().setBackground(new Color(0x222831));    //imposta il colore dello sfondo della parte visibile del JScrollPane 'allScrollPanel'
 
         DefaultTableModel model1 = new DefaultTableModel(new Object[][]{}, new String[]{"Libreria", "Quantità", "Fruizione", "Indirizzo", "Sito Web", "N. di Telefono"}) {
             @Override
@@ -573,108 +572,110 @@ public class IssuePage {
             }
         };
 
-        // Renderer personalizzato per l'header della tabella
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(0xCF9E29));
-        headerRenderer.setForeground(new Color(0xEEEEEE));
-        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();   //DefaultTableCellRenderer per la formattazione dell'header della tabella
+
+        headerRenderer.setBackground(new Color(0xCF9E29));  //imposta il colore dello sfondo dell'header della tabella
+        headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);   //centra orizzontalmente il contenuto dell'header della tabella
+
         Font headerFont = new Font("Bebas Neue", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
-        headerRenderer.setFont(headerFont);
-        JTableHeader tableHeader1 = table1.getTableHeader();
-        tableHeader1.setDefaultRenderer(headerRenderer);
 
-        // Impedire il ridimensionamento delle colonne
-        table1.getTableHeader().setResizingAllowed(false);
+        headerRenderer.setFont(headerFont); //imposta il font Bebas Neue, grandezza 15 e stile Regular
 
-        // Impedire il riordinamento delle colonne
-        table1.getTableHeader().setReorderingAllowed(false);
+        JTableHeader tableHeader1 = table1.getTableHeader();    //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'table1'
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader1.setBorder(null);
+        tableHeader1.setDefaultRenderer(headerRenderer);    //imposta il render di default della tabella a 'headerRender'
 
-        tableHeader1.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader1.getDefaultRenderer()));
+        table1.getTableHeader().setResizingAllowed(false);  //impedisce il ridimensionamento delle colonne
+
+        table1.getTableHeader().setReorderingAllowed(false);    //impedisce il riordinamento delle colonne
+
+        tableHeader1.setBorder(null);   //rimuove il bordo dell'header della tabella
+
+        tableHeader1.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader1.getDefaultRenderer()));    //imposta il render di default della tabella
 
 
-        table1.setModel(model1); //imposta il modello dei dati della JTable 'booksTable'
-        jscroll1.setBackground(new Color(0x222831));
-        jscroll1.setBorder(BorderFactory.createEmptyBorder());
-        jscroll1.getViewport().setBackground(new Color(0x222831));
+        table1.setModel(model1); //imposta il modello dei dati della JTable 'table1'
+        jscroll1.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPane 'jscroll1'
+        jscroll1.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'jscroll1'
+        jscroll1.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'jscroll1'
 
         table1.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                if(table1.isColumnSelected(4)){
+
+                if(table1.isColumnSelected(4)){ //controlla se è stata selezionata la 4 colonna dalla JTable 'table1'
                     try {
-                        Desktop.getDesktop().browse(new URI(table1.getValueAt(table1.getSelectedRow(), 4).toString()));
+                        Desktop.getDesktop().browse(new URI(table1.getValueAt(table1.getSelectedRow(), 4).toString())); //inserisce un link nella cella (table1.getSelectedRow(), 4)
                     }catch (IOException | URISyntaxException e1) {
                         e1.printStackTrace();
                     }
                 }
-                table1.clearSelection();
+
+                table1.clearSelection();    //deseleziona tutte le celle selezionate in 'table1'
             }
         });
 
-        JTableHeader tableHeader2 = table2.getTableHeader();
-        tableHeader2.setDefaultRenderer(headerRenderer);
+        JTableHeader tableHeader2 = table2.getTableHeader();    //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'table2'
 
-        // Impedire il ridimensionamento delle colonne
-        table2.getTableHeader().setResizingAllowed(false);
+        tableHeader2.setDefaultRenderer(headerRenderer);    //imposta il render di default della tabella a 'headerRender'
 
-        // Impedire il riordinamento delle colonne
-        table2.getTableHeader().setReorderingAllowed(false);
+        table2.getTableHeader().setResizingAllowed(false);  //impedisce il ridimensionamento delle colonne
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader2.setBorder(null);
+        table2.getTableHeader().setReorderingAllowed(false);    //impedisce il riordinamento delle colonne
 
-        tableHeader2.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader2.getDefaultRenderer()));
+        tableHeader2.setBorder(null);   //rimuove il bordo dell'header della tabella
 
+        tableHeader2.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader2.getDefaultRenderer()));    //imposta il render di default della tabella
 
-        table2.setModel(model2); //imposta il modello dei dati della JTable 'booksTable'
-        jscroll2.setBackground(new Color(0x222831));
-        jscroll2.setBorder(BorderFactory.createEmptyBorder());
-        jscroll2.getViewport().setBackground(new Color(0x222831));
+        table2.setModel(model2); //imposta il modello dei dati della JTable 'table2'
+        jscroll2.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPane 'jscroll2'
+        jscroll2.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'jscroll2'
+        jscroll2.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'jscroll2'
 
-        ArrayList<String> libreria = controller.getDisponibilitaLibreriaFascicolo(); //nomi delle librerie che possiedono il libro selezionato
-        ArrayList<Integer> quantita = controller.getDisponibilitaQuantitaFascicolo();    //quantità disponibili del libro selezionato
-        ArrayList<String> fruizione = controller.getDisponibilitaFruizioneFascicolo();   //modalità di fruizione disponibile del libro selezionato
-        ArrayList<String> indirizzo = controller.getDisponibilitaIndirizzoFascicolo();   //indirizzi delle librerie che possiedono il libro selezionato
-        ArrayList<String> sitoWeb = controller.getDisponibilitaSitoWebFascicolo();   //siti web delle librerie che possiedono il libro selezionato
-        ArrayList<String> nTel = controller.getDisponibilitaNumeroTelefonoFascicolo();   //numeri telefonici delle librerie che possiedono il libro selezionato
+        ArrayList<String> libreria = controller.getDisponibilitaLibreriaFascicolo(); //nomi delle librerie che possiedono il fascicolo selezionato
+        ArrayList<Integer> quantita = controller.getDisponibilitaQuantitaFascicolo();    //quantità disponibili del fascicolo selezionato
+        ArrayList<String> fruizione = controller.getDisponibilitaFruizioneFascicolo();   //modalità di fruizione disponibile del fascicolo selezionato
+        ArrayList<String> indirizzo = controller.getDisponibilitaIndirizzoFascicolo();   //indirizzi delle librerie che possiedono il fascicolo selezionato
+        ArrayList<String> sitoWeb = controller.getDisponibilitaSitoWebFascicolo();   //siti web delle librerie che possiedono il fascicolo selezionato
+        ArrayList<String> nTel = controller.getDisponibilitaNumeroTelefonoFascicolo();   //numeri telefonici delle librerie che possiedono il fascicolo selezionato
 
-        table1.setModel(model1);    //imposta il modello dei dati della JTable 'table2'
+        table1.setModel(model1);    //imposta il modello dei dati della JTable 'table1'
 
-        for(int i = 0; i < libreria.size(); i++){
-
-            if(fruizione.get(i).equals("Digitale") || fruizione.get(i).equals("AudioLibro")) model1.addRow(new Object[]{libreria.get(i), "∞", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
-            else if(fruizione.get(i).equals("Cartaceo") && quantita.get(i) == 0) model1.addRow(new Object[]{libreria.get(i), "Non Disponibile", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
-            else model1.addRow(new Object[]{libreria.get(i), quantita.get(i), fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
+        for(int i = 0; i < libreria.size(); i++){   //scorre 'libreria'
+            if(fruizione.get(i).equals("Digitale") || fruizione.get(i).equals("AudioLibro")){   //controlla se l'i-esima libreria possiede il fascicolo selezionato
+                model1.addRow(new Object[]{libreria.get(i), "∞", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)}); //aggiunge una nuova riga nella tabella
+            } else if(fruizione.get(i).equals("Cartaceo") && quantita.get(i) == 0){ //controlla nell'i-esima libreria non è disponibile il fascicolo selezionato
+                model1.addRow(new Object[]{libreria.get(i), "Non Disponibile", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});   //aggiunge una nuova riga nella tabella
+            } else{
+                model1.addRow(new Object[]{libreria.get(i), quantita.get(i), fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)}); //aggiunge una nuova riga nella tabella
+            }
         }
 
-        table2.setModel(model2);    //imposta il modello dei dati della JTable 'table1'
+        table2.setModel(model2);    //imposta il modello dei dati della JTable 'table2'
 
-        for(int i = 0; i < controller.fascicolo_selected.articoli.size(); i++){
-            model2.addRow(new Object[]{controller.fascicolo_selected.articoli.get(i).doi, controller.fascicolo_selected.articoli.get(i).titolo, controller.fascicolo_selected.articoli.get(i).annoPubblicazione, controller.allAutoriArticolo(controller.fascicolo_selected.articoli.get(i).autori)});
+        for(int i = 0; i < controller.fascicolo_selected.articoli.size(); i++){ //scorre la losta degli articoli del fascicolo selezionato
+            model2.addRow(new Object[]{controller.fascicolo_selected.articoli.get(i).doi, controller.fascicolo_selected.articoli.get(i).titolo, controller.fascicolo_selected.articoli.get(i).annoPubblicazione, controller.allAutoriArticolo(controller.fascicolo_selected.articoli.get(i).autori)});  //aggiunge una nuova riga nella tabella
         }
 
         disponibilitaCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(articoliCheckBox.isSelected()) {    //controlla se è stato selezionato il JCheckBox 'presentazioniCheckBox'
-
+                if(!articoliCheckBox.isSelected()) {    //controlla se è stato selezionato il JCheckBox 'articoliCheckBox'
+                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");    //mostra un messaggio di errore
+                    disponibilitaCheckBox.setSelected(true);    //seleziona 'disponibilitaCheckBox'
+                    allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
+                    jscroll1.setVisible(true);  //rende visibile il JScrollPane 'jscroll1'
+                } else {
                     if (!disponibilitaCheckBox.isSelected()){   //controlla se non è stato selezionato il JCheckBox 'disponibilitaCheckBox'
-                        allScrollPanel.revalidate();
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                         jscroll1.setVisible(false); //rende invisibile il JScrollPane 'jscroll1'
                     } else {
                         jscroll1.setVisible(true); //rende visibile il JScrollPane 'jscroll1'
                         allScrollPanel.revalidate();
                     }
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
-                    disponibilitaCheckBox.setSelected(true);    //seleziona 'disponibilitaCheckBox'
-                    allScrollPanel.revalidate();
-                    jscroll1.setVisible(true);  //rende visibile il JScrollPane 'jscroll1'
                 }
             }
         });
