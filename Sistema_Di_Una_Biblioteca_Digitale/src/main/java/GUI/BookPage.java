@@ -717,7 +717,7 @@ public class BookPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                Recensione recensioneLibro = new Recensione(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti, 1);  //chiama il JDialog (Recensione) 'recensioneLibro'
+                Recensione recensioneLibro = new Recensione(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti, 1);  //chiama il frame 'recensioneLibro'
                 frame.setEnabled(false); //disabilita il frame
             }
         });
@@ -742,7 +742,7 @@ public class BookPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                GestisciCollane gestisciCollane = new GestisciCollane(frame, controller);   //chiama il JDialog (GestisciCollane) 'gestisciCollane'
+                GestisciCollane gestisciCollane = new GestisciCollane(frame, controller);   //chiama il frame 'gestisciCollane'
                 frame.setEnabled(false); //disabilita il frame
             }
         });
@@ -766,7 +766,7 @@ public class BookPage {
         presentazioniButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreaPresentazione creaPresentazione = new CreaPresentazione(frame, controller, model2); //chiama il JDialog (CreaPresentazione) 'creaPresentazione'
+                CreaPresentazione creaPresentazione = new CreaPresentazione(frame, controller, model2); //chiama il frame 'creaPresentazione'
                 frame.setEnabled(false); //disabilita il frame
             }
         });
