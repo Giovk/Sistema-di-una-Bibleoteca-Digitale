@@ -641,7 +641,7 @@ public class BookPage {
 
         tableHeader2.setBorder(null);   //rimuove il bordo dell'header della tabella
 
-        tableHeader2.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader2.getDefaultRenderer()));    //inposta il render di default della tabella
+        tableHeader2.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader2.getDefaultRenderer()));    //imposta il render di default della tabella
 
 
         table2.setModel(model2); //imposta il modello dei dati della JTable 'table2'
