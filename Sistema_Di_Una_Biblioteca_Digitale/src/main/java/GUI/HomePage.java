@@ -406,7 +406,7 @@ public class HomePage {
 
         tableHeader.setBorder(null);    //rimuove il bordo dell'header della tabella
 
-        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));  //inposta il render di default della tabella
+        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));  //imposta il render di default della tabella
 
         mainTable.setModel(model); //imposta il modello dei dati della JTable 'mainTable'
         mainScrollPanel.setBackground(new Color(0x222831)); //imposta il colore dello sfondo del JScrollPane 'mainScrollPanel'
