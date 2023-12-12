@@ -141,7 +141,7 @@ public class BooksPage {
         utenteExit.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteExit'
         utenteExit.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteExit'
         utenteExit.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteExit'
-        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8))));
+        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)))); //imposta la dimensione minima del JMenuItem 'utenteExit'
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
         utenteProfilo.setFont(controller.baseFontSize); //imposta il font del JMenuItem 'utenteProfilo'
         utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER); //centra orizzontalmente il testo del JMenuItem 'utenteProfilo'
@@ -179,7 +179,7 @@ public class BooksPage {
         frame.setIconImage(icona);  //imposta la l'icona dell'applicazione
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(jpanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //imposta la terminazione dell'applicazione come operazione predefinita da eseguire quando viene chiuso il frame
         frame.pack();
 
         closeBT.addMouseListener(new MouseAdapter() {
@@ -272,7 +272,7 @@ public class BooksPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                frameC.setVisible(true); //rende visibile il frame chiamante 'frameC'
+                frameC.setVisible(true);    //rende visibile il frame chiamante 'frameC'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -388,9 +388,9 @@ public class BooksPage {
 
         ArrayList<String> distinctGenereList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
 
-        for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre l'ArrayList di tutti i generi dei libri
-            if (!distinctGenereList.contains(controller.listaLibri.get(i).genere))    //controlla se 'distinctGenereList' non contiene l'i-esimo elemento di genereList
-                distinctGenereList.add(controller.listaLibri.get(i).genere);  //inserisce l'i-esimo elemento di genereList  in 'distinctGenereList'
+        for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre 'controller.listaLibri'
+            if (!distinctGenereList.contains(controller.listaLibri.get(i).genere))    //controlla se 'distinctGenereList' non contiene il genere dell'i-esimo libro
+                distinctGenereList.add(controller.listaLibri.get(i).genere);  //inserisce il genere dell'i-esimo libro in 'distinctGenereList'
         }
 
         genereCB.setModel(new DefaultComboBoxModel<String>(distinctGenereList.toArray(new String[distinctGenereList.size()]))); //inserisce tutti gli elementi di 'distinctGenereList' come voci del JComboBox 'genereCB'
@@ -564,7 +564,7 @@ public class BooksPage {
                 if (autoreCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'autoreCB'
                     model.setRowCount(0);   //elimina le righe della tabella
 
-                    for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'listaLibri'
+                    for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'controller.listaLibri'
                         if (autoreCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'autoreCB'
                             for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del i-esimo libro
                                 if (j == 0){    //controlla se si sta concatenando il primo autore
@@ -656,7 +656,7 @@ public class BooksPage {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del ButtonGroup 'groupRB'
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            for (int i = 0; i < controller.listaLibri.size(); i++){
+            for (int i = 0; i < controller.listaLibri.size(); i++){ //scorre la lista dei libri 'controller.listaLibri'
                 model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
             }
         } else {
@@ -667,7 +667,7 @@ public class BooksPage {
                 searchBarField.setText(searchBarField.getText().replace("'", "’")); //sostituisce i "'" in 'searchBarField' con "'"
             }
 
-            for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'listaLibri'
+            for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'controller.listaLibri'
                 for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del i-esimo libro
                     if (j == 0){    //controlla se si sta concatenando il primo autore
                         linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //concatena il nome e il cognome j-esimo autore dell'i-esimo libro in 'linkString'
@@ -676,7 +676,7 @@ public class BooksPage {
                     }
                 }
 
-                if (controller.listaLibri.get(i).isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || controller.listaLibri.get(i).editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) { //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
+                if (controller.listaLibri.get(i).isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || controller.listaLibri.get(i).editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) { //controlla se l'ISBN, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
                     model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione}); //aggiunge una nuova riga nella tabella
                 }
             }
