@@ -497,7 +497,7 @@ public class AggiungiElementoForm {
         calendarLibroIMG.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(calendarLibroIMG.isEnabled() == true) {  //controlla se è stato disabilitato il calendario
+                if(calendarLibroIMG.isEnabled() == true) {  //controlla se è stato abilitato il calendario
                     datePickerLibro.d.setVisible(true); //rende visibile il calendario
                     dataLibroField.setText(datePickerLibro.setPickedDate());    //imposta il testo del JTextField 'dataLibroField' con la data scelta dall'utente
                 }
