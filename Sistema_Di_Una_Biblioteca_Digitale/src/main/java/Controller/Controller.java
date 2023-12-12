@@ -1049,7 +1049,7 @@ public class Controller {
         return;
     }
 
-    public void allRecWithCommentFascicolo(){    //ritorna tutte le recensioni con testo fatte al libro selezionato
+    public void allRecWithCommentFascicolo(){    //ritorna tutte le recensioni con testo fatte al fascicolo selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         ResultSet rs = r.allRecWithCommentFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo);    //contiene tutte le recensioni fatte al libro selezionato
 
