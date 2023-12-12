@@ -64,47 +64,48 @@ public class NewLoginForm extends JDialog {
     private Boolean debug = false;
 
     public NewLoginForm(int joinD, JFrame frameC, Controller controller) {
-        accediButton.setFont(controller.baseFontSize);
-        registratiButton.setFont(controller.baseFontSize);
-        regButton.setFont(controller.impactFontSize);
-        loginButton.setFont(controller.impactFontSize);
+        accediButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'accediButton'
+        registratiButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'registratiButton'
+        regButton.setFont(controller.impactFontSize);   //imposta il font del JButton 'regButton'
+        loginButton.setFont(controller.impactFontSize); //imposta il font del JButton 'loginButton'
 
-        emailLabel.setFont(controller.impactFontSize);
-        nomeLabel.setFont(controller.impactFontSize);
-        cognomeLabel.setFont(controller.impactFontSize);
-        usernameLabel.setFont(controller.impactFontSize);
-        passwordLabel1.setFont(controller.impactFontSize);
-        passwordLabel2.setFont(controller.impactFontSize);
-        ripetiPasswordLabel.setFont(controller.impactFontSize);
-        dataDiNascitaLabel.setFont(controller.impactFontSize);
-        partitaIvaLabel.setFont(controller.impactFontSize);
-        indicazioniLabel.setFont(controller.impactFontSize);
-        emailTF.setFont(controller.textFieldFont);
-        nomeTF.setFont(controller.textFieldFont);
-        cognomeTF.setFont(controller.textFieldFont);
-        usernameTF.setFont(controller.textFieldFont);
-        passwordF1.setFont(controller.textFieldFont);
-        passwordF2.setFont(controller.textFieldFont);
-        passwordF3.setFont(controller.textFieldFont);
-        dataNascitaTF.setFont(controller.textFieldFont);
-        partitaIVATF.setFont(controller.textFieldFont);
+        emailLabel.setFont(controller.impactFontSize);  //imposta il font della JLabel 'emailLabel'
+        nomeLabel.setFont(controller.impactFontSize);   //imposta il font della JLabel 'nomeLabel'
+        cognomeLabel.setFont(controller.impactFontSize);    //imposta il font della JLabel 'cognomeLabel'
+        usernameLabel.setFont(controller.impactFontSize);   //imposta il font della JLabel 'usernameLabel'
+        passwordLabel1.setFont(controller.impactFontSize);  //imposta il font della JLabel 'passwordLabel1'
+        passwordLabel2.setFont(controller.impactFontSize);  //imposta il font della JLabel 'passwordLabel2'
+        ripetiPasswordLabel.setFont(controller.impactFontSize); //imposta il font della JLabel 'ripetiPasswordLabel'
+        dataDiNascitaLabel.setFont(controller.impactFontSize);  //imposta il font della JLabel 'dataDiNascitaLabel'
+        partitaIvaLabel.setFont(controller.impactFontSize); //imposta il font della JLabel 'partitaIvaLabel'
+        indicazioniLabel.setFont(controller.impactFontSize);    //imposta il font della JLabel 'indicazioniLabel'
+        emailTF.setFont(controller.textFieldFont);  //imposta il font del JTextField 'emailTF'
+        nomeTF.setFont(controller.textFieldFont);   //imposta il font del JTextField 'nomeTF'
+        cognomeTF.setFont(controller.textFieldFont);    //imposta il font del JTextField 'cognomeTF'
+        usernameTF.setFont(controller.textFieldFont);   //imposta il font del JTextField 'usernameTF'
+        passwordF1.setFont(controller.textFieldFont);   //imposta il font del JPasswordField 'passwordF1'
+        passwordF2.setFont(controller.textFieldFont);   //imposta il font del JTextField 'passwordF2'
+        passwordF3.setFont(controller.textFieldFont);   //imposta il font del JPasswordField 'passwordF3'
+        dataNascitaTF.setFont(controller.textFieldFont);    //imposta il font del JTextField 'dataNascitaTF'
+        partitaIVATF.setFont(controller.textFieldFont); //imposta il font del JTextField 'partitaIVATF'
 
-        usernameLabel2.setFont(controller.impactFontSize);
-        passwordLabel5.setFont(controller.impactFontSize);
-        passwordLabel4.setFont(controller.impactFontSize);
-        usernameTF2.setFont(controller.textFieldFont);
-        passwordTF4.setFont(controller.textFieldFont);
-        passwordTF5.setFont(controller.textFieldFont);
+        usernameLabel2.setFont(controller.impactFontSize);  //imposta il font della JLabel 'usernameLabel2'
+        passwordLabel5.setFont(controller.impactFontSize);  //imposta il font della JLabel 'passwordLabel5'
+        passwordLabel4.setFont(controller.impactFontSize);  //imposta il font della JLabel 'passwordLabel4'
+        usernameTF2.setFont(controller.textFieldFont);  //imposta il font del JTextField 'usernameTF2'
+        passwordTF4.setFont(controller.textFieldFont);  //imposta il font del JTextField 'passwordTF4'
+        passwordTF5.setFont(controller.textFieldFont);  //imposta il font del JTextField 'passwordTF5'
 
         datePicker = new DatePicker(calendarIMG);
 
         frame = new JFrame("Biblioteca Digitale");
-        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
-        frame.setIconImage(icona);
+
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();   //carica l'immagine nel percorso /icon.png
+
+        frame.setIconImage(icona);  //imposta la l'icona dell'applicazione
         frame.setUndecorated(true); //rimuove la decorazione del frame
         frame.setContentPane(this.contentPane);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //imposta la terminazione dell'applicazione come operazione predefinita da eseguire quando viene chiuso il frame
         frame.pack();
         frame.setSize((int) (controller.screenWidth/1.7777), (int) (controller.screenHeight/1.5));    //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
@@ -134,7 +135,6 @@ public class NewLoginForm extends JDialog {
                 frame.setVisible(false);    //rende invisibile il frame
                 frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
                 frame.dispose();
-
                 frameC.toFront();   //porta il frame chiamante 'frameC' in primo piano
             }
         });
@@ -153,9 +153,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
+
                 ImageIcon regBTico = new ImageIcon(this.getClass().getResource("/button-type4.png"));   //carica l'immagine nel percorso /button-type4.png
                 Image regBTimg = regBTico.getImage().getScaledInstance((int) (controller.screenWidth/12.8), (int) (controller.screenHeight/36), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                regBTico = new ImageIcon(regBTimg);
+
+                regBTico = new ImageIcon(regBTimg); //reinizializza l'ImageIcon 'regBTico' con l'Image 'regBTimg'
                 regButton.setIcon(regBTico);    //imposta l'icona del JButton 'regButton' con l'immagine
                 regButton.setForeground(Color.decode("#D6D4D4"));   //imposta il colore dello sfondo del JButton 'regButton'
             }
@@ -165,9 +167,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
+
                 ImageIcon regBTico = new ImageIcon(this.getClass().getResource("/button-type3.png"));   //carica l'immagine nel percorso /button-type3.png
                 Image regBTimg = regBTico.getImage().getScaledInstance((int) (controller.screenWidth/12.8), (int) (controller.screenHeight/36), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                regBTico = new ImageIcon(regBTimg);
+
+                regBTico = new ImageIcon(regBTimg); //reinizializza l'ImageIcon 'regBTico' con l'Image 'regBTimg'
                 regButton.setIcon(regBTico);    //imposta l'icona del JButton 'regButton' con l'immagine
                 regButton.setForeground(Color.decode("#EEEEEE"));   //imposta il colore dello sfondo del JButton 'regButton'
             }
@@ -177,9 +181,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
+
                 ImageIcon regBTico = new ImageIcon(this.getClass().getResource("/button-type4.png"));   //carica l'immagine nel percorso /button-type4.png
                 Image regBTimg = regBTico.getImage().getScaledInstance((int) (controller.screenWidth/12.8), (int) (controller.screenHeight/36), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                regBTico = new ImageIcon(regBTimg);
+
+                regBTico = new ImageIcon(regBTimg); //reinizializza l'ImageIcon 'regBTico' con l'Image 'regBTimg'
                 loginButton.setIcon(regBTico);  //imposta l'icona del JButton 'loginButton' con l'immagine
                 loginButton.setForeground(Color.decode("#D6D4D4")); //imposta il colore dello sfondo del JButton 'loginButton'
             }
@@ -189,9 +195,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
+
                 ImageIcon regBTico = new ImageIcon(this.getClass().getResource("/button-type3.png"));   //carica l'immagine nel percorso /button-type3.png
                 Image regBTimg = regBTico.getImage().getScaledInstance((int) (controller.screenWidth/12.8), (int) (controller.screenHeight/36), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-                regBTico = new ImageIcon(regBTimg);
+
+                regBTico = new ImageIcon(regBTimg); //reinizializza l'ImageIcon 'regBTico' con l'Image 'regBTimg'
                 loginButton.setIcon(regBTico);  //imposta l'icona del JButton 'loginButton' con l'immagine
                 loginButton.setForeground(Color.decode("#EEEEEE")); //imposta il colore dello sfondo del JButton 'loginButton'
             }
@@ -201,9 +209,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
+
                 ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e2.png")); //carica l'immagine nel percorso /e2.png
                 Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-                showPico = new ImageIcon(showPimg);
+
+                showPico = new ImageIcon(showPimg); //reinizializza l'ImageIcon 'showPico' con l'Image 'showPimg'
                 showPass2.setIcon(showPico);    //imposta l'icona della JLabel 'showPass2' con l'immagine
             }
         });
@@ -212,9 +222,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
+
                 ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e1.png")); //carica l'immagine nel percorso /e1.png
                 Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-                showPico = new ImageIcon(showPimg);
+
+                showPico = new ImageIcon(showPimg); //reinizializza l'ImageIcon 'showPico' con l'Image 'showPimg'
                 showPass2.setIcon(showPico);    //imposta l'icona della JLabel 'showPass2' con l'immagine
             }
         });
@@ -223,9 +235,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
+
                 ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e1.png")); //carica l'immagine nel percorso /e1.png
                 Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-                hidePico = new ImageIcon(hidePimg);
+
+                hidePico = new ImageIcon(hidePimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
                 hidePass2.setIcon(hidePico);    //imposta l'icona della JLabel 'hidePass2' con l'immagine
             }
         });
@@ -234,9 +248,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
+
                 ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e2.png")); //carica l'immagine nel percorso /e2.png
                 Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-                hidePico = new ImageIcon(hidePimg);
+
+                hidePico = new ImageIcon(hidePimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
                 hidePass2.setIcon(hidePico);    //imposta l'icona della JLabel 'hidePass2' con l'immagine
             }
         });
@@ -275,7 +291,7 @@ public class NewLoginForm extends JDialog {
                 super.mouseEntered(e);
                 ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e2.png")); //carica l'immagine nel percorso /e2.png
                 Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-                showPico = new ImageIcon(showPimg);
+                showPico = new ImageIcon(showPimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
                 showPass.setIcon(showPico); //imposta l'icona della JLabel 'showPass' con l'immagine
             }
         });
@@ -284,9 +300,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
+
                 ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e1.png")); //carica l'immagine nel percorso /e1.png
                 Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-                showPico = new ImageIcon(showPimg);
+
+                showPico = new ImageIcon(showPimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
                 showPass.setIcon(showPico); //imposta l'icona della JLabel 'showPass' con l'immagine
             }
         });
@@ -295,9 +313,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
+
                 ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e1.png")); //carica l'immagine nel percorso /e1.png
                 Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-                hidePico = new ImageIcon(hidePimg);
+
+                hidePico = new ImageIcon(hidePimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
                 hidePass.setIcon(hidePico); //imposta l'icona della JLabel 'hidePass' con l'immagine
             }
         });
@@ -306,9 +326,11 @@ public class NewLoginForm extends JDialog {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
+
                 ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e2.png")); //carica l'immagine nel percorso /e2.png
                 Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-                hidePico = new ImageIcon(hidePimg);
+
+                hidePico = new ImageIcon(hidePimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
                 hidePass.setIcon(hidePico); //imposta l'icona della JLabel 'hidePass' con l'immagine
             }
         });
@@ -503,7 +525,7 @@ public class NewLoginForm extends JDialog {
         }
 
         if (controller.validaUtente(userEmail, password) < 1) { //controlla se non esiste un utente registrato che ha come username o email 'userMail' e come password 'password'
-            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo utente non esiste");
+            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo utente non esiste");  //mostra un messaggio di errore
         } else {
             frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
             controller.setUtente(userEmail, password); //salva in memoria l'utente che ha accesso usando 'userEmail' e 'Password'
@@ -629,68 +651,70 @@ public class NewLoginForm extends JDialog {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //dimensioni dello schermo
+        int screenWidth = screenSize.width; //larghezza dello schermo
+        int screenHeight = screenSize.height;   //altezza dello schermo
 
         imagine = new ImageIcon(this.getClass().getResource("/b.png")); //carica l'immagine nel percorso /b.png
         Image imagine2 = imagine.getImage().getScaledInstance((int) (screenWidth/5.12), (int) (screenHeight/5.1428), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-        imagine = new ImageIcon(imagine2);
-        imageLabel = new JLabel(imagine);
+        imagine = new ImageIcon(imagine2);  //reinizializza l'ImageIcon 'imagine' con l'Image 'imagine2'
+        imageLabel = new JLabel(imagine);   //inizializza la JLabel 'imageLabel' con 'imagine'
 
         ImageIcon regBTico = new ImageIcon(this.getClass().getResource("/button-type3.png"));   //carica l'immagine nel percorso /button-type3.png
         Image regBTimg = regBTico.getImage().getScaledInstance((int) (screenWidth/12.8), (int) (screenHeight/36), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-        regBTico = new ImageIcon(regBTimg);
-        regButton = new JButton(regBTico);
-        loginButton = new JButton(regBTico);
+
+        regBTico = new ImageIcon(regBTimg); //reinizializza l'ImageIcon 'regBTico' con l'Image 'regBTimg'
+        regButton = new JButton(regBTico);  //inizializza il JButton 'regButton' con 'regBTico'
+        loginButton = new JButton(regBTico);    //inizializza il JButton 'loginButton' con 'regBTico'
 
         ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e1.png")); //carica l'immagine nel percorso /e1.png
         Image showPimg = showPico.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-        showPico = new ImageIcon(showPimg);
-        showPass = new JLabel(showPico);
-        showPass2 = new JLabel(showPico);
+
+        showPico = new ImageIcon(showPimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
+        showPass = new JLabel(showPico);    //inizializza la JLabel 'showPass' con 'showPico'
+        showPass2 = new JLabel(showPico);   //inizializza la JLabel 'showPass2' con 'showPico'
 
         ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e2.png")); //carica l'immagine nel percorso /e1.png
         Image hidePimg = hidePico.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-        hidePico = new ImageIcon(hidePimg);
-        hidePass = new JLabel(hidePico);
-        hidePass2 = new JLabel(hidePico);
 
-        emailTF = new JTextField();
+        hidePico = new ImageIcon(hidePimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
+        hidePass = new JLabel(hidePico);    //inizializza la JLabel 'hidePass' con 'hidePico'
+        hidePass2 = new JLabel(hidePico);   //inizializza la JLabel 'hidePass2' con 'hidePico'
+
+        emailTF = new JTextField(); //inizializza il JTextField 'emailTF'
         emailTF.setBorder(BorderFactory.createLineBorder(Color.decode("#222831"))); //imposta il colore del bordo del JTextField
-        nomeTF = new JTextField();
+        nomeTF = new JTextField();  //inizializza il JTextField 'nomeTF'
         nomeTF.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));  //imposta il colore del bordo del JTextField 'nomeTF'
-        cognomeTF = new JTextField();
+        cognomeTF = new JTextField();   //inizializza il JTextField 'cognomeTF'
         cognomeTF.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));   //imposta il colore del bordo del JTextField 'cognomeTF'
-        usernameTF = new JTextField();
+        usernameTF = new JTextField();  //inizializza il JTextField 'usernameTF'
         usernameTF.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));  //imposta il colore del bordo del JTextField 'usernameTF'
-        passwordF1 = new JPasswordField();
+        passwordF1 = new JPasswordField();  //inizializza il JTextField 'passwordF1'
         passwordF1.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));  //imposta il colore del bordo del JPasswordField 'passwordF1'
-        passwordF2 = new JTextField();
+        passwordF2 = new JTextField();  //inizializza il JTextField 'passwordF2'
         passwordF2.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));  //imposta il colore del bordo del JTextField 'passwordF2'
-        passwordF3 = new JPasswordField();
+        passwordF3 = new JPasswordField();  //inizializza il JTextField 'passwordF3'
         passwordF3.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));  //imposta il colore del bordo del JPasswordField 'passwordF3'
-        partitaIVATF = new JTextField();
+        partitaIVATF = new JTextField();    //inizializza il JTextField 'partitaIVATF'
         partitaIVATF.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));    //imposta il colore del bordo del JTextField 'partitaIVATF'
-        dataNascitaTF = new JTextField();
+        dataNascitaTF = new JTextField();   //inizializza il JTextField 'dataNascitaTF'
         dataNascitaTF.setBorder(BorderFactory.createLineBorder(Color.decode("#222831")));   //imposta il colore del bordo del JTextField 'dataNascitaTF'
 
-        usernameTF2 = new JTextField();
+        usernameTF2 = new JTextField(); //inizializza il JTextField 'usernameTF2'
         usernameTF2.setBorder(BorderFactory.createLineBorder(Color.decode("#222831"))); //imposta il colore del bordo del JTextField 'usernameTF2'
-        passwordTF4 = new JPasswordField();
+        passwordTF4 = new JPasswordField(); //inizializza il JPasswordField 'passwordTF4'
         passwordTF4.setBorder(BorderFactory.createLineBorder(Color.decode("#222831"))); //imposta il colore del bordo del JPasswordField 'passwordTF4'
-        passwordTF5 = new JTextField();
+        passwordTF5 = new JTextField(); //inizializza il JTextField 'passwordTF5'
         passwordTF5.setBorder(BorderFactory.createLineBorder(Color.decode("#222831"))); //imposta il colore del bordo del JTextField 'passwordTF5'
 
         closeImg = new ImageIcon(this.getClass().getResource("/close.png"));    //carica l'immagine nel percorso /close.png
         Image imagine3 = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
-        closeImg = new ImageIcon(imagine3);
-        closeBT = new JLabel(closeImg);
+        closeImg = new ImageIcon(imagine3); //reinizializza l'ImageIcon 'closeImg' con l'Image 'imagine3'
+        closeBT = new JLabel(closeImg); //inizializza la JLabel 'closeBT' con 'closeImg'
 
         ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar.png"));    //carica l'immagine nel percorso /Calendar.png
         Image calendarIm = calendarIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);    //imposta le dimension dell'immagine
-        calendarIco = new ImageIcon(calendarIm);
-        calendarIMG = new JLabel(calendarIco);
+        calendarIco = new ImageIcon(calendarIm);    //reinizializza l'ImageIcon 'calendarIco' con l'Image 'calendarIm'
+        calendarIMG = new JLabel(calendarIco);  //inizializza la JLabel 'calendarIMG' con 'calendarIco'
     }
 }
