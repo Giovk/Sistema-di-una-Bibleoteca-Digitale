@@ -46,56 +46,53 @@ public class IssuesPage {
     private int numeroNotifiche;
 
     public IssuesPage(JFrame frameC, Controller controller) {
-        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
-        UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
-        UIManager.put("ScrollPane.background\n", new Color(0x222831));
+        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
+        UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato
+        UIManager.put("ScrollPane.background\n", new Color(0x222831));  //imposta il colore dello sfondo del JScrollPane
+        homeButton.setFont(controller.baseFontSize);    //imposta il font del JButton 'homeButton'
+        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight())); //imposta la dimensione minima del JButton 'homeButton'
+        libriButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'libriButton'
+        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'libriButton'
+        fascicoliButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'fascicoliButton'
+        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'fascicoliButton'
+        serieButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'serieButton'
+        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'serieButton'
+        utenteButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'utenteButton'
+        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));   //imposta la dimensione minima del JButton 'utenteButton'
 
-        homeButton.setFont(controller.baseFontSize);
-        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        libriButton.setFont(controller.baseFontSize);
-        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        fascicoliButton.setFont(controller.baseFontSize);
-        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        serieButton.setFont(controller.baseFontSize);
-        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        utenteButton.setFont(controller.baseFontSize);
-        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        notificheLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'notificheLabel'
 
-        notificheLabel.setFont(controller.baseFontSize);
+        searchBarField.setFont(controller.textFieldFont);   //imposta il font della JTextField 'searchBarField'
 
-        searchBarField.setFont(controller.textFieldFont);
+        rivistaRB.setFont(controller.impactFontSize);   //imposta il font del JRadioButton 'rivistaRB'
+        argomentoRB.setFont(controller.impactFontSize); //imposta il font del JRadioButton 'argomentoRB'
+        resetFiltriLabel.setFont(controller.impactFontSize);    //imposta il font della JLabel 'resetFiltriLabel'
 
-        rivistaRB.setFont(controller.impactFontSize);
+        issuesTable.setFont(controller.impactFontSize); //imposta il font della JTable 'issuesTable'
+        issuesTable.setRowMargin(controller.screenWidth/640);   //imposta il margine tra le celle della JTable 'issuesTable'
+        issuesTable.setRowHeight(controller.screenHeight/36);   //imposta l'altezza delle righe della JTable 'issuesTable'
 
-        argomentoRB.setFont(controller.impactFontSize);
-
-        resetFiltriLabel.setFont(controller.impactFontSize);
-
-        issuesTable.setFont(controller.impactFontSize);
-        issuesTable.setRowMargin(controller.screenWidth/640);
-        issuesTable.setRowHeight(controller.screenHeight/36);
-
-        panel2.setMinimumSize(new Dimension(controller.screenWidth, controller.screenHeight - ((int) (controller.screenHeight/4))));
+        panel2.setMinimumSize(new Dimension(controller.screenWidth, controller.screenHeight - ((int) (controller.screenHeight/4))));    //imposta la dimensione minima del JPanel 'panel2'
 
         issuesScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -103,11 +100,11 @@ public class IssuesPage {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));  //inizializza le dimensioni del JButton 'decreaseButton'
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -116,47 +113,47 @@ public class IssuesPage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));  //inizializza le dimensioni del JButton 'increaseButton'
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton '  increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
         JPopupMenu utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
-        utenteExit.setFont(controller.baseFontSize);
-        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteExit.setFont(controller.baseFontSize);    //imposta il font del JMenuItem 'utenteExit'
+        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);    //centra orizzontalmente il testo del JMenuItem 'utenteExit'
         utenteExit.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteExit'
         utenteExit.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteExit'
         utenteExit.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteExit'
-        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8))));
+        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)))); //imposta la dimensione minima del JMenuItem 'utenteExit'
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
-        utenteProfilo.setFont(controller.baseFontSize);
-        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteProfilo.setFont(controller.baseFontSize); //imposta il font del JMenuItem 'utenteProfilo'
+        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER); //centra orizzontalmente il testo del JMenuItem 'utenteProfilo'
         utenteProfilo.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo del JMenuItem 'utenteProfilo'
         utenteProfilo.setFocusPainted(false);   //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteProfilo'
         utenteProfilo.setBorder(BorderFactory.createEmptyBorder()); //toglie il bordo del JMenuItem 'utenteProfilo'
-        utenteProfilo.setFocusable(false);
-        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteProfilo.setFocusable(false);  //impedisce all'utente di interagire con il JMenuItem 'utenteProfilo' tramite tastiera
+        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));    //imposta la dimensione minima del JMenuItem 'utenteProfilo'
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
         utenteLibrerie.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteLibrerie'
-        utenteLibrerie.setFont(controller.baseFontSize);
-        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteLibrerie.setFont(controller.baseFontSize);    //imposta il font del JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);    //centra orizzontalmente il testo del JMenuItem 'utenteLibrerie'
         utenteLibrerie.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteLibrerie'
         utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteLibrerie'
-        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));   //imposta la dimensione minima del JMenuItem 'utenteLibrerie'
         utenteMenu.setPopupSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/9.6))); //imposta le dimensioni del menu 'utenteMenu'
         utenteMenu.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del menu 'utenteMenu'
         utenteMenu.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del menu 'utenteMenu'
@@ -167,30 +164,30 @@ public class IssuesPage {
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
             utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
-            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));
+            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));    //adatta le dimensioni minime di 'utenteMenu'
         }
 
         frame = new JFrame("Biblioteca Digitale");
-        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
-        frame.setIconImage(icona);
+
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();   //carica l'immagine nel percorso /icon.png
+
+        frame.setIconImage(icona);  //imposta la l'icona dell'applicazione
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(jpanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //imposta la terminazione dell'applicazione come operazione predefinita da eseguire quando viene chiuso il frame
         frame.pack();
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                frame.setVisible(false);
-                frameC.setEnabled(true);
+                frame.setVisible(false);    //rende invisibile il frame
+                frameC.setEnabled(true);    //rende visibile il frame chiamante 'frameC'
                 frame.dispose();
                 System.exit(0);
             }
         });
 
-
-        // -------------------------------------------------------------------------------------- //
         homeButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -206,8 +203,8 @@ public class IssuesPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
-                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'sp'
+                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'sp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -237,19 +234,19 @@ public class IssuesPage {
         utenteMenu.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                active = true;
+                active = true;  //aggiorna 'active'
             }
 
             @Override
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                active = false;
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                active = false; //aggiorna 'active'
+                utenteButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'utenteButton'
             }
 
             @Override
             public void popupMenuCanceled(PopupMenuEvent e) {
-                active = false;
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                active = false; //aggiorna 'active'
+                utenteButton.setBackground(Color.decode("#FFD369"));   //imposta lo sfondo del JButton 'utenteButton'
             }
         });
 
@@ -269,7 +266,7 @@ public class IssuesPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                frameC.setVisible(true); //rende visibile il frame chiamante
+                frameC.setVisible(true);    //rende visibile il frame chiamante 'frameC'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -279,8 +276,8 @@ public class IssuesPage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'pf'
-                bsp.frame.setVisible(true);  //rende visible il frame 'pf'
+                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'bsp'
+                bsp.frame.setVisible(true);  //rende visible il frame 'bsp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
 
@@ -291,16 +288,16 @@ public class IssuesPage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                utenteButton.setBackground(Color.decode("#cf9e29"));
+                utenteButton.setBackground(Color.decode("#cf9e29"));    //imposta lo sfondo del JButton 'utenteButton'
             }
         });
 
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
-                if (active == false){
+                if (active == false){   //controlla se è stato disattivato il menu "Utente"
                     super.mouseExited(e);
-                    utenteButton.setBackground(Color.decode("#FFD369"));
+                    utenteButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'utenteButton'
                 }
             }
         });
@@ -309,7 +306,7 @@ public class IssuesPage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                homeButton.setBackground(Color.decode("#cf9e29"));
+                homeButton.setBackground(Color.decode("#cf9e29"));  //imposta lo sfondo del JButton 'homeButton'
             }
         });
 
@@ -317,7 +314,7 @@ public class IssuesPage {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                homeButton.setBackground(Color.decode("#FFD369"));
+                homeButton.setBackground(Color.decode("#FFD369"));  //imposta lo sfondo del JButton 'homeButton'
             }
         });
 
@@ -325,14 +322,15 @@ public class IssuesPage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                serieButton.setBackground(Color.decode("#cf9e29"));
+                serieButton.setBackground(Color.decode("#cf9e29")); //imposta lo sfondo del JButton 'serieButton'
             }
         });
+
         serieButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                serieButton.setBackground(Color.decode("#FFD369"));
+                serieButton.setBackground(Color.decode("#FFD369")); //imposta lo sfondo del JButton 'serieButton'
             }
         });
 
@@ -340,60 +338,61 @@ public class IssuesPage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                libriButton.setBackground(Color.decode("#cf9e29"));
+                libriButton.setBackground(Color.decode("#cf9e29")); //imposta lo sfondo del JButton 'libriButton'
             }
         });
+
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                libriButton.setBackground(Color.decode("#FFD369"));
+                libriButton.setBackground(Color.decode("#FFD369")); //imposta lo sfondo del JButton 'libriButton'
             }
         });
 
-        // --------------------------------------------------------------------------- //
-        UIManager.put("ComboBox.disabledForeground", new Color(0x222831));
-        UIManager.put("ComboBox.disabledBackground", new Color(0xFFD369));
 
-        Dimension dim = new Dimension((int) (controller.screenWidth/6.5), controller.screenHeight/24);
+        UIManager.put("ComboBox.disabledForeground", new Color(0x222831));  //imposta il colore del testo di un combo box quando viene disabilitato
+        UIManager.put("ComboBox.disabledBackground", new Color(0xFFD369));  //imposta il colore dello sfondo di un combo box quando viene disabilitato
+
+        Dimension dim = new Dimension((int) (controller.screenWidth/6.5), controller.screenHeight/24);  //dimensione preferita dei combo box
 
         NewComboBox rivistaCB = new NewComboBox<>();
-        rivistaCB.setPreferredSize(dim);
-        rivistaCB.setFont(controller.impactFontSize);
-        rivistaCB.setFocusable(false);
-        rivistaCB.setEditable(false);
-        rivistaPanel.add(rivistaCB);
+        rivistaCB.setPreferredSize(dim);    //imposta a 'dim' la dimensione preferita del combo box 'rivistaCB'
+        rivistaCB.setFont(controller.impactFontSize);   //imposta il font del combo box 'rivistaCB'
+        rivistaCB.setFocusable(false);  //impedisce all'utente di interagire con il combo box 'rivistaCB' tramite tastiera
+        rivistaCB.setEditable(false);   //impedisce all'utente di inserire il testo nel combo box 'rivistaCB'
+        rivistaPanel.add(rivistaCB);    //inserisce 'rivistaCB' nel JPanel 'rivistaPanel'
 
         NewComboBox argomentoCB = new NewComboBox<>();
-        argomentoCB.setPreferredSize(dim);
-        argomentoCB.setFont(controller.impactFontSize);
-        argomentoCB.setFocusable(false);
-        argomentoCB.setEditable(false);
-        argomentoPanel.add(argomentoCB);
-
+        argomentoCB.setPreferredSize(dim);  //imposta a 'dim' la dimensione preferita del combo box 'argomentoCB'
+        argomentoCB.setFont(controller.impactFontSize); //imposta il font del combo box 'argomentoCB'
+        argomentoCB.setFocusable(false);    //impedisce all'utente di interagire con il combo box 'argomentoCB' tramite tastiera
+        argomentoCB.setEditable(false); //impedisce all'utente di inserire il testo nel combo box 'argomentoCB'
+        argomentoPanel.add(argomentoCB);    //inserisce 'argomentoCB' nel JPanel 'argomentoPanel'
 
         rivistaCB.setEnabled(false); //disabilita il JComboBox 'rivistaCB'
-        argomentoCB.setEnabled(false); //disabilita il JComboBox 'autoreCB'
+        argomentoCB.setEnabled(false); //disabilita il JComboBox 'argomentoCB'
 
-        ArrayList<String> distinctRivisteList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
-        for (int i = 0; i < controller.listaRiviste.size(); i++){
-            distinctRivisteList.add(controller.listaRiviste.get(i).titolo);
+        ArrayList<String> distinctRivisteList = new ArrayList<String>(); //contiene tutti i titoli delle riviste senza duplicati
+
+        for (int i = 0; i < controller.listaRiviste.size(); i++){   //scorre 'controller.listaRiviste'
+            distinctRivisteList.add(controller.listaRiviste.get(i).titolo); //inserisce il titolo dell'i-esima rivista in 'distinctRivisteList'
         }
 
-
-        rivistaCB.setModel(new DefaultComboBoxModel<String>(distinctRivisteList.toArray(new String[distinctRivisteList.size()]))); //inserisce tutti gli elementi di 'distinctGenereList' come voci del JComboBox 'genereCB'
+        rivistaCB.setModel(new DefaultComboBoxModel<String>(distinctRivisteList.toArray(new String[distinctRivisteList.size()]))); //inserisce tutti gli elementi di 'distinctRivisteList' come voci del JComboBox 'rivistaCB'
         rivistaCB.setSelectedIndex(-1);  //permette di avere 'rivistaCB' non selezionato
+
         ArrayList<String> totAutoreList = new ArrayList<String>(); //contiene i nomi e cognomi concatenati di tutti gli autori dei libri
+        ArrayList<String> distinctArgomentiList = new ArrayList<>();   //contiene tutti gli argomenti delle riviste senza duplicati
 
-        ArrayList<String> distinctArgomentiList = new ArrayList<>();   //contiene i nomi e i cognomi concatenati di tutti gli autori dei libri
-
-        for (int i = 0; i < controller.listaRiviste.size(); i++) {    //scorre l'ArrayList di tutti i generi dei libri
-            if (!distinctArgomentiList.contains(controller.listaRiviste.get(i).argomento))    //controlla se 'distinctGenereList' non contiene l'i-esimo elemento di genereList
+        for (int i = 0; i < controller.listaRiviste.size(); i++) {    //scorre 'controller.listaRiviste'
+            if (!distinctArgomentiList.contains(controller.listaRiviste.get(i).argomento))    //controlla se 'distinctArgomentiList' non contiene l'argomento dell'i-esima rivista
                 distinctArgomentiList.add(controller.listaRiviste.get(i).argomento);  //inserisce l'i-esimo elemento di genereList  in 'distinctGenereList'
         }
 
-        argomentoCB.setModel(new DefaultComboBoxModel<String>(distinctArgomentiList.toArray(new String[distinctArgomentiList.size()]))); //inserisce tutti gli elementi di 'distinctAutoreList' come voci del JComboBox 'autoreCB'
+        argomentoCB.setModel(new DefaultComboBoxModel<String>(distinctArgomentiList.toArray(new String[distinctArgomentiList.size()]))); //inserisce tutti gli elementi di 'distinctArgomentiList' come voci del JComboBox 'argomentoCB'
         argomentoCB.setSelectedIndex(-1);  //permette di avere 'autoreCB' non selezionato
+
         model = new DefaultTableModel(new Object[][]{}, new String[]{"Titolo Rivista", "Numero", "Data Di Pubblicazione"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -401,50 +400,50 @@ public class IssuesPage {
             }
         };
 
-        // Renderer personalizzato per l'header della tabella
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(0xCF9E29));
-        headerRenderer.setForeground(new Color(0xEEEEEE));
-        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        Font headerFont = new Font("Impact", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
-        headerRenderer.setFont(headerFont);
-        JTableHeader tableHeader = issuesTable.getTableHeader();
-        tableHeader.setDefaultRenderer(headerRenderer);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();   //DefaultTableCellRenderer per la formattazione dell'header della tabella
 
-        // Impedire il ridimensionamento delle colonne
-        issuesTable.getTableHeader().setResizingAllowed(false);
+        headerRenderer.setBackground(new Color(0xCF9E29));  //imposta il colore dello sfondo dell'header della tabella
+        headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);   //centra orizzontalmente il contenuto dell'header della tabella
 
-        // Impedire il riordinamento delle colonne
-        issuesTable.getTableHeader().setReorderingAllowed(false);
+        Font headerFont = new Font("Impact", Font.PLAIN, 15);   //imposta il font Bebas Neue, grandezza 15 e stile Regular
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader.setBorder(null);
+        headerRenderer.setFont(headerFont); //inizializza il font Bebas Neue, grandezza 15 e stile Regular per i caratteri della tabella
 
-        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));
+        JTableHeader tableHeader = issuesTable.getTableHeader();    //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'issuesTable'
 
+        tableHeader.setDefaultRenderer(headerRenderer); //imposta il render di default della tabella a 'headerRender'
 
-        issuesTable.setModel(model); //imposta il modello dei dati della JTable 'issuesTable'
-        issuesScrollPanel.setBackground(new Color(0x222831));
-        issuesScrollPanel.setBorder(BorderFactory.createEmptyBorder());
-        issuesScrollPanel.getViewport().setBackground(new Color(0x222831));
+        issuesTable.getTableHeader().setResizingAllowed(false); //impedisce il ridimensionamento delle colonne
 
-        if (controller.listaFascicoli != null) {
-            for (int i = 0; i < controller.listaFascicoli.size(); i++) {
-                model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});
+        issuesTable.getTableHeader().setReorderingAllowed(false);   //impedisce il ridimensionamento delle colonne
+
+        tableHeader.setBorder(null);    //rimuove il bordo dell'header della tabella
+
+        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));  //imposta il render di default della tabella
+
+        issuesTable.setModel(model);    //imposta il modello dei dati della JTable 'issuesTable'
+        issuesScrollPanel.setBackground(new Color(0x222831));   //imposta il colore dello sfondo del JScrollPane 'issuesScrollPanel'
+        issuesScrollPanel.setBorder(BorderFactory.createEmptyBorder()); //toglie il bordo del JScrollPane 'issuesScrollPanel'
+        issuesScrollPanel.getViewport().setBackground(new Color(0x222831)); //imposta il colore dello sfondo della parte visibile del JScrollPane 'issuesScrollPanel'
+
+        if (controller.listaFascicoli != null) {    //controlla se 'controller.listaFascicoli' non è vuota
+            for (int i = 0; i < controller.listaFascicoli.size(); i++) {    //scorre 'controller.listaFascicoli'
+                model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
             }
         }
 
         frame.setSize(controller.screenWidth, controller.screenHeight);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
-        frame.setVisible(true);
+        frame.setVisible(true); //rende visibile il frame
 
         issuesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                controller.selezionaFascicolo(((int) issuesTable.getValueAt(issuesTable.getSelectedRow(), 1)), issuesTable.getValueAt(issuesTable.getSelectedRow(), 0).toString());
-                IssuePage ip = new IssuePage(frameC, controller); //chiama il frame 'bp'
-                ip.frame.setVisible(true);  //rende visible il frame 'bp'
+                controller.selezionaFascicolo(((int) issuesTable.getValueAt(issuesTable.getSelectedRow(), 1)), issuesTable.getValueAt(issuesTable.getSelectedRow(), 0).toString()); //inizializza 'controller.fascicolo_selected'
+                IssuePage ip = new IssuePage(frameC, controller); //chiama il frame 'ip'
+                ip.frame.setVisible(true);  //rende visible il frame 'ip'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -453,14 +452,14 @@ public class IssuesPage {
         rivistaRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'rivistaRB'
-                    searchBarField.setText("");
-                    rivistaCB.setEnabled(true);  //abilita 'genereCB'
-                    argomentoCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
-                    argomentoCB.setEnabled(false); //disabilita 'autoreCB'
-                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'rivistaRB'
-                    rivistaCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
-                    rivistaCB.setEnabled(false); //disabilita 'genereCB'
+                if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'rivistaRB'
+                    rivistaCB.setSelectedIndex(-1);  //deseleziona 'rivistaCB'
+                    rivistaCB.setEnabled(false); //disabilita 'rivistaCB'
+                } else if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'rivistaRB'
+                    searchBarField.setText(""); //svuota il testo del JTextField 'searchBarField'
+                    rivistaCB.setEnabled(true);  //abilita 'rivistaCB'
+                    argomentoCB.setSelectedIndex(-1);  //deseleziona 'argomentoCB'
+                    argomentoCB.setEnabled(false); //disabilita 'argomentoCB'
                 }
             }
         });
@@ -469,24 +468,27 @@ public class IssuesPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                searchBarField.setText("");
+                searchBarField.setText(""); //svuota il testo del JTextField 'searchBarField'
                 groupRB.clearSelection();   //deseleziona tutti i JRadioButton del ButtonGroup 'groupRB'
-                model.setRowCount(0);
-                for (int i = 0; i < controller.listaFascicoli.size(); i++) model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});
+                model.setRowCount(0);   //rimuove tutte le righe della tabella
+
+                for (int i = 0; i < controller.listaFascicoli.size(); i++){ //scorre 'controller.listaFascicoli'
+                    model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
+                }
             }
         });
 
         argomentoRB.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'autoreRB'
-                    searchBarField.setText("");
-                    argomentoCB.setEnabled(true);  //abilita 'autoreCB'
-                    rivistaCB.setSelectedIndex(-1);  //deseleziona 'genereCB'
-                    rivistaCB.setEnabled(false); //disabilita 'genereCB'
-                } else if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'collanaRB'
-                    argomentoCB.setSelectedIndex(-1);  //deseleziona 'autoreCB'
-                    argomentoCB.setEnabled(false); //disabilita 'autoreCB'
+                if (e.getStateChange() == ItemEvent.DESELECTED) {  //controlla se è stato deselezionato 'argomentoRB'
+                    argomentoCB.setSelectedIndex(-1);  //deseleziona 'argomentoCB'
+                    argomentoCB.setEnabled(false); //disabilita 'argomentoCB'
+                } else if (e.getStateChange() == ItemEvent.SELECTED) { //controlla se è stato selezionato 'argomentoRB'
+                    searchBarField.setText(""); //svuota il testo del JTextField 'searchBarField'
+                    argomentoCB.setEnabled(true);  //abilita 'argomentoCB'
+                    rivistaCB.setSelectedIndex(-1);  //deseleziona 'rivistaCB'
+                    rivistaCB.setEnabled(false); //disabilita 'rivistaCB'
                 }
             }
         });
@@ -494,13 +496,12 @@ public class IssuesPage {
         rivistaCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rivistaCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'genereCB'
+                if (rivistaCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'rivistaCB'
                     model.setRowCount(0);   //elimina le righe della tabella
 
-                    for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei libri 'listaLibri'
-
-                        if (rivistaCB.getSelectedItem() != null && rivistaCB.getSelectedItem().equals(f.rivista.titolo)) {    //controlla se l'elemento selezionato di 'genereCB' è uguale al genere del libro 'l'
-                            model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});
+                    for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei libri 'controller.listaFascicoli'
+                        if (rivistaCB.getSelectedItem() != null && rivistaCB.getSelectedItem().equals(f.rivista.titolo)) {    //controlla se l'elemento selezionato di 'rivistaCB' è uguale al titolo della rivista del fascicolo 'f'
+                            model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});    //aggiunge una nuova riga nella tabella
                         }
                     }
                 }
@@ -510,13 +511,12 @@ public class IssuesPage {
         argomentoCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (argomentoCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'genereCB'
+                if (argomentoCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'argomentoCB'
                     model.setRowCount(0);   //elimina le righe della tabella
 
-                    for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei libri 'listaLibri'
-
-                        if (argomentoCB.getSelectedItem() != null && argomentoCB.getSelectedItem().equals(f.rivista.argomento)) {    //controlla se l'elemento selezionato di 'genereCB' è uguale al genere del libro 'l'
-                            model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});
+                    for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei libri 'controller.listaFascicoli'
+                        if (argomentoCB.getSelectedItem() != null && argomentoCB.getSelectedItem().equals(f.rivista.argomento)) {    //controlla se l'elemento selezionato di 'argomentoCB' è uguale all'argomento della rivista del fascicolo 'f'
+                            model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});    //aggiunge una nuova riga nella tabella
                         }
                     }
                 }
@@ -550,102 +550,107 @@ public class IssuesPage {
             }
         });
 
-        int numeroNotifiche = controller.getNumeroNotificheNonLette();
+        int numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
 
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
-
-        setNumeroNotifiche(controller);
+        setNumeroNotifiche(controller); //imposta il testo della JLabel 'notificheLabel'
 
         Timer timer = new Timer(60000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setNumeroNotifiche(controller);
+                setNumeroNotifiche(controller); //imposta il testo della JLabel 'notificheLabel'
             }
         });
 
-        timer.start();
-        timer.setRepeats(true);
+        timer.start();  //avvia il timer
+        timer.setRepeats(true); //fa ripetere il timer dopo che è scaduto
     }
 
-    private void setNumeroNotifiche(Controller controller){
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
+    private void setNumeroNotifiche(Controller controller){ //aggiorna il testo della JLabel 'notificheLabel' con in base al numero di notifiche dell'utente non lette
+        numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
 
-        if(numeroNotifiche < 100 && numeroNotifiche > 0){
-            notificheLabel.setVisible(true);
-            String numeroNotificheText = Integer.toString(numeroNotifiche);
-            notificheLabel.setText(numeroNotificheText);
-        }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");
-        else {
-            notificheLabel.setVisible(false);
+        if (numeroNotifiche <= 0){  //controlla se non ci sono notifiche non lette
+            notificheLabel.setVisible(false);   //rende invisibile la JLabel 'notificheLabel'
+        }else if (numeroNotifiche >= 100) { //controlla se ci sono almeno 100 notifiche non lette
+            notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
+            notificheLabel.setText("99+");  //imposta il testo della JLabel 'notificheLabel'
+        }else{
+            notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
+
+            String numeroNotificheText = Integer.toString(numeroNotifiche); //inizializza numeroNotificheText con 'numeroNotifiche'
+
+            notificheLabel.setText(numeroNotificheText);    //imposta il testo della JLabel 'notificheLabel' con 'numeroNotificheText'
         }
-    }
+    }//fine setNumeroNotifiche
 
     private void search(Controller controller){    //esegue una ricerca nella tabella
-        if (!searchBarField.getText().isBlank()) {  //controlla se è stato inserito un testo nel JTextField 'searchBarField'
+        if (searchBarField.getText().isBlank()) {  //controlla se non è stato inserito un testo nel JTextField 'searchBarField'
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei libri 'listaLibri'
-
-                String numero = String.valueOf(f.numero);
-
-                if (f.rivista.titolo.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || f.rivista.argomento.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || f.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || numero.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase())) //controlla se l'isbn, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
-                    model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});
+            for (int i = 0; i < controller.listaFascicoli.size(); i++){ //scorre la lista dei fascicoli 'controller.listaFascicoli'
+                model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
             }
         } else {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            for (int i = 0; i < controller.listaFascicoli.size(); i++) model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});
+            for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei fascicoli 'controller.listaFascicoli'
+                String numero = String.valueOf(f.numero);   //numero del fascicolo 'f'
+
+                if (f.rivista.titolo.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || f.rivista.argomento.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || f.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || numero.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase())) { //controlla se il titolo o l'argomento della rivista, la data di pubblicazione o il numero contiene il testo scritto in 'searchBarField'
+                    model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                }
+            }
         }
-    }
+    }//fine search
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //dimensioni dello schermo
+        int screenWidth = screenSize.width; //larghezza dello schermo
+        int screenHeight = screenSize.height;   //altezza dello schermo
 
-        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine);
-        closeBT = new JLabel(closeImg);
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));  //carica l'immagine nel percorso /close.png
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
-        searchBarField = new JTextField();
-        searchBarField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        closeImg = new ImageIcon(imagine);  //reinizializza l'ImageIcon 'closeImg' con l'Image 'image'
+        closeBT = new JLabel(closeImg); //inizializza la JLabel 'closeBT' con 'closeImg'
 
+        searchBarField = new JTextField();  //inizializza il JTextField 'searchBarField'
+        searchBarField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JTextField 'searchBarField'
 
-        ImageIcon radioIco = new ImageIcon(this.getClass().getResource("/r2.png"));
-        Image radioImg = radioIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8),Image.SCALE_SMOOTH);
-        radioIco = new ImageIcon(radioImg);
+        ImageIcon radioIco = new ImageIcon(this.getClass().getResource("/r2.png")); //carica l'immagine nel percorso /r2.png
+        Image radioImg = radioIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8),Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
-        ImageIcon radioSelIco = new ImageIcon(this.getClass().getResource("/r1.png"));
-        Image radioSelImg = radioSelIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8),Image.SCALE_SMOOTH);
-        radioSelIco = new ImageIcon(radioSelImg);
+        radioIco = new ImageIcon(radioImg); //reinizializza l'ImageIcon 'radioIco' con l'Image 'radioImg'
 
-        groupRB = new ButtonGroup();
-        rivistaRB = new JRadioButton();
-        rivistaRB.setIcon(radioIco);
-        rivistaRB.setSelectedIcon(radioSelIco);
+        ImageIcon radioSelIco = new ImageIcon(this.getClass().getResource("/r1.png"));  //carica l'immagine nel percorso /r2.png
+        Image radioSelImg = radioSelIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8),Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
-        argomentoRB = new JRadioButton();
-        argomentoRB.setIcon(radioIco);
-        argomentoRB.setSelectedIcon(radioSelIco);
+        radioSelIco = new ImageIcon(radioSelImg);   //reinizializza l'ImageIcon 'radioSelIco' con l'Image 'radioSelImg'
 
-        groupRB.add(rivistaRB);
-        groupRB.add(argomentoRB);
+        groupRB = new ButtonGroup();    //inizializza il ButtonGroup 'groupRB'
+        rivistaRB = new JRadioButton(); //inizializza il JRadioButton 'rivistaRB'
+        rivistaRB.setIcon(radioIco);    //imposta l'icona della 'rivistaRB' con l'immagine 'radioIco'
+        rivistaRB.setSelectedIcon(radioSelIco); //imposta l'icona dI 'rivistaRB' quando una suo bottone viene selzionato con l'immagine 'radioSelIco'
+        argomentoRB = new JRadioButton();   //inizializza il JRadioButton 'argomentoRB'
+        argomentoRB.setIcon(radioIco);  //imposta l'icona della 'argomentoRB' con l'immagine 'radioIco'
+        argomentoRB.setSelectedIcon(radioSelIco);   //imposta l'icona dI 'rivistaRB' quando una suo bottone viene selzionato con l'immagine 'radioSelIco'
+        groupRB.add(rivistaRB); //aggiunge 'rivistaRB' in 'gruopRB'
+        groupRB.add(argomentoRB);   //aggiunge 'argomentoRB' in 'gruopRB'
 
-        ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/search.png"));
-        Image searchImg = searchIcon.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        searchIcon = new ImageIcon(searchImg);
-        searchImage = new JLabel(searchIcon);
+        ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/search.png"));   //carica l'immagine nel percorso /search.png
+        Image searchImg = searchIcon.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
-        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
-        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        notificaIco = new ImageIcon(notificaImg);
+        searchIcon = new ImageIcon(searchImg);  //reinizializza l'ImageIcon 'searchIcon' con l'Image 'searchImg'
+        searchImage = new JLabel(searchIcon);   //inizializza la JLabel 'searchImage' con l'ImageIcon 'searchImage'
+
+        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));    //carica l'immagine nel percorso /notifica.png
+        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+        notificaIco = new ImageIcon(notificaImg);   //reinizializza l'ImageIcon 'notificaIco' con l'Image 'notificaImg'
 
         notificheLabel = new JLabel();
-        notificheLabel.setIcon(notificaIco);
+        notificheLabel.setIcon(notificaIco);    //imposta l'icona della JLabel 'notificheLabel' con l'immagine 'notificaIco'
     }
 }
-
