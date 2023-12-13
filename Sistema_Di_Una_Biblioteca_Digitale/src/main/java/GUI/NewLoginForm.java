@@ -555,9 +555,9 @@ public class NewLoginForm extends JDialog {
         String usernameU = usernameTF.getText();  //username inserito dall'utente per effettuare la registrazione
         String password1 = new String();    //password inserita dall'utente per effettuare la registrazione
 
-        if(hidePass.isVisible() == true){   //controlla se la password è visibile
+        if(hidePass.isVisible() == true){   //controlla se la hidePass è visibile
             password1 = passwordF2.getText();   //inserisce il testo del JTextField 'passwordF2' in 'password1'
-        }else if(showPass.isVisible() == true){ //controlla se la password non è visibile
+        }else if(showPass.isVisible() == true){ //controlla se showPass è visibile
             char[] pass1 = passwordF1.getPassword();        //inserisce il testo del JPasswordField 'passwordT4' in 'pass1'
             password1 = new String(pass1);  //inserisce il contenuto di 'pass1' in 'password1'
         }

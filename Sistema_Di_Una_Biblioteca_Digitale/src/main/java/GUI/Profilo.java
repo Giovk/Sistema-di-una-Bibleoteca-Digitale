@@ -66,98 +66,95 @@ public class Profilo {
     private int numeroNotifiche;
 
     public Profilo(JFrame frameC, Controller controller) {
-        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
-        UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
-        UIManager.put("ScrollPane.background\n", new Color(0x222831));
+        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
+        UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato
+        UIManager.put("ScrollPane.background\n", new Color(0x222831));  //imposta il colore dello sfondo del JScrollPane
+        homeButton.setFont(controller.baseFontSize);    //imposta il font del JButton 'homeButton'
+        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight())); //imposta la dimensione minima del JButton 'homeButton'
+        libriButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'libriButton'
+        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'libriButton'
+        fascicoliButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'fascicoliButton'
+        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'fascicoliButton'
+        serieButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'serieButton'
+        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'serieButton'
+        utenteButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'utenteButton'
+        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));   //imposta la dimensione minima del JButton 'utenteButton'
 
-        homeButton.setFont(controller.baseFontSize);
-        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        libriButton.setFont(controller.baseFontSize);
-        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        fascicoliButton.setFont(controller.baseFontSize);
-        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        serieButton.setFont(controller.baseFontSize);
-        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        utenteButton.setFont(controller.baseFontSize);
-        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        modificaButton.setFont(controller.baseFontSize);    //imposta il font del JButton 'modificaButton'
+        modificaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/13.4736), (int) (controller.screenHeight/28.8))); //imposta la dimensione minima del JButton 'modificaButton'
+        annullaButton.setFont(controller.baseFontSize); //imposta il font del JButton 'annullaButton'
+        annullaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/13.4736), (int) (controller.screenHeight/28.8)));  //imposta la dimensione minima del JButton 'annullaButton'
+        salvaButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'salvaButton'
+        salvaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/13.4736), (int) (controller.screenHeight/28.8)));    //imposta la dimensione minima del JButton 'salvaButton'
 
-        modificaButton.setFont(controller.baseFontSize);
-        modificaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/13.4736), (int) (controller.screenHeight/28.8)));
-        annullaButton.setFont(controller.baseFontSize);
-        annullaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/13.4736), (int) (controller.screenHeight/28.8)));
-        salvaButton.setFont(controller.baseFontSize);
-        salvaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/13.4736), (int) (controller.screenHeight/28.8)));
+        username.setFont(controller.impactFontSize);    //imposta il font della JLabel 'username'
+        nomeLabel.setFont(controller.impactFontSize);   //imposta il font della JLabel 'nomeLabel'
+        cognomeLabel.setFont(controller.impactFontSize);    //imposta il font della JLabel 'cognomeLabel'
+        emailLabel.setFont(controller.impactFontSize);  //imposta il font della JLabel 'emailLabel'
+        passLabel.setFont(controller.impactFontSize);   //imposta il font della JLabel 'passLabel'
+        passLabel2.setFont(controller.impactFontSize);  //imposta il font della JLabel 'passLabel2'
+        ripPassLabel.setFont(controller.impactFontSize);    //imposta il font della JLabel 'ripPassLabel'
+        pIVALabel.setFont(controller.impactFontSize);   //imposta il font della JLabel 'pIVALabel'
+        oldPassLabel.setFont(controller.impactFontSize);    //imposta il font della JLabel 'oldPassLabel'
+        oldPassLabel2.setFont(controller.impactFontSize);   //imposta il font della JLabel 'oldPassLabel2'
+        oldPassNoteLabel.setFont(controller.impactFontSize);    //imposta il font della JLabel 'oldPassNoteLabel'
 
-        username.setFont(controller.impactFontSize);
-        nomeLabel.setFont(controller.impactFontSize);
-        cognomeLabel.setFont(controller.impactFontSize);
-        emailLabel.setFont(controller.impactFontSize);
-        passLabel.setFont(controller.impactFontSize);
-        passLabel2.setFont(controller.impactFontSize);
-        ripPassLabel.setFont(controller.impactFontSize);
-        pIVALabel.setFont(controller.impactFontSize);
-        oldPassLabel.setFont(controller.impactFontSize);
-        oldPassLabel2.setFont(controller.impactFontSize);
-        oldPassNoteLabel.setFont(controller.impactFontSize);
+        usernameField.setFont(controller.textFieldFont);    //imposta il font del JTextField 'usernameField'
+        usernameField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));   //imposta la dimensione minima del JTextField 'usernameField'
+        usernameField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));   //imposta la dimensione massima del JTextField 'usernameField'
+        nameField.setFont(controller.textFieldFont);    //imposta il font del JTextField 'nameField'
+        nameField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));   //imposta la dimensione minima del JTextField 'nameField'
+        nameField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));   //imposta la dimensione massima del JTextField 'nameField'
+        cognomeField.setFont(controller.textFieldFont); //imposta il font del JTextField 'cognomeField'
+        cognomeField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));    //imposta la dimensione minima del JTextField 'cognomeField'
+        cognomeField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));    //imposta la dimensione massima del JTextField 'cognomeField'
+        emailField.setFont(controller.textFieldFont);   //imposta il font del JTextField 'emailField'
+        emailField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));  //imposta la dimensione minima del JTextField 'emailField'
+        emailField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));  //imposta la dimensione massima del JTextField 'emailField'
+        passwordField1.setFont(controller.textFieldFont);   //imposta il font del JPasswordField 'passwordField1'
+        passwordField1.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));  //imposta la dimensione minima del JPasswordField 'passwordField1'
+        passwordField1.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));  //imposta la dimensione massima del JPasswordField 'passwordField1'
+        passwordField2.setFont(controller.textFieldFont);   //imposta il font del JPasswordField 'passwordField2'
+        passwordField2.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));  //imposta la dimensione minima del JPasswordField 'passwordField2'
+        passwordField2.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));  //imposta la dimensione massima del JPasswordField 'passwordField2'
+        oldPassField.setFont(controller.textFieldFont); //imposta il font del JPasswordField 'oldPassField'
+        oldPassField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));    //imposta la dimensione minima del JPasswordField 'oldPassField'
+        oldPassField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));    //imposta la dimensione massima del JPasswordField 'oldPassField'
+        oldPasswordTextField.setFont(controller.textFieldFont); //imposta il font del JTextField 'oldPasswordTextField'
+        oldPasswordTextField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));    //imposta la dimensione minima del JTextField 'oldPasswordTextField'
+        oldPasswordTextField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));    //imposta la dimensione massima del JTextField 'oldPasswordTextField'
+        passwordTextField.setFont(controller.textFieldFont);    //imposta il font del JTextField 'passwordTextField'
+        passwordTextField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));   //imposta la dimensione minima del JTextField 'passwordTextField'
+        passwordTextField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));   //imposta la dimensione massima del JTextField 'passwordTextField'
+        pIVAField.setFont(controller.textFieldFont);    //imposta il font del JTextField 'pIVAField'
+        pIVAField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));   //imposta la dimensione minima del JTextField 'pIVAField'
+        pIVAField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));   //imposta la dimensione massima del JTextField 'pIVAField'
 
-        usernameField.setFont(controller.textFieldFont);
-        usernameField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        usernameField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        nameField.setFont(controller.textFieldFont);
-        nameField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        nameField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        cognomeField.setFont(controller.textFieldFont);
-        cognomeField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        cognomeField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        emailField.setFont(controller.textFieldFont);
-        emailField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        emailField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        passwordField1.setFont(controller.textFieldFont);
-        passwordField1.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        passwordField1.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        passwordField2.setFont(controller.textFieldFont);
-        passwordField2.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        passwordField2.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        oldPassField.setFont(controller.textFieldFont);
-        oldPassField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        oldPassField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        oldPasswordTextField.setFont(controller.textFieldFont);
-        oldPasswordTextField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        oldPasswordTextField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        passwordTextField.setFont(controller.textFieldFont);
-        passwordTextField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        passwordTextField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        pIVAField.setFont(controller.textFieldFont);
-        pIVAField.setMinimumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
-        pIVAField.setMaximumSize(new Dimension((int) (controller.screenWidth/5.12), -1));
+        notificheLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'notificheLabel'
+        notificheLabelText.setFont(controller.impactFontSize);  //imposta il font della JLabel 'notificheLabelText'
 
-
-        notificheLabel.setFont(controller.baseFontSize);
-        notificheLabelText.setFont(controller.impactFontSize);
-
-        notificheTable.setFont(controller.impactFontSize);
-        notificheTable.setRowMargin(controller.screenWidth/640);
-        //notificheTable.setRowHeight(controller.screenHeight/36);
+        notificheTable.setFont(controller.impactFontSize);  //imposta il font della JTable 'notificheTable'
+        notificheTable.setRowMargin(controller.screenWidth/640);    //imposta il margine tra le celle della JTable 'notificheTable'
 
         notificheScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
-            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
-            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
-            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
-            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
+            Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
+            Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
+            Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
+            Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true); //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48); //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -165,11 +162,11 @@ public class Profilo {
                 JButton decreaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));  //inizializza le dimensioni del JButton 'decreaseButton'
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -178,47 +175,47 @@ public class Profilo {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));  //inizializza le dimensioni del JButton 'increaseButton'
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
         utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
-        utenteExit.setFont(controller.baseFontSize);
-        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteExit.setFont(controller.baseFontSize);    //imposta il font del JMenuItem 'utenteExit'
+        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);    //centra orizzontalmente il testo del JMenuItem 'utenteExit'
         utenteExit.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteExit'
         utenteExit.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteExit'
         utenteExit.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteExit'
-        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8))));
+        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)))); //imposta la dimensione minima del JMenuItem 'utenteExit'
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
-        utenteProfilo.setFont(controller.baseFontSize);
-        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteProfilo.setFont(controller.baseFontSize); //imposta il font del JMenuItem 'utenteProfilo'
+        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER); //centra orizzontalmente il testo del JMenuItem 'utenteProfilo'
         utenteProfilo.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo del JMenuItem 'utenteProfilo'
         utenteProfilo.setFocusPainted(false);   //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteProfilo'
         utenteProfilo.setBorder(BorderFactory.createEmptyBorder()); //toglie il bordo del JMenuItem 'utenteProfilo'
-        utenteProfilo.setFocusable(false);
-        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteProfilo.setFocusable(false);  //impedisce all'utente di interagire con il JMenuItem 'utenteProfilo' tramite tastiera
+        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));    //imposta la dimensione minima del JMenuItem 'utenteProfilo'
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
         utenteLibrerie.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteLibrerie'
-        utenteLibrerie.setFont(controller.baseFontSize);
-        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteLibrerie.setFont(controller.baseFontSize);    //imposta il font del JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);    //centra orizzontalmente il testo del JMenuItem 'utenteLibrerie'
         utenteLibrerie.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteLibrerie'
         utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteLibrerie'
-        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));   //imposta la dimensione minima del JMenuItem 'utenteLibrerie'
         utenteMenu.setPopupSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/9.6))); //imposta le dimensioni del menu 'utenteMenu'
         utenteMenu.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del menu 'utenteMenu'
         utenteMenu.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del menu 'utenteMenu'
@@ -227,46 +224,49 @@ public class Profilo {
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
         tabellaMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
+
         JMenuItem tabellaElimina = new JMenuItem("Elimina");//crea la voce del menu "Logout"
-        tabellaElimina.setBackground(new Color(0xFFD369));
-        tabellaElimina.setFocusPainted(false);
-        tabellaElimina.setFont(controller.baseFontSize);
-        tabellaElimina.setBorder(BorderFactory.createEmptyBorder());
+
+        tabellaElimina.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'tabellaElimina'
+        tabellaElimina.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'tabellaElimina'
+        tabellaElimina.setFont(controller.baseFontSize);    //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'tabellaElimina'
+        tabellaElimina.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'tabellaElimina'
+
         JMenuItem tabellaVisualizzata = new JMenuItem("Notifica Visualizzata"); //crea la voce del menu "Profilo"
-        tabellaVisualizzata.setBackground(new Color(0xFFD369));
-        tabellaVisualizzata.setFocusPainted(false);
-        tabellaVisualizzata.setFont(controller.baseFontSize);
-        tabellaVisualizzata.setBorder(BorderFactory.createEmptyBorder());
-        tabellaMenu.setBorder(BorderFactory.createEmptyBorder());
-        tabellaMenu.setBackground(new Color(0xFFD369));
-        tabellaMenu.add(tabellaElimina);  //aggiunge la voce 'utenteProfilo' al menu 'utenteMenu'
-        tabellaMenu.add(tabellaVisualizzata); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
+
+        tabellaVisualizzata.setBackground(new Color(0xFFD369)); //imposta il colore dello sfondo del JMenuItem 'tabellaVisualizzata'
+        tabellaVisualizzata.setFocusPainted(false); //imposta il colore dello sfondo del JMenuItem 'tabellaVisualizzata'
+        tabellaVisualizzata.setFont(controller.baseFontSize);   //imposta il colore dello sfondo del JMenuItem 'tabellaVisualizzata'
+        tabellaVisualizzata.setBorder(BorderFactory.createEmptyBorder());   //imposta il colore dello sfondo del JMenuItem 'tabellaVisualizzata'
+        tabellaMenu.setBorder(BorderFactory.createEmptyBorder());   //toglie il bordo del menu 'tabellaMenu'
+        tabellaMenu.setBackground(new Color(0xFFD369)); //imposta il colore dello sfondo del menu 'tabellaMenu'
+        tabellaMenu.add(tabellaElimina);  //aggiunge la voce 'tabellaElimina' al menu 'tabellaMenu'
+        tabellaMenu.add(tabellaVisualizzata); //aggiunge la voce 'tabellaVisualizzata' al menu 'tabellaMenu'
 
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
             utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
-            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));
+            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));    //adatta le dimensioni minime di 'utenteMenu'
         }
 
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(profilePanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //imposta la terminazione dell'applicazione come operazione predefinita da eseguire quando viene chiuso il frame
         frame.pack();
         frame.setSize(controller.screenWidth, controller.screenHeight);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null); //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
-        frame.setVisible(true);
-
+        frame.setVisible(true); //rende visibile il frame
 
         closeBT.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                frame.setVisible(false);
-                frameC.setEnabled(true);
+                frame.setVisible(false);    //rende invisibile il frame
+                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
                 frame.dispose();
-                System.exit(0);
+                System.exit(0); //termina l'esecuzione
             }
         });
 
@@ -322,8 +322,8 @@ public class Profilo {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'pf'
-                bsp.frame.setVisible(true);  //rende visible il frame 'pf'
+                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'bsp'
+                bsp.frame.setVisible(true);  //rende visible il frame 'bsp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
 
@@ -344,19 +344,19 @@ public class Profilo {
         utenteMenu.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                active = true;
+                active = true;  //aggiorna 'active'
             }
 
             @Override
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                active = false;
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                active = false; //aggiorna 'active'
+                utenteButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'utenteButton'
             }
 
             @Override
             public void popupMenuCanceled(PopupMenuEvent e) {
-                active = false;
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                active = false; //aggiorna 'active'
+                utenteButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'utenteButton'
             }
         });
 
@@ -375,14 +375,14 @@ public class Profilo {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                libriButton.setBackground(Color.decode("#cf9e29"));
+                libriButton.setBackground(Color.decode("#cf9e29")); //imposta lo sfondo del JButton 'libriButton'
             }
         });
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                libriButton.setBackground(Color.decode("#FFD369"));
+                libriButton.setBackground(Color.decode("#FFD369")); //imposta lo sfondo del JButton 'libriButton'
             }
         });
 
@@ -390,29 +390,32 @@ public class Profilo {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                homeButton.setBackground(Color.decode("#cf9e29"));
+                homeButton.setBackground(Color.decode("#cf9e29"));  //imposta lo sfondo del JButton 'homeButton'
             }
         });
+
         homeButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                homeButton.setBackground(Color.decode("#FFD369"));
+                homeButton.setBackground(Color.decode("#FFD369"));  //imposta lo sfondo del JButton 'homeButton'
             }
         });
+
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                utenteButton.setBackground(Color.decode("#cf9e29"));
+                utenteButton.setBackground(Color.decode("#cf9e29"));    //imposta lo sfondo del JButton 'utenteButton'
             }
         });
+
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
-                if (active == false){
+                if (active == false){   //controlla se è stato disattivato il menu "Utente"
                     super.mouseExited(e);
-                    utenteButton.setBackground(Color.decode("#FFD369"));
+                    utenteButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'utenteButton'
                 }
             }
         });
@@ -421,14 +424,15 @@ public class Profilo {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                serieButton.setBackground(Color.decode("#cf9e29"));
+                serieButton.setBackground(Color.decode("#cf9e29")); //imposta lo sfondo del JButton 'serieButton'
             }
         });
+
         serieButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                serieButton.setBackground(Color.decode("#FFD369"));
+                serieButton.setBackground(Color.decode("#FFD369")); //imposta lo sfondo del JButton 'serieButton'
             }
         });
 
@@ -436,8 +440,8 @@ public class Profilo {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'bp'
-                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                SeriesPage sp = new SeriesPage(frameC, controller);   //chiama il frame 'sp'
+                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'sp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -447,8 +451,8 @@ public class Profilo {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'bp'
-                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'ip'
+                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'ip'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -458,18 +462,17 @@ public class Profilo {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                fascicoliButton.setBackground(Color.decode("#cf9e29"));
+                fascicoliButton.setBackground(Color.decode("#cf9e29")); //imposta lo sfondo del JButton 'fascicoliButton'
             }
         });
         fascicoliButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                fascicoliButton.setBackground(Color.decode("#FFD369"));
+                fascicoliButton.setBackground(Color.decode("#FFD369")); //imposta lo sfondo del JButton 'fascicoliButton'
             }
         });
 
-        //-------------------------------------------------------------------------------------------------//
 
         modificaButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -484,8 +487,8 @@ public class Profilo {
                 oldPassField.setVisible(true);  //rende visibile il JPasswordLabel 'oldPassField'
                 oldPassNoteLabel.setVisible(true);  //rende visibile la JLabel 'oldPassNoteLabel'
                 passwordField1.setText(""); //imposta il testo del JPasswordField alla stringa vuota
-                showPass.setVisible(true);
-                showPass2.setVisible(true);
+                showPass.setVisible(true);  //rende visibile la JLabel 'showPass'
+                showPass2.setVisible(true); //rende visibile la JLabel 'showPass2'
 
                 usernameField.setEnabled(true); //abilita il JTextField 'usernameField'
                 nameField.setEnabled(true); //abilita il JTextField 'nameField'
@@ -514,17 +517,16 @@ public class Profilo {
                 oldPassLabel.setVisible(false); //rende invisibile la JLabel 'oldPassLabel'
                 oldPassField.setVisible(false); //rende invisibile il JPasswordField 'passwordField'
                 oldPassNoteLabel.setVisible(false); //rende invisibile la JLabel 'oldPassNoteLabel'
-                showPass.setVisible(false);
-                showPass2.setVisible(false);
-                hidePass.setVisible(false);
-                hidePass2.setVisible(false);
-                passLabel2.setVisible(false);
-                passLabel.setVisible(true);
-                passwordField1.setVisible(true);
-                passwordTextField.setVisible(false);
-                oldPassLabel2.setVisible(false);
-                oldPasswordTextField.setVisible(false);
-
+                showPass.setVisible(false); //rende invisibile la JLabel 'showPass'
+                showPass2.setVisible(false);    //rende invisibile la JLabel 'showPass2'
+                hidePass.setVisible(false); //rende invisibile la JLabel 'hidePass'
+                hidePass2.setVisible(false);    //rende invisibile la JLabel 'hidePass2'
+                passLabel2.setVisible(false);   //rende invisibile la JLabel 'passLabel2'
+                passLabel.setVisible(true); //rende visibile la JLabel 'passLabel'
+                passwordField1.setVisible(true);    //rende invisibile il JPasswordField 'passwordField1'
+                passwordTextField.setVisible(false);    //rende invisibile il JTextField 'passwordTextField'
+                oldPassLabel2.setVisible(false);    //rende invisibile la JLabel 'oldPassLabel2'
+                oldPasswordTextField.setVisible(false); //rende invisibile il JTextField 'oldPasswordTextField'
 
                 usernameField.setText(controller.getUsername());    //imposta il testo di 'usernameField' con l'username dell'utente
                 nameField.setText(controller.getNome());    //imposta il testo di 'nameField' con il nome dell'utente
@@ -547,68 +549,67 @@ public class Profilo {
                 String usernameU = usernameField.getText(); //nuovo username modificatao dall'utente
                 String pass1 = new String();
 
-                if(showPass.isVisible() == true){
-                    char[] password1 = passwordField1.getPassword();
-                    pass1 = new String(password1);
-                } else if (hidePass.isVisible() == true) {
-                    pass1 = passwordTextField.getText();
+                if (hidePass.isVisible() == true) { //controlla se 'hidePass' è visibile
+                    pass1 = passwordTextField.getText();    //inserisce il testo del JTextField 'passwordTextField' in 'pass1'
+                }else if(showPass.isVisible() == true){ //controlla se 'showPass' è visibile
+                    char[] password1 = passwordField1.getPassword();    //inserisce il testo del JPasswordField 'passwordField1' in 'password1'
+                    pass1 = new String(password1);  //inserisce il contenuto di 'password1' in 'pass1'
                 }
 
                 char[] password2U = passwordField2.getPassword();   //nuova password ripetuta dall'utente
                 String pass2 = new String(password2U);
                 String partitaIVA = pIVAField.getText();    //nuova partita IVA modificata dall'utente
 
-
-
-                //char[] password3U = oldPassField.getPassword(); //vecchia password inserita dall'utente per meffetuare le modifiche
                 String pass3 = new String();
-                if(showPass2.isVisible() == true){
-                    char[] password2 = oldPassField.getPassword();
-                    pass3 = new String(password2);
-                } else if (hidePass2.isVisible() == true) {
-                    pass3 = oldPasswordTextField.getText();
+
+                if (hidePass2.isVisible() == true) {    //controlla se 'hidePass2' è visibile
+                    pass3 = oldPasswordTextField.getText(); //inserisce il testo del JTextField 'oldPasswordTextField' in 'pass3'
+                }
+                else if(showPass2.isVisible() == true){ //controlla se 'showPass2' è visibile
+                    char[] password2 = oldPassField.getPassword();  //inserisce il testo del JPasswordField 'oldPasswordField1' in 'password2'
+                    pass3 = new String(password2);  //inserisce il contenuto di 'password2' in 'pass3'
                 }
 
-
-                if (!controller.getPassword().equals(pass3)){
-                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La vecchia password non è corretta.");
+                if (!controller.getPassword().equals(pass3)){   //controlla se la vecchia password inserita è giusta
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La vecchia password non è corretta.");   //mostra un messaggio di errore
                 } else {
-                    if(emailU.isBlank() || nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank()){
-                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Non puoi eliminare questi campi!");
+                    if(emailU.isBlank() || nomeU.isBlank() || cognomeU.isBlank() || usernameU.isBlank()){   //controlla se è stato eliminato uno dei campi obbligatori
+                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Non puoi eliminare questi campi!");  //mostra un messaggio di errore
                         usernameField.setText(controller.getUsername());    //imposta il testo di 'usernameField' con l'username dell'utente
                         nameField.setText(controller.getNome());    //imposta il testo di 'nameField' con il nome dell'utente
                         cognomeField.setText(controller.getCognome());  //imposta il testo di 'cognomeField' con il cognome dell'utente
                         emailField.setText(controller.getEmail());  //imposta il testo di 'emailField' con l'email dell'utente
                     } else {
-                        if (usernameField.getText().contains("'") || passwordField1.getText().contains("'") || passwordField2.getText().contains("'")) {
-                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Il carattere \"'\" non è consentito per le Password e l'Username");
+                        if (usernameField.getText().contains("'") || passwordField1.getText().contains("'") || passwordField2.getText().contains("'")) {    //controlla se 'usernameField', ' passwordField1' o 'passwordField2' contiene il carattere "'"
+                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Il carattere \"'\" non è consentito per le Password e l'Username");  //mostra un messaggio di errore
                         } else {
-                            if (controller.verificaEmail(emailU) == false) {
-                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "email non valida!");
+                            if (controller.verificaEmail(emailU) == false) {    //controlla se il formato dell'email iserita non è corretto
+                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "email non valida!"); //mostra un messaggio di errore
                             } else {
-                                emailU = controller.changeEmail(emailU);
-                                if (controller.verificaNomeCognome(nomeU) == false || controller.verificaNomeCognome(cognomeU) == false) {
-                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Il nome o il cognome non sono validi!");
+                                emailU = controller.changeEmail(emailU);    //aggiorna l'email dell'utente
+
+                                if (controller.verificaNomeCognome(nomeU) == false || controller.verificaNomeCognome(cognomeU) == false) {  //controlla se il formato del nome o del cognome iseriti non sono corretti
+                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Il nome o il cognome non sono validi!"); //mostra un messaggio di errore
                                 } else {
-                                    if (controller.verificaPassword(pass1) == false && !pass1.isBlank()) {
-                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La password deve contenere 8 caratteri di cui: una maiuscola, un numero e un carattare speciale");
+                                    if (controller.verificaPassword(pass1) == false && !pass1.isBlank()) {  //controlla se il formato della password iserita non è corretto
+                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La password deve contenere 8 caratteri di cui: una maiuscola, un numero e un carattare speciale");   //mostra un messaggio di errore
                                     } else {
                                         int[] error = controller.validaModUtente(emailU, usernameU, partitaIVA);    //controlla se 'emailU', 'usernameU' e/o 'partitaIVA' sono già stati utilizzati da un altro utente
 
-                                        if (error[0] != 0) {
-                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'email è gia presente nel sistema.");
+                                        if (error[0] != 0) {    //controlla se la nuova email è già stata utilizzata
+                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'email è già stata utilizzata.");   //mostra un messaggio di errore
                                         } else {
-                                            if (error[1] != 0) {
-                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'username è gia stato preso.");
+                                            if (error[1] != 0) {    //controlla se il nuovo username è già stato utilizzato
+                                                NewShowMessageDialog dialog = new NewShowMessageDialog(2, "L'username è già stato utilizzato."); //mostra un messaggio di errore
                                             } else {
-                                                if (error[2] != 0) {
-                                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La Partita IVA è gia presente nel sistema.");
+                                                if (error[2] != 0) {    //controlla se la nuova partita IVA è già stata utilizzata
+                                                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La partita IVA è già stata utilizzata.");    //mostra un messaggio di errore
                                                 } else {
-                                                    if (error[3] != 0) {
-                                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La Partita IVA non è corretta.");
+                                                    if (error[3] != 0) {    //controlla se il formato della partia IVA iserita non è corretto
+                                                        NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La partita IVA non è corretta.");    //mostra un messaggio di errore
                                                     } else {
                                                         if (!pass1.equals(pass2)) {   //controlla se la nuova password è diversa da quella ripetuta
-                                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La nuova password non coincide.");
+                                                            NewShowMessageDialog dialog = new NewShowMessageDialog(2, "La nuova password non coincide.");   //mostra un messaggio di errore
                                                         } else {
                                                             if (error[0] == 0 && error[1] == 0 && error[2] == 0 && error[3] == 0) {//ccontrolla se non ci sono errori
                                                                 modificaButton.setEnabled(true);  //abilita il JButton 'modificaDatiUtenteButton'
@@ -625,26 +626,29 @@ public class Profilo {
                                                                 oldPassLabel.setVisible(false); //rende invisibile la JLabel 'oldPassLabel'
                                                                 oldPassField.setVisible(false); //rende invisibile il JPasswordField 'oldPassField'
                                                                 oldPassNoteLabel.setVisible(false); //rende invisibile la JLabel 'oldPassNoteLabel'
-                                                                showPass.setVisible(false);
-                                                                showPass2.setVisible(false);
-                                                                hidePass.setVisible(false);
-                                                                hidePass2.setVisible(false);
-                                                                passLabel2.setVisible(false);
-                                                                passLabel.setVisible(true);
-                                                                passwordTextField.setVisible(false);
-                                                                passwordField1.setVisible(true);
-                                                                oldPassLabel2.setVisible(false);
-                                                                oldPasswordTextField.setVisible(false);
+                                                                showPass.setVisible(false); //rende invisibile la JLabel 'showPass'
+                                                                showPass2.setVisible(false);    //rende invisibile la JLabel 'showPass2'
+                                                                hidePass.setVisible(false); //rende invisibile la JLabel 'hidePass'
+                                                                hidePass2.setVisible(false);    //rende invisibile la JLabel 'hidePass2'
+                                                                passLabel2.setVisible(false);   //rende invisibile la JLabel 'passLabel2'
+                                                                passLabel.setVisible(true); //rende visibile la JLabel 'passLabel'
+                                                                passwordTextField.setVisible(false);    //rende invisibile il JTextField 'passwordTextField'
+                                                                passwordField1.setVisible(true);    //rende visibile il JPasswordField 'passwordField1'
+                                                                oldPassLabel2.setVisible(false);    //rende invisibile la JLabel 'oldPassLabel2'
+                                                                oldPasswordTextField.setVisible(false); //rende invisibile il JTextField 'oldPasswordTextField'
 
-                                                                nomeU = nomeU.replace("'", "’");
-                                                                cognomeU = cognomeU.replace("'", "’");
+                                                                nomeU = nomeU.replace("'", "’");    //sostutuisce il carattere "'" in 'nomeU' con il carattere "’"
+                                                                cognomeU = cognomeU.replace("'", "’");  //sostutuisce il carattere "'" in 'nomeU' con il carattere "’"
 
-                                                                if (partitaIVA.isBlank()) partitaIVA = null;
+                                                                if (partitaIVA.isBlank()){  //controlla se l'utente ha inserito una partita IVA
+                                                                    partitaIVA = null;  //pone a NULL 'partitaIVA'
+                                                                }
 
-                                                                if (pass1.isBlank())
-                                                                    controller.modUtente(emailU, nomeU, cognomeU, usernameU, controller.getPassword(), partitaIVA); //se la password non è stata modificata, allora modifica i dati del utente usando la password attuale dell'utente
-                                                                else
-                                                                    controller.modUtente(emailU, nomeU, cognomeU, usernameU, pass1, partitaIVA);   //se la password non è stata modificata, allora modifica i dati del utente usando la nuova password
+                                                                if (pass1.isBlank()) {  //controlla se la password non è stata modificata
+                                                                    controller.modUtente(emailU, nomeU, cognomeU, usernameU, controller.getPassword(), partitaIVA); //modifica i dati del utente usando la password attuale dell'utente
+                                                                }else {
+                                                                    controller.modUtente(emailU, nomeU, cognomeU, usernameU, pass1, partitaIVA);   //modifica i dati del utente usando la nuova password
+                                                                }
 
                                                                 usernameField.setText(controller.getUsername());    //imposta il testo di 'usernameField' con l'username dell'utete
                                                                 nameField.setText(controller.getNome());    //imposta il testo di 'nameField' con il nome dell'utente
@@ -656,13 +660,13 @@ public class Profilo {
                                                                 passwordField2.setText(""); //imposta il testo di 'passwordField2' con la stringa vuota
                                                                 oldPassField.setText("");   //imposta il testo di 'oldPassField' con la stringa vuota
 
-                                                                if (controller.getPartitaIva() == null) {   //controlla se la partita IVA dell'utente è nulla
-                                                                    utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
-                                                                    utenteMenu.setPopupSize(new Dimension(controller.screenWidth/16, (int) (controller.screenHeight/14.4)));
-                                                                    controller.librerieUtente.clear();
-                                                                } else {
+                                                                if (controller.getPartitaIva() != null) {   //controlla se la partita IVA dell'utente non è nulla
                                                                     utenteLibrerie.setVisible(true);   //rende invisibile la voce di menu 'utenteLibrerie'
-                                                                    utenteMenu.setPopupSize(new Dimension(controller.screenWidth/16, (int) (controller.screenHeight/9.6)));
+                                                                    utenteMenu.setPopupSize(new Dimension(controller.screenWidth/16, (int) (controller.screenHeight/9.6))); //imposta le dimensioni del menu 'utenteMenu'
+                                                                } else {
+                                                                    utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
+                                                                    utenteMenu.setPopupSize(new Dimension(controller.screenWidth/16, (int) (controller.screenHeight/14.4)));    //imposta le dimensioni del menu 'utenteMenu'
+                                                                    controller.librerieUtente.clear();  //svuota 'controller.librerieUtente'
                                                                 }
                                                             }
                                                         }
@@ -678,65 +682,78 @@ public class Profilo {
                 }
             }
         });
+
         modificaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                modIco = new ImageIcon(modImg);
-                modificaButton.setIcon(modIco);
 
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png")); //carica l'immagine nel percorso /button-type2.png
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
+
+                modIco = new ImageIcon(modImg); //reinizializza l'ImageIcon 'modIco' con l'Image 'modImg'
+                modificaButton.setIcon(modIco); //inizializza il JButton 'modificaButton' con 'modIco'
             }
+
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                modIco = new ImageIcon(modImg);
-                modificaButton.setIcon(modIco);
+
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png")); //carica l'immagine nel percorso /button-type1.png
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
+
+                modIco = new ImageIcon(modImg); //reinizializza l'ImageIcon 'modIco' con l'Image 'modImg'
+                modificaButton.setIcon(modIco); //inizializza il JButton 'modificaButton' con 'modIco'
             }
         });
-
 
         annullaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                modIco = new ImageIcon(modImg);
-                annullaButton.setIcon(modIco);
+
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png")); //carica l'immagine nel percorso /button-type2.png
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
+
+                modIco = new ImageIcon(modImg); //reinizializza l'ImageIcon 'modIco' con l'Image 'modImg'
+                annullaButton.setIcon(modIco);  //inizializza il JButton 'annullaButton' con 'modIco'
 
             }
+
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                modIco = new ImageIcon(modImg);
-                annullaButton.setIcon(modIco);
+
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png")); //carica l'immagine nel percorso /button-type1.png
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
+
+                modIco = new ImageIcon(modImg); //reinizializza l'ImageIcon 'modIco' con l'Image 'modImg'
+                annullaButton.setIcon(modIco);  //inizializza il JButton 'annullaButton' con 'modIco'
             }
         });
-
 
         salvaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png"));
-                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                modIco = new ImageIcon(modImg);
-                salvaButton.setIcon(modIco);
+
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type2.png")); //carica l'immagine nel percorso /button-type2.png
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
+
+                modIco = new ImageIcon(modImg); //reinizializza l'ImageIcon 'modIco' con l'Image 'modImg'
+                salvaButton.setIcon(modIco);    //inizializza il JButton 'salvaButton' con 'modIco'
 
             }
+
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                modIco = new ImageIcon(modImg);
-                salvaButton.setIcon(modIco);
+
+                ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png")); //carica l'immagine nel percorso /button-type1.png
+                Image modImg = modIco.getImage().getScaledInstance((int) (controller.screenWidth/14.2222), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);   //imposta le dimensioni dell'immagine
+
+                modIco = new ImageIcon(modImg); //reinizializza l'ImageIcon 'modIco' con l'Image 'modImg'
+                salvaButton.setIcon(modIco);    //inizializza il JButton 'salvaButton' con 'modIco'
             }
         });
 
@@ -744,40 +761,51 @@ public class Profilo {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e4.png"));
-                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                showPico = new ImageIcon(showPimg);
-                showPass2.setIcon(showPico);
+
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e4.png")); //carica l'immagine nel percorso /e4.png
+                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+                showPico = new ImageIcon(showPimg); //reinizializza l'ImageIcon 'showPico' con l'Image 'showPimg'
+                showPass2.setIcon(showPico);    //imposta l'icona della JLabel 'showPass2' con 'showPimg'
             }
         });
+
         showPass2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png"));
-                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                showPico = new ImageIcon(showPimg);
-                showPass2.setIcon(showPico);
+
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png")); //carica l'immagine nel percorso /e3.png
+                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+                showPico = new ImageIcon(showPimg); //reinizializza l'ImageIcon 'showPico' con l'Image 'showPimg'
+                showPass2.setIcon(showPico);    //imposta l'icona della JLabel 'showPass2' con 'showPico'
             }
         });
+
         hidePass2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e3.png"));
-                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                hidePico = new ImageIcon(hidePimg);
-                hidePass2.setIcon(hidePico);
+
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e3.png")); //carica l'immagine nel percorso /e3.png
+                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+                hidePico = new ImageIcon(hidePimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
+                hidePass2.setIcon(hidePico);    //imposta l'icona della JLabel 'showPass2' con 'hidePico'
             }
         });
+
         hidePass2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png"));
-                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                hidePico = new ImageIcon(hidePimg);
-                hidePass2.setIcon(hidePico);
+
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png")); //carica l'immagine nel percorso /e4.png
+                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+                hidePico = new ImageIcon(hidePimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
+                hidePass2.setIcon(hidePico);    //imposta l'icona della JLabel 'showPass2' con 'hidePico'
             }
         });
 
@@ -785,40 +813,50 @@ public class Profilo {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e4.png"));
-                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                showPico = new ImageIcon(showPimg);
-                showPass.setIcon(showPico);
+
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e4.png")); //carica l'immagine nel percorso /e4.png
+                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+                showPico = new ImageIcon(showPimg); //reinizializza l'ImageIcon 'showPico' con l'Image 'showPimg'
+                showPass.setIcon(showPico); //imposta l'icona della JLabel 'showPass' con 'showPico'
             }
         });
+
         showPass.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png"));
-                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                showPico = new ImageIcon(showPimg);
-                showPass.setIcon(showPico);
+
+                ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png")); //carica l'immagine nel percorso /e3.png
+                Image showPimg = showPico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+                showPico = new ImageIcon(showPimg); //reinizializza l'ImageIcon 'showPico' con l'Image 'showPimg'
+                showPass.setIcon(showPico); //imposta l'icona della JLabel 'showPass' con 'showPico'
             }
         });
         hidePass.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e3.png"));
-                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                hidePico = new ImageIcon(hidePimg);
-                hidePass.setIcon(hidePico);
+
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e3.png")); //carica l'immagine nel percorso /e3.png
+                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+                hidePico = new ImageIcon(hidePimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
+                hidePass.setIcon(hidePico); //imposta l'icona della JLabel 'hidePass' con 'hidePico'
             }
         });
+
         hidePass.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png"));
-                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-                hidePico = new ImageIcon(hidePimg);
-                hidePass.setIcon(hidePico);
+
+                ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png")); //carica l'immagine nel percorso /e4.png
+                Image hidePimg = hidePico.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+                hidePico = new ImageIcon(hidePimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
+                hidePass.setIcon(hidePico); //imposta l'icona della JLabel 'hidePass' con 'hidePico'
             }
         });
 
@@ -826,6 +864,7 @@ public class Profilo {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+
                 passwordField1.setVisible(false);
                 showPass.setVisible(false);
                 passLabel.setVisible(false);
@@ -835,10 +874,12 @@ public class Profilo {
                 passwordTextField.setText(new String(passwordField1.getPassword()));
             }
         });
+
         hidePass.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+
                 passwordTextField.setVisible(false);
                 hidePass.setVisible(false);
                 passwordField1.setVisible(true);
@@ -850,11 +891,11 @@ public class Profilo {
             }
         });
 
-
         showPass2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+
                 oldPassField.setVisible(false);
                 showPass2.setVisible(false);
                 oldPassLabel.setVisible(false);
@@ -864,10 +905,12 @@ public class Profilo {
                 oldPasswordTextField.setText(new String(oldPassField.getPassword()));
             }
         });
+
         hidePass2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+
                 oldPasswordTextField.setVisible(false);
                 hidePass2.setVisible(false);
                 oldPassField.setVisible(true);
@@ -940,7 +983,6 @@ public class Profilo {
         notificheScrollPanel.setBorder(BorderFactory.createEmptyBorder());
         notificheScrollPanel.getViewport().setBackground(new Color(0x222831));
 
-
         notificheTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -948,10 +990,12 @@ public class Profilo {
                     row_selected = notificheTable.rowAtPoint(e.getPoint());
                     notificheTable.setRowSelectionInterval(row_selected, row_selected);
 
-
                     if (controller.getLetturaNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString()) == true){
                         tabellaVisualizzata.setVisible(false);
-                    } else tabellaVisualizzata.setVisible(true);
+                    } else {
+                        tabellaVisualizzata.setVisible(true);
+                    }
+
                     tabellaMenu.show(notificheTable, e.getX(), e.getY());
                 }
             }
@@ -961,6 +1005,7 @@ public class Profilo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int comferma = 0;
+
                 comferma = new NewComfirmMessageDialog().comfirmDialog("Vuoi davvero eliminare questa notifica?");
 
                 if(comferma == 1){
@@ -977,6 +1022,7 @@ public class Profilo {
                 controller.visualizzaNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString());
                 setNumeroNotifiche(controller);
                 model.setRowCount(0);
+
                 if (controller.listaNotifiche != null) {
                     for (int i = 0; i < controller.listaNotifiche.size(); i++) {
                         model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});

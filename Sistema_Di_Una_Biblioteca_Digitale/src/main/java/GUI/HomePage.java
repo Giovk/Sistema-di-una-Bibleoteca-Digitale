@@ -121,7 +121,6 @@ public class HomePage {
             }
 
             private Image getAppropriateIcon(int orientation){
-
                 switch(orientation){
                     case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
                     case SwingConstants.NORTH: return uA;   //restituisce 'uA'
@@ -683,8 +682,8 @@ public class HomePage {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            if(searchBarField.getText().contains("'")) {    //controlla se è stato inserito il carattere ''' nella barra di ricerca
-                searchBarField.setText(searchBarField.getText().replace("'", "’")); //sostutuisce il carattere ''' nella barra di ricerca con il carattere '’'
+            if(searchBarField.getText().contains("'")) {    //controlla se è stato inserito il carattere "'" nella barra di ricerca
+                searchBarField.setText(searchBarField.getText().replace("'", "’")); //sostutuisce il carattere "'" nella barra di ricerca con il carattere "’"
             }
 
             if (controller.libriTitoloPreferiti != null && controller.possessolPreferiti != null && controller.librerieLibriPreferiti != null) {    //controlla se 'controller.libriTitoloPreferiti', 'controller.possessolPreferiti' e 'controller.librerieLibriPreferiti' non sono a null
