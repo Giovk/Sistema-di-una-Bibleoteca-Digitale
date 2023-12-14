@@ -225,14 +225,14 @@ public class Profilo {
 
         tabellaMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
 
-        JMenuItem tabellaElimina = new JMenuItem("Elimina");//crea la voce del menu "Logout"
+        JMenuItem tabellaElimina = new JMenuItem("Elimina");//crea la voce del menu "Elimina"
 
         tabellaElimina.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'tabellaElimina'
         tabellaElimina.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'tabellaElimina'
         tabellaElimina.setFont(controller.baseFontSize);    //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'tabellaElimina'
         tabellaElimina.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'tabellaElimina'
 
-        JMenuItem tabellaVisualizzata = new JMenuItem("Notifica Visualizzata"); //crea la voce del menu "Profilo"
+        JMenuItem tabellaVisualizzata = new JMenuItem("Notifica Visualizzata"); //crea la voce del menu "Notifica Visualizzata"
 
         tabellaVisualizzata.setBackground(new Color(0xFFD369)); //imposta il colore dello sfondo del JMenuItem 'tabellaVisualizzata'
         tabellaVisualizzata.setFocusPainted(false); //imposta il colore dello sfondo del JMenuItem 'tabellaVisualizzata'
@@ -865,13 +865,13 @@ public class Profilo {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
 
-                passwordField1.setVisible(false);
-                showPass.setVisible(false);
-                passLabel.setVisible(false);
-                passLabel2.setVisible(true);
-                passwordTextField.setVisible(true);
-                hidePass.setVisible(true);
-                passwordTextField.setText(new String(passwordField1.getPassword()));
+                passwordField1.setVisible(false);   //rende invisibile la JLabel 'passwordField1'
+                showPass.setVisible(false); //rende invisibile la JLabel 'showPass'
+                passLabel.setVisible(false);    //rende invisibile la JLabel 'passLabel'
+                passLabel2.setVisible(true);    //rende visibile la JLabel 'passLabel2'
+                passwordTextField.setVisible(true); //rende visibile la JTextField 'passwordTextField'
+                hidePass.setVisible(true);  //rende visibile la JLabel 'hidePass'
+                passwordTextField.setText(new String(passwordField1.getPassword()));    //imposta il testo di 'passwordTextField' con la password dell'utente
             }
         });
 
@@ -880,13 +880,13 @@ public class Profilo {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
 
-                passwordTextField.setVisible(false);
-                hidePass.setVisible(false);
-                passwordField1.setVisible(true);
-                showPass.setVisible(true);
-                passwordField1.setText(passwordTextField.getText());
-                passLabel.setVisible(true);
-                passLabel2.setVisible(false);
+                passwordTextField.setVisible(false);    //rende visibile il JTextField 'passwordTextField'
+                hidePass.setVisible(false); //rende visibile la JLabel 'hidePass'
+                passwordField1.setVisible(true);    //rende visibile il JPasswordField 'passwordField1'
+                showPass.setVisible(true);  //rende visibile la JLabel 'showPass'
+                passwordField1.setText(passwordTextField.getText());    //imposta il testo di 'passwordField1' con la password dell'utente
+                passLabel.setVisible(true); //rende visibile la JLabel 'passLabel'
+                passLabel2.setVisible(false);   //rende visibile la JLabel 'passLabel2'
 
             }
         });
@@ -896,13 +896,13 @@ public class Profilo {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
 
-                oldPassField.setVisible(false);
-                showPass2.setVisible(false);
-                oldPassLabel.setVisible(false);
-                oldPassLabel2.setVisible(true);
-                oldPasswordTextField.setVisible(true);
-                hidePass2.setVisible(true);
-                oldPasswordTextField.setText(new String(oldPassField.getPassword()));
+                oldPassField.setVisible(false); //rende invisibile il JPasswordField 'oldPassField'
+                showPass2.setVisible(false);    //rende invisibile la JLabel 'showPass2'
+                oldPassLabel.setVisible(false); //rende invisibile la JLabel 'oldPassLabel'
+                oldPassLabel2.setVisible(true); //rende visibile la JLabel 'oldPassLabel2'
+                oldPasswordTextField.setVisible(true);  //rende visibile il JTextField 'oldPasswordTextField'
+                hidePass2.setVisible(true); //rende visibile la JLabel 'hidePass2'
+                oldPasswordTextField.setText(new String(oldPassField.getPassword()));   //imposta il testo di 'oldPasswordTextField'
             }
         });
 
@@ -911,36 +911,38 @@ public class Profilo {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
 
-                oldPasswordTextField.setVisible(false);
-                hidePass2.setVisible(false);
-                oldPassField.setVisible(true);
-                showPass2.setVisible(true);
+                oldPasswordTextField.setVisible(false); //rende invisibile il JTextField 'oldPasswordTextField'
+                hidePass2.setVisible(false);    //rende invisibile la JLabel 'hidePass2'
+                oldPassField.setVisible(true);  //rende visibile il JPasswordField 'oldPassField'
+                showPass2.setVisible(true); //rende visibile la JLabel 'showPass2'
                 oldPassField.setText(oldPasswordTextField.getText());
-                oldPassLabel.setVisible(true);
-                oldPassLabel2.setVisible(false);
+                oldPassLabel.setVisible(true);  //rende visibile la JLabel 'oldPassLabel'
+                oldPassLabel2.setVisible(false);    //rende invisibile la JLabel 'oldPassLabel2'
             }
         });
 
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
+        numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
 
-        setNumeroNotifiche(controller);
+        setNumeroNotifiche(controller); //inizializza il testo della JLabel 'notificheLabel'
 
         Timer timer = new Timer(60000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setNumeroNotifiche(controller);
-                controller.getNotificheUtente();
-                model.setRowCount(0);
-                if (controller.listaNotifiche != null) {
-                    for (int i = 0; i < controller.listaNotifiche.size(); i++) {
-                        model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});
+                setNumeroNotifiche(controller); //inizializza il testo della JLabel 'notificheLabel'
+                controller.getNotificheUtente();    //inizializza 'controller.listaNotifiche'
+                model.setRowCount(0);   //rimuove tutte le righe della tabella
+
+                if (controller.listaNotifiche != null) {    //controlla se 'controller.listaNotifiche' non è vuota
+                    for (int i = 0; i < controller.listaNotifiche.size(); i++) {    //scorre 'controller.listaNotifiche'
+                        model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});  //aggiunge una nuova riga nella tabella
                     }
                 }
             }
         });
 
-        timer.start();
-        timer.setRepeats(true);
+        timer.start();  //avvia il timer
+        timer.setRepeats(true); //fa ripetere il timer dopo che è scaduto
+
         model = new DefaultTableModel(new Object[][]{}, new String[]{"Testo", "Data", "Ora"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -948,55 +950,56 @@ public class Profilo {
             }
         };
 
-        // Renderer personalizzato per l'header della tabella
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(0xCF9E29));
-        headerRenderer.setForeground(new Color(0xEEEEEE));
-        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        Font headerFont = new Font("Impact", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
-        headerRenderer.setFont(headerFont);
-        JTableHeader tableHeader = notificheTable.getTableHeader();
-        tableHeader.setDefaultRenderer(headerRenderer);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();   //DefaultTableCellRenderer per la formattazione dell'header della tabella
 
-        // Impedire il ridimensionamento delle colonne
-        notificheTable.getTableHeader().setResizingAllowed(false);
+        headerRenderer.setBackground(new Color(0xCF9E29));  //imposta il colore dello sfondo dell'header della tabella
+        headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);   //centra orizzontalmente il contenuto dell'header della tabella
 
-        // Impedire il riordinamento delle colonne
-        notificheTable.getTableHeader().setReorderingAllowed(false);
+        Font headerFont = new Font("Impact", Font.PLAIN, 15);   //inizializza il font Bebas Neue, grandezza 15 e stile Regular per i caratteri della tabella
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader.setBorder(null);
+        headerRenderer.setFont(headerFont); //imposta il font del contenuto delle celle della tabella a 'headerFont'
 
-        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));
+        JTableHeader tableHeader = notificheTable.getTableHeader(); //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'notificheTable'
 
-        if (controller.listaNotifiche != null) {
-            for (int i = 0; i < controller.listaNotifiche.size(); i++) {
-                model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});
+        tableHeader.setDefaultRenderer(headerRenderer); //imposta il render di default della tabella a 'headerRender'
+
+        notificheTable.getTableHeader().setResizingAllowed(false);  //impedisce il ridimensionamento delle colonne
+
+        notificheTable.getTableHeader().setReorderingAllowed(false);    //impedisce il riordinamento delle colonne
+
+        tableHeader.setBorder(null);    //rimuove il bordo dell'header della tabella
+
+        tableHeader.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader.getDefaultRenderer()));  //imposta il render di default della tabella
+
+        if (controller.listaNotifiche != null) {    //controlla se 'controller.listaNotifiche' non è vuota
+            for (int i = 0; i < controller.listaNotifiche.size(); i++) {    //scorre 'controller.listaNotifiche'
+                model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});  //aggiunge una nuova riga nella tabella
             }
         }
 
-        notificheTable.setModel(model); //imposta il modello dei dati della JTable 'booksTable'
+        notificheTable.setModel(model); //imposta il modello dei dati della JTable 'notificheTable'
 
-        notificheTable.getColumnModel().getColumn(0).setCellRenderer(new MultiLineTableCellRenderer());
+        notificheTable.getColumnModel().getColumn(0).setCellRenderer(new MultiLineTableCellRenderer()); //imposta la visualizzazione su più righe del contenuto della colonna 0 di 'notificheTable'
 
-        notificheScrollPanel.setBackground(new Color(0x222831));
-        notificheScrollPanel.setBorder(BorderFactory.createEmptyBorder());
-        notificheScrollPanel.getViewport().setBackground(new Color(0x222831));
+        notificheScrollPanel.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPane 'notificheScrollPanel'
+        notificheScrollPanel.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'notificheScrollPanel'
+        notificheScrollPanel.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'notificheScrollPanel'
 
         notificheTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(e.getButton() == MouseEvent.BUTTON3){
-                    row_selected = notificheTable.rowAtPoint(e.getPoint());
-                    notificheTable.setRowSelectionInterval(row_selected, row_selected);
+                if(e.getButton() == MouseEvent.BUTTON3){    //controlla se è stato cliccato con il tasto destro del mouse la JTable 'notificheTable'
+                    row_selected = notificheTable.rowAtPoint(e.getPoint()); //inizializza 'row_selected' con l'indice della riga nel punto cliccato
+                    notificheTable.setRowSelectionInterval(row_selected, row_selected); //seleziona la riga con indice 'row_selected'
 
-                    if (controller.getLetturaNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString()) == true){
-                        tabellaVisualizzata.setVisible(false);
+                    if (controller.getLetturaNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString()) == true){    //controlla se la notifica selezionata  stata letta dall'utente
+                        tabellaVisualizzata.setVisible(false);  //rende invisibile il menu 'tabellaVisualizzata'
                     } else {
-                        tabellaVisualizzata.setVisible(true);
+                        tabellaVisualizzata.setVisible(true);   //rende visibile il menu 'tabellaVisualizzata'
                     }
 
-                    tabellaMenu.show(notificheTable, e.getX(), e.getY());
+                    tabellaMenu.show(notificheTable, e.getX(), e.getY());   //mostra le voci del menu 'tabellaMenu'
                 }
             }
         });
@@ -1004,14 +1007,14 @@ public class Profilo {
         tabellaElimina.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int comferma = 0;
+                int comferma = 0;   //flag di conferma dell'utente
 
-                comferma = new NewComfirmMessageDialog().comfirmDialog("Vuoi davvero eliminare questa notifica?");
+                comferma = new NewComfirmMessageDialog().comfirmDialog("Vuoi davvero eliminare questa notifica?");  //mostra un messaggio di conferma e aggiorna 'conferma'
 
-                if(comferma == 1){
-                    controller.rimuoviNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString());
-                    model.removeRow(row_selected);
-                    setNumeroNotifiche(controller);
+                if(comferma == 1){  //controlla la conferma dell'utente
+                    controller.rimuoviNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString());    //elimina la notifica selezionata
+                    model.removeRow(row_selected);  //rimuove la riga selezionata dalla tabella
+                    setNumeroNotifiche(controller); //inizializza il testo della JLabel 'notificheLabel'
                 }
             }
         });
@@ -1019,89 +1022,97 @@ public class Profilo {
         tabellaVisualizzata.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.visualizzaNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString());
-                setNumeroNotifiche(controller);
-                model.setRowCount(0);
+                controller.visualizzaNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString()); //pone a TRUE il campo "lettura" della notifica selezionata
+                setNumeroNotifiche(controller); //inizializza il testo della JLabel 'notificheLabel'
+                model.setRowCount(0);   //rimuove tutte le righe della tabella
 
-                if (controller.listaNotifiche != null) {
-                    for (int i = 0; i < controller.listaNotifiche.size(); i++) {
-                        model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});
+                if (controller.listaNotifiche != null) {    //controlla se 'controller.listaNotifiche' non è vuota
+                    for (int i = 0; i < controller.listaNotifiche.size(); i++) {    //scorre 'controller.listaNotifiche'
+                        model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});  //aggiunge una nuova riga nella tabella
                     }
                 }
             }
         });
     }
 
-    private void setNumeroNotifiche(Controller controller){
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
+    private void setNumeroNotifiche(Controller controller){ //aggiorna il testo della JLabel 'notificheLabel' con in base al numero di notifiche dell'utente non lette
+        numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
 
-        if(numeroNotifiche < 100 && numeroNotifiche > 0){
-            notificheLabel.setVisible(true);
-            String numeroNotificheText = Integer.toString(numeroNotifiche);
-            notificheLabel.setText(numeroNotificheText);
-        }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");
-        else {
-            notificheLabel.setVisible(false);
+        if (numeroNotifiche <= 0){  //controlla se non ci sono notifiche non lette
+            notificheLabel.setVisible(false);   //rende invisibile la JLabel 'notificheLabel'
+        }else if (numeroNotifiche >= 100) { //controlla se ci sono almeno 100 notifiche non lette
+            notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
+            notificheLabel.setText("99+");  //imposta il testo della JLabel 'notificheLabel'
+        }else{
+            notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
+
+            String numeroNotificheText = Integer.toString(numeroNotifiche); //inizializza numeroNotificheText con 'numeroNotifiche'
+
+            notificheLabel.setText(numeroNotificheText);    //imposta il testo della JLabel 'notificheLabel' con 'numeroNotificheText'
         }
-    }
+    }//fine setNumeroNotifiche
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //dimensioni dello schermo
+        int screenWidth = screenSize.width; //larghezza dello schermo
+        int screenHeight = screenSize.height;   //altezza dello schermo
 
-        usernameField = new JTextField();
-        usernameField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
-        cognomeField = new JTextField();
-        cognomeField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
-        nameField = new JTextField();
-        nameField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
-        emailField = new JTextField();
-        emailField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
-        pIVAField = new JTextField();
-        pIVAField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
-        passwordTextField = new JTextField();
-        passwordTextField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
-        oldPasswordTextField = new JTextField();
-        oldPasswordTextField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
-        oldPassField = new JPasswordField();
-        oldPassField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
-        passwordField1 = new JPasswordField();
-        passwordField1.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
-        passwordField2 = new JPasswordField();
-        passwordField2.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));
+        usernameField = new JTextField();   //inizializza il JTextField 'usernameField'
+        usernameField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));   //imposta il colore del bordo del JTextField 'usernameField'
+        cognomeField = new JTextField();    //inizializza il JTextField 'cognomeField'
+        cognomeField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JTextField 'cognomeField'
+        nameField = new JTextField();   //inizializza il JTextField 'nameField'
+        nameField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));   //imposta il colore del bordo del JTextField 'nameField'
+        emailField = new JTextField();  //inizializza il JTextField 'emailField'
+        emailField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JTextField 'emailField'
+        pIVAField = new JTextField();   //inizializza il JTextField 'pIVAField'
+        pIVAField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));   //imposta il colore del bordo del JTextField 'pIVAField'
+        passwordTextField = new JTextField();   //inizializza il JTextField 'passwordTextField'
+        passwordTextField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));   //imposta il colore del bordo del JTextField 'passwordTextField'
+        oldPasswordTextField = new JTextField();    //inizializza il JTextField 'oldPasswordTextField'
+        oldPasswordTextField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JTextField 'oldPasswordTextField'
+        oldPassField = new JPasswordField();    //inizializza il JPasswordField 'oldPassField'
+        oldPassField.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));    //imposta il colore del bordo del JPasswordField 'oldPassField'
+        passwordField1 = new JPasswordField();  //inizializza il JPasswordField 'passwordField1'
+        passwordField1.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JPasswordField 'passwordField1'
+        passwordField2 = new JPasswordField();  //inizializza il JPasswordField 'passwordField2'
+        passwordField2.setBorder(BorderFactory.createLineBorder(new Color(0xFFD369)));  //imposta il colore del bordo del JPasswordField 'passwordField2'
 
-        ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png"));
-        Image showPimg = showPico.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        showPico = new ImageIcon(showPimg);
-        showPass = new JLabel(showPico);
-        showPass2 = new JLabel(showPico);
+        ImageIcon showPico = new ImageIcon(this.getClass().getResource("/e3.png")); //carica l'immagine nel percorso /e3.png
+        Image showPimg = showPico.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
-        ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png"));
-        Image hidePimg = hidePico.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        hidePico = new ImageIcon(hidePimg);
-        hidePass = new JLabel(hidePico);
-        hidePass2 = new JLabel(hidePico);
+        showPico = new ImageIcon(showPimg); //reinizializza l'ImageIcon 'showPico' con l'Image 'showPimg'
+        showPass = new JLabel(showPico);    //inizializza la JLabel 'closeBT' con 'showPico'
+        showPass2 = new JLabel(showPico);   //inizializza la JLabel 'closeBT' con 'showPico'
 
-        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine);
-        closeBT = new JLabel(closeImg);
+        ImageIcon hidePico = new ImageIcon(this.getClass().getResource("/e4.png")); //carica l'immagine nel percorso /e4.png
+        Image hidePimg = hidePico.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
+        hidePico = new ImageIcon(hidePimg); //reinizializza l'ImageIcon 'hidePico' con l'Image 'hidePimg'
+        hidePass = new JLabel(hidePico);    //inizializza la JLabel 'hidePass' con 'hidePico'
+        hidePass2 = new JLabel(hidePico);   //inizializza la JLabel 'hidePass2' con 'hidePico'
 
-        ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png"));
-        Image modImg = modIco.getImage().getScaledInstance((int) (screenWidth/14.2222), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        modIco = new ImageIcon(modImg);
-        modificaButton = new JButton(modIco);
-        annullaButton = new JButton(modIco);
-        salvaButton = new JButton(modIco);
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));  //carica l'immagine nel percorso /close.png
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
-        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
-        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        notificaIco = new ImageIcon(notificaImg);
+        closeImg = new ImageIcon(imagine);  //reinizializza l'ImageIcon 'closeImg' con l'Image 'imagine'
+        closeBT = new JLabel(closeImg); //inizializza la JLabel 'closeBT' con 'closeImg'
+
+        ImageIcon modIco = new ImageIcon(this.getClass().getResource("/button-type1.png")); //carica l'immagine nel percorso /button-type1.png
+        Image modImg = modIco.getImage().getScaledInstance((int) (screenWidth/14.2222), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
+
+        modIco = new ImageIcon(modImg); //reinizializza l'ImageIcon 'modIco' con l'Image 'modImg'
+        modificaButton = new JButton(modIco);   //inizializza la JButton 'modificaButton' con 'modIco'
+        annullaButton = new JButton(modIco);    //inizializza la JButton 'annullaButton' con 'modIco'
+        salvaButton = new JButton(modIco);  //inizializza la JLabel 'salvaButton' con 'modIco'
+
+        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));    //carica l'immagine nel percorso /button-type1.png
+        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+        notificaIco = new ImageIcon(notificaImg);   //reinizializza l'ImageIcon 'notificaIco' con l'Image 'notificaImg'
 
         notificheLabel = new JLabel();
-        notificheLabel.setIcon(notificaIco);
+        notificheLabel.setIcon(notificaIco);    //imposta l'icona della JLabel 'notificheLabel' con l'immagine 'notificaIco'
     }
 }
