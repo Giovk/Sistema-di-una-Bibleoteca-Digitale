@@ -5,7 +5,6 @@ import Controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
 public class Recensione extends JDialog {
@@ -35,16 +34,19 @@ public class Recensione extends JDialog {
     int numero;
 
     public Recensione(JFrame frameC, Controller controller, JLabel valutazioneC, JLabel s1, JLabel s2, JLabel s3, JLabel s4, JLabel s5, JPanel commenti,int elemento) {
-       if(controller.isbn_selected != null) isbn_selezionato = controller.isbn_selected;
-       if(controller.fascicolo_selected != null){
-           titolo = controller.fascicolo_selected.rivista.titolo;
-           numero = controller.fascicolo_selected.numero;
-       }
+        if(controller.isbn_selected != null){
+            isbn_selezionato = controller.isbn_selected;
+        }
 
-       valutazioneLabel.setFont(controller.baseFontSize);
-       editorPane1.setFont(controller.baseFontSize);
-       editorPane1.setPreferredSize(new Dimension((int) (controller.screenWidth/8.5333), (int) (controller.screenHeight/7.2)));
-       button1.setFont(controller.baseFontSize);
+        if(controller.fascicolo_selected != null){
+            titolo = controller.fascicolo_selected.rivista.titolo;
+            numero = controller.fascicolo_selected.numero;
+        }
+
+        valutazioneLabel.setFont(controller.baseFontSize);
+        editorPane1.setFont(controller.baseFontSize);
+        editorPane1.setPreferredSize(new Dimension((int) (controller.screenWidth/8.5333), (int) (controller.screenHeight/7.2)));
+        button1.setFont(controller.baseFontSize);
 
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true);
@@ -78,115 +80,126 @@ public class Recensione extends JDialog {
         stella5.setIcon(stellaVuotaIco);
 
 
-            stella1.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    super.mouseEntered(e);
-                    if (active == false) {
-                        stella1.setIcon(stellaPienaIco);
-                    }
+        stella1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+
+                if (active == false) {
+                    stella1.setIcon(stellaPienaIco);
                 }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    super.mouseExited(e);
-                    if (active == false) {
-                        stella1.setIcon(stellaVuotaIco);
-                    }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+
+                if (active == false) {
+                    stella1.setIcon(stellaVuotaIco);
                 }
-            });
+            }
+        });
 
-            stella2.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    super.mouseEntered(e);
-                    if(active == false) {
-                        stella1.setIcon(stellaPienaIco);
-                        stella2.setIcon(stellaPienaIco);
-                    }
+        stella2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+
+                if(active == false) {
+                    stella1.setIcon(stellaPienaIco);
+                    stella2.setIcon(stellaPienaIco);
                 }
+            }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    super.mouseExited(e);
-                    if (active == false) {
-                        stella1.setIcon(stellaVuotaIco);
-                        stella2.setIcon(stellaVuotaIco);
-                    }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+
+                if (active == false) {
+                    stella1.setIcon(stellaVuotaIco);
+                    stella2.setIcon(stellaVuotaIco);
                 }
-            });
+            }
+        });
 
-            stella3.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    super.mouseEntered(e);
-                    if (active == false) {
-                        stella1.setIcon(stellaPienaIco);
-                        stella2.setIcon(stellaPienaIco);
-                        stella3.setIcon(stellaPienaIco);
-                    }
+        stella3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+
+                if (active == false) {
+                    stella1.setIcon(stellaPienaIco);
+                    stella2.setIcon(stellaPienaIco);
+                    stella3.setIcon(stellaPienaIco);
                 }
+            }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    super.mouseExited(e);
-                    if (active == false) {
-                        stella1.setIcon(stellaVuotaIco);
-                        stella2.setIcon(stellaVuotaIco);
-                        stella3.setIcon(stellaVuotaIco);
-                    }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+
+                if (active == false) {
+                    stella1.setIcon(stellaVuotaIco);
+                    stella2.setIcon(stellaVuotaIco);
+                    stella3.setIcon(stellaVuotaIco);
                 }
-            });
+            }
+        });
 
-            stella4.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseEntered (MouseEvent e) {
-                        super.mouseEntered(e);
-                        if (active == false) {
-                            stella1.setIcon(stellaPienaIco);
-                            stella2.setIcon(stellaPienaIco);
-                            stella3.setIcon(stellaPienaIco);
-                            stella4.setIcon(stellaPienaIco);
-                        }
-                    }
+        stella4.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered (MouseEvent e) {
+                super.mouseEntered(e);
 
-                    @Override
-                    public void mouseExited (MouseEvent e){
-                    super.mouseExited(e);
-                    if(active == false) {
-                        stella1.setIcon(stellaVuotaIco);
-                        stella2.setIcon(stellaVuotaIco);
-                        stella3.setIcon(stellaVuotaIco);
-                        stella4.setIcon(stellaVuotaIco);
-                    }
-                 }
-            });
+                if (active == false) {
+                    stella1.setIcon(stellaPienaIco);
+                    stella2.setIcon(stellaPienaIco);
+                    stella3.setIcon(stellaPienaIco);
+                    stella4.setIcon(stellaPienaIco);
+                }
+            }
 
-            stella5.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    super.mouseEntered(e);
-                    if(active == false){
+            @Override
+            public void mouseExited (MouseEvent e){
+                super.mouseExited(e);
+
+                if(active == false) {
+                    stella1.setIcon(stellaVuotaIco);
+                    stella2.setIcon(stellaVuotaIco);
+                    stella3.setIcon(stellaVuotaIco);
+                    stella4.setIcon(stellaVuotaIco);
+                }
+            }
+        });
+
+        stella5.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+
+                if(active == false){
                     stella1.setIcon(stellaPienaIco);
                     stella2.setIcon(stellaPienaIco);
                     stella3.setIcon(stellaPienaIco);
                     stella4.setIcon(stellaPienaIco);
                     stella5.setIcon(stellaPienaIco);
-                    }
                 }
+            }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    super.mouseExited(e);
-                    if(active == false) {
-                        stella1.setIcon(stellaVuotaIco);
-                        stella2.setIcon(stellaVuotaIco);
-                        stella3.setIcon(stellaVuotaIco);
-                        stella4.setIcon(stellaVuotaIco);
-                        stella5.setIcon(stellaVuotaIco);
-                    }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+
+                if(active == false) {
+                    stella1.setIcon(stellaVuotaIco);
+                    stella2.setIcon(stellaVuotaIco);
+                    stella3.setIcon(stellaVuotaIco);
+                    stella4.setIcon(stellaVuotaIco);
+                    stella5.setIcon(stellaVuotaIco);
                 }
-            });
+            }
+        });
 
 
         stella1.addMouseListener(new MouseAdapter() {
@@ -304,8 +317,7 @@ public class Recensione extends JDialog {
                                 commenti.revalidate();
                             }
                         });
-
-
+                        
                         frame.setVisible(false);
                         frameC.setEnabled(true);
                         frame.dispose();
