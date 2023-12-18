@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
 public class NewComfirmMessageDialog extends JDialog {
     private JPanel contentPane;
     private JLabel typeLabel;

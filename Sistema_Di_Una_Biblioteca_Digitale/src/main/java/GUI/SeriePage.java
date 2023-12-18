@@ -1,8 +1,6 @@
 package GUI;
 
 import Controller.Controller;
-import Model.Libro;
-import Model.Presentazione;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -15,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -59,8 +56,7 @@ public class SeriePage {
     private float valutazioneMedia;
     private String isbn_selezionato;
     private int numeroNotifiche;
-
-
+    
     public SeriePage (JFrame frameC, Controller controller) {
         isbn_selezionato = controller.isbn_selected;
 
