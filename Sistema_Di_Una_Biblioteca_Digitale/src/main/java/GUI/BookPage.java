@@ -136,7 +136,7 @@ public class BookPage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'increaseButton'
 
                     }
                 };
@@ -379,7 +379,7 @@ public class BookPage {
                     likeButton.setIcon(favouriteVuotoIco);  //imposta l'icona della JLabel 'likeButton' con l'immagine 'favouriteVuotoIco'
                 }
 
-                controller.changeLikeLibro();    //aggiorna il valore di 'controller.likeLibroSelected' e aggiorna il contenuto del DB
+                controller.changeLikeLibro();    //aggiorna il valore di 'likeElementSelected' e aggiorna il contenuto del DB
             }
         });
 

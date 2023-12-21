@@ -54,63 +54,62 @@ public class SeriePage {
     ImageIcon favouriteVuotoIco;
     ImageIcon favouritePienoIco;
     private float valutazioneMedia;
-    private String isbn_selezionato;
+    private String isbnSelezionato;
     private int numeroNotifiche;
     
     public SeriePage (JFrame frameC, Controller controller) {
-        isbn_selezionato = controller.isbn_selected;
+        isbnSelezionato = controller.isbn_selected;     //inizializza 'isbnSelezionato' con l'ISBN della serie selezionata
 
-        homeButton.setFont(controller.baseFontSize);
-        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        libriButton.setFont(controller.baseFontSize);
-        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        fascicoliButton.setFont(controller.baseFontSize);
-        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        serieButton.setFont(controller.baseFontSize);
-        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
-        utenteButton.setFont(controller.baseFontSize);
-        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));
+        homeButton.setFont(controller.baseFontSize);    //imposta il font del JButton 'homeButton'
+        homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight())); //imposta la dimensione minima del JButton 'homeButton'
+        libriButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'libriButton'
+        libriButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'libriButton'
+        fascicoliButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'fascicoliButton'
+        fascicoliButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'fascicoliButton'
+        serieButton.setFont(controller.baseFontSize);   //imposta il font del JButton 'serieButton'
+        serieButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));    //imposta la dimensione minima del JButton 'serieButton'
+        utenteButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'utenteButton'
+        utenteButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight()));   //imposta la dimensione minima del JButton 'utenteButton'
 
-        nomeIsbn.setFont(controller.baseFontSize);
-        valutaButton.setFont(controller.baseFontSize);
+        nomeIsbn.setFont(controller.baseFontSize);  //imposta il font della JLabel 'nomeIsbn'
+        valutaButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'valutaButton'
 
+        disponibilitaCheckBox.setFont(controller.baseFontSize); //imposta il font del del JCheckBox 'disponibilitaCheckBox'
+        presentazioniCheckBox.setFont(controller.baseFontSize); //imposta il font del del JCheckBox 'presentazioniCheckBox'
 
-        disponibilitaCheckBox.setFont(controller.baseFontSize);
-        presentazioniCheckBox.setFont(controller.baseFontSize);
+        table1.setFont(controller.impactFontSize);  //imposta il font della JTable 'table1'
+        table1.setRowMargin(controller.screenWidth/640);    //imposta il margine tra le celle della JTable 'table1'
+        table1.setRowHeight(controller.screenHeight/36);    //imposta l'altezza delle righe della JTable 'table1'
 
-        table1.setFont(controller.impactFontSize);
-        table1.setRowMargin(controller.screenWidth/640);
-        table1.setRowHeight(controller.screenHeight/36);
+        table2.setFont(controller.impactFontSize);  //imposta il font della JTable 'table2'
+        table2.setRowMargin(controller.screenWidth/640);    //imposta il margine tra le celle della JTable 'table2'
+        table2.setRowHeight(controller.screenHeight/36);    //imposta l'altezza delle righe della JTable 'table2'
 
-        table2.setFont(controller.impactFontSize);
-        table2.setRowMargin(controller.screenWidth/640);
-        table2.setRowHeight(controller.screenHeight/36);
+        valLabel.setFont(controller.impactFontSize);    //imposta il font della JLabel 'valLabel'
 
-        valLabel.setFont(controller.impactFontSize);
+        notificheLabel.setFont(controller.baseFontSize);    //imposta il font della JLabel 'notificheLabel'
 
-        notificheLabel.setFont(controller.baseFontSize);
-
-        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29));
-        UIManager.put("MenuItem.selectionForeground", new Color(0x222831));
+        UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
+        UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato
         allScrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
             Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -123,7 +122,7 @@ public class SeriePage {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -132,44 +131,44 @@ public class SeriePage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'increaseButton'
 
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
         jscroll1.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
             Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -182,7 +181,7 @@ public class SeriePage {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -191,44 +190,44 @@ public class SeriePage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'increaseButton'
 
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
         jscroll2.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));
+            ImageIcon upArrow = new ImageIcon(this.getClass().getResource("/up.png"));  //carica l'immagine nel percorso /up.png
             Image uA = upArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));
+            ImageIcon downArrow = new ImageIcon(this.getClass().getResource("/down.png"));  //carica l'immagine nel percorso /down.png
             Image dA = downArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));
+            ImageIcon rightArrow = new ImageIcon(this.getClass().getResource("/right.png"));    //carica l'immagine nel percorso /right.png
             Image rA = rightArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
-            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));
+            ImageIcon leftArrow = new ImageIcon(this.getClass().getResource("/left.png"));  //carica l'immagine nel percorso /left.png
             Image lA = leftArrow.getImage().getScaledInstance((controller.screenWidth/128),(controller.screenHeight/72) ,Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = new Color(0x222831);
-                this.trackColor= new Color(0xFFD369);
-                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);
-                this.thumbLightShadowColor = new Color(0x323A48);
-                this.thumbHighlightColor = new Color(0x323A48);
-                this.trackHighlightColor = new Color(0xCF9E29);
-                this.scrollBarWidth = (int)(controller.screenWidth/75);
+                this.thumbColor = new Color(0x222831);  //inizializza il colore della parte mobile della barra di scorrimento
+                this.trackColor= new Color(0xFFD369);   //inizializza il colore della parte fissa della barra di scorrimento
+                this.thumbDarkShadowColor = new Color(0xFF1A1E25, true);    //inizializza il colore della parte più scura dell'ombra del lato inferiore della parte mobile della barra di scorrimento
+                this.thumbLightShadowColor = new Color(0x323A48);   //inizializza il colore della parte piu chiara dell'ombra del lato superiore della parte mobile della barra di scorrimento
+                this.thumbHighlightColor = new Color(0x323A48); //inizializza il colore della parte mobile della barra di scorrimento quando viene attivata
+                this.trackHighlightColor = new Color(0xCF9E29); //inizializza il colore della parte fissa della barra di scorrimento quando viene attivata
+                this.scrollBarWidth = (int)(controller.screenWidth/75); //imposta la larghezza della barra di scorrimento
             }
 
             @Override
@@ -241,7 +240,7 @@ public class SeriePage {
                     }
                 };
 
-                decreaseButton.setBackground(new Color(0x222831));
+                decreaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'decreaseButton'
                 return decreaseButton;
             }
 
@@ -250,48 +249,48 @@ public class SeriePage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'increaseButton'
 
                     }
                 };
 
-                increaseButton.setBackground(new Color(0x222831));
+                increaseButton.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JButton 'increaseButton'
                 return increaseButton;
             }
 
             private Image getAppropriateIcon(int orientation){
                 switch(orientation){
-                    case SwingConstants.SOUTH: return dA;
-                    case SwingConstants.NORTH: return uA;
-                    case SwingConstants.EAST: return rA;
-                    default: return lA;
+                    case SwingConstants.SOUTH: return dA;   //restituisce 'dA'
+                    case SwingConstants.NORTH: return uA;   //restituisce 'uA'
+                    case SwingConstants.EAST: return rA;    //restituisce 'rA'
+                    default: return lA; //restituisce 'lA'
                 }
             }
         });
 
         JPopupMenu utenteMenu = new JPopupMenu();  //crea il menu 'utenteMenu'
         JMenuItem utenteExit = new JMenuItem("Logout");//crea la voce del menu "Logout"
-        utenteExit.setFont(controller.baseFontSize);
-        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteExit.setFont(controller.baseFontSize);    //imposta il font del JMenuItem 'utenteExit'
+        utenteExit.setHorizontalTextPosition(SwingConstants.CENTER);    //centra orizzontalmente il testo del JMenuItem 'utenteExit'
         utenteExit.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteExit'
         utenteExit.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteExit'
         utenteExit.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteExit'
-        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8))));
+        utenteExit.setMinimumSize((new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)))); //imposta la dimensione minima del JMenuItem 'utenteExit'
         JMenuItem utenteProfilo = new JMenuItem("Profilo"); //crea la voce del menu "Profilo"
-        utenteProfilo.setFont(controller.baseFontSize);
-        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteProfilo.setFont(controller.baseFontSize); //imposta il font del JMenuItem 'utenteProfilo'
+        utenteProfilo.setHorizontalTextPosition(SwingConstants.CENTER); //centra orizzontalmente il testo del JMenuItem 'utenteProfilo'
         utenteProfilo.setBackground(new Color(0xFFD369));   //imposta il colore dello sfondo del JMenuItem 'utenteProfilo'
         utenteProfilo.setFocusPainted(false);   //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteProfilo'
         utenteProfilo.setBorder(BorderFactory.createEmptyBorder()); //toglie il bordo del JMenuItem 'utenteProfilo'
-        utenteProfilo.setFocusable(false);
-        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteProfilo.setFocusable(false);  //impedisce all'utente di interagire con il JMenuItem 'utenteProfilo' tramite tastiera
+        utenteProfilo.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));    //imposta la dimensione minima del JMenuItem 'utenteProfilo'
         JMenuItem utenteLibrerie = new JMenuItem("Librerie");   //crea la voce del menu "Librerie"
         utenteLibrerie.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del JMenuItem 'utenteLibrerie'
-        utenteLibrerie.setFont(controller.baseFontSize);
-        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);
+        utenteLibrerie.setFont(controller.baseFontSize);    //imposta il font del JMenuItem 'utenteLibrerie'
+        utenteLibrerie.setHorizontalTextPosition(SwingConstants.CENTER);    //centra orizzontalmente il testo del JMenuItem 'utenteLibrerie'
         utenteLibrerie.setFocusPainted(false);  //evita che venga disegnato un rettangolo di focus attorno al JMenuItem 'utenteLibrerie'
         utenteLibrerie.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JMenuItem 'utenteLibrerie'
-        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));
+        utenteLibrerie.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/28.8)));   //imposta la dimensione minima del JMenuItem 'utenteLibrerie'
         utenteMenu.setPopupSize(new Dimension((int) (controller.screenWidth/15.24), (int) (controller.screenHeight/9.6))); //imposta le dimensioni del menu 'utenteMenu'
         utenteMenu.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del menu 'utenteMenu'
         utenteMenu.setBackground(new Color(0xFFD369));  //imposta il colore dello sfondo del menu 'utenteMenu'
@@ -302,22 +301,22 @@ public class SeriePage {
         if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
             utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
-            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));
+            utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));    //adatta le dimensioni minime di 'utenteMenu'
         }
 
         frame = new JFrame("Biblioteca Digitale");
-        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
-        frame.setIconImage(icona);
+
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();   //carica l'immagine nel percorso /icon.png
+
+        frame.setIconImage(icona);  //imposta la l'icona dell'applicazione
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(jpanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //imposta la terminazione dell'applicazione come operazione predefinita da eseguire quando viene chiuso il frame
         frame.pack();
         frame.setSize(controller.screenWidth, controller.screenHeight);   //imposta larghezza e altezza del frame
         frame.setLocationRelativeTo(null);  //posiziona il frame al centro dello schermo
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true);
-        //frame.setAlwaysOnTop(true);
-
 
         nomeIsbn.setText(controller.nome_selected + " - (" + controller.isbn_selected + ")");  //imposta il tetsto della JLabel 'nomeIsbn' con il nome e l'ISBN del libro selezionato
 
@@ -326,41 +325,49 @@ public class SeriePage {
         valutazioneMedia = controller.valutazioneMediaSerie();  //calcola la media delle valutazioni del libro selezionato
         valutazione.setText(valMedForm.format(valutazioneMedia));   //mostra la media delle valutazioni del libro selezionato
 
-        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
-        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        stellaVuotaIco = new ImageIcon(stellaVuotaImg);
+        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png")); //carica l'immagine nel percorso /stella_vuota.png
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        stellaVuotaIco = new ImageIcon(stellaVuotaImg); //reinizializza l'ImageIcon 'stellaVuotaIco' con l'Image 'stellaVuotaImg'
 
-        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
-        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        stellaPienaIco = new ImageIcon(stellaPienaImg);
+        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png")); //carica l'immagine nel percorso /stella_piena.png
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        stellaPienaIco = new ImageIcon(stellaPienaImg); //reinizializza l'ImageIcon 'stellaPienaIco' con l'Image 'stellaPienaImg'
 
-        ImageIcon stellaMezzaIco = new ImageIcon(this.getClass().getResource("/stella_mezza.png"));
-        Image stellaMezzaImg = stellaMezzaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        stellaMezzaIco = new ImageIcon(stellaMezzaImg);
+        ImageIcon stellaMezzaIco = new ImageIcon(this.getClass().getResource("/stella_mezza.png")); //carica l'immagine nel percorso /stella_mezza.png
+        Image stellaMezzaImg = stellaMezzaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        stellaMezzaIco = new ImageIcon(stellaMezzaImg); //reinizializza l'ImageIcon 'stellaMezzaIco' con l'Image 'stellaMezzaImg'
 
         changeStars(stellaPienaIco, stellaVuotaIco, stellaMezzaIco);    //aggiorna le stelle della valutazione media
 
+        favouriteVuotoIco = new ImageIcon(this.getClass().getResource("/favorite1.png"));   //carica l'immagine nel percorso /favorite1.png
+        Image favouriteVuotoImg = favouriteVuotoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
+        favouriteVuotoIco = new ImageIcon(favouriteVuotoImg);   //reinizializza l'ImageIcon 'favouriteVuotoIco' con l'Image 'favouriteVuotoImg'
 
-        favouriteVuotoIco = new ImageIcon(this.getClass().getResource("/favorite1.png"));
-        Image favouriteVuotoImg = favouriteVuotoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        favouriteVuotoIco = new ImageIcon(favouriteVuotoImg);
-
-        favouritePienoIco = new ImageIcon(this.getClass().getResource("/favorite2.png"));
-        Image favouritePienoImg = favouritePienoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        favouritePienoIco = new ImageIcon(favouritePienoImg);
+        favouritePienoIco = new ImageIcon(this.getClass().getResource("/favorite2.png"));   //carica l'immagine nel percorso /favorite2.png
+        Image favouritePienoImg = favouritePienoIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
+        favouritePienoIco = new ImageIcon(favouritePienoImg);   //reinizializza l'ImageIcon 'favouritePienoIco' con l'Image 'favouritePienoImg'
 
         controller.likeSerie(); //controlla se l'utente ha il libro selezionato nei preferiti e inizializza 'controller.likeLibroSelected'
         controller.allRecWithCommentSerie(); //inizializza 'recensioniConCommento'
 
-        if (controller.likeElementSelected == false) likeButton.setIcon(favouriteVuotoIco);   //controlla se l'utente ha il libro selelzionato nei preferiti
-        else likeButton.setIcon(favouritePienoIco);
+        if (controller.likeElementSelected == false){   //controlla se l'utente non ha il libro selelzionato nei preferiti
+            likeButton.setIcon(favouriteVuotoIco);   //controlla se l'utente ha il libro selelzionato nei preferiti
+        }
+        else{
+            likeButton.setIcon(favouritePienoIco);  //imposta l'icona della JLabel 'likeButton' con l'immagine 'favouritePienoIco'
+        }
 
         likeButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (controller.likeElementSelected == false) likeButton.setIcon(favouritePienoIco);
-                else likeButton.setIcon(favouriteVuotoIco);
-                controller.changeLikeSerie();    //aggiorna il valore di 'controller.likeLibroSelected' e aggiorna il contenuto del DB
+                if (controller.likeElementSelected == false){   //controlla se l'utente non ha il libro selelzionato nei preferiti
+                    likeButton.setIcon(favouritePienoIco);  //imposta l'icona della JLabel 'likeButton' con l'immagine 'favouritePienoIco'
+                }
+                else{
+                    likeButton.setIcon(favouriteVuotoIco);  //controlla se l'utente ha il libro selelzionato nei preferiti
+                }
+
+                controller.changeLikeSerie();    //aggiorna il valore di 'likeElementSelected' e aggiorna il contenuto del DB
             }
         });
 
@@ -368,14 +375,14 @@ public class SeriePage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                frame.setVisible(false);
-                frameC.setEnabled(true);
+                frame.setVisible(false);    //rende invisibile il frame
+                frameC.setEnabled(true);    //abilita il frame chiamante 'frameC'
                 frame.dispose();
                 System.exit(0);
             }
         });
 
-        // -------------------------------------------------------------------------------------- //
+
         homeButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -391,7 +398,7 @@ public class SeriePage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if (e.getButton() == MouseEvent.BUTTON1) {  //controlla se è stato cliccato con il tasto sinistro del mouse il JButton utenteButton
+                if (e.getButton() == MouseEvent.BUTTON1) {  //controlla se è stato cliccato con il tasto sinistro del mouse il JButton 'utenteButton'
                     utenteMenu.show(utenteButton, utenteButton.getWidth() - (int) (controller.screenWidth/15.24), utenteButton.getHeight()); //mostra le voci del menu 'utenteMenu'
                 }
             }
@@ -400,18 +407,18 @@ public class SeriePage {
         utenteMenu.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                active = true;
+                active = true;  //aggiorna 'active'
             }
 
             @Override
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                active = false;
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                active = false; //aggiorna 'active'
+                utenteButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'utenteButton'
             }
             @Override
             public void popupMenuCanceled(PopupMenuEvent e) {
-                active = false;
-                utenteButton.setBackground(Color.decode("#FFD369"));
+                active = false; //aggiorna 'active'
+                utenteButton.setBackground(Color.decode("#FFD369"));    //imposta lo sfondo del JButton 'utenteButton'
             }
         });
 
@@ -441,8 +448,8 @@ public class SeriePage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'pf'
-                bsp.frame.setVisible(true);  //rende visible il frame 'pf'
+                BookshopsPage bsp = new BookshopsPage(frameC, controller); //chiama il frame 'bsp'
+                bsp.frame.setVisible(true);  //rende visible il frame 'bsp'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
 
@@ -453,16 +460,16 @@ public class SeriePage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                utenteButton.setBackground(Color.decode("#cf9e29"));
+                utenteButton.setBackground(Color.decode("#cf9e29"));    //imposta il colore dello sfondo del JButton 'utenteButton'
             }
         });
 
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
-                if (active == false){
+                if (active == false){   //controlla se è stato disattivato il menu "Utente"
                     super.mouseExited(e);
-                    utenteButton.setBackground(Color.decode("#FFD369"));
+                    utenteButton.setBackground(Color.decode("#FFD369"));    //imposta il colore dello sfondo del JButton 'utenteButton'
                 }
             }
         });
@@ -471,7 +478,7 @@ public class SeriePage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                homeButton.setBackground(Color.decode("#cf9e29"));
+                homeButton.setBackground(Color.decode("#cf9e29"));  //imposta il colore dello sfondo del JButton 'homeButton'
             }
         });
 
@@ -479,7 +486,7 @@ public class SeriePage {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                homeButton.setBackground(Color.decode("#FFD369"));
+                homeButton.setBackground(Color.decode("#FFD369"));  //imposta il colore dello sfondo del JButton 'homeButton'
             }
         });
 
@@ -487,14 +494,15 @@ public class SeriePage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                libriButton.setBackground(Color.decode("#cf9e29"));
+                libriButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'libriButton'
             }
         });
+
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                libriButton.setBackground(Color.decode("#FFD369"));
+                libriButton.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'libriButton'
             }
         });
 
@@ -513,8 +521,8 @@ public class SeriePage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'bp'
-                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'bp'
+                IssuesPage ip = new IssuesPage(frameC, controller);   //chiama il frame 'ip'
+                ip.frame.setVisible(true);  //rende visibile il frame chiamato 'ip'
                 frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
@@ -524,9 +532,9 @@ public class SeriePage {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                SeriesPage sp = new SeriesPage(frameC, controller);
-                sp.frame.setVisible(true);
-                frame.setVisible(false);
+                SeriesPage sp = new SeriesPage(frameC, controller); //chiama il frame 'sp'
+                sp.frame.setVisible(true);  //rende visibile il frame chiamato 'sp'
+                frame.setVisible(false);    //rende invisibile il frame
                 frame.dispose();
             }
         });
@@ -535,23 +543,23 @@ public class SeriePage {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                fascicoliButton.setBackground(Color.decode("#cf9e29"));
+                fascicoliButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'fascicoliButtonButton'
             }
         });
+
         fascicoliButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                fascicoliButton.setBackground(Color.decode("#FFD369"));
+                fascicoliButton.setBackground(Color.decode("#FFD369")); //imposta il colore dello sfondo del JButton 'fascicoliButtonButton'
             }
         });
 
-        // --------------------------------------------------------------------------- //
 
-        allScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        allScrollPanel.setBackground(new Color(0x222831));
-        allScrollPanel.setBorder(BorderFactory.createEmptyBorder());
-        allScrollPanel.getViewport().setBackground(new Color(0x222831));
+        allScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);   //permette di visualizzare sempre la barra di scorrimento del JScrollPane 'allScrollPanel'
+        allScrollPanel.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JScrollPane 'allScrollPanel'
+        allScrollPanel.setBorder(BorderFactory.createEmptyBorder());    //toglie il bordo del JScrollPane 'allScrollPanel'
+        allScrollPanel.getViewport().setBackground(new Color(0x222831));    //imposta il colore dello sfondo della parte visibile del JScrollPane 'allScrollPanel'
 
         DefaultTableModel model1 = new DefaultTableModel(new Object[][]{}, new String[]{"Libreria", "Quantità", "Fruizione", "Indirizzo", "Sito Web", "N. di Telefono"}) {
             @Override
@@ -567,108 +575,111 @@ public class SeriePage {
             }
         };
 
-        // Renderer personalizzato per l'header della tabella
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(0xCF9E29));
-        headerRenderer.setForeground(new Color(0xEEEEEE));
-        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        Font headerFont = new Font("Impact", Font.PLAIN, 15); // Imposta il font Bebas Neue, grandezza 15 e stile Regular
-        headerRenderer.setFont(headerFont);
-        JTableHeader tableHeader1 = table1.getTableHeader();
-        tableHeader1.setDefaultRenderer(headerRenderer);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();   //DefaultTableCellRenderer per la formattazione dell'header della tabella
 
-        // Impedire il ridimensionamento delle colonne
-        table1.getTableHeader().setResizingAllowed(false);
+        headerRenderer.setBackground(new Color(0xCF9E29));  //imposta il colore dello sfondo dell'header della tabella
+        headerRenderer.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo dell'header della tabella
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);   //centra orizzontalmente il contenuto dell'header della tabella
 
-        // Impedire il riordinamento delle colonne
-        table1.getTableHeader().setReorderingAllowed(false);
+        Font headerFont = new Font("Impact", Font.PLAIN, 15);   //imposta il font Bebas Neue, grandezza 15 e stile Regular
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader1.setBorder(null);
+        headerRenderer.setFont(headerFont); //inizializza il font Bebas Neue, grandezza 15 e stile Regular per i caratteri della tabella
 
-        tableHeader1.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader1.getDefaultRenderer()));
+        JTableHeader tableHeader1 = table1.getTableHeader();    //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'table1'
+
+        tableHeader1.setDefaultRenderer(headerRenderer);    //imposta il render di default della tabella a 'headerRender'
+
+        table1.getTableHeader().setResizingAllowed(false);  //impedisce il ridimensionamento delle colonne
+
+        table1.getTableHeader().setReorderingAllowed(false);    //impedisce il riordinamento delle colonne
+
+        tableHeader1.setBorder(null);   //rimuove il bordo dell'header della tabella
+
+        tableHeader1.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader1.getDefaultRenderer()));    //inposta il render di default della tabella
 
 
-        table1.setModel(model1); //imposta il modello dei dati della JTable 'booksTable'
-        jscroll1.setBackground(new Color(0x222831));
-        jscroll1.setBorder(BorderFactory.createEmptyBorder());
-        jscroll1.getViewport().setBackground(new Color(0x222831));
+        table1.setModel(model1); //imposta il modello dei dati della JTable 'table1'
+        jscroll1.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPane 'jscroll1'
+        jscroll1.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'jscroll1'
+        jscroll1.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'jscroll1'
 
         table1.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                if(table1.isColumnSelected(4)){
+
+                if(table1.isColumnSelected(4)){ //controlla se è stata selezionata la 4 colonna dalla JTable 'table1'
                     try {
-                        Desktop.getDesktop().browse(new URI(table1.getValueAt(table1.getSelectedRow(), 4).toString()));
+                        Desktop.getDesktop().browse(new URI(table1.getValueAt(table1.getSelectedRow(), 4).toString())); //inserisce un link nella cella (table1.getSelectedRow(), 4)
                     }catch (IOException | URISyntaxException e1) {
                         e1.printStackTrace();
                     }
                 }
-                table1.clearSelection();
+
+                table1.clearSelection();    //deseleziona tutte le celle selezionate in 'table1'
             }
         });
 
-        JTableHeader tableHeader2 = table2.getTableHeader();
-        tableHeader2.setDefaultRenderer(headerRenderer);
+        JTableHeader tableHeader2 = table2.getTableHeader();    //inizializza il JTableHeader 'tableHeader' con l'header della JTable 'table2'
 
-        // Impedire il ridimensionamento delle colonne
-        table2.getTableHeader().setResizingAllowed(false);
+        tableHeader2.setDefaultRenderer(headerRenderer);    //imposta il render di default della tabella a 'headerRender'
 
-        // Impedire il riordinamento delle colonne
-        table2.getTableHeader().setReorderingAllowed(false);
+        table2.getTableHeader().setResizingAllowed(false);  //impedisce il ridimensionamento delle colonne
 
-        // Rimuovere il bordo dell'header della tabella
-        tableHeader2.setBorder(null);
+        table2.getTableHeader().setReorderingAllowed(false);    //impedisce il riordinamento delle colonne
 
-        tableHeader2.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader2.getDefaultRenderer()));
+        tableHeader2.setBorder(null);   //rimuove il bordo dell'header della tabella
+
+        tableHeader2.setDefaultRenderer(new SeparatorHeaderRenderer(tableHeader2.getDefaultRenderer()));    //imposta il render di default della tabella
 
 
-        table2.setModel(model2); //imposta il modello dei dati della JTable 'booksTable'
-        jscroll2.setBackground(new Color(0x222831));
-        jscroll2.setBorder(BorderFactory.createEmptyBorder());
-        jscroll2.getViewport().setBackground(new Color(0x222831));
+        table2.setModel(model2); //imposta il modello dei dati della JTable 'table2'
+        jscroll2.setBackground(new Color(0x222831));    //imposta il colore dello sfondo del JScrollPane 'jscroll2'
+        jscroll2.setBorder(BorderFactory.createEmptyBorder());  //toglie il bordo del JScrollPane 'jscroll2'
+        jscroll2.getViewport().setBackground(new Color(0x222831));  //imposta il colore dello sfondo della parte visibile del JScrollPane 'jscroll2'
 
-        ArrayList<String> libreria = controller.getDisponibilitaLibreria(); //nomi delle librerie che possiedono il libro selezionato
-        ArrayList<Integer> quantita = controller.getDisponibilitaQuantita();    //quantità disponibili del libro selezionato
-        ArrayList<String> fruizione = controller.getDisponibilitaFruizione();   //modalità di fruizione disponibile del libro selezionato
-        ArrayList<String> indirizzo = controller.getDisponibilitaIndirizzo();   //indirizzi delle librerie che possiedono il libro selezionato
-        ArrayList<String> sitoWeb = controller.getDisponibilitaSitoWeb();   //siti web delle librerie che possiedono il libro selezionato
-        ArrayList<String> nTel = controller.getDisponibilitaNumeroTelefono();   //numeri telefonici delle librerie che possiedono il libro selezionato
+        ArrayList<String> libreria = controller.getDisponibilitaLibreria(); //nomi delle librerie che possiedono la serie selezionata
+        ArrayList<Integer> quantita = controller.getDisponibilitaQuantita();    //quantità disponibili della serie selezionata
+        ArrayList<String> fruizione = controller.getDisponibilitaFruizione();   //modalità di fruizione disponibile della serie selezionata
+        ArrayList<String> indirizzo = controller.getDisponibilitaIndirizzo();   //indirizzi delle librerie che possiedono illa serie selezionata
+        ArrayList<String> sitoWeb = controller.getDisponibilitaSitoWeb();   //siti web delle librerie che possiedono la serie selezionata
+        ArrayList<String> nTel = controller.getDisponibilitaNumeroTelefono();   //numeri telefonici delle librerie che possiedono la serie selezionata
 
-        table1.setModel(model1);    //imposta il modello dei dati della JTable 'table2'
+        table1.setModel(model1);    //imposta il modello dei dati della JTable 'table1'
 
-        for(int i = 0; i < libreria.size(); i++){
-
-            if(fruizione.get(i).equals("Digitale") || fruizione.get(i).equals("AudioLibro")) model1.addRow(new Object[]{libreria.get(i), "∞", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
-            else if(fruizione.get(i).equals("Cartaceo") && quantita.get(i) == 0) model1.addRow(new Object[]{libreria.get(i), "Non Disponibile", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
-            else model1.addRow(new Object[]{libreria.get(i), quantita.get(i), fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});
+        for(int i = 0; i < libreria.size(); i++){   //scorre 'libreria'
+            if(fruizione.get(i).equals("Digitale") || fruizione.get(i).equals("AudioLibro")){   //controlla se l'i-esima libreria possiede la serie selezionata
+                model1.addRow(new Object[]{libreria.get(i), "∞", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)}); //aggiunge una nuova riga nella tabella
+            } else if(fruizione.get(i).equals("Cartaceo") && quantita.get(i) == 0){ //controlla nell'i-esima libreria non è disponibile la serie selezionata
+                model1.addRow(new Object[]{libreria.get(i), "Non Disponibile", fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)});   //aggiunge una nuova riga nella tabella
+            } else{
+                model1.addRow(new Object[]{libreria.get(i), quantita.get(i), fruizione.get(i), indirizzo.get(i), sitoWeb.get(i), nTel.get(i)}); //aggiunge una nuova riga nella tabella
+            }
         }
-        controller.getLibriSerie(isbn_selezionato);
-        table2.setModel(model2);    //imposta il modello dei dati della JTable 'table1'
 
-        for(int i = 0; i < controller.listaLibriSerie.size(); i++){
-            model2.addRow(new Object[]{controller.listaLibriSerie.get(i).isbn, controller.listaLibriSerie.get(i).titolo, controller.listaLibriSerie.get(i).dataPubblicazione});
+        controller.getLibriSerie(isbnSelezionato);  //inizializza 'controller.listaLibriSerie' con tutti i libri della serie
+        table2.setModel(model2);    //imposta il modello dei dati della JTable 'table2'
+
+        for(int i = 0; i < controller.listaLibriSerie.size(); i++){ //scorre 'controller.listaLibriSerie'
+            model2.addRow(new Object[]{controller.listaLibriSerie.get(i).isbn, controller.listaLibriSerie.get(i).titolo, controller.listaLibriSerie.get(i).dataPubblicazione}); //aggiunge una nuova riga nella tabella
         }
 
         disponibilitaCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                if(presentazioniCheckBox.isSelected()) {    //controlla se è stato selezionato il JCheckBox 'presentazioniCheckBox'
-
+                if(!presentazioniCheckBox.isSelected()) {    //controlla se non è stato selezionato il JCheckBox 'presentazioniCheckBox'
+                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");    //mostra un messaggio di errore
+                    disponibilitaCheckBox.setSelected(true);    //seleziona 'disponibilitaCheckBox'
+                    allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
+                    jscroll1.setVisible(true);  //rende visibile il JScrollPane 'jscroll1'
+                } else {
                     if (!disponibilitaCheckBox.isSelected()){   //controlla se non è stato selezionato il JCheckBox 'disponibilitaCheckBox'
-                        allScrollPanel.revalidate();
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                         jscroll1.setVisible(false); //rende invisibile il JScrollPane 'jscroll1'
                     } else {
                         jscroll1.setVisible(true); //rende visibile il JScrollPane 'jscroll1'
-                        allScrollPanel.revalidate();
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                     }
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
-                    disponibilitaCheckBox.setSelected(true);    //seleziona 'disponibilitaCheckBox'
-                    allScrollPanel.revalidate();
-                    jscroll1.setVisible(true);  //rende visibile il JScrollPane 'jscroll1'
                 }
             }
         });
@@ -676,29 +687,28 @@ public class SeriePage {
         presentazioniCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                if(disponibilitaCheckBox.isSelected()){ //controlla se è stato selezionato il JCheckBox 'disponibilitaCheckBox'
-
+                if(!disponibilitaCheckBox.isSelected()){ //controlla se non è stato selezionato il JCheckBox 'disponibilitaCheckBox'
+                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");    //mostra un messaggio di errore
+                    presentazioniCheckBox.setSelected(true);  //seleziona 'presentazioniCheckBox'
+                    allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
+                    jscroll2.setVisible(true);  //rende visibile il JScrollPane 'jscroll2'
+                } else{
                     if(!presentazioniCheckBox.isSelected()){    //controlla se non è stato selezionato il JCheckBox 'presentazioniCheckBox'
                         jscroll2.setVisible(false); //rende invisibile il JScrollPane 'jscroll2'
-                        allScrollPanel.revalidate();
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                     } else {
                         jscroll2.setVisible(true); //rende visibile il JScrollPane 'jscroll2'
-                        allScrollPanel.revalidate();
+                        allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                     }
-                } else{
-                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");
-                    presentazioniCheckBox.setSelected(true);  //seleziona 'presentazioniCheckBox'
-                    allScrollPanel.revalidate();
-                    jscroll2.setVisible(true);  //rende visibile il JScrollPane 'jscroll2'
                 }
             }
         });
+
         valutaButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                Recensione recensioneSerie = new Recensione(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti, 2);
+                Recensione recensioneSerie = new Recensione(frame, controller, valutazione, stella1, stella2, stella3, stella4, stella5, commenti, 2);  //chiama il frame 'recensioneSerie'
                 frame.setEnabled(false); //disabilita il frame
             }
         });
@@ -706,8 +716,9 @@ public class SeriePage {
         table2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                controller.isbn_selected = table2.getValueAt(table2.getSelectedRow(), 0).toString();
-                controller.nome_selected = table2.getValueAt(table2.getSelectedRow(), 1).toString();
+                controller.isbn_selected = table2.getValueAt(table2.getSelectedRow(), 0).toString();    //inizializza 'controller.isbn_selected' con l'ISBN del libro selezionato
+                controller.nome_selected = table2.getValueAt(table2.getSelectedRow(), 1).toString();    //inizializza 'controller.nome_selected' con il nome del libro selezionato
+
                 BookPage bp = new BookPage(frameC, controller); //chiama il frame 'bp'
                 bp.frame.setVisible(true);  //rende visible il frame 'bp'
                 frame.setVisible(false);    //rende invisibile il frame
@@ -715,164 +726,165 @@ public class SeriePage {
             }
         });
 
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
-
-        setNumeroNotifiche(controller);
+        numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
+        setNumeroNotifiche(controller); //imposta il testo della JLabel 'notificheLabel'
 
         Timer timer = new Timer(60000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setNumeroNotifiche(controller);
+                setNumeroNotifiche(controller); //imposta il testo della JLabel 'notificheLabel'
             }
         });
 
-        timer.start();
-        timer.setRepeats(true);
+        timer.start();  //avvia il timer
+        timer.setRepeats(true); //fa ripetere il timer dopo che è scaduto
     }
 
     public void changeStars(ImageIcon stellaPienaIco, ImageIcon stellaVuotaIco, ImageIcon stellaMezzaIco){  //aggiorna le stelle della valutazione media
         if(valutazioneMedia <= 0.25){   //controlla se la media è minore uguale a 0,25
-            stella1.setIcon(stellaVuotaIco);
-            stella2.setIcon(stellaVuotaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaVuotaIco'
+            stella2.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaVuotaIco'
+            stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 0.75){    //controlla se la media è in [0.25,0.75[
-            stella1.setIcon(stellaMezzaIco);
-            stella2.setIcon(stellaVuotaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaMezzaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaMezzaIco'
+            stella2.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaVuotaIco'
+            stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 1.25){    //controlla se la media è in [0.75,1.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaVuotaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaVuotaIco'
+            stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 1.75){    //controlla se la media è in [1.25,1.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaMezzaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaMezzaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaMezzaIco'
+            stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 2.25){    //controlla se la media è in [1.75,2.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaVuotaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 2.75){    //controlla se la media è in [2.25,2.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaMezzaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaMezzaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaMezzaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 3.25){    //controlla se la media è in [2.75,3.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaVuotaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+            stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 3.75){    //controlla se la media è in [3.25,3.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaMezzaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+            stella4.setIcon(stellaMezzaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaMezzaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 4.25){    //controlla se la media è in [3.75,4.25[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaPienaIco);
-            stella5.setIcon(stellaVuotaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+            stella4.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaPienaIco'
+            stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
         } else if (valutazioneMedia < 4.75){    //controlla se la media è in [4.25,4.75[
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaPienaIco);
-            stella5.setIcon(stellaMezzaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+            stella4.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaPienaIco'
+            stella5.setIcon(stellaMezzaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaMezzaIco'
         } else {
-            stella1.setIcon(stellaPienaIco);
-            stella2.setIcon(stellaPienaIco);
-            stella3.setIcon(stellaPienaIco);
-            stella4.setIcon(stellaPienaIco);
-            stella5.setIcon(stellaPienaIco);
+            stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+            stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+            stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+            stella4.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaPienaIco'
+            stella5.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaPienaIco'
         }
-    }
+    }//fine changeStars
 
-    private void setNumeroNotifiche(Controller controller){
-        numeroNotifiche = controller.getNumeroNotificheNonLette();
+    private void setNumeroNotifiche(Controller controller){ //aggiorna il testo della JLabel 'notificheLabel' con in base al numero di notifiche dell'utente non lette
+        numeroNotifiche = controller.getNumeroNotificheNonLette();  //inizializza 'numeroNotifiche' con il numero di notifiche dell'utente non lette
 
-        if(numeroNotifiche < 100 && numeroNotifiche > 0){
-            notificheLabel.setVisible(true);
-            String numeroNotificheText = Integer.toString(numeroNotifiche);
-            notificheLabel.setText(numeroNotificheText);
-        }else if (numeroNotifiche >= 100) notificheLabel.setText("99+");
-        else {
-            notificheLabel.setVisible(false);
+        if (numeroNotifiche <= 0){  //controlla se non ci sono notifiche non lette
+            notificheLabel.setVisible(false);   //rende invisibile la JLabel 'notificheLabel'
+        }else if (numeroNotifiche >= 100) { //controlla se ci sono almeno 100 notifiche non lette
+            notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
+            notificheLabel.setText("99+");  //imposta il testo della JLabel 'notificheLabel'
+        }else{
+            notificheLabel.setVisible(true);    //rende visibile la JLabel 'notificheLabel'
+
+            String numeroNotificheText = Integer.toString(numeroNotifiche); //inizializza numeroNotificheText con 'numeroNotifiche'
+
+            notificheLabel.setText(numeroNotificheText);    //imposta il testo della JLabel 'notificheLabel' con 'numeroNotificheText'
         }
-    }
+    }//fine setNumeroNotifiche
 
     public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione, Controller controller){   //aggiorna le stelle della recensione con valutazione 'valutazione'
+        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png")); //carica l'immagine nel percorso /stella_vuota.png
+        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        stellaVuotaIco = new ImageIcon(stellaVuotaImg); //reinizializza l'ImageIcon 'stellaVuotaIco' con l'Image 'stellaVuotaImg'
 
-        ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png"));
-        Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        stellaVuotaIco = new ImageIcon(stellaVuotaImg);
-
-        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png"));
-        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);
-        stellaPienaIco = new ImageIcon(stellaPienaImg);
+        ImageIcon stellaPienaIco = new ImageIcon(this.getClass().getResource("/stella_piena.png")); //carica l'immagine nel percorso /stella_piena.png
+        Image stellaPienaImg = stellaPienaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+        stellaPienaIco = new ImageIcon(stellaPienaImg); //reinizializza l'ImageIcon 'stellaPienaIco' con l'Image 'stellaPienaImg'
 
         switch (valutazione) {  //controlla 'valutazione' e aggiorna le stelle della recensione da mostrare
             case 1:
-                stella1.setIcon(stellaPienaIco);
-                stella2.setIcon(stellaVuotaIco);
-                stella3.setIcon(stellaVuotaIco);
-                stella4.setIcon(stellaVuotaIco);
-                stella5.setIcon(stellaVuotaIco);
+                stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+                stella2.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaVuotaIco'
+                stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+                stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+                stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
                 break;
             case 2:
-                stella1.setIcon(stellaPienaIco);
-                stella2.setIcon(stellaPienaIco);
-                stella3.setIcon(stellaVuotaIco);
-                stella4.setIcon(stellaVuotaIco);
-                stella5.setIcon(stellaVuotaIco);
+                stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+                stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+                stella3.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaVuotaIco'
+                stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+                stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
                 break;
             case 3:
-                stella1.setIcon(stellaPienaIco);
-                stella2.setIcon(stellaPienaIco);
-                stella3.setIcon(stellaPienaIco);
-                stella4.setIcon(stellaVuotaIco);
-                stella5.setIcon(stellaVuotaIco);
+                stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+                stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+                stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+                stella4.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaVuotaIco'
+                stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
                 break;
             case 4:
-                stella1.setIcon(stellaPienaIco);
-                stella2.setIcon(stellaPienaIco);
-                stella3.setIcon(stellaPienaIco);
-                stella4.setIcon(stellaPienaIco);
-                stella5.setIcon(stellaVuotaIco);
+                stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+                stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+                stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+                stella4.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaPienaIco'
+                stella5.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaVuotaIco'
                 break;
             case 5:
-                stella1.setIcon(stellaPienaIco);
-                stella2.setIcon(stellaPienaIco);
-                stella3.setIcon(stellaPienaIco);
-                stella4.setIcon(stellaPienaIco);
-                stella5.setIcon(stellaPienaIco);
+                stella1.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaPienaIco'
+                stella2.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella2' con l'immagine 'stellaPienaIco'
+                stella3.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella3' con l'immagine 'stellaPienaIco'
+                stella4.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella4' con l'immagine 'stellaPienaIco'
+                stella5.setIcon(stellaPienaIco);    //imposta l'icona della JLabel 'stella5' con l'immagine 'stellaPienaIco'
                 break;
             default:
                 break;
         }
+    }//fine changeStars
 
-    }
+    public void showComment(Controller controller, JPanel commenti){    //mostra tutti i commenti fatti al libro selezionato
+        controller.isbn_selected = isbnSelezionato;    //inizializza 'controller.isbn_selected' con 'isbnSelezionato'
+        controller.allRecWithCommentLibro();    //inizializza 'controller.recensioniConCommento'
 
-    public void showComment(Controller controller, JPanel commenti){
-        controller.isbn_selected = isbn_selezionato;    //isbn del ibro selezionato
-
-        controller.allRecWithCommentSerie();
-        for (int i = 0; i < controller.recensioniConCommento.size(); i++){
-            addComment(controller.recensioniConCommento.get(i).utenteRecensore.username, controller.recensioniConCommento.get(i).valutazione, controller.recensioniConCommento.get(i).testo, commenti, i+1, controller);
+        for (int i = 0; i < controller.recensioniConCommento.size(); i++){  //scorre 'controller.recensioniConCommento'
+            addComment(controller.recensioniConCommento.get(i).utenteRecensore.username, controller.recensioniConCommento.get(i).valutazione, controller.recensioniConCommento.get(i).testo, commenti, i+1, controller);    //mostra l'i-esimo commento
         }
-    }
+    }//fine showComment
 
     public void addComment(String utente, int val, String commentoUser, JPanel commenti, int n, Controller controller){
         JPanel panel1;
@@ -885,43 +897,42 @@ public class SeriePage {
         JTextArea jcomp7;
         JSeparator jcomp8;
 
-        int maxCaratteriPerLinea = 50;
+        int maxCaratteriPerLinea = 50;  //numero massimo di caratteri per linea
         StringBuilder newText = new StringBuilder();
-        int countCaratteri = 0;
-        int n_righe = 1;
+        int countCaratteri = 0; //numero di caratteri in una riga
+        int nRighe = 1; //numero di righe
 
-        //construct components
-        panel1 = new JPanel();
-        panel1.setBackground(new Color(0x222831));
+        panel1 = new JPanel();  //inizializza il JPanel 'panel1'
+        panel1.setBackground(new Color(0x222831));  //imposta il colore dello sfondo del JPanel 'panel1'
 
-        jcomp1 = new JLabel (utente + ":");
-        jcomp1.setFont(controller.baseFontSize);
-        jcomp1.setBackground(new Color(0x222831));
-        jcomp1.setForeground(new Color(0xEEEEEE));
+        jcomp1 = new JLabel (utente + ":"); //inizialliza la JLabel 'jcomp1' impostando il testo
+        jcomp1.setFont(controller.baseFontSize);    //imposta il font di 'jcomp1'
+        jcomp1.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp1'
+        jcomp1.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo di 'jcomp1'
 
-        jcomp2 = new JLabel ("");
-        jcomp2.setBackground(new Color(0x222831));
+        jcomp2 = new JLabel ("");   //inizialliza la JLabel 'jcomp2' impostando il testo
+        jcomp2.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp2'
 
-        jcomp3 = new JLabel ("");
-        jcomp3.setBackground(new Color(0x222831));
+        jcomp3 = new JLabel ("");   //inizialliza la JLabel 'jcomp3' impostando il testo
+        jcomp3.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp3'
 
-        jcomp4 = new JLabel ("");
-        jcomp4.setBackground(new Color(0x222831));
+        jcomp4 = new JLabel ("");   //inizialliza la JLabel 'jcomp4' impostando il testo
+        jcomp4.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp4'
 
-        jcomp5 = new JLabel ("");
-        jcomp5.setBackground(new Color(0x222831));
+        jcomp5 = new JLabel ("");   //inizialliza la JLabel 'jcomp5' impostando il testo
+        jcomp5.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp5'
 
-        jcomp6 = new JLabel ("");
-        jcomp6.setBackground(new Color(0x222831));
+        jcomp6 = new JLabel ("");   //inizialliza la JLabel 'jcomp6' impostando il testo
+        jcomp6.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp6'
 
-        // Creazione della JTextArea
-        jcomp7 = new JTextArea();
-        jcomp7.setFont(controller.baseFontSize);
-        jcomp7.setBackground(new Color(0x222831));
-        jcomp7.setForeground(new Color(0xEEEEEE));
-        jcomp7.setLineWrap(true);
-        jcomp7.setWrapStyleWord(true);
-        jcomp7.setEditable(false);
+        jcomp7 = new JTextArea();   //inizialliza la JTextArea 'jcomp7'
+
+        jcomp7.setFont(controller.baseFontSize);    //imposta il font di 'jcomp7'
+        jcomp7.setBackground(new Color(0x222831));  //imposta il colore dello sfondo di 'jcomp7'
+        jcomp7.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo di 'jcomp7'
+        jcomp7.setLineWrap(true);   //permette di andare a capo automaticamente quando il testo raggiunge la fine della riga in 'jcomp7'
+        jcomp7.setWrapStyleWord(true);  //evita che quando si va a capo venga interrotta l'ultima parola della riga non venga interrotta in 'jcomp7'
+        jcomp7.setEditable(false);  //evita che l'utente inserisca del testo in 'jcomp7'
 
         for (char carattere : commentoUser.toCharArray()) {
             if (!(carattere == '\n')) {
@@ -930,12 +941,12 @@ public class SeriePage {
             } else {
                 newText.append('\n');
                 countCaratteri = 0;
-                n_righe++;
+                nRighe++;
             }
             if (countCaratteri >= maxCaratteriPerLinea) {
                 newText.append('\n');
                 countCaratteri = 0;
-                n_righe++;
+                nRighe++;
             }
         }
         jcomp7.setText(newText.toString());
@@ -967,8 +978,8 @@ public class SeriePage {
         jcomp4.setBounds ((int) (controller.screenWidth/25.6), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
         jcomp5.setBounds ((int) (controller.screenWidth/17.0666), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
         jcomp6.setBounds ((int) (controller.screenWidth/12.8), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
-        jcomp7.setBounds (0, (int) (controller.screenHeight/14.4), (int) (controller.screenWidth/2.56), controller.calcolaAltezzaFont(controller.baseFontSize)*n_righe);
-        jcomp8.setBounds (0, (int) (controller.screenHeight/14.4)+(controller.calcolaAltezzaFont(controller.baseFontSize)*n_righe)+1, (int) (controller.screenWidth/2.56), (int) (controller.screenHeight/48));
+        jcomp7.setBounds (0, (int) (controller.screenHeight/14.4), (int) (controller.screenWidth/2.56), controller.calcolaAltezzaFont(controller.baseFontSize)*nRighe);
+        jcomp8.setBounds (0, (int) (controller.screenHeight/14.4)+(controller.calcolaAltezzaFont(controller.baseFontSize)*nRighe)+1, (int) (controller.screenWidth/2.56), (int) (controller.screenHeight/48));
 
 
         panel1.setPreferredSize (new Dimension ((int) (controller.screenWidth/2.56), jcomp1.getHeight()+jcomp2.getHeight()+jcomp7.getHeight()+jcomp8.getHeight()));
