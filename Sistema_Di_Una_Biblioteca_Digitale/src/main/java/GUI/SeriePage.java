@@ -934,109 +934,114 @@ public class SeriePage {
         jcomp7.setWrapStyleWord(true);  //evita che quando si va a capo venga interrotta l'ultima parola della riga non venga interrotta in 'jcomp7'
         jcomp7.setEditable(false);  //evita che l'utente inserisca del testo in 'jcomp7'
 
-        for (char carattere : commentoUser.toCharArray()) {
-            if (!(carattere == '\n')) {
-                newText.append(carattere);
-                countCaratteri++;
+        for (char carattere : commentoUser.toCharArray()) { //scorre i caratteri del commento
+            if (!(carattere == '\n')) { //controlla se il carattere corrente 'carattere' è "\n"
+                newText.append(carattere);  //aggiunge 'carattere' alla fine di 'newText'
+                countCaratteri++;   //incrementa il numero di caratteri nella riga corrente
             } else {
-                newText.append('\n');
-                countCaratteri = 0;
-                nRighe++;
+                newText.append('\n');   //aggiunge 'carattere' alla fine di 'newText'
+                countCaratteri = 0; //azzere il numero di caratteri nella riga corrente
+                nRighe++;  //incrementa il numero di righe
             }
-            if (countCaratteri >= maxCaratteriPerLinea) {
-                newText.append('\n');
-                countCaratteri = 0;
-                nRighe++;
+
+            if (countCaratteri >= maxCaratteriPerLinea) {   //controlla se il numero di caratteri nella riga corrente  maggiore o uguale al numero massimo di caratteri per linea
+                newText.append('\n');   //aggiunge 'carattere' alla fine di 'newText'
+                countCaratteri = 0; //azzere il numero di caratteri nella riga corrente
+                nRighe++;   //incrementa il numero di righe
             }
         }
-        jcomp7.setText(newText.toString());
 
-        jcomp8 = new JSeparator();
-        jcomp8.setFont(controller.baseFontSize);
-        jcomp8.setForeground(new Color(0xEEEEEE));
+        jcomp7.setText(newText.toString()); //imposta il testo di 'jcomp7' a 'newText'
 
-        changeStars(jcomp2, jcomp3, jcomp4, jcomp5, jcomp6, val, controller);
+        jcomp8 = new JSeparator();  //inizialliza il JSeparator 'jcomp8'
+        jcomp8.setFont(controller.baseFontSize);    //imposta il font di 'jcomp8'
+        jcomp8.setForeground(new Color(0xEEEEEE));  //imposta il colore del testo di 'jcomp8'
 
-        //adjust size and set layout
-        panel1.setPreferredSize (new Dimension ((int) (controller.screenWidth/2.044), (int) (controller.screenHeight/4.8)));
-        panel1.setLayout (null);
+        changeStars(jcomp2, jcomp3, jcomp4, jcomp5, jcomp6, val, controller);   //aggiorna le stelle della recensione con valutazione 'val'
 
-        //add components
-        panel1.add (jcomp1);
-        panel1.add (jcomp2);
-        panel1.add (jcomp3);
-        panel1.add (jcomp4);
-        panel1.add (jcomp5);
-        panel1.add (jcomp6);
-        panel1.add (jcomp7);
-        panel1.add (jcomp8);
+        panel1.setPreferredSize(new Dimension ((int) (controller.screenWidth/2.044), (int) (controller.screenHeight/4.8))); //imposta la dimensione preferita di 'panel1'
+        panel1.setLayout(null); //disattiva il layout manager di 'panel1', quindi il suo layout verrà gestito manualmente
 
-        //set component bounds (only needed by Absolute Positioning)
-        jcomp1.setBounds (0, 0, (int) (controller.screenWidth/12.8), (int) (controller.screenHeight/28.8));
-        jcomp2.setBounds (0, (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
-        jcomp3.setBounds ((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
-        jcomp4.setBounds ((int) (controller.screenWidth/25.6), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
-        jcomp5.setBounds ((int) (controller.screenWidth/17.0666), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
-        jcomp6.setBounds ((int) (controller.screenWidth/12.8), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));
-        jcomp7.setBounds (0, (int) (controller.screenHeight/14.4), (int) (controller.screenWidth/2.56), controller.calcolaAltezzaFont(controller.baseFontSize)*nRighe);
-        jcomp8.setBounds (0, (int) (controller.screenHeight/14.4)+(controller.calcolaAltezzaFont(controller.baseFontSize)*nRighe)+1, (int) (controller.screenWidth/2.56), (int) (controller.screenHeight/48));
+        panel1.add(jcomp1); //inserisce 'label1' in 'panel1'
+        panel1.add(jcomp2); //inserisce 'label2' in 'panel1'
+        panel1.add(jcomp3); //inserisce 'label3' in 'panel1'
+        panel1.add(jcomp4); //inserisce 'label4' in 'panel1'
+        panel1.add(jcomp5); //inserisce 'label5' in 'panel1'
+        panel1.add(jcomp6); //inserisce 'label6' in 'panel1'
+        panel1.add(jcomp7); //inserisce 'label7' in 'panel1'
+        panel1.add(jcomp8); //inserisce 'label8' in 'panel1'
+
+        jcomp1.setBounds(0, 0, (int) (controller.screenWidth/12.8), (int) (controller.screenHeight/28.8));  //imposta la dimensione e la posizione di 'jcomps1' in 'panel1'
+        jcomp2.setBounds(0, (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));   //imposta la dimensione e la posizione di 'jcomps2' in 'panel1'
+        jcomp3.setBounds((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)); //imposta la dimensione e la posizione di 'jcomps3' in 'panel1'
+        jcomp4.setBounds((int) (controller.screenWidth/25.6), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)); //imposta la dimensione e la posizione di 'jcomps4' in 'panel1'
+        jcomp5.setBounds((int) (controller.screenWidth/17.0666), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8));  //imposta la dimensione e la posizione di 'jcomps5' in 'panel1'
+        jcomp6.setBounds((int) (controller.screenWidth/12.8), (int) (controller.screenHeight/28.8), (int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8)); //imposta la dimensione e la posizione di 'jcomps6' in 'panel1'
+        jcomp7.setBounds(0, (int) (controller.screenHeight/14.4), (int) (controller.screenWidth/2.56), controller.calcolaAltezzaFont(controller.baseFontSize)*nRighe);  //imposta la dimensione e la posizione di 'jcomps7' in 'panel1'
+        jcomp8.setBounds(0, (int) (controller.screenHeight/14.4)+(controller.calcolaAltezzaFont(controller.baseFontSize)*nRighe)+1, (int) (controller.screenWidth/2.56), (int) (controller.screenHeight/48));   //imposta la dimensione e la posizione di 'jcomps8' in 'panel1'
 
 
-        panel1.setPreferredSize (new Dimension ((int) (controller.screenWidth/2.56), jcomp1.getHeight()+jcomp2.getHeight()+jcomp7.getHeight()+jcomp8.getHeight()));
+        panel1.setPreferredSize(new Dimension ((int) (controller.screenWidth/2.56), jcomp1.getHeight()+jcomp2.getHeight()+jcomp7.getHeight()+jcomp8.getHeight()));  //imposta la dimensione preferita di 'panel1'
 
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = 0; // Colonna 1
-        constraints.gridy = (n-1); // Riga 0
-        commenti.add(panel1, constraints);
+
+        constraints.gridx = 0;  //imposta a 0 la colonna del layout in cui inserire 'panel1'
+        constraints.gridy = (n-1); //imposta a n-1 la riga del layout in cui inserire 'panel1'
+        commenti.add(panel1, constraints);  //inserisce nel 'panel1' nel JPanel 'commenti'
     }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //dimensioni dello schermo
+        int screenWidth = screenSize.width; //larghezza dello schermo
+        int screenHeight = screenSize.height;   //altezza dello schermo
 
-        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));
-        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        closeImg = new ImageIcon(imagine);
-        closeBT = new JLabel(closeImg);
+        ImageIcon closeImg = new ImageIcon(this.getClass().getResource("/close.png"));  //carica l'immagine nel percorso /close.png
+        Image imagine = closeImg.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH); //imposta le dimensioni dell'immagine
 
-        ImageIcon backIco = new ImageIcon(this.getClass().getResource("/back.png"));
-        Image backImg = backIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        backIco = new ImageIcon(backImg);
-        backButton = new JLabel(backIco);
+        closeImg = new ImageIcon(imagine);  //reinizializza l'ImageIcon 'closeImg' con l'Image 'image'
+        closeBT = new JLabel(closeImg); //inizializza la JLabel 'closeBT' con 'closeImg'
 
-        commenti = new JPanel();
-        commenti.setLayout(new GridBagLayout());
-        ((GridBagLayout)commenti.getLayout()).columnWidths = new int[] {0, 0};
-        ((GridBagLayout)commenti.getLayout()).rowHeights = new int[] {0, 0};
-        ((GridBagLayout)commenti.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};
-        ((GridBagLayout)commenti.getLayout()).rowWeights = new double[] {0.0, 1.0E-4};;
+        ImageIcon backIco = new ImageIcon(this.getClass().getResource("/back.png"));    //carica l'immagine nel percorso /back.png
+        Image backImg = backIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+        backIco = new ImageIcon(backImg);   //reinizializza l'ImageIcon 'backIco' con l'Image 'backImg'
+        backButton = new JLabel(backIco);   //inizializza la JLabel 'backButton' con 'backIco'
+
+        commenti = new JPanel();    //inizializza il JPanel 'commenti'
+        commenti.setLayout(new GridBagLayout());    //imposta il layout del JPanel 'commenti'
+        ((GridBagLayout)commenti.getLayout()).columnWidths = new int[] {0, 0};  //le larghezze delle colonne del layout di 'commenti' vengono impostate dinamicamente in base alle componenti contenute
+        ((GridBagLayout)commenti.getLayout()).rowHeights = new int[] {0, 0};    //le altezze delle righe del layout di 'commenti' vengono impostate dinamicamente in base alle componenti contenute
+        ((GridBagLayout)commenti.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};   //assegna le priorità delle colonne del layout di 'commenti' per impostare le loro larghezze
+        ((GridBagLayout)commenti.getLayout()).rowWeights = new double[] {0.0, 1.0E-4};  //assegna le priorità delle righe del layout di 'commenti' impostare le loro altezze
 
 
-        ImageIcon checkIco = new ImageIcon(this.getClass().getResource("/c2.png"));
-        Image checkImg = checkIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        checkIco = new ImageIcon(checkImg);
+        ImageIcon checkIco = new ImageIcon(this.getClass().getResource("/c2.png")); //carica l'immagine nel percorso /c2.png
+        Image checkImg = checkIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);    //imposta le dimensioni dell'immagine
 
-        ImageIcon checkSelIco = new ImageIcon(this.getClass().getResource("/c1.png"));
-        Image checkSelImg = checkSelIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        checkSelIco = new ImageIcon(checkSelImg);
+        checkIco = new ImageIcon(checkImg); //reinizializza l'ImageIcon 'checkIco' con l'Image 'checkImg'
 
-        disponibilitaCheckBox = new JCheckBox();
-        disponibilitaCheckBox.setIcon(checkIco);
-        disponibilitaCheckBox.setSelectedIcon(checkSelIco);
-        presentazioniCheckBox = new JCheckBox();
-        presentazioniCheckBox.setIcon(checkIco);
-        presentazioniCheckBox.setSelectedIcon(checkSelIco);
+        ImageIcon checkSelIco = new ImageIcon(this.getClass().getResource("/c1.png"));  //carica l'immagine nel percorso /c1.png
+        Image checkSelImg = checkSelIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
 
-        showComment(new Controller(), commenti);
+        checkSelIco = new ImageIcon(checkSelImg);   //reinizializza l'ImageIcon 'checkSelIco' con l'Image 'checkSelImg'
 
-        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));
-        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
-        notificaIco = new ImageIcon(notificaImg);
+        disponibilitaCheckBox = new JCheckBox();    //inizializza il JCheckBox 'disponibilitaCheckBox'
+        disponibilitaCheckBox.setIcon(checkIco);    //imposta l'icona del JCheckBox 'disponibilitaCheckBox' con l'immagine 'checkIco'
+        disponibilitaCheckBox.setSelectedIcon(checkSelIco); //imposta l'icona del JCheckBox 'disponibilitaCheckBox' quando una sua casella viene selzionata con l'immagine 'checkSelIco'
+        presentazioniCheckBox = new JCheckBox();    //inizializza il JCheckBox 'presentazioniCheckBox'
+        presentazioniCheckBox.setIcon(checkIco);    //imposta l'icona del JCheckBox 'presentazioniCheckBox' con l'immagine 'checkIco'
+        presentazioniCheckBox.setSelectedIcon(checkSelIco); //imposta l'icona del JCheckBox 'presentazioniCheckBox' quando una sua casella viene selzionata con l'immagine 'checkSelIco'
+
+        showComment(new Controller(), commenti);    //mostra tutti i commenti fatti al libro selezionato
+
+        ImageIcon notificaIco = new ImageIcon(this.getClass().getResource("/notifica.png"));    //carica l'immagine nel percorso /notifica.png
+        Image notificaImg = notificaIco.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
+
+        notificaIco = new ImageIcon(notificaImg);   //reinizializza l'ImageIcon 'notificaIco' con l'Image 'notificaImg'
 
         notificheLabel = new JLabel();
-        notificheLabel.setIcon(notificaIco);
+        notificheLabel.setIcon(notificaIco);    //imposta l'icona della JLabel 'notificheLabel' con l'immagine 'notificaIco'
     }
 }
