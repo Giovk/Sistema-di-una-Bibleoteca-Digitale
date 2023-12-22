@@ -116,7 +116,7 @@ public class BooksPage {
                 JButton increaseButton = new JButton(new ImageIcon(getAppropriateIcon(orientation))){
                     @Override
                     public Dimension getPreferredSize() {
-                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'decreaseButton'
+                        return new Dimension((int)(controller.screenWidth/51.2),(controller.screenHeight/20));   //inizializza le dimensioni del JButton 'increaseButton'
                     }
                 };
 
