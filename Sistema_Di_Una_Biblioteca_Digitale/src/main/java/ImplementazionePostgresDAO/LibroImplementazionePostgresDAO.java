@@ -3,8 +3,7 @@ package ImplementazionePostgresDAO;
 import DAO.LibroDAO;
 import Database.ConnessioneDatabase;
 
-import javax.swing.*;
-import java.net.URL;
+
 import java.sql.*;
 
 public class LibroImplementazionePostgresDAO implements LibroDAO {
