@@ -4,7 +4,6 @@ import DAO.*;
 import ImplementazionePostgresDAO.*;
 import Model.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.sql.Date;
@@ -67,7 +66,6 @@ public class Controller {
     public int screenHeight = initDimension();
     public int titleImpactSize = getFontTitleImpactSize();
     public Font titleImpact = new Font("Impact", Font.PLAIN, titleImpactSize);
-
     public int fontSize = getFontSize();
     public Font baseFontSize = new Font("Segoe UI", Font.PLAIN, fontSize);
     public Font impactFontSize = new Font("Impact", Font.PLAIN, fontSize);
@@ -78,8 +76,8 @@ public class Controller {
     // UTENTE //
     public void aggiungiUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){ //aggiunge un nuovo utente nel database e in memoria
         utente = new Utente(username, password, email, nome, cognome, dataNascita, partitaIVA); // Registra il nuovo utente in memoria
-        //utente.regUtente(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente in memoria
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
+
         u.addUtenteDB(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente nel DB
     }
 
@@ -157,23 +155,39 @@ public class Controller {
     }
 
     public boolean verificaPartitaIVA(String pIva){
-        if (pIva.length() == 0) return true;
-        if (pIva.length() != 11) return false;
+        if (pIva.length() == 0){
+            return true;
+        }
+
+        if (pIva.length() != 11){
+            return false;
+        }
+
         for(int i = 0; i < pIva.length(); i++){
-            if(pIva.charAt(i) < '0' || pIva.charAt(i) > '9') return false;
+            if(pIva.charAt(i) < '0' || pIva.charAt(i) > '9'){
+                return false;
+            }
         }
 
         return  true;
     }
 
     public boolean verificaNomeCognome(String nc){
-        if (nc.length() == 0) return false;
+        if (nc.length() == 0){
+            return false;
+        }
+
         for(int i = 0; i < nc.length(); i++){
             if(String.valueOf(nc.charAt(i)) == "'"){
-                while(String.valueOf(nc.charAt(i)) == "'") i++;
+                while(String.valueOf(nc.charAt(i)) == "'"){
+                    i++;
+                }
             }
+
             if(i < nc.length()) {
-                if (!((nc.charAt(i) >= 'a' && nc.charAt(i) <= 'z') || (nc.charAt(i) >= 'A' && nc.charAt(i) <= 'Z')))return false;
+                if (!((nc.charAt(i) >= 'a' && nc.charAt(i) <= 'z') || (nc.charAt(i) >= 'A' && nc.charAt(i) <= 'Z'))){
+                    return false;
+                }
             }
         }
 
@@ -190,62 +204,105 @@ public class Controller {
         return email;
     }
     public boolean verificaEmail(String email){
-        if (email.length() <= 2) return false;
-        if (!email.contains("@") || !email.contains(".")) return false;
+        if (email.length() <= 2){
+            return false;
+        }
+
+        if (!email.contains("@") || !email.contains(".")){
+            return false;
+        }
 
         int index1 = 0, index2 = 0;
 
         index1 = email.indexOf("@");
         index2 = email.lastIndexOf(".");
 
-        if (index1 > index2) return false;
+        if (index1 > index2){
+            return false;
+        }
 
-        if (email.substring(0, index1) == null || email.substring(0, index1) == "") return false;
-        if (email.length() < index1+2) return false;
-        if (email.substring(index1+1, index2) == null || email.substring(index1+1, index2) == "") return false;
-        if (email.length() < index2+2) return false;
-        if (email.substring(index2+2, email.length()) == null || email.substring(index2+1, email.length()) == "") return false;
+        if (email.substring(0, index1) == null || email.substring(0, index1) == ""){
+            return false;
+        }
+
+        if (email.length() < index1+2){
+            return false;
+        }
+
+        if (email.substring(index1+1, index2) == null || email.substring(index1+1, index2) == ""){
+            return false;
+        }
+
+        if (email.length() < index2+2){
+            return false;
+        }
+
+        if (email.substring(index2+2, email.length()) == null || email.substring(index2+1, email.length()) == ""){
+            return false;
+        }
 
         for(int i = 0; i < email.length(); i++){
-            if(!((email.charAt(i) >= '0' && email.charAt(i) <= '9') || (email.charAt(i) >= '@' && email.charAt(i) <= 'Z') || (email.charAt(i) >= 'a' && email.charAt(i) <= 'z') || (email.charAt(i) == '.'))) return false;
+            if(!((email.charAt(i) >= '0' && email.charAt(i) <= '9') || (email.charAt(i) >= '@' && email.charAt(i) <= 'Z') || (email.charAt(i) >= 'a' && email.charAt(i) <= 'z') || (email.charAt(i) == '.'))){
+                return false;
+            }
         }
 
         return  true;
     }
 
     public boolean verificaPassword(String password){
-        if (password.length() < 8) return false;
+        if (password.length() < 8){
+            return false;
+        }
 
         int numeri = 0;
         int specialChar = 0;
         int capsChar = 0;
 
         for(int i = 0; i < password.length(); i++){
-            if(password.charAt(i) >= '0' && password.charAt(i) <= '9') numeri++;
-            if(password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') capsChar++;
-            if(!((password.charAt(i) >= '0' && password.charAt(i) <= '9') || (password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') || (password.charAt(i) >= 'a' && password.charAt(i) <= 'z'))) specialChar++;
+            if(password.charAt(i) >= '0' && password.charAt(i) <= '9'){
+                numeri++;
+            }
+
+            if(password.charAt(i) >= 'A' && password.charAt(i) <= 'Z'){
+                capsChar++;
+            }
+
+            if(!((password.charAt(i) >= '0' && password.charAt(i) <= '9') || (password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') || (password.charAt(i) >= 'a' && password.charAt(i) <= 'z'))){
+                specialChar++;
+            }
         }
 
-        if (numeri == 0 || specialChar == 0 || capsChar == 0) return false;
+        if (numeri == 0 || specialChar == 0 || capsChar == 0){
+            return false;
+        }
 
         return  true;
     }
 
     public boolean verificaISBN(String isbn){
-        if (isbn.length() != 17) return false;
+        if (isbn.length() != 17){
+            return false;
+        }
 
         for(int i = 0; i < isbn.length(); i++){
-            if((isbn.charAt(i) < '0' || isbn.charAt(i) > '9') && (isbn.charAt(i) != '-')) return false;;
+            if((isbn.charAt(i) < '0' || isbn.charAt(i) > '9') && (isbn.charAt(i) != '-')){
+                return false;
+            }
         }
 
         return  true;
     }
 
     public boolean verificaISSN(String issn){
-        if (issn.length() < 9) return false;
+        if (issn.length() < 9){
+            return false;
+        }
 
         for(int i = 0; i < issn.length(); i++){
-            if((issn.charAt(i) < '0' || issn.charAt(i) > '9') && (issn.charAt(i) != '-')) return false;;
+            if((issn.charAt(i) < '0' || issn.charAt(i) > '9') && (issn.charAt(i) != '-')){
+                return false;
+            }
         }
 
         return  true;
@@ -264,13 +321,29 @@ public class Controller {
         utente.setPartitaIva(partitaIVA);   //imposta la partita IVA dell'utente
     }
 
-    public String getUsername(){return utente.getUsername();}   //ritorna l'username dell'utente
-    public String getNome(){return utente.getNome();}   //ritorna il nome dell'utente
-    public String getCognome(){return utente.getCognome();} //ritorna il cognome dell'utente
-    public String getEmail(){return utente.getEmail();} //ritorna l'email dell'utente
-    public String getPassword(){return utente.getPassword();}   //ritorna la password dell'utente
-    public String getPartitaIva(){return utente.getPartitaIVA();}   //ritorna la partita IVA dell'utente
-    public String getDataNascita(){return utente.getDataNascita();} //ritorna la data di nascita dell'utente
+    public String getUsername(){    //ritorna l'username dell'utente
+        return utente.getUsername();
+    }
+
+    public String getNome(){
+        return utente.getNome();
+    }   //ritorna il nome dell'utente
+
+    public String getCognome(){ //ritorna il cognome dell'utente
+        return utente.getCognome();
+    }
+
+    public String getEmail(){   //ritorna l'email dell'utente
+        return utente.getEmail();
+    }
+
+    public String getPassword(){    //ritorna la password dell'utente
+        return utente.getPassword();
+    }
+
+    public String getPartitaIva(){  //ritorna la partita IVA dell'utente
+        return utente.getPartitaIVA();
+    }
 
     public Utente getUtente(String username){   //ritorna un Utente con i dati dell'utente 'username'
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
@@ -291,7 +364,6 @@ public class Controller {
     }
 
     // LIBRO //
-
     public boolean creaLibro(String isbn, String titolo, String genere,String lingua, String editore,String dp){
         LibroDAO l = new LibroImplementazionePostgresDAO();
         boolean presenzaLibro = l.creaLibroDB(isbn, titolo, genere, lingua, editore, dp);
@@ -299,6 +371,7 @@ public class Controller {
         nuovoLibro = new Libro(isbn, genere, editore, lingua, titolo, Date.valueOf(dp));
         return presenzaLibro;
     }
+
     public ArrayList<Libro> getLibri() {   //ritorna i dati di tutti i libri nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ResultSet rs = l.getLibriDB();  //cerca i dati di tutti i libri nel DB
@@ -322,7 +395,6 @@ public class Controller {
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ResultSet rs = l.getLibriDB(collana);  //cerca i dati di tutti i libri della collana 'collana' nel DB
         ArrayList<Libro> libri = new ArrayList<Libro>();    //contiene tutti i libri
-
 
         try {
             while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
@@ -462,17 +534,24 @@ public class Controller {
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
         a.aggiungiAutoreLibroDB(nome, cognome, nazionalita, dn, nuovoLibro.isbn);
 
-        if(!dn.isBlank())nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));
-        else nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, null));
+        if(!dn.isBlank()){
+            nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));
+        } else{
+            nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, null));
+        }
     }
 
     public void aggiungiAutoreArticolo(String nome, String cognome, String nazionalita, String dn){
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
         a.aggiungiAutoreArticoloDB(nome, cognome, nazionalita, dn, nuovoArticoloScientifico.doi);
 
-        if(!dn.isBlank())nuovoArticoloScientifico.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));
-        else nuovoArticoloScientifico.autori.add(new Autore(nome, cognome, nazionalita, null));
+        if(!dn.isBlank()){
+            nuovoArticoloScientifico.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));
+        } else {
+            nuovoArticoloScientifico.autori.add(new Autore(nome, cognome, nazionalita, null));
+        }
     }
+
     public ArrayList<Autore> getAutoriLibro(String isbn){    //ritorna gli autori del libro con ISBN 'isbn'
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
         ResultSet rs = a.getAutoriLibroDB(isbn); //ResultSet contenente tutti gli autori del libro con ISBN 'isbn'
@@ -510,15 +589,15 @@ public class Controller {
         String linkString = "";
         ArrayList<String> totAutoreList = new ArrayList<>();
 
-
         for (Libro l: listaLibri) {    //scorre la lista dei libri
-
             aut = 0;    //numero di autori del libro 'l'
 
             for (Autore a: l.autori) {  //scorre tutti gli autori del libro 'l'
-
-                if (aut == 0) linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
-                else linkString = linkString + " \n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+                if (aut == 0){
+                    linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                } else{
+                    linkString = linkString + " \n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+                }
 
                 aut++;  //incrementa il numero di autori di 'l'
             }
@@ -528,12 +607,13 @@ public class Controller {
 
         return  totAutoreList;
     }
+
     public ArrayList<String> allAutoriDistintiLibri(){
         ArrayList<String> distinctAutoreList = new ArrayList<>();
         String linkString = "";
+
         for (Libro l: listaLibri) {    //scorre la lista dei libri
             for (Autore a : l.autori) { //scorre gli autori del libro 'l'
-
                 linkString = a.nome + " " + a.cognome;  //concatena in 'linkString' il nome e il cognome dell'autore 'a'
 
                 if (!distinctAutoreList.contains(linkString)) { //controlla se 'distinctAutoreList' non contiene 'linkString'
@@ -541,11 +621,13 @@ public class Controller {
                 }
             }
         }
+
         return distinctAutoreList;
     }
 
     public String allAutoriLibro(ArrayList<Autore> autori){
         String a = "";
+
         for (Autore au: autori){
             a = a + au.nome + " " + au.cognome + " ";
         }
@@ -555,6 +637,7 @@ public class Controller {
 
     public String allAutoriArticolo(ArrayList<Autore> autori){
         String a = "";
+
         for (Autore au: autori){
             a = a + au.nome + " " + au.cognome + " ";
         }
@@ -775,9 +858,14 @@ public class Controller {
     }
 
     public boolean verificaNumeroTelefonicoLibreria(String nt){
-        if (nt.length() != 10) return false;
+        if (nt.length() != 10){
+            return false;
+        }
+
         for(int i = 0; i < nt.length(); i++){
-            if(nt.charAt(i) < '0' || nt.charAt(i) > '9') return false;
+            if(nt.charAt(i) < '0' || nt.charAt(i) > '9'){
+                return false;
+            }
         }
 
         return true;
@@ -795,18 +883,19 @@ public class Controller {
 
     public void addLibreria(String nome, String nt, String sw, String indirizzo){
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
+
         l.addLibreriaDB(nome, nt, sw, indirizzo,utente.username);
         librerieUtente.add(new Libreria(nome, nt, indirizzo, sw, utente));
     }
 
     public void removeLibreria(int index){
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
+
         l.removeLibreriaDB(librerieUtente.get(index).numeroTelefonico);
         librerieUtente.remove(index);
     }
 
     // PRESENTAZIONE //
-
     public void getPresentazione(){    //ritorna i dati di tutte le presentazioni del libro con ISBN 'isbn_selected'
         PresentazioneDAO p = new PresentazioneImplementazionePostgresDAO();
         ArrayList<Presentazione> presentazioni = new ArrayList<>(); //contiene tutte le presentazioni del libro selezionato
@@ -814,7 +903,9 @@ public class Controller {
         Libro libroSelezionato = null;  //libro selezionato
 
         for (Libro l: listaLibri){  //scorre la lista dei libri
-            if(l.isbn.equals(isbn_selected)) libroSelezionato = l;  //se 'l' è il libro selezionato, allora assegna 'l' a 'libroSelezionato'
+            if(l.isbn.equals(isbn_selected)){
+                libroSelezionato = l;  //se 'l' è il libro selezionato, allora assegna 'l' a 'libroSelezionato'
+            }
         }
 
         try {
@@ -837,7 +928,6 @@ public class Controller {
 
 
     // SERIE //
-
     public ArrayList<Serie> getSerie() {   //ritorna i dati di tutte le serie nel DB
         SerieDAO s = new SerieImplementazionePostgresDAO();
         ResultSet rs = s.getSerieDB();  //cerca i dati di tutte le serie nel DB
@@ -955,7 +1045,6 @@ public class Controller {
     }
 
     // RECENSIONE //
-
     public float valutazioneMediaLibro(){   //ritorna la media delle valutazioni del libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         return r.valutazioneMediaLibroDB(isbn_selected);
@@ -1075,7 +1164,6 @@ public class Controller {
     }
 
     // RIVISTA //
-
     public ArrayList<Rivista> getRiviste() {   //ritorna i dati di tutte le serie nel DB
         RivistaDAO r = new RivistaImplementazionePostgresDAO();
         ResultSet rs = r.getRivisteDB();  //cerca i dati di tutte le serie nel DB
@@ -1108,7 +1196,6 @@ public class Controller {
     }
 
     // FASCICOLO //
-
     public ArrayList<Fascicolo> getFascicoli(){
         FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
         ResultSet rs = f.getFascicoliDB();  //cerca i dati di tutti i libri nel DB
@@ -1119,8 +1206,11 @@ public class Controller {
                 for (int i = 0; i < listaRiviste.size(); i++){
                     if(listaRiviste.get(i).issn.equals(rs.getString("issn"))){
                         Rivista rivistaFascicolo = listaRiviste.get(i);
+
                         i = listaRiviste.size();
+
                         ArrayList<ArticoloScientifico> articoloScientifici = getArticoliScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+
                         fascicoli.add(new Fascicolo(rs.getInt("numero"), rivistaFascicolo, articoloScientifici, rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
                     }
                 }
@@ -1140,7 +1230,9 @@ public class Controller {
         listaFascicoliRivista.clear();
 
         for (Fascicolo f: listaFascicoli){
-            if(f.rivista.issn.equals(issn)) listaFascicoliRivista.add(f);
+            if(f.rivista.issn.equals(issn)){
+                listaFascicoliRivista.add(f);
+            }
         }
     }
 
@@ -1154,8 +1246,11 @@ public class Controller {
                 for (int i = 0; i < listaRiviste.size(); i++){
                     if(listaRiviste.get(i).issn.equals(rs.getString("issn"))){
                         Rivista rivistaFascicolo = listaRiviste.get(i);
+
                         i = listaRiviste.size();
+
                         ArrayList<ArticoloScientifico> articoloScientifici = getArticoliScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+
                         fascicoli.add(new Fascicolo(rs.getInt("numero"), rivistaFascicolo, articoloScientifici, rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
                     }
                 }
@@ -1194,7 +1289,9 @@ public class Controller {
             try {
                 while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
                     fascicoliTitoloPreferiti.add(fascicoliPreferiti.get(i).rivista.titolo + " N°" + fascicoliPreferiti.get(i).numero);
+
                     Libreria libreria = new Libreria(rs.getString("nome"),rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"));
+
                     possessofPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), fascicoliPreferiti.get(i), libreria));
                     librerieFascicoliPreferiti.add(libreria);
                 }
@@ -1221,7 +1318,6 @@ public class Controller {
     }
 
     // ARTICOLO_SCIENTIFICO //
-
     public ArrayList<ArticoloScientifico> getArticoliScientifici(String issn, int n){
         ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
         ArrayList<ArticoloScientifico> articoloScientifici = new ArrayList<ArticoloScientifico>();
@@ -1244,8 +1340,9 @@ public class Controller {
         if(!listaFascicoli.isEmpty()) {
             for (int i = 0; i < listaFascicoli.size(); i++) {
                 for (int j = 0; j < listaFascicoli.get(i).articoli.size(); j++) {
-                    if (!listaArticoli.contains(listaFascicoli.get(i).articoli.get(j)))
+                    if (!listaArticoli.contains(listaFascicoli.get(i).articoli.get(j))) {
                         listaArticoli.add(listaFascicoli.get(i).articoli.get(j));
+                    }
                 }
             }
         }
@@ -1254,6 +1351,7 @@ public class Controller {
     public boolean creaArticolo(String titolo, int anno){
         ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
         boolean presenzaArticolo = as.creaArticoloDB(titolo, anno, nuovoFascicolo.numero, nuovoFascicolo.rivista.issn);
+
         nuovoArticoloScientifico = new ArticoloScientifico(as.getDoiDB(titolo), titolo, anno);
 
         as.chiudiConnessione();
@@ -1263,11 +1361,13 @@ public class Controller {
 
     public void getAParticolo(){
         ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
+
         anno_pubblicazione = as.getAPDB(doi_selected);
     }
 
     public void eliminaArticolo(){
         ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
+
         as.eliminaArticoloDB(nuovoArticoloScientifico.doi);
     }
 
@@ -1285,12 +1385,14 @@ public class Controller {
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
                 Serie serie = null;
+
                 for (int i = 0; i < listaSerie.size(); i++){
                     if(listaSerie.get(i).isbn.equals(rs.getString("isbn"))){
                         serie = listaSerie.get(i);
                         i = listaSerie.size();
                     }
                 }
+
                 notifiche.add(new Notifica(rs.getString("testo"), rs.getInt("libreria"), rs.getDate("datainvio"), rs.getTime("orainvio").toString(), rs.getBoolean("lettura"), utente, serie));   //inserisce una nuova serie in 'serie'
             }
         } catch (SQLException var){
@@ -1302,10 +1404,12 @@ public class Controller {
 
     public void rimuoviNotifica(String testo, String data, String ora){
         NotificaDAO n = new NotificaImplementazionePostgresDAO();
+
         n.rimuoviNotificaDB(testo, data, ora, utente.username);
 
         for (int i = 0; i < listaNotifiche.size(); i++){
             Notifica notifica = listaNotifiche.get(i);
+
             if (notifica.testo.equals(testo) && notifica.dataInvio.toString().equals(data) && notifica.oraInvio.toString().equals(ora)){
                 listaNotifiche.remove(i);
                 i = listaNotifiche.size();
@@ -1315,10 +1419,12 @@ public class Controller {
 
     public void visualizzaNotifica(String testo, String data, String ora){
         NotificaDAO n = new NotificaImplementazionePostgresDAO();
+
         n.visualizzaNotificaDB(testo, data, ora, utente.username);
 
         for (int i = 0; i < listaNotifiche.size(); i++){
             Notifica notifica = listaNotifiche.get(i);
+
             if (notifica.testo.equals(testo) && notifica.dataInvio.toString().equals(data) && notifica.oraInvio.toString().equals(ora)){
                 listaNotifiche.get(i).lettura = true;
                 i = listaNotifiche.size();
@@ -1328,15 +1434,15 @@ public class Controller {
 
     public boolean getLetturaNotifica(String testo, String data, String ora){
         for(Notifica n: listaNotifiche){
-            if(n.testo.equals(testo) && n.dataInvio.toString().equals(data) && n.oraInvio.toString().equals(ora)) return n.lettura;
-
+            if(n.testo.equals(testo) && n.dataInvio.toString().equals(data) && n.oraInvio.toString().equals(ora)){
+                return n.lettura;
+            }
         }
 
         return true;
     }
 
     // POSSESSO //
-
     public void getPossessoLibreria(){
         possessoLLibreria.clear();
         possessoSLibreria.clear();
@@ -1357,6 +1463,7 @@ public class Controller {
         try {
             while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
                 Libro l = new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), rs.getString("titolo"), rs.getDate("datapubblicazione"));
+
                 titoloLibriLibreria.add(l.isbn + " - " + l.titolo);
                 possessoLLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), l, libreria_selected));   //inserisce un nuovo libro in 'libri'
             }
@@ -1372,6 +1479,7 @@ public class Controller {
         try {
             while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
                 Serie s = new Serie(rs.getString("isbn"), rs.getInt("nlibri"), rs.getString("titolo"), rs.getDate("datapubblicazione"));
+
                 titoloSerieLibreria.add(s.isbn + " - " + s.titolo);
                 possessoSLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), s, libreria_selected));   //inserisce un nuovo libro in 'libri'
             }
@@ -1387,6 +1495,7 @@ public class Controller {
         try {
             while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
                 Fascicolo f = new Fascicolo(rs.getInt("numero"), new Rivista(rs.getString("issn"), rs.getString("titolo"), rs.getString("editore"), rs.getInt("annopubblicazione"), rs.getString("nomer") + " " + rs.getString("cognomer"), rs.getString("argomento")) ,rs.getDate("datapubblicazione"));
+
                 fascicoliLibreria.add(f);
                 possessoFLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), f, libreria_selected));   //inserisce un nuovo libro in 'libri'
             }
@@ -1399,11 +1508,13 @@ public class Controller {
 
     public void modQuantitaLibro(String fruizione, int value){
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
+
         p.modQuantitaLibroDB(isbn_selected, libreria_selected.numeroTelefonico, fruizione, value);
     }
 
     public void modQuantitaFascicolo(String fruizione, int value){
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
+
         p.modQuantitaFascicoloDB(fascicolo_selected.rivista.issn, fascicolo_selected.numero,libreria_selected.numeroTelefonico, fruizione, value);
     }
 
@@ -1421,11 +1532,13 @@ public class Controller {
 
     public void eliminaPossessoL(String fruizione){
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
+
         p.eliminaPossessoLDB(isbn_selected, libreria_selected.numeroTelefonico, fruizione);
     }
 
     public void eliminaPossessoF(String fruizione){
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
+
         p.eliminaPossessoFDB(fascicolo_selected.rivista.issn, fascicolo_selected.numero, libreria_selected.numeroTelefonico, fruizione);
     }
 
@@ -1455,8 +1568,9 @@ public class Controller {
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le presentazioni del libro selezionato
-                if (!conferenze.contains(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine"))) && anno_pubblicazione <= rs.getDate("datainizio").getYear()+1900)
-                conferenze.add(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine")));   //inserisce una nuova presentazione in 'Presentazioni'
+                if (!conferenze.contains(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine"))) && anno_pubblicazione <= rs.getDate("datainizio").getYear()+1900) {
+                    conferenze.add(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine")));   //inserisce una nuova presentazione in 'Presentazioni'
+                }
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -1478,7 +1592,6 @@ public class Controller {
     }
 
     // FUNZIONI AGGIUNTIVE //
-
     public int initDimension(){
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = (int) screenSize.width;
@@ -1486,9 +1599,9 @@ public class Controller {
     }
 
     public int getFontTitleImpactSize(){
-            // Calcola la dimensione del font in base alle dimensioni dello schermo
-            int fontSize = Math.min(screenWidth, screenHeight) / 33; // Modifica il coefficiente a seconda delle tue preferenze
-            return fontSize;
+        // Calcola la dimensione del font in base alle dimensioni dello schermo
+        int fontSize = Math.min(screenWidth, screenHeight) / 33; // Modifica il coefficiente a seconda delle tue preferenze
+        return fontSize;
     }
 
     public int getFontSize(){
@@ -1500,10 +1613,14 @@ public class Controller {
     public int calcolaAltezzaFont(Font font){
         BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = image.createGraphics();
+
         g2d.setFont(font);
+
         FontMetrics fm = g2d.getFontMetrics();
         int fontHeight = fm.getHeight();
+
         g2d.dispose();
+
         return fontHeight;
     }
 }
