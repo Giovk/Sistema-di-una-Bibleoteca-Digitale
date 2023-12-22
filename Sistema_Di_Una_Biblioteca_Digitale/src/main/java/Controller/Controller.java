@@ -74,12 +74,12 @@ public class Controller {
     }
 
     // UTENTE //
-    public void aggiungiUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){ //aggiunge un nuovo utente nel database e in memoria
-        utente = new Utente(username, password, email, nome, cognome, dataNascita, partitaIVA); // Registra il nuovo utente in memoria
+    public void aggiungiUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){ //aggiunge un nuovo utente nel DB e in memoria
+        utente = new Utente(username, password, email, nome, cognome, dataNascita, partitaIVA); //registra il nuovo utente in memoria
 
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
 
-        u.addUtenteDB(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente nel DB
+        u.addUtenteDB(email, nome, cognome, username, password, dataNascita, partitaIVA);   //registra il nuovo utente nel DB
     }//fine aggiungiUtente
 
     public int validaUtente(String userEmail, String password){ //conta il numero di utenti registrati con username o email 'userMail' e con password 'password'
@@ -284,33 +284,33 @@ public class Controller {
         return  true;
     }//fine verificaPassword
 
-    public boolean verificaISBN(String isbn){
-        if (isbn.length() != 17){
+    public boolean verificaISBN(String isbn){   //verifica se il formato dell'ISBN 'isbn' è corretto
+        if (isbn.length() != 17){   //conotrolla se 'isbn' non è lungo 17
             return false;
         }
 
-        for(int i = 0; i < isbn.length(); i++){
-            if((isbn.charAt(i) < '0' || isbn.charAt(i) > '9') && (isbn.charAt(i) != '-')){
+        for(int i = 0; i < isbn.length(); i++){ //scorre 'isbn'
+            if((isbn.charAt(i) < '0' || isbn.charAt(i) > '9') && (isbn.charAt(i) != '-')){  //controlla se l'i-esimo carattere non nè numerico e nè un "-"
                 return false;
             }
         }
 
         return  true;
-    }
+    }//fine verificaISBN
 
-    public boolean verificaISSN(String issn){
-        if (issn.length() < 9){
+    public boolean verificaISSN(String issn){   //verifica se il formato dell'ISSN 'issn' è corretto
+        if (issn.length() < 9){ //controlla se 'issn' è lunga meno di 9
             return false;
         }
 
-        for(int i = 0; i < issn.length(); i++){
-            if((issn.charAt(i) < '0' || issn.charAt(i) > '9') && (issn.charAt(i) != '-')){
+        for(int i = 0; i < issn.length(); i++){ //scorre 'issn'
+            if((issn.charAt(i) < '0' || issn.charAt(i) > '9') && (issn.charAt(i) != '-')){  //controlla se l'i-esimo carattere non nè numerico e nè un "-"
                 return false;
             }
         }
 
         return  true;
-    }
+    }//fine verificaISSN
 
     public void modUtente(String email, String nome, String cognome, String username, String password, String partitaIVA){  //modifica i dati dell'utente
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
@@ -323,31 +323,31 @@ public class Controller {
         utente.setUsername(username);   //imposta l'username dell'utente
         utente.setPassword(password);   //imposta la password dell'utente
         utente.setPartitaIva(partitaIVA);   //imposta la partita IVA dell'utente
-    }
+    }//fine modUtente
 
     public String getUsername(){    //ritorna l'username dell'utente
         return utente.getUsername();
-    }
+    }//fine getUsername
 
-    public String getNome(){
+    public String getNome(){    //ritorna il nome dell'utente
         return utente.getNome();
-    }   //ritorna il nome dell'utente
+    }//fine getNome
 
     public String getCognome(){ //ritorna il cognome dell'utente
         return utente.getCognome();
-    }
+    }//fine getCognome
 
     public String getEmail(){   //ritorna l'email dell'utente
         return utente.getEmail();
-    }
+    }//fine getEmail
 
     public String getPassword(){    //ritorna la password dell'utente
         return utente.getPassword();
-    }
+    }//fine getPassword
 
     public String getPartitaIva(){  //ritorna la partita IVA dell'utente
         return utente.getPartitaIVA();
-    }
+    }//fine getPartitaIva
 
     public Utente getUtente(String username){   //ritorna un Utente con i dati dell'utente 'username'
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
@@ -355,8 +355,8 @@ public class Controller {
         ResultSet rs = u.getUtenteDB(username); //cerca i dati dell'utente 'username' nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente l'utente
-                user = new Utente(rs.getString("username"), rs.getString("passwordu"), rs.getString("email"), rs.getString("nome"), rs.getString("Cognome"), rs.getString("datanascita"), rs.getString("partitaiva"));
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente i dati dell'utente
+                user = new Utente(rs.getString("username"), rs.getString("passwordu"), rs.getString("email"), rs.getString("nome"), rs.getString("Cognome"), rs.getString("datanascita"), rs.getString("partitaiva"));  //inizializza 'user'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -365,16 +365,16 @@ public class Controller {
         u.chiudiConnessione();  //chiude la connessione al DB
 
         return user;
-    }
+    }//fine getUtente
 
     // LIBRO //
-    public boolean creaLibro(String isbn, String titolo, String genere,String lingua, String editore,String dp){
+    public boolean creaLibro(String isbn, String titolo, String genere, String lingua, String editore,String dp){   //aggiunge un nuovo libro nel DB  e in memoria
         LibroDAO l = new LibroImplementazionePostgresDAO();
-        boolean presenzaLibro = l.creaLibroDB(isbn, titolo, genere, lingua, editore, dp);
+        boolean presenzaLibro = l.creaLibroDB(isbn, titolo, genere, lingua, editore, dp);   //se non esiste già, inserisce un nuovo libro nel DB
 
-        nuovoLibro = new Libro(isbn, genere, editore, lingua, titolo, Date.valueOf(dp));
+        nuovoLibro = new Libro(isbn, genere, editore, lingua, titolo, Date.valueOf(dp));    //inizializza 'nuovoLibro'
         return presenzaLibro;
-    }
+    }//fine creaLibro
 
     public ArrayList<Libro> getLibri() {   //ritorna i dati di tutti i libri nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
@@ -384,6 +384,7 @@ public class Controller {
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri
                 ArrayList<Autore> autori = getAutoriLibro(rs.getString("isbn")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+
                 libri.add(new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), autori ,rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
             }
         } catch (SQLException var){
@@ -393,7 +394,7 @@ public class Controller {
         l.chiudiConnessione();  //chiude la connessione al DB
 
         return libri;
-    }
+    }//fine getLibri
 
     public void getLibri(String collana) {   //ritorna i dati di tutti i libri della collana 'collana' nel DB
         LibroDAO l = new LibroImplementazionePostgresDAO();
@@ -423,7 +424,7 @@ public class Controller {
             while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
                 for(Libro libro: listaLibri){   //scorre la lista dei libri
                     if (libro.isbn.equals(rs.getString("libro"))){  //controlla se 'libro' appartiene alla serie
-                        libri.add(libro);   //aggiunge 'libro' in 'liobri'
+                        libri.add(libro);   //aggiunge 'libro' in 'libbri'
                     }
                 }
             }
@@ -431,68 +432,70 @@ public class Controller {
             var.printStackTrace();
         }
 
-        l.chiudiConnessione();
+        l.chiudiConnessione();  //chiude la connessione al DB
 
-        listaLibriSerie = libri;
-    }
+        listaLibriSerie = libri;    //inizializza 'listaLibriSerie'
+    }//fine getLibriSerie
 
-    public void getInfoLibriPreferiti(){
-        getLibriISBNPreferiti();
+    public void getInfoLibriPreferiti(){    //inserisce in 'possessolPreferiti' i dati dei libri preferiti dell'utente e in 'librerieLibriPreferiti' i dati delle librerie che li possiedono
+        getLibriISBNPreferiti();    //inizializza 'libriISBNPreferiti' con gli ISBN dei libri preferiti dell'utente
 
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ResultSet rs = null;
 
-        libriTitoloPreferiti.clear();
-        possessolPreferiti.clear();
-        librerieLibriPreferiti.clear();
+        libriTitoloPreferiti.clear();   //svuota 'libriTitoloPreferiti'
+        possessolPreferiti.clear(); //svuota 'possessolPreferiti'
+        librerieLibriPreferiti.clear(); //svuota 'librerieLibriPreferiti'
 
-        for (int i = 0; i< libriISBNPreferiti.size(); i++){
-            rs = l.getInfoLibriPreferitiDB(libriISBNPreferiti.get(i));
+        for (int i = 0; i< libriISBNPreferiti.size(); i++){ //scorre 'libriISBNPreferiti'
+            rs = l.getInfoLibriPreferitiDB(libriISBNPreferiti.get(i));  //cerca i dati dell'i-esimo libro delle librerie che lo possiedono
 
             try {
-                while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
-                    libriTitoloPreferiti.add(libriISBNPreferiti.get(i) + " - " + rs.getString("titolo"));
+                while(rs.next()){    //scorre il ResultSet 'rs'
+                    libriTitoloPreferiti.add(libriISBNPreferiti.get(i) + " - " + rs.getString("titolo"));   //aggiunge il titolo dell'i-esimo libro in 'libriTitoloPreferiti'
+
                     Libro libro = new Libro(rs.getString("isbn"),rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), rs.getString("titolo") ,rs.getDate("datapubblicazione"));
                     Libreria libreria = new Libreria(rs.getString("nome"),rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"));
-                    possessolPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), libro, libreria));
-                    librerieLibriPreferiti.add(libreria);
+
+                    possessolPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), libro, libreria));    //aggiunge un nuovo possesso in 'possessolPreferiti'
+                    librerieLibriPreferiti.add(libreria);   //aggiunge l'i-esima libreria in 'librerieLibriPreferit'
                 }
             } catch (SQLException var){
                 var.printStackTrace();
             }
         }
 
-        l.chiudiConnessione();
+        l.chiudiConnessione();  //chiude la connessione al DB
     }
 
-    public Date getDataLibro(){
+    public Date getDataLibro(){ //ritorna la data del libro selezionato
         LibroDAO l = new LibroImplementazionePostgresDAO();
         return l.getDataLibroDB(isbn_selected);
-    }
+    }//fine getDataLibro
 
-    public Date getDataLibro(String isbn){
+    public Date getDataLibro(String isbn){  //ritorna la data del libro selezionato con ISBN 'isbn'
         LibroDAO l = new LibroImplementazionePostgresDAO();
         return l.getDataLibroDB(isbn);
-    }
+    }//fine getDataLibro
 
-    public void eliminaLibro(){
+    public void eliminaLibro(){ //elimina il nuovo libro
         LibroDAO l = new LibroImplementazionePostgresDAO();
         l.eliminaLibroDB(nuovoLibro.isbn);
-    }
+    }//fine eliminaLibro
 
     // COLLANA //
     public ArrayList<String> getCollanaNome(){  //ritorna tutti i nomi delle collane
         CollanaDAO c = new CollanaImplementazionePostgresDAO();
-        return c.getCollanaNomeDB();   //contiene tutte le collane
+        return c.getCollanaNomeDB();   //contiene i nome di tutte le collane
     }
 
-    public ArrayList<Collana> getCollane(){
+    public ArrayList<Collana> getCollane(){ //ritorna tutte le collane
         CollanaDAO c = new CollanaImplementazionePostgresDAO();
         ArrayList<Collana> collane = new ArrayList<>();
-        ResultSet rs = c.getCollaneDB();
+        ResultSet rs = c.getCollaneDB();    //cerca i dati di tutte le collane
 
         try {
-            while (rs.next()){
+            while (rs.next()){  //scorre il ResultSet 'rs'
                 getLibri(rs.getString("nome"));
                 collane.add(new Collana(rs.getString("caratteristica"), rs.getString("nome"), rs.getString("issn"), listaLibriCollana));
             }
