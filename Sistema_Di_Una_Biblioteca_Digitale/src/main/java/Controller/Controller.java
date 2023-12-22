@@ -76,15 +76,16 @@ public class Controller {
     // UTENTE //
     public void aggiungiUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){ //aggiunge un nuovo utente nel database e in memoria
         utente = new Utente(username, password, email, nome, cognome, dataNascita, partitaIVA); // Registra il nuovo utente in memoria
+
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
 
         u.addUtenteDB(email, nome, cognome, username, password, dataNascita, partitaIVA); // Registra il nuovo utente nel DB
-    }
+    }//fine aggiungiUtente
 
     public int validaUtente(String userEmail, String password){ //conta il numero di utenti registrati con username o email 'userMail' e con password 'password'
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
-        return u.validaUtenteDB(userEmail, password);
-    }
+        return u.validaUtenteDB(userEmail, password);   //ritorna il numero di utenti registrati con username o email 'userMail' e con password 'password'
+    }//fine validaUtente
 
     public void setUtente(String userEmail, String password) { //prende in input un username o un'email e una password per cercare nel DB un utente con queste credenziali e poi lo carica in memoria
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
@@ -114,9 +115,9 @@ public class Controller {
         u.chiudiConnessione();  //chiude la connessione al DB
 
         utente = new Utente(us, p, e, n, c, dn, pIVA);
-    }
+    }//fine setUtente
 
-    public int[] validaModUtente(String email, String username, String pIva){   //controlla se delle modifiche effettuate dallutente sono corrette, verificando che l'email 'email', l'username 'uername' e/o la partita IVA 'pIva' non siano già state utilizzate da altri utenti
+    public int[] validaModUtente(String email, String username, String pIva){   //controlla se delle modifiche effettuate dall'utente sono corrette, verificando che l'email 'email', l'username 'uername' e/o la partita IVA 'pIva' non siano già state utilizzate da altri utenti
         int[] error = {0, 0, 0, 0};
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
 
@@ -128,18 +129,20 @@ public class Controller {
             error[1] = u.validaModUsernameDB(username); //mette in 'error[1]' il numero di utenti con 'username' trovati nel DB
         }
 
-        if(!pIva.equals(utente.partitaIVA)){    //controlla se la partita iva è stato modificato
-            if(utente.verifyPartitaIVA(pIva) == false){
-                error[3] = 1;
-            } else error[2] = u.validaModPIVADB(pIva); //mette in 'error[2]' il numero di utenti con pIva' trovati nel DB
+        if(!pIva.equals(utente.partitaIVA)){    //controlla se la partita IVA è stata modificata
+            if(utente.verifyPartitaIVA(pIva) == false){ //controlla se il formaro di 'pIva' è corretto
+                error[3] = 1;   //mette in 'error[3]' 1
+            } else {
+                error[2] = u.validaModPIVADB(pIva); //mette in 'error[2]' il numero di utenti con 'pIva' trovati nel DB
+            }
         }
 
         u.chiudiConnessione();  //chiude la connessione al DB
 
         return error;
-    }
+    }//fine validaModUtente
 
-    public int[] validaInsUtente(String email, String username, String pIva){   //controlla se delle modifiche effettuate dallutente sono corrette, verificando che l'email 'email', l'username 'uername' e/o la partita IVA 'pIva' non siano già state utilizzate da altri utenti
+    public int[] validaInsUtente(String email, String username, String pIva){   //controlla se l'email 'email', l'username 'uername' e/o la partita IVA 'pIva' non siano già state utilizzate da altri utenti
         int[] error = {0, 0, 0};
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
 
@@ -152,133 +155,134 @@ public class Controller {
         u.chiudiConnessione();  //chiude la connessione al DB
 
         return error;
-    }
+    }//fine validaInsUtente
 
-    public boolean verificaPartitaIVA(String pIva){
-        if (pIva.length() == 0){
+    public boolean verificaPartitaIVA(String pIva){ //verifica se il formato della partita IVA 'pIva' è corretto
+        if (pIva.length() == 0){    //controlla se 'pIva' è lunga 0
             return true;
         }
 
-        if (pIva.length() != 11){
+        if (pIva.length() != 11){   //controlla se 'pIva' non è lunga 11
             return false;
         }
 
-        for(int i = 0; i < pIva.length(); i++){
-            if(pIva.charAt(i) < '0' || pIva.charAt(i) > '9'){
+        for(int i = 0; i < pIva.length(); i++){ //scorre 'pIva'
+            if(pIva.charAt(i) < '0' || pIva.charAt(i) > '9'){   //controlla se l'i-esimo carattere non è numerico
                 return false;
             }
         }
 
         return  true;
-    }
+    }//fine verificaPartitaIVA
 
-    public boolean verificaNomeCognome(String nc){
-        if (nc.length() == 0){
+    public boolean verificaNomeCognome(String nc){  //verifica se il formato del nome o cognome 'nc' è corretto
+        if (nc.length() == 0){  //controlla se 'nc' è lungo 0
             return false;
         }
 
-        for(int i = 0; i < nc.length(); i++){
-            if(String.valueOf(nc.charAt(i)) == "'"){
-                while(String.valueOf(nc.charAt(i)) == "'"){
-                    i++;
+        for(int i = 0; i < nc.length(); i++){   //scorre 'nc'
+            if(String.valueOf(nc.charAt(i)) == "'"){    //controlla se l'i-esimo carattere è "'"
+                while(String.valueOf(nc.charAt(i)) == "'"){ //scorre 'nc' fino a quando l'i-esimo carattere non è "'"
+                    i++;    //incrementa il contatore
                 }
             }
 
-            if(i < nc.length()) {
-                if (!((nc.charAt(i) >= 'a' && nc.charAt(i) <= 'z') || (nc.charAt(i) >= 'A' && nc.charAt(i) <= 'Z'))){
+            if(i < nc.length()) {   //controlla se non è stato scorso 'nc'
+                if (!((nc.charAt(i) >= 'a' && nc.charAt(i) <= 'z') || (nc.charAt(i) >= 'A' && nc.charAt(i) <= 'Z'))){   //controlla se l'i-esimo carattere non è alfabetico
                     return false;
                 }
             }
         }
 
         return  true;
-    }
+    }//fine verificaNomeCognome
 
-    public String changeEmail (String email){
-        for(int i = 0; i < email.length(); i++){
-            if(email.charAt(i) < 'A' || email.charAt(i) > 'Z'){
-                email.replace(email.charAt(i), (char) (email.charAt(i) + 32));
+    public String changeEmail (String email){   //convete i caratteri maiuscoli di 'email' in minuscoli
+        for(int i = 0; i < email.length(); i++){    //scorre 'email'
+            if(email.charAt(i) < 'A' || email.charAt(i) > 'Z'){ //controlla se l'i-esimo carattere è maiuscolo
+                email.replace(email.charAt(i), (char) (email.charAt(i) + 32));  //converte l'i-esimo carattere in minuscolo
             }
         }
 
         return email;
-    }
-    public boolean verificaEmail(String email){
-        if (email.length() <= 2){
+    }   //fine changeEmail
+
+    public boolean verificaEmail(String email){ //verifica se il formato dell'email 'email' è corretto
+        if (email.length() <= 2){   //controlla se 'email' è lunga meno di 3
             return false;
         }
 
-        if (!email.contains("@") || !email.contains(".")){
+        if (!email.contains("@") || !email.contains(".")){  //controlla se 'mail' i caratteri "@" e "."
             return false;
         }
 
-        int index1 = 0, index2 = 0;
+        int index1 = 0, index2 = 0; //indici di "@" e '.'
 
-        index1 = email.indexOf("@");
-        index2 = email.lastIndexOf(".");
+        index1 = email.indexOf("@");    //inizializza 'index1' con la posizione del primo "@" in 'email'
+        index2 = email.lastIndexOf(".");    //inizializza 'index2' con la posizione dell'ultimo "." in 'email'
 
-        if (index1 > index2){
+        if (index1 > index2){   //controlla se 'email' non ha un "." dopo il "@"
             return false;
         }
 
-        if (email.substring(0, index1) == null || email.substring(0, index1) == ""){
+        if (email.substring(0, index1) == null || email.substring(0, index1) == ""){    //controlla se 'email' non ha caratteri prima di "@"
             return false;
         }
 
-        if (email.length() < index1+2){
+        if (email.length() < index1+2){ //controlla se 'email' non ha più di un carattere dopo il "@"
             return false;
         }
 
-        if (email.substring(index1+1, index2) == null || email.substring(index1+1, index2) == ""){
+        if (email.substring(index1+1, index2) == null || email.substring(index1+1, index2) == ""){  //controlla se 'email' contiene la sottostringa "@."
             return false;
         }
 
-        if (email.length() < index2+2){
+        if (email.length() < index2+2){ //controlla se 'email' non ha più di un carattere dopo il "."
             return false;
         }
 
-        if (email.substring(index2+2, email.length()) == null || email.substring(index2+1, email.length()) == ""){
+        if (email.substring(index2+2, email.length()) == null || email.substring(index2+1, email.length()) == ""){  //controlla se 'email' non ha caratteri dopo il "."
             return false;
         }
 
-        for(int i = 0; i < email.length(); i++){
-            if(!((email.charAt(i) >= '0' && email.charAt(i) <= '9') || (email.charAt(i) >= '@' && email.charAt(i) <= 'Z') || (email.charAt(i) >= 'a' && email.charAt(i) <= 'z') || (email.charAt(i) == '.'))){
+        for(int i = 0; i < email.length(); i++){    //scorre 'email'
+            if(!((email.charAt(i) >= '0' && email.charAt(i) <= '9') || (email.charAt(i) >= '@' && email.charAt(i) <= 'Z') || (email.charAt(i) >= 'a' && email.charAt(i) <= 'z') || (email.charAt(i) == '.'))){  //controlla se l'i-esimo carattere non nè alfanumerico e nè "@" o "."
                 return false;
             }
         }
 
         return  true;
-    }
+    }//fine verificaEmail
 
-    public boolean verificaPassword(String password){
-        if (password.length() < 8){
+    public boolean verificaPassword(String password){   //verifica se il formato della password 'password' è corretto
+        if (password.length() < 8){ //controlla se 'password' è lunga meno di 8
             return false;
         }
 
-        int numeri = 0;
-        int specialChar = 0;
-        int capsChar = 0;
+        int numeri = 0; //numero di caratteri numerici contenuti in 'password'
+        int specialChar = 0;    //numero di caratteri speciali contenuti in 'password'
+        int capsChar = 0;   //numero di caratteri maiuscoli contenuti in 'password'
 
-        for(int i = 0; i < password.length(); i++){
-            if(password.charAt(i) >= '0' && password.charAt(i) <= '9'){
-                numeri++;
+        for(int i = 0; i < password.length(); i++){ //scorre 'password'
+            if(password.charAt(i) >= '0' && password.charAt(i) <= '9'){ //verifica se l'i-esimo carattere è numerico
+                numeri++;   //incrementa 'numeri'
             }
 
-            if(password.charAt(i) >= 'A' && password.charAt(i) <= 'Z'){
-                capsChar++;
+            if(password.charAt(i) >= 'A' && password.charAt(i) <= 'Z'){ //verifica se l'i-esimo carattere è alfabetico maiuscolo
+                capsChar++; //incrementa 'capsChar'
             }
 
-            if(!((password.charAt(i) >= '0' && password.charAt(i) <= '9') || (password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') || (password.charAt(i) >= 'a' && password.charAt(i) <= 'z'))){
-                specialChar++;
+            if(!((password.charAt(i) >= '0' && password.charAt(i) <= '9') || (password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') || (password.charAt(i) >= 'a' && password.charAt(i) <= 'z'))){    //controlla se l'i-esimo carattere è speciale
+                specialChar++;  //incrementa 'specialChar'
             }
         }
 
-        if (numeri == 0 || specialChar == 0 || capsChar == 0){
+        if (numeri == 0 || specialChar == 0 || capsChar == 0){  //controlla se non sono stati inseriti caratteri numerici, maiuscoli o speciali
             return false;
         }
 
         return  true;
-    }
+    }//fine verificaPassword
 
     public boolean verificaISBN(String isbn){
         if (isbn.length() != 17){
