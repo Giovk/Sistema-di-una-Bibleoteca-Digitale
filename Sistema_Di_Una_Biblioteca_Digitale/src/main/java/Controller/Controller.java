@@ -421,7 +421,7 @@ public class Controller {
         ResultSet rs = l.getLibriSerieDB(isbnSerie);    //cerca i libri della serie trovati nel DB
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri della serie
                 for(Libro libro: listaLibri){   //scorre la lista dei libri
                     if (libro.isbn.equals(rs.getString("libro"))){  //controlla se 'libro' appartiene alla serie
                         libri.add(libro);   //aggiunge 'libro' in 'libbri'
@@ -480,6 +480,7 @@ public class Controller {
 
     public void eliminaLibro(){ //elimina il nuovo libro
         LibroDAO l = new LibroImplementazionePostgresDAO();
+
         l.eliminaLibroDB(nuovoLibro.isbn);
     }//fine eliminaLibro
 
@@ -1002,8 +1003,8 @@ public class Controller {
         ResultSet rs = null;
 
         serieTitoloPreferiti.clear();   //svuota 'serieTitoloPreferiti'
-        possessosPreferiti.clear(); //svuota 'serieTitoloPreferiti'
-        librerieSeriePreferiti.clear(); //svuota 'serieTitoloPreferiti'
+        possessosPreferiti.clear(); //svuota 'possessosPreferiti'
+        librerieSeriePreferiti.clear(); //svuota 'librerieSeriePreferiti'
 
         for (int i = 0; i< serieISBNPreferiti.size(); i++){ //scorre 'serieISBNPreferiti'
             rs = s.getInfoSeriePreferitiDB(serieISBNPreferiti.get(i));  //cerca i dati dell'i-esima serie e delle librerie che la possiedono
@@ -1016,7 +1017,7 @@ public class Controller {
                     Libreria libreria = new Libreria(rs.getString("nome"),rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"));
 
                     possessosPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), serie, libreria));    //aggiunge un nuovo possesso in 'possessosPreferiti'
-                    librerieSeriePreferiti.add(libreria);   //aggiunge l'i-esima libreria in 'librerieLibriPreferiti'
+                    librerieSeriePreferiti.add(libreria);   //aggiunge l'i-esima libreria in 'librerieSeriePreferiti'
                 }
             } catch (SQLException var){
                 var.printStackTrace();
@@ -1028,7 +1029,7 @@ public class Controller {
 
     public boolean creaSerie(ArrayList<String> isbnList, String isbn, String titolo, String dp){    //se crea una nuova serie, ritorna "true", altrimenti ritorna "false"
         SerieDAO s = new SerieImplementazionePostgresDAO();
-        boolean presenzaSerie = s.creaSerieDB(isbnList, isbn, titolo, dp);
+        boolean presenzaSerie = s.creaSerieDB(isbnList, isbn, titolo, dp);  //se non esiste già, inserisce un nuova serie nel DB
 
         nuovoSerie = new Serie(isbn, isbnList.size(), titolo, Date.valueOf(dp));    //inizializza 'nuovaSerie'
         return presenzaSerie;
@@ -1132,15 +1133,16 @@ public class Controller {
         likeElementSelected = r.changeLikeFascicoloDB(likeElementSelected, fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);  //aggiorna 'likeElementSelected'
     }//fine changeLikeFascicolo
 
-    public void addRecensioneFascicolo(int valutazione, String text){   //aggiunge una nuova recensione con 'valutazione' e 'testo' fatta dall'utente al libro selezionato
+    public void addRecensioneFascicolo(int valutazione, String text){   //aggiunge una nuova recensione con 'valutazione' e 'testo' fatta dall'utente al fascicolo selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        r.addRecensioneFascicoloDB(valutazione, text, fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);
+
+        r.addRecensioneFascicoloDB(valutazione, text, fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);   //aggiunge la nuova recensione nel DB
         return;
     }
 
     public void allRecWithCommentFascicolo(){    //ritorna tutte le recensioni con testo fatte al fascicolo selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        ResultSet rs = r.allRecWithCommentFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo);    //contiene tutte le recensioni fatte al libro selezionato
+        ResultSet rs = r.allRecWithCommentFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo);    //cerca tutte le recensioni fatte al fascicolo selezionato
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le recensioni
@@ -1151,27 +1153,29 @@ public class Controller {
         }
 
         r.chiudiConnessione();  //chiude la connessione al DB
-    }
+    }//fine allRecWithCommentFascicolo
 
-    public void getLibriISBNPreferiti(){
+    public void getLibriISBNPreferiti(){    //ritorna gli ISBN dei libri preferiti dell'utente
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        libriISBNPreferiti = r.getLibriISBNPreferitiDB(utente.username);
-    }
 
-    public void getSerieISBNPreferiti(){
+        libriISBNPreferiti = r.getLibriISBNPreferitiDB(utente.username);    //inizializza 'libriISBNPreferiti'
+    }//fine getLibriISBNPreferiti
+
+    public void getSerieISBNPreferiti(){    //ritorna gli ISBN delle serie preferite dell'utente
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        serieISBNPreferiti = r.getSerieISBNPreferitiDB(utente.username);
-    }
+
+        serieISBNPreferiti = r.getSerieISBNPreferitiDB(utente.username);    //inizializza 'serieISBNPreferiti'
+    }//fine getSerieISBNPreferiti
 
     // RIVISTA //
-    public ArrayList<Rivista> getRiviste() {   //ritorna i dati di tutte le serie nel DB
+    public ArrayList<Rivista> getRiviste() {   //ritorna i dati di tutte le riviste nel DB
         RivistaDAO r = new RivistaImplementazionePostgresDAO();
-        ResultSet rs = r.getRivisteDB();  //cerca i dati di tutte le serie nel DB
-        ArrayList<Rivista> riviste = new ArrayList<Rivista>();    //contiene tutte le serie
+        ResultSet rs = r.getRivisteDB();  //cerca i dati di tutte le riviste nel DB
+        ArrayList<Rivista> riviste = new ArrayList<Rivista>();    //contiene tutte le rkiviste
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                riviste.add(new Rivista(rs.getString("issn"), rs.getString("titolo"), rs.getString("editore"), rs.getInt("annoPubblicazione"), rs.getString("nomer") + "#" + rs.getString("cognomer"), rs.getString("argomento")));   //inserisce una nuova serie in 'serie'
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le riviste
+                riviste.add(new Rivista(rs.getString("issn"), rs.getString("titolo"), rs.getString("editore"), rs.getInt("annoPubblicazione"), rs.getString("nomer") + "#" + rs.getString("cognomer"), rs.getString("argomento")));   //inserisce una nuova rivista in 'riviste'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -1180,38 +1184,39 @@ public class Controller {
         r.chiudiConnessione();  //chiude la connessione al DB
 
         return riviste;
-    }
+    }//fine getRiviste
 
-    public boolean creaRivista(String titolo, String issn, String argomento ,String nomeR, String cognomeR, String editore,int ap){
+    public boolean creaRivista(String titolo, String issn, String argomento ,String nomeR, String cognomeR, String editore, int ap){    //se crea una nuova rivista, ritorna "true", altrimenti ritorna "false"
         RivistaDAO r = new RivistaImplementazionePostgresDAO();
-        boolean presenzaRivista = r.creaRivistaDB(issn, titolo, argomento, nomeR, cognomeR, editore, ap);
+        boolean presenzaRivista = r.creaRivistaDB(issn, titolo, argomento, nomeR, cognomeR, editore, ap);      //se non esiste già, inserisce una nuova rivista nel DB
 
-        nuovaRivista = new Rivista(issn, titolo, editore, ap, nomeR +"#"+ cognomeR, argomento);
+        nuovaRivista = new Rivista(issn, titolo, editore, ap, nomeR +"#"+ cognomeR, argomento); //inizializza 'nuovaRivista'
         return presenzaRivista;
-    }
+    }//fine creaRivista
 
-    public void eliminaRivista(){
+    public void eliminaRivista(){   //elimina la nuova rivista
         RivistaDAO r = new RivistaImplementazionePostgresDAO();
+
         r.eliminaRivistaDB(nuovaRivista.issn);
-    }
+    }//eliminaRivista
 
     // FASCICOLO //
-    public ArrayList<Fascicolo> getFascicoli(){
+    public ArrayList<Fascicolo> getFascicoli(){ //ritorna i dati di tutti i fascicoli nel DB
         FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
-        ResultSet rs = f.getFascicoliDB();  //cerca i dati di tutti i libri nel DB
-        ArrayList<Fascicolo> fascicoli = new ArrayList<Fascicolo>();    //contiene tutti i libri
+        ResultSet rs = f.getFascicoliDB();  //cerca i dati di tutti i fascicoli nel DB
+        ArrayList<Fascicolo> fascicoli = new ArrayList<Fascicolo>();    //contiene tutti i fascicoli
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri
-                for (int i = 0; i < listaRiviste.size(); i++){
-                    if(listaRiviste.get(i).issn.equals(rs.getString("issn"))){
-                        Rivista rivistaFascicolo = listaRiviste.get(i);
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente i fascicoli
+                for (int i = 0; i < listaRiviste.size(); i++){  //scorre 'listaRiviste'
+                    if(listaRiviste.get(i).issn.equals(rs.getString("issn"))){  //controlla se l'i-esima rivista è quella del fascicolo corrente
+                        Rivista rivistaFascicolo = listaRiviste.get(i); //rivista del fascicolo corrente
 
-                        i = listaRiviste.size();
+                        i = listaRiviste.size();    //assegna a 'i' la dimensione di 'listaRiviste'
 
-                        ArrayList<ArticoloScientifico> articoloScientifici = getArticoliScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                        ArrayList<ArticoloScientifico> articoliScientifici = getArticoliScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli articoli scientifici del fascicolo corrente di 'rs' nell'ArrayList 'articoliScientifici'
 
-                        fascicoli.add(new Fascicolo(rs.getInt("numero"), rivistaFascicolo, articoloScientifici, rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
+                        fascicoli.add(new Fascicolo(rs.getInt("numero"), rivistaFascicolo, articoliScientifici, rs.getDate("datapubblicazione")));   //inserisce un nuovo fascicolo in 'fascicoli'
                     }
                 }
             }
@@ -1222,36 +1227,36 @@ public class Controller {
         f.chiudiConnessione();  //chiude la connessione al DB
 
         return fascicoli;
-    }
+    }//fine getFascicoli
 
-    public void getFascicoliRivista(String issn){
+    public void getFascicoliRivista(String issn){   //ritorna tutti i fascicoli della rivista con ISSN 'issn'
         ArrayList<Fascicolo> fascicoli = new ArrayList<>();
 
-        listaFascicoliRivista.clear();
+        listaFascicoliRivista.clear();  //svuota 'listaFascicoliRivista'
 
-        for (Fascicolo f: listaFascicoli){
-            if(f.rivista.issn.equals(issn)){
-                listaFascicoliRivista.add(f);
+        for (Fascicolo f: listaFascicoli){  //scorre 'listaFascicoliRivista'
+            if(f.rivista.issn.equals(issn)){    //controlla se il fascicolo 'f' è nella rivsta con ISSN 'issn'
+                listaFascicoliRivista.add(f);   //aggiunge 'f' in 'listaFascicoliRivista'
             }
         }
-    }
+    }//fine getFascicoliRivista
 
-    public void getFascicoliPreferiti(){
+    public void getFascicoliPreferiti(){    //ritorna i fascicoli preferiti dell'utente
         FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
-        ResultSet rs = f.getFascicoliDB(utente.username);  //cerca i dati di tutti i libri nel DB
-        ArrayList<Fascicolo> fascicoli = new ArrayList<Fascicolo>();    //contiene tutti i libri
+        ResultSet rs = f.getFascicoliDB(utente.username);  //cerca i dati di tutti i fascicoli preferiti dall'utente nel DB
+        ArrayList<Fascicolo> fascicoli = new ArrayList<Fascicolo>();    //contiene tutti i fascicoli
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente i libri
-                for (int i = 0; i < listaRiviste.size(); i++){
-                    if(listaRiviste.get(i).issn.equals(rs.getString("issn"))){
-                        Rivista rivistaFascicolo = listaRiviste.get(i);
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente i fascicoli
+                for (int i = 0; i < listaRiviste.size(); i++){  //scorre 'listaRiviste'
+                    if(listaRiviste.get(i).issn.equals(rs.getString("issn"))){  //controlla se l'i-esima rivista è quella del fascicolo corrente
+                        Rivista rivistaFascicolo = listaRiviste.get(i); //rivista del fascicolo corrente
 
-                        i = listaRiviste.size();
+                        i = listaRiviste.size();    //assegna a 'i' la dimensione di 'listaRiviste'
 
-                        ArrayList<ArticoloScientifico> articoloScientifici = getArticoliScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli autori del libro corrente di 'rs' nell'ArrayList 'autori'
+                        ArrayList<ArticoloScientifico> articoliScientifici = getArticoliScientifici(rivistaFascicolo.issn, rs.getInt("numero")); //inserisce gli articoli scientifici del fascicolo corrente di 'rs' nell'ArrayList 'articoliScientifici'
 
-                        fascicoli.add(new Fascicolo(rs.getInt("numero"), rivistaFascicolo, articoloScientifici, rs.getDate("datapubblicazione")));   //inserisce un nuovo libro in 'libri'
+                        fascicoli.add(new Fascicolo(rs.getInt("numero"), rivistaFascicolo, articoliScientifici, rs.getDate("datapubblicazione")));   //inserisce un nuovo fascicolo in 'fascicoli'
                     }
                 }
             }
@@ -1261,61 +1266,63 @@ public class Controller {
 
         f.chiudiConnessione();  //chiude la connessione al DB
 
-        fascicoliPreferiti = fascicoli;
-    }
+        fascicoliPreferiti = fascicoli; //inizializza 'fascicoliPreferiti'
+    }//fine getFascicoliPreferiti
 
-    public void selezionaFascicolo(int numero, String titolo){
-        for(int i = 0; i < listaFascicoli.size(); i++){
-            if(listaFascicoli.get(i).rivista.titolo.equals(titolo) && listaFascicoli.get(i).numero == numero) {
-                fascicolo_selected = listaFascicoli.get(i);
-                i = listaFascicoli.size();
+    public void selezionaFascicolo(int numero, String titolo){  //inserisce in 'fascicolo_selected' con il fascicolo numero 'numero' della rivista 'titolo'
+        for(int i = 0; i < listaFascicoli.size(); i++){ //scorre 'listaFascicoli'
+            if(listaFascicoli.get(i).rivista.titolo.equals(titolo) && listaFascicoli.get(i).numero == numero) { //contolla se l'i-esimo fascicolo è quello selezionato
+                fascicolo_selected = listaFascicoli.get(i); //aggiorna 'fascicolo_selected'
+                i = listaFascicoli.size();  //assegna a 'i' la dimensione di 'listaRiviste'
             }
 
         }
-    }
+    }//fine selezionaFascicolo
 
-    public void getInfoFascicoliPreferiti(){
-        getFascicoliPreferiti();
+    public void getInfoFascicoliPreferiti(){    //inserisce in 'possessofPreferiti' i dati dei fascicoli preferiti dell'utente e in 'librerieFascicoliPreferiti' i dati delle librerie che li possiedono
+        getFascicoliPreferiti();    //inizializza 'fascicoliPreferiti' con i fascicoli preferiti dell'utente
+
         FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
         ResultSet rs = null;
 
-        fascicoliTitoloPreferiti.clear();
-        possessofPreferiti.clear();
-        librerieFascicoliPreferiti.clear();
+        fascicoliTitoloPreferiti.clear();   //svuota 'fascicoliTitoloPreferiti'
+        possessofPreferiti.clear(); //svuota 'possessofPreferiti'
+        librerieFascicoliPreferiti.clear(); //svuota 'librerieFascicoliPreferiti'
 
-        for (int i = 0; i< fascicoliPreferiti.size(); i++){
-            rs = f.getInfoFascicoliPreferitiDB(fascicoliPreferiti.get(i).rivista.issn, fascicoliPreferiti.get(i).numero);
+        for (int i = 0; i< fascicoliPreferiti.size(); i++){ //scorre 'fascicoliPreferiti'
+            rs = f.getInfoFascicoliPreferitiDB(fascicoliPreferiti.get(i).rivista.issn, fascicoliPreferiti.get(i).numero);   //cerca i dati dell'i-esimo fasciolo e delle librerie che lo possiedono
 
             try {
-                while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
-                    fascicoliTitoloPreferiti.add(fascicoliPreferiti.get(i).rivista.titolo + " N°" + fascicoliPreferiti.get(i).numero);
+                while(rs.next()){    //scorre il ResultSet 'rs'
+                    fascicoliTitoloPreferiti.add(fascicoliPreferiti.get(i).rivista.titolo + " N°" + fascicoliPreferiti.get(i).numero);  //aggiunge il titolo della rivista e il numero dell'i-esimo fasciolo in 'fascicoliTitoloPreferiti'
 
                     Libreria libreria = new Libreria(rs.getString("nome"),rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"));
 
-                    possessofPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), fascicoliPreferiti.get(i), libreria));
-                    librerieFascicoliPreferiti.add(libreria);
+                    possessofPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), fascicoliPreferiti.get(i), libreria));    //aggiunge un nuovo possesso in 'possessofPreferiti'
+                    librerieFascicoliPreferiti.add(libreria);   //aggiunge l'i-esima libreria in 'librerieFascicoliPreferiti'
                 }
             } catch (SQLException var){
                 var.printStackTrace();
             }
         }
 
-        f.chiudiConnessione();
-    }
+        f.chiudiConnessione();  //chiude la connessione al DB
+    }//fine getInfoFascicoliPreferiti
 
-    public boolean creaFascicolo(int numero, String data){
+    public boolean creaFascicolo(int numero, String data){  //se crea una nuovo fascicolo, ritorna "true", altrimenti ritorna "false"
         FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
-        boolean presenzaFascicolo = f.creaFascicoloDB(numero, data, nuovaRivista.issn);
+        boolean presenzaFascicolo = f.creaFascicoloDB(numero, data, nuovaRivista.issn); //se non esiste già, inserisce un nuovo fascicolo nel DB
 
-        nuovoFascicolo = new Fascicolo(numero, nuovaRivista, Date.valueOf(data));
-        nuovoFascicolo.articoli = new ArrayList<ArticoloScientifico>();
+        nuovoFascicolo = new Fascicolo(numero, nuovaRivista, Date.valueOf(data));   //inizializza 'nuovoFascicolo'
+        nuovoFascicolo.articoli = new ArrayList<ArticoloScientifico>(); //inizializza 'nuovoFascicolo.articoli'
         return presenzaFascicolo;
-    }
+    }//fine creaFascicolo
 
-    public void eliminaFascicolo(){
+    public void eliminaFascicolo(){ //elimina la nuova rivista
         FascicoloDAO f = new FascicoloImplementazionePostgresDAO();
+
         f.eliminaFascicoloDB(nuovoFascicolo.rivista.issn, nuovoFascicolo.numero);
-    }
+    }//fine eliminaFascicolo
 
     // ARTICOLO_SCIENTIFICO //
     public ArrayList<ArticoloScientifico> getArticoliScientifici(String issn, int n){
