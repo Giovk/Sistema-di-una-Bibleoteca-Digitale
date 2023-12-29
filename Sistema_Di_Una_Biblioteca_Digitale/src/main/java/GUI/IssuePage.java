@@ -655,7 +655,7 @@ public class IssuePage {
 
         table2.setModel(model2);    //imposta il modello dei dati della JTable 'table2'
 
-        for(int i = 0; i < controller.fascicolo_selected.articoli.size(); i++){ //scorre la losta degli articoli del fascicolo selezionato
+        for(int i = 0; i < controller.fascicolo_selected.articoli.size(); i++){ //scorre la lista degli articoli del fascicolo selezionato
             model2.addRow(new Object[]{controller.fascicolo_selected.articoli.get(i).doi, controller.fascicolo_selected.articoli.get(i).titolo, controller.fascicolo_selected.articoli.get(i).annoPubblicazione, controller.allAutoriArticolo(controller.fascicolo_selected.articoli.get(i).autori)});  //aggiunge una nuova riga nella tabella
         }
 

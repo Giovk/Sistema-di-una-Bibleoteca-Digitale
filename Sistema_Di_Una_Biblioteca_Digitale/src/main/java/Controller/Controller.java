@@ -368,7 +368,7 @@ public class Controller {
     }//fine getUtente
 
     // LIBRO //
-    public boolean creaLibro(String isbn, String titolo, String genere, String lingua, String editore,String dp){   //aggiunge un nuovo libro nel DB  e in memoria
+    public boolean creaLibro(String isbn, String titolo, String genere, String lingua, String editore,String dp){   //aggiunge un nuovo libro nel DB e in memoria
         LibroDAO l = new LibroImplementazionePostgresDAO();
         boolean presenzaLibro = l.creaLibroDB(isbn, titolo, genere, lingua, editore, dp);   //se non esiste già, inserisce un nuovo libro nel DB
 
@@ -396,7 +396,7 @@ public class Controller {
         return libri;
     }//fine getLibri
 
-    public void getLibri(String collana) {   //ritorna i dati di tutti i libri della collana 'collana' nel DB
+    public void getLibri(String collana) {   //inserisce tutti i libri della collana 'collana' in 'listaLibriCollana'
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ResultSet rs = l.getLibriDB(collana);  //cerca i dati di tutti i libri della collana 'collana' nel DB
         ArrayList<Libro> libri = new ArrayList<Libro>();    //contiene tutti i libri
@@ -413,12 +413,12 @@ public class Controller {
         l.chiudiConnessione();  //chiude la connessione al DB
 
         listaLibriCollana = libri;
-    }
+    }//fine getLibri
 
     public void getLibriSerie(String isbnSerie){    //ritorna tutti i libri della serie con ISBN 'isbnSerie'
         LibroDAO l = new LibroImplementazionePostgresDAO();
         ArrayList<Libro> libri = new ArrayList<>(); //contiene i libri della serie
-        ResultSet rs = l.getLibriSerieDB(isbnSerie);    //contiene i libri della serie trovati nel DB
+        ResultSet rs = l.getLibriSerieDB(isbnSerie);    //cerca i libri della serie trovati nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
@@ -434,7 +434,7 @@ public class Controller {
 
         l.chiudiConnessione();  //chiude la connessione al DB
 
-        listaLibriSerie = libri;    //inizializza 'listaLibriSerie'
+        listaLibriSerie = libri;    //aggiorna 'listaLibriSerie'
     }//fine getLibriSerie
 
     public void getInfoLibriPreferiti(){    //inserisce in 'possessolPreferiti' i dati dei libri preferiti dell'utente e in 'librerieLibriPreferiti' i dati delle librerie che li possiedono
@@ -448,7 +448,7 @@ public class Controller {
         librerieLibriPreferiti.clear(); //svuota 'librerieLibriPreferiti'
 
         for (int i = 0; i< libriISBNPreferiti.size(); i++){ //scorre 'libriISBNPreferiti'
-            rs = l.getInfoLibriPreferitiDB(libriISBNPreferiti.get(i));  //cerca i dati dell'i-esimo libro delle librerie che lo possiedono
+            rs = l.getInfoLibriPreferitiDB(libriISBNPreferiti.get(i));  //cerca i dati dell'i-esimo libro e delle librerie che lo possiedono
 
             try {
                 while(rs.next()){    //scorre il ResultSet 'rs'
@@ -458,7 +458,7 @@ public class Controller {
                     Libreria libreria = new Libreria(rs.getString("nome"),rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"));
 
                     possessolPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), libro, libreria));    //aggiunge un nuovo possesso in 'possessolPreferiti'
-                    librerieLibriPreferiti.add(libreria);   //aggiunge l'i-esima libreria in 'librerieLibriPreferit'
+                    librerieLibriPreferiti.add(libreria);   //aggiunge l'i-esima libreria in 'librerieLibriPreferiti'
                 }
             } catch (SQLException var){
                 var.printStackTrace();
@@ -486,83 +486,87 @@ public class Controller {
     // COLLANA //
     public ArrayList<String> getCollanaNome(){  //ritorna tutti i nomi delle collane
         CollanaDAO c = new CollanaImplementazionePostgresDAO();
-        return c.getCollanaNomeDB();   //contiene i nome di tutte le collane
-    }
+        return c.getCollanaNomeDB();
+    }//fine getCollanaNome
 
     public ArrayList<Collana> getCollane(){ //ritorna tutte le collane
         CollanaDAO c = new CollanaImplementazionePostgresDAO();
-        ArrayList<Collana> collane = new ArrayList<>();
+        ArrayList<Collana> collane = new ArrayList<>(); //contiene le collane
         ResultSet rs = c.getCollaneDB();    //cerca i dati di tutte le collane
 
         try {
             while (rs.next()){  //scorre il ResultSet 'rs'
-                getLibri(rs.getString("nome"));
-                collane.add(new Collana(rs.getString("caratteristica"), rs.getString("nome"), rs.getString("issn"), listaLibriCollana));
+                getLibri(rs.getString("nome")); //inserisce tutti i libri della collana corrente in 'listaLibriCollana'
+                collane.add(new Collana(rs.getString("caratteristica"), rs.getString("nome"), rs.getString("issn"), listaLibriCollana));    //inserisce un nuova collana in 'collane'
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
 
-        c.chiudiConnessione();
+        c.chiudiConnessione();  //chiude la connessione al DB
 
         return collane;
-    }
+    }//fine getCollane
 
-    public void removeLibroFromCollana(String nomeCollana){
+    public void removeLibroFromCollana(String nomeCollana){ //rimuove il libro selezionato dalla collana 'nomeCollana'
         CollanaDAO c = new CollanaImplementazionePostgresDAO();
-        c.removeLibroFromCollanaDB(isbn_selected, nomeCollana);
 
-        listaCollane = getCollane();
-    }
+        c.removeLibroFromCollanaDB(isbn_selected, nomeCollana); //rimuove il libro con ISBN 'isbn_selected' dalla collana 'nomeCollana'
 
-    public void addLibroInCollana(String nomeCollana){
+        listaCollane = getCollane();    //aggiorna 'listacollane'
+    }//fine removeLibroFromCollana
+
+    public void addLibroInCollana(String nomeCollana){  //aggiunge il libro selezionato nella collana 'nomeCollana'
         CollanaDAO c = new CollanaImplementazionePostgresDAO();
-        c.addLibroInCollanaDB(isbn_selected, nomeCollana);
 
-        listaCollane = getCollane();
-    }
+        c.addLibroInCollanaDB(isbn_selected, nomeCollana);  //aggiunge il libro con ISBN 'isbn_selected' dalla collana 'nomeCollana'
 
-    public boolean creaCollana(String nome, String caratteristica, String issn){
+        listaCollane = getCollane();    //aggiorna 'listacollane'
+    }//fine addLibroFromCollana
+
+    public boolean creaCollana(String nome, String caratteristica, String issn){    // ritorna "true" se crea una nuova collana 'nome' con 'caratteristica' e 'issn', altrimenti ritorna "false"
         CollanaDAO c = new CollanaImplementazionePostgresDAO();
-        boolean creazione = c.creaCollanaDB(nome, caratteristica, issn);
+        boolean creazione = c.creaCollanaDB(nome, caratteristica, issn);    //segnala se è stata creata la nuova collana
 
-        if (creazione == false){
-            c.chiudiConnessione();
+        if (creazione == false){    //controlla se non
+            c.chiudiConnessione();  //chiude la connessione al DB
             return false;
         }
 
-        addLibroInCollana(nome);
+        addLibroInCollana(nome);    //inserisce il libro selezionato nella nuova collana
 
         return creazione;
-    }
+    }//fine creaCollana
 
     // AUTORE //
-    public void aggiungiAutoreLibro(String nome, String cognome, String nazionalita, String dn){
+    public void aggiungiAutoreLibro(String nome, String cognome, String nazionalita, String dn){    //aggiunge un nuovo autore al libro selezionato e li associa nel DB
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
-        a.aggiungiAutoreLibroDB(nome, cognome, nazionalita, dn, nuovoLibro.isbn);
 
-        if(!dn.isBlank()){
-            nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));
+        a.aggiungiAutoreLibroDB(nome, cognome, nazionalita, dn, nuovoLibro.isbn);   //aggiunge un nuovo autore al nuovo libro nel DB
+
+        if(!dn.isBlank()){  //controlla se non è stata inserita la data di nascita del nuovo autore
+            nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));    //aggiunge il nuovo autore al nuovo libro
         } else{
-            nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, null));
+            nuovoLibro.autori.add(new Autore(nome, cognome, nazionalita, null));    //aggiunge il nuovo autore al nuovo libro
         }
-    }
+    }//fine aggiungiAutoreLibro
 
-    public void aggiungiAutoreArticolo(String nome, String cognome, String nazionalita, String dn){
+    public void aggiungiAutoreArticolo(String nome, String cognome, String nazionalita, String dn){ //aggiunge un nuovo autore al nuovo articolo e li associa nel DB
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
-        a.aggiungiAutoreArticoloDB(nome, cognome, nazionalita, dn, nuovoArticoloScientifico.doi);
 
-        if(!dn.isBlank()){
-            nuovoArticoloScientifico.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));
+        a.aggiungiAutoreArticoloDB(nome, cognome, nazionalita, dn, nuovoArticoloScientifico.doi);   //aggiunge un nuovo autore al nuovo articolo nel DB
+
+        if(!dn.isBlank()){  //controlla se non è stata inserita la data di nascita del nuovo autore
+            nuovoArticoloScientifico.autori.add(new Autore(nome, cognome, nazionalita, Date.valueOf(dn)));  //aggiunge il nuovo autore al nuovo articolo
         } else {
-            nuovoArticoloScientifico.autori.add(new Autore(nome, cognome, nazionalita, null));
+            nuovoArticoloScientifico.autori.add(new Autore(nome, cognome, nazionalita, null));  //aggiunge il nuovo autore al nuovo articolo
         }
-    }
+    }//fine aggiungiAutoreArticolo
 
     public ArrayList<Autore> getAutoriLibro(String isbn){    //ritorna gli autori del libro con ISBN 'isbn'
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
         ResultSet rs = a.getAutoriLibroDB(isbn); //ResultSet contenente tutti gli autori del libro con ISBN 'isbn'
-        ArrayList<Autore> autori = new ArrayList<Autore>(); //contiene tutti gli autori del libro con ISBN 'isbn'
+        ArrayList<Autore> autori = new ArrayList<Autore>(); //cerca tutti gli autori del libro con ISBN 'isbn'
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente gli autori
@@ -573,12 +577,12 @@ public class Controller {
         }
 
         return autori;
-    }
+    }//fine getAutoriLibro
 
-    public ArrayList<Autore> getAutoriArticolo(String doi){    //ritorna gli autori del libro con ISBN 'isbn'
+    public ArrayList<Autore> getAutoriArticolo(String doi){    //ritorna gli autori dell'articolo con DOI 'doi'
         AutoreDAO a = new AutoreImplementazionePostgresDAO();
-        ResultSet rs = a.getAutoriArticoloDB(doi); //ResultSet contenente tutti gli autori del libro con ISBN 'isbn'
-        ArrayList<Autore> autori = new ArrayList<Autore>(); //contiene tutti gli autori del libro con ISBN 'isbn'
+        ResultSet rs = a.getAutoriArticoloDB(doi); //cerca tutti gli autori dell'articolo con DOI 'doi'
+        ArrayList<Autore> autori = new ArrayList<Autore>(); //contiene tutti gli autori dell'articolo con DOI 'doi'
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente gli autori
@@ -589,18 +593,18 @@ public class Controller {
         }
 
         return autori;
-    }
+    }//fine getAutoriArticolo
 
-    public ArrayList<String> allAutoriLibri(){
-        int aut = 0;
-        String linkString = "";
-        ArrayList<String> totAutoreList = new ArrayList<>();
+    public ArrayList<String> allAutoriLibri(){  //ritorna tutti gli autori di ogni libro
+        int aut = 0;    //numero di autori del libro corrente
+        String linkString = ""; //nomi e cognomi di tutti gli autori del libro corrente
+        ArrayList<String> totAutoreList = new ArrayList<>();    //contie gli autori
 
         for (Libro l: listaLibri) {    //scorre la lista dei libri
-            aut = 0;    //numero di autori del libro 'l'
+            aut = 0;    //azzera 'aut'
 
             for (Autore a: l.autori) {  //scorre tutti gli autori del libro 'l'
-                if (aut == 0){
+                if (aut == 0){  //controlla se si sta inserendo il primo autore
                     linkString = a.nome + " " + a.cognome;    //se non ci sono altri autori concatena il nome e il cognome dell'autore 'a' in 'linkString'
                 } else{
                     linkString = linkString + " \n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
@@ -613,11 +617,11 @@ public class Controller {
         }
 
         return  totAutoreList;
-    }
+    }//fine allAutoriLibri
 
-    public ArrayList<String> allAutoriDistintiLibri(){
-        ArrayList<String> distinctAutoreList = new ArrayList<>();
-        String linkString = "";
+    public ArrayList<String> allAutoriDistintiLibri(){  //ritorna tutti gli autori di tutti i libri evitando duplicati
+        ArrayList<String> distinctAutoreList = new ArrayList<>();   //contiene gli autori
+        String linkString = ""; //nome e cognome dell'autore corrente del libro corrente
 
         for (Libro l: listaLibri) {    //scorre la lista dei libri
             for (Autore a : l.autori) { //scorre gli autori del libro 'l'
@@ -630,39 +634,29 @@ public class Controller {
         }
 
         return distinctAutoreList;
-    }
+    }//fine allAutoriuDistintiLibri
 
-    public String allAutoriLibro(ArrayList<Autore> autori){
-        String a = "";
+    public String allAutoriArticolo(ArrayList<Autore> autori){  //ritorna una stringa contenente i nomi e i cognomi di tutti gli autori in 'aUTORI'
+        String a = "";  //contiene gli autori
 
-        for (Autore au: autori){
-            a = a + au.nome + " " + au.cognome + " ";
+        for (Autore au: autori){    //scorre 'autori'
+            a = a + au.nome + " " + au.cognome + " ";   //concatena il nome e il cognome di 'au' in 'a'
         }
 
         return a;
-    }
-
-    public String allAutoriArticolo(ArrayList<Autore> autori){
-        String a = "";
-
-        for (Autore au: autori){
-            a = a + au.nome + " " + au.cognome + " ";
-        }
-
-        return a;
-    }
+    }//fine allAutoriArticolo
 
     // LIBRERIA //
     public ResultSet getDisponibilita(){    //ritorna un ResultSet con le disponibilita del libro con ISBN 'isbn_selected'
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
-        ResultSet rs = l.disponibilitaDB(isbn_selected);    //ritorna tutte le dipsonibilità del libro selezionato
+        ResultSet rs = l.disponibilitaDB(isbn_selected);    //cerca tutte le dipsonibilità del libro selezionato
 
         return rs;
-    }
+    }//fine getDisonibilita
 
     public ArrayList<String> getDisponibilitaLibreria(){    //ritorna i nomi di tutte le librerie che possiedono il libro selezionato
         ArrayList<String> libreria = new ArrayList<>(); //contiene i nomi delle librerie
-        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
+        ResultSet rs = getDisponibilita();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -673,11 +667,11 @@ public class Controller {
         }
 
         return libreria;
-    }
+    }//fine getDisponibilitaLibreria
 
     public ArrayList<Integer> getDisponibilitaQuantita(){   //ritorna le quantità disponibili del libro selezionato
         ArrayList<Integer> quantita = new ArrayList<>();    //contiene le quantità disponibili
-        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
+        ResultSet rs = getDisponibilita();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -688,11 +682,11 @@ public class Controller {
         }
 
         return quantita;
-    }
+    }//fine getDisponibilitaQuantita
 
     public ArrayList<String> getDisponibilitaFruizione(){  //ritorna le modalità di fruizione disponibili del libro selezionato
         ArrayList<String> fruizione = new ArrayList<>();    //contiene le modalità di fruizione disponibili
-        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
+        ResultSet rs = getDisponibilita();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -703,11 +697,11 @@ public class Controller {
         }
 
         return fruizione;
-    }
+    }//fine getDisponibilitaFruizione
 
     public ArrayList<String> getDisponibilitaIndirizzo(){   //ritorna gli indirizzi delle librerie che possiedono il libro selezionato
         ArrayList<String> indirizzo = new ArrayList<>();    //contiene gli indirizzi delle librerie che possiedono il libro selezionato
-        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
+        ResultSet rs = getDisponibilita();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -718,11 +712,11 @@ public class Controller {
         }
 
         return indirizzo;
-    }
+    }//fine getDisponibilitaIndirizzo
 
     public ArrayList<String> getDisponibilitaSitoWeb(){ //ritorna i siti web delle librerie che possiedono il libro selezionato
         ArrayList<String> sitoWeb = new ArrayList<>();  //contiene i siti web delle librerie che possiedono il libro selezionato
-        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
+        ResultSet rs = getDisponibilita();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -733,11 +727,11 @@ public class Controller {
         }
 
         return sitoWeb;
-    }
+    }//fine getDisponibilitaSitoWeb
 
     public ArrayList<String> getDisponibilitaNumeroTelefono(){  //ritorna i numeri telefonici delle librerie che possiedono il libro selezionato
         ArrayList<String> nTel = new ArrayList<>(); //contiene i numeri telefonici delle librerie che possiedono il libro selezionato
-        ResultSet rs = getDisponibilita();  //contiene le disponibilità trovate nel DB
+        ResultSet rs = getDisponibilita();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -748,18 +742,18 @@ public class Controller {
         }
 
         return nTel;
-    }
+    }//fine getDisponibilitaNumeroTelefono
 
-    public ResultSet getDisponibilitaFascicolo(){    //ritorna un ResultSet con le disponibilita del libro con ISBN 'isbn_selected'
+    public ResultSet getDisponibilitaFascicolo(){    //ritorna un ResultSet con le disponibilita del fascicolo selezionato
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
-        ResultSet rs = l.disponibilitaFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo);    //ritorna tutte le dipsonibilità del libro selezionato
+        ResultSet rs = l.disponibilitaFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo);    //cerca tutte le dipsonibilità del fascicolo selezionato
 
         return rs;
-    }
+    }//fine getDisponibilitaFascicolo
 
-    public ArrayList<String> getDisponibilitaLibreriaFascicolo(){    //ritorna i nomi di tutte le librerie che possiedono il libro selezionato
+    public ArrayList<String> getDisponibilitaLibreriaFascicolo(){    //ritorna i nomi di tutte le librerie che possiedono il fascicolo selezionato
         ArrayList<String> libreria = new ArrayList<>(); //contiene i nomi delle librerie
-        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+        ResultSet rs = getDisponibilitaFascicolo();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -770,11 +764,11 @@ public class Controller {
         }
 
         return libreria;
-    }
+    }//fine getDisponibilitaLibreriaFascicolo
 
-    public ArrayList<Integer> getDisponibilitaQuantitaFascicolo(){   //ritorna le quantità disponibili del libro selezionato
+    public ArrayList<Integer> getDisponibilitaQuantitaFascicolo(){   //ritorna le quantità disponibili del fascicolo selezionato
         ArrayList<Integer> quantita = new ArrayList<>();    //contiene le quantità disponibili
-        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+        ResultSet rs = getDisponibilitaFascicolo();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -785,11 +779,11 @@ public class Controller {
         }
 
         return quantita;
-    }
+    }//fine getDisponibilitaQuantitaFascicolo
 
-    public ArrayList<String> getDisponibilitaFruizioneFascicolo(){  //ritorna le modalità di fruizione disponibili del libro selezionato
+    public ArrayList<String> getDisponibilitaFruizioneFascicolo(){  //ritorna le modalità di fruizione disponibili del fascicolo selezionato
         ArrayList<String> fruizione = new ArrayList<>();    //contiene le modalità di fruizione disponibili
-        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+        ResultSet rs = getDisponibilitaFascicolo();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -800,11 +794,11 @@ public class Controller {
         }
 
         return fruizione;
-    }
+    }//fine getDisponibilitaFruizioneFascicolo
 
-    public ArrayList<String> getDisponibilitaIndirizzoFascicolo(){   //ritorna gli indirizzi delle librerie che possiedono il libro selezionato
-        ArrayList<String> indirizzo = new ArrayList<>();    //contiene gli indirizzi delle librerie che possiedono il libro selezionato
-        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+    public ArrayList<String> getDisponibilitaIndirizzoFascicolo(){   //ritorna gli indirizzi delle librerie che possiedono il fascicolo selezionato
+        ArrayList<String> indirizzo = new ArrayList<>();    //contiene gli indirizzi delle librerie che possiedono il fascicolo selezionato
+        ResultSet rs = getDisponibilitaFascicolo();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -815,11 +809,11 @@ public class Controller {
         }
 
         return indirizzo;
-    }
+    }//fine getDisponibilitaIndirizzoFascicolo
 
-    public ArrayList<String> getDisponibilitaSitoWebFascicolo(){ //ritorna i siti web delle librerie che possiedono il libro selezionato
-        ArrayList<String> sitoWeb = new ArrayList<>();  //contiene i siti web delle librerie che possiedono il libro selezionato
-        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+    public ArrayList<String> getDisponibilitaSitoWebFascicolo(){ //ritorna i siti web delle librerie che possiedono il fascicolo selezionato
+        ArrayList<String> sitoWeb = new ArrayList<>();  //contiene i siti web delle librerie che possiedono il fascicolo selezionato
+        ResultSet rs = getDisponibilitaFascicolo();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -830,11 +824,11 @@ public class Controller {
         }
 
         return sitoWeb;
-    }
+    }//fine getDisponibilitaSitoWebFascicolo
 
-    public ArrayList<String> getDisponibilitaNumeroTelefonoFascicolo(){  //ritorna i numeri telefonici delle librerie che possiedono il libro selezionato
-        ArrayList<String> nTel = new ArrayList<>(); //contiene i numeri telefonici delle librerie che possiedono il libro selezionato
-        ResultSet rs = getDisponibilitaFascicolo();  //contiene le disponibilità trovate nel DB
+    public ArrayList<String> getDisponibilitaNumeroTelefonoFascicolo(){  //ritorna i numeri telefonici delle librerie che possiedono il fascicolo selezionato
+        ArrayList<String> nTel = new ArrayList<>(); //contiene i numeri telefonici delle librerie che possiedono il fascicolo selezionato
+        ResultSet rs = getDisponibilitaFascicolo();  //cerca le disponibilità trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -845,62 +839,61 @@ public class Controller {
         }
 
         return nTel;
-    }
+    }//fine getDisponibilitaNumeroTelefonoFascicolo
 
-    public void getLibrerieUtente(){
+    public void getLibrerieUtente(){    //ritorna tutte le librerie dell'utente
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
-        ArrayList<Libreria> librerie = new ArrayList<>();
-
-        ResultSet rs = l.getLibrerieUtenteDB(utente.username);
+        ArrayList<Libreria> librerie = new ArrayList<>();   //contiene le librerie
+        ResultSet rs = l.getLibrerieUtenteDB(utente.username);  //cerca le libreri dell'utente trovate nel DB
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente la media
-                librerie.add(new Libreria(rs.getString("nome"), rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"), utente));
+                librerie.add(new Libreria(rs.getString("nome"), rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"), utente)); //aggiunge una nuova libreria in 'librerie'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
 
-        librerieUtente = librerie;
-    }
+        librerieUtente = librerie;  //inizializza 'librerieUtente'
+    }//fine getLibrerieUtente
 
-    public boolean verificaNumeroTelefonicoLibreria(String nt){
-        if (nt.length() != 10){
+    public boolean verificaNumeroTelefonicoLibreria(String nt){ //verifica se il formato del numero telefonico 'nt' è corretto
+        if (nt.length() != 10){ //controlla se 'nt' non è lungo 10
             return false;
         }
 
-        for(int i = 0; i < nt.length(); i++){
-            if(nt.charAt(i) < '0' || nt.charAt(i) > '9'){
+        for(int i = 0; i < nt.length(); i++){   //scorre 'nt'
+            if(nt.charAt(i) < '0' || nt.charAt(i) > '9'){   //controlla se l'i-esimo carattere non è numerico
                 return false;
             }
         }
 
         return true;
-    }
+    }//fine verificaNumeroTelefonicoLibreria
 
-    public boolean presenzaNumeroTelefonicoLibreria(String nt){
+    public boolean presenzaNumeroTelefonicoLibreria(String nt){ //controlla se il numero telefonico 'nt' è già presente nel DB
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
         return l.presenzaNumeroTelefonicoLibreriaDB(nt);
-    }
+    }//fine presenzaNumeroTelefonicoLibreria
 
-    public boolean presenzaLibreria(String nome, String sw, String indirizzo){
+    public boolean presenzaLibreria(String nome, String sw, String indirizzo){  //controlla se la libreria 'nome' con sito web 'sw' e indirizzo 'indirizzo' è già presente nel DB
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
         return l.presenzaLibreriaDB(nome, sw, indirizzo);
-    }
+    }//fine presenzaLibreria
 
-    public void addLibreria(String nome, String nt, String sw, String indirizzo){
+    public void addLibreria(String nome, String nt, String sw, String indirizzo){   //aggiunge una nuova libreria
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
 
-        l.addLibreriaDB(nome, nt, sw, indirizzo,utente.username);
-        librerieUtente.add(new Libreria(nome, nt, indirizzo, sw, utente));
-    }
+        l.addLibreriaDB(nome, nt, sw, indirizzo, utente.username);  //aggiunge la nuova libreria nel DB
+        librerieUtente.add(new Libreria(nome, nt, indirizzo, sw, utente));  //aggiunge la nuova libreria in 'librerieUtente'
+    }//fine addLibreria
 
-    public void removeLibreria(int index){
+    public void removeLibreria(int index){  //rimuove l'index-esima libreria di 'librerieUtente'
         LibreriaDAO l = new LibreriaImplementazionePostgresDAO();
 
-        l.removeLibreriaDB(librerieUtente.get(index).numeroTelefonico);
-        librerieUtente.remove(index);
-    }
+        l.removeLibreriaDB(librerieUtente.get(index).numeroTelefonico); //rimuove la libreria dal DB
+        librerieUtente.remove(index);   //rimuove la libreria da 'librerieUtente'
+    }//fine removeLibreria
 
     // PRESENTAZIONE //
     public void getPresentazione(){    //ritorna i dati di tutte le presentazioni del libro con ISBN 'isbn_selected'
@@ -910,14 +903,14 @@ public class Controller {
         Libro libroSelezionato = null;  //libro selezionato
 
         for (Libro l: listaLibri){  //scorre la lista dei libri
-            if(l.isbn.equals(isbn_selected)){
-                libroSelezionato = l;  //se 'l' è il libro selezionato, allora assegna 'l' a 'libroSelezionato'
+            if(l.isbn.equals(isbn_selected)){   //controlla se 'l' è il libro selezionato
+                libroSelezionato = l;  //assegna 'l' a 'libroSelezionato'
             }
         }
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le presentazioni del libro selezionato
-                presentazioni.add(new Presentazione(rs.getString("luogo"), rs.getString("struttura"), rs.getDate("datap"), rs.getTime("ora").toString(), libroSelezionato));   //inserisce una nuova presentazione in 'Presentazioni'
+                presentazioni.add(new Presentazione(rs.getString("luogo"), rs.getString("struttura"), rs.getDate("datap"), rs.getTime("ora").toString(), libroSelezionato));   //inserisce una nuova presentazione in 'presentazioni'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -925,13 +918,13 @@ public class Controller {
 
         p.chiudiConnessione();  //chiude la connessione al DB
 
-        listaPresentazioni = presentazioni;
-    }
+        listaPresentazioni = presentazioni; //aggiorna 'listaPresentazioni'
+    }//fine getPresentazione
 
-    public boolean addPresentazione(String struttura, String luogo, String data, String orario){
+    public boolean addPresentazione(String struttura, String luogo, String data, String orario){    //se aggiunge una nuova presentazione ritorna "true", altrimenti ritorna "false"
         PresentazioneDAO p = new PresentazioneImplementazionePostgresDAO();
         return p.addPresentazioneDB(struttura, luogo, data, orario, isbn_selected);
-    }
+    }//fine addPresentazione
 
 
     // SERIE //
@@ -942,7 +935,7 @@ public class Controller {
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+                getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' in 'listaLibriSerie'
                 serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), listaLibriSerie, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
             }
         } catch (SQLException var){
@@ -952,17 +945,17 @@ public class Controller {
         s.chiudiConnessione();  //chiude la connessione al DB
 
         return serie;
-    }
+    }//fine getSerie
 
     public ArrayList<String> getSerieGeneri(){  //ritorna tutti i generi dei libri che sono inseriti in una serie
         SerieDAO s = new SerieImplementazionePostgresDAO();
         return s.getSerieGenereDB();
-    }
+    }//fine getSerieGeneri
 
     public ArrayList<String> getSerieAutori(){  //ritorna tutti gli autori dei libri che sono inseriti in una serie
         SerieDAO s = new SerieImplementazionePostgresDAO();
         return s.getSerieAutoriDB();
-    }
+    }//fine getSerieAutori
 
     public void getListaSerieGenere(String genere){ //ritorna una lista delle serie con libri del genere 'genere'
         SerieDAO s = new SerieImplementazionePostgresDAO();
@@ -971,7 +964,7 @@ public class Controller {
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+                getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'listaLibriSerie'
                 serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), listaLibriSerie, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
             }
         } catch (SQLException var){
@@ -980,8 +973,8 @@ public class Controller {
 
         s.chiudiConnessione();  //chiude la connessione al DB
 
-        listaSerieGenere = serie;
-    }
+        listaSerieGenere = serie;   //inizializza 'listaSerieGenere'
+    }//fine getListaSerieGenere
 
     public void getListaSerieAutore(String autore){ //ritorna una lista delle serie con libri dell'autore 'autore'
         SerieDAO s = new SerieImplementazionePostgresDAO();
@@ -990,7 +983,7 @@ public class Controller {
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'libri'
+                getLibriSerie(rs.getString("isbn")); //inserisce i libri della serie corrente di 'rs' nell'ArrayList 'listaLibriSerie'
                 serie.add(new Serie(rs.getString("isbn"), rs.getInt("nlibri"), listaLibriSerie, rs.getString("titolo"), rs.getDate("datapubblicazione")));   //inserisce una nuova serie in 'serie'
             }
         } catch (SQLException var){
@@ -999,84 +992,77 @@ public class Controller {
 
         s.chiudiConnessione();   //chiude la connessione al DB
 
-        listaSerieAutore = serie;
-    }
+        listaSerieAutore = serie;   //inizializza 'listaSerieAutore'
+    }//fine getListaSerieAutore
 
-    public void getInfoSeriePreferiti(){
-        getSerieISBNPreferiti();
+    public void getInfoSeriePreferiti(){    //inserisce in 'possessosPreferiti' i dati delle serie preferite dell'utente e in 'librerieSeriePreferiti' i dati delle librerie che le possiedono
+        getSerieISBNPreferiti();    //inizializza 'serieISBNPreferiti' con gli ISBN delle serie preferite dell'utente
+
         SerieDAO s = new SerieImplementazionePostgresDAO();
         ResultSet rs = null;
 
-        serieTitoloPreferiti.clear();
-        possessosPreferiti.clear();
-        librerieSeriePreferiti.clear();
+        serieTitoloPreferiti.clear();   //svuota 'serieTitoloPreferiti'
+        possessosPreferiti.clear(); //svuota 'serieTitoloPreferiti'
+        librerieSeriePreferiti.clear(); //svuota 'serieTitoloPreferiti'
 
-        for (int i = 0; i< serieISBNPreferiti.size(); i++){
-            rs = s.getInfoSeriePreferitiDB(serieISBNPreferiti.get(i));
+        for (int i = 0; i< serieISBNPreferiti.size(); i++){ //scorre 'serieISBNPreferiti'
+            rs = s.getInfoSeriePreferitiDB(serieISBNPreferiti.get(i));  //cerca i dati dell'i-esima serie e delle librerie che la possiedono
 
             try {
-                while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri della serie
-                    serieTitoloPreferiti.add(serieISBNPreferiti.get(i) + " - " + rs.getString("titolo"));
+                while(rs.next()){    //scorre il ResultSet 'rs'
+                    serieTitoloPreferiti.add(serieISBNPreferiti.get(i) + " - " + rs.getString("titolo"));   //aggiunge il titolo dell'i-esima serie in 'serieTitoloPreferiti'
+
                     Serie serie = new Serie(rs.getString("isbn"),rs.getInt("nlibri") ,rs.getString("titolo"), rs.getDate("datapubblicazione"));
                     Libreria libreria = new Libreria(rs.getString("nome"),rs.getString("numerotelefonico"), rs.getString("indirizzo"), rs.getString("sitoweb"));
-                    possessosPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), serie, libreria));
-                    librerieSeriePreferiti.add(libreria);
+
+                    possessosPreferiti.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), serie, libreria));    //aggiunge un nuovo possesso in 'possessosPreferiti'
+                    librerieSeriePreferiti.add(libreria);   //aggiunge l'i-esima libreria in 'librerieLibriPreferiti'
                 }
             } catch (SQLException var){
                 var.printStackTrace();
             }
         }
 
-        s.chiudiConnessione();
-    }
+        s.chiudiConnessione();  //chiude la connessione al DB
+    }//fine getInfoSeriePreferiti
 
-    public String getISBNSerie(String titolo){
-        String isbn = "";
-
-        for (int i = 0; i < listaSerie.size(); i++){
-            if (titolo.equals(listaSerie.get(i).titolo)){
-                isbn = listaSerie.get(i).isbn;
-                i = listaSerie.size();
-            }
-        }
-
-        return isbn;
-    }
-
-    public boolean creaSerie(ArrayList<String> isbnList, String isbn, String titolo, String dp){
+    public boolean creaSerie(ArrayList<String> isbnList, String isbn, String titolo, String dp){    //se crea una nuova serie, ritorna "true", altrimenti ritorna "false"
         SerieDAO s = new SerieImplementazionePostgresDAO();
         boolean presenzaSerie = s.creaSerieDB(isbnList, isbn, titolo, dp);
 
-        nuovoSerie = new Serie(isbn, isbnList.size(), titolo, Date.valueOf(dp));
+        nuovoSerie = new Serie(isbn, isbnList.size(), titolo, Date.valueOf(dp));    //inizializza 'nuovaSerie'
         return presenzaSerie;
-    }
+    }//fine creaSerie
 
     // RECENSIONE //
     public float valutazioneMediaLibro(){   //ritorna la media delle valutazioni del libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         return r.valutazioneMediaLibroDB(isbn_selected);
-    }
+    }//fine valutazioneMediaLibro
 
-    public void likeLibro(){    //controlla se l'utente ha il libro selezionato tra i preferiti e pone il risultato in 'likeLibroSelected'
+    public void likeLibro(){    //controlla se l'utente ha il libro selezionato tra i preferiti e pone il risultato in 'likeElementSelected'
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        likeElementSelected = r.likeLibroDB(isbn_selected, utente.username);
+
+        likeElementSelected = r.likeLibroDB(isbn_selected, utente.username);    //aggiorna 'likeElementSelected'
         return;
-    }
+    }//fine likeLibro
 
-    public void changeLikeLibro(){   //cambia il valore di 'likeElementSelected' e togli/mette nei preferiti dell'utente il libro selezionato
+    public void changeLikeLibro(){   //cambia il valore di 'likeElementSelected' e toglie/mette nei preferiti dell'utente il libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        likeElementSelected = r.changeLikeLibroDB(likeElementSelected, isbn_selected, utente.username);
-    }
+
+        likeElementSelected = r.changeLikeLibroDB(likeElementSelected, isbn_selected, utente.username); //aggiorna 'likeElementSelected'
+    }//fine changeLikeLibro
 
     public void addRecensioneLibro(int valutazione, String text){   //aggiunge una nuova recensione con 'valutazione' e 'testo' fatta dall'utente al libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        r.addRecensioneLibroDB(valutazione, text, isbn_selected, utente.username);
+
+        r.addRecensioneLibroDB(valutazione, text, isbn_selected, utente.username);  //aggiunge la nuova recensione nel DB
         return;
-    }
+    }//fine addRecensioneLibro
 
     public void allRecWithCommentLibro(){    //ritorna tutte le recensioni con testo fatte al libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        ResultSet rs = r.allRecWithCommentLibroDB(isbn_selected);    //contiene tutte le recensioni fatte al libro selezionato
+        ResultSet rs = r.allRecWithCommentLibroDB(isbn_selected);    //cerca tutte le recensioni fatte al libro selezionato
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le recensioni
@@ -1087,33 +1073,36 @@ public class Controller {
         }
 
         r.chiudiConnessione();  //chiude la connessione al DB
-    }
+    }//fine allRecWithCommentLibro
 
-    public float valutazioneMediaSerie(){   //ritorna la media delle valutazioni del libro selezionato
+    public float valutazioneMediaSerie(){   //ritorna la media delle valutazioni della serie selezionata
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         return r.valutazioneMediaSerieDB(isbn_selected);
-    }
+    }//fine valutazioneMediaSerie
 
-    public void likeSerie(){    //controlla se l'utente ha il libro selezionato tra i preferiti e pone il risultato in 'likeLibroSelected'
+    public void likeSerie(){    //controlla se l'utente ha la serie selezionata tra i preferiti e pone il risultato in 'likeElementSelected'
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        likeElementSelected = r.likeSerieDB(isbn_selected, utente.username);
+
+        likeElementSelected = r.likeSerieDB(isbn_selected, utente.username);    //aggiorna 'likeElementSelected'
         return;
-    }
+    }//fine likeSerie
 
-    public void changeLikeSerie(){   //cambia il valore di 'likeLibroSelected' e togli/mette nei preferiti dell'utente il libro selezionato
+    public void changeLikeSerie(){   //cambia il valore di 'likeElementSelected' e toglie/mette nei preferiti dell'utente la serie selezionata
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        likeElementSelected = r.changeLikeSerieDB(likeElementSelected, isbn_selected, utente.username);
-    }
 
-    public void addRecensioneSerie(int valutazione, String text){   //aggiunge una nuova recensione con 'valutazione' e 'testo' fatta dall'utente al libro selezionato
+        likeElementSelected = r.changeLikeSerieDB(likeElementSelected, isbn_selected, utente.username); //aggiorna 'likeElementSelected'
+    }//fine changeLikeSerie
+
+    public void addRecensioneSerie(int valutazione, String text){   //aggiunge una nuova recensione con 'valutazione' e 'testo' fatta dall'utente alla serie selezionata
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        r.addRecensioneSerieDB(valutazione, text, isbn_selected, utente.username);
+
+        r.addRecensioneSerieDB(valutazione, text, isbn_selected, utente.username);  //aggiunge la nuova recensione nel DB
         return;
-    }
+    }//fine addRecensioneSerie
 
-    public void allRecWithCommentSerie(){    //ritorna tutte le recensioni con testo fatte al libro selezionato
+    public void allRecWithCommentSerie(){    //ritorna tutte le recensioni con testo fatte alla serie selezionata
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        ResultSet rs = r.allRecWithCommentSerieDB(isbn_selected);    //contiene tutte le recensioni fatte al libro selezionato
+        ResultSet rs = r.allRecWithCommentSerieDB(isbn_selected);    //contiene tutte le recensioni fatte alla serie selezionata
 
         try {
             while(rs.next()){    //scorre il ResultSet 'rs' contenente le recensioni
@@ -1124,21 +1113,25 @@ public class Controller {
         }
 
         r.chiudiConnessione();  //chiude la connessione al DB
-    }
+    }//fine allRecWithCommentSerie
 
-    public float valutazioneMediaFascicolo(){   //ritorna la media delle valutazioni del libro selezionato
+    public float valutazioneMediaFascicolo(){   //ritorna la media delle valutazioni del fascicolo selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         return r.valutazioneMediaFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo);
-    }
-    public void likeFascicolo(){    //controlla se l'utente ha il libro selezionato tra i preferiti e pone il risultato in 'likeElementSelected'
-        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        likeElementSelected = r.likeFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);
-    }
+    }//fine valutazioneMediaFascicolo
 
-    public void changeLikeFascicolo(){   //cambia il valore di 'likeElementSelected' e togli/mette nei preferiti dell'utente il libro selezionato
+    public void likeFascicolo(){    //controlla se l'utente ha il fascicolo selezionato tra i preferiti e pone il risultato in 'likeElementSelected'
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
-        likeElementSelected = r.changeLikeFascicoloDB(likeElementSelected, fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);
-    }
+
+        likeElementSelected = r.likeFascicoloDB(fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username); //aggiorna 'likeElementSelected'
+    }//fine likeFascicolo
+
+    public void changeLikeFascicolo(){   //cambia il valore di 'likeElementSelected' e toglie/mette nei preferiti dell'utente il fascicolo selezionato
+        RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
+
+        likeElementSelected = r.changeLikeFascicoloDB(likeElementSelected, fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);  //aggiorna 'likeElementSelected'
+    }//fine changeLikeFascicolo
+
     public void addRecensioneFascicolo(int valutazione, String text){   //aggiunge una nuova recensione con 'valutazione' e 'testo' fatta dall'utente al libro selezionato
         RecensioneDAO r = new RecensioneImplementazionePostgresDAO();
         r.addRecensioneFascicoloDB(valutazione, text, fascicolo_selected.numero, fascicolo_selected.rivista.titolo, utente.username);
