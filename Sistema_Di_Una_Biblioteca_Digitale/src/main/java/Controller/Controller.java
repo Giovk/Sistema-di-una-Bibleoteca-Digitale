@@ -468,12 +468,12 @@ public class Controller {
         l.chiudiConnessione();  //chiude la connessione al DB
     }
 
-    public Date getDataLibro(){ //ritorna la data del libro selezionato
+    public Date getDataLibro(){ //ritorna la data di pubblicazione del libro selezionato
         LibroDAO l = new LibroImplementazionePostgresDAO();
         return l.getDataLibroDB(isbn_selected);
     }//fine getDataLibro
 
-    public Date getDataLibro(String isbn){  //ritorna la data del libro selezionato con ISBN 'isbn'
+    public Date getDataLibro(String isbn){  //ritorna la data di pubblicazione del libro selezionato con ISBN 'isbn'
         LibroDAO l = new LibroImplementazionePostgresDAO();
         return l.getDataLibroDB(isbn);
     }//fine getDataLibro
@@ -1325,239 +1325,239 @@ public class Controller {
     }//fine eliminaFascicolo
 
     // ARTICOLO_SCIENTIFICO //
-    public ArrayList<ArticoloScientifico> getArticoliScientifici(String issn, int n){
+    public ArrayList<ArticoloScientifico> getArticoliScientifici(String issn, int n){   //ritorna i dati di tutti gli artioli scientifici nel DB del fascicolo numero 'n' della rivista con ISSN 'issn'
         ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
-        ArrayList<ArticoloScientifico> articoloScientifici = new ArrayList<ArticoloScientifico>();
-        ResultSet rs = as.getArticoliScientificiDB(issn, n);
+        ArrayList<ArticoloScientifico> articoliScientifici = new ArrayList<ArticoloScientifico>();  //contiene gli artioli scientifici
+        ResultSet rs = as.getArticoliScientificiDB(issn, n);    //cerca gli artioli scientifici del fascicolo numero 'n' della rivista con ISSN 'issn'
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                articoloScientifici.add(new ArticoloScientifico(rs.getString("doi"), rs.getString("titolo"), rs.getInt("annoPubblicazione"), getAutoriArticolo(rs.getString("doi"))));   //inserisce una nuova serie in 'serie'
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente gli articoli
+                articoliScientifici.add(new ArticoloScientifico(rs.getString("doi"), rs.getString("titolo"), rs.getInt("annoPubblicazione"), getAutoriArticolo(rs.getString("doi"))));   //inserisce un nuovo articolo in 'articoliScientifici'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
 
-        return  articoloScientifici;
-    }
+        return  articoliScientifici;
+    }//fine getArticoliScientifici
 
-    public void getArticoliScientifici(){
-        listaArticoli.clear();
+    public void getArticoliScientifici(){   //ritorna tutti gli articoli scientifici senza duplicati
+        listaArticoli.clear();  //svuota 'listaArtioli'
 
-        if(!listaFascicoli.isEmpty()) {
-            for (int i = 0; i < listaFascicoli.size(); i++) {
-                for (int j = 0; j < listaFascicoli.get(i).articoli.size(); j++) {
-                    if (!listaArticoli.contains(listaFascicoli.get(i).articoli.get(j))) {
-                        listaArticoli.add(listaFascicoli.get(i).articoli.get(j));
+        if(!listaFascicoli.isEmpty()) { //controlla se 'listaFascicoli non è vuota'
+            for (int i = 0; i < listaFascicoli.size(); i++) {   //scorre 'listaFascicoli'
+                for (int j = 0; j < listaFascicoli.get(i).articoli.size(); j++) {   //scorre gli articoli dell'i-esimo fascicolo di 'listaFascicoli'
+                    if (!listaArticoli.contains(listaFascicoli.get(i).articoli.get(j))) {   //controlla se il j-esimo articolo dell'i-esimo fascicolo non è contenuto in 'listaArtioli'
+                        listaArticoli.add(listaFascicoli.get(i).articoli.get(j));   //inserise il j-esimo articolo dell'i-esimo fascicolo in 'listaArtioli'
                     }
                 }
             }
         }
-    }
+    }//fine getArticoliScientifici
 
-    public boolean creaArticolo(String titolo, int anno){
+    public boolean creaArticolo(String titolo, int anno){   //se crea una nuovo articolo, ritorna "true", altrimenti ritorna "false"
         ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
-        boolean presenzaArticolo = as.creaArticoloDB(titolo, anno, nuovoFascicolo.numero, nuovoFascicolo.rivista.issn);
+        boolean presenzaArticolo = as.creaArticoloDB(titolo, anno, nuovoFascicolo.numero, nuovoFascicolo.rivista.issn); //se non esiste già, inserisce un nuovo articolo nel DB
 
-        nuovoArticoloScientifico = new ArticoloScientifico(as.getDoiDB(titolo), titolo, anno);
+        nuovoArticoloScientifico = new ArticoloScientifico(as.getDoiDB(titolo), titolo, anno);  //inizializza 'nuovoArticoloScientifico'
 
-        as.chiudiConnessione();
+        as.chiudiConnessione(); //chiude la connessione al DB
 
         return presenzaArticolo;
-    }
+    }//fine creaArticolo
 
-    public void getAParticolo(){
+    public void getAParticolo(){    //ritorna l'anno di pubblicazione dell'articolo scientifico selezionato
         ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
 
         anno_pubblicazione = as.getAPDB(doi_selected);
-    }
+    }//fine getAParticolo
 
-    public void eliminaArticolo(){
+    public void eliminaArticolo(){  //elimina l'articolo scientifico nuovo
         ArticoloScientificoDAO as = new ArticoloScientificoImplementazionePostgresDAO();
 
         as.eliminaArticoloDB(nuovoArticoloScientifico.doi);
-    }
+    }//fine eliminaArticolo
 
     // NOTIFICA //
-    public int getNumeroNotificheNonLette(){
+    public int getNumeroNotificheNonLette(){    //ritorna il numero di notifiche dell'utente non lette
         NotificaDAO n = new NotificaImplementazionePostgresDAO();
         return n.getNumeroNotificheNonLetteDB(utente.username);
-    }
+    }//fine getNumeroNotifichNonLette
 
-    public void getNotificheUtente(){
+    public void getNotificheUtente(){   //ritorna le notifiche dell'utente
         NotificaDAO n = new NotificaImplementazionePostgresDAO();
-        ArrayList<Notifica> notifiche = new ArrayList<>();
-        ResultSet rs = n.getNotificheUtenteDB(utente.username);
+        ArrayList<Notifica> notifiche = new ArrayList<>();  //contiene le notifiche
+        ResultSet rs = n.getNotificheUtenteDB(utente.username); //cerca le notifiche dell'utente
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente le serie
-                Serie serie = null;
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le notifiche
+                Serie serie = null; //serie corrente
 
-                for (int i = 0; i < listaSerie.size(); i++){
-                    if(listaSerie.get(i).isbn.equals(rs.getString("isbn"))){
-                        serie = listaSerie.get(i);
-                        i = listaSerie.size();
+                for (int i = 0; i < listaSerie.size(); i++){    //scorre 'listaSerie'
+                    if(listaSerie.get(i).isbn.equals(rs.getString("isbn"))){    //controlla se l'i-esiam serie di 'listaSerie' è quella corrente del ReseultSet 'rs'
+                        serie = listaSerie.get(i);  //aggiorna 'serie'
+                        i = listaSerie.size();  //assegna a 'i' la dimensione di 'listaSerie'
                     }
                 }
 
-                notifiche.add(new Notifica(rs.getString("testo"), rs.getInt("libreria"), rs.getDate("datainvio"), rs.getTime("orainvio").toString(), rs.getBoolean("lettura"), utente, serie));   //inserisce una nuova serie in 'serie'
+                notifiche.add(new Notifica(rs.getString("testo"), rs.getInt("libreria"), rs.getDate("datainvio"), rs.getTime("orainvio").toString(), rs.getBoolean("lettura"), utente, serie));   //inserisce una nuova notifica in 'notifiche'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
 
-        listaNotifiche = notifiche;
-    }
+        listaNotifiche = notifiche; //aggiorna 'listaNotifiche'
+    }//fine getNotificheUtente
 
-    public void rimuoviNotifica(String testo, String data, String ora){
+    public void rimuoviNotifica(String testo, String data, String ora){ //rimuove la notifica con 'testo' inviata all'utente il 'data' alle 'ora'
         NotificaDAO n = new NotificaImplementazionePostgresDAO();
 
-        n.rimuoviNotificaDB(testo, data, ora, utente.username);
+        n.rimuoviNotificaDB(testo, data, ora, utente.username); //rimuove la notifica nel DB
 
-        for (int i = 0; i < listaNotifiche.size(); i++){
-            Notifica notifica = listaNotifiche.get(i);
+        for (int i = 0; i < listaNotifiche.size(); i++){    //scorre 'listaNotifica'
+            Notifica notifica = listaNotifiche.get(i);  //i-esima notifica in ''listaNotifica'
 
-            if (notifica.testo.equals(testo) && notifica.dataInvio.toString().equals(data) && notifica.oraInvio.toString().equals(ora)){
-                listaNotifiche.remove(i);
-                i = listaNotifiche.size();
+            if (notifica.testo.equals(testo) && notifica.dataInvio.toString().equals(data) && notifica.oraInvio.toString().equals(ora)){    //controlla se 'notifica' è la notifica da eliminare
+                listaNotifiche.remove(i);   //elimina la notifica 'notifica' da 'listaNotifiche'
+                i = listaNotifiche.size();  //assegna a 'i' la dimensione di 'listaNotifiche'
             }
         }
-    }
+    }//fine rimuoviNotifica
 
-    public void visualizzaNotifica(String testo, String data, String ora){
+    public void visualizzaNotifica(String testo, String data, String ora){  //pone a "true" il campo lettura della notifica con 'testo' inviata all'utente il 'data' alle 'ora'
         NotificaDAO n = new NotificaImplementazionePostgresDAO();
 
-        n.visualizzaNotificaDB(testo, data, ora, utente.username);
+        n.visualizzaNotificaDB(testo, data, ora, utente.username);  //pone a "true" il campo lettura della notifica nel DB
 
-        for (int i = 0; i < listaNotifiche.size(); i++){
-            Notifica notifica = listaNotifiche.get(i);
+        for (int i = 0; i < listaNotifiche.size(); i++){    //scorre 'listaNotifiche'
+            Notifica notifica = listaNotifiche.get(i);  //i-esima notifica in 'listaNotifica'
 
-            if (notifica.testo.equals(testo) && notifica.dataInvio.toString().equals(data) && notifica.oraInvio.toString().equals(ora)){
-                listaNotifiche.get(i).lettura = true;
-                i = listaNotifiche.size();
+            if (notifica.testo.equals(testo) && notifica.dataInvio.toString().equals(data) && notifica.oraInvio.toString().equals(ora)){    //controlla se 'notifica' è la notifica da aggiornare
+                listaNotifiche.get(i).lettura = true;   //pone a "true" l'attributo lettura della notifica 'notifica' in 'listaNotifiche'
+                i = listaNotifiche.size();  //assegna a 'i' la dimensione di 'listaNotifiche'
             }
         }
-    }
+    }//fine visualizzaNotifiche
 
-    public boolean getLetturaNotifica(String testo, String data, String ora){
-        for(Notifica n: listaNotifiche){
-            if(n.testo.equals(testo) && n.dataInvio.toString().equals(data) && n.oraInvio.toString().equals(ora)){
+    public boolean getLetturaNotifica(String testo, String data, String ora){   //ritorna il valore della lettura della notifica con 'testo' inviata all'utente il 'data' alle 'ora'
+        for(Notifica n: listaNotifiche){    //scorre 'listaNotifiche'
+            if(n.testo.equals(testo) && n.dataInvio.toString().equals(data) && n.oraInvio.toString().equals(ora)){  //controlla se la notifica attuale 'n' è la notifica con 'testo' inviata all'utente il 'data' alle 'ora'
                 return n.lettura;
             }
         }
 
         return true;
-    }
+    }//fine getLetturaNotifica
 
     // POSSESSO //
-    public void getPossessoLibreria(){
-        possessoLLibreria.clear();
-        possessoSLibreria.clear();
-        possessoFLibreria.clear();
-        titoloLibriLibreria.clear();
-        titoloSerieLibreria.clear();
-        fascicoliLibreria.clear();
+    public void getPossessoLibreria(){  //aggiorna 'possessoLLibreria','possessoSLibreria','possessoFLibreria','titoloLibriLibreria','titoloSerieLibreria' e 'fascicoliLibreria'
+        possessoLLibreria.clear();  //svuota 'possessoLLibreria'
+        possessoSLibreria.clear();  //svuota 'possessoSLibreria'
+        possessoFLibreria.clear();  //svuota 'possessoFLibreria'
+        titoloLibriLibreria.clear();    //svuota 'titoloLibriLibreria'
+        titoloSerieLibreria.clear();    //svuota 'titoloSerieLibreria'
+        fascicoliLibreria.clear();  //svuota 'fascicoliLibreria'
 
-        getPossessoLLibreria();
-        getPossessoSLibreria();
-        getPossessoFLibreria();
-    }
+        getPossessoLLibreria(); //aggiorna 'titoloLibriLibreria' e 'possessoLLibreria'
+        getPossessoSLibreria(); //aggiorna 'titoloSerieLibreria' e 'possessoSLibreria'
+        getPossessoFLibreria(); //aggiorna  'fascicoliLibreria' e 'possessoFLibreria'
+    }//fine getPossessoLibreria
 
-    public void getPossessoLLibreria(){
+    public void getPossessoLLibreria(){ //aggiorna 'titoloLibriLibreria' con gli ISBN e i titoli dei libri posseduti e 'possessoLLibreria' con i possessi dei libri della libreria selezionata
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
-        ResultSet rs = p.getPossessoLLibreriaDB(libreria_selected.nome, libreria_selected.sitoWeb, libreria_selected.indirizzo, utente.username);
+        ResultSet rs = p.getPossessoLLibreriaDB(libreria_selected.nome, libreria_selected.sitoWeb, libreria_selected.indirizzo, utente.username);   //cerca i possessi dei libri della libreria selezionata gestista dall'utente
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
-                Libro l = new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), rs.getString("titolo"), rs.getDate("datapubblicazione"));
+            while(rs.next()){    //scorre il ResultSet 'libri' contenente i possesi
+                Libro l = new Libro(rs.getString("isbn"), rs.getString("genere"), rs.getString("editore"), rs.getString("lingua"), rs.getString("titolo"), rs.getDate("datapubblicazione"));    //libro corrente
 
-                titoloLibriLibreria.add(l.isbn + " - " + l.titolo);
-                possessoLLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), l, libreria_selected));   //inserisce un nuovo libro in 'libri'
+                titoloLibriLibreria.add(l.isbn + " - " + l.titolo); //aggiunge l'ISBN e il titolo di 'l' in 'titoloLibriLibreria'
+                possessoLLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), l, libreria_selected));   //inserisce un nuovo possesso in 'possessoLLibreria'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
-    }
+    }//fine getPossessoLLibreria
 
-    public void getPossessoSLibreria(){
+    public void getPossessoSLibreria(){ //aggiorna 'titoloSerieLibreria' con gli ISBN e i titoli delle serie possedute e 'possessoSLibreria' con i possessi delle serie della libreria selezionata
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
-        ResultSet rs = p.getPossessoSLibreriaDB(libreria_selected.nome, libreria_selected.sitoWeb, libreria_selected.indirizzo, utente.username);
+        ResultSet rs = p.getPossessoSLibreriaDB(libreria_selected.nome, libreria_selected.sitoWeb, libreria_selected.indirizzo, utente.username);   //cerca i possessi delle serie della libreria selezionata gestista dall'utente
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
-                Serie s = new Serie(rs.getString("isbn"), rs.getInt("nlibri"), rs.getString("titolo"), rs.getDate("datapubblicazione"));
+            while(rs.next()){    //scorre il ResultSet 'libri' contenente i possessi
+                Serie s = new Serie(rs.getString("isbn"), rs.getInt("nlibri"), rs.getString("titolo"), rs.getDate("datapubblicazione"));    //serie corrente
 
-                titoloSerieLibreria.add(s.isbn + " - " + s.titolo);
-                possessoSLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), s, libreria_selected));   //inserisce un nuovo libro in 'libri'
+                titoloSerieLibreria.add(s.isbn + " - " + s.titolo); //aggiunge l'ISBN e il titolo di 's' in 'titoloSerieLibreria'
+                possessoSLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), s, libreria_selected));   //inserisce un nuovo possesso in 'possessoSLibreria'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
-    }
+    }//fine getPossessoSLibreria
 
-    public void getPossessoFLibreria(){
+    public void getPossessoFLibreria(){ //aggiorna 'fascicoliLibreria' con i fascicoli posseduti e 'possessoSLibreria' con i possessi dei fascicoli della libreria selezionata
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
-        ResultSet rs = p.getPossessoFLibreriaDB(libreria_selected.nome, libreria_selected.sitoWeb, libreria_selected.indirizzo, utente.username);
+        ResultSet rs = p.getPossessoFLibreriaDB(libreria_selected.nome, libreria_selected.sitoWeb, libreria_selected.indirizzo, utente.username);   //cerca i possessi delle serie della libreria selezionata gestista dall'utente
 
         try {
             while(rs.next()){    //scorre il ResultSet 'libri' contenente i libri
-                Fascicolo f = new Fascicolo(rs.getInt("numero"), new Rivista(rs.getString("issn"), rs.getString("titolo"), rs.getString("editore"), rs.getInt("annopubblicazione"), rs.getString("nomer") + " " + rs.getString("cognomer"), rs.getString("argomento")) ,rs.getDate("datapubblicazione"));
+                Fascicolo f = new Fascicolo(rs.getInt("numero"), new Rivista(rs.getString("issn"), rs.getString("titolo"), rs.getString("editore"), rs.getInt("annopubblicazione"), rs.getString("nomer") + " " + rs.getString("cognomer"), rs.getString("argomento")) ,rs.getDate("datapubblicazione"));   //libro corrente
 
-                fascicoliLibreria.add(f);
-                possessoFLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), f, libreria_selected));   //inserisce un nuovo libro in 'libri'
+                fascicoliLibreria.add(f);   //aggiunge 'f' in 'fascicoliLibreria'
+                possessoFLibreria.add(new Possesso(rs.getString("fruizione"), rs.getInt("quantita"), f, libreria_selected));   //inserisce un nuovo possesso in 'possessoFLibreria'
             }
         } catch (SQLException var){
             var.printStackTrace();
         }
 
-        p.chiudiConnessione();
-    }
+        p.chiudiConnessione();  //chiude la connessione al DB
+    }//fine getPossessoFLibreria
 
-    public void modQuantitaLibro(String fruizione, int value){
+    public void modQuantitaLibro(String fruizione, int value){  //aggiorna a 'value' la quantita disponibile nella libreria selezionata in modalità di fruizione 'fruizione' del libro selezionato
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
 
         p.modQuantitaLibroDB(isbn_selected, libreria_selected.numeroTelefonico, fruizione, value);
-    }
+    }//fine modQuantitaLibro
 
-    public void modQuantitaFascicolo(String fruizione, int value){
+    public void modQuantitaFascicolo(String fruizione, int value){  //aggiorna a 'value' la quantita disponibile nella libreria selezionata in modalità di fruizione 'fruizione' del fascicolo selezionato
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
 
         p.modQuantitaFascicoloDB(fascicolo_selected.rivista.issn, fascicolo_selected.numero,libreria_selected.numeroTelefonico, fruizione, value);
-    }
+    }//fine modQuantitaFascicolo
 
-    public boolean insertPossessoL(int quantita, String fruizione){
+    public boolean insertPossessoL(int quantita, String fruizione){ //aggiunge un nuovo possesso con il nuovo libro della libreria selezionata
         boolean presenzaPossessoL = false;
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
         return presenzaPossessoL = p.insertPossessoLDB(nuovoLibro.isbn, libreria_selected.numeroTelefonico, quantita, fruizione);
-    }
+    }//fine insertPossessoL
 
-    public boolean insertPossessoF(int quantita, String fruizione){
+    public boolean insertPossessoF(int quantita, String fruizione){ //aggiunge un nuovo possesso con il nuovo fascicolo della libreria selezionata
         boolean presenzaPossessoF = false;
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
         return presenzaPossessoF = p.insertPossessoFDB(nuovoFascicolo.numero, nuovoFascicolo.rivista.issn, libreria_selected.numeroTelefonico, quantita, fruizione);
-    }
+    }//fine insertPossessoF
 
-    public void eliminaPossessoL(String fruizione){
+    public void eliminaPossessoL(String fruizione){ //elimina il possesso con il libro selezionato in modalità di fruizione 'fruizione' della libreria selezionata
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
 
         p.eliminaPossessoLDB(isbn_selected, libreria_selected.numeroTelefonico, fruizione);
-    }
+    }//fine eliminaPossessoL
 
-    public void eliminaPossessoF(String fruizione){
+    public void eliminaPossessoF(String fruizione){ //elimina il possesso con il fascicolo selezionato in modalità di fruizione 'fruizione' della libreria selezionata
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
 
         p.eliminaPossessoFDB(fascicolo_selected.rivista.issn, fascicolo_selected.numero, libreria_selected.numeroTelefonico, fruizione);
-    }
+    }//fine eliminaPossessoF
 
     // CONFERENZA //
-    public void getConferenzeArticolo(){    //ritorna i dati di tutte le presentazioni del libro con ISBN 'isbn_selected'
+    public void getConferenzeArticolo(){    //ritorna i dati di tutte le conferenze dell'articolo selezionato
         ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
-        ArrayList<Conferenza> conferenze = new ArrayList<>(); //contiene tutte le presentazioni del libro selezionato
-        ResultSet rs = c.getConferenzeArticoloDB(doi_selected); //cerca i dati di tutte le presentazioni del libro selezionato
+        ArrayList<Conferenza> conferenze = new ArrayList<>(); //contiene tutte le conferenze dell'articolo selezionato
+        ResultSet rs = c.getConferenzeArticoloDB(doi_selected); //cerca i dati di tutte le conferenze dell'articolo selezionato
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente le presentazioni del libro selezionato
-                conferenze.add(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine")));   //inserisce una nuova presentazione in 'Presentazioni'
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le conferenze dell'articolo selezionato
+                conferenze.add(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine")));   //inserisce una nuova conferenza in 'conferenza'
             }
         } catch (SQLException var){
             var.printStackTrace();
@@ -1565,17 +1565,17 @@ public class Controller {
 
         c.chiudiConnessione();  //chiude la connessione al DB
 
-        listaConferenze = conferenze;
-    }
+        listaConferenze = conferenze;   //aggiorna getConferenzeArticolo
+    }//fine getConferenzeArticolo
 
-    public void getConferenze(){
+    public void getConferenze(){    //ritorna i dati di tutte le conferenze evitando duplicati
         ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
-        ArrayList<Conferenza> conferenze = new ArrayList<>(); //contiene tutte le presentazioni del libro selezionato
-        ResultSet rs = c.getConferenzeDB(); //cerca i dati di tutte le presentazioni del libro selezionato
+        ArrayList<Conferenza> conferenze = new ArrayList<>(); //contiene le conferenze
+        ResultSet rs = c.getConferenzeDB(); //cerca i dati di tutte le conferenze
 
         try {
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente le presentazioni del libro selezionato
-                if (!conferenze.contains(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine"))) && anno_pubblicazione <= rs.getDate("datainizio").getYear()+1900) {
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente le conferenze
+                if (!conferenze.contains(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine"))) && anno_pubblicazione <= rs.getDate("datainizio").getYear()+1900) {  //controlla se 'conferenze' non contiene la cinferenza attuale del ResultSet 'rs'
                     conferenze.add(new Conferenza(rs.getString("strutturaorganizzatrice"), rs.getString("luogo"), rs.getDate("datainizio"), rs.getDate("datafine")));   //inserisce una nuova presentazione in 'Presentazioni'
                 }
             }
@@ -1585,49 +1585,47 @@ public class Controller {
 
         c.chiudiConnessione();  //chiude la connessione al DB
 
-        listaAllConferenze = conferenze;
-    }
+        listaAllConferenze = conferenze;    //aggiorna 'listaAllConfereze'
+    }//fine getConfereze
 
-    public boolean addConferenza(String struttura, String luogo, String datai, String dataf){
+    public boolean addConferenza(String struttura, String luogo, String datai, String dataf){   //se aggiunge una nuova conferenza ritorna "true", altrimenti ritorna "false"
         ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
         return c.addConferenzaDB(struttura, luogo, datai, dataf);
-    }
+    }//fine addConferenza
 
-    public boolean addEsposizione(String struttura, String luogo, String datai, String dataf){
+    public boolean addEsposizione(String struttura, String luogo, String datai, String dataf){  //se aggiunge una nuova esposizione ritorna "true", altrimenti ritorna "false"
         ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
         return c.addEsposizioneDB(struttura, luogo, datai, dataf, doi_selected);
-    }
+    }//fine addEsposizione
 
     // FUNZIONI AGGIUNTIVE //
-    public int initDimension(){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        screenWidth = (int) screenSize.width;
+    public int initDimension(){ //inizializza 'screenWidth' con la larghezza dello schermo e ritorna l'altezza
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //dimensioni dello schermo
+
+        screenWidth = (int) screenSize.width;   //inizializza 'screenWidth'
         return (int) screenSize.getHeight();
-    }
+    }//fine initDimension
 
-    public int getFontTitleImpactSize(){
-        // Calcola la dimensione del font in base alle dimensioni dello schermo
-        int fontSize = Math.min(screenWidth, screenHeight) / 33; // Modifica il coefficiente a seconda delle tue preferenze
+    public int getFontTitleImpactSize(){    //calcola la dimensione del font "TitleImpact" in base alle dimensioni dello schermo
+        int fontSize = Math.min(screenWidth, screenHeight) / 33;    //dimensione del font
         return fontSize;
-    }
+    }//fine getFontTitleImpactSize
 
-    public int getFontSize(){
-        // Calcola la dimensione del font in base alle dimensioni dello schermo
-        int fontSize = Math.min(screenWidth, screenHeight) / 50; // Modifica il coefficiente a seconda delle tue preferenze
+    public int getFontSize(){   //calcola la dimensione del font in base alle dimensioni dello schermo
+        int fontSize = Math.min(screenWidth, screenHeight) / 50;    //dimensione del font
         return fontSize;
-    }
+    }//fine getFontSize
 
-    public int calcolaAltezzaFont(Font font){
-        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = image.createGraphics();
+    public int calcolaAltezzaFont(Font font){   //calcola l'altezza del font 'font'
+        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB); //crea un'immagine
+        Graphics2D g2d = image.createGraphics();    //Graphics assocciata alla BufferedImage 'image'
 
-        g2d.setFont(font);
+        g2d.setFont(font);  //imposta il font di g2d
 
-        FontMetrics fm = g2d.getFontMetrics();
-        int fontHeight = fm.getHeight();
+        FontMetrics fm = g2d.getFontMetrics();  //informazioni sulle metriche del font del Graphics g2d
+        int fontHeight = fm.getHeight();    //altezza del font del Graphics g2d
 
         g2d.dispose();
-
         return fontHeight;
-    }
+    }//fine calcolaAltezzaFont
 }

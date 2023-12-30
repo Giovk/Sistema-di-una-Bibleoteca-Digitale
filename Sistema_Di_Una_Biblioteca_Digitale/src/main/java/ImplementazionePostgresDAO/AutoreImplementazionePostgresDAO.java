@@ -197,7 +197,6 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
         chiudiConnessione();
     }
 
-    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

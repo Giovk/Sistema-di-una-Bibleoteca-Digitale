@@ -1744,7 +1744,7 @@ public class AggiungiElementoForm {
         BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB); //crea un'immagine
         Graphics2D g2d = image.createGraphics();    //Graphics assocciata alla BufferedImage 'image'
 
-        g2d.setFont(font);  //imposta il fonto di g2d
+        g2d.setFont(font);  //imposta il font di g2d
 
         FontMetrics fm = g2d.getFontMetrics();  //informazioni sulle metriche del font del Graphics g2d
         int fontHeight = fm.getHeight();    //altezza del font del Graphics g2d

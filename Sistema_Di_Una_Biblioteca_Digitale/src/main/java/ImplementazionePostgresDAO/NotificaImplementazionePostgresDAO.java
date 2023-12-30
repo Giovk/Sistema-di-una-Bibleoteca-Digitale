@@ -88,7 +88,6 @@ public class NotificaImplementazionePostgresDAO implements NotificaDAO {
         chiudiConnessione();
     }
 
-    @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){

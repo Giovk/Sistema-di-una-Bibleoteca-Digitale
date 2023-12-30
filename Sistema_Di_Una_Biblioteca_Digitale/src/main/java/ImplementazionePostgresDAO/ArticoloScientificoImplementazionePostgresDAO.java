@@ -1,6 +1,5 @@
 package ImplementazionePostgresDAO;
 
-import Controller.Controller;
 import DAO.ArticoloScientificoDAO;
 import Database.ConnessioneDatabase;
 
