@@ -18,12 +18,11 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
 
     @Override
     public ResultSet getAutoriLibroDB(String isbn){  //ritorna i dati di tutti gli autori nel DB dell libro con ISBN 'isbn'
-        ResultSet rs = null;    //autori del libro trovati
+        ResultSet rs = null;    //contiene gli autori del libro con ISBN 'isbn' trovati
 
         try {
             PreparedStatement getAutoriLibroPS = connection.prepareStatement(
-                    "SELECT * FROM libro NATURAL JOIN scrittura_l NATURAL JOIN autore WHERE libro.isbn = '"+isbn+"';"//prepara la query che cerca tutti gli autori del libro
-
+                    "SELECT * FROM libro NATURAL JOIN scrittura_l NATURAL JOIN autore WHERE libro.isbn = '"+isbn+"';"   //prepara la query che cerca tutti gli autori del libro con ISBN 'isbn'
             );
 
             rs = getAutoriLibroPS.executeQuery(); //esegue la query
@@ -32,15 +31,15 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
         }
 
         return rs;
-    }
+    }//fine getAutoriLibroDB
 
     @Override
-    public ResultSet getAutoriArticoloDB(String doi){
-        ResultSet rs = null;
+    public ResultSet getAutoriArticoloDB(String doi){   //ritorna i dati di tutti gli autori nel DB dell'articolo con DOI 'doi'
+        ResultSet rs = null;    //contiene tutti gli autori dell'articolo con DOI 'doi'
 
         try {
             PreparedStatement getAutoriArticoloPS = connection.prepareStatement(
-        "SELECT * FROM articolo_scientifico NATURAL JOIN scrittura_a NATURAL JOIN autore WHERE articolo_scientifico.doi = '"+doi+"';"
+            "SELECT * FROM articolo_scientifico NATURAL JOIN scrittura_a NATURAL JOIN autore WHERE articolo_scientifico.doi = '"+doi+"';"   //prepara la query che cerca tutti gli autori dell'articolo con DOI 'doi'
             );
 
             rs = getAutoriArticoloPS.executeQuery(); //esegue la query
@@ -49,38 +48,52 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
         }
 
         return rs;
-    }
+    }//fine getAutoriArticoloDB
 
     @Override
-    public void aggiungiAutoreLibroDB(String nome, String cognome, String nazionalita, String dn, String isbn){
-        ResultSet rs = null;
+    public void aggiungiAutoreLibroDB(String nome, String cognome, String nazionalita, String dn, String isbn){ //se l'autore 'nome' 'cognome' nato il 'dn' di nazionalità 'nazionalita' non già presente lo aggiunge al DB, e associa l'autore al libro con ISBN 'isbn'
+        ResultSet rs = null;    //contiene il numero di autori con 'nome', 'cognome', 'dn' e 'nazionalita' e il codice del nuovo autore
+
         try {
-            String query = "SELECT COUNT(*) AS contatore FROM autore WHERE nome = '"+nome+"' AND cognome = '"+cognome+"' "; //prepara la query che calcola il valore medio delle valutazioni del libro
-            if (nazionalita.isBlank()) query = query + "AND nazionalita IS NULL ";
-            else query = query + "AND nazionalita = '"+nazionalita+"' ";
+            String query = "SELECT COUNT(*) AS contatore FROM autore WHERE nome = '"+nome+"' AND cognome = '"+cognome+"' "; //inizializza la query che conta gli autori con 'nome', 'cognome', 'dn' e 'nazionalita'
 
+            if (nazionalita.isBlank()){ //controlla se non è stata inserita la nazionalità
+                query = query + "AND nazionalita IS NULL "; //aggiorna 'query'
+            }else{
+                query = query + "AND nazionalita = '"+nazionalita+"' "; //aggiorna 'query'
+            }
 
-            if (dn.isBlank()) query = query + "AND datanascita IS NULL ";
-            else query = query + "AND datanascita = '"+dn+"' ";
+            if (dn.isBlank()){  //controlla se non è stata inserita la data di nascita
+                query = query + "AND datanascita IS NULL "; //aggiorna 'query'
+            }else{
+                query = query + "AND datanascita = '"+dn+"' ";  //aggiorna 'query'
+            }
 
-            PreparedStatement aggiungiAutorePS = connection.prepareStatement(query);
+            PreparedStatement aggiungiAutorePS = connection.prepareStatement(query);    //prepara la query
 
-            rs = aggiungiAutorePS.executeQuery(); //esegue la query{
+            rs = aggiungiAutorePS.executeQuery(); //esegue la query
+
             try {
-                while (rs.next()){
-                    if (rs.getInt("contatore") == 0){
+                while (rs.next()){  //scorre il ResultSet 'rs' con il numero di autori con 'nome', 'cognome', 'dn' e 'nazionalita'
+                    if (rs.getInt("contatore") == 0){   //controlla se non ci sono autori con 'nome', 'cognome', 'dn' e 'nazionalita'
                         try{
-                            query = "INSERT INTO autore(nome, cognome, nazionalita, datanascita) VALUES (?, ?, ?, ?)"; //prepara la query che calcola il valore medio delle valutazioni del libro
-                            aggiungiAutorePS = connection.prepareStatement(query);
+                            query = "INSERT INTO autore(nome, cognome, nazionalita, datanascita) VALUES (?, ?, ?, ?)";  //inizializza la query che inserisce il nuovo autore
+                            aggiungiAutorePS = connection.prepareStatement(query);  //prepara la query
 
-                            aggiungiAutorePS.setString(1, nome);
-                            aggiungiAutorePS.setString(2, cognome);
+                            aggiungiAutorePS.setString(1, nome);    //aggiunge 'nome' nella query
+                            aggiungiAutorePS.setString(2, cognome); //aggiunge 'cognome' nella query
 
-                            if(nazionalita.isBlank()) aggiungiAutorePS.setNull(3, Types.NULL);
-                            else aggiungiAutorePS.setString(3, nazionalita);
+                            if(nazionalita.isBlank()){  //controlla se non è stata inserita la nazionalità
+                                aggiungiAutorePS.setNull(3, Types.NULL);    //aggiorna la query
+                            }else {
+                                aggiungiAutorePS.setString(3, nazionalita); //aggiunge 'nazionalita' nella query
+                            }
 
-                            if(dn.isBlank()) aggiungiAutorePS.setNull(4, Types.NULL);
-                            else aggiungiAutorePS.setDate(4, Date.valueOf(dn));
+                            if(dn.isBlank()){   //controlla se non è stata inserita la nazionalità
+                                aggiungiAutorePS.setNull(4, Types.NULL);    //aggiorna la query
+                            } else{
+                                aggiungiAutorePS.setDate(4, Date.valueOf(dn));  //aggiunge 'dn' nella query
+                            }
 
                             aggiungiAutorePS.executeUpdate();    //esegue la query
 
@@ -89,7 +102,8 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
                         }
                     }
                 }
-                rs.close();
+
+                rs.close(); //chiude 'rs'
             } catch (SQLException e){
                 e.printStackTrace();
             }
@@ -98,71 +112,94 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
         }
 
         try {
-            String query = "SELECT coda FROM autore WHERE nome = '"+nome+"' AND cognome = '"+cognome+"' "; //prepara la query che calcola il valore medio delle valutazioni del libro
-            if (nazionalita.isBlank()) query = query + "AND nazionalita IS NULL ";
-            else query = query + "AND nazionalita = '"+nazionalita+"' ";
+            String query = "SELECT coda FROM autore WHERE nome = '"+nome+"' AND cognome = '"+cognome+"' "; //inizializza la query che cerca il codice del nuovo autore
+
+            if (nazionalita.isBlank()){ //controlla se non è stata inserita la nazionalità
+                query = query + "AND nazionalita IS NULL "; //aggiorna la query
+            }else{
+                query = query + "AND nazionalita = '"+nazionalita+"' "; //aggiorna la query
+            }
 
 
-            if (dn.isBlank()) query = query + "AND datanascita IS NULL ";
-            else query = query + "AND datanascita = '"+dn+"' ";
+            if (dn.isBlank()){  //controlla se non è stata inserita la data di nascita
+                query = query + "AND datanascita IS NULL "; //aggiorna la query
+            }else{
+                query = query + "AND datanascita = '"+dn+"' ";  //aggiorna la query
+            }
 
-            PreparedStatement aggiungiAutorePS = connection.prepareStatement(query);
+            PreparedStatement aggiungiAutorePS = connection.prepareStatement(query);    //prepara la query
 
             rs = aggiungiAutorePS.executeQuery(); //esegue la query
-            while (rs.next()){
+
+            while (rs.next()){  //scorre il ResultSet 'rs' con il codice del nuovo autore
                 aggiungiAutorePS = connection.prepareStatement(
-                        "INSERT INTO scrittura_l(isbn, coda) VALUES ('"+isbn+"', '"+rs.getInt("coda")+"')"
+                        "INSERT INTO scrittura_l(isbn, coda) VALUES ('"+isbn+"', '"+rs.getInt("coda")+"')"  //prepara la query che associa il libro con ISBN 'isbn' al nuovo autore
                 );
 
-                aggiungiAutorePS.executeUpdate();
+                aggiungiAutorePS.executeUpdate();   //esegue la query
             }
-            rs.close();
+
+            rs.close(); //chiude 'rs'
         } catch (SQLException e){
             e.printStackTrace();
         }
 
-        chiudiConnessione();
-    }
+        chiudiConnessione();    //chiude la connessione al DB
+    }//fine aggiungiAutoreLibroDB
 
     @Override
-    public void aggiungiAutoreArticoloDB(String nome, String cognome, String nazionalita, String dn, String doi){
-        ResultSet rs = null;
+    public void aggiungiAutoreArticoloDB(String nome, String cognome, String nazionalita, String dn, String doi){   //se l'autore 'nome' 'cognome' nato il 'dn' di nazionalità 'nazionalita' non già presente lo aggiunge al DB, e associa l'autore all'articolo con DOI 'doi'
+        ResultSet rs = null;    //contiene il numero di autori con 'nome', 'cognome', 'dn' e 'nazionalita' e il codice del nuovo autore
+
         try {
-            String query = "SELECT COUNT(*) AS contatore FROM autore WHERE nome = '"+nome+"' AND cognome = '"+cognome+"' "; //prepara la query che calcola il valore medio delle valutazioni del libro
-            if (nazionalita.isBlank()) query = query + "AND nazionalita IS NULL ";
-            else query = query + "AND nazionalita = '"+nazionalita+"' ";
+            String query = "SELECT COUNT(*) AS contatore FROM autore WHERE nome = '"+nome+"' AND cognome = '"+cognome+"' "; //inizializza la query che conta gli autori con 'nome', 'cognome', 'dn' e 'nazionalita'
 
+            if (nazionalita.isBlank()){ //controlla se non è stata inserita la nazionalità
+                query = query + "AND nazionalita IS NULL "; //aggiorna 'query'
+            }else{
+                query = query + "AND nazionalita = '"+nazionalita+"' "; //aggiorna 'query'
+            }
 
-            if (dn.isBlank()) query = query + "AND datanascita IS NULL ";
-            else query = query + "AND datanascita = '"+dn+"' ";
+            if (dn.isBlank()){  //controlla se non è stata inserita la data di nascita
+                query = query + "AND datanascita IS NULL "; //aggiorna 'query'
+            }else{
+                query = query + "AND datanascita = '"+dn+"' ";  //aggiorna 'query'
+            }
 
-            PreparedStatement aggiungiAutorePS = connection.prepareStatement(query);
+            PreparedStatement aggiungiAutorePS = connection.prepareStatement(query);    //prepara la query
 
-            rs = aggiungiAutorePS.executeQuery(); //esegue la query{
+            rs = aggiungiAutorePS.executeQuery();   //esegue la query
+
             try {
-                while (rs.next()){
-                    if (rs.getInt("contatore") == 0){
+                while (rs.next()){  //scorre il ResultSet 'rs' con il numero di autori con 'nome', 'cognome', 'dn' e 'nazionalita'
+                    if (rs.getInt("contatore") == 0){   //controlla se non ci sono autori con 'nome', 'cognome', 'dn' e 'nazionalita'
                         try{
-                            query = "INSERT INTO autore(nome, cognome, nazionalita, datanascita) VALUES (?, ?, ?, ?)"; //prepara la query che calcola il valore medio delle valutazioni del libro
-                            aggiungiAutorePS = connection.prepareStatement(query);
+                            query = "INSERT INTO autore(nome, cognome, nazionalita, datanascita) VALUES (?, ?, ?, ?)";  //inizializza la query che inserisce il nuovo autore
+                            aggiungiAutorePS = connection.prepareStatement(query);  //prepara la query
 
-                            aggiungiAutorePS.setString(1, nome);
-                            aggiungiAutorePS.setString(2, cognome);
+                            aggiungiAutorePS.setString(1, nome);    //aggiunge 'nome' nella query
+                            aggiungiAutorePS.setString(2, cognome); //aggiunge 'cognome' nella query
 
-                            if(nazionalita.isBlank()) aggiungiAutorePS.setNull(3, Types.NULL);
-                            else aggiungiAutorePS.setString(3, nazionalita);
+                            if(nazionalita.isBlank()){  //controlla se non è stata inserita la nazionalità
+                                aggiungiAutorePS.setNull(3, Types.NULL);    //aggiorna la query
+                            }else{
+                                aggiungiAutorePS.setString(3, nazionalita); //aggiunge 'nazionalita' nella query
+                            }
 
-                            if(dn.isBlank()) aggiungiAutorePS.setNull(4, Types.NULL);
-                            else aggiungiAutorePS.setDate(4, Date.valueOf(dn));
+                            if(dn.isBlank()){   //controlla se non è stata inserita la nazionalità
+                                aggiungiAutorePS.setNull(4, Types.NULL);    //aggiorna la query
+                            }else{
+                                aggiungiAutorePS.setDate(4, Date.valueOf(dn));  //aggiunge 'dn' nella query
+                            }
 
                             aggiungiAutorePS.executeUpdate();    //esegue la query
-
                         } catch (SQLException e){
                             e.printStackTrace();
                         }
                     }
                 }
-                rs.close();
+
+                rs.close(); //chiude 'rs'
             } catch (SQLException e){
                 e.printStackTrace();
             }
@@ -171,39 +208,47 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
         }
 
         try {
-            String query = "SELECT coda FROM autore WHERE nome = '"+nome+"' AND cognome = '"+cognome+"' "; //prepara la query che calcola il valore medio delle valutazioni del libro
-            if (nazionalita.isBlank()) query = query + "AND nazionalita IS NULL ";
-            else query = query + "AND nazionalita = '"+nazionalita+"' ";
+            String query = "SELECT coda FROM autore WHERE nome = '"+nome+"' AND cognome = '"+cognome+"' "; //inizializza la query che cerca il codice del nuovo autore
 
+            if (nazionalita.isBlank()){ //controlla se non è stata inserita la nazionalità
+                query = query + "AND nazionalita IS NULL "; //aggiorna la query
+            }else{
+                query = query + "AND nazionalita = '"+nazionalita+"' "; //aggiorna la query
+            }
 
-            if (dn.isBlank()) query = query + "AND datanascita IS NULL ";
-            else query = query + "AND datanascita = '"+dn+"' ";
+            if (dn.isBlank()){  //controlla se non è stata inserita la data di nascita
+                query = query + "AND datanascita IS NULL "; //aggiorna la query
+            }else{
+                query = query + "AND datanascita = '"+dn+"' ";  //aggiorna la query
+            }
 
-            PreparedStatement aggiungiAutorePS = connection.prepareStatement(query);
+            PreparedStatement aggiungiAutorePS = connection.prepareStatement(query);    //prepara la query
 
             rs = aggiungiAutorePS.executeQuery(); //esegue la query
+
             while (rs.next()){
                 aggiungiAutorePS = connection.prepareStatement(
-                        "INSERT INTO scrittura_a(doi, coda) VALUES ('"+doi+"', '"+rs.getInt("coda")+"')"
+                        "INSERT INTO scrittura_a(doi, coda) VALUES ('"+doi+"', '"+rs.getInt("coda")+"')"    //prepara la query che associa il l'articolo con DOI 'doi' al nuovo autore
                 );
 
-                aggiungiAutorePS.executeUpdate();
+                aggiungiAutorePS.executeUpdate();   //esegue la query
             }
-            rs.close();
+
+            rs.close(); //chiude 'rs'
         } catch (SQLException e){
             e.printStackTrace();
         }
 
-        chiudiConnessione();
-    }
+        chiudiConnessione();    //chiude la connessione al DB
+    }//fine Customize Toolbar...
 
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
-            if (connection != null && !connection.isClosed()){
-                connection.close();
+            if (connection != null && !connection.isClosed()){  //controlla se la connessione è chiusa
+                connection.close(); //chiude la connessione
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
-    }
+    }//fine chiudiConnessione
 }
