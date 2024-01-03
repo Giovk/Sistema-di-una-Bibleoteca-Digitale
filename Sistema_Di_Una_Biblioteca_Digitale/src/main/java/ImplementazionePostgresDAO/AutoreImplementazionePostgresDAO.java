@@ -228,7 +228,7 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
 
             while (rs.next()){
                 aggiungiAutorePS = connection.prepareStatement(
-                        "INSERT INTO scrittura_a(doi, coda) VALUES ('"+doi+"', '"+rs.getInt("coda")+"')"    //prepara la query che associa il l'articolo con DOI 'doi' al nuovo autore
+                        "INSERT INTO scrittura_a(doi, coda) VALUES ('"+doi+"', '"+rs.getInt("coda")+"')"    //prepara la query che associa l'articolo con DOI 'doi' al nuovo autore
                 );
 
                 aggiungiAutorePS.executeUpdate();   //esegue la query
