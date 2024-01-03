@@ -20,12 +20,12 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
     }
 
     @Override
-    public ResultSet getConferenzeArticoloDB(String doi){   //ritorna i dati di tutti i libri nel DB
-        ResultSet rs = null;    //presentazionni trovate
+    public ResultSet getConferenzeArticoloDB(String doi){   //cerca tutte le conferenze del articolo con DOI 'doi' nel DB
+        ResultSet rs = null;    //contiene le conferenze del articolo con DOI 'doi' trovate
 
         try {
             PreparedStatement getPresentazionePS = connection.prepareStatement(
-                    "SELECT * FROM conferenza NATURAL JOIN esposizione WHERE doi = '"+doi+"';" //prepara la query che cerca tutte le presentazioni del libro
+                    "SELECT * FROM conferenza NATURAL JOIN esposizione WHERE doi = '"+doi+"';"  //prepara la query che cerca tutte le conferenze del articolo con DOI 'doi'
             );
 
             rs = getPresentazionePS.executeQuery(); //esegue la query
@@ -34,11 +34,11 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
         }
 
         return rs;
-    }
+    }//fine     getConferenzeArticoloDB
 
     @Override
-    public ResultSet getConferenzeDB(){   //ritorna i dati di tutti i libri nel DB
-        ResultSet rs = null;    //presentazionni trovate
+    public ResultSet getConferenzeDB(){   //cerca tutte le conferenze nel DB
+        ResultSet rs = null;    //contiene le conferenze trovate
 
         try {
             PreparedStatement getPresentazionePS = connection.prepareStatement(
@@ -51,11 +51,12 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
         }
 
         return rs;
-    }
+    }//fine getConferenzeDB
 
     @Override
     public boolean addConferenzaDB(String struttura, String luogo, String datai, String dataf){
         ResultSet rs = null;
+
         try {
             PreparedStatement addConferenzaPS = connection.prepareStatement(
                     "SELECT COUNT(*) AS contatore FROM conferenza WHERE strutturaorganizzatrice = '"+struttura+"' AND luogo = '"+luogo+"' AND datainizio = '"+datai+"' AND" +
@@ -63,6 +64,7 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
             );
 
             rs = addConferenzaPS.executeQuery();
+
             try {
                 while(rs.next()){
                     if (rs.getInt("contatore") >= 1){
@@ -74,6 +76,7 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
             }catch (SQLException e){
                 e.printStackTrace();
             }
+
             rs.close();
         } catch (SQLException e){
             e.printStackTrace();
@@ -98,6 +101,7 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
     public boolean addEsposizioneDB(String struttura, String luogo, String datai, String dataf, String doi){
         ResultSet rs = null;
         int codc = 0;
+
         try {
             PreparedStatement addConferenzaPS = connection.prepareStatement(
                     "SELECT codc FROM conferenza WHERE strutturaorganizzatrice = '"+struttura+"' AND luogo = '"+luogo+"' AND datainizio = '"+datai+"' AND" +
@@ -123,6 +127,7 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
             );
 
             rs = addConferenzaPS.executeQuery();
+
             try {
                 while(rs.next()){
                     if (rs.getInt("contatore") >= 1){
@@ -134,6 +139,7 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
             }catch (SQLException e){
                 e.printStackTrace();
             }
+
             rs.close();
         }catch (SQLException e){
             e.printStackTrace();
