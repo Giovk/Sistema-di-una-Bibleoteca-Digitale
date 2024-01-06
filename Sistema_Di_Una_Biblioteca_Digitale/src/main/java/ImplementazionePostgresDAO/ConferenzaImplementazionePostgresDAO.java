@@ -42,7 +42,7 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
 
         try {
             PreparedStatement getPresentazionePS = connection.prepareStatement(
-                    "SELECT * FROM conferenza;" //prepara la query che cerca tutte le presentazioni del libro
+                    "SELECT * FROM conferenza;" //prepara la query che cerca tutte le conferenze
             );
 
             rs = getPresentazionePS.executeQuery(); //esegue la query
@@ -54,22 +54,22 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
     }//fine getConferenzeDB
 
     @Override
-    public boolean addConferenzaDB(String struttura, String luogo, String datai, String dataf){
-        ResultSet rs = null;
+    public boolean addConferenzaDB(String struttura, String luogo, String datai, String dataf){ //se non esiste già, inserisce una nuova confereza nel DB e ritorna "true", altrimenti ritorna "false"
+        ResultSet rs = null;    //contiene il numero di conferenze organizzate dalla 'struttura' a 'luogo' dal 'datai' a 'dataf'
 
         try {
             PreparedStatement addConferenzaPS = connection.prepareStatement(
                     "SELECT COUNT(*) AS contatore FROM conferenza WHERE strutturaorganizzatrice = '"+struttura+"' AND luogo = '"+luogo+"' AND datainizio = '"+datai+"' AND" +
-                            " datafine = '"+dataf+"'"
+                            " datafine = '"+dataf+"'"   //prepara la query che conta le conferenze organizzate dalla 'struttura' a 'luogo' dal 'datai' a 'dataf'
             );
 
-            rs = addConferenzaPS.executeQuery();
+            rs = addConferenzaPS.executeQuery();    //esegue la query
 
             try {
-                while(rs.next()){
-                    if (rs.getInt("contatore") >= 1){
-                        rs.close();
-                        chiudiConnessione();
+                while(rs.next()){   //scorre il ResultSet 'rs' con il numero di conferenze organizzate dalla 'struttura' a 'luogo' dal 'datai' a 'dataf'
+                    if (rs.getInt("contatore") >= 1){   //controlla se ci sono conferenze organizzate dalla 'struttura' a 'luogo' dal 'datai' a 'dataf'
+                        rs.close(); //chiude 'rs'
+                        chiudiConnessione();    //chiude la connessione al DB
                         return false;
                     }
                 }
@@ -77,7 +77,7 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
                 e.printStackTrace();
             }
 
-            rs.close();
+            rs.close(); //chiude 'rs'
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -85,34 +85,34 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
         try {
             PreparedStatement addConferenzaPS = connection.prepareStatement(
                     "INSERT INTO conferenza(strutturaorganizzatrice, luogo, datainizio, datafine) " +
-                            "VALUES('"+struttura+"', '"+luogo+"', '"+datai+"', '"+dataf+"')"
+                            "VALUES('"+struttura+"', '"+luogo+"', '"+datai+"', '"+dataf+"')"    //prepara la query che inserisce la nuova conferenza
             );
 
-            addConferenzaPS.executeUpdate();
+            addConferenzaPS.executeUpdate();    //esegue la query
         } catch (SQLException e){
             e.printStackTrace();
         }
 
-        chiudiConnessione();
+        chiudiConnessione();    //chiude la connessione al DB
         return true;
-    }
+    }//fine addConferenzaDB
 
     @Override
-    public boolean addEsposizioneDB(String struttura, String luogo, String datai, String dataf, String doi){
-        ResultSet rs = null;
-        int codc = 0;
+    public boolean addEsposizioneDB(String struttura, String luogo, String datai, String dataf, String doi){    //se non esiste già, inserisce una nuova esposizione nel DB e ritorna "true", altrimenti ritorna "false"
+        ResultSet rs = null;    //contiene il codice della conferenza della nuova esposizione e il numero di esposizioni con l'articolo con DOI 'doi' e la conferenza della nuova esposizione
+        int codc = 0;   //codice della conferenza della nuova esposizione
 
         try {
             PreparedStatement addConferenzaPS = connection.prepareStatement(
                     "SELECT codc FROM conferenza WHERE strutturaorganizzatrice = '"+struttura+"' AND luogo = '"+luogo+"' AND datainizio = '"+datai+"' AND" +
-                            " datafine = '"+dataf+"'"
+                            " datafine = '"+dataf+"'"   //prepara la query che cerca il codice della conferenza della nuova esposizione
             );
 
-            rs = addConferenzaPS.executeQuery();
+            rs = addConferenzaPS.executeQuery();    //esegue la query
 
             try{
-                while (rs.next()){
-                    codc = rs.getInt("codc");
+                while (rs.next()){  //scorre il ResultSet 'rs' con il codice della conferenza della nuova esposizione
+                    codc = rs.getInt("codc");   //aggiorna 'codc'
                 }
             }catch (SQLException e){
                 e.printStackTrace();
@@ -123,16 +123,16 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
 
         try {
             PreparedStatement addConferenzaPS = connection.prepareStatement(
-                    "SELECT COUNT(*) AS contatore FROM esposizione WHERE doi = '"+doi+"' AND codc = '"+codc+"'"
+                    "SELECT COUNT(*) AS contatore FROM esposizione WHERE doi = '"+doi+"' AND codc = '"+codc+"'" //prepara la query che conta l'esposizioni con l'articolo con DOI 'doi' e la conferenza con codice 'codc'
             );
 
-            rs = addConferenzaPS.executeQuery();
+            rs = addConferenzaPS.executeQuery();    //esegue la query
 
             try {
-                while(rs.next()){
-                    if (rs.getInt("contatore") >= 1){
-                        rs.close();
-                        chiudiConnessione();
+                while(rs.next()){   //scorre il ResultSet 'rs' con il numero di esposizioni con l'articolo con DOI 'doi' e la conferenza con codice 'codc'
+                    if (rs.getInt("contatore") >= 1){   //controlla se ci sono esposizioni con l'articolo con DOI 'doi' e la conferenza con codice 'codc'
+                        rs.close(); //chiude 'rs'
+                        chiudiConnessione();    //chiude la connessione al DB
                         return false;
                     }
                 }
@@ -140,7 +140,7 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
                 e.printStackTrace();
             }
 
-            rs.close();
+            rs.close(); //chiude 'rs'
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -148,26 +148,26 @@ public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
         try {
             PreparedStatement addConferenzaPS = connection.prepareStatement(
                     "INSERT INTO esposizione(doi, codc) " +
-                            "VALUES('"+doi+"', '"+codc+"')"
+                            "VALUES('"+doi+"', '"+codc+"')" //prepara la query che inserisce la nuova esposizione
             );
 
-            addConferenzaPS.executeUpdate();
+            addConferenzaPS.executeUpdate();    //esegue la query
         } catch (SQLException e){
             e.printStackTrace();
         }
 
-        chiudiConnessione();
+        chiudiConnessione();    //chiude la connessione al DB
         return true;
-    }
+    }//fine addEsposizioneDB
 
     @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
-            if (connection != null && !connection.isClosed()){
-                connection.close();
+            if (connection != null && !connection.isClosed()){  //controlla se la connessione è chiusa
+                connection.close(); //chiude la connessione
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
-    }
+    }//fine chiudiConnessione
 }

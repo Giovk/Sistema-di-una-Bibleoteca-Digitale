@@ -20,81 +20,82 @@ public class NotificaImplementazionePostgresDAO implements NotificaDAO {
     }
 
     @Override
-    public int getNumeroNotificheNonLetteDB(String user){
-        ResultSet rs;
-        int n = 0;  //numero di utenti nel DB con 'userEmail' e 'password'
+    public int getNumeroNotificheNonLetteDB(String user){   //calcola il numero di notifiche non lette dall'utente 'user'
+        ResultSet rs;   //contiene il numero di notifiche non lette dall'utente 'user'
+        int n = 0;  //numero di notifiche non lette dall'utente 'user'
 
         try{
             PreparedStatement getNumeroNotificheNonLettePS = connection.prepareStatement(
-                    "SELECT COUNT (*) AS total FROM notifica WHERE username = '"+user+"' AND lettura = FALSE;"  //prepara la query che conta il numero di utenti con 'userEmail' e 'password'
+                    "SELECT COUNT (*) AS total FROM notifica WHERE username = '"+user+"' AND lettura = FALSE;"  //prepara la query che conta le notifiche non lette dall'utente 'user'
             );
 
-            rs = getNumeroNotificheNonLettePS.executeQuery(); //esegue la query
+            rs = getNumeroNotificheNonLettePS.executeQuery();   //esegue la query
 
-            while(rs.next()){
-                n = rs.getInt("total"); //inserisce in 'n' il risltato della query
+            while(rs.next()){   //scorre il ResultSet 'rs' con il numero di notifiche non lette dall'utente 'user'
+                n = rs.getInt("total"); //aggiorna 'n'
             }
 
             connection.close(); //chiude la connessione
         } catch (SQLException var2){
             var2.printStackTrace();
         }
-        return n;
-    }
 
-    public ResultSet getNotificheUtenteDB(String user){
-        ResultSet rs = null;
+        return n;
+    }//fine getNumeroNotificheNonLetteDB
+
+    public ResultSet getNotificheUtenteDB(String user){ //cerca i dati di tutte le notifiche dell'utente 'user' nel DB
+        ResultSet rs = null;    //contiene tutte le notifiche dell'utente 'user' nel DB
 
         try {
             PreparedStatement getNotificheUtenteDB = connection.prepareStatement(
-                    "SELECT * FROM notifica WHERE username = '"+user+"'"   //prepara la query che cerca tutti i libri
+                    "SELECT * FROM notifica WHERE username = '"+user+"'"   //prepara la query che cerca tutti le notifiche dell'utente 'user' nel DB
             );
 
-            rs = getNotificheUtenteDB.executeQuery(); //esegue la query
+            rs = getNotificheUtenteDB.executeQuery();   //esegue la query
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
 
         return rs;
-    }
+    }//fine getNotificheUtenteDB
 
     @Override
-    public void rimuoviNotificaDB(String testo, String data, String ora, String user){
+    public void rimuoviNotificaDB(String testo, String data, String ora, String user){  //elimina dal DB la notifica inviata all'utente 'user' con 'testo' il 'data' alle 'ora'
         try {
             PreparedStatement getNotificheUtenteDB = connection.prepareStatement(
-                    "DELETE FROM notifica WHERE username = '"+user+"' AND datainvio = '"+data+"' AND orainvio = '"+ora+"' AND testo = '"+testo+"'"   //prepara la query che cerca tutti i libri
+                    "DELETE FROM notifica WHERE username = '"+user+"' AND datainvio = '"+data+"' AND orainvio = '"+ora+"' AND testo = '"+testo+"'"   //prepara che elimina la notifica inviata all'utente 'user' con 'testo' il 'data' alle 'ora'
             );
 
-            getNotificheUtenteDB.executeUpdate(); //esegue la query
+            getNotificheUtenteDB.executeUpdate();   //esegue la query
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
 
-        chiudiConnessione();
-    }
+        chiudiConnessione();    //chiude la connessione al DB
+    }//fine rimuoviNotificaDB
 
     @Override
-    public void visualizzaNotificaDB(String testo, String data, String ora, String user){
+    public void visualizzaNotificaDB(String testo, String data, String ora, String user){   //pone a "true" il campo "lettura" della notifica inviata all'utente 'user' con 'testo' il 'data' alle 'ora'
         try {
             PreparedStatement getNotificheUtenteDB = connection.prepareStatement(
-                    "UPDATE notifica SET lettura = TRUE WHERE username = '"+user+"' AND datainvio = '"+data+"' AND orainvio = '"+ora+"' AND testo = '"+testo+"'"   //prepara la query che cerca tutti i libri
+                    "UPDATE notifica SET lettura = TRUE WHERE username = '"+user+"' AND datainvio = '"+data+"' AND orainvio = '"+ora+"' AND testo = '"+testo+"'"   //prepara la query che /pone a "true" il campo "lettura" della notifica inviata all'utente 'user' con 'testo' il 'data' alle 'ora'
             );
 
-            getNotificheUtenteDB.executeUpdate(); //esegue la query
+            getNotificheUtenteDB.executeUpdate();   //esegue la query
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
 
-        chiudiConnessione();
-    }
+        chiudiConnessione();    //chiude la connessione al DB
+    }//fine visualizzaNotificaDB
 
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
-            if (connection != null && !connection.isClosed()){
-                connection.close();
+            if (connection != null && !connection.isClosed()){  //controlla se la connessione è chiusa
+                connection.close(); //chiude la connessione
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
-    }
+    }//fine chiudiConnessione
 }
