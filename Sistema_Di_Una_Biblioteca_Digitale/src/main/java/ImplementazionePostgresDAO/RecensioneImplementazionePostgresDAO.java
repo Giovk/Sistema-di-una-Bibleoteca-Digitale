@@ -137,21 +137,21 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
 
     @Override
     public void addRecensioneLibroDB(int valutazione, String text, String isbn, String user){   //aggiunge/aggiorna una recensione con 'valutazione' e 'testo' fatta dall'utente 'user' al libro con ISBN 'isbn'
-        ResultSet rs = null;
-        int item = 1;   //numero di tuple in "recensione_l" con 'user' e 'isbn'
+        ResultSet rs = null;    //contiene il numero di recensioni fatte da 'user' al libro con ISBN 'isbn'
+        int item = 1;   //numero di recensioni fatte da 'user' al libro con ISBN 'isbn'
 
         try {
             PreparedStatement likeLibroPS = connection.prepareStatement(
-                    "SELECT COUNT (*) FROM recensione_l WHERE isbn = '"+isbn+"' AND username = '"+user+"'" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+                    "SELECT COUNT (*) FROM recensione_l WHERE isbn = '"+isbn+"' AND username = '"+user+"'"  //prepara la query che conta il numero di recensioni fatte da 'user' al libro con ISBN 'isbn'
             );
 
-            rs = likeLibroPS.executeQuery(); //esegue la query
+            rs = likeLibroPS.executeQuery();    //esegue la query
 
-            while(rs.next()){    //scorre il ResultSet 'rs'
+            while(rs.next()){   //scorre il ResultSet 'rs' contenente il numero di recensioni fatte da 'user' al libro con ISBN 'isbn'
                 item = rs.getInt(1);    //aggiorna 'item'
             }
 
-            rs.close();
+            rs.close(); //chiude 'rs'
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
