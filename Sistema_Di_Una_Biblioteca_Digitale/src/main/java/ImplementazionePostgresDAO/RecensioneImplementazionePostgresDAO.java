@@ -20,30 +20,31 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
 
     @Override
     public float valutazioneMediaLibroDB(String isbn) { //ritorna la media delle valutazioni del libro con isbn 'isbn'
-        ResultSet rs = null;    //media trovata
+        ResultSet rs = null;    //contiene la media trovata
         float vm = 0;   //valore medio delle valutazioni
 
         try {
             PreparedStatement valutazioneMediaLibroPS = connection.prepareStatement(
-                    "SELECT AVG(valutazione) FROM recensione_l WHERE isbn = '"+isbn+"'" //prepara la query che calcola il valore medio delle valutazioni del libro
+                    "SELECT AVG(valutazione) FROM recensione_l WHERE isbn = '"+isbn+"'" //prepara la query che calcola il valore medio delle valutazioni del libro con isbn 'isbn'
             );
+
             rs = valutazioneMediaLibroPS.executeQuery(); //esegue la query
 
             while(rs.next()){    //scorre il ResultSet 'rs' contenente la media
-                vm = rs.getFloat(1);
+                vm = rs.getFloat(1);    //aggiorna 'vm'
             }
 
-            rs.close();
-            connection.close();
+            rs.close(); //chiude 'rs'
+            connection.close(); //chiude la connessione al DB
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
 
         return vm;
-    }
+    }//fine valutazioneMediaLibroDB
 
     @Override
-    public boolean likeLibroDB(String isbn, String user) { //controlla se l'utente 'user' ha il libro 'isbn' tra i preferiti
+    public boolean likeLibroDB(String isbn, String user) { //controlla se l'utente 'user' ha il libro con ISBN 'isbn' tra i preferiti
         ResultSet rs = null;    //valore trovato
         boolean like = false;   //risultato
 
@@ -51,81 +52,91 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
             PreparedStatement likeLibroPS = connection.prepareStatement(
                     "SELECT preferito FROM recensione_l WHERE isbn = '"+isbn+"' AND username = '"+user+"'" //prepara la query che controlla se l'utente ha il libro nei preferiti
             );
+
             rs = likeLibroPS.executeQuery(); //esegue la query
 
             while(rs.next()){    //scorre il ResultSet 'rs'
-                like = rs.getBoolean(1);    //pone il risultato in 'like'
+                like = rs.getBoolean(1);    //aggiorna 'like'
             }
 
-            rs.close();
-            connection.close();
+            rs.close(); //chiude 'rs'
+            connection.close(); //chiude la connessione al DB
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
 
         return like;
-    }
+    }//fine likeLibroDB
 
     @Override
-    public boolean changeLikeLibroDB(boolean like, String isbn, String user) { //toglie/mette nei preferiti dell'utente 'user' il libro 'isbn' e ritone l'opposto di 'like'
+    public boolean changeLikeLibroDB(boolean like, String isbn, String user) {  //toglie/mette nei preferiti dell'utente 'user' il libro con ISBN 'isbn' e ritorna l'opposto di 'like'
         ResultSet rs = null;
-        int item = 1;   //numero di tuple in "recensione_l" con 'user' e 'isbn'
+        int item = 1;   //numero di recensioni fatte da 'user' al libro con ISBN 'isbn'
 
-        if (like == true) like = false; //se 'like' è true lo pone a false
-        else like = true;   //altrimenti lo pone a true
+        if (like == true){  //controlla se 'user' ha il libro con ISBN 'isbn' nei preferiti
+            like = false;   //aggiorna 'like'
+        }else{
+            like = true;    //aggiorna 'like'
+        }
 
         try {
             PreparedStatement changeLikeLibroPS = connection.prepareStatement(
-                    "SELECT COUNT (*) FROM recensione_l WHERE isbn = '"+isbn+"' AND username = '"+user+"'" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+                    "SELECT COUNT (*) FROM recensione_l WHERE isbn = '"+isbn+"' AND username = '"+user+"'"  //prepara la query che conta il numero di recensioni fatte da 'user' al libro con ISBN 'isbn'
             );
-            rs = changeLikeLibroPS.executeQuery(); //esegue la query
 
-            while(rs.next()){    //scorre il ResultSet 'rs' contenente il numero di tuple trovate dalla query
+            rs = changeLikeLibroPS.executeQuery();  //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente il numero di recensioni fatte da 'user' al libro con ISBN 'isbn'
                 item = rs.getInt(1);    //aggiorna 'item'
             }
 
-            rs.close();
+            rs.close(); //chiude 'rs'
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
 
-        if(item >= 1) { //controlla se c'è già una tupla con 'user' e 'isbn' in "recensione_l"
-            if(like == false) {
-                try {
-                    PreparedStatement changeLikePS = connection.prepareStatement(
-                            "DELETE from recensione_l WHERE isbn = '"+isbn+"' AND username = '"+user+"' AND valutazione IS NULL AND testo IS NULL"
-                    );
-                    changeLikePS.executeUpdate(); //esegue la query
-                } catch (SQLException var2) {
-                    var2.printStackTrace();
-                }
-            }try {
-                    PreparedStatement changeLikePS = connection.prepareStatement(
-                            "UPDATE recensione_l SET preferito = '" + like + "' WHERE isbn = '" + isbn + "' AND username = '" + user + "'" //prepara la query che aggiorna la tupla con 'isbn' e 'user'
-                    );
-                    changeLikePS.executeUpdate(); //esegue la query
-                    connection.close();
-                } catch (SQLException var2) {
-                    var2.printStackTrace();
-                }
-        } else {
+        if(item < 1) { //controlla se non c'è una recensione del libro con ISBN 'isbn' fatta da 'user'
             try {
                 PreparedStatement changeLikePS = connection.prepareStatement(
                         "INSERT INTO recensione_l(username, isbn, preferito) " +
-                        "VALUES ('"+user+"', '"+isbn+"', '"+like+"')"   //prepara la query che aggiuge una nuova tupla in "recensione_l" con 'user', 'isbn' e 'like'
+                                "VALUES ('"+user+"', '"+isbn+"', '"+like+"')"   //prepara la query che aggiuge una nuova recensione del libro con ISBN 'isbn' fatta da 'user'
                 );
+
                 changeLikePS.executeUpdate(); //esegue la query
-                connection.close();
+                connection.close(); //chiude la connessione al DB
+            } catch (SQLException var2) {
+                var2.printStackTrace();
+            }
+        } else {
+            if(like == false) { //controlla se 'user' non ha messo il libro con ISBN 'isbn' nei preferiti
+                try {
+                    PreparedStatement changeLikePS = connection.prepareStatement(
+                            "DELETE from recensione_l WHERE isbn = '"+isbn+"' AND username = '"+user+"' AND valutazione IS NULL AND testo IS NULL"  //elimina la recensione del libro con ISBN 'isbn' fatta da 'user'
+                    );
+
+                    changeLikePS.executeUpdate(); //esegue la query
+                } catch (SQLException var2) {
+                    var2.printStackTrace();
+                }
+            }
+
+            try {
+                PreparedStatement changeLikePS = connection.prepareStatement(
+                        "UPDATE recensione_l SET preferito = '" + like + "' WHERE isbn = '" + isbn + "' AND username = '" + user + "'" //prepara la query che aggiunge il libro con ISBN 'isbn' nei preferiti di 'user'
+                );
+
+                changeLikePS.executeUpdate();   //esegue la query
+                connection.close(); //chiude la connessione al DB
             } catch (SQLException var2) {
                 var2.printStackTrace();
             }
         }
 
         return like;
-    }
+    }//fine changeLikeLibroDB
 
     @Override
-    public void addRecensioneLibroDB(int valutazione, String text, String isbn, String user){   //aggiunge/aggiorna una recensione con 'valutazione' e 'testo' fatta dall'utente 'user' al libro 'isbn'
+    public void addRecensioneLibroDB(int valutazione, String text, String isbn, String user){   //aggiunge/aggiorna una recensione con 'valutazione' e 'testo' fatta dall'utente 'user' al libro con ISBN 'isbn'
         ResultSet rs = null;
         int item = 1;   //numero di tuple in "recensione_l" con 'user' e 'isbn'
 
@@ -133,6 +144,7 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
             PreparedStatement likeLibroPS = connection.prepareStatement(
                     "SELECT COUNT (*) FROM recensione_l WHERE isbn = '"+isbn+"' AND username = '"+user+"'" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
             );
+
             rs = likeLibroPS.executeQuery(); //esegue la query
 
             while(rs.next()){    //scorre il ResultSet 'rs'
@@ -151,8 +163,11 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
 
                 addRecensioneLibroPS.setInt(1, valutazione);    //inserisce la valutazione nella query
 
-                if(text.isBlank()) addRecensioneLibroPS.setNull(2, Types.NULL); //se il testo è vuoto inserisce NULL nella query
-                else addRecensioneLibroPS.setString(2, text);   //altrimenti inserise 'text' nella query
+                if(text.isBlank()){
+                    addRecensioneLibroPS.setNull(2, Types.NULL); //se il testo è vuoto inserisce NULL nella query
+                } else {
+                    addRecensioneLibroPS.setString(2, text);   //altrimenti inserise 'text' nella query
+                }
 
                 addRecensioneLibroPS.setString(3, isbn);    //inserisce l'isbn nella query
                 addRecensioneLibroPS.setString(4, user);    //inserisce l'username nella query
@@ -169,8 +184,11 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
 
                 addRecensioneLibroPS.setInt(3, valutazione);    //prepara la query di aggiornamento
 
-                if(text.isBlank()) addRecensioneLibroPS.setNull(4, Types.NULL); //se il testo è vuoto inserisce NULL nella query
-                else addRecensioneLibroPS.setString(4, text);    //altrimenti inserise 'text' nella query
+                if(text.isBlank()){
+                    addRecensioneLibroPS.setNull(4, Types.NULL); //se il testo è vuoto inserisce NULL nella query
+                }else{
+                    addRecensioneLibroPS.setString(4, text);    //altrimenti inserise 'text' nella query
+                }
 
                 addRecensioneLibroPS.setString(2, isbn);     //inserisce l'isbn nella query
                 addRecensioneLibroPS.setString(1, user);     //inserisce l'username nella query

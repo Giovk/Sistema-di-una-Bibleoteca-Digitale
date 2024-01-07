@@ -204,39 +204,44 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
     }//fine modQuantitaFascicoloDB
 
     @Override
-    public boolean insertPossessoLDB(String isbn, String nt, int quantita, String fruizione){
-        ResultSet rs = null;
-        int codl = 0;
+    public boolean insertPossessoLDB(String isbn, String nt, int quantita, String fruizione){   //se non esiste già, inserisce un nuovo possesso del libro con ISBN 'isbn' e della libreria selezionata nel DB e ritorna "true", altrimenti ritorna "false"
+        ResultSet rs = null;    //contiene il codice della libreria selezionata e il numero dei suoi possessi con il libro con ISBN 'isbn'
+        int codl = 0;   //codice della libreria selezionata
 
         try {
             PreparedStatement insertPossessoLPS = connection.prepareStatement(
-                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"
+                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"   //prepara la query che cerca il codice della libreria selezionata con numero telefonico 'nt'
             );
 
-            rs = insertPossessoLPS.executeQuery();
+            rs = insertPossessoLPS.executeQuery();  //esegue la query
 
             try {
-                while (rs.next()){
+                while (rs.next()){  //scorre il ResultSet 'rs' con il codice della libreria selezionata con numero telefonico 'nt'
                     try {
-                        codl = rs.getInt("codl");
+                        codl = rs.getInt("codl");   //aggiorna 'codl'
                         insertPossessoLPS = connection.prepareStatement(
-                                "SELECT COUNT(*) AS contatore FROM possesso_l WHERE isbn = '"+isbn+"' AND codl = '"+codl+"' AND fruizione = '"+fruizione+"'"
+                                "SELECT COUNT(*) AS contatore FROM possesso_l WHERE isbn = '"+isbn+"' AND codl = '"+codl+"' AND fruizione = '"+fruizione+"'"    //prepara la query che conta i possessi della libreria selezionata e del libro con ISBN 'isbn' con modalità 'fruizione'
                         );
 
-                        rs = insertPossessoLPS.executeQuery();
+                        rs = insertPossessoLPS.executeQuery();  //esegue la query
+
                         try {
-                            while (rs.next()){
-                                if (rs.getInt("contatore") == 0){
-                                    if (!fruizione.equals("Cartaceo")){
+                            while (rs.next()){  //scorre il ResultSet 'rs' con il numero di possessi della libreria selezionata e del libro con ISBN 'isbn' con modalità 'fruizione'
+                                if (rs.getInt("contatore") != 0){   //controlla se ci sono possessi della libreria selezionata e del libro con ISBN 'isbn' con modalità 'fruizione'
+                                    rs.close(); //chiude 'rs'
+                                    chiudiConnessione();    //chiude la connessione al DB
+                                    return false;
+                                } else {
+                                    if (!fruizione.equals("Cartaceo")){ //controlla se la modalità di fruizione del nuovo possesso non è "Cartaceo"
                                         try {
                                             insertPossessoLPS = connection.prepareStatement(
                                                     "INSERT INTO possesso_l(codl, isbn, fruizione) " +
-                                                            "VALUES ('"+codl+"', '"+isbn+"', '"+fruizione+"')"
+                                                            "VALUES ('"+codl+"', '"+isbn+"', '"+fruizione+"')"  //prepara la query che inserisce il nuovo possesso
                                             );
 
-                                            insertPossessoLPS.executeUpdate();
-                                            rs.close();
-                                            chiudiConnessione();
+                                            insertPossessoLPS.executeUpdate();  //esegue la query
+                                            rs.close(); //chiude 'rs'
+                                            chiudiConnessione();    //chiude la connessione al DB
                                             return true;
                                         } catch (SQLException e){
                                             e.printStackTrace();
@@ -245,21 +250,17 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
                                         try {
                                             insertPossessoLPS = connection.prepareStatement(
                                                     "INSERT INTO possesso_l(codl, isbn, fruizione, quantita) " +
-                                                            "VALUES ('"+codl+"', '"+isbn+"', '"+fruizione+"', '"+quantita+"')"
+                                                            "VALUES ('"+codl+"', '"+isbn+"', '"+fruizione+"', '"+quantita+"')"  //prepara la query che inserisce il nuovo possesso
                                             );
 
-                                            insertPossessoLPS.executeUpdate();
-                                            rs.close();
-                                            chiudiConnessione();
+                                            insertPossessoLPS.executeUpdate();  //esegue la query
+                                            rs.close(); //chiude 'rs'
+                                            chiudiConnessione();    //chiude la connessione al DB
                                             return true;
                                         } catch (SQLException e){
                                             e.printStackTrace();
                                         }
                                     }
-                                } else {
-                                    rs.close();
-                                    chiudiConnessione();
-                                    return false;
                                 }
                             }
                         } catch (SQLException e){
@@ -269,7 +270,8 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
                         e.printStackTrace();
                     }
                 }
-                rs.close();
+
+                rs.close(); //chiude 'rs'
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -277,66 +279,71 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
             e.printStackTrace();
         }
 
-        chiudiConnessione();
+        chiudiConnessione();    //chiude la connessione al DB
         return false;
-    }
+    }//fine insertPossessoLDB
 
     @Override
-    public boolean insertPossessoFDB(int numero, String issn, String nt, int quantita, String fruizione){
-        ResultSet rs = null;
-        int codl = 0;
-        int codf = 0;
+    public boolean insertPossessoFDB(int numero, String issn, String nt, int quantita, String fruizione){   //se non esiste già, inserisce un nuovo possesso del fascicolo numero 'numero' della rivista con ISSN 'issn' e della libreria selezionata nel DB e ritorna "true", altrimenti ritorna "false"
+        ResultSet rs = null;    //contiene il codice della libreria selezionata e il numero dei suoi possessi con il fascicolo numero 'numero' della rivista con ISSN 'issn'
+        int codl = 0;   //codice della libreria selezionata
+        int codf = 0;   //codice del fascicolo numero 'numero' della rivista con ISSN 'issn'
 
         try {
             PreparedStatement insertPossessoFPS = connection.prepareStatement(
-                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"
+                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"   //prepara la query che cerca il codice della libreria selezionata con numero telefonico 'nt'
             );
 
-            rs = insertPossessoFPS.executeQuery();
+            rs = insertPossessoFPS.executeQuery();  //esegue la query
 
             try {
-                while (rs.next()){
+                while (rs.next()){  //scorre il ResultSet 'rs' con il codice della libreria selezionata con numero telefonico 'nt'
                     try {
-                        codl = rs.getInt("codl");
+                        codl = rs.getInt("codl");   //aggiorna 'codl'
 
                         try{
                             insertPossessoFPS = connection.prepareStatement(
-                                    "SELECT codf FROM fascicolo WHERE issn = '"+issn+"' AND numero = '"+numero+"'"
+                                    "SELECT codf FROM fascicolo WHERE issn = '"+issn+"' AND numero = '"+numero+"'"  //prepara la query che cerca il codice del fascicolo numero 'numero' della rivista con ISSN 'issn'
                             );
 
-                            ResultSet rs2 = insertPossessoFPS.executeQuery();
+                            ResultSet rs2 = insertPossessoFPS.executeQuery();   //esegue la query
 
                             try {
-                                while(rs2.next()) {
-                                    codf = rs2.getInt("codf");
+                                while(rs2.next()) { //scorre il ResultSet 'rs2' con il codice del fascicolo numero 'numero' della rivista con ISSN 'issn'
+                                    codf = rs2.getInt("codf");  //aggiorna 'codf'
                                 }
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
 
-                            rs2.close();
+                            rs2.close();    //chiude 'rs2'
                         }catch (SQLException e){
                             e.printStackTrace();
                         }
+
                         insertPossessoFPS = connection.prepareStatement(
-                                "SELECT COUNT(*) AS contatore FROM possesso_f WHERE codf = '"+codf+"' AND codl = '"+codl+"' AND fruizione = '"+fruizione+"'"
+                                "SELECT COUNT(*) AS contatore FROM possesso_f WHERE codf = '"+codf+"' AND codl = '"+codl+"' AND fruizione = '"+fruizione+"'"    //prepara la query che conta i possessi della libreria selezionata e del fascicolo numero 'numero' della rivista con ISSN 'issn' con modalità 'fruizione'
                         );
 
-                        rs = insertPossessoFPS.executeQuery();
+                        rs = insertPossessoFPS.executeQuery();  //esegue la query
 
                         try {
-                            while (rs.next()){
-                                if (rs.getInt("contatore") == 0){
-                                    if (!fruizione.equals("Cartaceo")){
+                            while (rs.next()){  //scorre il ResultSet 'rs' con il numero di possessi della libreria selezionata e del fascicolo numero 'numero' della rivista con ISSN 'issn' con modalità 'fruizione'
+                                if (rs.getInt("contatore") != 0){   //controlla se ci sono possessi della libreria selezionata e del fascicolo numero 'numero' della rivista con ISSN 'issn' con modalità 'fruizione'
+                                    rs.close(); //chiude 'rs'
+                                    chiudiConnessione();    //chiude la connessione al DB
+                                    return false;
+                                } else {
+                                    if (!fruizione.equals("Cartaceo")){ //controlla se la modalità di fruizione del nuovo possesso non è "Cartaceo"
                                         try {
                                             insertPossessoFPS = connection.prepareStatement(
                                                     "INSERT INTO possesso_f(codl, codf, fruizione) " +
-                                                            "VALUES ('"+codl+"', '"+codf+"', '"+fruizione+"')"
+                                                            "VALUES ('"+codl+"', '"+codf+"', '"+fruizione+"')"  //prepara la query che inserisce il nuovo possesso
                                             );
 
-                                            insertPossessoFPS.executeUpdate();
-                                            rs.close();
-                                            chiudiConnessione();
+                                            insertPossessoFPS.executeUpdate();  //esegue la query
+                                            rs.close(); //chiude 'rs'
+                                            chiudiConnessione();    //chiude la connessione al DB
                                             return true;
                                         } catch (SQLException e){
                                             e.printStackTrace();
@@ -345,21 +352,17 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
                                         try {
                                             insertPossessoFPS = connection.prepareStatement(
                                                     "INSERT INTO possesso_f(codl, codf, fruizione, quantita) " +
-                                                            "VALUES ('"+codl+"', '"+codf+"', '"+fruizione+"', '"+quantita+"')"
+                                                            "VALUES ('"+codl+"', '"+codf+"', '"+fruizione+"', '"+quantita+"')"  //prepara la query che inserisce il nuovo possesso
                                             );
 
-                                            insertPossessoFPS.executeUpdate();
-                                            rs.close();
-                                            chiudiConnessione();
+                                            insertPossessoFPS.executeUpdate();  //esegue la query
+                                            rs.close(); //chiude 'rs'
+                                            chiudiConnessione();    //chiude la connessione al DB
                                             return true;
                                         } catch (SQLException e){
                                             e.printStackTrace();
                                         }
                                     }
-                                } else {
-                                    rs.close();
-                                    chiudiConnessione();
-                                    return false;
                                 }
                             }
                         } catch (SQLException e){
@@ -369,7 +372,8 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
                         e.printStackTrace();
                     }
                 }
-                rs.close();
+
+                rs.close(); //chiude 'rs'
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -377,100 +381,99 @@ public class PossessoImplementazionePostgresDAO implements PossessoDAO {
             e.printStackTrace();
         }
 
-        chiudiConnessione();
+        chiudiConnessione();    //chiude la connessione al DB
         return false;
-    }
+    }//fine insertPossessoFDB
 
     @Override
-    public void eliminaPossessoLDB(String isbn, String nt, String fruizione){
-        ResultSet rs = null;
+    public void eliminaPossessoLDB(String isbn, String nt, String fruizione){   //elimina dal DB il possesso del libro con ISBN 'isbn'
+        ResultSet rs = null;    //contiene il codice della libreria selezionata
 
         try {
-            int codl = 0;
+            int codl = 0;   //codice della libreria selezionata
             PreparedStatement eliminaPossessoLPS = connection.prepareStatement(
-                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"
+                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"   //prepara la query che cerca il codice della libreria selezionata con numero telefonico 'nt'
             );
 
-            rs = eliminaPossessoLPS.executeQuery();
+            rs = eliminaPossessoLPS.executeQuery(); //esegue la query
 
             try {
-                while (rs.next()) {
-                    codl = rs.getInt("codl");
+                while (rs.next()) { //scorre il ResultSet 'rs' con il codice della libreria selezionata con numero telefonico 'nt'
+                    codl = rs.getInt("codl");   //aggiorna 'codl'
                 }
             } catch (SQLException e){
                 e.printStackTrace();
             }
 
             eliminaPossessoLPS = connection.prepareStatement(
-                    "DELETE FROM possesso_l WHERE codl = '"+codl+"' AND isbn = '"+isbn+"' AND fruizione = '"+fruizione+"'"
+                    "DELETE FROM possesso_l WHERE codl = '"+codl+"' AND isbn = '"+isbn+"' AND fruizione = '"+fruizione+"'"  //prepara la query che elimina il possesso del libro con ISBN 'isbn'
             );
 
-            eliminaPossessoLPS.executeUpdate();
-            rs.close();
-
+            eliminaPossessoLPS.executeUpdate(); //esegue la query
+            rs.close(); //chiude 'rs'
         } catch (SQLException e){
             e.printStackTrace();
         }
 
-        chiudiConnessione();
-    }
+        chiudiConnessione();    //chiude la connessione al DB
+    }//fine eliminaPossessoLDB
 
     @Override
-    public void eliminaPossessoFDB(String issn, int numero, String nt, String fruizione){
-        ResultSet rs = null;
+    public void eliminaPossessoFDB(String issn, int numero, String nt, String fruizione){   //elimina dal DB il possesso del fascicolo numero 'numero' della rivista con ISSN 'issn'
+        ResultSet rs = null;    //contiene il codice della libreria selezionata
 
         try {
-            int codl = 0;
-            int codf = 0;
+            int codl = 0;   //codice della libreria selezionata
+            int codf = 0;   //codice del fascicolo numero 'numero' della rivista con ISSN 'issn'
             PreparedStatement eliminaPossessoFPS = connection.prepareStatement(
-                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"
+                    "SELECT codl FROM libreria WHERE numerotelefonico = '"+nt+"'"   //prepara la query che cerca il codice della libreria selezionata con numero telefonico 'nt'
             );
 
-            rs = eliminaPossessoFPS.executeQuery();
+            rs = eliminaPossessoFPS.executeQuery(); //esegue la query
 
             try {
-                while (rs.next()) {
-                    codl = rs.getInt("codl");
+                while (rs.next()) { //scorre il ResultSet 'rs' con il codice della libreria selezionata con numero telefonico 'nt'
+                    codl = rs.getInt("codl");   //aggiorna 'codl'
                 }
             } catch (SQLException e){
                 e.printStackTrace();
             }
 
             eliminaPossessoFPS = connection.prepareStatement(
-                    "SELECT codf FROM fascicolo WHERE issn = '"+issn+"' AND numero = '"+numero+"'"
+                    "SELECT codf FROM fascicolo WHERE issn = '"+issn+"' AND numero = '"+numero+"'"  //prepara la query che cerca il codice del fascicolo numero 'numero' della rivista con ISSN 'issn'
             );
 
-            rs = eliminaPossessoFPS.executeQuery();
+            rs = eliminaPossessoFPS.executeQuery(); //esegue la query
 
             try {
-                while (rs.next()) {
-                    codf = rs.getInt("codf");
+                while (rs.next()) { //scorre il ResultSet 'rs' con il codice del fascicolo numero 'numero' della rivista con ISSN 'issn'
+                    codf = rs.getInt("codf");   //aggiorna 'codf'
                 }
             } catch (SQLException e){
                 e.printStackTrace();
             }
 
             eliminaPossessoFPS = connection.prepareStatement(
-                    "DELETE FROM possesso_f WHERE codl = '"+codl+"' AND codf = '"+codf+"' AND fruizione = '"+fruizione+"'"
+                    "DELETE FROM possesso_f WHERE codl = '"+codl+"' AND codf = '"+codf+"' AND fruizione = '"+fruizione+"'"  //prepara la query che elimina il possesso del fascicolo numero 'numero' della rivista con ISSN 'issn'
             );
 
-            eliminaPossessoFPS.executeUpdate();
-            rs.close();
-
+            eliminaPossessoFPS.executeUpdate(); //prepara la query
+            rs.close(); //chiude 'rs'
         } catch (SQLException e){
             e.printStackTrace();
         }
 
-        chiudiConnessione();
-    }
+        chiudiConnessione();    //chiude la connessione al DB
+    }//fine eliminaPossessoFDB
+
     @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
-            if (connection != null && !connection.isClosed()){
-                connection.close();
+            if (connection != null && !connection.isClosed()){  //controlla se la connessione è chiusa
+                connection.close(); //chiude la connessione
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
-    }
+    }//fine chiudiConnessione
 }
