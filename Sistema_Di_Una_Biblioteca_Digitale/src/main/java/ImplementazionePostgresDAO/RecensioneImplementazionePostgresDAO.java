@@ -70,7 +70,7 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
 
     @Override
     public boolean changeLikeLibroDB(boolean like, String isbn, String user) {  //toglie/mette nei preferiti dell'utente 'user' il libro con ISBN 'isbn' e ritorna l'opposto di 'like'
-        ResultSet rs = null;
+        ResultSet rs = null;    //contiene il numero di recensioni fatte da 'user' al libro con ISBN 'isbn'
         int item = 1;   //numero di recensioni fatte da 'user' al libro con ISBN 'isbn'
 
         if (like == true){  //controlla se 'user' ha il libro con ISBN 'isbn' nei preferiti
