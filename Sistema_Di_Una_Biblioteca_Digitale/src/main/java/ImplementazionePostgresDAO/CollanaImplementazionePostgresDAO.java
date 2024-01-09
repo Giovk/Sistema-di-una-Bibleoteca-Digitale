@@ -136,8 +136,18 @@ public class CollanaImplementazionePostgresDAO implements CollanaDAO {
 
             try {
                 while (rs.next()){  //scorre il ResultSet 'rs' con il numero di collane chiamate 'nome'
-                    if (rs.getInt("contatore") == 0){   //controlla se non ci sono collane chiamate 'nome'
-                        if(!issn.isBlank()){    //controlla se è stato inserito l'ISSN
+                    if (rs.getInt("contatore") != 0){   //controlla se ci sono collane chiamate 'nome'
+                        rs.close(); //chiude 'rs'
+                        chiudiConnessione();    //chiude la connessione al DB
+                        return false;
+                    } else {
+                        if(issn.isBlank()){    //controlla se non è stato inserito l'ISSN
+                            creaCollanaPS = connection.prepareStatement(
+                                    "INSERT INTO collana(nome, caratteristica) VALUES('"+nome+"', '"+caratteristica+"')"    //prepara la query che inserisce la nuova collana
+                            );
+
+                            creaCollanaPS.executeUpdate();  //esegue la query
+                        } else {
                             creaCollanaPS = connection.prepareStatement(
                                     "SELECT COUNT(*) AS contatore FROM collana WHERE issn = '"+issn+"'" //prepara la query che conta le collane con ISSN 'issn'
                             );
@@ -146,32 +156,22 @@ public class CollanaImplementazionePostgresDAO implements CollanaDAO {
 
                             try {
                                 while (rs.next()){  //scorre il ResultSet 'rs' con il numero di collane con ISSN 'issn'
-                                    if (rs.getInt("contatore") == 0){   //controlla se non ci sono collane con ISSN 'issn'
+                                    if (rs.getInt("contatore") != 0){   //controlla se ci sono collane con ISSN 'issn'
+                                        rs.close(); //chiude 'rs'
+                                        chiudiConnessione();    //chiude la connessione al DB
+                                        return false;
+                                    } else{
                                         creaCollanaPS = connection.prepareStatement(
                                                 "INSERT INTO collana(nome, caratteristica, issn) VALUES('"+nome+"', '"+caratteristica+"', '"+issn+"')"  //prepara la query che inserisce la nuova collana
                                         );
 
                                         creaCollanaPS.executeUpdate();  //esegue la query
-                                    } else{
-                                        rs.close(); //chiude 'rs'
-                                        chiudiConnessione();    //chiude la connessione al DB
-                                        return false;
                                     }
                                 }
                             } catch (SQLException e){
                                 e.printStackTrace();
                             }
-                        } else {
-                            creaCollanaPS = connection.prepareStatement(
-                                    "INSERT INTO collana(nome, caratteristica) VALUES('"+nome+"', '"+caratteristica+"')"    //prepara la query che inserisce la nuova collana
-                            );
-
-                            creaCollanaPS.executeUpdate();  //esegue la query
                         }
-                    } else {
-                        rs.close(); //chiude 'rs'
-                        chiudiConnessione();    //chiude la connessione al DB
-                        return false;
                     }
                 }
             } catch (SQLException e){

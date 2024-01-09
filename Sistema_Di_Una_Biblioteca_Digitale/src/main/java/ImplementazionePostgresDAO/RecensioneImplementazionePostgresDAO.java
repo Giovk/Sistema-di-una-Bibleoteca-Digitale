@@ -307,10 +307,10 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
                 var2.printStackTrace();
             }
         } else {
-            if(like == false) { //controlla se 'user' non ha messo il libro con ISBN 'isbn' nei preferiti
+            if(like == false) { //controlla se 'user' non ha messo la serie con ISBN 'isbn' nei preferiti
                 try {
                     PreparedStatement changeLikePS = connection.prepareStatement(
-                            "DELETE from recensione_s WHERE isbn = '"+isbn+"' AND username = '"+user+"' AND valutazione IS NULL AND testo IS NULL"  //elimina la recensione del libro con ISBN 'isbn' fatta da 'user'
+                            "DELETE from recensione_s WHERE isbn = '"+isbn+"' AND username = '"+user+"' AND valutazione IS NULL AND testo IS NULL"  //elimina la recensione della serie con ISBN 'isbn' fatta da 'user'
                     );
 
                     changeLikePS.executeUpdate();   //esegue la query
@@ -357,7 +357,7 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
 
         if(item >= 1) { //controlla se c'è una recensione della serie con ISBN 'isbn' fatta da 'user'
             try {
-                String query = "UPDATE recensione_s SET valutazione = ?, testo = ? WHERE isbn = ? AND username = ?";    //inizializza la query che aggiorna la recensione del libro con ISBN 'isbn' fatta da 'user'
+                String query = "UPDATE recensione_s SET valutazione = ?, testo = ? WHERE isbn = ? AND username = ?";    //inizializza la query che aggiorna la recensione della serie con ISBN 'isbn' fatta da 'user'
                 PreparedStatement addRecensioneSeriePS = connection.prepareStatement(query);    //prepara la query
 
                 addRecensioneSeriePS.setInt(1, valutazione);    //aggiunge 'valutazione' nella query
@@ -365,7 +365,7 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
                 if(text.isBlank()){ //controlla se non è stato inserito il testo
                     addRecensioneSeriePS.setNull(2, Types.NULL);    //aggiunge 'text' nella query
                 }else{
-                    addRecensioneSeriePS.setString(2, text);    ////aggiunge 'text' nella query
+                    addRecensioneSeriePS.setString(2, text);    //aggiunge 'text' nella query
                 }
 
                 addRecensioneSeriePS.setString(3, isbn);    ///aggiunge 'isbn' nella query
@@ -469,11 +469,11 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
 
     @Override
     public boolean changeLikeFascicoloDB(boolean like, int numero, String titolo, String user) {    //toglie/mette nei preferiti dell'utente 'user' il fascicolo numero 'numero' della rivista 'titolo' e ritorna l'opposto di 'like'
-        ResultSet rs = null;    //contiene il fascicolo numero 'numero' della rivista 'titolo' il  numero di recensioni fatte ad esso da 'user'
+        ResultSet rs = null;    //contiene il fascicolo numero 'numero' della rivista 'titolo' e il numero di recensioni fatte ad esso da 'user'
         int item = 1;   //numero di recensioni fatte da 'user' al fascicolo numero 'numero' della rivista 'titolo'
         int codF = -1;  //codice del fascicolo numero 'numero' della rivista 'titolo'
 
-        if (like == true){  //controlla se 'user' ha la serie con ISBN 'isbn' nei preferiti
+        if (like == true){  //controlla se 'user' ha il fascicolo numero 'numero' della rivista 'titolo' nei preferiti
             like = false;   //aggiorna 'like'
         }else{
             like = true;    //aggiorna 'like'
@@ -497,27 +497,40 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
 
         try {
             PreparedStatement changeLikeFascicoloPS = connection.prepareStatement(
-                    "SELECT * FROM fascicolo NATURAL JOIN rivista WHERE rivista.titolo = '"+titolo+"' AND fascicolo.numero = '"+numero+"'" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+                    "SELECT * FROM fascicolo NATURAL JOIN rivista WHERE rivista.titolo = '"+titolo+"' AND fascicolo.numero = '"+numero+"'"  //prepara la query che cerca il fascicolo numero 'numero' della rivista 'titolo'
             );
 
-            rs = changeLikeFascicoloPS.executeQuery(); //esegue la query
+            rs = changeLikeFascicoloPS.executeQuery();  //esegue la query
 
-            while(rs.next()){    //scorre il ResultSet 'rs'
-                codF = rs.getInt("codf");    //aggiorna 'item'
+            while(rs.next()){    //scorre il ResultSet 'rs' con il fascicolo numero 'numero' della rivista 'titolo'
+                codF = rs.getInt("codf");   //aggiorna 'codF'
             }
 
-            rs.close();
+            rs.close(); //chiude 'rs'
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
 
-        if(item >= 1) { //controlla se c'è già una tupla con 'user' e 'isbn' in "recensione_l"
-            if(like == false) {
+        if(item < 1) {  //controlla se non c'è una recensione del fascicolo numero 'numero' della rivista 'titolo' fatta da 'user'
+            try {
+                PreparedStatement changeLikeFascicoloPS = connection.prepareStatement(
+                        "INSERT INTO recensione_f(username, codf, preferito) " +
+                                "VALUES ('"+user+"', '"+codF+"', '"+like+"')"   //prepara la query che aggiuge una nuova recensione del fascicolo numero 'numero' della rivista 'titolo' fatta da 'user'
+                );
+
+                changeLikeFascicoloPS.executeUpdate();  //esegue la query
+                connection.close(); //chiude la connessione al DB
+            } catch (SQLException var2) {
+                var2.printStackTrace();
+            }
+        } else {
+            if(like == false) { //controlla se 'user' non ha messo il fascicolo numero 'numero' della rivista 'titolo' nei preferiti
                 try {
                     PreparedStatement changeLikePS = connection.prepareStatement(
-                            "DELETE FROM recensione_f WHERE codf = '"+codF+"' AND username = '"+user+"' AND valutazione IS NULL AND testo IS NULL"
+                            "DELETE FROM recensione_f WHERE codf = '"+codF+"' AND username = '"+user+"' AND valutazione IS NULL AND testo IS NULL"  //elimina la recensione del fascicolo numero 'numero' della rivista 'titolo' fatta da 'user'
                     );
-                    changeLikePS.executeUpdate(); //esegue la query
+
+                    changeLikePS.executeUpdate();   //esegue la query
                 } catch (SQLException var2) {
                     var2.printStackTrace();
                 }
@@ -525,179 +538,178 @@ public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
 
             try {
                 PreparedStatement changeLikeFascicoloPS = connection.prepareStatement(
-                        "UPDATE recensione_f SET preferito = '" + like + "' WHERE codf = '" + codF + "' AND username = '" + user + "'" //prepara la query che aggiorna la tupla con 'isbn' e 'user'
+                        "UPDATE recensione_f SET preferito = '" + like + "' WHERE codf = '" + codF + "' AND username = '" + user + "'"  //prepara la query che aggiunge il fascicolo numero 'numero' della rivista 'titolo' nei preferiti di 'user'
                 );
 
-                changeLikeFascicoloPS.executeUpdate(); //esegue la query
-                connection.close();
-            } catch (SQLException var2) {
-                var2.printStackTrace();
-            }
-        } else {
-            try {
-                PreparedStatement changeLikeFascicoloPS = connection.prepareStatement(
-                        "INSERT INTO recensione_f(username, codf, preferito) " +
-                                "VALUES ('"+user+"', '"+codF+"', '"+like+"')"   //prepara la query che aggiuge una nuova tupla in "recensione_l" con 'user', 'isbn' e 'like'
-                );
-
-                changeLikeFascicoloPS.executeUpdate(); //esegue la query
-                connection.close();
+                changeLikeFascicoloPS.executeUpdate();  //esegue la query
+                connection.close(); //chiude la connessione al DB
             } catch (SQLException var2) {
                 var2.printStackTrace();
             }
         }
 
         return like;
-    }
+    }//fine changeLikeFascicoloDB
 
     @Override
-    public void addRecensioneFascicoloDB(int valutazione, String text, int numero, String titolo, String user){   //aggiunge/aggiorna una recensione con 'valutazione' e 'testo' fatta dall'utente 'user' al libro 'isbn'
-        ResultSet rs = null;
-        int item = 1;   //numero di tuple in "recensione_l" con 'user' e 'isbn'
-        int codF = -1;
+    public void addRecensioneFascicoloDB(int valutazione, String text, int numero, String titolo, String user){ //aggiunge/aggiorna una recensione con 'valutazione' e 'testo' fatta dall'utente 'user' al fascicolo numero 'numero' della rivista 'titolo'
+        ResultSet rs = null;    //contiene il fascicolo numero 'numero' della rivista 'titolo' e il numero di recensioni fatte ad esso da 'user'
+        int item = 1;       //numero di recensioni fatte da 'user' al fascicolo numero 'numero' della rivista 'titolo' e il numero di recensioni fatte ad esso da 'user'
+        int codF = -1;  //codice del fascicolo numero 'numero' della rivista 'titolo'
 
         try {
             PreparedStatement addRecensioneFascicoloPS = connection.prepareStatement(
-                    "SELECT COUNT (*) FROM recensione_f NATURAL JOIN fascicolo NATURAL JOIN rivista WHERE rivista.titolo = '"+titolo+"' AND fascicolo.numero = '"+numero+"' AND username = '"+user+"'" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+                    "SELECT COUNT (*) FROM recensione_f NATURAL JOIN fascicolo NATURAL JOIN rivista WHERE rivista.titolo = '"+titolo+"' AND fascicolo.numero = '"+numero+"' AND username = '"+user+"'"  //prepara la query che conta il numero di recensioni fatte da 'user' al fascicolo numero 'numero' della rivista 'titolo'
             );
-            rs = addRecensioneFascicoloPS.executeQuery(); //esegue la query
 
-            while(rs.next()){    //scorre il ResultSet 'rs'
+            rs = addRecensioneFascicoloPS.executeQuery();   //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs' contenente il numero di recensioni fatte da 'user' al fascicolo numero 'numero' della rivista 'titolo'
                 item = rs.getInt(1);    //aggiorna 'item'
             }
 
-            rs.close();
+            rs.close(); //chiude 'rs'
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
-
 
         try {
             PreparedStatement addRecensioneFascicoloPS = connection.prepareStatement(
-                    "SELECT * FROM recensione_f NATURAL JOIN fascicolo NATURAL JOIN rivista WHERE rivista.titolo = '"+titolo+"' AND fascicolo.numero = '"+numero+"' AND username = '"+user+"'" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+                    "SELECT * FROM recensione_f NATURAL JOIN fascicolo NATURAL JOIN rivista WHERE rivista.titolo = '"+titolo+"' AND fascicolo.numero = '"+numero+"' AND username = '"+user+"'" //prepara la query che cerca le recensioni fatte da 'user' al fascicolo numero 'numero' della rivista 'titolo'
             );
+
             rs = addRecensioneFascicoloPS.executeQuery(); //esegue la query
 
-            while(rs.next()){    //scorre il ResultSet 'rs'
-                codF = rs.getInt("codF");    //aggiorna 'item'
+            while(rs.next()){    //scorre il ResultSet 'rs' con il codice del fascicolo numero 'numero' della rivista 'titolo'
+                codF = rs.getInt("codF");    //aggiorna 'codF'
             }
 
-            rs.close();
+            rs.close(); //chiude 'rs'
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
 
-        if(item >= 1) { //controlla se c'è già una tupla con 'user' e 'isbn' in "recensione_l"
+        if(item >= 1) { //controlla se c'è una recensione del fascicolo numero 'numero' della rivista 'titolo' fatta da 'user'
             try {
-                String query = "UPDATE recensione_f SET valutazione = ?, testo = ? WHERE codf = ? AND username = ?"; //prepara la query di aggiornamento
-                PreparedStatement addRecensioneFascicoloPS = connection.prepareStatement(query);
+                String query = "UPDATE recensione_f SET valutazione = ?, testo = ? WHERE codf = ? AND username = ?";    //inizializza la query che aggiorna la recensione del fascicolo numero 'numero' della rivista 'titolo' fatta da 'user'
+                PreparedStatement addRecensioneFascicoloPS = connection.prepareStatement(query);    //prepara la query
 
-                addRecensioneFascicoloPS.setInt(1, valutazione);    //inserisce la valutazione nella query
+                addRecensioneFascicoloPS.setInt(1, valutazione);    //aggiunge 'valutazione' nella query
 
-                if(text.isBlank()) addRecensioneFascicoloPS.setNull(2, Types.NULL); //se il testo è vuoto inserisce NULL nella query
-                else addRecensioneFascicoloPS.setString(2, text);   //altrimenti inserise 'text' nella query
+                if(text.isBlank()){ //controlla se non è stato inserito il testo
+                    addRecensioneFascicoloPS.setNull(2, Types.NULL);    //aggiunge 'text' nella query
+                }else{
+                    addRecensioneFascicoloPS.setString(2, text);   //aggiunge 'text' nella query
+                }
 
-                addRecensioneFascicoloPS.setInt(3, codF);    //inserisce l'isbn nella query
-                addRecensioneFascicoloPS.setString(4, user);    //inserisce l'username nella query
+                addRecensioneFascicoloPS.setInt(3, codF);    //aggiunge 'codF' nella query
+                addRecensioneFascicoloPS.setString(4, user);    //aggiunge 'user' nella query
 
                 addRecensioneFascicoloPS.executeUpdate();   //esegue la query
-                connection.close();
+                connection.close(); //chiude la connessione al DB
             } catch (SQLException var2) {
                 var2.printStackTrace();
             }
         } else {
             try {
-                String query = "INSERT INTO recensione_f(username, codF, valutazione, testo) VALUES (?, ?, ?, ?)"; //prepara la query di inserimento
-                PreparedStatement addRecensioneFascicoloPS = connection.prepareStatement(query);
+                String query = "INSERT INTO recensione_f(username, codF, valutazione, testo) VALUES (?, ?, ?, ?)";  //inizializza la query che inserisce la nuova recensione
+                PreparedStatement addRecensioneFascicoloPS = connection.prepareStatement(query);    //prepara la query
 
-                addRecensioneFascicoloPS.setInt(3, valutazione);    //prepara la query di aggiornamento
+                addRecensioneFascicoloPS.setInt(3, valutazione);    //aggiunge 'valutazione' nella query
 
-                if(text.isBlank()) addRecensioneFascicoloPS.setNull(4, Types.NULL); //se il testo è vuoto inserisce NULL nella query
-                else addRecensioneFascicoloPS.setString(4, text);    //altrimenti inserise 'text' nella query
+                if(text.isBlank()){ //controlla se non è stato inserito il testo
+                    addRecensioneFascicoloPS.setNull(4, Types.NULL);    //aggiunge 'text' nella query
+                }else{
+                    addRecensioneFascicoloPS.setString(4, text);    //aggiunge 'text' nella query
+                }
 
-                addRecensioneFascicoloPS.setInt(2, codF);     //inserisce l'isbn nella query
-                addRecensioneFascicoloPS.setString(1, user);     //inserisce l'username nella query
+                addRecensioneFascicoloPS.setInt(2, codF);     //aggiunge 'codF' nella query
+                addRecensioneFascicoloPS.setString(1, user);     //aggiunge 'user' nella query
 
                 addRecensioneFascicoloPS.executeUpdate();   //esegue la query
-                connection.close();
+                connection.close(); //chiude la connessione al DB
             } catch (SQLException var2) {
                 var2.printStackTrace();
             }
         }
-    }
+    }//fine addRecensioneFascicoloDB
 
-    public ResultSet allRecWithCommentFascicoloDB(int numero, String titolo){
-        ResultSet rs = null;    //contiene le recensioni
+    public ResultSet allRecWithCommentFascicoloDB(int numero, String titolo){   //ritorna tutte le recensioni con un testo fatte al fascicolo numero 'numero' della rivista 'titolo'
+        ResultSet rs = null;    //contiene tutte le recensioni con un testo fatte al fascicolo numero 'numero' della rivista 'titolo'
 
         try {
             PreparedStatement allRecWithCommentPS = connection.prepareStatement(
-                    "SELECT * FROM recensione_f NATURAL JOIN fascicolo NATURAL JOIN rivista WHERE fascicolo.numero = '"+numero+"' AND rivista.titolo = '"+titolo+"' AND recensione_f.testo IS NOT NULL AND recensione_f.valutazione IS NOT NULL"   //prepara la query che cerca tutte le recensioni del libro
+                    "SELECT * FROM recensione_f NATURAL JOIN fascicolo NATURAL JOIN rivista WHERE fascicolo.numero = '"+numero+"' AND rivista.titolo = '"+titolo+"' AND recensione_f.testo IS NOT NULL AND recensione_f.valutazione IS NOT NULL"   //prepara la query che cerca tutte le recensioni con un testo fatte al fascicolo numero 'numero' della rivista 'titolo'
             );
 
-            rs = allRecWithCommentPS.executeQuery(); //esegue la query
+            rs = allRecWithCommentPS.executeQuery();    //esegue la query
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
 
         return rs;
-    }
+    }//fine allRecWithCommentFascicoloDB
 
     @Override
-    public ArrayList<String> getLibriISBNPreferitiDB(String user){
-        ArrayList<String> isbn = new ArrayList<>();
-        ResultSet rs = null;
+    public ArrayList<String> getLibriISBNPreferitiDB(String user){  //ritorna gli ISBN dei libri preferiti dell'utente 'user'
+        ArrayList<String> isbn = new ArrayList<>(); //ISBN dei libri preferiti dell'utente 'user'
+        ResultSet rs = null;    //contiene gli ISBN dei libri preferiti dell'utente 'user'
 
         try {
             PreparedStatement getLibriISBNPreferitiPS = connection.prepareStatement(
-                    "SELECT isbn FROM recensione_l WHERE username = '"+user+"' AND preferito = true" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+                    "SELECT isbn FROM recensione_l WHERE username = '"+user+"' AND preferito = true"    //prepara la query che cerce gli ISBN dei libri preferiti dell'utente 'user'
             );
-            rs = getLibriISBNPreferitiPS.executeQuery(); //esegue la query
 
-            while(rs.next()){    //scorre il ResultSet 'rs'
-                isbn.add(rs.getString("isbn"));
+            rs = getLibriISBNPreferitiPS.executeQuery();    //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs' con gli ISBN dei libri preferiti dell'utente 'user'
+                isbn.add(rs.getString("isbn")); //aggiunge l'ISBN in 'isbn'
             }
 
-            rs.close();
+            rs.close(); //chiude 'rs'
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
-        chiudiConnessione();
+
+        chiudiConnessione();    //chiude la connessione al DB
 
         return isbn;
-    }
+    }//fine  getLibriISBNPreferitiDB
 
     @Override
-    public ArrayList<String> getSerieISBNPreferitiDB(String user){
-        ArrayList<String> isbn = new ArrayList<>();
-        ResultSet rs = null;
+    public ArrayList<String> getSerieISBNPreferitiDB(String user){  //ritorna gli ISBN delle serie preferite dell'utente 'user'
+        ArrayList<String> isbn = new ArrayList<>(); //ISBN delle serie preferite dell'utente 'user'
+        ResultSet rs = null;    //contiene gli ISBN delle serie preferite dell'utente 'user'
 
         try {
             PreparedStatement getLibriISBNPreferitiPS = connection.prepareStatement(
-                    "SELECT isbn FROM recensione_s WHERE username = '"+user+"' AND preferito = true" //prepara la query che conta il numero di tuple con 'user' e 'isbn'
+                    "SELECT isbn FROM recensione_s WHERE username = '"+user+"' AND preferito = true"    //prepara la query che cerce gli ISBN dei libri preferiti dell'utente 'user'
             );
-            rs = getLibriISBNPreferitiPS.executeQuery(); //esegue la query
 
-            while(rs.next()){    //scorre il ResultSet 'rs'
-                isbn.add(rs.getString("isbn"));
+            rs = getLibriISBNPreferitiPS.executeQuery();    //esegue la query
+
+            while(rs.next()){    //scorre il ResultSet 'rs' con gli ISBN dei libri preferiti dell'utente 'user'
+                isbn.add(rs.getString("isbn")); //aggiunge l'ISBN in 'isbn'
             }
 
-            rs.close();
+            rs.close(); //chiude 'rs'
         } catch (SQLException var2) {
             var2.printStackTrace();
         }
-        chiudiConnessione();
+
+        chiudiConnessione();    //chiude la connessione al DB
 
         return isbn;
-    }
+    }//fine getSerieISBNPreferitiDB
 
     @Override
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
-            if (connection != null && !connection.isClosed()){
-                connection.close();
+            if (connection != null && !connection.isClosed()){  //controlla se la connessione è chiusa
+                connection.close(); //chiude la connessione
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
-    }
+    }//fine chiudiConnessione
 }
