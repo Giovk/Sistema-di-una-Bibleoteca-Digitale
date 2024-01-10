@@ -927,7 +927,6 @@ public class Controller {
         return p.addPresentazioneDB(struttura, luogo, data, orario, isbn_selected);
     }//fine addPresentazione
 
-
     // SERIE //
     public ArrayList<Serie> getSerie() {   //ritorna i dati di tutte le serie nel DB
         SerieDAO s = new SerieImplementazionePostgresDAO();
