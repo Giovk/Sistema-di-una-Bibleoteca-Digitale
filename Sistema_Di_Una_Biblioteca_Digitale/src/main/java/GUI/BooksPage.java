@@ -535,23 +535,21 @@ public class BooksPage {
                 if (genereCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'genereCB'
                     model.setRowCount(0);   //elimina le righe della tabella
 
-                    ArrayList<Libro> listaLibri = controller.listaLibri;    //lista contenente tutti i libri
-
-                    for (Libro l : listaLibri) {    //scorre la lista dei libri 'listaLibri'
-                        if (genereCB.getSelectedItem() != null && genereCB.getSelectedItem().equals(l.genere)) {    //controlla se l'elemento selezionato di 'genereCB' è uguale al genere del libro 'l'
+                    for (int i = 0; i < controller.listaLibri.size(); i++) {
+                        if (genereCB.getSelectedItem() != null && genereCB.getSelectedItem().equals(controller.listaLibri.get(i).genere)) {    //controlla se l'elemento selezionato di 'genereCB' è uguale al genere del libro 'l'
                             aut = 0;    //numero di autori del libro 'l'
 
-                            for (Autore a : l.autori) { //scorre tutti gli autori del libro 'l'
-                                if (aut == 0){  //controlla se 'a' è il primo autore
-                                    linkString = a.nome + " " + a.cognome;    //concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                            for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) {
+                                if (aut == 0) {  //controlla se 'a' è il primo autore
+                                    linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //concatena il nome e il cognome dell'autore 'a' in 'linkString'
                                 } else {
-                                    linkString = linkString + "\n" + a.nome + " " + a.cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+                                    linkString = linkString + " - " + controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
                                 }
 
                                 aut++;  //incrementa il numero di autori di 'l'
                             }
+                            model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
 
-                            model.addRow(new Object[]{l.isbn, l.titolo, linkString, l.genere, l.lingua, l.editore, l.dataPubblicazione});   //aggiunge una nuova riga nella tabella
                         }
                     }
                 }

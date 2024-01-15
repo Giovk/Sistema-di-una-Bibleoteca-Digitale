@@ -1851,6 +1851,28 @@ public class AggiungiElementoForm {
             spinner1.setBackground(new Color(0xffd369));    //imposta il colore dello sfondo dello JSpinner 'spinner1'
             spinner1.setFont(controller.textFieldFont); //imposta il fonto del testo di 'spinner1'
 
+            DecimalFormat decimalFormat = new DecimalFormat("0");   //formato con le cifre decimali disabilitate
+
+            decimalFormat.setGroupingUsed(false);   //disabilita il '.' che separa le migliaia
+
+            NumberFormatter numberFormatter = new NumberFormatter(decimalFormat);   //formato del numero
+
+
+            spinner1.setEditor(new JSpinner.DefaultEditor(spinner1)); //imposta l'editor dello JSpinner 'annoPrivistaSpinner' con quello personalizzato
+
+            JSpinner.DefaultEditor editors = (JSpinner.DefaultEditor) spinner1.getEditor();  //editor dello JSpinner 'annoPrivistaSpinner'
+
+            editors.getTextField().setFormatterFactory(new JFormattedTextField.AbstractFormatterFactory() {
+                @Override
+                public JFormattedTextField.AbstractFormatter getFormatter(JFormattedTextField tf) {
+                    return numberFormatter;
+                }
+            });
+
+
+
+
+
             SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1); //inizializza il model dello JSpinner
 
             spinner1.setModel(snm); //imposta il SpinnerNumberModel 'snm' come model di 'spinner1'
@@ -2268,8 +2290,6 @@ public class AggiungiElementoForm {
         decimalFormat.setGroupingUsed(false);   //disabilita il '.' che separa le migliaia
 
         NumberFormatter numberFormatter = new NumberFormatter(decimalFormat);   //formato del numero
-
-        JFormattedTextField formattedTextField = new JFormattedTextField(numberFormatter);  //formato del testo
 
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(Year.now().getValue(), 1900, Year.now().getValue(), 1);    //model dello JSpinner
 

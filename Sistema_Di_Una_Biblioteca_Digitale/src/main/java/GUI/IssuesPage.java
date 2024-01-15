@@ -499,9 +499,9 @@ public class IssuesPage {
                 if (rivistaCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'rivistaCB'
                     model.setRowCount(0);   //elimina le righe della tabella
 
-                    for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei libri 'controller.listaFascicoli'
-                        if (rivistaCB.getSelectedItem() != null && rivistaCB.getSelectedItem().equals(f.rivista.titolo)) {    //controlla se l'elemento selezionato di 'rivistaCB' è uguale al titolo della rivista del fascicolo 'f'
-                            model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                    for (int i = 0; i < controller.listaFascicoli.size(); i++) {
+                        if (rivistaCB.getSelectedItem() != null && rivistaCB.getSelectedItem().equals(controller.listaFascicoli.get(i).rivista.titolo)) {    //controlla se l'elemento selezionato di 'rivistaCB' è uguale al titolo della rivista del fascicolo 'f'
+                            model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo, controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
                         }
                     }
                 }
@@ -514,9 +514,9 @@ public class IssuesPage {
                 if (argomentoCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'argomentoCB'
                     model.setRowCount(0);   //elimina le righe della tabella
 
-                    for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei libri 'controller.listaFascicoli'
-                        if (argomentoCB.getSelectedItem() != null && argomentoCB.getSelectedItem().equals(f.rivista.argomento)) {    //controlla se l'elemento selezionato di 'argomentoCB' è uguale all'argomento della rivista del fascicolo 'f'
-                            model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                    for (int i = 0; i < controller.listaFascicoli.size(); i++) {
+                        if (argomentoCB.getSelectedItem() != null && argomentoCB.getSelectedItem().equals(controller.listaFascicoli.get(i).rivista.argomento)) {    //controlla se l'elemento selezionato di 'argomentoCB' è uguale all'argomento della rivista del fascicolo 'f'
+                            model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo, controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
                         }
                     }
                 }
@@ -594,11 +594,11 @@ public class IssuesPage {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
-            for (Fascicolo f : controller.listaFascicoli) {    //scorre la lista dei fascicoli 'controller.listaFascicoli'
-                String numero = String.valueOf(f.numero);   //numero del fascicolo 'f'
+            for (int i = 0; i < controller.listaFascicoli.size(); i++) {
+                String numero = String.valueOf(controller.listaFascicoli.get(i).numero);   //numero del fascicolo 'f'
 
-                if (f.rivista.titolo.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || f.rivista.argomento.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || f.dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || numero.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase())) { //controlla se il titolo o l'argomento della rivista, la data di pubblicazione o il numero contiene il testo scritto in 'searchBarField'
-                    model.addRow(new Object[]{f.rivista.titolo, f.numero, f.dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                if (controller.listaFascicoli.get(i).rivista.titolo.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || controller.listaFascicoli.get(i).rivista.argomento.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || controller.listaFascicoli.get(i).dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || numero.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase())) { //controlla se il titolo o l'argomento della rivista, la data di pubblicazione o il numero contiene il testo scritto in 'searchBarField'
+                    model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo, controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
                 }
             }
         }

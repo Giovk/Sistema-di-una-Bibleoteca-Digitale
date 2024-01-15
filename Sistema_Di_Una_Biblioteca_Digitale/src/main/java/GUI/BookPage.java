@@ -676,7 +676,7 @@ public class BookPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!(presentazioniCheckBox.isSelected())) {    //controlla se è stato selezionato il JCheckBox 'presentazioniCheckBox'
-                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");    //mostra un messaggio di errore
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Non puoi rimuovere entrambe le tabelle!");
                     disponibilitaCheckBox.setSelected(true);    //seleziona 'disponibilitaCheckBox'
                     allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'
                     jscroll1.setVisible(true);  //rende visibile il JScrollPane 'jscroll1'
@@ -697,7 +697,7 @@ public class BookPage {
             public void actionPerformed(ActionEvent e) {
 
                 if(!(disponibilitaCheckBox.isSelected())){ //controlla se è stato selezionato il JCheckBox 'disponibilitaCheckBox'
-                    JOptionPane.showMessageDialog(frame, "Non puoi rimuovere entrambe le tabelle.");    //mostra un messaggio di errore
+                    NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Non puoi rimuovere entrambe le tabelle!");    //mostra un messaggio di errore
                     presentazioniCheckBox.setSelected(true);  //seleziona 'presentazioniCheckBox'
                     jscroll2.setVisible(true);  //rende visibile il JScrollPane 'jscroll2'
                     allScrollPanel.revalidate();    //aggiorna il contenuto del JScrollPane 'allScrollPanel'

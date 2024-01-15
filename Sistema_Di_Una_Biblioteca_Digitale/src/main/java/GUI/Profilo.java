@@ -249,7 +249,10 @@ public class Profilo {
             utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));    //adatta le dimensioni minime di 'utenteMenu'
         }
 
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();   //carica l'immagine nel percorso /icon.png
+
         frame = new JFrame("Biblioteca Digitale");
+        frame.setIconImage(icona);  //imposta la l'icona dell'applicazione
         frame.setUndecorated(true); //abilita le decorazioni del frame
         frame.setContentPane(profilePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //imposta la terminazione dell'applicazione come operazione predefinita da eseguire quando viene chiuso il frame
