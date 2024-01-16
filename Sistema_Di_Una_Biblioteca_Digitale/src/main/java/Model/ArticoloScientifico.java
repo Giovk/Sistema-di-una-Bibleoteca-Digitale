@@ -16,8 +16,11 @@ public class ArticoloScientifico {
 
         for (Autore autoreAttuale : a){
             autori.add(autoreAttuale);
-            if(autoreAttuale.articoliScritti == null)
+
+            if(autoreAttuale.articoliScritti == null) {
                 autoreAttuale.articoliScritti = new ArrayList<>();
+            }
+
             autoreAttuale.articoliScritti.add(this);
         }
     }
@@ -26,5 +29,21 @@ public class ArticoloScientifico {
         doi = d;
         titolo = t;
         annoPubblicazione = ap;
+    }
+
+    public String getTitolo(){
+        return titolo;
+    }
+
+    public String getDoi() {
+        return doi;
+    }
+
+    public int getAnnoPubblicazione() {
+        return annoPubblicazione;
+    }
+
+    public ArrayList<Autore> getAutori() {
+        return autori;
     }
 }

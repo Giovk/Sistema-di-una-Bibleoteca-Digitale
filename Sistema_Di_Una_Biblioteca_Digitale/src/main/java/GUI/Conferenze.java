@@ -305,7 +305,7 @@ public class Conferenze {
         controller.getConferenzeArticolo(); //inizializza 'controller.listaConferenze'
 
         for(int i = 0; i < controller.listaConferenze.size(); i++){ //scorre 'controller.listaConferenze'
-            model.addRow(new Object[]{controller.listaConferenze.get(i).luogo, controller.listaConferenze.get(i).struttura, controller.listaConferenze.get(i).dataInizio, controller.listaConferenze.get(i).dataFine}); //aggiunge una nuova riga nella tabella
+            model.addRow(new Object[]{controller.listaConferenze.get(i).getLuogo(), controller.listaConferenze.get(i).getStruttura(), controller.listaConferenze.get(i).getDataInizio(), controller.listaConferenze.get(i).getDataFine()}); //aggiunge una nuova riga nella tabella
         }
 
         conferenzeTable.addMouseListener(new MouseAdapter() {
@@ -411,7 +411,7 @@ public class Conferenze {
         conferenzePanel2.add(conferenzeCB); //inserisce 'conferenzeCB' nel JPanel 'conferenzePanel2'
 
         for (int i = 0; i < controller.listaAllConferenze.size(); i++){ //scorre 'controller.listaAllConferenze'
-                conferenzeCB.addItem(controller.listaAllConferenze.get(i).struttura + " " + controller.listaAllConferenze.get(i).dataInizio.toString() + "/" + controller.listaAllConferenze.get(i).dataFine.toString());   //aggiunge nel menu del JComboBox 'conferenzeCB' il luogo e le date di inizio e di fine dell'i-esima conferenza
+                conferenzeCB.addItem(controller.listaAllConferenze.get(i).getStruttura() + " " + controller.listaAllConferenze.get(i).getDataInizio().toString() + "/" + controller.listaAllConferenze.get(i).getDataFine().toString());   //aggiunge nel menu del JComboBox 'conferenzeCB' il luogo e le date di inizio e di fine dell'i-esima conferenza
         }
 
         conferenzeCB.setSelectedIndex(-1);  //deseleziona 'conferenzeCB'
@@ -450,21 +450,21 @@ public class Conferenze {
                     comuneField.setEnabled(false);  //disabilita il JTextField 'comuneField'
                     capField.setEnabled(false); //disabilita il JTextField 'comuneField'
 
-                    strutturaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).struttura);   //imposta il testo del JTextField 'strutturaField' con il nome della struttura organizzatrice della conferenza selelezionata
-                    dataInizioField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).dataInizio.toString());  //imposta il testo del JTextField 'dataInizioField' con la data di inizio della conferenza selezionata
-                    dataFineField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).dataFine.toString());  //imposta il testo del JTextField 'dataFineField' con la data di fine della conferenza selezionata
+                    strutturaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getStruttura());   //imposta il testo del JTextField 'strutturaField' con il nome della struttura organizzatrice della conferenza selelezionata
+                    dataInizioField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getDataInizio().toString());  //imposta il testo del JTextField 'dataInizioField' con la data di inizio della conferenza selezionata
+                    dataFineField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getDataFine().toString());  //imposta il testo del JTextField 'dataFineField' con la data di fine della conferenza selezionata
 
-                    if(!controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.contains("(")){    //controlla se la provincia del luogo della conferenza selezionata non è stata inserita
-                        int pos1 = findFirstNumberPosition(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);   //posizione della rima cifra del numero civico del luogo della conferenza selezionata
+                    if(!controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().contains("(")){    //controlla se la provincia del luogo della conferenza selezionata non è stata inserita
+                        int pos1 = findFirstNumberPosition(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo());   //posizione della rima cifra del numero civico del luogo della conferenza selezionata
                         int pos2 = 0; //seconda posizione
                         String temp = "";   //stringa temporanea
 
-                        viaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(0, (pos1)-1));  //imposta il testo del JTextField 'viaField' con la via del luogo della conferenza selezionata
+                        viaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().substring(0, (pos1)-1));  //imposta il testo del JTextField 'viaField' con la via del luogo della conferenza selezionata
 
-                        pos2 = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.indexOf(",");   //inserise in 'pos2' l'indice successivo alla fine del numero civico del luogo della conferenza selezionata
+                        pos2 = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().indexOf(",");   //inserise in 'pos2' l'indice successivo alla fine del numero civico del luogo della conferenza selezionata
 
-                        ncField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos1, pos2));    //imposta il testo del JTextField 'viaField' con il numero civico del luogo della conferenza selezionata
-                        temp = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos2+2, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.length());   //inserisce in 'temp' il CAP, il comune e la nazione del luogo della conferenza selezionata
+                        ncField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().substring(pos1, pos2));    //imposta il testo del JTextField 'viaField' con il numero civico del luogo della conferenza selezionata
+                        temp = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().substring(pos2+2, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().length());   //inserisce in 'temp' il CAP, il comune e la nazione del luogo della conferenza selezionata
                         pos2 = temp.indexOf(",");   //inserisce in 'pos2' l'indice successivo alla fine del CAP del luogo della conferenza selezionata
                         capField.setText(temp.substring(0, pos2));  //imposta il testo del JTextField 'capField' con il CAP del luogo della conferenza selezionata
                         temp = temp.substring(pos2+2, temp.length());   //toglie da 'temp' il CAP del luogo della conferenza selezionata
@@ -473,16 +473,16 @@ public class Conferenze {
                         temp = temp.substring(pos2+2, temp.length());   //toglie da 'temp' il comune del luogo della conferenza selezionata
                         nazioneField.setText(temp.substring(0, temp.length())); //imposta il testo del JTextField 'nazioneField' con la nazione del luogo della conferenza selezionata
                     } else {
-                        int pos1 = findFirstNumberPosition(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);   //posizione della rima cifra del numero civico del luogo della conferenza selezionata
+                        int pos1 = findFirstNumberPosition(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo());   //posizione della rima cifra del numero civico del luogo della conferenza selezionata
                         int pos2 = 0;   //seconda posizione
                         String temp = "";   //stringa temporanea
 
-                        viaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(0, (pos1)-1));  //imposta il testo del JTextField 'viaField' con la via del luogo della conferenza selezionata
+                        viaField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().substring(0, (pos1)-1));  //imposta il testo del JTextField 'viaField' con la via del luogo della conferenza selezionata
 
-                        pos2 = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.indexOf(",");   //inserise in 'pos2' l'indice successivo alla fine del numero civico del luogo della conferenza selezionata
+                        pos2 = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().indexOf(",");   //inserise in 'pos2' l'indice successivo alla fine del numero civico del luogo della conferenza selezionata
 
-                        ncField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos1, pos2));    //imposta il testo del JTextField 'viaField' con il numero civico del luogo della conferenza selezionata
-                        temp = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.substring(pos2+2, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo.length());   //inserisce in 'temp' il CAP, il comune, la provincia e la nazione del luogo della conferenza selezionata
+                        ncField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().substring(pos1, pos2));    //imposta il testo del JTextField 'viaField' con il numero civico del luogo della conferenza selezionata
+                        temp = controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().substring(pos2+2, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().length());   //inserisce in 'temp' il CAP, il comune, la provincia e la nazione del luogo della conferenza selezionata
                         pos2 = temp.indexOf(",");   //inserisce in 'pos2' l'indice successivo alla fine del CAP del luogo della conferenza selezionata
                         capField.setText(temp.substring(0, pos2));  //imposta il testo del JTextField 'capField' con il CAP del luogo della conferenza selezionata
                         temp = temp.substring(pos2+2, temp.length());   //toglie da 'temp' il CAP del luogo della conferenza selezionata
@@ -532,7 +532,7 @@ public class Conferenze {
                             String indirizzo = "";  //inidirizzo della conferenza
 
                             if (strutturaField.isEnabled() == false) {  //controlla se è stato disabilitato il JTextField 'strutturaField'
-                                reload_table_cb(controller, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).luogo);  //se l'articolo selezionato non è stato gia esposto nella conferenza selezionata, aggiorna il contenuto della tabella, altrimenti mostra un messaggio di errore
+                                reload_table_cb(controller, controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo());  //se l'articolo selezionato non è stato gia esposto nella conferenza selezionata, aggiorna il contenuto della tabella, altrimenti mostra un messaggio di errore
                                 annulla_action();   //chiude il JPanel per aggiungere una nuova conferenza
                             } else {
                                 if (provinciaField.getText().isBlank() || provinciaField.getText().equals("(Opzionale)")) { //controlla se non è stata inserita la provincia
@@ -584,7 +584,7 @@ public class Conferenze {
             model.setRowCount(0);   //rimuove tutte le righe della tabella
 
             for (int i = 0; i < controller.listaConferenze.size(); i++) {   //scorre la lista 'controller.listaConferenze'
-                model.addRow(new Object[]{controller.listaConferenze.get(i).luogo, controller.listaConferenze.get(i).struttura, controller.listaConferenze.get(i).dataInizio, controller.listaConferenze.get(i).dataFine}); //aggiunge una nuova riga nella tabella
+                model.addRow(new Object[]{controller.listaConferenze.get(i).getLuogo(), controller.listaConferenze.get(i).getStruttura(), controller.listaConferenze.get(i).getDataInizio(), controller.listaConferenze.get(i).getDataFine()}); //aggiunge una nuova riga nella tabella
             }
 
             controller.getConferenze(); //inizializza 'controller.listaAllConferenze'
@@ -592,7 +592,7 @@ public class Conferenze {
             conferenzeCB.removeAllItems();  //rimuove tutti gli elementi nel JComboBox 'conferenzeCB'
 
             for (int i = 0; i < controller.listaAllConferenze.size(); i++){ //scorre la lista 'controller.listaAllConferenze'
-                    conferenzeCB.addItem(controller.listaAllConferenze.get(i).struttura + " " + controller.listaAllConferenze.get(i).dataInizio.toString() + "/" + controller.listaAllConferenze.get(i).dataFine.toString());   //aggiunge una nuova riga nella tabella
+                    conferenzeCB.addItem(controller.listaAllConferenze.get(i).getStruttura() + " " + controller.listaAllConferenze.get(i).getDataInizio().toString() + "/" + controller.listaAllConferenze.get(i).getDataFine().toString());   //aggiunge una nuova riga nella tabella
             }
 
             conferenzeCB.setSelectedIndex(-1);  //deseleziona 'conferenzeCB'

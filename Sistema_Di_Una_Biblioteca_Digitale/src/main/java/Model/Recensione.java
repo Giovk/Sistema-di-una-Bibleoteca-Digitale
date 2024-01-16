@@ -13,4 +13,16 @@ public class Recensione {
         utenteRecensore = ur;
         elementoRecensito = er;
     }
+
+    public Utente getUtenteRecensore() {
+        return utenteRecensore;
+    }
+
+    public int getValutazione() {
+        return valutazione;
+    }
+
+    public String getTesto() {
+        return testo;
+    }
 }

@@ -12,4 +12,12 @@ public class Possesso {
         elementoPosseduto = ep;
         libreriaPossedente = l;
     }
+
+    public String getFruizione(){
+        return  fruizione;
+    }
+
+    public int getQuantita(){
+        return quantita;
+    }
 }

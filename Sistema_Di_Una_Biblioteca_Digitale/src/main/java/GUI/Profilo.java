@@ -243,7 +243,7 @@ public class Profilo {
         tabellaMenu.add(tabellaElimina);  //aggiunge la voce 'tabellaElimina' al menu 'tabellaMenu'
         tabellaMenu.add(tabellaVisualizzata); //aggiunge la voce 'tabellaVisualizzata' al menu 'tabellaMenu'
 
-        if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
+        if (controller.utente.getPartitaIVA() == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
             utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
             utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));    //adatta le dimensioni minime di 'utenteMenu'
@@ -937,7 +937,7 @@ public class Profilo {
 
                 if (controller.listaNotifiche != null) {    //controlla se 'controller.listaNotifiche' non è vuota
                     for (int i = 0; i < controller.listaNotifiche.size(); i++) {    //scorre 'controller.listaNotifiche'
-                        model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});  //aggiunge una nuova riga nella tabella
+                        model.addRow(new Object[]{controller.listaNotifiche.get(i).getTesto(), controller.listaNotifiche.get(i).getDataInvio(), controller.listaNotifiche.get(i).getOraInvio()});  //aggiunge una nuova riga nella tabella
                     }
                 }
             }
@@ -977,7 +977,7 @@ public class Profilo {
 
         if (controller.listaNotifiche != null) {    //controlla se 'controller.listaNotifiche' non è vuota
             for (int i = 0; i < controller.listaNotifiche.size(); i++) {    //scorre 'controller.listaNotifiche'
-                model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});  //aggiunge una nuova riga nella tabella
+                model.addRow(new Object[]{controller.listaNotifiche.get(i).getTesto(), controller.listaNotifiche.get(i).getDataInvio(), controller.listaNotifiche.get(i).getOraInvio()});  //aggiunge una nuova riga nella tabella
             }
         }
 
@@ -1031,7 +1031,7 @@ public class Profilo {
 
                 if (controller.listaNotifiche != null) {    //controlla se 'controller.listaNotifiche' non è vuota
                     for (int i = 0; i < controller.listaNotifiche.size(); i++) {    //scorre 'controller.listaNotifiche'
-                        model.addRow(new Object[]{controller.listaNotifiche.get(i).testo, controller.listaNotifiche.get(i).dataInvio, controller.listaNotifiche.get(i).oraInvio});  //aggiunge una nuova riga nella tabella
+                        model.addRow(new Object[]{controller.listaNotifiche.get(i).getTesto(), controller.listaNotifiche.get(i).getDataInvio(), controller.listaNotifiche.get(i).getOraInvio()});  //aggiunge una nuova riga nella tabella
                     }
                 }
             }

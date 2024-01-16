@@ -20,4 +20,24 @@ public class Notifica {
         utenteDestinatario = ud;
         serieDisponibile = sd;
     }
+
+    public String getTesto() {
+        return testo;
+    }
+
+    public Date getDataInvio() {
+        return dataInvio;
+    }
+
+    public String getOraInvio() {
+        return oraInvio;
+    }
+
+    public void setLettura(boolean lettura) {
+        this.lettura = lettura;
+    }
+
+    public boolean getLettura() {
+        return lettura;
+    }
 }

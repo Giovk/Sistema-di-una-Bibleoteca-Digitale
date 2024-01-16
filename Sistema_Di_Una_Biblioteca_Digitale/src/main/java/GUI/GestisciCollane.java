@@ -188,14 +188,14 @@ public class GestisciCollane {
                             for (int i = 0; i < controller.listaCollane.size(); i++) {  //scorre 'controller.listaCollane'
                                 boolean presenza = false;   //segnala la presenza del libro selezionato nell'i-esima collana
 
-                                for (int j = 0; j < controller.listaCollane.get(i).libri.size(); j++) { //scoore la lista dei libri dell'i-esima collana
-                                    if (controller.listaCollane.get(i).libri.get(j).isbn.equals(controller.isbn_selected)) {    //controlla il j-esimo libro dell'i-esima collana è il libro selezionato
+                                for (int j = 0; j < controller.listaCollane.get(i).getLibri().size(); j++) { //scoore la lista dei libri dell'i-esima collana
+                                    if (controller.listaCollane.get(i).getLibri().get(j).getISBN().equals(controller.isbn_selected)) {    //controlla il j-esimo libro dell'i-esima collana è il libro selezionato
                                         presenza = true;    //aggiorna 'presenza'
                                     }
                                 }
 
                                 collaneLibroCount++;    //incrementa 'collaneLibroCount'
-                                initCollaneExist(controller.listaCollane.get(i).nome, presenza, controller);    //inizializza tutti i componenti necessari per gestire l'i-esima collana per il libro selezionato
+                                initCollaneExist(controller.listaCollane.get(i).getNome(), presenza, controller);    //inizializza tutti i componenti necessari per gestire l'i-esima collana per il libro selezionato
                              }
 
                             contentPane.revalidate();   //aggiorna il contenuto del JPanel 'contentPane'
@@ -276,14 +276,14 @@ public class GestisciCollane {
         for (int i = 0; i < controller.listaCollane.size(); i++){    //scorre 'controller.listaCollane'
             boolean presenza = false;   //segnala la presenza del libro selezionato nell'i-esima collana
 
-            for (int j = 0; j < controller.listaCollane.get(i).libri.size(); j++){  //scoore la lista dei libri dell'i-esima collana
-                if (controller.listaCollane.get(i).libri.get(j).isbn.equals(controller.isbn_selected)){ //controlla il j-esimo libro dell'i-esima collana è il libro selezionato
+            for (int j = 0; j < controller.listaCollane.get(i).getLibri().size(); j++){  //scoore la lista dei libri dell'i-esima collana
+                if (controller.listaCollane.get(i).getLibri().get(j).getISBN().equals(controller.isbn_selected)){ //controlla il j-esimo libro dell'i-esima collana è il libro selezionato
                     presenza = true;    //aggiorna 'presenza'
                 }
             }
 
             collaneLibroCount++;    //incrementa 'collaneLibroCount'
-            initCollaneExist(controller.listaCollane.get(i).nome, presenza, controller);    //inizializza tutti i componenti necessari per gestire l'i-esima collana per il libro selezionato
+            initCollaneExist(controller.listaCollane.get(i).getNome(), presenza, controller);    //inizializza tutti i componenti necessari per gestire l'i-esima collana per il libro selezionato
         }
     }
 

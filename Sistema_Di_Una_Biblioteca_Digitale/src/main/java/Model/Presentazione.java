@@ -16,4 +16,20 @@ public class Presentazione {
         ora = o;
         libro = li;
     }
+
+    public String getLuogo() {
+        return luogo;
+    }
+
+    public String getStruttura() {
+        return struttura;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public String getOra() {
+        return ora;
+    }
 }

@@ -26,4 +26,16 @@ public class Serie extends Elemento{
         isbn = i;
         nLibri = nl;
     }
+
+    public String getISBN() {
+        return isbn;
+    }
+
+    public String getTitolo() {
+        return titolo;
+    }
+
+    public int getNLibri() {
+        return nLibri;
+    }
 }

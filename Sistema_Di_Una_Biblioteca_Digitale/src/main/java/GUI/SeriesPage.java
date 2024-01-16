@@ -157,7 +157,7 @@ public class SeriesPage {
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
-        if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
+        if (controller.utente.getPartitaIVA() == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
             utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
             utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));    //adatta le dimensioni minime di 'utenteMenu'
@@ -310,6 +310,7 @@ public class SeriesPage {
                 utenteButton.setBackground(Color.decode("#cf9e29"));    //imposta lo sfondo del JButton 'utenteButton'
             }
         });
+
         utenteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -456,7 +457,7 @@ public class SeriesPage {
 
         if(controller.listaSerie != null){  //controlla se 'controller.listaLibri' non è vuota
             for (int i = 0; i < controller.listaSerie.size(); i++){ //scorre 'controller.listaLibri'
-                model.addRow(new Object[]{controller.listaSerie.get(i).isbn, controller.listaSerie.get(i).titolo, controller.listaSerie.get(i).nLibri, controller.listaSerie.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                model.addRow(new Object[]{controller.listaSerie.get(i).getISBN(), controller.listaSerie.get(i).getTitolo(), controller.listaSerie.get(i).getNLibri(), controller.listaSerie.get(i).getDataPubblicazione()});    //aggiunge una nuova riga nella tabella
             }
         }
 
@@ -511,7 +512,7 @@ public class SeriesPage {
                     controller.getListaSerieGenere(genereCB.getSelectedItem().toString());  //inizializza 'listaSerieGenere' con tutte le serie con libri del genere selezionato
 
                     for (int i = 0; i < controller.listaSerieGenere.size(); i++){   //scorre 'controller.listaSerieGenere'
-                        model.addRow(new Object[]{controller.listaSerieGenere.get(i).isbn, controller.listaSerieGenere.get(i).titolo, controller.listaSerieGenere.get(i).nLibri, controller.listaSerieGenere.get(i).dataPubblicazione});     //aggiunge una nuova riga nella tabella
+                        model.addRow(new Object[]{controller.listaSerieGenere.get(i).getISBN(), controller.listaSerieGenere.get(i).getTitolo(), controller.listaSerieGenere.get(i).getNLibri(), controller.listaSerieGenere.get(i).getDataPubblicazione()});     //aggiunge una nuova riga nella tabella
                     }
                 }
             }
@@ -525,7 +526,7 @@ public class SeriesPage {
                     controller.getListaSerieAutore(autoreCB.getSelectedItem().toString());  //inizializza 'listaSerieAutore' con tutte le serie con libri dell'autore selezionato
 
                     for (int i = 0; i < controller.listaSerieAutore.size(); i++){   //scorre 'controller.listaSerieAutore'
-                        model.addRow(new Object[]{controller.listaSerieAutore.get(i).isbn, controller.listaSerieAutore.get(i).titolo, controller.listaSerieAutore.get(i).nLibri, controller.listaSerieAutore.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                        model.addRow(new Object[]{controller.listaSerieAutore.get(i).getISBN(), controller.listaSerieAutore.get(i).getTitolo(), controller.listaSerieAutore.get(i).getNLibri(), controller.listaSerieAutore.get(i).getDataPubblicazione()});    //aggiunge una nuova riga nella tabella
                     }
                 }
             }
@@ -540,7 +541,7 @@ public class SeriesPage {
                 model.setRowCount(0);   //elimina tutte le righe della teblla
 
                 for(int i = 0; i < controller.listaSerie.size(); i++){  //scorre 'controller.listaSerie'
-                    model.addRow(new Object[]{controller.listaSerie.get(i).isbn, controller.listaSerie.get(i).titolo, controller.listaSerie.get(i).nLibri, controller.listaSerie.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                    model.addRow(new Object[]{controller.listaSerie.get(i).getISBN(), controller.listaSerie.get(i).getTitolo(), controller.listaSerie.get(i).getNLibri(), controller.listaSerie.get(i).getDataPubblicazione()});    //aggiunge una nuova riga nella tabella
                 }
             }
         });
@@ -583,7 +584,7 @@ public class SeriesPage {
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
             for(int i = 0; i < controller.listaSerie.size(); i++){  //scorre la lista dei libri 'controller.listaSerie'
-                model.addRow(new Object[]{controller.listaSerie.get(i).isbn, controller.listaSerie.get(i).titolo, controller.listaSerie.get(i).nLibri, controller.listaSerie.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                model.addRow(new Object[]{controller.listaSerie.get(i).getISBN(), controller.listaSerie.get(i).getTitolo(), controller.listaSerie.get(i).getNLibri(), controller.listaSerie.get(i).getDataPubblicazione()});    //aggiunge una nuova riga nella tabella
             }
         } else {
             if(searchBarField.getText().contains("'")){ //controlla se il tetsto in 'searchBarField' contiene il carattere "'"
@@ -594,8 +595,8 @@ public class SeriesPage {
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
             for (int i = 0; i < controller.listaSerie.size(); i++) {    //scorre la lista dei libri 'listaLibri'
-                if (controller.listaSerie.get(i).isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaSerie.get(i).titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaSerie.get(i).dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) { //controlla se l'ISBN, il titolo, o la data di pubblicazione contiene il testo scritto in 'searchBarField'
-                    model.addRow(new Object[]{controller.listaSerie.get(i).isbn, controller.listaSerie.get(i).titolo, controller.listaSerie.get(i).nLibri, controller.listaSerie.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                if (controller.listaSerie.get(i).getISBN().toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaSerie.get(i).getTitolo().toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaSerie.get(i).getDataPubblicazione().toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) { //controlla se l'ISBN, il titolo, o la data di pubblicazione contiene il testo scritto in 'searchBarField'
+                    model.addRow(new Object[]{controller.listaSerie.get(i).getISBN(), controller.listaSerie.get(i).getTitolo(), controller.listaSerie.get(i).getNLibri(), controller.listaSerie.get(i).getDataPubblicazione()});    //aggiunge una nuova riga nella tabella
                 }
             }
         }

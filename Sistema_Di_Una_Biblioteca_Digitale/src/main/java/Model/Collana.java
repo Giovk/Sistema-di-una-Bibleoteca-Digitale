@@ -17,4 +17,12 @@ public class Collana {
             libri.add(libroAttuale);
         }
     }
+
+    public ArrayList<Libro> getLibri() {
+        return libri;
+    }
+
+    public String getNome() {
+        return nome;
+    }
 }

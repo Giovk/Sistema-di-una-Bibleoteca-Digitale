@@ -44,8 +44,6 @@ public class Utente {
         partitaIVA = nPartitaIVA;
     }   //imposta la partita IVA dell'utente
 
-    public void  setDataNascita(String nDataNascita){dataNascita = nDataNascita;}   //imposra la data di nascita dell'utente
-
     public String getUsername(){return username;}   //ritorna l'username dell'utente
 
     public String getNome(){return nome;}   //ritorna il nome dell'utente
@@ -58,7 +56,6 @@ public class Utente {
 
     public String getPassword(){return password;}   //ritorna la password dell'utente
 
-    public String getDataNascita(){return dataNascita;} //ritorna la data di nascita dell'utente
     public boolean verifyPartitaIVA(String piva){
         if (piva.length() == 0) return true;
         if (piva.length() != 11) return false;

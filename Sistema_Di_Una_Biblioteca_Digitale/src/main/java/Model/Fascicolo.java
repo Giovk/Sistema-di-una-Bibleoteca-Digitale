@@ -31,4 +31,20 @@ public class Fascicolo extends Elemento{
         if (rivista.fascicoli == null) rivista.fascicoli = new ArrayList<>();
         rivista.fascicoli.add(this);
     }
+
+    public Rivista getRivista() {
+        return rivista;
+    }
+
+    public int getNumero(){
+        return numero;
+    }
+
+    public ArrayList<ArticoloScientifico> getArticoli(){
+        return articoli;
+    }
+
+    public void setArticoli(ArrayList<ArticoloScientifico> articoli) {
+        this.articoli = articoli;
+    }
 }

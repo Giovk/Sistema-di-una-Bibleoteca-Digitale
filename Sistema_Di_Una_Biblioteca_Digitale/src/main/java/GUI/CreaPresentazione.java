@@ -210,7 +210,7 @@ public class   CreaPresentazione {
                             model2.setRowCount(0);  //rimuove tutte le righe della tabella
 
                             for(int i = 0; i < controller.listaPresentazioni.size(); i++){  //scorre 'controller.listaPresentazioni'
-                                model2.addRow(new Object[]{controller.listaPresentazioni.get(i).luogo, controller.listaPresentazioni.get(i).struttura, controller.listaPresentazioni.get(i).data, controller.listaPresentazioni.get(i).ora});   //aggiunge una nuova riga nella tabella
+                                model2.addRow(new Object[]{controller.listaPresentazioni.get(i).getLuogo(), controller.listaPresentazioni.get(i).getStruttura(), controller.listaPresentazioni.get(i).getData(), controller.listaPresentazioni.get(i).getOra()});   //aggiunge una nuova riga nella tabella
                             }
 
                             frame.setVisible(false);    //rende invisibile il frame

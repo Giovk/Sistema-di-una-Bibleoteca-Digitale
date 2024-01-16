@@ -1,8 +1,6 @@
 package GUI;
 
 import Controller.Controller;
-import Model.Autore;
-import Model.Libro;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -389,8 +387,8 @@ public class BooksPage {
         ArrayList<String> distinctGenereList = new ArrayList<String>(); //contiene tutti i generi dei libri senza duplicati
 
         for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre 'controller.listaLibri'
-            if (!distinctGenereList.contains(controller.listaLibri.get(i).genere))    //controlla se 'distinctGenereList' non contiene il genere dell'i-esimo libro
-                distinctGenereList.add(controller.listaLibri.get(i).genere);  //inserisce il genere dell'i-esimo libro in 'distinctGenereList'
+            if (!distinctGenereList.contains(controller.listaLibri.get(i).getGenere()))    //controlla se 'distinctGenereList' non contiene il genere dell'i-esimo libro
+                distinctGenereList.add(controller.listaLibri.get(i).getGenere());  //inserisce il genere dell'i-esimo libro in 'distinctGenereList'
         }
 
         genereCB.setModel(new DefaultComboBoxModel<String>(distinctGenereList.toArray(new String[distinctGenereList.size()]))); //inserisce tutti gli elementi di 'distinctGenereList' come voci del JComboBox 'genereCB'
@@ -441,7 +439,7 @@ public class BooksPage {
 
         if (controller.listaLibri != null) {    //controlla se 'controller.listaLibri' non è vuota
             for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre 'controller.listaLibri'
-                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
+                model.addRow(new Object[]{controller.listaLibri.get(i).getISBN(), controller.listaLibri.get(i).getTitolo(), totAutoreList.get(i), controller.listaLibri.get(i).getGenere(), controller.listaLibri.get(i).getLingua(), controller.listaLibri.get(i).getEditore(), controller.listaLibri.get(i).getDataPubblicazione()});   //aggiunge una nuova riga nella tabella
             }
         }
 
@@ -490,7 +488,7 @@ public class BooksPage {
                 model.setRowCount(0);   //rimuove tutte le righe della tabella
 
                 for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre 'controller.listaLibri'
-                    model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
+                    model.addRow(new Object[]{controller.listaLibri.get(i).getISBN(), controller.listaLibri.get(i).getTitolo(), totAutoreList.get(i), controller.listaLibri.get(i).getGenere(), controller.listaLibri.get(i).getLingua(), controller.listaLibri.get(i).getEditore(), controller.listaLibri.get(i).getDataPubblicazione()});   //aggiunge una nuova riga nella tabella
                 }
             }
         });
@@ -536,20 +534,20 @@ public class BooksPage {
                     model.setRowCount(0);   //elimina le righe della tabella
 
                     for (int i = 0; i < controller.listaLibri.size(); i++) {
-                        if (genereCB.getSelectedItem() != null && genereCB.getSelectedItem().equals(controller.listaLibri.get(i).genere)) {    //controlla se l'elemento selezionato di 'genereCB' è uguale al genere del libro 'l'
+                        if (genereCB.getSelectedItem() != null && genereCB.getSelectedItem().equals(controller.listaLibri.get(i).getGenere())) {    //controlla se l'elemento selezionato di 'genereCB' è uguale al genere del libro 'l'
                             aut = 0;    //numero di autori del libro 'l'
 
-                            for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) {
+                            for (int j = 0; j < controller.listaLibri.get(i).getAutori().size(); j++) {
                                 if (aut == 0) {  //controlla se 'a' è il primo autore
-                                    linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                                    linkString = controller.listaLibri.get(i).getAutori().get(j).getNome() + " " + controller.listaLibri.get(i).getAutori().get(j).getCognome();    //concatena il nome e il cognome dell'autore 'a' in 'linkString'
                                 } else {
-                                    linkString = linkString + " - " + controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+                                    linkString = linkString + " - " + controller.listaLibri.get(i).getAutori().get(j).getNome() + " " + controller.listaLibri.get(i).getAutori().get(j).getCognome(); //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
                                 }
 
                                 aut++;  //incrementa il numero di autori di 'l'
                             }
-                            model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
 
+                            model.addRow(new Object[]{controller.listaLibri.get(i).getISBN(), controller.listaLibri.get(i).getTitolo(), linkString, controller.listaLibri.get(i).getGenere(), controller.listaLibri.get(i).getLingua(), controller.listaLibri.get(i).getEditore(), controller.listaLibri.get(i).getDataPubblicazione()});   //aggiunge una nuova riga nella tabella
                         }
                     }
                 }
@@ -564,16 +562,16 @@ public class BooksPage {
 
                     for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'controller.listaLibri'
                         if (autoreCB.getSelectedItem() != null) {   //controlla se è stato selezionato un elemento di 'autoreCB'
-                            for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del i-esimo libro
+                            for (int j = 0; j < controller.listaLibri.get(i).getAutori().size(); j++) { //scorre tutti gli autori del i-esimo libro
                                 if (j == 0){    //controlla se si sta concatenando il primo autore
-                                    linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //concatena il nome e il cognome j-esimo autore dell'i-esimo libro in 'linkString'
+                                    linkString = controller.listaLibri.get(i).getAutori().get(j).getNome() + " " + controller.listaLibri.get(i).getAutori().get(j).getCognome();    //concatena il nome e il cognome j-esimo autore dell'i-esimo libro in 'linkString'
                                 } else{
-                                    linkString = linkString + " \n" + controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome; //concatena il nome e il cognome del j-esimo autore dell'i-esimo libro in 'linkString' andando a capo
+                                    linkString = linkString + " \n" + controller.listaLibri.get(i).getAutori().get(j).getNome() + " " + controller.listaLibri.get(i).getAutori().get(j).getCognome(); //concatena il nome e il cognome del j-esimo autore dell'i-esimo libro in 'linkString' andando a capo
                                 }
                             }
 
                             if (linkString.contains(autoreCB.getSelectedItem().toString())) { //controlla se l'elemento selezionato di 'autoreCB' è contenuto in 'linkString'
-                                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione}); //aggiunge una nuova riga nella tabella
+                                model.addRow(new Object[]{controller.listaLibri.get(i).getISBN(), controller.listaLibri.get(i).getTitolo(), linkString, controller.listaLibri.get(i).getGenere(), controller.listaLibri.get(i).getLingua(), controller.listaLibri.get(i).getEditore(), controller.listaLibri.get(i).getDataPubblicazione()}); //aggiunge una nuova riga nella tabella
                             }
                         }
                     }
@@ -584,8 +582,6 @@ public class BooksPage {
         collanaCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Libro> libriCollana = new ArrayList<>();  //lista dei libri di una collana
-
                 if (collanaCB.getSelectedItem() != null){   //controlla se è stato selezionato un elemento di 'collanaCB'
                     model.setRowCount(0);   //elimina le righe della tabella
                     controller.getLibri(collanaCB.getSelectedItem().toString()); //inizializza 'libriCollana' con tutti i libri della collana selezionata
@@ -593,15 +589,15 @@ public class BooksPage {
 
                 for (int i = 0; i < controller.listaLibriCollana.size(); i++) {  //scorre i libri della collana selezionata
                     if (collanaCB.getSelectedItem() != null) {  //controlla se è stato selezionato un elemento di 'collanaCB'
-                        for (int j = 0; j < controller.listaLibriCollana.get(i).autori.size(); j++) { //scorre tutti gli autori del libro 'l'
+                        for (int j = 0; j < controller.listaLibriCollana.get(i).getAutori().size(); j++) { //scorre tutti gli autori del libro 'l'
                             if (j == 0) {    //controlla se si sta concatenando il primo autore
-                                linkString = controller.listaLibriCollana.get(i).autori.get(j).nome + " " + controller.listaLibriCollana.get(i).autori.get(j).cognome;    //concatena il nome e il cognome dell'autore 'a' in 'linkString'
+                                linkString = controller.listaLibriCollana.get(i).getAutori().get(j).getNome() + " " + controller.listaLibriCollana.get(i).getAutori().get(j).getCognome();    //concatena il nome e il cognome dell'autore 'a' in 'linkString'
                             } else{
-                                linkString = linkString + " \n" + controller.listaLibriCollana.get(i).autori.get(j).nome + " " + controller.listaLibriCollana.get(i).autori.get(j).cognome; //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
+                                linkString = linkString + " \n" + controller.listaLibriCollana.get(i).getAutori().get(j).getNome() + " " + controller.listaLibriCollana.get(i).getAutori().get(j).getCognome(); //concatena il nome e il cognome dell'autore 'a' in 'linkString' andando a capo
                             }
                         }
 
-                        model.addRow(new Object[]{controller.listaLibriCollana.get(i).isbn, controller.listaLibriCollana.get(i).titolo, linkString, controller.listaLibriCollana.get(i).genere, controller.listaLibriCollana.get(i).lingua, controller.listaLibriCollana.get(i).editore, controller.listaLibriCollana.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
+                        model.addRow(new Object[]{controller.listaLibriCollana.get(i).getISBN(), controller.listaLibriCollana.get(i).getTitolo(), linkString, controller.listaLibriCollana.get(i).getGenere(), controller.listaLibriCollana.get(i).getLingua(), controller.listaLibriCollana.get(i).getEditore(), controller.listaLibriCollana.get(i).getDataPubblicazione()});   //aggiunge una nuova riga nella tabella
                     }
                 }
             }
@@ -655,7 +651,7 @@ public class BooksPage {
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
             for (int i = 0; i < controller.listaLibri.size(); i++){ //scorre la lista dei libri 'controller.listaLibri'
-                model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, totAutoreList.get(i), controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
+                model.addRow(new Object[]{controller.listaLibri.get(i).getISBN(), controller.listaLibri.get(i).getTitolo(), totAutoreList.get(i), controller.listaLibri.get(i).getGenere(), controller.listaLibri.get(i).getLingua(), controller.listaLibri.get(i).getEditore(), controller.listaLibri.get(i).getDataPubblicazione()});   //aggiunge una nuova riga nella tabella
             }
         } else {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
@@ -666,16 +662,16 @@ public class BooksPage {
             }
 
             for (int i = 0; i < controller.listaLibri.size(); i++) {    //scorre la lista dei libri 'controller.listaLibri'
-                for (int j = 0; j < controller.listaLibri.get(i).autori.size(); j++) { //scorre tutti gli autori del i-esimo libro
+                for (int j = 0; j < controller.listaLibri.get(i).getAutori().size(); j++) { //scorre tutti gli autori del i-esimo libro
                     if (j == 0){    //controlla se si sta concatenando il primo autore
-                        linkString = controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome;    //concatena il nome e il cognome j-esimo autore dell'i-esimo libro in 'linkString'
+                        linkString = controller.listaLibri.get(i).getAutori().get(j).getNome() + " " + controller.listaLibri.get(i).getAutori().get(j).getCognome();    //concatena il nome e il cognome j-esimo autore dell'i-esimo libro in 'linkString'
                     } else{
-                        linkString = linkString + " \n" + controller.listaLibri.get(i).autori.get(j).nome + " " + controller.listaLibri.get(i).autori.get(j).cognome; //concatena il nome e il cognome del j-esimo autore dell'i-esimo libro in 'linkString' andando a capo
+                        linkString = linkString + " \n" + controller.listaLibri.get(i).getAutori().get(j).getNome() + " " + controller.listaLibri.get(i).getAutori().get(j).getCognome(); //concatena il nome e il cognome del j-esimo autore dell'i-esimo libro in 'linkString' andando a capo
                     }
                 }
 
-                if (controller.listaLibri.get(i).isbn.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).titolo.toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).genere.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).lingua.toLowerCase().contains((searchBarField.getText().toLowerCase())) || controller.listaLibri.get(i).editore.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) { //controlla se l'ISBN, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
-                    model.addRow(new Object[]{controller.listaLibri.get(i).isbn, controller.listaLibri.get(i).titolo, linkString, controller.listaLibri.get(i).genere, controller.listaLibri.get(i).lingua, controller.listaLibri.get(i).editore, controller.listaLibri.get(i).dataPubblicazione}); //aggiunge una nuova riga nella tabella
+                if (controller.listaLibri.get(i).getISBN().toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).getTitolo().toLowerCase().contains(searchBarField.getText().toLowerCase()) || linkString.toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).getGenere().toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).getLingua().toLowerCase().contains((searchBarField.getText().toLowerCase())) || controller.listaLibri.get(i).getEditore().toLowerCase().contains(searchBarField.getText().toLowerCase()) || controller.listaLibri.get(i).getDataPubblicazione().toString().toLowerCase().contains(searchBarField.getText().toLowerCase())) { //controlla se l'ISBN, il titolo, gli autori, il genere, la lingua, l'editore o la data di pubblicazione contiene il testo scritto in 'searchBarField'
+                    model.addRow(new Object[]{controller.listaLibri.get(i).getISBN(), controller.listaLibri.get(i).getTitolo(), linkString, controller.listaLibri.get(i).getGenere(), controller.listaLibri.get(i).getLingua(), controller.listaLibri.get(i).getEditore(), controller.listaLibri.get(i).getDataPubblicazione()}); //aggiunge una nuova riga nella tabella
                 }
             }
         }

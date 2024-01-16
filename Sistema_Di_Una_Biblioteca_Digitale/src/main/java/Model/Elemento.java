@@ -8,4 +8,9 @@ public class Elemento {
     public Elemento(Date dp){
         dataPubblicazione = dp;
     }
+
+    public Date getDataPubblicazione()
+    {
+        return dataPubblicazione;
+    }
 }

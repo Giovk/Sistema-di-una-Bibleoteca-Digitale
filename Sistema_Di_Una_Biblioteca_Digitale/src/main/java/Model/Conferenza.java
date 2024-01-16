@@ -27,4 +27,20 @@ public class Conferenza {
         dataInizio = di;
         dataFine = df;
     }
+
+    public String getLuogo() {
+        return luogo;
+    }
+
+    public String getStruttura() {
+        return struttura;
+    }
+
+    public Date getDataInizio() {
+        return dataInizio;
+    }
+
+    public Date getDataFine() {
+        return dataFine;
+    }
 }

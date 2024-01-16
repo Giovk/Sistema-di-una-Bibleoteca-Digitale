@@ -23,4 +23,12 @@ public class Autore {
         cognome = c;
         nazionalita = na;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
 }

@@ -298,7 +298,7 @@ public class SeriePage {
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
-        if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
+        if (controller.utente.getPartitaIVA() == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
             utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
             utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));    //adatta le dimensioni minime di 'utenteMenu'
@@ -661,7 +661,7 @@ public class SeriePage {
         table2.setModel(model2);    //imposta il modello dei dati della JTable 'table2'
 
         for(int i = 0; i < controller.listaLibriSerie.size(); i++){ //scorre 'controller.listaLibriSerie'
-            model2.addRow(new Object[]{controller.listaLibriSerie.get(i).isbn, controller.listaLibriSerie.get(i).titolo, controller.listaLibriSerie.get(i).dataPubblicazione}); //aggiunge una nuova riga nella tabella
+            model2.addRow(new Object[]{controller.listaLibriSerie.get(i).getISBN(), controller.listaLibriSerie.get(i).getTitolo(), controller.listaLibriSerie.get(i).getDataPubblicazione()}); //aggiunge una nuova riga nella tabella
         }
 
         disponibilitaCheckBox.addActionListener(new ActionListener() {
@@ -882,7 +882,7 @@ public class SeriePage {
         controller.allRecWithCommentLibro();    //inizializza 'controller.recensioniConCommento'
 
         for (int i = 0; i < controller.recensioniConCommento.size(); i++){  //scorre 'controller.recensioniConCommento'
-            addComment(controller.recensioniConCommento.get(i).utenteRecensore.username, controller.recensioniConCommento.get(i).valutazione, controller.recensioniConCommento.get(i).testo, commenti, i+1, controller);    //mostra l'i-esimo commento
+            addComment(controller.recensioniConCommento.get(i).getUtenteRecensore().getUsername(), controller.recensioniConCommento.get(i).getValutazione(), controller.recensioniConCommento.get(i).getTesto(), commenti, i+1, controller);    //mostra l'i-esimo commento
         }
     }//fine showComment
 
@@ -989,7 +989,7 @@ public class SeriePage {
         constraints.gridx = 0;  //imposta a 0 la colonna del layout in cui inserire 'panel1'
         constraints.gridy = (n-1); //imposta a n-1 la riga del layout in cui inserire 'panel1'
         commenti.add(panel1, constraints);  //inserisce nel 'panel1' nel JPanel 'commenti'
-    }
+    }//fine addComment
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

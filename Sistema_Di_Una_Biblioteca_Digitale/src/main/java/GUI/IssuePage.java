@@ -57,8 +57,8 @@ public class IssuePage {
 
 
     public IssuePage (JFrame frameC, Controller controller) {
-        titolo = controller.fascicolo_selected.rivista.titolo;  //inizializza 'titolo' con il titolo della rivista del fascicolo selezionato
-        numero = controller.fascicolo_selected.numero;  //inizializza 'numero' con il numero del fascicolo selezionato
+        titolo = controller.fascicolo_selected.getRivista().getTitolo();  //inizializza 'titolo' con il titolo della rivista del fascicolo selezionato
+        numero = controller.fascicolo_selected.getNumero();  //inizializza 'numero' con il numero del fascicolo selezionato
 
         homeButton.setFont(controller.baseFontSize);    //imposta il font del JButton 'homeButton'
         homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight())); //imposta la dimensione minima del JButton 'homeButton'
@@ -298,7 +298,7 @@ public class IssuePage {
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
-        if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
+        if (controller.utente.getPartitaIVA() == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
             utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
             utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));    //adatta le dimensioni minime di 'utenteMenu'
@@ -318,7 +318,7 @@ public class IssuePage {
         frame.setResizable(false);  //evita che l'utente modifichi le dimensioni del frame
         frame.setVisible(true); //rende visibile il frame
 
-        informazioniLabel.setText("(" + controller.fascicolo_selected.rivista.issn + ") - " + controller.fascicolo_selected.rivista.titolo + " N°" + controller.fascicolo_selected.numero);  //imposta il testo della JLabel 'informazioniLabel' con l'ISSN e il titolo della rivista e il numero del fascicolo selezionato
+        informazioniLabel.setText("(" + controller.fascicolo_selected.getRivista().getISSN() + ") - " + controller.fascicolo_selected.getRivista().getTitolo() + " N°" + controller.fascicolo_selected.getNumero());  //imposta il testo della JLabel 'informazioniLabel' con l'ISSN e il titolo della rivista e il numero del fascicolo selezionato
 
         DecimalFormat valMedForm = new DecimalFormat("#.#");    //formato da mostrare del numero decimale
 
@@ -497,6 +497,7 @@ public class IssuePage {
                 libriButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'libriButton'
             }
         });
+
         libriButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -545,6 +546,7 @@ public class IssuePage {
                 serieButton.setBackground(Color.decode("#cf9e29")); //imposta il colore dello sfondo del JButton 'serieButton'
             }
         });
+
         serieButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -655,8 +657,8 @@ public class IssuePage {
 
         table2.setModel(model2);    //imposta il modello dei dati della JTable 'table2'
 
-        for(int i = 0; i < controller.fascicolo_selected.articoli.size(); i++){ //scorre la lista degli articoli del fascicolo selezionato
-            model2.addRow(new Object[]{controller.fascicolo_selected.articoli.get(i).doi, controller.fascicolo_selected.articoli.get(i).titolo, controller.fascicolo_selected.articoli.get(i).annoPubblicazione, controller.allAutoriArticolo(controller.fascicolo_selected.articoli.get(i).autori)});  //aggiunge una nuova riga nella tabella
+        for(int i = 0; i < controller.fascicolo_selected.getArticoli().size(); i++){ //scorre la lista degli articoli del fascicolo selezionato
+            model2.addRow(new Object[]{controller.fascicolo_selected.getArticoli().get(i).getDoi(), controller.fascicolo_selected.getArticoli().get(i).getTitolo(), controller.fascicolo_selected.getArticoli().get(i).getAnnoPubblicazione(), controller.allAutoriArticolo(controller.fascicolo_selected.getArticoli().get(i).getAutori())});  //aggiunge una nuova riga nella tabella
         }
 
         disponibilitaCheckBox.addActionListener(new ActionListener() {
@@ -879,7 +881,7 @@ public class IssuePage {
         controller.allRecWithCommentFascicolo();    //inizializza 'controller.recensioniConCommento'
 
         for (int i = 0; i < controller.recensioniConCommento.size(); i++){  //scorre 'controller.recensioniConCommento'
-            addComment(controller.recensioniConCommento.get(i).utenteRecensore.username, controller.recensioniConCommento.get(i).valutazione, controller.recensioniConCommento.get(i).testo, commenti, i+1, controller);    //mostra l'i-esimo commento
+            addComment(controller.recensioniConCommento.get(i).getUtenteRecensore().getUsername(), controller.recensioniConCommento.get(i).getValutazione(), controller.recensioniConCommento.get(i).getTesto(), commenti, i+1, controller);    //mostra l'i-esimo commento
         }
     }
 

@@ -176,36 +176,36 @@ public class ChangeQuantity {
 
         if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se 'controller.titoloLibriLibreria' e 'controller.possessoLLibreria' non sono a NULL
             for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria selezionata
-                if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
-                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                } else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0){   //controlla se l'i-esimo libro non è disponibile
-                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                if(controller.possessoLLibreria.get(i).getFruizione().equals("Digitale") || controller.possessoLLibreria.get(i).getFruizione().equals("AudioLibro")){ //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).getFruizione()});  //aggiunge una nuova riga nella tabella
+                } else if(controller.possessoLLibreria.get(i).getFruizione().equals("Cartaceo") && controller.possessoLLibreria.get(i).getQuantita() == 0){   //controlla se l'i-esimo libro non è disponibile
+                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).getFruizione()});    //aggiunge una nuova riga nella tabella
                 } else{
-                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita , controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).getQuantita(), controller.possessoLLibreria.get(i).getFruizione()});    //aggiunge una nuova riga nella tabella
                 }
             }
         }
 
         if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se 'controller.titoloSerieLibreria' e 'controller.possessoSLibreria' non sono a NULL
             for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria selezionata
-                if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
-                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                } else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0){   //controlla se l'i-esima serie non è disponibile
-                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                if(controller.possessoSLibreria.get(i).getFruizione().equals("Digitale") || controller.possessoSLibreria.get(i).getFruizione().equals("AudioLibro")){ //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).getFruizione()});  //aggiunge una nuova riga nella tabella
+                } else if(controller.possessoSLibreria.get(i).getFruizione().equals("Cartaceo") && controller.possessoSLibreria.get(i).getQuantita() == 0){   //controlla se l'i-esima serie non è disponibile
+                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).getFruizione()});    //aggiunge una nuova riga nella tabella
                 } else{
-                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita , controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).getQuantita(), controller.possessoSLibreria.get(i).getFruizione()});    //aggiunge una nuova riga nella tabella
                 }
             }
         }
 
         if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se 'controller.fascicoliLibreria' e 'controller.possessoSLibreria' non sono a NULL
             for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria selezionata
-                if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
-                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
-                } else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0){   //controlla se l'i-esimo fascicolo non è disponibile
-                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                if(controller.possessoFLibreria.get(i).getFruizione().equals("Digitale") || controller.possessoFLibreria.get(i).getFruizione().equals("AudioLibro")){ //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).getRivista().getTitolo() + " N°" + controller.fascicoliLibreria.get(i).getNumero(), "∞", controller.possessoFLibreria.get(i).getFruizione()});    //aggiunge una nuova riga nella tabella
+                } else if(controller.possessoFLibreria.get(i).getFruizione().equals("Cartaceo") && controller.possessoFLibreria.get(i).getQuantita() == 0){   //controlla se l'i-esimo fascicolo non è disponibile
+                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).getRivista().getTitolo() + " N°" + controller.fascicoliLibreria.get(i).getNumero(), "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
                 } else{
-                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).getRivista().getTitolo() + " N°" + controller.fascicoliLibreria.get(i).getNumero(), controller.possessoFLibreria.get(i).getQuantita(), controller.possessoFLibreria.get(i).getFruizione()});  //aggiunge una nuova riga nella tabella
                 }
             }
         }
@@ -227,36 +227,36 @@ public class ChangeQuantity {
 
         if (controller.titoloLibriLibreria != null && controller.possessoLLibreria != null) {   //controlla se 'controller.titoloLibriLibreria' e 'controller.possessoLLibreria' non sono a NULL
             for (int i = 0; i < controller.titoloLibriLibreria.size(); i++) {   //scorre la lista dei titoli dei libri posseduti dalla libreria selezionata
-                if(controller.possessoLLibreria.get(i).fruizione.equals("Digitale") || controller.possessoLLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
-                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                } else if(controller.possessoLLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoLLibreria.get(i).quantita == 0){   //controlla se l'i-esimo libro non è disponibile
-                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                if(controller.possessoLLibreria.get(i).getFruizione().equals("Digitale") || controller.possessoLLibreria.get(i).getFruizione().equals("AudioLibro")){ //controlla se l'i-esimo libro è disponibile in modalità digitale o audiolibro
+                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "∞", controller.possessoLLibreria.get(i).getFruizione()});  //aggiunge una nuova riga nella tabella
+                } else if(controller.possessoLLibreria.get(i).getFruizione().equals("Cartaceo") && controller.possessoLLibreria.get(i).getQuantita() == 0){   //controlla se l'i-esimo libro non è disponibile
+                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), "Non Diponibile" , controller.possessoLLibreria.get(i).getFruizione()});    //aggiunge una nuova riga nella tabella
                 } else{
-                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).quantita , controller.possessoLLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                    model.addRow(new Object[]{controller.titoloLibriLibreria.get(i), controller.possessoLLibreria.get(i).getQuantita(), controller.possessoLLibreria.get(i).getFruizione()});    //aggiunge una nuova riga nella tabella
                 }
             }
         }
 
         if (controller.titoloSerieLibreria != null && controller.possessoSLibreria != null) {   //controlla se 'controller.titoloSerieLibreria' e 'controller.possessoSLibreria' non sono a NULL
             for (int i = 0; i < controller.titoloSerieLibreria.size(); i++) {   //scorre la lista dei titoli delle serie possedute dalla libreria selezionata
-                if(controller.possessoSLibreria.get(i).fruizione.equals("Digitale") || controller.possessoSLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
-                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
-                } else if(controller.possessoSLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoSLibreria.get(i).quantita == 0){   //controlla se l'i-esima serie non è disponibile
-                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                if(controller.possessoSLibreria.get(i).getFruizione().equals("Digitale") || controller.possessoSLibreria.get(i).getFruizione().equals("AudioLibro")){ //controlla se l'i-esima serie è disponibile in modalità digitale o audiolibro
+                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "∞", controller.possessoSLibreria.get(i).getFruizione()});  //aggiunge una nuova riga nella tabella
+                } else if(controller.possessoSLibreria.get(i).getFruizione().equals("Cartaceo") && controller.possessoSLibreria.get(i).getQuantita() == 0){   //controlla se l'i-esima serie non è disponibile
+                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), "Non Diponibile" , controller.possessoSLibreria.get(i).getFruizione()});    //aggiunge una nuova riga nella tabella
                 } else {
-                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).quantita , controller.possessoSLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
+                    model.addRow(new Object[]{controller.titoloSerieLibreria.get(i), controller.possessoSLibreria.get(i).getQuantita(), controller.possessoSLibreria.get(i).getFruizione()});    //aggiunge una nuova riga nella tabella
                 }
             }
         }
 
         if (controller.fascicoliLibreria != null && controller.possessoSLibreria != null) { //controlla se 'controller.fascicoliLibreria' e 'controller.possessoSLibreria' non sono a NULL
             for (int i = 0; i < controller.fascicoliLibreria.size(); i++) { //scorre la lista dei fascicoli posseduti dalla libreria selezionata
-                if(controller.possessoFLibreria.get(i).fruizione.equals("Digitale") || controller.possessoFLibreria.get(i).fruizione.equals("AudioLibro")){ //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
-                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "∞", controller.possessoFLibreria.get(i).fruizione});    //aggiunge una nuova riga nella tabella
-                } else if(controller.possessoFLibreria.get(i).fruizione.equals("Cartaceo") && controller.possessoFLibreria.get(i).quantita == 0){   //controlla se l'i-esimo fascicolo non è disponibile
-                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, "Non Diponibile" , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                if(controller.possessoFLibreria.get(i).getFruizione().equals("Digitale") || controller.possessoFLibreria.get(i).getFruizione().equals("AudioLibro")){ //controlla se l'i-esimo fascicolo è disponibile in modalità digitale o audiolibro
+                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).getRivista().getTitolo() + " N°" + controller.fascicoliLibreria.get(i).getNumero(), "∞", controller.possessoFLibreria.get(i).getFruizione()});    //aggiunge una nuova riga nella tabella
+                } else if(controller.possessoFLibreria.get(i).getFruizione().equals("Cartaceo") && controller.possessoFLibreria.get(i).getQuantita() == 0){   //controlla se l'i-esimo fascicolo non è disponibile
+                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).getRivista().getTitolo() + " N°" + controller.fascicoliLibreria.get(i).getNumero(), "Non Diponibile" , controller.possessoFLibreria.get(i).getFruizione()});  //aggiunge una nuova riga nella tabella
                 } else {
-                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).rivista.titolo + " N°" + controller.fascicoliLibreria.get(i).numero, controller.possessoFLibreria.get(i).quantita , controller.possessoFLibreria.get(i).fruizione});  //aggiunge una nuova riga nella tabella
+                    model.addRow(new Object[]{controller.fascicoliLibreria.get(i).getRivista().getTitolo() + " N°" + controller.fascicoliLibreria.get(i).getNumero(), controller.possessoFLibreria.get(i).getQuantita(), controller.possessoFLibreria.get(i).getFruizione()});  //aggiunge una nuova riga nella tabella
                 }
             }
         }

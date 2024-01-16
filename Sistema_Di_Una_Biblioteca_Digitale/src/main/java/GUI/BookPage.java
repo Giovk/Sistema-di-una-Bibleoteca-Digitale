@@ -306,7 +306,7 @@ public class BookPage {
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteExit' al menu 'utenteMenu'
 
-        if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
+        if (controller.utente.getPartitaIVA() == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
             gestisciCollaneButton.setVisible(false);    //rende invisibile il JButton 'gestisciCollaneButton'
             presentazioniButton.setVisible(false);  //rende invisibile il JButton 'presentazioniButton'
@@ -669,7 +669,7 @@ public class BookPage {
         controller.getPresentazione();  //inizializza 'controller.listaPresentazioni' con tutte le presentazioni del libro
 
         for(int i = 0; i < controller.listaPresentazioni.size(); i++){  //scorre 'controller.listaPresentazioni'
-            model2.addRow(new Object[]{controller.listaPresentazioni.get(i).luogo, controller.listaPresentazioni.get(i).struttura, controller.listaPresentazioni.get(i).data, controller.listaPresentazioni.get(i).ora});   //aggiunge una nuova riga nella tabella
+            model2.addRow(new Object[]{controller.listaPresentazioni.get(i).getLuogo(), controller.listaPresentazioni.get(i).getStruttura(), controller.listaPresentazioni.get(i).getData(), controller.listaPresentazioni.get(i).getOra()});   //aggiunge una nuova riga nella tabella
         }
 
         disponibilitaCheckBox.addActionListener(new ActionListener() {
@@ -910,7 +910,7 @@ public class BookPage {
         controller.allRecWithCommentLibro();    //inizializza 'controller.recensioniConCommento'
 
         for (int i = 0; i < controller.recensioniConCommento.size(); i++){  //scorre 'controller.recensioniConCommento'
-            addComment(controller.recensioniConCommento.get(i).utenteRecensore.username, controller.recensioniConCommento.get(i).valutazione, controller.recensioniConCommento.get(i).testo, commenti, i+1, controller);    //mostra l'i-esimo commento
+            addComment(controller.recensioniConCommento.get(i).getUtenteRecensore().getUsername(), controller.recensioniConCommento.get(i).getValutazione(), controller.recensioniConCommento.get(i).getTesto(), commenti, i+1, controller);    //mostra l'i-esimo commento
         }
     }//fine showComment
 

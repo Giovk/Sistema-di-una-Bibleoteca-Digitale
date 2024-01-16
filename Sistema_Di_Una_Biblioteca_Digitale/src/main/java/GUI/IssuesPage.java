@@ -1,7 +1,6 @@
 package GUI;
 
 import Controller.Controller;
-import Model.Fascicolo;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -39,8 +38,6 @@ public class IssuesPage {
     private JPanel panel2;
     private JPanel rivistaPanel;
     private JPanel argomentoPanel;
-    private String linkString = "";
-    private int aut;
     private Boolean active = false;
     private DefaultTableModel model;
     private int numeroNotifiche;
@@ -161,7 +158,7 @@ public class IssuesPage {
         utenteMenu.add(utenteLibrerie); //aggiunge la voce 'utenteLibrerie' al menu 'utenteMenu'
         utenteMenu.add(utenteExit); //aggiunge la voce 'utenteProfilo' al menu 'utenteExit'
 
-        if (controller.utente.partitaIVA == null) {   //controlla se la partita IVA dell'utente è nulla
+        if (controller.utente.getPartitaIVA() == null) {   //controlla se la partita IVA dell'utente è nulla
             utenteLibrerie.setVisible(false);   //rende invisibile la voce di menu 'utenteLibrerie'
             utenteMenu.setPopupSize(new Dimension((int)(controller.screenWidth/15.24),(int) (controller.screenHeight/14.4))); //adatta le dimensioni di 'utenteMenu'
             utenteMenu.setMaximumSize(new Dimension((int)(controller.screenWidth/15.24), (int) (controller.screenHeight/14.4)));    //adatta le dimensioni minime di 'utenteMenu'
@@ -382,12 +379,11 @@ public class IssuesPage {
         rivistaCB.setModel(new DefaultComboBoxModel<String>(distinctRivisteList.toArray(new String[distinctRivisteList.size()]))); //inserisce tutti gli elementi di 'distinctRivisteList' come voci del JComboBox 'rivistaCB'
         rivistaCB.setSelectedIndex(-1);  //permette di avere 'rivistaCB' non selezionato
 
-        ArrayList<String> totAutoreList = new ArrayList<String>(); //contiene i nomi e cognomi concatenati di tutti gli autori dei libri
         ArrayList<String> distinctArgomentiList = new ArrayList<>();   //contiene tutti gli argomenti delle riviste senza duplicati
 
         for (int i = 0; i < controller.listaRiviste.size(); i++) {    //scorre 'controller.listaRiviste'
-            if (!distinctArgomentiList.contains(controller.listaRiviste.get(i).argomento))    //controlla se 'distinctArgomentiList' non contiene l'argomento dell'i-esima rivista
-                distinctArgomentiList.add(controller.listaRiviste.get(i).argomento);  //inserisce l'i-esimo elemento di genereList  in 'distinctGenereList'
+            if (!distinctArgomentiList.contains(controller.listaRiviste.get(i).getArgomento()))    //controlla se 'distinctArgomentiList' non contiene l'argomento dell'i-esima rivista
+                distinctArgomentiList.add(controller.listaRiviste.get(i).getArgomento());  //inserisce l'i-esimo elemento di genereList  in 'distinctGenereList'
         }
 
         argomentoCB.setModel(new DefaultComboBoxModel<String>(distinctArgomentiList.toArray(new String[distinctArgomentiList.size()]))); //inserisce tutti gli elementi di 'distinctArgomentiList' come voci del JComboBox 'argomentoCB'
@@ -429,7 +425,7 @@ public class IssuesPage {
 
         if (controller.listaFascicoli != null) {    //controlla se 'controller.listaFascicoli' non è vuota
             for (int i = 0; i < controller.listaFascicoli.size(); i++) {    //scorre 'controller.listaFascicoli'
-                model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
+                model.addRow(new Object[]{controller.listaFascicoli.get(i).getRivista().getTitolo(), controller.listaFascicoli.get(i).getNumero(), controller.listaFascicoli.get(i).getDataPubblicazione()});   //aggiunge una nuova riga nella tabella
             }
         }
 
@@ -473,7 +469,7 @@ public class IssuesPage {
                 model.setRowCount(0);   //rimuove tutte le righe della tabella
 
                 for (int i = 0; i < controller.listaFascicoli.size(); i++){ //scorre 'controller.listaFascicoli'
-                    model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
+                    model.addRow(new Object[]{controller.listaFascicoli.get(i).getRivista().getTitolo(), controller.listaFascicoli.get(i).getNumero(), controller.listaFascicoli.get(i).getDataPubblicazione()});   //aggiunge una nuova riga nella tabella
                 }
             }
         });
@@ -500,8 +496,8 @@ public class IssuesPage {
                     model.setRowCount(0);   //elimina le righe della tabella
 
                     for (int i = 0; i < controller.listaFascicoli.size(); i++) {
-                        if (rivistaCB.getSelectedItem() != null && rivistaCB.getSelectedItem().equals(controller.listaFascicoli.get(i).rivista.titolo)) {    //controlla se l'elemento selezionato di 'rivistaCB' è uguale al titolo della rivista del fascicolo 'f'
-                            model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo, controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                        if (rivistaCB.getSelectedItem() != null && rivistaCB.getSelectedItem().equals(controller.listaFascicoli.get(i).getRivista().getTitolo())) {    //controlla se l'elemento selezionato di 'rivistaCB' è uguale al titolo della rivista del fascicolo 'f'
+                            model.addRow(new Object[]{controller.listaFascicoli.get(i).getRivista().getTitolo(), controller.listaFascicoli.get(i).getNumero(), controller.listaFascicoli.get(i).getDataPubblicazione()});    //aggiunge una nuova riga nella tabella
                         }
                     }
                 }
@@ -515,8 +511,8 @@ public class IssuesPage {
                     model.setRowCount(0);   //elimina le righe della tabella
 
                     for (int i = 0; i < controller.listaFascicoli.size(); i++) {
-                        if (argomentoCB.getSelectedItem() != null && argomentoCB.getSelectedItem().equals(controller.listaFascicoli.get(i).rivista.argomento)) {    //controlla se l'elemento selezionato di 'argomentoCB' è uguale all'argomento della rivista del fascicolo 'f'
-                            model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo, controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                        if (argomentoCB.getSelectedItem() != null && argomentoCB.getSelectedItem().equals(controller.listaFascicoli.get(i).getRivista().getArgomento())) {    //controlla se l'elemento selezionato di 'argomentoCB' è uguale all'argomento della rivista del fascicolo 'f'
+                            model.addRow(new Object[]{controller.listaFascicoli.get(i).getRivista().getTitolo(), controller.listaFascicoli.get(i).getNumero(), controller.listaFascicoli.get(i).getDataPubblicazione()});    //aggiunge una nuova riga nella tabella
                         }
                     }
                 }
@@ -588,17 +584,17 @@ public class IssuesPage {
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
             for (int i = 0; i < controller.listaFascicoli.size(); i++){ //scorre la lista dei fascicoli 'controller.listaFascicoli'
-                model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo ,controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});   //aggiunge una nuova riga nella tabella
+                model.addRow(new Object[]{controller.listaFascicoli.get(i).getRivista().getTitolo(), controller.listaFascicoli.get(i).getNumero(), controller.listaFascicoli.get(i).getDataPubblicazione()});   //aggiunge una nuova riga nella tabella
             }
         } else {
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB
             model.setRowCount(0);   //elimina tutte le righe della teblla
 
             for (int i = 0; i < controller.listaFascicoli.size(); i++) {
-                String numero = String.valueOf(controller.listaFascicoli.get(i).numero);   //numero del fascicolo 'f'
+                String numero = String.valueOf(controller.listaFascicoli.get(i).getNumero());   //numero del fascicolo 'f'
 
-                if (controller.listaFascicoli.get(i).rivista.titolo.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || controller.listaFascicoli.get(i).rivista.argomento.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || controller.listaFascicoli.get(i).dataPubblicazione.toString().toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || numero.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase())) { //controlla se il titolo o l'argomento della rivista, la data di pubblicazione o il numero contiene il testo scritto in 'searchBarField'
-                    model.addRow(new Object[]{controller.listaFascicoli.get(i).rivista.titolo, controller.listaFascicoli.get(i).numero, controller.listaFascicoli.get(i).dataPubblicazione});    //aggiunge una nuova riga nella tabella
+                if (controller.listaFascicoli.get(i).getRivista().getTitolo().toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || controller.listaFascicoli.get(i).getRivista().getArgomento().toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || controller.listaFascicoli.get(i).getDataPubblicazione().toString().toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase()) || numero.toLowerCase().contains(searchBarField.getText().replace("'", "’").toLowerCase())) { //controlla se il titolo o l'argomento della rivista, la data di pubblicazione o il numero contiene il testo scritto in 'searchBarField'
+                    model.addRow(new Object[]{controller.listaFascicoli.get(i).getRivista().getTitolo(), controller.listaFascicoli.get(i).getNumero(), controller.listaFascicoli.get(i).getDataPubblicazione()});    //aggiunge una nuova riga nella tabella
                 }
             }
         }

@@ -38,8 +38,8 @@ public class Recensione extends JDialog {
         }
 
         if(controller.fascicolo_selected != null){  //controlla se è stato selezionato un fascicolo
-            titolo = controller.fascicolo_selected.rivista.titolo;  //inizializza 'titolo' con il titolo della rivista del fascicolo selezionato
-            numero = controller.fascicolo_selected.numero;  //inizializza 'numero' con il numero del fascicolo selezionato
+            titolo = controller.fascicolo_selected.getRivista().getTitolo();  //inizializza 'titolo' con il titolo della rivista del fascicolo selezionato
+            numero = controller.fascicolo_selected.getNumero();  //inizializza 'numero' con il numero del fascicolo selezionato
         }
 
         valutazioneLabel.setFont(controller.baseFontSize);  //imposta il font della JLabel 'valutazioneLabel'
@@ -458,7 +458,7 @@ public class Recensione extends JDialog {
         }
 
         for (int i = 0; i < controller.recensioniConCommento.size(); i++){  //scorre 'controller.recensioniConCommento'
-            addComment(controller.recensioniConCommento.get(i).utenteRecensore.username, controller.recensioniConCommento.get(i).valutazione, controller.recensioniConCommento.get(i).testo, commenti, i+1, controller);    //mostra l'i-esimo commento
+            addComment(controller.recensioniConCommento.get(i).getUtenteRecensore().getUsername(), controller.recensioniConCommento.get(i).getValutazione(), controller.recensioniConCommento.get(i).getTesto(), commenti, i+1, controller);    //mostra l'i-esimo commento
         }
     }//fine showComment
 

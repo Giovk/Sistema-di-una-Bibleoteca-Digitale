@@ -22,4 +22,19 @@ public class Libreria {
         sitoWeb = sw;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getNumeroTelefonico() {
+        return numeroTelefonico;
+    }
+
+    public String getSitoWeb() {
+        return sitoWeb;
+    }
+
+    public String getIndirizzo() {
+        return indirizzo;
+    }
 }
