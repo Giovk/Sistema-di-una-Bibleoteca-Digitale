@@ -19,9 +19,6 @@ public class Utente {
         partitaIVA = pIVA;
     }
 
-    public void regUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){
-        Utente u = new Utente(username, password, email, nome, cognome, dataNascita, partitaIVA);
-    }
     public void setEmail(String nEmail){
         email = nEmail;
     }   //imposta l'email dell'utente

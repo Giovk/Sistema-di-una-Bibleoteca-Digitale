@@ -3,7 +3,6 @@ package Model;
 public class Recensione {
     public String testo;
     public int valutazione;
-    public boolean preferito;
     public Utente utenteRecensore;
     public Elemento elementoRecensito;
 
