@@ -15,6 +15,7 @@ public class Conferenza {
         luogo = l;
         dataInizio = di;
         dataFine = df;
+
         for (ArticoloScientifico articoloAttuale : a){
             articoliEsposti.add(articoloAttuale);
             articoloAttuale.conferenze.add(this);
