@@ -54,10 +54,18 @@ public class Utente {
     public String getPassword(){return password;}   //ritorna la password dell'utente
 
     public boolean verifyPartitaIVA(String piva){
-        if (piva.length() == 0) return true;
-        if (piva.length() != 11) return false;
+        if (piva.length() == 0){
+            return true;
+        }
+
+        if (piva.length() != 11){
+            return false;
+        }
+
         for(int i = 0; i < piva.length(); i++){
-            if(piva.charAt(i) < '0' || piva.charAt(i) > '9') return false;
+            if(piva.charAt(i) < '0' || piva.charAt(i) > '9') {
+                return false;
+            }
         }
 
         return true;
