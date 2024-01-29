@@ -14,11 +14,17 @@ public class Fascicolo extends Elemento{
         rivista = r;
 
         for (ArticoloScientifico articoloAttuale : a) {
-            if(articoli == null) articoli = new ArrayList<>();
+            if(articoli == null){
+                articoli = new ArrayList<>();
+            }
+
             articoli.add(articoloAttuale);
         }
 
-        if (rivista.fascicoli == null) rivista.fascicoli = new ArrayList<>();
+        if (rivista.fascicoli == null){
+            rivista.fascicoli = new ArrayList<>();
+        }
+
         rivista.fascicoli.add(this);
     }
 
@@ -28,7 +34,10 @@ public class Fascicolo extends Elemento{
         rivista = r;
 
 
-        if (rivista.fascicoli == null) rivista.fascicoli = new ArrayList<>();
+        if (rivista.fascicoli == null){
+            rivista.fascicoli = new ArrayList<>();
+        }
+
         rivista.fascicoli.add(this);
     }
 
