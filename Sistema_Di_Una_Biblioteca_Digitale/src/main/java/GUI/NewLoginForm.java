@@ -576,7 +576,7 @@ public class NewLoginForm extends JDialog {
                 NewShowMessageDialog dialog = new NewShowMessageDialog(2, "email non valida!");
             } else {
                 emailU = controller.changeEmail(emailU);    //rende minuscole tutte le lettere maiuscole di 'emailU'
-                if (usernameU.contains("'") || password1.contains("'") || password2.contains("'")) { //controlla se l'username o na delle assword contengono il carattere '''
+                if (usernameU.contains("'") || password1.contains("'") || password2.contains("'")) { //controlla se l'username o una delle assword contengono il carattere '''
                     NewShowMessageDialog dialog = new NewShowMessageDialog(2, "il carattere ' non è ammesso");
                 } else {
                     if (controller.verificaNomeCognome(nomeU) == false || controller.verificaNomeCognome(cognomeU) == false) {  //controlla se è stato inserito un nome o cognome non valido
