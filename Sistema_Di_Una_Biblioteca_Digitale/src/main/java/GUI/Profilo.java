@@ -1010,11 +1010,11 @@ public class Profilo {
         tabellaElimina.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int comferma = 0;   //flag di conferma dell'utente
+                int conferma = 0;   //flag di conferma dell'utente
 
-                comferma = new NewComfirmMessageDialog().comfirmDialog("Vuoi davvero eliminare questa notifica?");  //mostra un messaggio di conferma e aggiorna 'conferma'
+                conferma = new NewComfirmMessageDialog().comfirmDialog("Vuoi davvero eliminare questa notifica?");  //mostra un messaggio di conferma e aggiorna 'conferma'
 
-                if(comferma == 1){  //controlla la conferma dell'utente
+                if(conferma == 1){  //controlla la conferma dell'utente
                     controller.rimuoviNotifica(notificheTable.getValueAt(row_selected, 0).toString(), notificheTable.getValueAt(row_selected, 1).toString(), notificheTable.getValueAt(row_selected, 2).toString());    //elimina la notifica selezionata
                     model.removeRow(row_selected);  //rimuove la riga selezionata dalla tabella
                     setNumeroNotifiche(controller); //inizializza il testo della JLabel 'notificheLabel'
