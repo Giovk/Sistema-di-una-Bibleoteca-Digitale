@@ -1137,7 +1137,7 @@ DECLARE
     cursore_librerie CURSOR FOR --Contiene tutte le librerie e le modalità di fruizione in cui è disponibile la serie inserita nei preferiti
         SELECT CodL, Fruizione
         FROM POSSESSO_S
-        WHERE ISBN=NEW.ISBN AND Quantita>0;
+        WHERE ISBN=NEW.ISBN AND (Quantita>0 OR Quantita IS NULL);
 BEGIN
     OPEN cursore_librerie;
 
