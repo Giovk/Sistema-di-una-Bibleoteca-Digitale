@@ -3,37 +3,37 @@ package Model;
 import java.util.ArrayList;
 
 /**
- * The type Articolo scientifico.
+ * La classe ArticoloScientifico crea nuove istanze di articoli scientifici e fornisce le loro informazioni.
  */
 public class ArticoloScientifico {
     /**
-     * The Doi.
+     *  DOI identificativo dell'articolo scientifico.
      */
     public String doi;
     /**
-     * The Titolo.
+     * Titolo dell'articolo scientifico.
      */
     public String titolo;
     /**
-     * The Anno pubblicazione.
+     * Anno di pubblicazione dell'articolo scientifico.
      */
     public int annoPubblicazione;
     /**
-     * The Autori.
+     * Lista degli Autori dell'articolo scientifico.
      */
     public ArrayList<Autore> autori = new ArrayList<>();
     /**
-     * The Conferenze.
+     * Lista delle Conferenze nelle quali è esposto l'articolo .
      */
     public ArrayList<Conferenza> conferenze;
 
     /**
-     * Instantiates a new Articolo scientifico.
+     * Istanzia un nuovo ArticoloScientifico con i suoi autori.
      *
-     * @param d  the d
-     * @param t  the t
-     * @param ap the ap
-     * @param a  the a
+     * @param d  il DOI dell'articolo scientifico che si sta istanziando
+     * @param t  il titolo dell'articolo scientifico che si sta istanziando
+     * @param ap l'anno di pubblicazione dell'articolo scientifico che si sta istanziando
+     * @param a  la lista di autori dell'articolo scientifico che si sta istanziando
      */
     public ArticoloScientifico(String d, String t, int ap, ArrayList<Autore> a){
         doi = d;
@@ -52,11 +52,11 @@ public class ArticoloScientifico {
     }
 
     /**
-     * Instantiates a new Articolo scientifico.
+     * Istanzia un nuovo Articolo scientifico.
      *
-     * @param d  the d
-     * @param t  the t
-     * @param ap the ap
+     * @param d  il DOI dell'articolo scientifico che si sta istanziando
+     * @param t  il titolo dell'articolo scientifico che si sta istanziando
+     * @param ap l'anno di pubblicazione dell'articolo scientifico che si sta istanziando
      */
     public ArticoloScientifico(String d, String t, int ap){
         doi = d;
@@ -65,36 +65,36 @@ public class ArticoloScientifico {
     }
 
     /**
-     * Get titolo string.
+     * Ritorna una stringa contenente il titolo dell'articolo scientifico.
      *
-     * @return the string
+     * @return la stringa con il titolo dell'articolo scientifico
      */
     public String getTitolo(){
         return titolo;
     }
 
     /**
-     * Gets doi.
+     * Ritorna il DOI dell'articolo scientifico.
      *
-     * @return the doi
+     * @return il DOI dell'articolo scientifico
      */
     public String getDoi() {
         return doi;
     }
 
     /**
-     * Gets anno pubblicazione.
+     * Ritorna l'anno di pubblicazione dell'articolo scientifico.
      *
-     * @return the anno pubblicazione
+     * @return l'anno di pubblicazione dell'articolo scientifico
      */
     public int getAnnoPubblicazione() {
         return annoPubblicazione;
     }
 
     /**
-     * Gets autori.
+     * ritorna tutti gli autori dell'articolo scientifico.
      *
-     * @return the autori
+     * @return la lista degli autori dell'articolo scientifico
      */
     public ArrayList<Autore> getAutori() {
         return autori;

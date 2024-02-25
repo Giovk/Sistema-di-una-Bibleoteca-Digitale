@@ -4,29 +4,29 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * The type Fascicolo.
+ * La classe Fasciclolo crea nuove istanze di fascicoli, fornisce le loro informazioni e gestisce gli articoli scientifici dei quali sono formati.
  */
 public class Fascicolo extends Elemento{
     /**
-     * The Numero.
+     * Numero del fascicolo.
      */
     public int numero;
     /**
-     * The Rivista.
+     * Rivista del fascicolo.
      */
     public Rivista rivista;
     /**
-     * The Articoli.
+     * Lista degli Articoli che formano il fascicolo.
      */
     public ArrayList<ArticoloScientifico> articoli;
 
     /**
-     * Instantiates a new Fascicolo.
+     * Istanzia un nuovo Fascicolo con i suoi articoli.
      *
-     * @param n  the n
-     * @param r  the r
-     * @param a  the a
-     * @param dp the dp
+     * @param n  il numero del fascicolo
+     * @param r  la rivista del fascicolo
+     * @param a  la lista degli articolo scientifici del fascicolo
+     * @param dp la data di pubblicazione del fascicolo
      */
     public Fascicolo(int n, Rivista r, ArrayList<ArticoloScientifico> a, Date dp){
         super(dp);
@@ -49,11 +49,11 @@ public class Fascicolo extends Elemento{
     }
 
     /**
-     * Instantiates a new Fascicolo.
+     * Istanzia un nuovo Fascicolo.
      *
-     * @param n  the n
-     * @param r  the r
-     * @param dp the dp
+     * @param n  il numero del fascicolo
+     * @param r  la rivista del fascicolo
+     * @param dp la data di pubblicazione del fascicolo
      */
     public Fascicolo(int n, Rivista r, Date dp){
         super(dp);
@@ -69,36 +69,36 @@ public class Fascicolo extends Elemento{
     }
 
     /**
-     * Gets rivista.
+     * Ritorna la rivista del fascicolo.
      *
-     * @return the rivista
+     * @return la rivista del fascicolo
      */
     public Rivista getRivista() {
         return rivista;
     }
 
     /**
-     * Get numero int.
+     * Ritorna il numero del fascicolo.
      *
-     * @return the int
+     * @return il numero del fascicolo
      */
     public int getNumero(){
         return numero;
     }
 
     /**
-     * Get articoli array list.
+     * Ritorna gli articoli del fascicolo.
      *
-     * @return the array list
+     * @return l'array list contenente gli articoli scientific del fascicolo
      */
     public ArrayList<ArticoloScientifico> getArticoli(){
         return articoli;
     }
 
     /**
-     * Sets articoli.
+     * Poone la lista degli articoli scientifici del fascicolo uguale a quella presa come parametro.
      *
-     * @param articoli the articoli
+     * @param articoli la nuova lista degli articoli
      */
     public void setArticoli(ArrayList<ArticoloScientifico> articoli) {
         this.articoli = articoli;

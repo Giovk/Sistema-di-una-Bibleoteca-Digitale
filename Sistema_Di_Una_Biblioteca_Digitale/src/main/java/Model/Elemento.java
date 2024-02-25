@@ -3,27 +3,27 @@ package Model;
 import java.util.Date;
 
 /**
- * The type Elemento.
+ * La classe Elemento crea nuove istanze di elementi posseduti dalle librerie e fornisce la loro data di ubblicazione.
  */
 public class Elemento {
     /**
-     * The Data pubblicazione.
+     * Data di pubblicazione dell'elemento.
      */
     public Date dataPubblicazione;
 
     /**
-     * Instantiates a new Elemento.
+     * Istanzia un nuovo Elemento.
      *
-     * @param dp the dp
+     * @param dp la data di pubblicazione dell'elemento
      */
     public Elemento(Date dp){
         dataPubblicazione = dp;
     }
 
     /**
-     * Gets data pubblicazione.
+     * Ritorna la data di pubblicazione dell'elemento.
      *
-     * @return the data pubblicazione
+     * @return la data di pubblicazione dell'elemento
      */
     public Date getDataPubblicazione()
     {

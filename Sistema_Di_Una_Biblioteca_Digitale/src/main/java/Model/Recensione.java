@@ -1,30 +1,30 @@
 package Model;
 
 /**
- * The type Recensione.
+ * La classe Recensione crea nuove istanze di recensioni e fornisce le loro informazioni.
  */
 public class Recensione {
     /**
-     * The Testo.
+     * Testo della recensione.
      */
     public String testo;
     /**
-     * The Valutazione.
+     * Valutazione dell'elemento recensito.
      */
     public int valutazione;
     /**
-     * The Utente recensore.
+     * Utente recensore.
      */
     public Utente utenteRecensore;
     /**
-     * The Elemento recensito.
+     * Elemento recensito.
      */
     public Elemento elementoRecensito;
 
     /**
-     * Instantiates a new Recensione.
+     * Istanzia una nuova Recensione.
      *
-     * @param t  the t
+     * @param t  il testo della recensione
      * @param v  the v
      * @param p  the p
      * @param ur the ur

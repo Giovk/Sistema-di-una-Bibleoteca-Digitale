@@ -3,38 +3,38 @@ package Model;
 import java.util.Date;
 
 /**
- * The type Presentazione.
+ * La classe Presentazione crea nuove istanze di presentazioni e fornisce le loro informazioni.
  */
 public class Presentazione {
     /**
-     * The Luogo.
+     * Luogo della presentazione.
      */
     public String luogo;
     /**
-     * The Data.
+     * Data della presentazione.
      */
     public Date data;
     /**
-     * The Ora.
+     * Ora  della presentazione.
      */
     public String ora;
     /**
-     * The Libro.
+     * Libro presentato nella presentazione.
      */
     public Libro libro;
     /**
-     * The Struttura.
+     * Struttura della presentazione.
      */
     public String struttura;
 
     /**
-     * Instantiates a new Presentazione.
+     * Istanzia una nuova Presentazione.
      *
-     * @param l  the l
-     * @param s  the s
-     * @param d  the d
-     * @param o  the o
-     * @param li the li
+     * @param l  il luogo della presentazione
+     * @param s  la struttura della presentazione
+     * @param d  la data della presentazione
+     * @param o  l'ora della presentazione
+     * @param li il libro presentato nella presentazione
      */
     public Presentazione(String l, String s, Date d, String o, Libro li){
         luogo = l;
@@ -45,36 +45,36 @@ public class Presentazione {
     }
 
     /**
-     * Gets luogo.
+     * Ritorna il luogo della presentazione.
      *
-     * @return the luogo
+     * @return il luogo della presentazione
      */
     public String getLuogo() {
         return luogo;
     }
 
     /**
-     * Gets struttura.
+     * Ritorna la struttura della presentazione.
      *
-     * @return the struttura
+     * @return la struttura della presentazione
      */
     public String getStruttura() {
         return struttura;
     }
 
     /**
-     * Gets data.
+     * Ritorna la data della presentazione.
      *
-     * @return the data
+     * @return la data della presentazione
      */
     public Date getData() {
         return data;
     }
 
     /**
-     * Gets ora.
+     * Ritorna l'ora della presentazione.
      *
-     * @return the ora
+     * @return l'ora della presentazione
      */
     public String getOra() {
         return ora;

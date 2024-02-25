@@ -4,44 +4,44 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * The type Libro.
+ * La classe Libro crea nuove istanze di libri e fornisce le loro informazioni.
  */
 public class Libro extends Elemento {
     /**
-     * The Isbn.
+     * ISBN del libro.
      */
     public String isbn;
     /**
-     * The Genere.
+     * Genere del libro.
      */
     public String genere;
     /**
-     * The Editore.
+     * Editore del libro.
      */
     public String editore;
     /**
-     * The Lingua.
+     * Lingua del libro.
      */
     public String lingua;
     /**
-     * The Autori.
+     * Lista degli Autori del libto.
      */
     public ArrayList<Autore> autori = new ArrayList<Autore>();
     /**
-     * The Titolo.
+     * Titolo del libro.
      */
     public String titolo;
 
     /**
-     * Instantiates a new Libro.
+     * Istanzia un nuovo Libro con i suoi autori.
      *
-     * @param i  the
-     * @param g  the g
-     * @param e  the e
-     * @param l  the l
-     * @param a  the a
-     * @param t  the t
-     * @param dp the dp
+     * @param i  l'ISBN del libro
+     * @param g  il genere del libro
+     * @param e  l'editore del libro
+     * @param l  la lingua del libro
+     * @param a  la lista degli autori del libro
+     * @param t  il titolo del libro
+     * @param dp la data di pubblicazione del libro
      */
     public Libro(String i, String g, String e, String l, ArrayList<Autore> a, String t, Date dp) {
         super(dp);
@@ -58,14 +58,14 @@ public class Libro extends Elemento {
     }
 
     /**
-     * Instantiates a new Libro.
+     * Istanzia un nuovo Libro.
      *
-     * @param i  the
-     * @param g  the g
-     * @param e  the e
-     * @param l  the l
-     * @param t  the t
-     * @param dp the dp
+     * @param i l'ISBN del libro
+     * @param g il genere del libro
+     * @param e l'editore del libro
+     * @param l la lingua del libro
+     * @param t il titolo del libro
+     * @param dp la data di pubblicazione del libro
      */
     public Libro(String i, String g, String e, String l, String t, Date dp) {
         super(dp);
@@ -78,9 +78,9 @@ public class Libro extends Elemento {
     }
 
     /**
-     * Gets isbn.
+     * Ritorna l'ISBN del libro.
      *
-     * @return the isbn
+     * @return l'ISBN del libro
      */
     public String getISBN()
     {
@@ -88,9 +88,9 @@ public class Libro extends Elemento {
     }
 
     /**
-     * Gets titolo.
+     * Ritorna il titolo del libro.
      *
-     * @return the titolo
+     * @return il titolo del libro
      */
     public String getTitolo()
     {
@@ -98,9 +98,9 @@ public class Libro extends Elemento {
     }
 
     /**
-     * Gets genere.
+     * Ritorna il genere del libro.
      *
-     * @return the genere
+     * @return il genere del libro
      */
     public String getGenere()
     {
@@ -108,9 +108,9 @@ public class Libro extends Elemento {
     }
 
     /**
-     * Gets lingua.
+     * Ritorna la lingua del libro.
      *
-     * @return the lingua
+     * @return la lingua del libro
      */
     public String getLingua()
     {
@@ -118,18 +118,18 @@ public class Libro extends Elemento {
     }
 
     /**
-     * Gets editore.
+     * Ritorna l'editore del libro.
      *
-     * @return the editore
+     * @return l'editore del libro
      */
     public String getEditore() {
         return editore;
     }
 
     /**
-     * Gets autori.
+     * ritorna tutti gli autori del libro.
      *
-     * @return the autori
+     * @return la lista degli autori del libro
      */
     public ArrayList<Autore> getAutori() {
         return autori;

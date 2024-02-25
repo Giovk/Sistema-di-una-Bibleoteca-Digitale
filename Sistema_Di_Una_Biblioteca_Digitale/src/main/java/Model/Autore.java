@@ -4,37 +4,37 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 /**
- * The type Autore.
+ * La classe Autore crea nuove istanze di autori e fornisce i loro nomi e cognomi
  */
 public class Autore {
     /**
-     * The Nome.
+     * Nome dell'autore.
      */
     public String nome;
     /**
-     * The Cognome.
+     * Cognome dell'autore.
      */
     public String cognome;
     /**
-     * The Nazionalita.
+     * Nazionalita dell'autore.
      */
     public String nazionalita;
     /**
-     * The Data nascita.
+     * Data di nascita dell'autore.
      */
     public java.sql.Date dataNascita;
     /**
-     * The Articoli scritti.
+     * lista degli Articoli scritti dall'autore.
      */
     public ArrayList<ArticoloScientifico> articoliScritti;
 
     /**
-     * Instantiates a new Autore.
+     * Istanzia un nuovo autore con la data di nascita.
      *
-     * @param no the no
-     * @param c  the c
-     * @param na the na
-     * @param dn the dn
+     * @param no il nome dell'autore che si sta istanziando
+     * @param c  il cognome dell'autore che si sta istanziando
+     * @param na la nazioanalità dell'autore che si sta istanziando
+     * @param dn la data di nascita dell'autore che si sta istanziando
      */
     public Autore(String no, String c, String na, Date dn){
         nome = no;
@@ -44,11 +44,11 @@ public class Autore {
     }
 
     /**
-     * Instantiates a new Autore.
+     * Istanzia un nuovo Autore senza la data di nascita.
      *
-     * @param no the no
-     * @param c  the c
-     * @param na the na
+     * @param no il nome dell'autore che si sta istanziando
+     * @param c  il cognome dell'autore che si sta istanziando
+     * @param na la nazioanalità dell'autore che si sta istanziando
      */
     public Autore(String no, String c, String na){
         nome = no;
@@ -57,18 +57,18 @@ public class Autore {
     }
 
     /**
-     * Gets nome.
+     * Ritorna il nome dell'autore.
      *
-     * @return the nome
+     * @return il nome dell'autore
      */
     public String getNome() {
         return nome;
     }
 
     /**
-     * Gets cognome.
+     * Ritorna il cognome dell'autore.
      *
-     * @return the cognome
+     * @return il cognome dell'autore
      */
     public String getCognome() {
         return cognome;

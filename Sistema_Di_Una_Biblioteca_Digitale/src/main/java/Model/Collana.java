@@ -3,33 +3,33 @@ package Model;
 import java.util.ArrayList;
 
 /**
- * The type Collana.
+ * La classe Collana crea nuove istanze di collane di libri e fornisce i loro nomi e i libri di cui sono formate.
  */
 public class Collana {
     /**
-     * The Caratteristica.
+     * Caratteristica della collana.
      */
     public String caratteristica;
     /**
-     * The Nome.
+     * Nome della collana.
      */
     public String nome;
     /**
-     * The Issn.
+     * ISSN della collana.
      */
     public String issn;
     /**
-     * The Libri.
+     * Lista dei Libri che formano la collana.
      */
     public ArrayList<Libro> libri = new ArrayList<>();
 
     /**
-     * Instantiates a new Collana.
+     * Istanzia una nuova Collana.
      *
-     * @param c the c
-     * @param n the n
-     * @param i the
-     * @param l the l
+     * @param c la caratteristica della collana di libri
+     * @param n il nome della collana di libri
+     * @param i l'ISSN della collana di libri
+     * @param l lista dei libri della collana di libri
      */
     public Collana(String c, String n, String i, ArrayList<Libro> l){
         caratteristica = c;
@@ -42,18 +42,18 @@ public class Collana {
     }
 
     /**
-     * Gets libri.
+     * Ritorna tutti i libri della collana.
      *
-     * @return the libri
+     * @return la lista dei libri della collana
      */
     public ArrayList<Libro> getLibri() {
         return libri;
     }
 
     /**
-     * Gets nome.
+     * Ritorna il nome della collana.
      *
-     * @return the nome
+     * @return il nome della collana
      */
     public String getNome() {
         return nome;

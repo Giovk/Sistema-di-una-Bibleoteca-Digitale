@@ -1,38 +1,38 @@
 package Model;
 
 /**
- * The type Libreria.
+ * La classe Libreria crea nuove istanze di librerie e fornisce le loro informazioni.
  */
 public class Libreria {
     /**
-     * The Nome.
+     * Nome della libreria.
      */
     public String nome;
     /**
-     * The Numero telefonico.
+     * Numero telefonico della libreria.
      */
     public String numeroTelefonico;
     /**
-     * The Indirizzo.
+     * Indirizzo della libreria.
      */
     public String indirizzo;
     /**
-     * The Sito web.
+     * Link del Sito web della libreria.
      */
     public String sitoWeb;
     /**
-     * The Gestore.
+     * Utente Gestore della libreria.
      */
     public Utente gestore;
 
     /**
-     * Instantiates a new Libreria.
+     * Istanzia una nuova Libreria con il suo gestore.
      *
-     * @param n  the n
-     * @param nt the nt
-     * @param i  the
-     * @param sw the sw
-     * @param g  the g
+     * @param n  il nome della libreria
+     * @param nt il numero telefonico della libreria
+     * @param i  l'indirizzo della libreria
+     * @param sw il link della libreria
+     * @param g  l'utente che gestisce la libreria
      */
     public Libreria(String n, String nt, String i, String sw, Utente g){
         nome = n;
@@ -43,12 +43,12 @@ public class Libreria {
     }
 
     /**
-     * Instantiates a new Libreria.
+     * Istanzia una nuova Libreria.
      *
-     * @param n  the n
-     * @param nt the nt
-     * @param i  the
-     * @param sw the sw
+     * @param n  il nome della libreria
+     * @param nt il numero telefonico della libreria
+     * @param i  l'indirizzo della libreria
+     * @param sw il link della libreria
      */
     public Libreria(String n, String nt, String i, String sw){
         nome = n;
@@ -58,36 +58,36 @@ public class Libreria {
     }
 
     /**
-     * Gets nome.
+     * Ritorna nome il nome della libreria.
      *
-     * @return the nome
+     * @return il nome della libreria
      */
     public String getNome() {
         return nome;
     }
 
     /**
-     * Gets numero telefonico.
+     * Ritorna il numero telefonico della libreria.
      *
-     * @return the numero telefonico
+     * @return il numero telefonico della libreria
      */
     public String getNumeroTelefonico() {
         return numeroTelefonico;
     }
 
     /**
-     * Gets sito web.
+     * Ritorna il link del sito web della libreria.
      *
-     * @return the sito web
+     * @return il link del sito web della libreria
      */
     public String getSitoWeb() {
         return sitoWeb;
     }
 
     /**
-     * Gets indirizzo.
+     * Ritorna l'indirizzo del sito web della libreria.
      *
-     * @return the indirizzo
+     * @return l'indirizzo del sito web della libreria
      */
     public String getIndirizzo() {
         return indirizzo;

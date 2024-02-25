@@ -3,48 +3,48 @@ package Model;
 import java.util.Date;
 
 /**
- * The type Notifica.
+ * La classe Notifica crea nuove istanze di notifiche, fornisce le loro informazioni e segnala se una notifica è stata letta (o non è stata letta).
  */
 public class Notifica {
     /**
-     * The Testo.
+     * Testo della notifica.
      */
     public String testo;
     /**
-     * The Libreria.
+     * Libreria della notifica.
      */
     public int libreria;
     /**
-     * The Data invio.
+     * Data di invio della notifica.
      */
     public Date dataInvio;
     /**
-     * The Ora invio.
+     * Ora di invio della notifica.
      */
     public String oraInvio;
     /**
-     * The Lettura.
+     * Flag che segnala se la notifica è stata letta.
      */
     public boolean lettura;
     /**
-     * The Utente destinatario.
+     * Utente destinatario della notifica.
      */
     public Utente utenteDestinatario;
     /**
-     * The Serie disponibile.
+     * Serie disponibile della notifica.
      */
     public Serie serieDisponibile;
 
     /**
-     * Instantiates a new Notifica.
+     * Istanzia una nuova Notifica.
      *
-     * @param t  the t
-     * @param l  the l
-     * @param di the di
-     * @param oi the oi
-     * @param le the le
-     * @param ud the ud
-     * @param sd the sd
+     * @param t  il testo della notifica
+     * @param l  il codice identificativo della libreria della notifica
+     * @param di la data di invio della notifica
+     * @param oi l'ora di invio della notifica
+     * @param le la flag di lettura della notifica
+     * @param ud l'utente destinatario della notifica
+     * @param sd la serie disponibile della notifica
      */
     public Notifica(String t, int l, Date di, String oi, boolean le, Utente ud, Serie sd){
         testo = t;
@@ -57,45 +57,45 @@ public class Notifica {
     }
 
     /**
-     * Gets testo.
+     * Ritorna il testo della notifica.
      *
-     * @return the testo
+     * @return il testo della notifica
      */
     public String getTesto() {
         return testo;
     }
 
     /**
-     * Gets data invio.
+     * Ritorna la data di invio della notifica.
      *
-     * @return the data invio
+     * @return la data di invio della notifica
      */
     public Date getDataInvio() {
         return dataInvio;
     }
 
     /**
-     * Gets ora invio.
+     * Ritorna l'ora di invio della notifica.
      *
-     * @return the ora invio
+     * @return l'ora di invio della notifica
      */
     public String getOraInvio() {
         return oraInvio;
     }
 
     /**
-     * Sets lettura.
+     * Pone il flag di lettura allo stessoo valore passato come parametro.
      *
-     * @param lettura the lettura
+     * @param lettura il nuovo valore da assegnare al flag di lettura dalla notifica
      */
     public void setLettura(boolean lettura) {
         this.lettura = lettura;
     }
 
     /**
-     * Gets lettura.
+     * Ritorna il valore del flag di lettura della notifica.
      *
-     * @return the lettura
+     * @return il flag di lettura della notifica
      */
     public boolean getLettura() {
         return lettura;

@@ -4,38 +4,38 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * The type Conferenza.
+ * La classe Conferenza crea nuove istanze di conferenze e fornisce le loro informazioni.
  */
 public class Conferenza {
     /**
-     * The Struttura.
+     * Struttura organizzatrice della conferenza.
      */
     public String struttura;
     /**
-     * The Luogo.
+     * Luogo della conferenza.
      */
     public String luogo;
     /**
-     * The Data inizio.
+     * Data di inizio della conferenza.
      */
     public Date dataInizio;
     /**
-     * The Data fine.
+     * Data di fine della conferenza.
      */
     public Date dataFine;
     /**
-     * The Articoli esposti.
+     * Lista degli Articoli esposti nella conferenza.
      */
     public ArrayList<ArticoloScientifico> articoliEsposti;
 
     /**
-     * Instantiates a new Conferenza.
+     * Istanzia una nuova Conferenza con i suoi articoli scietifici.
      *
-     * @param s  the s
-     * @param l  the l
-     * @param di the di
-     * @param df the df
-     * @param a  the a
+     * @param s  la struttura organizzatrice della conferenza
+     * @param l  il luogo della conferenza
+     * @param di la data di inizio della conferenza
+     * @param df la data di fine della conferenza
+     * @param a  la lista di articoli scientifici della conferenza
      */
     public Conferenza(String s, String l, Date di, Date df, ArrayList<ArticoloScientifico> a) {
         struttura = s;
@@ -50,12 +50,12 @@ public class Conferenza {
     }
 
     /**
-     * Instantiates a new Conferenza.
+     * Istanzia una nuova Conferenza.
      *
-     * @param s  the s
-     * @param l  the l
-     * @param di the di
-     * @param df the df
+     * @param s  la struttura organizzatrice della conferenza
+     * @param l  il luogo della conferenza
+     * @param di la data di inizio della conferenza
+     * @param df la data di fine della conferenza
      */
     public Conferenza(String s, String l, Date di, Date df) {
         struttura = s;
@@ -65,36 +65,36 @@ public class Conferenza {
     }
 
     /**
-     * Gets luogo.
+     * Ritorna il luogo della Conferenza.
      *
-     * @return the luogo
+     * @return il luogo della Conferenza
      */
     public String getLuogo() {
         return luogo;
     }
 
     /**
-     * Gets struttura.
+     * Ritorna la struttura organizzatrice della conferenza.
      *
-     * @return the struttura
+     * @return la struttura organizzatrice della conferenza
      */
     public String getStruttura() {
         return struttura;
     }
 
     /**
-     * Gets data inizio.
+     * Ritorna la data di inizio della conferenza.
      *
-     * @return the data inizio
+     * @return la data inizio della conferenza
      */
     public Date getDataInizio() {
         return dataInizio;
     }
 
     /**
-     * Gets data fine.
+     * Ritorna la data di fine della conferenza.
      *
-     * @return the data fine
+     * @return la data fine della conferenza
      */
     public Date getDataFine() {
         return dataFine;

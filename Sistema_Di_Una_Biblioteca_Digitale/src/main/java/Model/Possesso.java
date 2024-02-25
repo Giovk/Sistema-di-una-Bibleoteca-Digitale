@@ -1,33 +1,33 @@
 package Model;
 
 /**
- * The type Possesso.
+ * La classe Possesso crea nuove istanze di possessi e fornisce le loro informazioni.
  */
 public class Possesso {
     /**
-     * The Fruizione.
+     * modalità di Fruizione in cui è disponibile l'elemento posseduto dalla libreia del possesso.
      */
     public String fruizione;
     /**
-     * The Quantita.
+     * Quantita disponibile dell'elemento posseduto dalla libreia del possesso.
      */
     public int quantita;
     /**
-     * The Elemento posseduto.
+     * Elemento posseduto dalla libreia del possesso.
      */
     public Elemento elementoPosseduto;
     /**
-     * The Libreria possedente.
+     * Libreria che possiede l'elemento del possesso.
      */
     public Libreria libreriaPossedente;
 
     /**
-     * Instantiates a new Possesso.
+     * Istanzia un nuovo Possesso.
      *
-     * @param f  the f
-     * @param q  the q
-     * @param ep the ep
-     * @param l  the l
+     * @param f  la modalità di fruizione in cui è disponibile l'elemento posseduto dalla libreia del possesso
+     * @param q  la quantità disponibile dell'elemento posseduto dalla libreia del possesso
+     * @param ep l'elemento posseduto dalla libreia del possesso
+     * @param l  la libreria che possiede l'elemento del possesso
      */
     public Possesso(String f, int q, Elemento ep, Libreria l){
         fruizione = f;
@@ -37,18 +37,18 @@ public class Possesso {
     }
 
     /**
-     * Get fruizione string.
+     * Ritorna una stringa contenente la modalità di fruizione in cui è disponibile l'elemento posseduto dalla libreia del possesso.
      *
-     * @return the string
+     * @return la stringa con la fruizione dell'elemento posseduto
      */
     public String getFruizione(){
         return  fruizione;
     }
 
     /**
-     * Get quantita int.
+     * Ritorna il valore della quantità disponibile dell'elemento posseduto dalla libreia del possesso.
      *
-     * @return the int
+     * @return la quantità disponibile dell'elemento posseduto dalla libreia del possesso.
      */
     public int getQuantita(){
         return quantita;
