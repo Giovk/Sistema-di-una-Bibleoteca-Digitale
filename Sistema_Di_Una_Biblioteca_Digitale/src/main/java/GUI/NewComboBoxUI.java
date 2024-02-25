@@ -26,6 +26,9 @@ import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
+/**
+ * The type New combo box ui.
+ */
 public class NewComboBoxUI extends BasicComboBoxUI {
 
     @Override
@@ -106,6 +109,11 @@ public class NewComboBoxUI extends BasicComboBoxUI {
 
     private class ComboSuggestionPopup extends BasicComboPopup {
 
+        /**
+         * Instantiates a new Combo suggestion popup.
+         *
+         * @param combo the combo
+         */
         public ComboSuggestionPopup(JComboBox combo) {
             super(combo);
             setBorder(new Border(1));
@@ -128,6 +136,9 @@ public class NewComboBoxUI extends BasicComboBoxUI {
 
     private class ArrowButton extends JButton {
 
+        /**
+         * Instantiates a new Arrow button.
+         */
         public ArrowButton() {
             setContentAreaFilled(false);
             setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -155,18 +166,38 @@ public class NewComboBoxUI extends BasicComboBoxUI {
 
     private class Border extends EmptyBorder {
 
+        /**
+         * Gets focus color.
+         *
+         * @return the focus color
+         */
         public Color getFocusColor() {
             return focusColor;
         }
 
+        /**
+         * Sets focus color.
+         *
+         * @param focusColor the focus color
+         */
         public void setFocusColor(Color focusColor) {
             this.focusColor = focusColor;
         }
 
+        /**
+         * Gets color.
+         *
+         * @return the color
+         */
         public Color getColor() {
             return color;
         }
 
+        /**
+         * Sets color.
+         *
+         * @param color the color
+         */
         public void setColor(Color color) {
             this.color = color;
         }
@@ -174,10 +205,18 @@ public class NewComboBoxUI extends BasicComboBoxUI {
         private Color focusColor = new Color(0xCF9E29);
         private Color color = new Color(34, 40, 49);
 
+        /**
+         * Instantiates a new Border.
+         *
+         * @param border the border
+         */
         public Border(int border) {
             super(border, border, border, border);
         }
 
+        /**
+         * Instantiates a new Border.
+         */
         public Border() {
             this(5);
         }

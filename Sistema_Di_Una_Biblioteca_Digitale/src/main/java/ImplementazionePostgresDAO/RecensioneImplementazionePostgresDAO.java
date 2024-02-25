@@ -6,9 +6,15 @@ import Database.ConnessioneDatabase;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The type Recensione implementazione postgres dao.
+ */
 public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
     private Connection connection;
 
+    /**
+     * Instantiates a new Recensione implementazione postgres dao.
+     */
     public  RecensioneImplementazionePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;

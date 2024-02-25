@@ -8,9 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Rivista implementazione postgres dao.
+ */
 public class RivistaImplementazionePostgresDAO implements RivistaDAO {
     private Connection connection;
 
+    /**
+     * Instantiates a new Rivista implementazione postgres dao.
+     */
     public RivistaImplementazionePostgresDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().connection;

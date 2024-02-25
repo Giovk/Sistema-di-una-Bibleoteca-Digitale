@@ -18,7 +18,13 @@ import java.text.DecimalFormat;
 import java.time.Year;
 import java.util.ArrayList;
 
+/**
+ * The type Aggiungi elemento form.
+ */
 public class AggiungiElementoForm {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel contentPane;
     private JLabel closeBT;
@@ -109,11 +115,24 @@ public class AggiungiElementoForm {
     private DatePicker datePickerSerie;
     private int screenWidth = 0;
     private int screenHeight = 0;
+    /**
+     * The Calendar ico.
+     */
     ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar2.png"));
+    /**
+     * The Calendar img.
+     */
     Image calendarImg = calendarIco.getImage().getScaledInstance((int) (Toolkit.getDefaultToolkit().getScreenSize().width/51.2), (int) (Toolkit.getDefaultToolkit().getScreenSize().height/28.8), Image.SCALE_SMOOTH);
     private ArrayList<String> isbnLibri;
     private DatePicker datePickerFascicoli;
 
+    /**
+     * Instantiates a new Aggiungi elemento form.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     * @param model      the model
+     */
     public AggiungiElementoForm(JFrame frameC, Controller controller, DefaultTableModel model){
         screenHeight = controller.screenHeight; //inizializza l'altezza dello schermo
         screenWidth = controller.screenWidth;   //inizializza la larghezza dello schermo
@@ -1740,6 +1759,12 @@ public class AggiungiElementoForm {
         autoriLibroPanel.add(panel1);   //inserisce 'panel1' nel JPanel 'autoriLibroPanel'
     }//fine initComponentsAutoreLibro
 
+    /**
+     * Calcola altezza font int.
+     *
+     * @param font the font
+     * @return the int
+     */
     public int calcolaAltezzaFont(Font font){   //calcola l'alteza del font 'font'
         BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB); //crea un'immagine
         Graphics2D g2d = image.createGraphics();    //Graphics assocciata alla BufferedImage 'image'

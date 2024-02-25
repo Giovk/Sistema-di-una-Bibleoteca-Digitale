@@ -11,7 +11,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The type Change quantity.
+ */
 public class ChangeQuantity {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel contentPane;
     private JLabel closeBT;
@@ -19,6 +25,15 @@ public class ChangeQuantity {
     private JButton okButton;
     private JLabel quantitaLabel;
 
+    /**
+     * Instantiates a new Change quantity.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     * @param model      the model
+     * @param formato    the formato
+     * @param value      the value
+     */
     public ChangeQuantity(JFrame frameC, Controller controller, DefaultTableModel model, String formato, int value){
         quantitaLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'quantitaLabel'
         quantitaSpinner.setFont(controller.textFieldFont);  //imposta il font dello JSpinner 'quantitaSpinner'
@@ -88,6 +103,16 @@ public class ChangeQuantity {
         });
     }
 
+    /**
+     * Instantiates a new Change quantity.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     * @param model      the model
+     * @param formato    the formato
+     * @param numero     the numero
+     * @param value      the value
+     */
     public ChangeQuantity(JFrame frameC, Controller controller, DefaultTableModel model, String formato, int numero, int value){
         quantitaLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'quantitaLabel'
         quantitaSpinner.setFont(controller.textFieldFont);  //imposta il font dello JSpinner 'quantitaSpinner'

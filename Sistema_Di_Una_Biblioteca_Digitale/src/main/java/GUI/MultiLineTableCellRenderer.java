@@ -6,9 +6,15 @@ import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
+/**
+ * The type Multi line table cell renderer.
+ */
 public class MultiLineTableCellRenderer extends JTextArea implements TableCellRenderer {
 
-        public MultiLineTableCellRenderer() {
+    /**
+     * Instantiates a new Multi line table cell renderer.
+     */
+    public MultiLineTableCellRenderer() {
             setLineWrap(true);
             setWrapStyleWord(true);
             setOpaque(true);

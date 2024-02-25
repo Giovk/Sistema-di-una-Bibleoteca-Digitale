@@ -16,7 +16,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+/**
+ * The type Home page.
+ */
 public class HomePage {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel homepagePanel;
     private JButton homeButton;
@@ -43,6 +49,12 @@ public class HomePage {
     private DefaultTableModel model;
     private int numeroNotifiche;
 
+    /**
+     * Instantiates a new Home page.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     */
     public HomePage(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato

@@ -2,7 +2,16 @@ package GUI;
 
 import java.awt.*;
 
+/**
+ * The type Varied height grid layout.
+ */
 class VariedHeightGridLayout extends GridLayout {
+    /**
+     * Instantiates a new Varied height grid layout.
+     *
+     * @param rows the rows
+     * @param cols the cols
+     */
     public VariedHeightGridLayout(int rows, int cols) {
         super(rows, cols);
     }

@@ -19,7 +19,13 @@ import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * The type Serie page.
+ */
 public class SeriePage {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel buttonPanel;
     private JButton homeButton;
@@ -51,12 +57,24 @@ public class SeriePage {
     private JLabel notificheLabel;
     private JLabel valLabel;
     private boolean active = false;
+    /**
+     * The Favourite vuoto ico.
+     */
     ImageIcon favouriteVuotoIco;
+    /**
+     * The Favourite pieno ico.
+     */
     ImageIcon favouritePienoIco;
     private float valutazioneMedia;
     private String isbnSelezionato;
     private int numeroNotifiche;
-    
+
+    /**
+     * Instantiates a new Serie page.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     */
     public SeriePage (JFrame frameC, Controller controller) {
         isbnSelezionato = controller.isbn_selected;     //inizializza 'isbnSelezionato' con l'ISBN della serie selezionata
 
@@ -740,6 +758,13 @@ public class SeriePage {
         timer.setRepeats(true); //fa ripetere il timer dopo che è scaduto
     }
 
+    /**
+     * Change stars.
+     *
+     * @param stellaPienaIco the stella piena ico
+     * @param stellaVuotaIco the stella vuota ico
+     * @param stellaMezzaIco the stella mezza ico
+     */
     public void changeStars(ImageIcon stellaPienaIco, ImageIcon stellaVuotaIco, ImageIcon stellaMezzaIco){  //aggiorna le stelle della valutazione media
         if(valutazioneMedia <= 0.25){   //controlla se la media è minore uguale a 0,25
             stella1.setIcon(stellaVuotaIco);    //imposta l'icona della JLabel 'stella1' con l'immagine 'stellaVuotaIco'
@@ -827,6 +852,17 @@ public class SeriePage {
         }
     }//fine setNumeroNotifiche
 
+    /**
+     * Change stars.
+     *
+     * @param stella1     the stella 1
+     * @param stella2     the stella 2
+     * @param stella3     the stella 3
+     * @param stella4     the stella 4
+     * @param stella5     the stella 5
+     * @param valutazione the valutazione
+     * @param controller  the controller
+     */
     public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione, Controller controller){   //aggiorna le stelle della recensione con valutazione 'valutazione'
         ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png")); //carica l'immagine nel percorso /stella_vuota.png
         Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
@@ -877,6 +913,12 @@ public class SeriePage {
         }
     }//fine changeStars
 
+    /**
+     * Show comment.
+     *
+     * @param controller the controller
+     * @param commenti   the commenti
+     */
     public void showComment(Controller controller, JPanel commenti){    //mostra tutti i commenti fatti al libro selezionato
         controller.isbn_selected = isbnSelezionato;    //inizializza 'controller.isbn_selected' con 'isbnSelezionato'
         controller.allRecWithCommentLibro();    //inizializza 'controller.recensioniConCommento'
@@ -886,6 +928,16 @@ public class SeriePage {
         }
     }//fine showComment
 
+    /**
+     * Add comment.
+     *
+     * @param utente       the utente
+     * @param val          the val
+     * @param commentoUser the commento user
+     * @param commenti     the commenti
+     * @param n            the n
+     * @param controller   the controller
+     */
     public void addComment(String utente, int val, String commentoUser, JPanel commenti, int n, Controller controller){
         JPanel panel1;
         JLabel jcomp1;

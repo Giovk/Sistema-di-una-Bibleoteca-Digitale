@@ -8,9 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Presentazione implementazione postgres dao.
+ */
 public class PresentazioneImplementazionePostgresDAO implements PresentazioneDAO {
     private Connection connection;
 
+    /**
+     * Instantiates a new Presentazione implementazione postgres dao.
+     */
     public PresentazioneImplementazionePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;

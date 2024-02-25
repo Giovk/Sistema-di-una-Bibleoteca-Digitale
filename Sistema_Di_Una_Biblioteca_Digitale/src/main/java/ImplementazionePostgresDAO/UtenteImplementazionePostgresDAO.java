@@ -5,9 +5,15 @@ import Database.ConnessioneDatabase;
 
 import java.sql.*;
 
+/**
+ * The type Utente implementazione postgres dao.
+ */
 public class UtenteImplementazionePostgresDAO implements UtenteDAO {
     private Connection connection;
 
+    /**
+     * Instantiates a new Utente implementazione postgres dao.
+     */
     public  UtenteImplementazionePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;

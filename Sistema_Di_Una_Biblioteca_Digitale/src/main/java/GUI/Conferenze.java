@@ -11,7 +11,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Date;
 
+/**
+ * The type Conferenze.
+ */
 public class Conferenze {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel contentPanel;
     private JPanel closePanel;
@@ -54,6 +60,12 @@ public class Conferenze {
     private NewComboBox conferenzeCB = new NewComboBox<>();
     private boolean active = true;
 
+    /**
+     * Instantiates a new Conferenze.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     */
     public Conferenze(JFrame frameC, Controller controller){
         datePicker = new DatePickerMoreDay(calendarIMG);
         datePicker2 = new DatePickerMoreDay(calendarIMG2);
@@ -555,6 +567,9 @@ public class Conferenze {
         });
     }
 
+    /**
+     * Annulla action.
+     */
     public void annulla_action(){   //chiude il JPanel er inserire una nuova conferenza
         strutturaField.setText(""); //svuota il testo del JTextField 'strutturaField'
         viaField.setText("");   //svuota il testo del JTextField 'viaField'
@@ -575,6 +590,12 @@ public class Conferenze {
         conferenzeCB.setSelectedIndex(-1);  //deseleziona 'conferenzeCB'
     }//fine annulla_action
 
+    /**
+     * Reload table cb.
+     *
+     * @param controller the controller
+     * @param indirizzo  the indirizzo
+     */
     public void reload_table_cb(Controller controller, String indirizzo){   //se l'articolo selezionato non è stato gia esposto nella conferenza selezionata, aggiorna il contenuto della tabella, altrimenti mostra un messaggio di errorea
         if (controller.addEsposizione(strutturaField.getText().replace("'", "’"), indirizzo.replace("'", "’"), dataInizioField.getText(), dataFineField.getText()) == false){   //controlla se l'articolo è gia stato inserito nella conferenza
             NewShowMessageDialog dialog = new NewShowMessageDialog(2, "Questo articolo è già esposto in questa conferenza!");   //mostra un messaggio di errore
@@ -599,6 +620,12 @@ public class Conferenze {
         }
     }//fine reload_table_cb
 
+    /**
+     * Find first number position int.
+     *
+     * @param input the input
+     * @return the int
+     */
     public static int findFirstNumberPosition(String input) {   //se c'è, restituisce l'indice della prima cifra in 'input', altrimenti restituise -1
         int length = input.length();    //lunghezza di 'input'
 

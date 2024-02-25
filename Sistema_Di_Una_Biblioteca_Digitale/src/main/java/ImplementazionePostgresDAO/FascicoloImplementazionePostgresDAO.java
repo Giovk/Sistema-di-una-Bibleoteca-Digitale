@@ -5,9 +5,15 @@ import Database.ConnessioneDatabase;
 
 import java.sql.*;
 
+/**
+ * The type Fascicolo implementazione postgres dao.
+ */
 public class FascicoloImplementazionePostgresDAO implements FascicoloDAO {
     private Connection connection;
 
+    /**
+     * Instantiates a new Fascicolo implementazione postgres dao.
+     */
     public FascicoloImplementazionePostgresDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().connection;

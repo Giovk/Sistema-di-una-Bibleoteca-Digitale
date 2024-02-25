@@ -6,10 +6,16 @@ import Database.ConnessioneDatabase;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The type Serie implementazione postgres dao.
+ */
 public class SerieImplementazionePostgresDAO implements SerieDAO {
 
     private Connection connection;
 
+    /**
+     * Instantiates a new Serie implementazione postgres dao.
+     */
     public  SerieImplementazionePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;

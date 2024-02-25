@@ -7,7 +7,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 
+/**
+ * The type Recensione.
+ */
 public class Recensione extends JDialog {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel contentPane;
     private JLabel stella1;
@@ -23,15 +29,53 @@ public class Recensione extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private boolean active = false;
+    /**
+     * The Stella piena ico.
+     */
     public ImageIcon stellaPienaIco;
+    /**
+     * The Stella vuota ico.
+     */
     public ImageIcon stellaVuotaIco;
+    /**
+     * The Stella mezza ico.
+     */
     public ImageIcon stellaMezzaIco;
+    /**
+     * The Valutazione.
+     */
     public int valutazione = 0;
+    /**
+     * The Valutazione media.
+     */
     public float valutazioneMedia;
+    /**
+     * The Isbn selezionato.
+     */
     public String isbn_selezionato;
+    /**
+     * The Titolo.
+     */
     public String titolo;
+    /**
+     * The Numero.
+     */
     int numero;
 
+    /**
+     * Instantiates a new Recensione.
+     *
+     * @param frameC       the frame c
+     * @param controller   the controller
+     * @param valutazioneC the valutazione c
+     * @param s1           the s 1
+     * @param s2           the s 2
+     * @param s3           the s 3
+     * @param s4           the s 4
+     * @param s5           the s 5
+     * @param commenti     the commenti
+     * @param elemento     the elemento
+     */
     public Recensione(JFrame frameC, Controller controller, JLabel valutazioneC, JLabel s1, JLabel s2, JLabel s3, JLabel s4, JLabel s5, JPanel commenti,int elemento) {
         if(controller.isbn_selected != null){   //controlla se è stato selezionato un libro
             isbn_selezionato = controller.isbn_selected;    //inizializza 'isbn_selezionato' con l'ISBN del libro selezionato
@@ -391,6 +435,17 @@ public class Recensione extends JDialog {
         });
     }
 
+    /**
+     * Change stars.
+     *
+     * @param stella1     the stella 1
+     * @param stella2     the stella 2
+     * @param stella3     the stella 3
+     * @param stella4     the stella 4
+     * @param stella5     the stella 5
+     * @param valutazione the valutazione
+     * @param controller  the controller
+     */
     public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione, Controller controller){   //aggiorna le stelle della recensione con valutazione 'valutazione'
         ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png")); //carica l'immagine nel percorso /stella_vuota.png
         Image stellaVuotaImg = stellaVuotaIco.getImage().getScaledInstance((int) (controller.screenWidth/51.2), (int) (controller.screenHeight/28.8), Image.SCALE_SMOOTH);  //imposta le dimensioni dell'immagine
@@ -441,6 +496,13 @@ public class Recensione extends JDialog {
         }
     }//fine changeStars
 
+    /**
+     * Show comment.
+     *
+     * @param controller the controller
+     * @param commenti   the commenti
+     * @param elemento   the elemento
+     */
     public void showComment(Controller controller, JPanel commenti, int elemento){  //mostra tutti i commenti fatti all'elemento selezionato
         if (elemento == 1) {    //controlla se è stato selezionato un libro
             controller.isbn_selected = isbn_selezionato;    //inizializza 'controller.isbn_selected' con 'isbn_selezionato'
@@ -462,6 +524,16 @@ public class Recensione extends JDialog {
         }
     }//fine showComment
 
+    /**
+     * Add comment.
+     *
+     * @param utente       the utente
+     * @param val          the val
+     * @param commentoUser the commento user
+     * @param commenti     the commenti
+     * @param n            the n
+     * @param controller   the controller
+     */
     public void addComment(String utente, int val, String commentoUser, JPanel commenti, int n, Controller controller){
         JPanel panel1;
         JLabel jcomp1;
@@ -565,6 +637,18 @@ public class Recensione extends JDialog {
         commenti.add(panel1, constraints);  //inserisce nel 'panel1' nel JPanel 'commenti'
     }//fine addComment
 
+    /**
+     * Change stars.
+     *
+     * @param s1             the s 1
+     * @param s2             the s 2
+     * @param s3             the s 3
+     * @param s4             the s 4
+     * @param s5             the s 5
+     * @param stellaPienaIco the stella piena ico
+     * @param stellaVuotaIco the stella vuota ico
+     * @param stellaMezzaIco the stella mezza ico
+     */
     public void changeStars(JLabel s1, JLabel s2, JLabel s3, JLabel s4, JLabel s5, ImageIcon stellaPienaIco, ImageIcon stellaVuotaIco, ImageIcon stellaMezzaIco){
         if(valutazioneMedia <= 0.25){   //controlla se la media è minore uguale a 0,25
             s1.setIcon(stellaVuotaIco); //imposta l'icona della JLabel 's1' con l'immagine 'stellaVuotaIco'

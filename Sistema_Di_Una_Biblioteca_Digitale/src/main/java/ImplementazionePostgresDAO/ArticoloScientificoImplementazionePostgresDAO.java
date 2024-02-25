@@ -8,9 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Articolo scientifico implementazione postgres dao.
+ */
 public class ArticoloScientificoImplementazionePostgresDAO implements ArticoloScientificoDAO {
     private Connection connection;
 
+    /**
+     * Instantiates a new Articolo scientifico implementazione postgres dao.
+     */
     public ArticoloScientificoImplementazionePostgresDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().connection;

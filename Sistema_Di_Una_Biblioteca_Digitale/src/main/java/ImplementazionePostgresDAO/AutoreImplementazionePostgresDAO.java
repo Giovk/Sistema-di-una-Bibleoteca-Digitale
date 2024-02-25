@@ -5,9 +5,15 @@ import Database.ConnessioneDatabase;
 
 import java.sql.*;
 
+/**
+ * The type Autore implementazione postgres dao.
+ */
 public class AutoreImplementazionePostgresDAO implements AutoreDAO{
     private Connection connection;
 
+    /**
+     * Instantiates a new Autore implementazione postgres dao.
+     */
     public AutoreImplementazionePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;
@@ -242,6 +248,9 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
         chiudiConnessione();    //chiude la connessione al DB
     }//fine Customize Toolbar...
 
+    /**
+     * Chiudi connessione.
+     */
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){  //controlla se la connessione è chiusa

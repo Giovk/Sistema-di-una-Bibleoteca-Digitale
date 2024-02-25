@@ -8,7 +8,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 
+/**
+ * The type New login form.
+ */
 public class NewLoginForm extends JDialog {
+    /**
+     * The constant frame.
+     */
     public static JFrame frame;
     private JPanel contentPane;
     private JLabel imageLabel;
@@ -59,10 +65,20 @@ public class NewLoginForm extends JDialog {
     private JLabel calendarIMG;
     private ImageIcon imagine;
     private ImageIcon closeImg;
+    /**
+     * The Menu acc.
+     */
     public int menuAcc;
     private DatePicker datePicker;
     private Boolean debug = false;
 
+    /**
+     * Instantiates a new New login form.
+     *
+     * @param joinD      the join d
+     * @param frameC     the frame c
+     * @param controller the controller
+     */
     public NewLoginForm(int joinD, JFrame frameC, Controller controller) {
         accediButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'accediButton'
         registratiButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'registratiButton'

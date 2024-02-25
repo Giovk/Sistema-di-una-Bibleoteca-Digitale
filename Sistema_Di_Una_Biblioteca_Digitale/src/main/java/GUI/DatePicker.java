@@ -9,26 +9,89 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+/**
+ * The type Date picker.
+ */
 class DatePicker extends JPanel{
+    /**
+     * The Month.
+     */
     int month = Calendar.getInstance().get(java.util.Calendar.MONTH);
+    /**
+     * The Year.
+     */
     int year = Calendar.getInstance().get(java.util.Calendar.YEAR);
+    /**
+     * The Day.
+     */
     String day = "";
+    /**
+     * The D.
+     */
     JDialog d;
+    /**
+     * The Mesi.
+     */
     JComboBox mesi = new JComboBox<>();
+    /**
+     * The Anni.
+     */
     JComboBox anni = new JComboBox<>();
+    /**
+     * The Button.
+     */
     JButton[] button = new JButton[49];
+    /**
+     * The Previous.
+     */
     JButton previous = new JButton("<<");
+    /**
+     * The Next.
+     */
     JButton next = new JButton(">>");
+    /**
+     * The Cal.
+     */
     java.util.Calendar cal = java.util.Calendar.getInstance();
+    /**
+     * The Screen width.
+     */
     int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+    /**
+     * The Screen height.
+     */
     int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+    /**
+     * The Font size.
+     */
     public int fontSize = getFontSize();
+    /**
+     * The Base font size.
+     */
     public Font baseFontSize = new Font("Segoe UI", Font.PLAIN, fontSize);
+    /**
+     * The Impact font size.
+     */
     public Font impactFontSize = new Font("Impact", Font.PLAIN, fontSize);
+    /**
+     * The Text field font.
+     */
     public Font textFieldFont = new Font("Berlin Sans FB", Font.PLAIN, fontSize-2);
 
+    /**
+     * The Ico.
+     */
     static ImageIcon ico;
+    /**
+     * The Img.
+     */
     static Image img;
+
+    /**
+     * Instantiates a new Date picker.
+     *
+     * @param parent the parent
+     */
     public DatePicker(JLabel parent) {
         ico = new ImageIcon(this.getClass().getResource("/Calendar.png"));
         img = ico.getImage().getScaledInstance((int) (screenWidth/51.2), (int) (screenHeight/28.8), Image.SCALE_SMOOTH);
@@ -462,6 +525,9 @@ class DatePicker extends JPanel{
 
     }
 
+    /**
+     * Display date.
+     */
     public void displayDate() {
         for (int x = 7; x < button.length; x++)
             button[x].setText("");
@@ -503,6 +569,11 @@ class DatePicker extends JPanel{
         d.setTitle("Date Picker");
     }
 
+    /**
+     * Sets picked date.
+     *
+     * @return the picked date
+     */
     public String setPickedDate() {
         if (day.equals(""))
             return day;
@@ -513,6 +584,11 @@ class DatePicker extends JPanel{
         return sdf.format(cal.getTime());
     }
 
+    /**
+     * Get font size int.
+     *
+     * @return the int
+     */
     public int getFontSize(){
         // Calcola la dimensione del font in base alle dimensioni dello schermo
         int fontSize = Math.min(screenWidth, screenHeight) / 50; // Modifica il coefficiente a seconda delle tue preferenze

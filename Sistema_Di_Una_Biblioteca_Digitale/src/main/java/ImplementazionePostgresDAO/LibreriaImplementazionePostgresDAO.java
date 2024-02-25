@@ -5,9 +5,15 @@ import Database.ConnessioneDatabase;
 
 import java.sql.*;
 
+/**
+ * The type Libreria implementazione postgres dao.
+ */
 public class LibreriaImplementazionePostgresDAO implements LibreriaDAO {
     private Connection connection;
 
+    /**
+     * Instantiates a new Libreria implementazione postgres dao.
+     */
     public LibreriaImplementazionePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;
@@ -189,6 +195,9 @@ public class LibreriaImplementazionePostgresDAO implements LibreriaDAO {
         }
     }//fine removeLibreriaDB
 
+    /**
+     * Chiudi connessione.
+     */
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){  //controlla se la connessione è chiusa

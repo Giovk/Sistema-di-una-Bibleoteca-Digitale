@@ -4,9 +4,17 @@ import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
+/**
+ * The type Separator header renderer.
+ */
 class SeparatorHeaderRenderer implements TableCellRenderer {
     private TableCellRenderer defaultRenderer;
 
+    /**
+     * Instantiates a new Separator header renderer.
+     *
+     * @param defaultRenderer the default renderer
+     */
     public SeparatorHeaderRenderer(TableCellRenderer defaultRenderer) {
         this.defaultRenderer = defaultRenderer;
     }

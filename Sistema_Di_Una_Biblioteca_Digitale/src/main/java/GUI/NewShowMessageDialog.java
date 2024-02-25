@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The type New show message dialog.
+ */
 public class NewShowMessageDialog extends JDialog {
     private JPanel contentPane;
     private JLabel typeLabel;
@@ -11,11 +14,29 @@ public class NewShowMessageDialog extends JDialog {
     private JButton okButton;
     private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
     private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+    /**
+     * The Font size.
+     */
     public int fontSize = getFontSize();
+    /**
+     * The Base font size.
+     */
     public Font baseFontSize = new Font("Segoe UI", Font.PLAIN, fontSize);
+    /**
+     * The Impact font size.
+     */
     public Font impactFontSize = new Font("Impact", Font.PLAIN, fontSize);
+    /**
+     * The Text field font.
+     */
     public Font textFieldFont = new Font("Berlin Sans FB", Font.PLAIN, fontSize-2);
 
+    /**
+     * Instantiates a new New show message dialog.
+     *
+     * @param typeIcon the type icon
+     * @param message  the message
+     */
     public NewShowMessageDialog(int typeIcon, String message) {
         this.setUndecorated(true);  //rimuove la decorazione della finestra
         this.setSize((int) (screenWidth/8.5333),(int) (screenHeight/7.2));  //imposta le dimensioni della finestra
@@ -106,6 +127,11 @@ public class NewShowMessageDialog extends JDialog {
         dispose();
     }//fine onCancel
 
+    /**
+     * Gets font size.
+     *
+     * @return the font size
+     */
     public int getFontSize(){   //calcola le dimensioni del font in base alle dimensioni dello schermo
         int fontSize = Math.min(screenWidth, screenHeight) / 50;    //dimensione del font
         return fontSize;

@@ -8,9 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Possesso implementazione postgres dao.
+ */
 public class PossessoImplementazionePostgresDAO implements PossessoDAO {
     private Connection connection;
 
+    /**
+     * Instantiates a new Possesso implementazione postgres dao.
+     */
     public PossessoImplementazionePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;

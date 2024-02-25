@@ -7,7 +7,13 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The type Gestisci collane.
+ */
 public class GestisciCollane {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel contentPane;
     private JPanel closePanel;
@@ -29,6 +35,12 @@ public class GestisciCollane {
     private JLabel iCampiChePresentanoLabel;
     private int collaneLibroCount = 0;
 
+    /**
+     * Instantiates a new Gestisci collane.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     */
     public GestisciCollane(JFrame frameC, Controller controller){
         creaCollanaButton.setFont(controller.baseFontSize); //imposta il font del JButton del JButton 'creaCollanaButton'
         creaCollanaButton.setMinimumSize(new Dimension((int) (controller.screenWidth/8.5333),-1));  //imposta la dimensione minima del JButton 'creaCollanaButton'

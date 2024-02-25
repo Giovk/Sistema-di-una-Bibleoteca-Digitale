@@ -14,7 +14,13 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The type Series page.
+ */
 public class SeriesPage {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel buttonPanel;
     private JButton homeButton;
@@ -42,6 +48,12 @@ public class SeriesPage {
     private Boolean active = false;
     private int numeroNotifiche;
 
+    /**
+     * Instantiates a new Series page.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     */
     public SeriesPage(JFrame frameC, Controller controller){
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato
@@ -578,6 +590,11 @@ public class SeriesPage {
         }
     }//fine setNumeroNotifiche
 
+    /**
+     * Search.
+     *
+     * @param controller the controller
+     */
     public void search(Controller controller){  //esegue una ricerca nella tabella
         if (searchBarField.getText().isBlank()) {  //controlla se non è stato inserito un testo nel JTextField 'searchBarField'
             groupRB.clearSelection();   //deseleziona tutti i bottoni del 'ButtonGroup' groupRB

@@ -8,9 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Notifica implementazione postgres dao.
+ */
 public class NotificaImplementazionePostgresDAO implements NotificaDAO {
     private Connection connection;
 
+    /**
+     * Instantiates a new Notifica implementazione postgres dao.
+     */
     public NotificaImplementazionePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;
@@ -89,6 +95,9 @@ public class NotificaImplementazionePostgresDAO implements NotificaDAO {
         chiudiConnessione();    //chiude la connessione al DB
     }//fine visualizzaNotificaDB
 
+    /**
+     * Chiudi connessione.
+     */
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{
             if (connection != null && !connection.isClosed()){  //controlla se la connessione è chiusa

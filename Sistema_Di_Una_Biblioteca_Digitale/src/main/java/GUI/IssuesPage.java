@@ -15,7 +15,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+/**
+ * The type Issues page.
+ */
 public class IssuesPage {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JButton homeButton;
     private JRadioButton rivistaRB;
@@ -42,6 +48,12 @@ public class IssuesPage {
     private DefaultTableModel model;
     private int numeroNotifiche;
 
+    /**
+     * Instantiates a new Issues page.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     */
     public IssuesPage(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato

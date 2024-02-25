@@ -13,7 +13,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+/**
+ * The type Books page.
+ */
 public class BooksPage {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JButton homeButton;
     private JRadioButton genereRB;
@@ -45,6 +51,12 @@ public class BooksPage {
     private int numeroNotifiche;
     private JPopupMenu utenteMenu;
 
+    /**
+     * Instantiates a new Books page.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     */
     public BooksPage(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato

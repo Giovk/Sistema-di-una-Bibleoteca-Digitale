@@ -7,7 +7,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The type Crea libreria.
+ */
 public class CreaLibreria {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel contentPane;
     private JLabel closeBT;
@@ -33,6 +39,13 @@ public class CreaLibreria {
     private JLabel provinciaLabel;
     private JLabel nazioneLabel;
 
+    /**
+     * Instantiates a new Crea libreria.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     * @param model      the model
+     */
     public CreaLibreria(JFrame frameC, Controller controller, DefaultTableModel model){
         notificheLabelText.setFont(controller.impactFontSize);  //imposta il font della JLabel 'notificheLabelText'
         nomeLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'nomeLabel'

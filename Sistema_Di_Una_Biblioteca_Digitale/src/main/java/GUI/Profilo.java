@@ -15,7 +15,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * The type Profilo.
+ */
 public class Profilo {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JButton homeButton;
     private JButton utenteButton;
@@ -65,6 +71,12 @@ public class Profilo {
     private int row_selected;
     private int numeroNotifiche;
 
+    /**
+     * Instantiates a new Profilo.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     */
     public Profilo(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato

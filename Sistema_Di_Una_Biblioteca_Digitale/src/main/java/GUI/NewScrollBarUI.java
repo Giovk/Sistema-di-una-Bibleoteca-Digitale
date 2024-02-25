@@ -12,6 +12,9 @@ import javax.swing.JComponent;
 import javax.swing.JScrollBar;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+/**
+ * The type New scroll bar ui.
+ */
 public class NewScrollBarUI extends BasicScrollBarUI {
 
     private final int THUMB_SIZE = 60;
@@ -60,6 +63,9 @@ public class NewScrollBarUI extends BasicScrollBarUI {
 
     private class ScrollBarButton extends JButton {
 
+        /**
+         * Instantiates a new Scroll bar button.
+         */
         public ScrollBarButton() {
             setBorder(BorderFactory.createEmptyBorder());
         }

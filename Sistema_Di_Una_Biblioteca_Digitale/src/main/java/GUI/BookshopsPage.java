@@ -15,7 +15,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * The type Bookshops page.
+ */
 public class BookshopsPage {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel buttonPanel;
     private JButton homeButton;
@@ -38,6 +44,12 @@ public class BookshopsPage {
     private int numeroNotifiche;
     private int row_selected;
 
+    /**
+     * Instantiates a new Bookshops page.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     */
     public BookshopsPage(JFrame frameC, Controller controller){
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
         UIManager.put("MenuItem.selectionForeground", new Color(0x222831)); //imposta il colore del testo di un elemento di menu quando viene selezionato

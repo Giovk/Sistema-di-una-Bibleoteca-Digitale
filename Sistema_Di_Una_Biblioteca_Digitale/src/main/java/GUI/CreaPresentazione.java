@@ -12,7 +12,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Date;
 
+/**
+ * The type Crea presentazione.
+ */
 public class   CreaPresentazione {
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private JPanel contentPanel;
     private JPanel closePanel;
@@ -43,6 +49,13 @@ public class   CreaPresentazione {
     private JLabel oraLabel;
     private DatePickerMoreDay datePicker;
 
+    /**
+     * Instantiates a new Crea presentazione.
+     *
+     * @param frameC     the frame c
+     * @param controller the controller
+     * @param model2     the model 2
+     */
     public CreaPresentazione(JFrame frameC, Controller controller, DefaultTableModel model2){
         datePicker = new DatePickerMoreDay(calendarIMG);
 

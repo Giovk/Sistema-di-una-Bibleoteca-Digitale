@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The type Ls form.
+ */
 public class LSForm {
     private Controller controller;
     private static JFrame frame;
@@ -15,6 +18,9 @@ public class LSForm {
     private JLabel image;
     private JPanel lsPanel;
 
+    /**
+     * Instantiates a new Ls form.
+     */
     public LSForm() {
         controller = new Controller();
         frame = new JFrame("Biblioteca Digitale");

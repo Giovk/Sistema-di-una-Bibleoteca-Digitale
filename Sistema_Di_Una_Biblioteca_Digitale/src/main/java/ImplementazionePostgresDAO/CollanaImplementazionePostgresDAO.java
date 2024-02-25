@@ -9,9 +9,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The type Collana implementazione postgres dao.
+ */
 public class CollanaImplementazionePostgresDAO implements CollanaDAO {
     private Connection connection;
 
+    /**
+     * Instantiates a new Collana implementazione postgres dao.
+     */
     public CollanaImplementazionePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;
