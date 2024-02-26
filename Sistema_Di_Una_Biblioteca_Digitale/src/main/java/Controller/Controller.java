@@ -256,15 +256,15 @@ public class Controller {
     }
 
     /**
-     * Aggiungi utente.
+     * Registra un nuovo utente nel sistema e lo pone come l'utente che ha effetuato l'accesso.
      *
-     * @param email       the email
-     * @param nome        the nome
-     * @param cognome     the cognome
-     * @param username    the username
-     * @param password    the password
-     * @param dataNascita the data nascita
-     * @param partitaIVA  the partita iva
+     * @param email       l'email del nuovo utente
+     * @param nome        il nome del nuovo utente
+     * @param cognome     il cognome del nuovo utente
+     * @param username    l'username del nuovo utente
+     * @param password    la password del nuovo utente
+     * @param dataNascita la data di nascita del nuovo utente
+     * @param partitaIVA  la partita IVA del nuovo utente
      */
 // UTENTE //
     public void aggiungiUtente(String email, String nome, String cognome, String username, String password, String dataNascita, String partitaIVA){ //aggiunge un nuovo utente nel DB e in memoria
@@ -276,11 +276,11 @@ public class Controller {
     }//fine aggiungiUtente
 
     /**
-     * Valida utente int.
+     * Conta il numero di utenti registarti con le credenziali inserite dall'utente e passate come parametri.
      *
-     * @param userEmail the user email
-     * @param password  the password
-     * @return the int
+     * @param userEmail username o email inserita dall'utente
+     * @param password  passwor inserita dall'utente
+     * @return il numero di utenti con le credenziali passate come parametri
      */
     public int validaUtente(String userEmail, String password){ //conta il numero di utenti registrati con username o email 'userMail' e con password 'password'
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
@@ -288,10 +288,10 @@ public class Controller {
     }//fine validaUtente
 
     /**
-     * Sets utente.
+     * Aggiorna l'utente che ha effettuato l'accesso con le credenziali prese come parametri.
      *
-     * @param userEmail the user email
-     * @param password  the password
+     * @param userEmail username o email inserita dall'utente
+     * @param password  passwor inserita dall'utente
      */
     public void setUtente(String userEmail, String password) { //prende in input un username o un'email e una password per cercare nel DB un utente con queste credenziali e poi lo carica in memoria
         UtenteDAO u = new UtenteImplementazionePostgresDAO();
@@ -324,12 +324,14 @@ public class Controller {
     }//fine setUtente
 
     /**
-     * Valida mod utente int [ ].
+     * Segnala, quando l'utente li modifica, se la nuova email, il nuovo username o la nuova partita IVA, passati come parametri, sono già stati
+     * utilizzati da altri utenti, inoltre, se è stata modificata la partita IVA verifica anche se il formato è corretto. Gli eventuali errori
+     * vengono segnalati da degli interi diversi da 0 nel vettore che viene ritornato dal metodo.
      *
-     * @param email    the email
-     * @param username the username
-     * @param pIva     the p iva
-     * @return the int [ ]
+     * @param email    la nuova email dell'utente
+     * @param username il nuovo username dell'utente
+     * @param pIva     la nuova partita IVA dell'utente
+     * @return vettore di interi che segnala eventuali errori
      */
     public int[] validaModUtente(String email, String username, String pIva){   //controlla se delle modifiche effettuate dall'utente sono corrette, verificando che l'email 'email', l'username 'uername' e/o la partita IVA 'pIva' non siano già state utilizzate da altri utenti
         int[] error = {0, 0, 0, 0};
@@ -357,12 +359,13 @@ public class Controller {
     }//fine validaModUtente
 
     /**
-     * Valida ins utente int [ ].
+     * Quando un nuovo utente si registra, segnala se l'email, l'username o la partita IVA inseriti dall'utente e passati come parametri, sono già
+     * stati utilizzati da un'altro utente, in tal caso il metodo ritorna un vettore di interi diversi da zero.
      *
-     * @param email    the email
-     * @param username the username
-     * @param pIva     the p iva
-     * @return the int [ ]
+     * @param email    l'email del nuovo utente
+     * @param username l'username del nuovo utente
+     * @param pIva     la partita IVA del nuovo utente
+     * @return vettore di interi che segnala eventuali errori
      */
     public int[] validaInsUtente(String email, String username, String pIva){   //controlla se l'email 'email', l'username 'uername' e/o la partita IVA 'pIva' non siano già state utilizzate da altri utenti
         int[] error = {0, 0, 0};
@@ -380,10 +383,11 @@ public class Controller {
     }//fine validaInsUtente
 
     /**
-     * Verifica partita iva boolean.
+     * Verifica se la partita IVA, passata come parametro, è scritta nel formato corretto, cioè, se non è vuota, deve essere formata da 11
+     * caratteri numerici.
      *
-     * @param pIva the p iva
-     * @return the boolean
+     * @param pIva partita IVA da verificare
+     * @return ritorna "true" se la partita IVA è corretta, altrimenti ritorna "false"
      */
     public boolean verificaPartitaIVA(String pIva){ //verifica se il formato della partita IVA 'pIva' è corretto
         if (pIva.length() == 0){    //controlla se 'pIva' è lunga 0
@@ -404,7 +408,7 @@ public class Controller {
     }//fine verificaPartitaIVA
 
     /**
-     * Verifica nome cognome boolean.
+     * Verifica se il nome o il cognome .
      *
      * @param nc the nc
      * @return the boolean
