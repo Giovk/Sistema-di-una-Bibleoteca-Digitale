@@ -25,10 +25,10 @@ public class Recensione {
      * Istanzia una nuova Recensione.
      *
      * @param t  il testo della recensione
-     * @param v  the v
-     * @param p  the p
-     * @param ur the ur
-     * @param er the er
+     * @param v  la valutazione dell'elemento recensito
+     * @param p  la flag che indica se l'elemento è tra i preferiti dell'utente recensore
+     * @param ur l'utente recensore
+     * @param er l'elemento recensito
      */
     public Recensione(String t, int v, boolean p, Utente ur, Elemento er){
         testo = t;
@@ -38,27 +38,27 @@ public class Recensione {
     }
 
     /**
-     * Gets utente recensore.
+     * Ritorna l'utente recensore.
      *
-     * @return the utente recensore
+     * @return l'utente recensore
      */
     public Utente getUtenteRecensore() {
         return utenteRecensore;
     }
 
     /**
-     * Gets valutazione.
+     * Ritorna la valutazione fatta dall'utente all'elemento recensito.
      *
-     * @return the valutazione
+     * @return la valutazione dell'elemento recensito
      */
     public int getValutazione() {
         return valutazione;
     }
 
     /**
-     * Gets testo.
+     * Ritorna il testo della recensione.
      *
-     * @return the testo
+     * @return il testo della recensione
      */
     public String getTesto() {
         return testo;

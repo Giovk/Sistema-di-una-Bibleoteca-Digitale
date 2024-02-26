@@ -12,241 +12,245 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * The type Controller.
+ * La classe Controller si occupa della realizzazione delle funzionalità del sistema, soddisfacendo le richieste delle claassi della GUI con
+ * l'ausilio delle classi del Model e di quelle che interagiscono con il database.
  */
 public class Controller {
     /**
-     * The Utente.
+     * Utente che ha effettuato l'accesso.
      */
     public Utente utente;
     /**
-     * The Lista libri.
+     * Lista di libri.
      */
     public ArrayList<Libro> listaLibri = getLibri();
     /**
-     * The Nuovo libro.
+     * Nuovo libro.
      */
     public Libro nuovoLibro;
     /**
-     * The Nuovo serie.
+     * Nuova serie.
      */
     public Serie nuovoSerie;
     /**
-     * The Nuova rivista.
+     * Nuova rivista.
      */
     public Rivista nuovaRivista;
     /**
-     * The Nuovo fascicolo.
+     * Nuovo fascicolo.
      */
     public Fascicolo nuovoFascicolo;
     /**
-     * The Nuovo articolo scientifico.
+     * Nuovo articolo scientifico.
      */
     public ArticoloScientifico nuovoArticoloScientifico;
     /**
-     * The Lista libri collana.
+     * Lista di libri della collana.
      */
     public ArrayList<Libro> listaLibriCollana = new ArrayList<>();
     /**
-     * The Lista libri serie.
+     * Lista di libri della serie.
      */
     public ArrayList<Libro> listaLibriSerie = new ArrayList<>();
     /**
-     * The Lista serie.
+     * Lista di serie.
      */
     public ArrayList<Serie> listaSerie = getSerie();
     /**
-     * The Lista serie autore.
+     * Lista di serie con libri scritti da un certo autore.
      */
     public ArrayList<Serie> listaSerieAutore = new ArrayList<>();
     /**
-     * The Lista serie genere.
+     * Lista di serie con libri di un certo genere.
      */
     public ArrayList<Serie> listaSerieGenere = new ArrayList<>();
     /**
-     * The Lista riviste.
+     * Lista di riviste.
      */
     public ArrayList<Rivista> listaRiviste = getRiviste();
     /**
-     * The Lista fascicoli.
+     * Lista di fascicoli.
      */
     public ArrayList<Fascicolo> listaFascicoli = getFascicoli();
     /**
-     * The Lista presentazioni.
+     * Lista di presentazioni.
      */
     public ArrayList<Presentazione> listaPresentazioni = new ArrayList<>();
     /**
-     * The Lista conferenze.
+     * Lista di conferenze di un certo artiolo scientifico.
      */
     public ArrayList<Conferenza> listaConferenze = new ArrayList<>();
     /**
-     * The Lista all conferenze.
+     *  Lista di tutte le conferenze.
      */
     public ArrayList<Conferenza> listaAllConferenze = new ArrayList<>();
     /**
-     * The Lista notifiche.
+     * Lista di notifiche dell'utente che ha effettuato l'accesso.
      */
     public ArrayList<Notifica> listaNotifiche = new ArrayList<>();
     /**
-     * The Lista fascicoli rivista.
+     * Lista di fascicoli di una certa rivista.
      */
     public ArrayList<Fascicolo> listaFascicoliRivista = new ArrayList<>();
     /**
-     * The Libri isbn preferiti.
+     * Lista di ISBN dei Libri preferiti dell'utente.
      */
     public ArrayList<String> libriISBNPreferiti = new ArrayList<>();
     /**
-     * The Libri titolo preferiti.
+     * Lista di titoli dei Libri preferiti dell'utente.
      */
     public ArrayList<String> libriTitoloPreferiti = new ArrayList<>();
     /**
-     * The Possessol preferiti.
+     * Ogni elemento di questa lista contiene: un libro preferito dell'utente; la modalità di fruizione; la quantità disponibile e la libreria che
+     * lo possiede.
      */
     public ArrayList<Possesso> possessolPreferiti = new ArrayList<>();
     /**
-     * The Librerie libri preferiti.
+     * Lista di librerie che possiedono qualche libro preferito dell'utente.
      */
     public ArrayList<Libreria> librerieLibriPreferiti = new ArrayList<>();
     /**
-     * The Serie isbn preferiti.
+     * Lista di ISBN delle Serie preferite dell'utente.
      */
     public ArrayList<String> serieISBNPreferiti = new ArrayList<>();
     /**
-     * The Serie titolo preferiti.
+     * Lista di titoli delle serie preferite dell'utente.
      */
     public ArrayList<String> serieTitoloPreferiti = new ArrayList<>();
     /**
-     * The Possessos preferiti.
+     * Ogni elemento di questa lista contiene: una serie preferita dell'utente; la modalità di fruizione; la quantità disponibile e la libreria che
+     * la possiede.
      */
     public ArrayList<Possesso> possessosPreferiti = new ArrayList<>();
     /**
-     * The Librerie serie preferiti.
+     * Lista di librerie che possiedono qualche serie preferita dell'utente.
      */
     public ArrayList<Libreria> librerieSeriePreferiti = new ArrayList<>();
     /**
-     * The Fascicoli titolo preferiti.
+     * Lista di titoli (titolo della rivista e numero) dei fascicoli preferiti dell'utente.
      */
     public ArrayList<String> fascicoliTitoloPreferiti = new ArrayList<>();
     /**
-     * The Fascicoli preferiti.
+     * Lista di Fascicoli preferiti dell'utente.
      */
     public ArrayList<Fascicolo> fascicoliPreferiti = new ArrayList<>();
     /**
-     * The Possessof preferiti.
+     * Ogni elemento di questa lista contiene: un fascicolo preferito dell'utente; la modalità di fruizione; la quantità disponibile e la libreria
+     * che lo possiede.
      */
     public ArrayList<Possesso> possessofPreferiti = new ArrayList<>();
     /**
-     * The Lista articoli.
+     * Lista di articoli.
      */
     public ArrayList<ArticoloScientifico> listaArticoli = new ArrayList<>();
     /**
-     * The Librerie fascicoli preferiti.
+     * Lista di librerie che possiedono qualche fascicolo preferito dell'utente.
      */
     public ArrayList<Libreria> librerieFascicoliPreferiti = new ArrayList<>();
     /**
-     * The Librerie utente.
+     * lista di Librerie gestite dall'utente che ha effettuto l'accesso.
      */
     public ArrayList<Libreria> librerieUtente = new ArrayList<>();
     /**
-     * The Isbn selected.
+     * ISBN del libro selezionato.
      */
     public String isbn_selected = "";
     /**
-     * The Nome selected.
+     * Nome dell'elemento selezionato.
      */
     public String nome_selected = "";
     /**
-     * The Libreria selected.
+     * Libreria selezionata.
      */
     public Libreria libreria_selected = null;
     /**
-     * The Fascicolo selected.
+     * Fascicolo selezionato.
      */
     public Fascicolo fascicolo_selected = null;
     /**
-     * The Like element selected.
+     * Flag che indica se l'elemento selezionato tra i preferiti dell'utente che ha effettuato l'accesso
      */
     public boolean likeElementSelected;
     /**
-     * The Recensioni con commento.
+     * Lista di Recensioni con commento.
      */
     public ArrayList<Recensione> recensioniConCommento = new ArrayList<>();
     /**
-     * The Possesso l libreria.
+     * Lista di Possessi di libri della libreria selezionata.
      */
     public ArrayList<Possesso> possessoLLibreria = new ArrayList<>();
     /**
-     * The Possesso s libreria.
+     * Lista di Possessi di serie della libreria selezionata.
      */
     public ArrayList<Possesso> possessoSLibreria = new ArrayList<>();
     /**
-     * The Possesso f libreria.
+     * Lista di Possessi di fascicoli della libreria selezionata.
      */
     public ArrayList<Possesso> possessoFLibreria = new ArrayList<>();
     /**
-     * The Titolo libri libreria.
+     * Lista di Titolo dei libri posseduti dalla libreria selezionata.
      */
     public ArrayList<String> titoloLibriLibreria = new ArrayList<>();
     /**
-     * The Titolo serie libreria.
+     * Lista di Titolo delle serie possedute dalla libreria selezionata.
      */
     public ArrayList<String> titoloSerieLibreria = new ArrayList<>();
     /**
-     * The Fascicoli libreria.
+     * Lista di Fascicoli posseduti dalla libreria selezionata.
      */
     public ArrayList<Fascicolo> fascicoliLibreria = new ArrayList<>();
     /**
-     * The Lista collane.
+     * Lista di collane.
      */
     public ArrayList<Collana> listaCollane = getCollane();
     /**
-     * The Doi selected.
+     * DOI dell'articolo scientifico selezionato.
      */
     public String doi_selected = "";
     /**
-     * The Anno pubblicazione.
+     * Anno di pubblicazione dell'articolo scientifico selezionato..
      */
     public int anno_pubblicazione = 0;
     /**
-     * The Nome articolo.
+     * Nome (titolo) dell'articolo .
      */
     public String nome_articolo = "";
 
     /**
-     * The Screen width.
+     * Larghezza dello schermo.
      */
     public int screenWidth = 0;
     /**
-     * The Screen height.
+     * Altezza dello schermo.
      */
     public int screenHeight = initDimension();
     /**
-     * The Title impact size.
+     * Dimensione font titoli.
      */
     public int titleImpactSize = getFontTitleImpactSize();
     /**
-     * The Title impact.
+     * Font titoli.
      */
     public Font titleImpact = new Font("Impact", Font.PLAIN, titleImpactSize);
     /**
-     * The Font size.
+     * Dimensione font.
      */
     public int fontSize = getFontSize();
     /**
-     * The Base font size.
+     * Dimensione font base.
      */
     public Font baseFontSize = new Font("Segoe UI", Font.PLAIN, fontSize);
     /**
-     * The Impact font size.
+     * Dimensione font base impact .
      */
     public Font impactFontSize = new Font("Impact", Font.PLAIN, fontSize);
     /**
-     * The Text field font.
+     * Font Text field.
      */
     public Font textFieldFont = new Font("Berlin Sans FB", Font.PLAIN, fontSize-2);
 
     /**
-     * Instantiates a new Controller.
+     * Istanzia un nuovo Controller.
      */
     public Controller(){
     }
@@ -772,7 +776,7 @@ public class Controller {
     /**
      * Get info libri preferiti.
      */
-    public void getInfoLibriPreferiti(){    //inserisce in 'possessolPreferiti' i dati dei libri preferiti dell'utente e in 'librerieLibriPreferiti' i dati delle librerie che li possiedono
+    public void getInfoLibriPreferiti(){    //inserisce in 'possessolPreferiti' i dati dei libri preferiti dell'utente e delle librerie che li possiedono, e in 'librerieLibriPreferiti' inserisce i dati delle librerie che possiedono i libri preferiti dell'utente
         getLibriISBNPreferiti();    //inizializza 'libriISBNPreferiti' con gli ISBN dei libri preferiti dell'utente
 
         LibroDAO l = new LibroImplementazionePostgresDAO();
@@ -1562,7 +1566,7 @@ public class Controller {
     /**
      * Gets info serie preferiti.
      */
-    public void getInfoSeriePreferiti(){    //inserisce in 'possessosPreferiti' i dati delle serie preferite dell'utente e in 'librerieSeriePreferiti' i dati delle librerie che le possiedono
+    public void getInfoSeriePreferiti(){    //inserisce in 'possessosPreferiti' i dati delle serie preferite dell'utente e delle librerie che le possiedono, e in 'librerieSeriePreferiti' i dati delle librerie che possiedono le serie preferite dell'utente
         getSerieISBNPreferiti();    //inizializza 'serieISBNPreferiti' con gli ISBN delle serie preferite dell'utente
 
         SerieDAO s = new SerieImplementazionePostgresDAO();
@@ -1959,7 +1963,7 @@ public class Controller {
     /**
      * Gets info fascicoli preferiti.
      */
-    public void getInfoFascicoliPreferiti(){    //inserisce in 'possessofPreferiti' i dati dei fascicoli preferiti dell'utente e in 'librerieFascicoliPreferiti' i dati delle librerie che li possiedono
+    public void getInfoFascicoliPreferiti(){    //inserisce in 'possessofPreferiti' i dati dei fascicoli preferiti dell'utente e delle librerie che li possiedono, e in 'librerieFascicoliPreferiti' i dati delle librerie che possiedono i fascicoli preferiti dell'utente
         getFascicoliPreferiti();    //inizializza 'fascicoliPreferiti' con i fascicoli preferiti dell'utente
 
         FascicoloDAO f = new FascicoloImplementazionePostgresDAO();

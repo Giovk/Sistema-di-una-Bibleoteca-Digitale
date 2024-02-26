@@ -63,8 +63,8 @@ public class IssuePage {
      */
     ImageIcon favouritePienoIco;
     private float valutazioneMedia;
-    private String titolo;
-    private int numero;
+    private String titolo=null;
+    private int numero=0;
     private int numeroNotifiche;
 
 
@@ -75,8 +75,11 @@ public class IssuePage {
      * @param controller the controller
      */
     public IssuePage (JFrame frameC, Controller controller) {
-        titolo = controller.fascicolo_selected.getRivista().getTitolo();  //inizializza 'titolo' con il titolo della rivista del fascicolo selezionato
-        numero = controller.fascicolo_selected.getNumero();  //inizializza 'numero' con il numero del fascicolo selezionato
+        //titolo = controller.fascicolo_selected.getRivista().getTitolo();  //inizializza 'titolo' con il titolo della rivista del fascicolo selezionato
+        //numero = controller.fascicolo_selected.getNumero();  //inizializza 'numero' con il numero del fascicolo selezionato
+
+        titolo = controller.fascicolo_selected.rivista.titolo;  //inizializza 'titolo' con il titolo della rivista del fascicolo selezionato
+        numero = controller.fascicolo_selected.numero;  //inizializza 'numero' con il numero del fascicolo selezionato
 
         homeButton.setFont(controller.baseFontSize);    //imposta il font del JButton 'homeButton'
         homeButton.setMinimumSize(new Dimension((int) (controller.screenWidth/15.24), homeButton.getHeight())); //imposta la dimensione minima del JButton 'homeButton'

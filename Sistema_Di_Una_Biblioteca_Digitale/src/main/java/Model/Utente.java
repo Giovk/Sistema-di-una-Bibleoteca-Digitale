@@ -1,48 +1,48 @@
 package Model;
 
 /**
- * The type Utente.
+ * La classe Utente crea nuove istanze di utenti, fornisce e gestisce le loro informazioni.
  */
 public class Utente {
     /**
-     * The Username.
+     * Username dell'utente.
      */
     public String username;
     /**
-     * The Password.
+     * Password dell'utente.
      */
     public String password;
     /**
-     * The Email.
+     * Email dell'utente.
      */
     public String email;
     /**
-     * The Nome.
+     * Nome dell'utente.
      */
     public String nome;
     /**
-     * The Cognome.
+     * Cognome dell'utente.
      */
     public String cognome;
     /**
-     * The Data nascita.
+     * Data di nascita dell'utente.
      */
     public String dataNascita;
     /**
-     * The Partita iva.
+     * Partita IVA dell'utente.
      */
     public String partitaIVA;
 
     /**
-     * Instantiates a new Utente.
+     * Istanzia un nuovo Utente.
      *
-     * @param u    the u
-     * @param p    the p
-     * @param e    the e
-     * @param n    the n
-     * @param c    the c
-     * @param dn   the dn
-     * @param pIVA the p iva
+     * @param u    l'username dell'utente
+     * @param p    la password dell'utente
+     * @param e    l'email dell'utente
+     * @param n    il nome dell'utente
+     * @param c    il cognome dell'utente
+     * @param dn   la data di nascita dell'utente
+     * @param pIVA la partita IVA dell'utente
      */
     public Utente (String u, String p, String e, String n, String c, String dn, String pIVA) {
         username = u;
@@ -55,104 +55,105 @@ public class Utente {
     }
 
     /**
-     * Sets email.
+     * Imposta l'email dell'utente con quella presa come parametro.
      *
-     * @param nEmail the n email
+     * @param nEmail nuova email dell'utente
      */
     public void setEmail(String nEmail){
         email = nEmail;
     }   //imposta l'email dell'utente
 
     /**
-     * Sets nome.
+     * Imposta il nome dell'utente con quello preso come parametro.
      *
-     * @param nNome the n nome
+     * @param nNome il nuovo nome dell'utente
      */
     public void setNome(String nNome){nome = nNome;}    //imposta il nome dell'utente
 
     /**
-     * Sets cognome.
+     * Imposta il cognome dell'utente con quello preso come parametro.
      *
-     * @param nCognome the n cognome
+     * @param nCognome il nuovo cognome dell'utente
      */
     public void setCognome(String nCognome){
         cognome = nCognome;
     }   //imposta il cognome dell'utente
 
     /**
-     * Sets username.
+     * Imposta l'username dell'utente con quello preso come parametro.
      *
-     * @param nUsername the n username
+     * @param nUsername il nuovo username dell'utente
      */
     public void setUsername(String nUsername){
         username = nUsername;
     }   //imposta l'username dell'utente
 
     /**
-     * Sets password.
+     * Imposta la password dell'utente con quella presa come parametro.
      *
-     * @param nPassword the n password
+     * @param nPassword la nuova password dell'utente
      */
     public void setPassword(String nPassword){
         password = nPassword;
     }   //imposta la password dell'utente
 
     /**
-     * Sets partita iva.
+     * Imposta la partita IVA dell'utente con quella presa come parametro.
      *
-     * @param nPartitaIVA the n partita iva
+     * @param nPartitaIVA la nuova partita IVA dell'utente
      */
     public void setPartitaIva(String nPartitaIVA){
         partitaIVA = nPartitaIVA;
     }   //imposta la partita IVA dell'utente
 
     /**
-     * Gets username.
+     * Ritorna l'username dell'utente.
      *
-     * @return the username
+     * @return l'username dell'utente
      */
     public String getUsername(){return username;}   //ritorna l'username dell'utente
 
     /**
-     * Gets nome.
+     * Ritorna il nome dell'utente.
      *
-     * @return the nome
+     * @return il nome dell'utente
      */
     public String getNome(){return nome;}   //ritorna il nome dell'utente
 
     /**
-     * Gets cognome.
+     * Ritorna il cognome dell'utente.
      *
-     * @return the cognome
+     * @return il cognome dell'utente
      */
     public String getCognome(){return cognome;} //ritorna il cognome dell'utente
 
     /**
-     * Gets email.
+     * Ritorna l'email dell'utente.
      *
-     * @return the email
+     * @return l'email dell'utente
      */
     public String getEmail(){return email;} //ritorna l'email dell'utente
 
     /**
-     * Gets partita iva.
+     * Ritorna la partita IVA dell'utente.
      *
-     * @return the partita iva
+     * @return la partita IVA dell'utente
      */
     public String getPartitaIVA(){return partitaIVA;}   //ritorna la partita IVA dell'utente
 
     /**
-     * Gets password.
+     * Ritorna la password dell'utente.
      *
-     * @return the password
+     * @return la password dell'utente
      */
     public String getPassword(){return password;}   //ritorna la password dell'utente
 
     /**
-     * Verify partita iva boolean.
+     * Verifica se la partita IVA presa come parametro è scritta in un formato valido, cioè, se non è vuota, deve essere formata da 11 caratteri
+     * numerici.
      *
-     * @param piva the piva
-     * @return the boolean
+     * @param piva la partita IVA da verificare
+     * @return un valore booleano che indica se la partita IVA è scritta correttamente
      */
     public boolean verifyPartitaIVA(String piva){
         if (piva.length() == 0){

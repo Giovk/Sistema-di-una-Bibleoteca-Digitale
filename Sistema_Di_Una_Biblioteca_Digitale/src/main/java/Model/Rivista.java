@@ -3,47 +3,47 @@ package Model;
 import java.util.ArrayList;
 
 /**
- * The type Rivista.
+ * La classe Rivista crea nuove istanze di riviste e fornisce le loro informazioni.
  */
 public class Rivista {
     /**
-     * The Issn.
+     * ISSN della rivista.
      */
     public String issn;
     /**
-     * The Titolo.
+     * Titolo della rivista.
      */
     public String titolo;
     /**
-     * The Editore.
+     * Editore della rivista.
      */
     public String editore;
     /**
-     * The Anno pubblicazione.
+     * Anno di pubblicazione della rivista.
      */
     public int annoPubblicazione;
     /**
-     * The Responsabile.
+     * Responsabile della rivista.
      */
     public String responsabile;
     /**
-     * The Argomento.
+     * Argomento della rivista.
      */
     public String argomento;
     /**
-     * The Fascicoli.
+     * Lista dei Fascicoli che formano la rivista.
      */
     public ArrayList<Fascicolo> fascicoli;
 
     /**
-     * Instantiates a new Rivista.
+     * Istanzia una nuova Rivista.
      *
-     * @param i  the
-     * @param t  the t
-     * @param e  the e
-     * @param ap the ap
-     * @param r  the r
-     * @param a  the a
+     * @param i  l'ISSN della rivista
+     * @param t  il titolo della rivista
+     * @param e  l'editore della rivista
+     * @param ap l'anno di pubblicazione della rivista
+     * @param r  il responsabile della rivista
+     * @param a  l'argomento della rivista
      */
     public Rivista(String i, String t, String e, int ap, String r, String a) {
         issn = i;
@@ -55,9 +55,9 @@ public class Rivista {
     }
 
     /**
-     * Gets titolo.
+     * Ritorna il titolo della rivista.
      *
-     * @return the titolo
+     * @return il titolo della rivista
      */
     public String getTitolo()
     {
@@ -65,9 +65,9 @@ public class Rivista {
     }
 
     /**
-     * Gets issn.
+     * Ritorna l'ISSN della rivista.
      *
-     * @return the issn
+     * @return l'ISSN della rivista
      */
     public String getISSN()
     {
@@ -75,9 +75,9 @@ public class Rivista {
     }
 
     /**
-     * Gets argomento.
+     * Ritorna l'argomento della rivista.
      *
-     * @return the argomento
+     * @return l'argomento della rivista
      */
     public String getArgomento()
     {
@@ -85,9 +85,9 @@ public class Rivista {
     }
 
     /**
-     * Gets responsabile.
+     * Ritorna il responsabile della rivista.
      *
-     * @return the responsabile
+     * @return il responsabile della rivista
      */
     public String getResponsabile()
     {
@@ -95,9 +95,9 @@ public class Rivista {
     }
 
     /**
-     * Gets editore.
+     * Ritorna l'editore della rivista.
      *
-     * @return the editore
+     * @return l'editore della rivista
      */
     public String getEditore()
     {
@@ -105,9 +105,9 @@ public class Rivista {
     }
 
     /**
-     * Gets anno pubblicazione.
+     * Ritorna l'anno di pubblicazione della rivista.
      *
-     * @return the anno pubblicazione
+     * @return l'anno di pubblicazione della rivista
      */
     public int getAnnoPubblicazione()
     {

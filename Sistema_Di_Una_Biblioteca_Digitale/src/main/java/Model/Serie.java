@@ -4,34 +4,34 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * The type Serie.
+ * La classe Serie crea nuove istanze di serie e fornisce le loro informazioni.
  */
 public class Serie extends Elemento{
     /**
-     * The Isbn.
+     * ISBN della serie.
      */
     public String isbn;
     /**
-     * The Titolo.
+     * Titolo della serie.
      */
     public String titolo;
     /**
-     * The N libri.
+     * Numero di libri che formano la serie.
      */
     public int nLibri;
     /**
-     * The Libri.
+     * Lista dei Libri che formano la serie
      */
     public ArrayList<Libro> libri = new ArrayList<>();
 
     /**
-     * Instantiates a new Serie.
+     * Istanzia una nuova Serie con i suoi libri.
      *
-     * @param i  the
-     * @param nl the nl
-     * @param l  the l
-     * @param t  the t
-     * @param dp the dp
+     * @param i  l'ISBN della serie
+     * @param nl il numero dei libri della serie
+     * @param l  la lista dei libri della serie
+     * @param t  il titolo della serie
+     * @param dp la data di pubblicazione della serie
      */
     public Serie(String i, int nl, ArrayList<Libro> l, String t, Date dp){
         super(dp);
@@ -45,12 +45,12 @@ public class Serie extends Elemento{
     }
 
     /**
-     * Instantiates a new Serie.
+     * Istanzia una nuova Serie.
      *
-     * @param i  the
-     * @param nl the nl
-     * @param t  the t
-     * @param dp the dp
+     * @param i  l'ISBN della serie
+     * @param nl il numero dei libri della serie
+     * @param t  il titolo della serie
+     * @param dp la data di pubblicazione della serie
      */
     public Serie(String i, int nl, String t, Date dp){
         super(dp);
@@ -60,27 +60,27 @@ public class Serie extends Elemento{
     }
 
     /**
-     * Gets isbn.
+     * Ritorna l'ISBN della serie.
      *
-     * @return the isbn
+     * @return l'ISBN della serie
      */
     public String getISBN() {
         return isbn;
     }
 
     /**
-     * Gets titolo.
+     * Ritorna il titolo della serie.
      *
-     * @return the titolo
+     * @return il titolo della serie
      */
     public String getTitolo() {
         return titolo;
     }
 
     /**
-     * Gets n libri.
+     * Ritorna il numero dei libri della serie.
      *
-     * @return the n libri
+     * @return il numero dei libri della serie
      */
     public int getNLibri() {
         return nLibri;
