@@ -7,13 +7,14 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * The type Recensione implementazione postgres dao.
+ * La classe RecensioneImplementazionePostgresDAO implementa l'interfaccia RecensioneDAO, quindi contiene le implementazioni dei metodi che
+ * interagiscono con il database per implementare le funzionalità relative alle recensioni degli elementi posseduti dalle librerie.
  */
 public class RecensioneImplementazionePostgresDAO implements RecensioneDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Recensione implementazione postgres dao.
+     * Istanzia una nuova RecensioneImplementazionePostgresDAO.
      */
     public  RecensioneImplementazionePostgresDAO(){
         try {

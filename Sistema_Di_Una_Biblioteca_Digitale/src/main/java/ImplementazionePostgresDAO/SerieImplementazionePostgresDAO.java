@@ -7,14 +7,15 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * The type Serie implementazione postgres dao.
+ * La classe SerieImplementazionePostgresDAO implementa l'interfaccia SerieDAO, quindi contiene le implementazioni dei metodi che interagiscono con
+ * il database per implementare le funzionalità relative alle serie di libri.
  */
 public class SerieImplementazionePostgresDAO implements SerieDAO {
 
     private Connection connection;
 
     /**
-     * Instantiates a new Serie implementazione postgres dao.
+     * Istanzia una nuova SerieImplementazionePostgresDAO.
      */
     public  SerieImplementazionePostgresDAO(){
         try {

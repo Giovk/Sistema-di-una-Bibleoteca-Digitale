@@ -6,13 +6,14 @@ import Database.ConnessioneDatabase;
 import java.sql.*;
 
 /**
- * The type Utente implementazione postgres dao.
+ * La classe UtenteImplementazionePostgresDAO implementa l'interfaccia UtenteDAO, quindi contiene le implementazioni dei metodi che interagiscono
+ * con il database per implementare le funzionalità relative agli utenti.
  */
 public class UtenteImplementazionePostgresDAO implements UtenteDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Utente implementazione postgres dao.
+     * Istanzia un nuovo UtenteImplementazionePostgresDAO.
      */
     public  UtenteImplementazionePostgresDAO(){
         try {

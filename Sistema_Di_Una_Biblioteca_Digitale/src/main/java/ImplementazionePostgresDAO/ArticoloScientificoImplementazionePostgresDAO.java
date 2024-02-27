@@ -9,13 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * The type Articolo scientifico implementazione postgres dao.
+ * La classe ArticoloScientificoImplementazionePostgresDAO implementa l'interfaccia ArticoloScientificoDAO, quindi contiene le implementazioni dei
+ * metodi che intergiscono con il database per implementare le funzionalità relative agli articoli scientifici.
  */
 public class ArticoloScientificoImplementazionePostgresDAO implements ArticoloScientificoDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Articolo scientifico implementazione postgres dao.
+     * Istanzia un nuovo ArticoloScientificoImplementazionePostgresDAO.
      */
     public ArticoloScientificoImplementazionePostgresDAO() {
         try {

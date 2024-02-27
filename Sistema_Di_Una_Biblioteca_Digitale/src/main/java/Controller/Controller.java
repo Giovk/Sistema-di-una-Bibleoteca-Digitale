@@ -1388,7 +1388,7 @@ public class Controller {
     }//fine verificaNumeroTelefonicoLibreria
 
     /**
-     * Controlla se il numero telefonico passato come parametro non è stato già utilizzato er altre librerie.
+     * Controlla se il numero telefonico passato come parametro non è stato già utilizzato per altre librerie.
      *
      * @param nt il numero telefonico da verificare
      * @return ritorna "true" se il numero telefonico non è stato già utilizzato, altrimenti ritorna "false"
@@ -1404,7 +1404,7 @@ public class Controller {
      * @param nome      il nome da verificare
      * @param sw        il sito web da verificare
      * @param indirizzo l'indirizzo da verificare
-     * @return ritorna "true" se non è esiste già una libreria con il nome, il sito web e l'indirizzo uguali a quelli passati come parametri
+     * @return ritorna "true" se non è esiste già una libreria con il nome, il sito web e l'indirizzo uguali a quelli passati come parametri,
      * altrimenti ritorna "false"
      */
     public boolean presenzaLibreria(String nome, String sw, String indirizzo){  //controlla se la libreria 'nome' con sito web 'sw' e indirizzo 'indirizzo' è già presente nel DB
@@ -2041,7 +2041,7 @@ public class Controller {
     }//fine eliminaFascicolo
 
     /**
-     * Ritorna la lista di tutti gli articoli scientifici della fascicolo con numero e la rivista con ISSN presi come parametri.
+     * Ritorna la lista di tutti gli articoli scientifici del fascicolo con numero e la rivista con ISSN presi come parametri.
      *
      * @param issn L'ISSN della rivista del fascicolo
      * @param n    Il numero del fascicolo
@@ -2082,10 +2082,11 @@ public class Controller {
     }//fine getArticoliScientifici
 
     /**
-     * Se non è già presente, crea un nuovo articolo con le informazioni passate come parametro e ritorna "true", altrimenti ritorna "false".
+     * Se non è già presente, crea un nuovo articolo con le informazioni passate come parametro nel nuovo fascicolo e ritorna "true", altrimenti
+     * ritorna "false".
      *
      * @param titolo il titolo del nuovo articolo
-     * @param anno   l'anno del nuovo articolo
+     * @param anno   l'anno di pubblicazione del nuovo articolo
      * @return "true" se crea il nuovo articolo, altrimenti "false"
      */
     public boolean creaArticolo(String titolo, int anno){   //se crea una nuovo articolo, ritorna "true", altrimenti ritorna "false"
@@ -2157,7 +2158,7 @@ public class Controller {
     }//fine getNotificheUtente
 
     /**
-     * Rimuove la notifica con il testo, la data e l'ora di invio dell'utente che ha effettuato l'accesso.
+     * Rimuove la notifica con il testo, la data e l'ora di invio presi come parametri, dell'utente che ha effettuato l'accesso.
      *
      * @param testo il testo della notifica da rimuovere
      * @param data  la data della notifica da rimuovere
@@ -2179,11 +2180,11 @@ public class Controller {
     }//fine rimuoviNotifica
 
     /**
-     * Visualizza notifica.
+     * Segna come letta la notifica con il testo, la data e l'ora di invio presi come parametri, dell'utente che ha effettuato l'accesso.
      *
-     * @param testo the testo
-     * @param data  the data
-     * @param ora   the ora
+     * @param testo il testo della notifica da segnare come letta
+     * @param data  la data della notifica da segnare come letta
+     * @param ora   l'ora della notifica da segnare come letta
      */
     public void visualizzaNotifica(String testo, String data, String ora){  //pone a "true" il campo lettura della notifica con 'testo' inviata all'utente il 'data' alle 'ora'
         NotificaDAO n = new NotificaImplementazionePostgresDAO();
@@ -2201,12 +2202,13 @@ public class Controller {
     }//fine visualizzaNotifiche
 
     /**
-     * Gets lettura notifica.
+     * Segnala se la notifica con il testo, la data e l'ora di invio presi come parametri, dell'utente che ha effettuato l'accesso è stata già
+     * letta.
      *
-     * @param testo the testo
-     * @param data  the data
-     * @param ora   the ora
-     * @return the lettura notifica
+     * @param testo il testo della notifica da verificare
+     * @param data  la data della notifica da verificare
+     * @param ora   l'ora della notifica da verificare
+     * @return "true" se la notifica è stata letta, altrimenti "false"
      */
     public boolean getLetturaNotifica(String testo, String data, String ora){   //ritorna il valore della lettura della notifica con 'testo' inviata all'utente il 'data' alle 'ora'
         for(Notifica n: listaNotifiche){    //scorre 'listaNotifiche'
@@ -2219,7 +2221,9 @@ public class Controller {
     }//fine getLetturaNotifica
 
     /**
-     * Gets possesso libreria.
+     * Inserisce: nelle liste 'possessoLLibreria', 'possessoSLibreria' e 'possessoFLibreria' le inforamazioni dei possessi dei rispettivi elementi
+     * posseduti dalla libreria selezionata; nelle liste 'titoloLibriLibreria' e 'titoloSerieLibreria' i titoli dei rispettivi elementi posseduti
+     * dalla libreria selezionata e nella lista 'fascicoliLibreria' i fascicoli posseduti dalla libreria selezionata.
      */
 // POSSESSO //
     public void getPossessoLibreria(){  //aggiorna 'possessoLLibreria','possessoSLibreria','possessoFLibreria','titoloLibriLibreria','titoloSerieLibreria' e 'fascicoliLibreria'
@@ -2236,7 +2240,8 @@ public class Controller {
     }//fine getPossessoLibreria
 
     /**
-     * Gets possesso l libreria.
+     * Inserisce nella lista 'titoloLibriLibreria' i titoli (ISBN e titolo) dei libri posseduti dalla libreria selezionata e nella lista
+     * 'possessoLLibreria' le informazioni relative ai possessi dei libri della libreria selezionata.
      */
     public void getPossessoLLibreria(){ //aggiorna 'titoloLibriLibreria' con gli ISBN e i titoli dei libri posseduti e 'possessoLLibreria' con i possessi dei libri della libreria selezionata
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
@@ -2255,7 +2260,8 @@ public class Controller {
     }//fine getPossessoLLibreria
 
     /**
-     * Gets possesso s libreria.
+     * Inserisce nella lista 'titoloSerieLibreria' i titoli (ISBN e titolo) delle serie possedute dalla libreria selezionata e nella lista
+     * 'possessoSLibreria' le informazioni relative ai possessi delle serie della libreria selezionata.
      */
     public void getPossessoSLibreria(){ //aggiorna 'titoloSerieLibreria' con gli ISBN e i titoli delle serie possedute e 'possessoSLibreria' con i possessi delle serie della libreria selezionata
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
@@ -2274,7 +2280,8 @@ public class Controller {
     }//fine getPossessoSLibreria
 
     /**
-     * Gets possesso f libreria.
+     * Inserisce nella lista 'fascicoliLibreria' i fascicoli posseduti dalla libreria selezionata e nella lista 'possessoFLibreria' le informazioni
+     * relative ai possessi dei fascicoli della libreria selezionata.
      */
     public void getPossessoFLibreria(){ //aggiorna 'fascicoliLibreria' con i fascicoli posseduti e 'possessoSLibreria' con i possessi dei fascicoli della libreria selezionata
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
@@ -2295,10 +2302,11 @@ public class Controller {
     }//fine getPossessoFLibreria
 
     /**
-     * Mod quantita libro.
+     * Aggiorna la quantità disponibile al valore preso come parametro del libro selezionato in modalità di fruizione presa come parametro della
+     * libreria selezionata.
      *
-     * @param fruizione the fruizione
-     * @param value     the value
+     * @param fruizione la modalità di fruizione del libro
+     * @param value     til valore aggiornato della quantità disponibile del libro
      */
     public void modQuantitaLibro(String fruizione, int value){  //aggiorna a 'value' la quantita disponibile nella libreria selezionata in modalità di fruizione 'fruizione' del libro selezionato
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
@@ -2307,10 +2315,11 @@ public class Controller {
     }//fine modQuantitaLibro
 
     /**
-     * Mod quantita fascicolo.
+     * Aggiorna la quantità disponibile al valore preso come parametro del fascicolo selezionato in modalità di fruizione presa come parametro della
+     * libreria selezionata.
      *
-     * @param fruizione the fruizione
-     * @param value     the value
+     * @param fruizione la modalità di fruizione del fascicolo
+     * @param value     til valore aggiornato della quantità disponibile del fascicolo
      */
     public void modQuantitaFascicolo(String fruizione, int value){  //aggiorna a 'value' la quantita disponibile nella libreria selezionata in modalità di fruizione 'fruizione' del fascicolo selezionato
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
@@ -2319,11 +2328,12 @@ public class Controller {
     }//fine modQuantitaFascicolo
 
     /**
-     * Insert possesso l boolean.
+     * Se non è già presente, aggiunge il nuovo libro tra quelli posseduti dalla libreria selezionata con quantità e modalità di fruizione presi
+     * come parametri e ritorna "true", altrimenti, ritorna "false"
      *
-     * @param quantita  the quantita
-     * @param fruizione the fruizione
-     * @return the boolean
+     * @param quantita  la quantita disponibile del nuovo libro nella libreria selezionata
+     * @param fruizione la modalità di fruizione disponibile del nuovo libro nella libreria selezionata
+     * @return "true" se è stato aggiunto il nuovo libro nella libreria selezionata, altrimenti "false"
      */
     public boolean insertPossessoL(int quantita, String fruizione){ //aggiunge un nuovo possesso con il nuovo libro della libreria selezionata
         boolean presenzaPossessoL = false;
@@ -2332,11 +2342,12 @@ public class Controller {
     }//fine insertPossessoL
 
     /**
-     * Insert possesso f boolean.
+     * Se non è già presente, aggiunge il nuovo fascicolo tra quelli posseduti dalla libreria selezionata con quantità e modalità di fruizione presi
+     * come parametri e ritorna "true", altrimenti, ritorna "false"
      *
-     * @param quantita  the quantita
-     * @param fruizione the fruizione
-     * @return the boolean
+     * @param quantita  la quantita disponibile del nuovo fascicolo nella libreria selezionata
+     * @param fruizione la modalità di fruizione disponibile del nuovo fascicolo nella libreria selezionata
+     * @return "true" se è stato aggiunto il nuovo fascicolo nella libreria selezionata, altrimenti "false"
      */
     public boolean insertPossessoF(int quantita, String fruizione){ //aggiunge un nuovo possesso con il nuovo fascicolo della libreria selezionata
         boolean presenzaPossessoF = false;
@@ -2345,9 +2356,10 @@ public class Controller {
     }//fine insertPossessoF
 
     /**
-     * Elimina possesso l.
+     * Elimina il libro selezionato tra quelli posseduti dalla libreria selezionata con la modalità di fruizione uguale a quella passata come
+     * parametro.
      *
-     * @param fruizione the fruizione
+     * @param fruizione la modalità di fruizione del libro da eliminare
      */
     public void eliminaPossessoL(String fruizione){ //elimina il possesso con il libro selezionato in modalità di fruizione 'fruizione' della libreria selezionata
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
@@ -2356,9 +2368,10 @@ public class Controller {
     }//fine eliminaPossessoL
 
     /**
-     * Elimina possesso f.
+     * Elimina il fascicolo selezionato tra quelli posseduti dalla libreria selezionata con la modalità di fruizione uguale a quella passata come
+     * parametro.
      *
-     * @param fruizione the fruizione
+     * @param fruizione la modalità di fruizione del fascicolo da eliminare
      */
     public void eliminaPossessoF(String fruizione){ //elimina il possesso con il fascicolo selezionato in modalità di fruizione 'fruizione' della libreria selezionata
         PossessoDAO p = new PossessoImplementazionePostgresDAO();
@@ -2367,7 +2380,7 @@ public class Controller {
     }//fine eliminaPossessoF
 
     /**
-     * Gets conferenze articolo.
+     * Inserisce in 'listaConferenze' tutte le conferenze in cui è stato esposto l'articolo selelzionato.
      */
 // CONFERENZA //
     public void getConferenzeArticolo(){    //ritorna i dati di tutte le conferenze dell'articolo selezionato
@@ -2389,7 +2402,7 @@ public class Controller {
     }//fine getConferenzeArticolo
 
     /**
-     * Gets conferenze.
+     * Inserisce in 'listaAllConferenze' tutte le conferenze.
      */
     public void getConferenze(){    //ritorna i dati di tutte le conferenze evitando duplicati
         ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
@@ -2412,13 +2425,13 @@ public class Controller {
     }//fine getConfereze
 
     /**
-     * Add conferenza boolean.
+     * Se non è già presente, crea una nuova conferenza con le informazioni passate come parametro e ritorna "true", altrimenti ritorna "false".
      *
-     * @param struttura the struttura
-     * @param luogo     the luogo
-     * @param datai     the datai
-     * @param dataf     the dataf
-     * @return the boolean
+     * @param struttura la struttura organizzatrice della nuova conferenza
+     * @param luogo     il luogo della nuova conferenza
+     * @param datai     la data di inizio della nuova conferenza
+     * @param dataf     la data di fine della nuova conferenza
+     * @return "true" se crea la nuova conferenza, altrimenti "false"
      */
     public boolean addConferenza(String struttura, String luogo, String datai, String dataf){   //se aggiunge una nuova conferenza ritorna "true", altrimenti ritorna "false"
         ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
@@ -2426,13 +2439,14 @@ public class Controller {
     }//fine addConferenza
 
     /**
-     * Add esposizione boolean.
+     * Se non è già presente, crea una nuova esposizione dell'articolo selezionato nella conferenza con le informazioni passate come parametro e
+     * ritorna "true", altrimenti ritorna "false".
      *
-     * @param struttura the struttura
-     * @param luogo     the luogo
-     * @param datai     the datai
-     * @param dataf     the dataf
-     * @return the boolean
+     * @param struttura la struttura organizzatrice della conferenza della nuova esposizione
+     * @param luogo     il luogo della conferenza della nuova esposizione
+     * @param datai     la data di inizio della conferenza della nuova esposizione
+     * @param dataf     la data di fine della conferenza della nuova esposizione
+     * @return "true" se crea la nuova esposizione, altrimenti "false"
      */
     public boolean addEsposizione(String struttura, String luogo, String datai, String dataf){  //se aggiunge una nuova esposizione ritorna "true", altrimenti ritorna "false"
         ConferenzaDAO c = new ConferenzaImplementazionePostgresDAO();
@@ -2440,9 +2454,9 @@ public class Controller {
     }//fine addEsposizione
 
     /**
-     * Init dimension int.
+     * Inizializza le dimensioni dello schermo.
      *
-     * @return the int
+     * @return l'altezza dello schermo
      */
 // FUNZIONI AGGIUNTIVE //
     public int initDimension(){ //inizializza 'screenWidth' con la larghezza dello schermo e ritorna l'altezza
@@ -2453,9 +2467,9 @@ public class Controller {
     }//fine initDimension
 
     /**
-     * Gets font title impact size.
+     * Calcola le dimensioni del font titoli.
      *
-     * @return the font title impact size
+     * @return le dimensioni del font titoli
      */
     public int getFontTitleImpactSize(){    //calcola la dimensione del font "TitleImpact" in base alle dimensioni dello schermo
         int fontSize = Math.min(screenWidth, screenHeight) / 33;    //dimensione del font
@@ -2463,9 +2477,9 @@ public class Controller {
     }//fine getFontTitleImpactSize
 
     /**
-     * Gets font size.
+     * Calcola le dimensioni del font in proporzione alle dimensioni dello schermo.
      *
-     * @return the font size
+     * @return le dimensioni del font
      */
     public int getFontSize(){   //calcola la dimensione del font in base alle dimensioni dello schermo
         int fontSize = Math.min(screenWidth, screenHeight) / 50;    //dimensione del font
@@ -2473,10 +2487,10 @@ public class Controller {
     }//fine getFontSize
 
     /**
-     * Calcola altezza font int.
+     * Calcola l'altezza del font passato come parametro.
      *
-     * @param font the font
-     * @return the int
+     * @param font il font
+     * @return l'altezza calcolata del font
      */
     public int calcolaAltezzaFont(Font font){   //calcola l'altezza del font 'font'
         BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB); //crea un'immagine

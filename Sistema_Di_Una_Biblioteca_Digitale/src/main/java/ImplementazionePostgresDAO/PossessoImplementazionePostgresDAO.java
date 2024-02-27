@@ -9,13 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * The type Possesso implementazione postgres dao.
+ * La classe PossessoImplementazionePostgresDAO implementa l'interfaccia PossessoDAO, quindi contiene le implementazioni dei metodi che
+ * interagiscono con il database per implementare le funzionalità relative ai possessi delle librerie e degli elementi.
  */
 public class PossessoImplementazionePostgresDAO implements PossessoDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Possesso implementazione postgres dao.
+     * Istanzia un nuovo PossessoImplementazionePostgresDAO.
      */
     public PossessoImplementazionePostgresDAO(){
         try {

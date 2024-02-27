@@ -7,14 +7,15 @@ import Database.ConnessioneDatabase;
 import java.sql.*;
 
 /**
- * The type Libro implementazione postgres dao.
+ * La classe LibroImplementazionePostgresDAO implementa l'interfaccia LibroDAO, quindi contiene le implementazioni dei metodi che interagiscono
+ * con il database per implementare le funzionalità relative ai libri.
  */
 public class LibroImplementazionePostgresDAO implements LibroDAO {
 
     private Connection connection;
 
     /**
-     * Instantiates a new Libro implementazione postgres dao.
+     * Istanzia un nuovo LibroImplementazionePostgresDAO.
      */
     public LibroImplementazionePostgresDAO() {
         try {

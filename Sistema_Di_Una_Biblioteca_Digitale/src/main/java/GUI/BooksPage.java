@@ -14,11 +14,12 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
- * The type Books page.
+ * La classe BooksPage implemeta l'interfaccia grafica della pagina che mostra tutte le informazioni dei libri e permette di cercarne uno e di
+ * selezionarlo.
  */
 public class BooksPage {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JButton homeButton;
@@ -52,10 +53,10 @@ public class BooksPage {
     private JPopupMenu utenteMenu;
 
     /**
-     * Instantiates a new Books page.
+     * Istanzia una nuova BooksPage.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
+     * @param frameC     il frame chiamante
+     * @param controller il controller
      */
     public BooksPage(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato

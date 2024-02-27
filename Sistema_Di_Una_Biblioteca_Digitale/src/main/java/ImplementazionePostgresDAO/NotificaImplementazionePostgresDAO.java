@@ -9,13 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * The type Notifica implementazione postgres dao.
+ * La classe NotificaImplementazionePostgresDAO implementa l'interfaccia NotificaDAO, quindi contiene le implementazioni dei metodi che interagiscono
+ * con il database per implementare le funzionalità relative alle notifiche
  */
 public class NotificaImplementazionePostgresDAO implements NotificaDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Notifica implementazione postgres dao.
+     * Istanzia una nuova NotificaImplementazionePostgresDAO.
      */
     public NotificaImplementazionePostgresDAO(){
         try {
@@ -96,7 +97,7 @@ public class NotificaImplementazionePostgresDAO implements NotificaDAO {
     }//fine visualizzaNotificaDB
 
     /**
-     * Chiudi connessione.
+     * Chiudi la connessione al database.
      */
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{

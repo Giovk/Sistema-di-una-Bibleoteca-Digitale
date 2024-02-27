@@ -10,13 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * The type Collana implementazione postgres dao.
+ * La classe CollanaImplementazionePostgresDAO implementa l'interfaccia CollanaDAO, quindi contiene le implementazioni dei metodi che interagiscono
+ * con il database per implementare le funzionalità relative alle collane di libri.
  */
 public class CollanaImplementazionePostgresDAO implements CollanaDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Collana implementazione postgres dao.
+     * Istanzia una nuova CollanaImplementazionePostgresDAO.
      */
     public CollanaImplementazionePostgresDAO(){
         try {

@@ -6,13 +6,14 @@ import Database.ConnessioneDatabase;
 import java.sql.*;
 
 /**
- * The type Autore implementazione postgres dao.
+ * La classe AutoreImplementazionePostgresDAO implementa l'interfaccia AutoreDAO, quindi contiene le implementazioni dei metodi che interagiscono
+ * con il database per implementare le funzionalità relative agli autori di libri e articoli scientifici.
  */
 public class AutoreImplementazionePostgresDAO implements AutoreDAO{
     private Connection connection;
 
     /**
-     * Instantiates a new Autore implementazione postgres dao.
+     * Istanzia un nuovo AutoreImplementazionePostgresDAO.
      */
     public AutoreImplementazionePostgresDAO(){
         try {
@@ -249,7 +250,7 @@ public class AutoreImplementazionePostgresDAO implements AutoreDAO{
     }//fine Customize Toolbar...
 
     /**
-     * Chiudi connessione.
+     * Chiude la connessione al database.
      */
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{

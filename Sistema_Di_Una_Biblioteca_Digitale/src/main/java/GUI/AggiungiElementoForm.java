@@ -19,11 +19,12 @@ import java.time.Year;
 import java.util.ArrayList;
 
 /**
- * The type Aggiungi elemento form.
+ * La classe AggiungiElementoForm implemeta l'interfaccia grafica del form che permette di inserire un nuovo elemento tra quelli posseduti nella
+ * libreria selezionata dall'utente.
  */
 public class AggiungiElementoForm {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel contentPane;
@@ -116,22 +117,22 @@ public class AggiungiElementoForm {
     private int screenWidth = 0;
     private int screenHeight = 0;
     /**
-     * The Calendar ico.
+     * Icona del calendario.
      */
     ImageIcon calendarIco = new ImageIcon(this.getClass().getResource("/Calendar2.png"));
     /**
-     * The Calendar img.
+     * Immagine dell'icona del calendario.
      */
     Image calendarImg = calendarIco.getImage().getScaledInstance((int) (Toolkit.getDefaultToolkit().getScreenSize().width/51.2), (int) (Toolkit.getDefaultToolkit().getScreenSize().height/28.8), Image.SCALE_SMOOTH);
     private ArrayList<String> isbnLibri;
     private DatePicker datePickerFascicoli;
 
     /**
-     * Instantiates a new Aggiungi elemento form.
+     * Istanzia una nuova AggiungiElementoForm.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
-     * @param model      the model
+     * @param frameC     il frame chiamante
+     * @param controller il controller
+     * @param model      il model delle tabelle
      */
     public AggiungiElementoForm(JFrame frameC, Controller controller, DefaultTableModel model){
         screenHeight = controller.screenHeight; //inizializza l'altezza dello schermo
@@ -1760,10 +1761,10 @@ public class AggiungiElementoForm {
     }//fine initComponentsAutoreLibro
 
     /**
-     * Calcola altezza font int.
+     * Calcola l'altezza del font passato come parametro.
      *
-     * @param font the font
-     * @return the int
+     * @param font il font
+     * @return l'altezza calcolata del font
      */
     public int calcolaAltezzaFont(Font font){   //calcola l'alteza del font 'font'
         BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB); //crea un'immagine
@@ -1893,10 +1894,6 @@ public class AggiungiElementoForm {
                     return numberFormatter;
                 }
             });
-
-
-
-
 
             SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, 9999, 1); //inizializza il model dello JSpinner
 

@@ -4,67 +4,71 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- * The interface Serie dao.
+ * L'interfaccia RivistaDAO contiene i metodi (da implementare) che interagiscono con il database per implementare le funzionalità relative alle
+ * serie di libri.
  */
 public interface SerieDAO {
     /**
-     * Gets serie db.
+     * Ritorna tutte le informazioni nel database riguardanti tutte le serie di libri.
      *
-     * @return the serie db
+     * @return il ResultSet con le informazioni delle serie trovate nel database
      */
     public ResultSet getSerieDB();  //cerca i dati di tutte le serie nel DB
 
     /**
-     * Gets serie genere db.
+     * Ritorna la lista di tutti i generi dei libri delle serie presenti nel database.
      *
-     * @return the serie genere db
+     * @return la lista dei generi dei libri delle serie
      */
     public ArrayList<String> getSerieGenereDB();    //ritorna tutti i generi dei libri che sono inseriti in qualche serie
 
     /**
-     * Gets serie autori db.
+     * Ritorna la lista di tutti gli autori (nomi e cognomi) dei libri delle serie presenti nel database.
      *
-     * @return the serie autori db
+     * @return la lista degli autori dei libri delle serie
      */
     public ArrayList<String> getSerieAutoriDB();    //ritorna tutti gli autori dei libri che sono inseriti in qualche serie
 
     /**
-     * Gets lista serie genere db.
+     * Ritorna tutte le informazioni nel database riguardanti tutte le serie con libri del genere passato come parametro.
      *
-     * @param genere the genere
-     * @return the lista serie genere db
+     * @param genere il genere dei libri
+     * @return il ResultSet con le informazioni delle serie trovate nel database
      */
     public ResultSet getListaSerieGenereDB(String genere);  //cerca i dati delle serie con libri del genere 'genere'
 
     /**
-     * Gets lista serie autore db.
+     * Ritorna tutte le informazioni nel database riguardanti tutte le serie con libri dell'autore passato come parametro.
      *
-     * @param autore the autore
-     * @return the lista serie autore db
+     * @param autore l'autore dei libri
+     * @return il ResultSet con le informazioni delle serie trovate nel database
      */
     public ResultSet getListaSerieAutoreDB(String autore);  //cerca i dati delle serie con libri dell'autore 'autore'
 
     /**
-     * Gets info serie preferiti db.
+     * Ritorna tutte le informazioni nel database riguardanti le librerie che possiedono la serie con l'ISBN uguale a quello passato come parametro,
+     * la quatità e la modalità di fruizione disponibile.
      *
-     * @param isbn the isbn
-     * @return the info serie preferiti db
+     * @param isbn l'ISBN della serie
+     * @return il ResultSet con: le informazioni trovate nel database delle librerie che possiedono la serie; la quantità e la modalità di fruizione
+     * disponibile della serie
      */
     public ResultSet getInfoSeriePreferitiDB(String isbn);  //cerca i dati della serie con ISBN 'isbn' e delle librerie che lo possiedono
 
     /**
-     * Crea serie db boolean.
+     * Se non è già presente, inserisce nel database una nuova serie con le informazioni passate come parametro e ritorna "true", altrimenti
+     * ritorna "false".
      *
-     * @param isbnList the isbn list
-     * @param isbn     the isbn
-     * @param titolo   the titolo
-     * @param dp       the dp
-     * @return the boolean
+     * @param isbnList la lista degli ISBN dei libri della nuova serie
+     * @param isbn     l'ISBN della nuova serie
+     * @param titolo   il titolo della nuova serie
+     * @param dp       la data di pubblicazione della nuova serie
+     * @return true" se crea la nuova serie, altrimenti "false"
      */
     public boolean creaSerieDB(ArrayList<String> isbnList, String isbn, String titolo, String dp);  //se non esiste già, inserisce una nuova serie nel DB e ritorna "true", altrimenti ritorna "false"
 
     /**
-     * Chiudi connessione.
+     * Chiudi la connessione al database.
      */
     public void chiudiConnessione();    //chiude la connessione al DB
 }

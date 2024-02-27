@@ -9,13 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * The type Rivista implementazione postgres dao.
+ * La classe RivistaImplementazionePostgresDAO implementa l'interfaccia RivistaDAO, quindi contiene le implementazioni dei metodi che interagiscono
+ * con il database per implementare le funzionalità relative alle riviste.
  */
 public class RivistaImplementazionePostgresDAO implements RivistaDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Rivista implementazione postgres dao.
+     * Istanzia una nuova RivistaImplementazionePostgresDAO.
      */
     public RivistaImplementazionePostgresDAO() {
         try {

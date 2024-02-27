@@ -6,13 +6,14 @@ import Database.ConnessioneDatabase;
 import java.sql.*;
 
 /**
- * The type Fascicolo implementazione postgres dao.
+ * La classe FascicoloImplementazionePostgresDAO implementa l'interfaccia FascicoloDAO, quindi contiene le implementazioni dei metodi che
+ * interagiscono con il database per implementare le funzionalità relative ai fascicoli.
  */
 public class FascicoloImplementazionePostgresDAO implements FascicoloDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Fascicolo implementazione postgres dao.
+     * Istanzia un nuovo FascicoloImplementazionePostgresDAO.
      */
     public FascicoloImplementazionePostgresDAO() {
         try {

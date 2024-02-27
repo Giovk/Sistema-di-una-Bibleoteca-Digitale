@@ -16,11 +16,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * The type Bookshop page.
+ * La classe BookshopPage implemeta l'interfaccia grafica della pagina che mostra tutte le informazioni della libreria selezionata e di tutti gli
+ * elementi che possiede.
  */
 public class BookshopPage {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel bookshopPagePanel;
@@ -46,10 +47,10 @@ public class BookshopPage {
     private int row_selected;
 
     /**
-     * Instantiates a new Bookshop page.
+     * Istanzia una nuova BookshopPage.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
+     * @param frameC     il frame chiamante
+     * @param controller il controller
      */
     public BookshopPage(JFrame frameC, Controller controller){
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato

@@ -9,13 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * The type Presentazione implementazione postgres dao.
+ * La classe PresentazioneImplementazionePostgresDAO implementa l'interfaccia PresentazioneDAO, quindi contiene le implementazioni dei metodi che
+ * interagiscono con il database per implementare le funzionalità relative alle presentazioni dei libri.
  */
 public class PresentazioneImplementazionePostgresDAO implements PresentazioneDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Presentazione implementazione postgres dao.
+     * Istanzia una nuova PresentazioneImplementazionePostgresDAO.
      */
     public PresentazioneImplementazionePostgresDAO(){
         try {

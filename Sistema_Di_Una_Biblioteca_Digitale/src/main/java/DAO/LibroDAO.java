@@ -4,70 +4,73 @@ import java.sql.Date;
 import java.sql.ResultSet;
 
 /**
- * The interface Libro dao.
+ * L'interfaccia LibroDAO contiene i metodi (da implementare) che interagiscono con il database per implementare le funzionalità relative ai libri.
  */
 public interface LibroDAO {
     /**
-     * Gets libri db.
+     * Ritorna tutte le informazioni nel database riguardanti tutti i libri.
      *
-     * @return the libri db
+     * @return il ResultSet con le informazioni dei libri trovate nel database
      */
     public ResultSet getLibriDB();  //cerca i dati di tutti i libri nel DB
 
     /**
-     * Gets libri db.
+     * Ritorna tutte le informazioni nel database riguardanti i libri della collana con il nome uguale a quello passato come parametro.
      *
-     * @param collana the collana
-     * @return the libri db
+     * @param collana il nome della collana
+     * @return il ResultSet con le informazioni trovate nel database dei libri della collana
      */
     public ResultSet getLibriDB(String collana);  //cerca i dati di tutti i libri della collana 'collana' nel DB
 
     /**
-     * Gets libri serie db.
+     * Ritorna tutte le informazioni nel database riguardanti i libri della serie con l'ISBN uguale a quello passato come parametro.
      *
-     * @param s the s
-     * @return the libri serie db
+     * @param s l'ISBN della serie
+     * @return il ResultSet con le informazioni trovate nel database dei libri della serie
      */
     public ResultSet getLibriSerieDB(String s); //cerca i dati di tutti i libri della serie con ISBN 's' nel DB
 
     /**
-     * Gets info libri preferiti db.
+     * Ritorna tutte le informazioni nel database riguardanti le librerie che possiedono il libro con l'ISBN uguale a quello passato come parametro,
+     * la quatità e la modalità di fruizione disponibile.
      *
-     * @param isbn the isbn
-     * @return the info libri preferiti db
+     * @param isbn l'ISBN del libro
+     * @return il ResultSet con: le informazioni trovate nel database delle librerie che possiedono il libro; la quantità e la modalità di fruizione
+     * disponibile del libro
      */
     public ResultSet getInfoLibriPreferitiDB(String isbn);  //cerca i dati del libro con ISBN 'isbn' e delle librerie che lo possiedono
 
     /**
-     * Crea libro db boolean.
+     * Se non è già presente, inserisce nel database un nuovo libro con le informazioni passate come parametro e ritorna "true", altrimenti
+     * ritorna "false".
      *
-     * @param isbn    the isbn
-     * @param titolo  the titolo
-     * @param genere  the genere
-     * @param lingua  the lingua
-     * @param editore the editore
-     * @param dp      the dp
-     * @return the boolean
+     * @param isbn    l'ISBN del nuovo libro
+     * @param titolo  il titolo del nuovo libro
+     * @param genere  il genere del nuovo libro
+     * @param lingua  la lingua del nuovo libro
+     * @param editore l'editore del nuovo libro
+     * @param dp      la data di pubblicazione del nuovo libro
+     * @return "true" se crea il nuovo libro, altrimenti "false"
      */
     public boolean creaLibroDB(String isbn, String titolo, String genere, String lingua, String editore, String dp);    //se non esiste già, inserisce un nuovo libro nel DB e ritorna "true", altrimenti ritorna "false"
 
     /**
-     * Gets data libro db.
+     * Cerca nel database la data di pubblicazione del libro con ISBN uguale a quello passato come parametro.
      *
-     * @param isbn the isbn
-     * @return the data libro db
+     * @param isbn l'ISBN del libro
+     * @return la data di pubblicazione del libro
      */
     public Date getDataLibroDB(String isbn);    //cerca la data di pubblicazione del libro con ISBN 'isbn'
 
     /**
-     * Elimina libro db.
+     * Elimina dal database il libro con ISBN uguale a quello passato come parametro..
      *
-     * @param isbn the isbn
+     * @param isbn l'ISBN del libro
      */
     public void eliminaLibroDB(String isbn);    //elimina dal DB il libro con ISBN 'isbn'
 
     /**
-     * Chiudi connessione.
+     * Chiudi la connessione al database.
      */
     public void chiudiConnessione(); //chiude la connessione al DB
 }

@@ -18,11 +18,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- * The type Book page.
+ * La classe BookPage implemeta l'interfaccia grafica della pagina che mostra tutte le informazioni del libro selezionato e permette di
+ * recensirlo e metterlo nei preferiti.
  */
 public class BookPage {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel buttonPanel;
@@ -58,26 +59,26 @@ public class BookPage {
     private JLabel valLabel;
     private boolean active = false;
     /**
-     * The Favourite vuoto ico.
+     * Icona mostrata quando il libro selezionato non è nei preferiti dell'utente.
      */
     ImageIcon favouriteVuotoIco;
     /**
-     * The Favourite pieno ico.
+     * Icona mostrata quando il libro selezionato è nei preferiti dell'utente.
      */
     ImageIcon favouritePienoIco;
     private float valutazioneMedia;
     private String isbnSelezionato;
     /**
-     * The Numero notifiche.
+     * numero delle notifiche da leggere.
      */
     int numeroNotifiche;
 
 
     /**
-     * Instantiates a new Book page.
+     * Istanzia una nuova BookPage.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
+     * @param frameC     il frame chiamante
+     * @param controller il controller
      */
     public BookPage(JFrame frameC, Controller controller) {
         isbnSelezionato = controller.isbn_selected;    //inizializza 'isbnSelezionato' con l'ISBN del libro selezionato
@@ -807,11 +808,11 @@ public class BookPage {
     }
 
     /**
-     * Change stars.
+     * Cambia le icone delle stelle mostrate in base alla valutazione media del libro selezionato.
      *
-     * @param stellaPienaIco the stella piena ico
-     * @param stellaVuotaIco the stella vuota ico
-     * @param stellaMezzaIco the stella mezza ico
+     * @param stellaPienaIco l'icone della stella piena
+     * @param stellaVuotaIco l'icone della stella vuota
+     * @param stellaMezzaIco l'icone della stella mezza
      */
     public void changeStars(ImageIcon stellaPienaIco, ImageIcon stellaVuotaIco, ImageIcon stellaMezzaIco){  //aggiorna le stelle della valutazione media
         if(valutazioneMedia <= 0.25){   //controlla se la media è minore uguale a 0,25
@@ -884,15 +885,15 @@ public class BookPage {
     }//fine changeStars
 
     /**
-     * Change stars.
+     * Cambia le icone delle stelle mostrate in base alla valutazione fatta dall'utente al libro selezionato.
      *
-     * @param stella1     the stella 1
-     * @param stella2     the stella 2
-     * @param stella3     the stella 3
-     * @param stella4     the stella 4
-     * @param stella5     the stella 5
-     * @param valutazione the valutazione
-     * @param controller  the controller
+     * @param stella1     la prima stella
+     * @param stella2     la seconda stella
+     * @param stella3     la terza stella
+     * @param stella4     la quarta stella
+     * @param stella5     la quinta stella
+     * @param valutazione la valutazione fatta dall'utente al libro selezionato
+     * @param controller  il controller
      */
     public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione, Controller controller){   //aggiorna le stelle della recensione con valutazione 'valutazione'
         ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png")); //carica l'immagine nel percorso /stella_vuota.png
@@ -945,10 +946,10 @@ public class BookPage {
     }//fine changeStars
 
     /**
-     * Show comment.
+     * Mostra i commenti fatti al libro selezionato.
      *
-     * @param controller the controller
-     * @param commenti   the commenti
+     * @param controller il controller
+     * @param commenti   contiene i commenti del libro selezionato
      */
     public void showComment(Controller controller, JPanel commenti){    //mostra tutti i commenti fatti al libro selezionato
         controller.isbn_selected = isbnSelezionato;    //inizializza 'controller.isbn_selected' con 'isbnSelezionato'
@@ -960,14 +961,14 @@ public class BookPage {
     }//fine showComment
 
     /**
-     * Add comment.
+     * Aggiunge in 'commenti' un commento fatto dall'utente che ha effettuato l'accesso al libro selezionato.
      *
-     * @param utente       the utente
-     * @param val          the val
-     * @param commentoUser the commento user
-     * @param commenti     the commenti
-     * @param n            the n
-     * @param controller   the controller
+     * @param utente       username dell'utente che ha fatto la recensione
+     * @param val          la valutazione della recensione
+     * @param commentoUser il commento della recensione
+     * @param commenti     contiene le recensioni
+     * @param n            numero di commenti inseriti
+     * @param controller   il controller
      */
     public void addComment(String utente, int val, String commentoUser, JPanel commenti, int n, Controller controller){ //aggiunge un commento nel JPanel 'commenti'
         JPanel panel1;

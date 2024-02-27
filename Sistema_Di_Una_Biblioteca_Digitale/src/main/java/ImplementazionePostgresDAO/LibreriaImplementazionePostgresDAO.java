@@ -6,13 +6,14 @@ import Database.ConnessioneDatabase;
 import java.sql.*;
 
 /**
- * The type Libreria implementazione postgres dao.
+ * La classe LibreriaImplementazionePostgresDAO implementa l'interfaccia LibreriaDAO, quindi contiene le implementazioni dei metodi che
+ * interagiscono con il database per implementare le funzionalità relative alle librerie.
  */
 public class LibreriaImplementazionePostgresDAO implements LibreriaDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Libreria implementazione postgres dao.
+     * Istanzia una nuova LibreriaImplementazionePostgresDAO.
      */
     public LibreriaImplementazionePostgresDAO(){
         try {
@@ -196,7 +197,7 @@ public class LibreriaImplementazionePostgresDAO implements LibreriaDAO {
     }//fine removeLibreriaDB
 
     /**
-     * Chiudi connessione.
+     * Chiude la connessione al database.
      */
     public void chiudiConnessione(){    //chiude la connessione al DB
         try{

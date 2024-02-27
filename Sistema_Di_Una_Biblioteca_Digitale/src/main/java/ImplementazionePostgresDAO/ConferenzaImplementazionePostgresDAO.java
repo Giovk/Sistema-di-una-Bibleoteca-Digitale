@@ -9,13 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * The type Conferenza implementazione postgres dao.
+ * La classe ConferenzaImplementazionePostgresDAO implementa l'interfaccia ConferenzaDAO, quindi contiene le implementazioni dei metodi che
+ * interagiscono con il database per implementare le funzionalità relative alle conferenze.
  */
 public class ConferenzaImplementazionePostgresDAO implements ConferenzaDAO {
     private Connection connection;
 
     /**
-     * Instantiates a new Conferenza implementazione postgres dao.
+     * Istanzia una nuova ConferenzaImplementazionePostgresDAO.
      */
     public ConferenzaImplementazionePostgresDAO(){
         try {
