@@ -15,11 +15,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * The type Series page.
+ * La classe SeriesPage implemeta l'interfaccia grafica della pagina che mostra tutte le informazioni delle serie e permette di cercarne una e di
+ * selezionarla.
  */
 public class SeriesPage {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel buttonPanel;
@@ -49,10 +50,10 @@ public class SeriesPage {
     private int numeroNotifiche;
 
     /**
-     * Instantiates a new Series page.
+     * Istanzia una nuova IssuesPage.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
+     * @param frameC     il frame chiamante
+     * @param controller il controller
      */
     public SeriesPage(JFrame frameC, Controller controller){
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato
@@ -591,9 +592,9 @@ public class SeriesPage {
     }//fine setNumeroNotifiche
 
     /**
-     * Search.
+     * Esegue una ricerca delle serie.
      *
-     * @param controller the controller
+     * @param controller il controller
      */
     public void search(Controller controller){  //esegue una ricerca nella tabella
         if (searchBarField.getText().isBlank()) {  //controlla se non è stato inserito un testo nel JTextField 'searchBarField'

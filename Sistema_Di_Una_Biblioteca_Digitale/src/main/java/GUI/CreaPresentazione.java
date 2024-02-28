@@ -13,11 +13,11 @@ import java.awt.event.*;
 import java.sql.Date;
 
 /**
- * The type Crea presentazione.
+ * La classe CreaPresentazione implemeta l'interfaccia grafica del form che permette di creare una nuova presentazione del libro selezionato.
  */
 public class   CreaPresentazione {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel contentPanel;
@@ -50,11 +50,11 @@ public class   CreaPresentazione {
     private DatePickerMoreDay datePicker;
 
     /**
-     * Instantiates a new Crea presentazione.
+     * Istanzia un nuovo CreaPresentazione.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
-     * @param model2     the model 2
+     * @param frameC     il frame chiamante
+     * @param controller il controller
+     * @param model2     il model della tabella
      */
     public CreaPresentazione(JFrame frameC, Controller controller, DefaultTableModel model2){
         datePicker = new DatePickerMoreDay(calendarIMG);

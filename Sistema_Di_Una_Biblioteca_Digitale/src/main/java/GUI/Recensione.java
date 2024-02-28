@@ -8,11 +8,11 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 /**
- * The type Recensione.
+ * La classe Recensione implemeta l'interfaccia grafica del form che permette di inserire una nuova recensione all'elemento selezionato.
  */
 public class Recensione extends JDialog {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel contentPane;
@@ -30,51 +30,51 @@ public class Recensione extends JDialog {
     private JButton buttonCancel;
     private boolean active = false;
     /**
-     * The Stella piena ico.
+     * icona della stella piena
      */
     public ImageIcon stellaPienaIco;
     /**
-     * The Stella vuota ico.
+     * icona della stella vuota
      */
     public ImageIcon stellaVuotaIco;
     /**
-     * The Stella mezza ico.
+     * icona della stella mezza
      */
     public ImageIcon stellaMezzaIco;
     /**
-     * The Valutazione.
+     * valore della valutazione fatta all'elemento selezionato.
      */
     public int valutazione = 0;
     /**
-     * The Valutazione media.
+     * media delle valutazioni dell'elemento selelzionato.
      */
     public float valutazioneMedia;
     /**
-     * The Isbn selezionato.
+     * ISBN dell'elemento selezionato.
      */
     public String isbn_selezionato;
     /**
-     * The Titolo.
+     * Titolo dell'elemento selezionato.
      */
     public String titolo;
     /**
-     * The Numero.
+     * Numero del fascicolo selezionato.
      */
     int numero;
 
     /**
-     * Instantiates a new Recensione.
+     * Istanzia un nuovo Recensione.
      *
-     * @param frameC       the frame c
-     * @param controller   the controller
-     * @param valutazioneC the valutazione c
-     * @param s1           the s 1
-     * @param s2           the s 2
-     * @param s3           the s 3
-     * @param s4           the s 4
-     * @param s5           the s 5
-     * @param commenti     the commenti
-     * @param elemento     the elemento
+     * @param frameC       il frame chiamante
+     * @param controller   il controller
+     * @param valutazioneC contiene la valutazione media dell'elemento selezionato
+     * @param s1           la prima stella
+     * @param s2           la seconda stella
+     * @param s3           la terza stella
+     * @param s4           la quarta stella
+     * @param s5           la quinta stella
+     * @param commenti     contiene tutti i commenti dell'elemento selezionato
+     * @param elemento     tipo di elemento selezionato
      */
     public Recensione(JFrame frameC, Controller controller, JLabel valutazioneC, JLabel s1, JLabel s2, JLabel s3, JLabel s4, JLabel s5, JPanel commenti,int elemento) {
         if(controller.isbn_selected != null){   //controlla se è stato selezionato un libro
@@ -436,15 +436,15 @@ public class Recensione extends JDialog {
     }
 
     /**
-     * Change stars.
+     * Cambia le icone delle stelle mostrate in base alla valutazione fatta dall'utente al libro selezionato.
      *
-     * @param stella1     the stella 1
-     * @param stella2     the stella 2
-     * @param stella3     the stella 3
-     * @param stella4     the stella 4
-     * @param stella5     the stella 5
-     * @param valutazione the valutazione
-     * @param controller  the controller
+     * @param stella1     la prima stella
+     * @param stella2     la seconda stella
+     * @param stella3     la terza stella
+     * @param stella4     la quarta stella
+     * @param stella5     la quinta stella
+     * @param valutazione la valutazione fatta dall'utente al libro selezionato
+     * @param controller  il controller
      */
     public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione, Controller controller){   //aggiorna le stelle della recensione con valutazione 'valutazione'
         ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png")); //carica l'immagine nel percorso /stella_vuota.png
@@ -497,11 +497,10 @@ public class Recensione extends JDialog {
     }//fine changeStars
 
     /**
-     * Show comment.
+     * Mostra i commenti fatti all'elemento selezionato.
      *
-     * @param controller the controller
-     * @param commenti   the commenti
-     * @param elemento   the elemento
+     * @param controller il controller
+     * @param commenti   contiene i commenti del libro selezionato
      */
     public void showComment(Controller controller, JPanel commenti, int elemento){  //mostra tutti i commenti fatti all'elemento selezionato
         if (elemento == 1) {    //controlla se è stato selezionato un libro
@@ -525,14 +524,14 @@ public class Recensione extends JDialog {
     }//fine showComment
 
     /**
-     * Add comment.
+     * Aggiunge in 'commenti' un commento fatto dall'utente che ha effettuato l'accesso al libro selezionato.
      *
-     * @param utente       the utente
-     * @param val          the val
-     * @param commentoUser the commento user
-     * @param commenti     the commenti
-     * @param n            the n
-     * @param controller   the controller
+     * @param utente       username dell'utente che ha fatto la recensione
+     * @param val          la valutazione della recensione
+     * @param commentoUser il commento della recensione
+     * @param commenti     contiene le recensioni
+     * @param n            numero di commenti inseriti
+     * @param controller   il controller
      */
     public void addComment(String utente, int val, String commentoUser, JPanel commenti, int n, Controller controller){
         JPanel panel1;
@@ -638,16 +637,16 @@ public class Recensione extends JDialog {
     }//fine addComment
 
     /**
-     * Change stars.
+     * Cambia le icone delle stelle mostrate in base alla valutazione fatta dall'utente al libro selezionato.
      *
-     * @param s1             the s 1
-     * @param s2             the s 2
-     * @param s3             the s 3
-     * @param s4             the s 4
-     * @param s5             the s 5
-     * @param stellaPienaIco the stella piena ico
-     * @param stellaVuotaIco the stella vuota ico
-     * @param stellaMezzaIco the stella mezza ico
+     * @param s1             la prima stella
+     * @param s2             la seconda stella
+     * @param s3             la terza stella
+     * @param s4             la quarta stella
+     * @param s5             la quinta stella
+     * @param stellaPienaIco l'icona della stella piena
+     * @param stellaVuotaIco l'icona della stella vuota
+     * @param stellaMezzaIco l'icona della stella mezza
      */
     public void changeStars(JLabel s1, JLabel s2, JLabel s3, JLabel s4, JLabel s5, ImageIcon stellaPienaIco, ImageIcon stellaVuotaIco, ImageIcon stellaMezzaIco){
         if(valutazioneMedia <= 0.25){   //controlla se la media è minore uguale a 0,25

@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * The type New comfirm message dialog.
+ * La classe NewComfirmMessageDialog implemeta l'interfaccia grafica dei messaggi di conferma da mostrare all'utente che ha effettuato l'accesso.
  */
 public class NewComfirmMessageDialog extends JDialog {
     private JPanel contentPane;
@@ -17,34 +17,34 @@ public class NewComfirmMessageDialog extends JDialog {
     private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
     private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
     /**
-     * The Font size.
+     * Dimensioni del font.
      */
     public int fontSize = getFontSize();
     /**
-     * The Base font size.
+     * Dimensione font base.
      */
     public Font baseFontSize = new Font("Segoe UI", Font.PLAIN, fontSize);
     /**
-     * The Impact font size.
+     * Dimensione font base impact .
      */
     public Font impactFontSize = new Font("Impact", Font.PLAIN, fontSize);
     /**
-     * The Text field font.
+     * Font Text field.
      */
     public Font textFieldFont = new Font("Berlin Sans FB", Font.PLAIN, fontSize-2);
 
     /**
-     * Instantiates a new New comfirm message dialog.
+     * Istanzia un nuovo NewConfirmMessageDialog.
      */
     public NewComfirmMessageDialog() {
 
     }
 
     /**
-     * Comfirm dialog int.
+     * Mostra il messaggio passato come parametro e ritorna: 1 se l'utente preme "SI"; 2 se l'utente preme "NO"; 0 se l'utente annulla l'operazione.
      *
-     * @param message the message
-     * @return the int
+     * @param message da mostrare
+     * @return 1,2 o 3 in base al pulsante premuto
      */
     public int comfirmDialog(String message){
         this.setUndecorated(true);  //rimuove la decorazione della finestra
@@ -155,9 +155,9 @@ public class NewComfirmMessageDialog extends JDialog {
     }//fine onCancel
 
     /**
-     * Gets font size.
+     * Calcola le dimensioni del font in proporzione alle dimensioni dello schermo.
      *
-     * @return the font size
+     * @return le dimensioni del font
      */
     public int getFontSize(){   //calcola le dimensioni del font in base alle dimensioni dello schermo
         int fontSize = Math.min(screenWidth, screenHeight) / 50;    //dimensione del font

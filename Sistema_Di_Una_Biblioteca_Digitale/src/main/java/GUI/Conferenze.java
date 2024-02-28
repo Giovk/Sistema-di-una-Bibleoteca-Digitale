@@ -12,11 +12,12 @@ import java.awt.event.*;
 import java.sql.Date;
 
 /**
- * The type Conferenze.
+ * La classe Conferenze implemeta l'interfaccia grafica del form che permette di visualizzare e aggiungere le conferenze nelle quali è esposto
+ * l'articolo selezionato.
  */
 public class Conferenze {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel contentPanel;
@@ -61,10 +62,10 @@ public class Conferenze {
     private boolean active = true;
 
     /**
-     * Instantiates a new Conferenze.
+     * Istanzia un nuovo Conferenze.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
+     * @param frameC     il frame chiamante
+     * @param controller il controller
      */
     public Conferenze(JFrame frameC, Controller controller){
         datePicker = new DatePickerMoreDay(calendarIMG);
@@ -467,7 +468,7 @@ public class Conferenze {
                     dataFineField.setText(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getDataFine().toString());  //imposta il testo del JTextField 'dataFineField' con la data di fine della conferenza selezionata
 
                     if(!controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo().contains("(")){    //controlla se la provincia del luogo della conferenza selezionata non è stata inserita
-                        int pos1 = findFirstNumberPosition(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo());   //posizione della rima cifra del numero civico del luogo della conferenza selezionata
+                        int pos1 = findFirstNumberPosition(controller.listaAllConferenze.get(conferenzeCB.getSelectedIndex()).getLuogo());   //posizione della prima cifra del numero civico del luogo della conferenza selezionata
                         int pos2 = 0; //seconda posizione
                         String temp = "";   //stringa temporanea
 
@@ -568,9 +569,9 @@ public class Conferenze {
     }
 
     /**
-     * Annulla action.
+     * Chiude il form che permette di aggiungere una conferenze in cui è esposto l'articolo selezionato.
      */
-    public void annulla_action(){   //chiude il JPanel er inserire una nuova conferenza
+    public void annulla_action(){   //chiude il JPanel per inserire una nuova conferenza
         strutturaField.setText(""); //svuota il testo del JTextField 'strutturaField'
         viaField.setText("");   //svuota il testo del JTextField 'viaField'
         nazioneField.setText("");   //svuota il testo del JTextField 'nazioneField'
@@ -591,10 +592,10 @@ public class Conferenze {
     }//fine annulla_action
 
     /**
-     * Reload table cb.
+     * Aggiorna la tabella delle conferenze dell'articolo selezionato.
      *
-     * @param controller the controller
-     * @param indirizzo  the indirizzo
+     * @param controller il controller
+     * @param indirizzo  l'indirizzo della nuova conferenza
      */
     public void reload_table_cb(Controller controller, String indirizzo){   //se l'articolo selezionato non è stato gia esposto nella conferenza selezionata, aggiorna il contenuto della tabella, altrimenti mostra un messaggio di errorea
         if (controller.addEsposizione(strutturaField.getText().replace("'", "’"), indirizzo.replace("'", "’"), dataInizioField.getText(), dataFineField.getText()) == false){   //controlla se l'articolo è gia stato inserito nella conferenza
@@ -621,10 +622,10 @@ public class Conferenze {
     }//fine reload_table_cb
 
     /**
-     * Find first number position int.
+     * Restituisce la posizione del primo numero della stringa presa come parametro. Se non ci sono numeri restituisce -1.
      *
-     * @param input the input
-     * @return the int
+     * @param input stringa da verificare
+     * @return posizione del primo numero della stringa, altrimenti -1
      */
     public static int findFirstNumberPosition(String input) {   //se c'è, restituisce l'indice della prima cifra in 'input', altrimenti restituise -1
         int length = input.length();    //lunghezza di 'input'

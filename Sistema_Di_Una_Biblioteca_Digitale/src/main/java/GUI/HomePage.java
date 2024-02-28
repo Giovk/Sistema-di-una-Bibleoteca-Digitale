@@ -17,11 +17,12 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * The type Home page.
+ * La classe HomePage implemeta l'interfaccia grafica della pagina che mostra tutte le informazioni degli elementi preferiti dell'utente che ha
+ * effettuato l'accesso e permette di cercarne uno e di selezionarlo.
  */
 public class HomePage {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel homepagePanel;
@@ -50,10 +51,10 @@ public class HomePage {
     private int numeroNotifiche;
 
     /**
-     * Instantiates a new Home page.
+     * Istanzia una nuova HomePage.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
+     * @param frameC     il frame chiamante
+     * @param controller il controller
      */
     public HomePage(JFrame frameC, Controller controller) {
         UIManager.put("MenuItem.selectionBackground", new Color(0xCF9E29)); //imposta il colore dello sfondo di un elemento di menu quando viene selezionato

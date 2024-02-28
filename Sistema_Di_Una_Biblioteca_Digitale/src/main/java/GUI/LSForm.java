@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * The type Ls form.
+ * La classe LSForm implemeta l'interfaccia grafica del form iniziale.
  */
 public class LSForm {
     private Controller controller;
@@ -19,7 +19,7 @@ public class LSForm {
     private JPanel lsPanel;
 
     /**
-     * Instantiates a new Ls form.
+     * Istanzia un nuovo LSForm.
      */
     public LSForm() {
         controller = new Controller();
@@ -48,7 +48,6 @@ public class LSForm {
                     NewLoginForm newLoginForm = new NewLoginForm(0, frame, controller); //chiama il JDialog (NewLoginForm) 'newLoginForm'
                     frame.setEnabled(false); //disabilita il frame
                 }
-
             }
         });
 
@@ -74,7 +73,6 @@ public class LSForm {
                 bt1igm = new ImageIcon(resbt1img);  //reinizializza l'ImageIcon 'bt1igm' con l'Image 'resbt1img'
                 btSignIn.setIcon(bt1igm);   //imposta l'icona del JButton 'btSignIn' con l'immagine
                 btSignIn.setForeground(Color.decode("#EEEEEE"));    //imposta il colore dello sfondo del JButton 'btSignIn'
-
             }
         });
 
@@ -103,7 +101,6 @@ public class LSForm {
                 bt2igm = new ImageIcon(resbt2img);  //reinizializza l'ImageIcon 'bt2igm' con l'Image 'resbt2img'
                 btSignUp.setIcon(bt2igm);   //imposta l'icona del JButton 'btSignUp' con l'immagine
                 btSignUp.setForeground(Color.decode("#EEEEEE"));    //imposta il colore dello sfondo del JButton 'btSignUp'
-
             }
         });
 

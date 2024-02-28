@@ -128,7 +128,7 @@ public class AggiungiElementoForm {
     private DatePicker datePickerFascicoli;
 
     /**
-     * Istanzia una nuova AggiungiElementoForm.
+     * Istanzia un nuovo AggiungiElementoForm.
      *
      * @param frameC     il frame chiamante
      * @param controller il controller

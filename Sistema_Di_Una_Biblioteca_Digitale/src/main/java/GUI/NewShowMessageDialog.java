@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * The type New show message dialog.
+ * La classe NewShowMessageDialog implemeta l'interfaccia grafica dei messaggi da mostrare all'utente che ha effettuato l'accesso.
  */
 public class NewShowMessageDialog extends JDialog {
     private JPanel contentPane;
@@ -15,27 +15,27 @@ public class NewShowMessageDialog extends JDialog {
     private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
     private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
     /**
-     * The Font size.
+     * Dimensioni del font.
      */
     public int fontSize = getFontSize();
     /**
-     * The Base font size.
+     * Dimensione font base.
      */
     public Font baseFontSize = new Font("Segoe UI", Font.PLAIN, fontSize);
     /**
-     * The Impact font size.
+     * Dimensione font base impact .
      */
     public Font impactFontSize = new Font("Impact", Font.PLAIN, fontSize);
     /**
-     * The Text field font.
+     * Font Text field.
      */
     public Font textFieldFont = new Font("Berlin Sans FB", Font.PLAIN, fontSize-2);
 
     /**
-     * Instantiates a new New show message dialog.
+     * Istanzia un nuovo NewConfirmMessageDialog.
      *
-     * @param typeIcon the type icon
-     * @param message  the message
+     * @param typeIcon l'icona da mostrare nel messaggio
+     * @param message  il messaggio da mostrare
      */
     public NewShowMessageDialog(int typeIcon, String message) {
         this.setUndecorated(true);  //rimuove la decorazione della finestra
@@ -128,9 +128,9 @@ public class NewShowMessageDialog extends JDialog {
     }//fine onCancel
 
     /**
-     * Gets font size.
+     * Calcola le dimensioni del font in proporzione alle dimensioni dello schermo.
      *
-     * @return the font size
+     * @return le dimensioni del font
      */
     public int getFontSize(){   //calcola le dimensioni del font in base alle dimensioni dello schermo
         int fontSize = Math.min(screenWidth, screenHeight) / 50;    //dimensione del font

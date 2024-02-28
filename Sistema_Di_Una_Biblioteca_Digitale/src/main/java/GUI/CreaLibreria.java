@@ -8,11 +8,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * The type Crea libreria.
+ * La classe CreaLibreria implemeta l'interfaccia grafica del form che permette di creare una nuova libreria gestita dall'utente che ha effettuato
+ * l'accesso.
  */
 public class CreaLibreria {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel contentPane;
@@ -40,11 +41,11 @@ public class CreaLibreria {
     private JLabel nazioneLabel;
 
     /**
-     * Instantiates a new Crea libreria.
+     * Istanzia un nuovo CreaLibreria.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
-     * @param model      the model
+     * @param frameC     il frame chiamante
+     * @param controller il controller
+     * @param model      il model della tabella
      */
     public CreaLibreria(JFrame frameC, Controller controller, DefaultTableModel model){
         notificheLabelText.setFont(controller.impactFontSize);  //imposta il font della JLabel 'notificheLabelText'

@@ -17,11 +17,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- * The type Issue page.
+ * La classe IssuePage implemeta l'interfaccia grafica della pagina che mostra tutte le informazioni del fascicolo selezionato e permette di
+ * recensirlo e metterlo nei preferiti.
  */
 public class IssuePage {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel buttonPanel;
@@ -55,11 +56,11 @@ public class IssuePage {
     private JLabel valLabel;
     private boolean active = false;
     /**
-     * The Favourite vuoto ico.
+     * Icona mostrata quando il libro selezionato non è nei preferiti dell'utente.
      */
     ImageIcon favouriteVuotoIco;
     /**
-     * The Favourite pieno ico.
+     * Icona mostrata quando il libro selezionato è nei preferiti dell'utente.
      */
     ImageIcon favouritePienoIco;
     private float valutazioneMedia;
@@ -69,15 +70,12 @@ public class IssuePage {
 
 
     /**
-     * Instantiates a new Issue page.
+     * Istanzia una nuova IssuePage.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
+     * @param frameC     il frame chiamante
+     * @param controller il controller
      */
     public IssuePage (JFrame frameC, Controller controller) {
-        //titolo = controller.fascicolo_selected.getRivista().getTitolo();  //inizializza 'titolo' con il titolo della rivista del fascicolo selezionato
-        //numero = controller.fascicolo_selected.getNumero();  //inizializza 'numero' con il numero del fascicolo selezionato
-
         titolo = controller.fascicolo_selected.rivista.titolo;  //inizializza 'titolo' con il titolo della rivista del fascicolo selezionato
         numero = controller.fascicolo_selected.numero;  //inizializza 'numero' con il numero del fascicolo selezionato
 
@@ -778,11 +776,11 @@ public class IssuePage {
     }//fine setNumeroNotifiche
 
     /**
-     * Change stars.
+     * Cambia le icone delle stelle mostrate in base alla valutazione media del fascicolo selezionato.
      *
-     * @param stellaPienaIco the stella piena ico
-     * @param stellaVuotaIco the stella vuota ico
-     * @param stellaMezzaIco the stella mezza ico
+     * @param stellaPienaIco l'icona della stella piena
+     * @param stellaVuotaIco l'icona della stella vuota
+     * @param stellaMezzaIco l'icona della stella mezza
      */
     public void changeStars(ImageIcon stellaPienaIco, ImageIcon stellaVuotaIco, ImageIcon stellaMezzaIco){  //aggiorna le stelle della valutazione media
         if(valutazioneMedia <= 0.25){   //controlla se la media è minore uguale a 0,25
@@ -855,15 +853,15 @@ public class IssuePage {
     }//fine changeStars
 
     /**
-     * Change stars.
+     * Cambia le icone delle stelle mostrate in base alla valutazione fatta dall'utente al fascicolo selezionato.
      *
-     * @param stella1     the stella 1
-     * @param stella2     the stella 2
-     * @param stella3     the stella 3
-     * @param stella4     the stella 4
-     * @param stella5     the stella 5
-     * @param valutazione the valutazione
-     * @param controller  the controller
+     * @param stella1     la prima stella
+     * @param stella2     la seconda stella
+     * @param stella3     la terza stella
+     * @param stella4     la quarta stella
+     * @param stella5     la quinta stella
+     * @param valutazione la valutazione fatta dall'utente al fascicolo selezionato
+     * @param controller  il controller
      */
     public void changeStars(JLabel stella1, JLabel stella2, JLabel stella3, JLabel stella4, JLabel stella5, int valutazione, Controller controller){   //aggiorna le stelle della recensione con valutazione 'valutazione'
         ImageIcon stellaVuotaIco = new ImageIcon(this.getClass().getResource("/stella_vuota.png")); //carica l'immagine nel percorso /stella_vuota.png
@@ -916,10 +914,10 @@ public class IssuePage {
     }//fine changeStars
 
     /**
-     * Show comment.
+     * Mostra i commenti fatti al fascicolo selezionato.
      *
-     * @param controller the controller
-     * @param commenti   the commenti
+     * @param controller il controller
+     * @param commenti   contiene i commenti del fascicolo selezionato
      */
     public void showComment(Controller controller, JPanel commenti){
         controller.selezionaFascicolo(numero,titolo);        //inizializza 'controller.fascicolo_selected'
@@ -931,14 +929,14 @@ public class IssuePage {
     }
 
     /**
-     * Add comment.
+     * Aggiunge in 'commenti' un commento fatto dall'utente che ha effettuato l'accesso al fascicolo selezionato.
      *
-     * @param utente       the utente
-     * @param val          the val
-     * @param commentoUser the commento user
-     * @param commenti     the commenti
-     * @param n            the n
-     * @param controller   the controller
+     * @param utente       username dell'utente che ha fatto la recensione
+     * @param val          la valutazione della recensione
+     * @param commentoUser il commento della recensione
+     * @param commenti     contiene le recensioni
+     * @param n            numero di commenti inseriti
+     * @param controller   il controller
      */
     public void addComment(String utente, int val, String commentoUser, JPanel commenti, int n, Controller controller){ //aggiunge un commento nel JPanel 'commenti'
         JPanel panel1;

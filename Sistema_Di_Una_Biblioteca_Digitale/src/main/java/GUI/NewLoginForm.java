@@ -9,11 +9,11 @@ import java.awt.event.*;
 import java.text.SimpleDateFormat;
 
 /**
- * The type New login form.
+ * La classe NewLoginForm implemeta l'interfaccia grafica del form che permette agli utenti di accedere o registrarsi al sistema.
  */
 public class NewLoginForm extends JDialog {
     /**
-     * The constant frame.
+     * Frame che si sta visualizzando.
      */
     public static JFrame frame;
     private JPanel contentPane;
@@ -66,18 +66,18 @@ public class NewLoginForm extends JDialog {
     private ImageIcon imagine;
     private ImageIcon closeImg;
     /**
-     * The Menu acc.
+     * Indica se si sta visualizzando il form dell'accesso o quello della registrazione.
      */
     public int menuAcc;
     private DatePicker datePicker;
     private Boolean debug = false;
 
     /**
-     * Instantiates a new New login form.
+     * Istanzia un nuovo NewLoginForm.
      *
-     * @param joinD      the join d
-     * @param frameC     the frame c
-     * @param controller the controller
+     * @param joinD      il form visualizzato
+     * @param frameC     il frame chiamante
+     * @param controller il controller
      */
     public NewLoginForm(int joinD, JFrame frameC, Controller controller) {
         accediButton.setFont(controller.baseFontSize);  //imposta il font del JButton 'accediButton'
@@ -443,7 +443,7 @@ public class NewLoginForm extends JDialog {
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
 
-                if (menuAcc == 1) { //controlla se l'utente sta effettuando l'accesso
+                if (menuAcc == 1) { //controlla se l'utente sta effettuando la registrazione
                     registratiButton.setBackground(Color.decode("#FFD369"));    //imposta il colore dello sfondo del JButton 'registratiButton'
                 }
             }

@@ -12,11 +12,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * The type Change quantity.
+ * La classe ChangeQuantity implemeta l'interfaccia grafica del form che permette di modificafre la qunatità disponibile dell'elemento selezionato
+ * nella libreria selezionata.
  */
 public class ChangeQuantity {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel contentPane;
@@ -26,13 +27,13 @@ public class ChangeQuantity {
     private JLabel quantitaLabel;
 
     /**
-     * Instantiates a new Change quantity.
+     * Istanzia un nuovo ChangeQuantity per modificare la quantità disponibile del libro o della serie selelzionata.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
-     * @param model      the model
-     * @param formato    the formato
-     * @param value      the value
+     * @param frameC     il frame chiamante
+     * @param controller il controller
+     * @param model      il model della tabella
+     * @param formato    la fruizione dell'elemento selezionata
+     * @param value      il nuovo valore della quantità disonibile dell'elemento selezionata
      */
     public ChangeQuantity(JFrame frameC, Controller controller, DefaultTableModel model, String formato, int value){
         quantitaLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'quantitaLabel'
@@ -104,14 +105,14 @@ public class ChangeQuantity {
     }
 
     /**
-     * Instantiates a new Change quantity.
+     * Istanzia un nuovo ChangeQuantity per modificare la quantità disponibile del fascicolo selelzionato.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
-     * @param model      the model
-     * @param formato    the formato
-     * @param numero     the numero
-     * @param value      the value
+     * @param frameC     il frame chiamante
+     * @param controller il controller
+     * @param model      il model della tabella
+     * @param formato    la fruizione del fascicolo selezionato
+     * @param numero     il numero del fascicolo selezionato
+     * @param value      il nuovo valore della quantità disonibile del fascicolo selezionato
      */
     public ChangeQuantity(JFrame frameC, Controller controller, DefaultTableModel model, String formato, int numero, int value){
         quantitaLabel.setFont(controller.baseFontSize); //imposta il font della JLabel 'quantitaLabel'
@@ -150,7 +151,7 @@ public class ChangeQuantity {
 
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onOk(model, formato, controller, numero, value,frameC); //aggiorna il contenuto della tabella e chiude la finestra
+                onOk(model, formato, controller, numero, value, frameC); //aggiorna il contenuto della tabella e chiude la finestra
             }
         });
 

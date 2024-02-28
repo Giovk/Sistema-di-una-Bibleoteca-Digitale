@@ -8,11 +8,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * The type Gestisci collane.
+ * La classe GestisciCollane implemeta l'interfaccia grafica del form che permette di creare delle nuove collane di libri e di mettere o togliere
+ * il libro selezionato nelle collane.
  */
 public class GestisciCollane {
     /**
-     * The Frame.
+     * Frame che si sta visualizzando.
      */
     public JFrame frame;
     private JPanel contentPane;
@@ -36,10 +37,10 @@ public class GestisciCollane {
     private int collaneLibroCount = 0;
 
     /**
-     * Instantiates a new Gestisci collane.
+     * Istanzia un nuovo GestisciCollane.
      *
-     * @param frameC     the frame c
-     * @param controller the controller
+     * @param frameC     il frame chiamante
+     * @param controller il controller
      */
     public GestisciCollane(JFrame frameC, Controller controller){
         creaCollanaButton.setFont(controller.baseFontSize); //imposta il font del JButton del JButton 'creaCollanaButton'
