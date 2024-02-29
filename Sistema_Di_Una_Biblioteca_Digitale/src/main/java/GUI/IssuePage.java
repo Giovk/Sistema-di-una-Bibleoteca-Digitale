@@ -919,7 +919,7 @@ public class IssuePage {
      * @param controller il controller
      * @param commenti   contiene i commenti del fascicolo selezionato
      */
-    public void showComment(Controller controller, JPanel commenti){
+    public void showComment(Controller controller, JPanel commenti){    //mostra tutti i commenti fatti al fascicolo selezionato
         controller.selezionaFascicolo(numero,titolo);        //inizializza 'controller.fascicolo_selected'
         controller.allRecWithCommentFascicolo();    //inizializza 'controller.recensioniConCommento'
 

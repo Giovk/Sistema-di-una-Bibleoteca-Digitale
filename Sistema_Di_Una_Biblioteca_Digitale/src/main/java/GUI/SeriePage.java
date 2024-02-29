@@ -920,9 +920,9 @@ public class SeriePage {
      * @param controller il controller
      * @param commenti   contiene i commenti della serie selezionata
      */
-    public void showComment(Controller controller, JPanel commenti){    //mostra tutti i commenti fatti al libro selezionato
+    public void showComment(Controller controller, JPanel commenti){    //mostra tutti i commenti fatti alla serie selezionata
         controller.isbn_selected = isbnSelezionato;    //inizializza 'controller.isbn_selected' con 'isbnSelezionato'
-        controller.allRecWithCommentLibro();    //inizializza 'controller.recensioniConCommento'
+        controller.allRecWithCommentSerie();    //inizializza 'controller.recensioniConCommento'
 
         for (int i = 0; i < controller.recensioniConCommento.size(); i++){  //scorre 'controller.recensioniConCommento'
             addComment(controller.recensioniConCommento.get(i).getUtenteRecensore().getUsername(), controller.recensioniConCommento.get(i).getValutazione(), controller.recensioniConCommento.get(i).getTesto(), commenti, i+1, controller);    //mostra l'i-esimo commento
