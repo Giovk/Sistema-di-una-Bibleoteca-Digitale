@@ -442,7 +442,7 @@ public class BookshopsPage {
 
         if (controller.librerieUtente != null) {    //controlla se l'utente ha delle librerie
             for (int i = 0; i < controller.librerieUtente.size(); i++) {     //scorre 'controller.librerieUtente'
-                model.addRow(new Object[]{controller.librerieUtente.get(i).getNome(), controller.librerieUtente.get(i).getNumeroTelefonico(), controller.librerieUtente.get(i).getNumeroTelefonico(), controller.librerieUtente.get(i).getIndirizzo()});   //aggiunge una nuova riga nella tabella
+                model.addRow(new Object[]{controller.librerieUtente.get(i).getNome(), controller.librerieUtente.get(i).getNumeroTelefonico(), controller.librerieUtente.get(i).getSitoWeb(), controller.librerieUtente.get(i).getIndirizzo()});   //aggiunge una nuova riga nella tabella
             }
         }
 
