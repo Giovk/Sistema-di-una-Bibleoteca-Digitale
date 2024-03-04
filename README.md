@@ -33,11 +33,18 @@ Qui viene descritto il contenuto dei file citati precedentemente.
 
 Per installare il programma seguire i seguenti punti:
 
-1. Creare il database utilizzando le informazioni riportate nel README della branch di Basi di Dati _Link_[BDP] 
+1. Creare il database utilizzando le informazioni riportate nel README della branch di Basi di Dati [_Link_][BDP];
 
-2. Inserire il contenuto del file [CreazioneDB.sql][CDB] nel terminale ed eseguire il comando.
+2. Scaricare l'installer [_Link_][DWD], in caso il download non venga visto come sicuro, autorizzare il download;
 
-3. Se tutto è andato a buon fine, la base di dati è pronta per essere popolata e quindi e possibile inserire il contenuto del file [Popolazione.sql][PDB] nel terminale ed eseguire il comando.
+3. Installare il programma, in caso l'istallazione non venga vista come non sicura da Windows, cliccare _Ulteriori Informazioni_ ed eseguire l'installazione; 
+
+4. Prima di eseguire il programma accertarsi di possedere java jdk-20 o superiore, in caso, ecco il [_Link_][JAV];
+
+5. Aprire il programma;
+
+6. Per Disinstallare il programma, il procedimento, è uguale ad un qualsiasi altro programma.
+
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO)
 
@@ -52,3 +59,4 @@ Per installare il programma seguire i seguenti punti:
 [SDL]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/sequence_diagram_Login.mdj>
 [DWD]: <https://mega.nz/file/YbFU0ByK#IDrRTDEKCYhSAGR4XPaJLdoSWv7XFAdmOv-GPHczcE4>
 [JAR]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Sistema_Di_Una_Biblioteca_Digitale.jar>
+[JAV]: <https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html>
