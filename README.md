@@ -34,5 +34,5 @@ La configurazione del database consiste nelle seguenti fasi che prevedono l'util
 [CDB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/CreazioneDB.sql>
 [PDB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/Popolazione.sql>
 [DOC]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/Documentazione.pdf>
-[BDP]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale](https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Basi-di-Dati>
-[OOP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Object-Orientation?tab=readme-ov-file)https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Object-Orientation>
+[BDP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Basi-di-Dati>
+[OOP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Object-Orientation>
