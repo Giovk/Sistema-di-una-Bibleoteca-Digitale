@@ -705,6 +705,16 @@ INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
 VALUES ('Via Ammiraglio Acton 38, 80133, Napoli, Italia', 'Università Parthenope', '2022-06-01', '2022-06-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
 VALUES ('Piazza Della Vittoria 15, 27100, Pavia, Italia', 'IUSS - Istituto Universitario Di Studi Superiori', '2019-12-05', '2019-12-10');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Viale Dell’Università 39, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2018-11-07', '2018-12-15');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2006-04-01', '2006-04-14');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Piazzale Aldo Moro, 5, 00185 Roma RM', 'Università La Sapienza di Roma', '2018-11-15', '2018-11-28');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Corso Castelfidardo, 39, 10129 Torino TO', 'Politecnico di Torino', '2006-12-15', '2006-12-17');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Viale Europa 7, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2022-06-01', '2022-06-14');
 
 -- ESPOSIZIONE --
 INSERT INTO ESPOSIZIONE (DOI, CodC)
