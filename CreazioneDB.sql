@@ -10,7 +10,8 @@ CREATE TABLE UTENTE
     PasswordU VARCHAR(64) NOT NULL, -- La lunghezza massima di una password sono 64 caratteri.
     PartitaIVA partitaiva UNIQUE,
     Nome VARCHAR(64) NOT NULL,
-    Cognome VARCHAR(64) NOT NULL
+    Cognome VARCHAR(64) NOT NULL,
+    DataNascita DATE
 );
 
 CREATE DOMAIN numerotelefonico AS VARCHAR(10)
@@ -256,7 +257,7 @@ CREATE TABLE PRESENTAZIONE
 CREATE TABLE COLLANA
 (
     CodC SERIAL PRIMARY KEY,
-    Nome VARCHAR(256) NOT NULL,
+    Nome VARCHAR(256) UNIQUE NOT NULL,
     ISSN issn UNIQUE,
     Caratteristica VARCHAR(128) NOT NULL
 );
@@ -359,7 +360,7 @@ CHECK(NOT(Testo IS NULL AND Valutazione IS NULL AND Preferito=false));
 
 -- In RECENSIONE_L non può esserci un libro che non è stato valutato, recensito o inserito tra i preferiti 
 -- dall'utente
-ALTER TABLE RECENSIONE_S
+ALTER TABLE RECENSIONE_L
 ADD CONSTRAINT C14
 CHECK(NOT(Testo IS NULL AND Valutazione IS NULL AND Preferito=false));
 
@@ -601,7 +602,7 @@ CREATE OR REPLACE FUNCTION controllo_modificaRivista() RETURNS trigger AS $$
 DECLARE
     contatore INTEGER:=0;
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false AND LENGTH(NEW.ISSN)!=9 THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
         UPDATE RIVISTA
         SET ISSN=OLD.ISSN
         WHERE ISSN=NEW.ISSN;
@@ -843,7 +844,7 @@ DECLARE
         FROM LIBRO AS L NATURAL JOIN PRESENTAZIONE AS PR
         WHERE PR.DataP<L.DataPubblicazione AND L.ISBN=NEW.ISBN;
 BEGIN
-    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISBN)=false AND LENGTH(NEW.ISBN)!=17 THEN   --controlla se nel nuovo issn ci sono dei caratteri che non sono numeri
         UPDATE LIBRO
         SET ISBN=OLD.ISBN
         WHERE ISBN=NEW.ISBN;
@@ -866,6 +867,8 @@ BEGIN
                 RAISE NOTICE 'Non è possibile inserire una data di pubblicazione di un libro precedente a quella delle sue presentazioni';
             END IF;
         END LOOP;
+
+        CLOSE cursore_datePresentazioni;
     END IF;
 
     RETURN NEW;
@@ -885,33 +888,45 @@ DECLARE
     CodS INSERIMENTO.Serie%TYPE:=NULL; --codice della serie del libro inserito
     LibriSerie SERIE.NLibri%TYPE:=NULL; --numero di libri inseriti nella serie del nuovo libro
     QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL; --quantità disponibile della serie del libro inserito
-BEGIN
-    SELECT I.Serie, S.NLibri INTO CodS, LibriSerie  --trova il codice della serie del libro inserito
-    FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
-    WHERE L.ISBN=NEW.ISBN;
-    
-    IF Cods IS NOT NULL THEN --controlla se il libro inserito appartiene a una serie
-        SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie del libro inserito posseduti dalla libreria 'NEW.Codl'
-        FROM POSSESSO_L 
-        WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
-                                                                    SELECT Libro
-                                                                    FROM INSERIMENTO
-                                                                    WHERE Serie=CodS
-                                                                );
 
-        IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie del libro inserito            
-            SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
-            FROM POSSESSO_L AS PL
-            WHERE PL.Fruizione=NEW.Fruizione AND ISBN IN(
-                                                            SELECT Libro
-                                                            FROM INSERIMENTO AS I
-                                                            WHERE I.Serie=CodS
-                                                        );
-        
-            INSERT INTO POSSESSO_S(Codl, ISBN, Fruizione, Quantita)
-            VALUES(NEW.Codl, CodS, NEW.Fruizione, QuantitaDisponibile);
+    cursore_serie CURSOR FOR
+        SELECT I.Serie, S.NLibri   --trova i codici delle serie del libro inserito
+        FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
+        WHERE L.ISBN=NEW.ISBN;
+
+BEGIN
+    OPEN cursore_serie;
+
+    LOOP
+        FETCH cursore_serie INTO CodS, LibriSerie;
+
+        EXIT WHEN NOT FOUND;
+    
+        IF CodS IS NOT NULL THEN --controlla se il libro inserito appartiene alla serie attuale
+            SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie attuale posseduti dalla libreria 'NEW.Codl'
+            FROM POSSESSO_L 
+            WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
+                                                                        SELECT Libro
+                                                                        FROM INSERIMENTO
+                                                                        WHERE Serie=CodS
+                                                                    );
+
+            IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie attuale            
+                SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
+                FROM POSSESSO_L AS PL
+                WHERE PL.Fruizione=NEW.Fruizione AND ISBN IN(
+                                                                SELECT Libro
+                                                                FROM INSERIMENTO AS I
+                                                                WHERE I.Serie=CodS
+                                                            );
+
+                INSERT INTO POSSESSO_S(Codl, ISBN, Fruizione, Quantita)
+                VALUES(NEW.Codl, CodS, NEW.Fruizione, QuantitaDisponibile);
+            END IF;
         END IF;
-    END IF;
+    END LOOP;
+
+    CLOSE cursore_serie;
 
     RETURN NEW;
 END; 
@@ -928,34 +943,46 @@ DECLARE
     CodS INSERIMENTO.Serie%TYPE:=NULL; --codice della serie del libro modificato
     LibriSerie SERIE.NLibri%TYPE:=NULL; --numero di libri inseriti nella serie del libro modificato
     QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL; --quantità disponibile della serie del libro modificato
-BEGIN
-    SELECT I.Serie, S.NLibri INTO CodS, LibriSerie  --trova il codice della serie del libro modificato
-    FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
-    WHERE L.ISBN=NEW.ISBN;
+
+    cursore_serie CURSOR FOR
+        SELECT I.Serie, S.NLibri  --trova i codici delle serie del libro modificato
+        FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
+        WHERE L.ISBN=NEW.ISBN;
     
-    IF Cods IS NOT NULL THEN --controlla se il libro modificato appartiene a una serie
-        SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie del libro inserito posseduti dalla libreria 'NEW.Codl'
-        FROM POSSESSO_L 
-        WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
-                                                                        SELECT Libro
-                                                                        FROM INSERIMENTO
-                                                                        WHERE Serie=CodS
-                                                                    );
+BEGIN
+    OPEN cursore_serie;
 
-        IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie del libro inserito            
-            SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
-            FROM POSSESSO_L AS PL
-            WHERE PL.Fruizione=NEW.Fruizione AND ISBN IN(
-                                                            SELECT Libro
-                                                            FROM INSERIMENTO AS I
-                                                            WHERE I.Serie=CodS
-                                                        );
+    LOOP
+        FETCH cursore_serie INTO CodS, LibriSerie;
 
-            UPDATE POSSESSO_S
-            SET Quantita=QuantitaDisponibile
-            WHERE Codl=NEW.Codl AND ISBN=CodS AND Fruizione=NEW.Fruizione;
+        EXIT WHEN NOT FOUND;
+
+        IF Cods IS NOT NULL THEN --controlla se il libro modificato appartiene alla serie attuale
+            SELECT COUNT(*) INTO contatore  --calcola il numero di libri della serie attuale posseduti dalla libreria 'NEW.Codl'
+            FROM POSSESSO_L 
+            WHERE Codl=NEW.Codl AND Fruizione=NEW.Fruizione AND ISBN IN(
+                                                                            SELECT Libro
+                                                                            FROM INSERIMENTO
+                                                                            WHERE Serie=CodS
+                                                                        );
+
+            IF contatore=LibriSerie THEN --controlla se la libreria 'NEW.Codl' possiede tutta la serie attuale            
+                SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
+                FROM POSSESSO_L AS PL
+                WHERE PL.Fruizione=NEW.Fruizione AND ISBN IN(
+                                                                SELECT Libro
+                                                                FROM INSERIMENTO AS I
+                                                                WHERE I.Serie=CodS
+                                                            );
+
+                UPDATE POSSESSO_S
+                SET Quantita=QuantitaDisponibile
+                WHERE Codl=NEW.Codl AND ISBN=CodS AND Fruizione=NEW.Fruizione;
+            END IF;
         END IF;
-    END IF;
+    END LOOP;
+
+    CLOSE cursore_serie;
 
     RETURN NEW;
 END; 
@@ -971,15 +998,27 @@ DECLARE
     CodS INSERIMENTO.Serie%TYPE:=NULL; --codice della serie del libro eliminato
     LibriSerie SERIE.NLibri%TYPE:=NULL; --numero di libri inseriti nella serie del libro eliminato
     QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL; --quantità disponibile della serie del libro eliminato
+
+    cursore_serie CURSOR FOR
+        SELECT I.Serie, S.NLibri --trova il codice delle serie del libro eliminato
+        FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
+        WHERE L.ISBN=OLD.ISBN;
+
 BEGIN
-    SELECT I.Serie, S.NLibri INTO CodS, LibriSerie  --trova il codice della serie del libro eliminato
-    FROM ((INSERIMENTO AS I JOIN LIBRO AS L ON I.Libro=L.ISBN) JOIN SERIE AS S ON I.Serie=S.ISBN)
-    WHERE L.ISBN=OLD.ISBN;
+    OPEN cursore_serie;
+
+    LOOP
+        FETCH cursore_serie INTO CodS, LibriSerie;
+
+        EXIT WHEN NOT FOUND;
     
-    IF Cods IS NOT NULL THEN --controlla se il libro eliminato appartiene a una serie
-        DELETE FROM POSSESSO_S
-        WHERE ISBN=CodS AND CodL=OLD.CodL AND Fruizione=OLD.Fruizione;
-    END IF;
+        IF Cods IS NOT NULL THEN --controlla se il libro eliminato appartiene a una serie
+            DELETE FROM POSSESSO_S
+            WHERE ISBN=CodS AND CodL=OLD.CodL AND Fruizione=OLD.Fruizione;
+        END IF;
+    END LOOP;
+
+    CLOSE cursore_serie;
 
     RETURN NEW;
 END; 
@@ -991,23 +1030,28 @@ CREATE TRIGGER T_eliminazionePossesso_L AFTER DELETE ON POSSESSO_L
 -- Quando viene inserito un nuovo articolo scientifico bisogna seguire l'ordine del doi
 CREATE OR REPLACE FUNCTION inserimento_DOIArticolo() RETURNS trigger AS $$
 DECLARE
-    DOI_out ARTICOLO_SCIENTIFICO.DOI%TYPE; --DOI del nuovo articolo
-    n_articoli INTEGER; --Numero di articoli presenti in 'ARTICOLO_SCIENTIFICO'
+    DOI_out ARTICOLO_SCIENTIFICO.DOI%TYPE := '10-00001' ; --DOI del nuovo articolo
+    cont INTEGER:=1; --Numero di articoli presenti in 'ARTICOLO_SCIENTIFICO'
 BEGIN
-    SELECT COUNT(*) INTO n_articoli
-    FROM ARTICOLO_SCIENTIFICO;
+    LOOP
+        EXIT WHEN DOI_out NOT IN (
+            SELECT doi
+            FROM articolo_scientifico);
 
-    IF n_articoli BETWEEN 1 AND 9 THEN
-        DOI_out='10-0000'||n_articoli;
-    ELSIF n_articoli BETWEEN 10 AND 99 THEN
-        DOI_out='10-000'||n_articoli;
-    ELSIF n_articoli BETWEEN 100 AND 999 THEN
-        DOI_out='10-00'||n_articoli;
-    ELSIF n_articoli BETWEEN 1000 AND 9999 THEN
-        DOI_out='10-0'||n_articoli;
-    ELSE
-        DOI_out='10-'||n_articoli;
-    END IF;
+        cont=cont+1;
+
+        IF cont BETWEEN 1 AND 9 THEN
+            DOI_out='10-0000'||cont;
+        ELSIF cont BETWEEN 10 AND 99 THEN
+            DOI_out='10-000'||cont;
+        ELSIF cont BETWEEN 100 AND 999 THEN
+            DOI_out='10-00'||cont;
+        ELSIF cont BETWEEN 1000 AND 9999 THEN
+            DOI_out='10-0'||cont;
+        ELSE
+            DOI_out='10-'||cont;
+        END IF;
+    END LOOP;
 
     UPDATE ARTICOLO_SCIENTIFICO
     SET DOI=DOI_out
@@ -1101,7 +1145,7 @@ DECLARE
     cursore_librerie CURSOR FOR --Contiene tutte le librerie e le modalità di fruizione in cui è disponibile la serie inserita nei preferiti
         SELECT CodL, Fruizione
         FROM POSSESSO_S
-        WHERE ISBN=NEW.ISBN AND Quantita>0;
+        WHERE ISBN=NEW.ISBN AND (Quantita>0 OR Quantita IS NULL);
 BEGIN
     OPEN cursore_librerie;
 
@@ -1176,7 +1220,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION controllo_inserimentoRivista() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false AND LENGTH(NEW.ISSN)!=9 THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
         DELETE FROM RIVISTA
         WHERE ISSN=NEW.ISSN;
 
@@ -1194,7 +1238,7 @@ CREATE TRIGGER T_inserimentoRivista AFTER INSERT ON RIVISTA
 CREATE OR REPLACE FUNCTION controllo_inserimentoCollana() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false AND LENGTH(NEW.ISSN)!=9 THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
         DELETE FROM COLLANA
         WHERE ISSN=NEW.ISSN;
 
@@ -1213,7 +1257,7 @@ CREATE TRIGGER T_inserimentoCollana AFTER INSERT ON COLLANA
 CREATE OR REPLACE FUNCTION controllo_modificaCollana() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISSN)=false THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISSN)=false AND LENGTH(NEW.ISSN)!=9 THEN   --controlla se nel nuovo ISSN ci sono dei caratteri che non sono numeri
         UPDATE COLLANA
         SET ISSN=OLD.ISSN
         WHERE ISSN=NEW.ISSN;
@@ -1233,7 +1277,7 @@ CREATE TRIGGER T_modificaCollana AFTER UPDATE OF ISSN ON COLLANA
 CREATE OR REPLACE FUNCTION controllo_inserimentoLibro() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISBN)=false AND LENGTH(NEW.ISBN)!=17 THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
         DELETE FROM LIBRO
         WHERE ISBN=NEW.ISBN;
 
@@ -1251,7 +1295,7 @@ CREATE TRIGGER T_inserimentoLibro AFTER INSERT ON LIBRO
 CREATE OR REPLACE FUNCTION controllo_inserimentoSerie() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISBN)=false AND LENGTH(NEW.ISBN)!=17 THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
         DELETE FROM SERIE
         WHERE ISBN=NEW.ISBN;
 
@@ -1269,7 +1313,7 @@ CREATE TRIGGER T_inserimentoSerie AFTER INSERT ON SERIE
 CREATE OR REPLACE FUNCTION controllo_modificaSerie() RETURNS trigger AS $$
 DECLARE
 BEGIN
-    IF controlla_formato(NEW.ISBN)=false THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
+    IF controlla_formato(NEW.ISBN)=false AND LENGTH(NEW.ISBN)!=17 THEN   --controlla se nel nuovo ISBN ci sono dei caratteri che non sono numeri
         UPDATE SERIE
         SET ISBN=OLD.ISBN
         WHERE ISBN=NEW.ISBN;
@@ -1302,4 +1346,79 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER T_inserimentoUtente AFTER INSERT ON UTENTE
     FOR EACH ROW WHEN(NEW.PartitaIVA IS NOT NULL)
     EXECUTE FUNCTION controllo_inserimentoUtente();
---------------------------------------------------------------------------------------------------------------------
+
+
+--quando viene inserita una nuova serie bisogna controllare se ci sono librerie che già la possiedono.
+CREATE OR REPLACE FUNCTION controllo_inserimentoLibroSerie() RETURNS trigger AS $$
+DECLARE
+    libreria_corrente LIBRERIA.CodL%TYPE;
+    fruizione_corrente POSSESSO_S.Fruizione%TYPE;   
+    contatore INTEGER:=NULL; 
+    numeroLibri INTEGER;
+    libriInseriti INTEGER;
+    QuantitaDisponibile POSSESSO_S.Quantita%TYPE:=NULL;
+
+    cursore_librerie CURSOR FOR --Contiene tutte le librerie che possiedono almeno un libro della serie inserita
+        select pl.codl, pl.fruizione
+        from (inserimento as i join possesso_l as pl on pl.isbn=i.libro)
+        where serie=NEW.serie
+        order by codl;
+BEGIN
+    SELECT COUNT(Libro) INTO libriInseriti
+    FROM INSERIMENTO
+    WHERE Serie=NEW.Serie;
+
+    SELECT NLibri INTO numeroLibri
+    FROM SERIE
+    WHERE ISBN = NEW.Serie;
+
+    IF libriInseriti = numeroLibri THEN
+
+    OPEN cursore_librerie;
+
+        LOOP
+            FETCH cursore_librerie INTO libreria_corrente, fruizione_corrente;
+            
+            EXIT WHEN NOT FOUND;
+
+            contatore:=-1; 
+
+            select count(*) into contatore
+            from (inserimento as i join possesso_l as pl on pl.isbn=i.libro)
+            where serie=NEW.serie and codl=libreria_corrente and fruizione=fruizione_corrente;
+
+            IF contatore=numeroLibri THEN
+
+                SELECT count(*) INTO contatore
+                FROM POSSESSO_S
+                WHERE CodL=libreria_corrente AND Fruizione=fruizione_corrente AND ISBN=NEW.SERIE;
+
+                IF contatore=0 THEN
+                    IF fruizione_corrente!='Cartaceo' THEN
+                        INSERT INTO POSSESSO_S(CodL, ISBN, Fruizione)
+                        VALUES(libreria_corrente, NEW.serie, fruizione_corrente);
+                    ELSE
+                        SELECT MIN(Quantita) INTO QuantitaDisponibile --calcola la quantità minima dei libri disponibili della serie 'CodS' 
+                        FROM POSSESSO_L AS PL
+                        WHERE PL.Fruizione='Cartaceo' AND ISBN IN(
+                                                                    SELECT Libro
+                                                                    FROM INSERIMENTO AS I
+                                                                    WHERE I.Serie=NEW.Serie
+                                                                );
+
+                        INSERT INTO POSSESSO_S(CodL, ISBN, Fruizione, Quantita)
+                        VALUES(libreria_corrente, NEW.serie, 'Cartaceo', QuantitaDisponibile);
+                    END IF;
+                END IF;
+            END IF;
+        
+        END LOOP;
+
+        CLOSE cursore_librerie;
+    END IF;
+    RETURN NEW;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_inserimentoSerieLibro AFTER INSERT ON INSERIMENTO
+    FOR EACH ROW EXECUTE FUNCTION controllo_inserimentoLibroSerie();

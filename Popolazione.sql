@@ -104,17 +104,17 @@ VALUES ('0036-4681', 'Edizioni Dedalo', 'Scienze', 'Armaroli', 'Nicola', 'Sapere
 
 -- ARTICOLO_SCIENTIFICO --
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('Che cosa significa allineare l''inteliggenza artificiale ai valori umani?', 2022); 
+VALUES ('Che cosa significa allineare l’inteliggenza artificiale ai valori umani?', 2022); 
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Evaluating Understanding on Conceptual Abstraction Benchmarks', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('Un''intelligenza artificiale è capace di prevedere le nuove sostanze psicoattive', 2022);
+VALUES ('Un’intelligenza artificiale è capace di prevedere le nuove sostanze psicoattive', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('A volte ritornano? Viaggio tra i tentativi di riportare in vita "il mondo perduto"', 2019);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Uguale o diverso? Le reti neurali stentano a rispondere', 2021);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('Combattere i tumori con l''intelligenza artificiale', 2020);
+VALUES ('Combattere i tumori con l’intelligenza artificiale', 2020);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Computers tell us who to date, who to jail: But should they?', 2018);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
@@ -128,7 +128,7 @@ VALUES ('How will this pandemic disrupt science?', 2020);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Bluer blues and blacker blacks? How science is enhancing colors', 2020);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('La mente e l''ambiente', 2022);
+VALUES ('La mente e l’ambiente', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Psichiatria digitale', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
@@ -178,7 +178,7 @@ VALUES ('Quali sono le password più sicure?', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Un esame virtuale per rinnovare la patente?', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('Una tempesta solare può provocare un''apocalisse digitale', 2022);
+VALUES ('Una tempesta solare può provocare un’apocalisse digitale', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Il triangolo di Feynman', 2012);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
@@ -200,7 +200,7 @@ VALUES ('Il discorso filosofico della matematica', 2020);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Divisione «per svuotamento»', 2020);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
-VALUES ('Modelli matematici di decisione per fare bene i conti con l''incertezza', 2021);
+VALUES ('Modelli matematici di decisione per fare bene i conti con l’incertezza', 2021);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
 VALUES ('Le certezze irraggiungibili della matematica', 2022);
 INSERT INTO ARTICOLO_SCIENTIFICO (Titolo, AnnoPubblicazione)
@@ -308,7 +308,7 @@ VALUES ('Angela', 'Guido', 'Italiana');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
 VALUES ('Maurizio', 'Berni', 'Italiana');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
-VALUES ('Alessandro', 'D''Andrea', 'Italiana', '1972-03-09');
+VALUES ('Alessandro', 'D’Andrea', 'Italiana', '1972-03-09');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
 VALUES ('Luigi', 'Squillante', 'Italiana', '1965-09-02');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
@@ -353,10 +353,10 @@ INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
 VALUES ('Joanne Kathleen', 'Rowling', 'Britannica', '1965-07-31');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
 VALUES ('Steve', 'Kloves', 'Statunitense', '1960-03-18');
-INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --67
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
 VALUES ('John R. R.', 'Tolkien', 'Britannica', '1892-01-03');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
-VALUES ('Libero', 'Iannuzzi', 'Italiano');
+VALUES ('Libero', 'Iannuzzi', 'Italiana');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
 VALUES ('Camillo', 'Bortolati', 'Italiana');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
@@ -398,11 +398,9 @@ VALUES ('10-00002', 2);
 INSERT INTO SCRITTURA_A (DOI, CodA)
 VALUES ('10-00003', 3);
 INSERT INTO SCRITTURA_A (DOI, CodA)
-VALUES ('10-00004', 3);
-INSERT INTO SCRITTURA_A (DOI, CodA)
 VALUES ('10-00005', 4);
 INSERT INTO SCRITTURA_A (DOI, CodA)
-VALUES ('10-00006', 5);
+VALUES ('10-00004', 5);
 INSERT INTO SCRITTURA_A (DOI, CodA)
 VALUES ('10-00007', 6);
 INSERT INTO SCRITTURA_A (DOI, CodA)
@@ -472,7 +470,7 @@ VALUES ('10-00035', 38);
 INSERT INTO SCRITTURA_A (DOI, CodA)
 VALUES ('10-00036', 38);
 INSERT INTO SCRITTURA_A (DOI, CodA)
-VALUES ('10-00037', 36);
+VALUES ('10-00006', 36);
 INSERT INTO SCRITTURA_A (DOI, CodA)
 VALUES ('10-00038', 36);
 INSERT INTO SCRITTURA_A (DOI, CodA)
@@ -504,9 +502,9 @@ VALUES ('10-00046', 51);
 INSERT INTO SCRITTURA_A (DOI, CodA)
 VALUES ('10-00047', 52);
 INSERT INTO SCRITTURA_A (DOI, CodA)
-VALUES ('10-00048', 53);
+VALUES ('10-00013', 53);
 INSERT INTO SCRITTURA_A (DOI, CodA)
-VALUES ('10-00048', 54);
+VALUES ('10-00013', 54);
 INSERT INTO SCRITTURA_A (DOI, CodA)
 VALUES ('10-00049', 55);
 INSERT INTO SCRITTURA_A (DOI, CodA)
@@ -572,11 +570,9 @@ VALUES (2, '2022-12-10', '0036-4681');
 
 -- INTRODUZIONE --
 INSERT INTO INTRODUZIONE (CodF, DOI)
-VALUES (1, '10-00004');
-INSERT INTO INTRODUZIONE (CodF, DOI)
 VALUES (1, '10-00005');
 INSERT INTO INTRODUZIONE (CodF, DOI)
-VALUES (1, '10-00006');
+VALUES (1, '10-00004');
 INSERT INTO INTRODUZIONE (CodF, DOI)
 VALUES (2, '10-00001');
 INSERT INTO INTRODUZIONE (CodF, DOI)
@@ -644,7 +640,7 @@ VALUES (12, '10-00035');
 INSERT INTO INTRODUZIONE (CodF, DOI)
 VALUES (13, '10-00036');
 INSERT INTO INTRODUZIONE (CodF, DOI)
-VALUES (13, '10-00037');
+VALUES (13, '10-00006');
 INSERT INTO INTRODUZIONE (CodF, DOI)
 VALUES (13, '10-00038');
 INSERT INTO INTRODUZIONE (CodF, DOI)
@@ -666,7 +662,7 @@ VALUES (16, '10-00046');
 INSERT INTO INTRODUZIONE (CodF, DOI)
 VALUES (16, '10-00047');
 INSERT INTO INTRODUZIONE (CodF, DOI)
-VALUES (17, '10-00048');
+VALUES (17, '10-00013');
 INSERT INTO INTRODUZIONE (CodF, DOI)
 VALUES (17, '10-00049');
 INSERT INTO INTRODUZIONE (CodF, DOI)
@@ -690,25 +686,35 @@ VALUES (19, '10-00058');
 
 -- CONFERENZA --
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Piazza Roma 22, 60121, Ancona, Italia', 'Università Politecnica Delle Marche', '2021-10-12', '2021-10-16');
+VALUES ('Piazza Roma 22, 60121, Ancona, Italia', 'Università Politecnica Delle Marche', '2023-10-12', '2023-10-16');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2006-04-01', '2006-04-14');
+VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2023-04-01', '2023-04-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Piazza Guerrazzi 1, 82100, Benevento, Italia', 'Università Del Sannio', '2006-06-21', '2006-06-30');
+VALUES ('Piazza Guerrazzi 1, 82100, Benevento, Italia', 'Università Del Sannio', '2023-06-21', '2023-06-30');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Via De Sanctis, 86100, Campobasso, Italia', 'Università Del Molise', '2018-10-07', '2018-10-14');
+VALUES ('Via De Sanctis 13, 86100, Campobasso, Italia', 'Università Del Molise', '2024-10-07', '2024-10-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Viale Dell''Università, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2018-11-07', '2018-11-14');
+VALUES ('Viale Dell’Università 7, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2023-11-07', '2023-11-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Corso Matteotti 22, 21053, Castellanza (Va), Varese, Italia', 'Università Carlo Cattaneo LIUC', '2018-10-15', '2018-10-28');
+VALUES ('Corso Matteotti 22, 21053, Castellanza (Va), Varese, Italia', 'Università Carlo Cattaneo LIUC', '2023-10-15', '2023-10-28');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Viale Europa, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2018-11-15', '2018-11-28');
+VALUES ('Viale Europa 7, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2023-11-15', '2023-11-28');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Corso Umberto I 40, 80138, Napoli, Italia', 'Università Degli Studi Federico II', '2020-04-10', '2020-04-16');
+VALUES ('Corso Umberto I 40, 80138, Napoli, Italia', 'Università Degli Studi Federico II', '2024-04-10', '2024-04-16');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Via Ammiraglio Acton 38, 80133, Napoli, Italia', 'Università Parthenope', '2022-06-01', '2022-06-14');
+VALUES ('Via Ammiraglio Acton 38, 80133, Napoli, Italia', 'Università Parthenope', '2023-06-01', '2023-06-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Piazza Della Vittoria 15, 27100, Pavia, Italia', 'IUSS - Istituto Universitario Di Studi Superiori', '2019-12-05', '2019-12-10');
+VALUES ('Piazza Della Vittoria 15, 27100, Pavia, Italia', 'IUSS - Istituto Universitario Di Studi Superiori', '2024-12-05', '2024-12-10');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Viale Dell’Università 39, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2024-12-07', '2024-12-29');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2024-12-01', '2024-12-14');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Piazzale Aldo Moro, 5, 00185 Roma RM', 'Università La Sapienza di Roma', '2024-12-15', '2024-12-28');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Corso Castelfidardo, 39, 10129 Torino TO', 'Politecnico di Torino', '2024-12-17', '2024-12-23');
+INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
+VALUES ('Viale Europa 7, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2024-12-01', '2024-12-14');
 
 -- ESPOSIZIONE --
 INSERT INTO ESPOSIZIONE (DOI, CodC)
@@ -716,15 +722,15 @@ VALUES ('10-00005', 1);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
 VALUES ('10-00006', 1);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00018', 2);
+VALUES ('10-00018', 13);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00019', 2);
+VALUES ('10-00019', 13);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00020', 2);
+VALUES ('10-00020', 13);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00021', 2);
+VALUES ('10-00021', 13);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00022', 2);
+VALUES ('10-00022', 13);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
 VALUES ('10-00023', 3);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
@@ -740,19 +746,19 @@ VALUES ('10-00043', 4);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
 VALUES ('10-00051', 4);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00044', 5);
+VALUES ('10-00044', 14);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00052', 5);
+VALUES ('10-00052', 14);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00053', 5);
+VALUES ('10-00053', 14);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00054', 5);
+VALUES ('10-00054', 14);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00042', 6);
+VALUES ('10-00042', 15);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00043', 6);
+VALUES ('10-00043', 15);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00051', 6);
+VALUES ('10-00051', 15);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
 VALUES ('10-00044', 7);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
@@ -764,9 +770,9 @@ VALUES ('10-00054', 7);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
 VALUES ('10-00047', 8);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00048', 8);
+VALUES ('10-00013', 8);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
-VALUES ('10-00048', 9);
+VALUES ('10-00013', 9);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
 VALUES ('10-00049', 9);
 INSERT INTO ESPOSIZIONE (DOI, CodC)
@@ -788,89 +794,89 @@ VALUES ('978-88-3100-340-7', 'Harry Potter e il prigioniero di Azkaban', 'Fantas
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-3100-341-4', 'Harry Potter e il calice di fuoco', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-3100-342-1', 'Harry Potter e l''ordine della fenice', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
+VALUES ('978-88-3100-342-1', 'Harry Potter e l’ordine della fenice', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-3100-343-8', 'Harry Potter e il principe mezzosangue', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
 VALUES ('978-88-3100-344-5', 'Harry Potter e i doni della morte', 'Fantasy', 'Italiano', 'Salani', '2020-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-3100-670-5', 'L''Ickabog', 'Fantasy', 'Italiana', 'Salani', '2020-11-10');
+VALUES ('978-88-3100-670-5', 'L’Ickabog', 'Fantasy', 'Italiano', 'Salani', '2020-11-10');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-9381-618-2', 'Animali fantastici e dove trovarli', 'Fantasy', 'Italiana', 'Salani', '2017-01-16');
+VALUES ('978-88-9381-618-2', 'Animali fantastici e dove trovarli', 'Fantasy', 'Italiano', 'Salani', '2017-01-16');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-9381-711-0', 'Animali fantastici - I crimini di Grindelwald', 'Fantasy', 'Italiana', 'Salani', '2018-12-03');
+VALUES ('978-88-9381-711-0', 'Animali fantastici - I crimini di Grindelwald', 'Fantasy', 'Italiano', 'Salani', '2018-12-03');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-3101-288-1', 'Animali fantastici - I Segreti di Silente', 'Fantasy', 'Italiana', 'Salani', '2022-07-19');
+VALUES ('978-88-3101-288-1', 'Animali fantastici - I Segreti di Silente', 'Fantasy', 'Italiano', 'Salani', '2022-07-19');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4526-834-2', 'Lo Hobbit', 'Fantasy', 'Italiana', 'Bonpiani', '2012-06-20');
+VALUES ('978-88-4526-834-2', 'Lo Hobbit', 'Fantasy', 'Italiano', 'Bonpiani', '2012-06-20');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-301-0526-3', 'Il Signore Degli Anelli: La compagnia dell''anello', 'Fantasy', 'Italiana', 'Bonpiani', '2021-09-01');
+VALUES ('978-88-301-0526-3', 'Il Signore Degli Anelli: La compagnia dell’anello', 'Fantasy', 'Italiano', 'Bonpiani', '2021-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-301-0527-0', 'Il Signore Degli Anelli: Le due torri', 'Fantasy', 'Italiana', 'Bonpiani', '2021-09-01');
+VALUES ('978-88-301-0527-0', 'Il Signore Degli Anelli: Le due torri', 'Fantasy', 'Italiano', 'Bonpiani', '2021-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-301-0528-6', 'Il Signore Degli Anelli: Il ritorno del re', 'Fantasy', 'Italiana', 'Bonpiani', '2021-09-01');
+VALUES ('978-88-301-0528-6', 'Il Signore Degli Anelli: Il ritorno del re', 'Fantasy', 'Italiano', 'Bonpiani', '2021-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-452-7240-0', 'Il Silmarillion', 'Fantasy', 'Italiana', 'Bonpiani', '2013-01-23');
+VALUES ('978-88-452-7240-0', 'Il Silmarillion', 'Fantasy', 'Italiano', 'Bonpiani', '2013-01-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-85-1878-937-1', 'Le quattro stagioni', 'Didattico', 'Italiana', 'Independently published', '2021-06-15');
+VALUES ('978-85-1878-937-1', 'Le quattro stagioni', 'Didattico', 'Italiano', 'Independently published', '2021-06-15');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-6137-869-8', 'Matematica al volo in quarta', 'Didattico', 'Italiana', 'Erickson', '2011-09-01');
+VALUES ('978-88-6137-869-8', 'Matematica al volo in quarta', 'Didattico', 'Italiano', 'Erickson', '2011-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-5902-669-3', 'Leggere al volo', 'Didattico', 'Italiana', 'Erickson', '2020-05-13');
+VALUES ('978-88-5902-669-3', 'Leggere al volo', 'Didattico', 'Italiano', 'Erickson', '2020-05-13');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-207-3383-4', 'Elementi di analisi matematica uno', 'Didattico', 'Italiana', 'Liguori', '2016-02-01');
+VALUES ('978-88-207-3383-4', 'Elementi di analisi matematica uno', 'Didattico', 'Italiano', 'Liguori', '2016-02-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-9190-165-1', 'Il linguaggio C', 'Didattico','Italiana', 'Pearson', '2016-09-01');
+VALUES ('978-88-9190-165-1', 'Il linguaggio C', 'Didattico','Italiano', 'Pearson', '2016-09-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4529-530-0', 'Shining', 'Horror', 'Italiana', 'Bonpiani', '2017-09-20');
+VALUES ('978-88-4529-530-0', 'Shining', 'Horror', 'Italiano', 'Bonpiani', '2017-09-20');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-2009-266-5', 'Doctor Sleep', 'Horror', 'Italiana', 'Sperling & Kupfer', '2013-09-24');
+VALUES ('978-88-2009-266-5', 'Doctor Sleep', 'Horror', 'Italiano', 'Sperling & Kupfer', '2013-09-24');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-6836-562-2', 'IT', 'Horror', 'Italiana', 'Sperling & Kupfer', '2019-07-23');
+VALUES ('978-88-6836-562-2', 'IT', 'Horror', 'Italiano', 'Sperling & Kupfer', '2019-07-23');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-8560-312-7', 'Dammi Mille Baci', 'Rosa', 'Italiani', 'Always Publishing', '2018-06-21');
+VALUES ('978-88-8560-312-7', 'Dammi Mille Baci', 'Rosa', 'Italiano', 'Always Publishing', '2018-06-21');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-12-8007-876-6', 'Non proprio un colpo di fulmine', 'Rosa', 'Italiana', 'Always Publishing', '2022-11-25');
+VALUES ('978-12-8007-876-6', 'Non proprio un colpo di fulmine', 'Rosa', 'Italiano', 'Always Publishing', '2022-11-25');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-12-8007-834-6', 'L''amico del cuore', 'Rosa', 'Italiana', 'Always Publishing', '2022-03-17');
+VALUES ('978-12-8007-834-6', 'L’amico del cuore', 'Rosa', 'Italiano', 'Always Publishing', '2022-03-17');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-8560-324-0', 'La fattoria dei nuovi inizi', 'Rosa', 'Italiana', 'Always Publishing', '2019-01-31');
+VALUES ('978-88-8560-324-0', 'La fattoria dei nuovi inizi', 'Rosa', 'Italiano', 'Always Publishing', '2019-01-31');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-6311-435-5', 'La fattoria degli animali', 'Classico', 'Italiana', 'Liberamente', '2020-01-01');
+VALUES ('978-88-6311-435-5', 'La fattoria degli animali', 'Classico', 'Italiano', 'Liberamente', '2020-01-01');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-9543-776-7', 'Christmas Carol', 'Classico', 'Italiana', 'Caravaggio Editore', '2018-10-15');
+VALUES ('978-88-9543-776-7', 'Christmas Carol', 'Classico', 'Italiano', 'Caravaggio Editore', '2018-10-15');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-241-3', 'Il guardiano degli innocenti', 'Fantasy', 'Italiana', 'Nord', '2019-10-24');
+VALUES ('978-88-4293-241-3', 'Il guardiano degli innocenti', 'Fantasy', 'Italiano', 'Nord', '2019-10-24');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-242-0', 'La spada del destino', 'Fantasy', 'Italiana', 'Nord', '2019-10-24');
+VALUES ('978-88-4293-242-0', 'La spada del destino', 'Fantasy', 'Italiano', 'Nord', '2019-10-24');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-243-7', 'Il sangue degli elfi', 'Fantasy', 'Italiana', 'Nord', '2019-10-24');
+VALUES ('978-88-4293-243-7', 'Il sangue degli elfi', 'Fantasy', 'Italiano', 'Nord', '2019-10-24');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-275-8', 'Il tempo della guerra', 'Fantasy', 'Italiana', 'Nord', '2020-03-05');
+VALUES ('978-88-4293-275-8', 'Il tempo della guerra', 'Fantasy', 'Italiano', 'Nord', '2020-03-05');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4292-359-6', 'Il battesimo del fuoco', 'Fantasy', 'Italiana', 'Nord', '2020-03-05');
+VALUES ('978-88-4292-359-6', 'Il battesimo del fuoco', 'Fantasy', 'Italiano', 'Nord', '2020-03-05');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-277-2', 'La torre della rondine', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+VALUES ('978-88-4293-277-2', 'La torre della rondine', 'Fantasy', 'Italiano', 'Nord', '2020-05-28');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-278-9', 'La signora del lago', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+VALUES ('978-88-4293-278-9', 'La signora del lago', 'Fantasy', 'Italiano', 'Nord', '2020-05-28');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-279-6', 'La stagione delle tempeste', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+VALUES ('978-88-4293-279-6', 'La stagione delle tempeste', 'Fantasy', 'Italiano', 'Nord', '2020-05-28');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-4293-481-3', 'La strada senza ritorno', 'Fantasy', 'Italiana', 'Nord', '2020-05-28');
+VALUES ('978-88-4293-481-3', 'La strada senza ritorno', 'Fantasy', 'Italiano', 'Nord', '2020-05-28');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-0983-331-9', 'Alaska', 'Thriller', 'Italiana', 'Giunti Editore', '2016-11-09');
+VALUES ('978-88-0983-331-9', 'Alaska', 'Thriller', 'Italiano', 'Giunti Editore', '2016-11-09');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-0987-707-8', 'Hanover House', 'Thriller', 'Italiana', 'Giunti Editore', '2018-10-10');
+VALUES ('978-88-0987-707-8', 'Hanover House', 'Thriller', 'Italiano', 'Giunti Editore', '2018-10-10');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-0989-463-1', 'Alaska. La resa dei conti', 'Thriller', 'Italiana', 'Giunti Editore', '2019-10-16');
+VALUES ('978-88-0989-463-1', 'Alaska. La resa dei conti', 'Thriller', 'Italiano', 'Giunti Editore', '2019-10-16');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-88-0989-782-3', 'Alaska. Il ritorno', 'Thriller', 'Italiana', 'Giunti Editore', '2020-10-14');
+VALUES ('978-88-0989-782-3', 'Alaska. Il ritorno', 'Thriller', 'Italiano', 'Giunti Editore', '2020-10-14');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-16-2647-952-4', 'Dopo: Lo shock', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2016-06-20');
+VALUES ('978-16-2647-952-4', 'Dopo: Lo shock', 'Thriller', 'Italiano', 'Haunted Computer Productions', '2016-06-20');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-16-2647-977-7', 'L''eco', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2017-03-16');
+VALUES ('978-16-2647-977-7', 'L’eco', 'Thriller', 'Italiano', 'Haunted Computer Productions', '2017-03-16');
 INSERT INTO LIBRO (ISBN, Titolo, Genere, Lingua, Editore, DataPubblicazione)
-VALUES ('978-16-2647-954-8', 'Dopo: Il cartello 291', 'Thriller', 'Italiana', 'Haunted Computer Productions', '2016-06-20');
+VALUES ('978-16-2647-954-8', 'Dopo: Il cartello 291', 'Thriller', 'Italiano', 'Haunted Computer Productions', '2016-06-20');
 
 
 -- SCRITTURA_L --
