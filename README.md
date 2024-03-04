@@ -1,11 +1,11 @@
 # Sistema di una Biblioteca Digitale
 ### Repository
 La repository è composta da due branches:
-1. **[Main][GIT]:** In questa branch sono presenti i file principali relativi al progetto.
-2. **[Old-File][OFB]:** In questa branch sono presenti alcuni file utili per comprendere com'è stato realizzato il progetto.
+1. **[Basi di Dati][BDP]:** In questa branch sono presenti i file principali relativi al progetto di Basi di Dati.
+2. **[Object Orientation][OOP]:**  In questa branch sono presenti i file principali relativi al progetto di Object Orientation.
 
 ### Branch: Main
-Il branch '[Main][GIT]' del progetto contiene i seguenti file:
+Il branch '[Basi di Dati][BDP]' del progetto contiene i seguenti file:
 - File [_"CreazioneDB.sql"_][CDB]
 - File [_"Popolazione.sql"_][PDB]
 - File [_"Documentazione.pdf"_][Doc] 
@@ -34,5 +34,5 @@ La configurazione del database consiste nelle seguenti fasi che prevedono l'util
 [CDB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/CreazioneDB.sql>
 [PDB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/Popolazione.sql>
 [DOC]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/Documentazione.pdf>
-[GIT]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale>
-[OFB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/tree/Old-File>
+[BDP]: <[https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale](https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Basi-di-Dati)>
+[OOP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Object-Orientation?tab=readme-ov-file)https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Object-Orientation>
