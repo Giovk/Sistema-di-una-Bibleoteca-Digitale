@@ -6,14 +6,14 @@ La repository è composta da due branches:
 
 ### Branch: Main
 Il branch '[Object Orientation][OOP]' del progetto contiene i seguenti file:
-- File [_"manuale.pdf"_][MOO]
+- File [_"Manuale.pdf"_][MOO]
 - File [_"Codice_sorgente.rar"_][CSO]
-- File [_"documentazione_OO.pdf"_][Doc] 
+- File [_"Documentazione_OO.pdf"_][Doc] 
 - File [_"Sistema_Di_Una_Biblioteca_Digitale.jar"_][JAR]
-- File [_"diagramma_model.mdj"_][DMO]
-- File [_"diagramma_soluzione.mdj"_][DSO]
-- File [_"sequence_diagram_EliminaNotifica.mdj"_][SDN]
-- File [_"sequence_diagram_Login.mdj"_][SDL]
+- File [_"Diagramma_model.mdj"_][DMO]
+- File [_"Diagramma_soluzione.mdj"_][DSO]
+- File [_"Sequence_diagram_EliminaNotifica.mdj"_][SDN]
+- File [_"Sequence_diagram_Login.mdj"_][SDL]
 
 ### File
 Qui viene descritto il contenuto dei file citati precedentemente.
