@@ -23,11 +23,11 @@ Qui viene descritto il contenuto dei file citati precedentemente.
 | [Manuale.pdf][MOO] | Questo file contiene le **istruzione** per il corretto utilizzo del sistema |
 | [Codice_sorgente.rar][CSO] | Questo file contiene **l'archivio del codice sorgente** |
 | [Documentazione_OO.pdf][DOC] | Questo file contiene **la descrizione** della realizzazione del sistema. In esso vi sono contenuti tutte le fasi della **proggettazione, il diagramma delle classi del dominio del problema, diagramma delle classi della soluzione del problema e i sequence diagram di due funzionalità del sistema** |
-| [Sistema_Di_Una_Biblioteca_Digitale.jar][JAR] | ciao |
-| [Diagramma_model.mdj][DMO] | ciao |
-| [Diagramma_soluzione.mdj][DSO] | ciao |
-| [Sequence_diagram_EliminaNotifica.mdj][SDN] | ciao |
-| [Sequence_diagram_Login.mdj][SDL] | ciao |
+| [Sistema_Di_Una_Biblioteca_Digitale.jar][JAR] | File **sorgente** del sistema |
+| [Diagramma_model.mdj][DMO] | **Diagramma delle classi del dominio del problema** |
+| [Diagramma_soluzione.mdj][DSO] | **Diagramma delle classi della soluzione del problema** |
+| [Sequence_diagram_EliminaNotifica.mdj][SDN] | **Sequence Diagram dell'eliminazione delle notifice** |
+| [Sequence_diagram_Login.mdj][SDL] | **Sequence Diagram del Login** |
 
 ### Configurazione Database
 
