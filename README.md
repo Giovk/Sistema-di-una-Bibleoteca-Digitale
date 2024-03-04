@@ -6,9 +6,9 @@ La repository è composta da due branches:
 
 ### Branch: Main
 Il branch '[Object Orientation][GIT]' del progetto contiene i seguenti file:
-- File [_"Manuale.pdf"_][CDB]
-- File [_"Codice_sorgente.rar"_][PDB]
-- File [_"Documentazione.pdf"_][Doc] 
+- File [_"manuale.pdf"_][MOO]
+- File [_"Codice_sorgente.rar"_][CSO]
+- File [_"documentazione_OO.pdf"_][Doc] 
 
 ### File
 Qui viene descritto il contenuto dei file citati precedentemente.
@@ -31,8 +31,8 @@ La configurazione del database consiste nelle seguenti fasi che prevedono l'util
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO)
 
-[CDB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/CreazioneDB.sql>
-[PDB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/Popolazione.sql>
-[DOC]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/blob/main/Documentazione.pdf>
-[GIT]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale>
-[OFB]: <https://github.com/Giovk/Sistema-di-una-Bibleoteca-Digitale/tree/Old-File>
+[CSO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Codice_sorgente.rar>
+[MOO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/manuale.pdf>
+[DOC]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/documentazione_OO.pdf>
+[BDP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Basi-di-Dati>
+[OOP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Object-Orientation>
