@@ -252,6 +252,10 @@ public class AggiungiElementoForm {
         frame = new JFrame("Biblioteca Digitale");
         frame.setUndecorated(true); //rimuove la decorazione del frame
         frame.setContentPane(this.contentPane);
+
+        Image icona = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();   //carica l'immagine nel percorso /icon.png
+
+        frame.setIconImage(icona);  //imposta la l'icona dell'applicazione
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize((int)(controller.screenWidth/1.7777), (int) (controller.screenHeight/1.1612)); //imposta larghezza e altezza del frame
