@@ -353,7 +353,7 @@ INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
 VALUES ('Joanne Kathleen', 'Rowling', 'Britannica', '1965-07-31');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
 VALUES ('Steve', 'Kloves', 'Statunitense', '1960-03-18');
-INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita) --67
+INSERT INTO AUTORE (Nome, Cognome, Nazionalita, DataNascita)
 VALUES ('John R. R.', 'Tolkien', 'Britannica', '1892-01-03');
 INSERT INTO AUTORE (Nome, Cognome, Nazionalita)
 VALUES ('Libero', 'Iannuzzi', 'Italiana');
@@ -686,35 +686,35 @@ VALUES (19, '10-00058');
 
 -- CONFERENZA --
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Piazza Roma 22, 60121, Ancona, Italia', 'Università Politecnica Delle Marche', '2021-10-12', '2021-10-16');
+VALUES ('Piazza Roma 22, 60121, Ancona, Italia', 'Università Politecnica Delle Marche', '2023-10-12', '2023-10-16');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2006-04-01', '2006-04-14');
+VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2023-04-01', '2023-04-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Piazza Guerrazzi 1, 82100, Benevento, Italia', 'Università Del Sannio', '2006-06-21', '2006-06-30');
+VALUES ('Piazza Guerrazzi 1, 82100, Benevento, Italia', 'Università Del Sannio', '2023-06-21', '2023-06-30');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Via De Sanctis 13, 86100, Campobasso, Italia', 'Università Del Molise', '2018-10-07', '2018-10-14');
+VALUES ('Via De Sanctis 13, 86100, Campobasso, Italia', 'Università Del Molise', '2024-10-07', '2024-10-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Viale Dell’Università 7, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2018-11-07', '2018-11-14');
+VALUES ('Viale Dell’Università 7, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2023-11-07', '2023-11-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Corso Matteotti 22, 21053, Castellanza (Va), Varese, Italia', 'Università Carlo Cattaneo LIUC', '2018-10-15', '2018-10-28');
+VALUES ('Corso Matteotti 22, 21053, Castellanza (Va), Varese, Italia', 'Università Carlo Cattaneo LIUC', '2023-10-15', '2023-10-28');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Viale Europa 7, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2018-11-15', '2018-11-28');
+VALUES ('Viale Europa 7, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2023-11-15', '2023-11-28');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Corso Umberto I 40, 80138, Napoli, Italia', 'Università Degli Studi Federico II', '2020-04-10', '2020-04-16');
+VALUES ('Corso Umberto I 40, 80138, Napoli, Italia', 'Università Degli Studi Federico II', '2024-04-10', '2024-04-16');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Via Ammiraglio Acton 38, 80133, Napoli, Italia', 'Università Parthenope', '2022-06-01', '2022-06-14');
+VALUES ('Via Ammiraglio Acton 38, 80133, Napoli, Italia', 'Università Parthenope', '2023-06-01', '2023-06-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Piazza Della Vittoria 15, 27100, Pavia, Italia', 'IUSS - Istituto Universitario Di Studi Superiori', '2019-12-05', '2019-12-10');
+VALUES ('Piazza Della Vittoria 15, 27100, Pavia, Italia', 'IUSS - Istituto Universitario Di Studi Superiori', '2024-12-05', '2024-12-10');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Viale Dell’Università 39, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2024-11-07', '2024-12-15');
+VALUES ('Viale Dell’Università 39, 03043, Cassino (Fr), Frosinone, Italia', 'Università Degli Studi Di Cassino E Del Lazio Meridionale', '2024-12-07', '2024-12-29');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2024-04-01', '2024-04-14');
+VALUES ('Via Amendola 126, 70126, Bari, Italia', 'Bari Politecnico', '2024-12-01', '2024-12-14');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Piazzale Aldo Moro, 5, 00185 Roma RM', 'Università La Sapienza di Roma', '2024-11-15', '2024-11-28');
+VALUES ('Piazzale Aldo Moro, 5, 00185 Roma RM', 'Università La Sapienza di Roma', '2024-12-15', '2024-12-28');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Corso Castelfidardo, 39, 10129 Torino TO', 'Politecnico di Torino', '2024-12-15', '2024-12-17');
+VALUES ('Corso Castelfidardo, 39, 10129 Torino TO', 'Politecnico di Torino', '2024-12-17', '2024-12-23');
 INSERT INTO CONFERENZA (Luogo, StrutturaOrganizzatrice, DataInizio, DataFine)
-VALUES ('Viale Europa 7, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2024-06-01', '2024-06-14');
+VALUES ('Viale Europa 7, 88100, Catanzaro, Italia', 'Università Magna Grecia', '2024-12-01', '2024-12-14');
 
 -- ESPOSIZIONE --
 INSERT INTO ESPOSIZIONE (DOI, CodC)
