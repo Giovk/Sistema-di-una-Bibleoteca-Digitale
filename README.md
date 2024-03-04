@@ -29,11 +29,11 @@ Qui viene descritto il contenuto dei file citati precedentemente.
 | [Sequence_diagram_EliminaNotifica.mdj][SDN] | **Sequence Diagram dell'eliminazione delle notifice** |
 | [Sequence_diagram_Login.mdj][SDL] | **Sequence Diagram del Login** |
 
-### Configurazione Database
+### Installazione del programma per Windows
 
-La configurazione del database consiste nelle seguenti fasi che prevedono l'utilizzo di PostgreSQL:
+Per installare il programma seguire i seguenti punti:
 
-1. Creare il database utilizzando: `CREATE DATABASE nome_database`.
+1. Creare il database utilizzando le informazioni riportate nel README della branch di Basi di Dati _Link_[BDP] 
 
 2. Inserire il contenuto del file [CreazioneDB.sql][CDB] nel terminale ed eseguire il comando.
 
