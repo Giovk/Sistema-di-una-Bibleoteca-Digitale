@@ -867,6 +867,8 @@ BEGIN
                 RAISE NOTICE 'Non è possibile inserire una data di pubblicazione di un libro precedente a quella delle sue presentazioni';
             END IF;
         END LOOP;
+
+        CLOSE cursore_datePresentazioni;
     END IF;
 
     RETURN NEW;
@@ -924,6 +926,8 @@ BEGIN
         END IF;
     END LOOP;
 
+    CLOSE cursore_serie;
+
     RETURN NEW;
 END; 
 $$ LANGUAGE plpgsql;
@@ -978,6 +982,8 @@ BEGIN
         END IF;
     END LOOP;
 
+    CLOSE cursore_serie;
+
     RETURN NEW;
 END; 
 $$ LANGUAGE plpgsql;
@@ -1011,6 +1017,8 @@ BEGIN
             WHERE ISBN=CodS AND CodL=OLD.CodL AND Fruizione=OLD.Fruizione;
         END IF;
     END LOOP;
+
+    CLOSE cursore_serie;
 
     RETURN NEW;
 END; 
