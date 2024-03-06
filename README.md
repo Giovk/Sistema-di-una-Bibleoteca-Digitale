@@ -50,7 +50,7 @@ Per installare il programma seguire i seguenti punti:
 
 [CSO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Codice_sorgente.rar>
 [MOO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Manuale.pdf>
-[DOC]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/documentazione_OO.pdf>
+[DOC]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Documentazione_OO.pdf>
 [BDP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Basi-di-Dati>
 [OOP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Object-Orientation>
 [DMO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/diagramma_model.mdj>
