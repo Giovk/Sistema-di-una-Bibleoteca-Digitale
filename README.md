@@ -53,10 +53,10 @@ Per installare il programma seguire i seguenti punti:
 [DOC]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Documentazione_OO.pdf>
 [BDP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Basi-di-Dati>
 [OOP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Object-Orientation>
-[DMO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/diagramma_model.mdj>
-[DSO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/diagramma_soluzione.mdj>
-[SDN]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/sequence_diagram_EliminaNotifica.mdj>
-[SDL]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/sequence_diagram_Login.mdj>
+[DMO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Diagramma_model.mdj>
+[DSO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Diagramma_soluzione.mdj>
+[SDN]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Sequence_diagram_EliminaNotifica.mdj>
+[SDL]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Sequence_diagram_Login.mdj>
 [DWD]: <https://mega.nz/file/YbFU0ByK#IDrRTDEKCYhSAGR4XPaJLdoSWv7XFAdmOv-GPHczcE4>
 [JAR]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Sistema_Di_Una_Biblioteca_Digitale.jar>
 [JAV]: <https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html>
