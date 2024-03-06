@@ -49,7 +49,7 @@ Per installare il programma seguire i seguenti punti:
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO)
 
 [CSO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Codice_sorgente.rar>
-[MOO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/manuale.pdf>
+[MOO]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/Manuale.pdf>
 [DOC]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/blob/Object-Orientation/documentazione_OO.pdf>
 [BDP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Basi-di-Dati>
 [OOP]: <https://github.com/Giovk/Sistema-di-una-Biblioteca-Digitale/tree/Object-Orientation>
